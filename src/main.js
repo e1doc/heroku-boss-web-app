@@ -1,12 +1,47 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
+import Vue from "vue";
+import App from "./App.vue";
+import router from "./router";
+import store from "./store";
+import Ripple from "vue-ripple-directive";
+import "@/css/main.scss";
 
-Vue.config.productionTip = false
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faUser,
+  faLock,
+  faUserCircle,
+  faKey,
+  faEnvelope,
+  faIdCard,
+  faReceipt,
+  faCalendar,
+  faArrowRight,
+  faStore,
+  faCity,
+  faEye,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+library.add([
+  faUser,
+  faLock,
+  faUserCircle,
+  faKey,
+  faEnvelope,
+  faIdCard,
+  faReceipt,
+  faCalendar,
+  faArrowRight,
+  faStore,
+  faCity,
+  faEye
+]);
+Vue.component("font-awesome-icon", FontAwesomeIcon);
+
+Vue.directive("ripple", Ripple);
+Vue.config.productionTip = false;
 
 new Vue({
   router,
   store,
-  render: h => h(App)
-}).$mount('#app')
+  render: (h) => h(App),
+}).$mount("#app");
