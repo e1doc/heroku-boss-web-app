@@ -19,6 +19,8 @@ import {
   faStore,
   faCity,
   faEye,
+  faCaretUp,
+  faTimes
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add([
@@ -33,7 +35,9 @@ library.add([
   faArrowRight,
   faStore,
   faCity,
-  faEye
+  faEye,
+  faCaretUp,
+  faTimes
 ]);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

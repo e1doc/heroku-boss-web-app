@@ -1,12 +1,13 @@
 <template>
   <div class="sc-home">
     <div class="container">
-      <profile-table-menu type="soa"/>
+      <!-- <profile-table-menu type="soa"/>
       <div class="mt50">
-        <!-- <profile-table/> -->
-        <!-- <transaction-table/> -->
+        <profile-table/>
+        <transaction-table/>
         <application-table/>
-      </div>
+      </div> -->
+      <invoice-dialog/>
     </div>  
   </div>
 </template>
@@ -20,6 +21,7 @@ import ProfileTableMenu from "@/components/tables/ProfileTableMenu"
 import ProfileTable from "@/components/tables/ProfileTable"
 import TransactionTable from "@/components/tables/TransactionTable"
 import ApplicationTable from "@/components/tables/ApplicationTable"
+import InvoiceDialog from "@/components/payment/InvoiceDialog"
 export default {
   components: {
     ButtonFull,
@@ -29,7 +31,8 @@ export default {
     ProfileTableMenu,
     ProfileTable,
     TransactionTable,
-    ApplicationTable
+    ApplicationTable,
+    InvoiceDialog
   },
   data() {
     return {
