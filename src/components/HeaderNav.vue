@@ -50,7 +50,7 @@ section.meta-navigation {
     padding: 0px 30px;
     box-shadow: -2px 10px 30px rgba(127,127,127, 0.1);
     .meta-left-box {
-        width: 25%;
+        width: 20%;
         padding: 8px 0;
         img.meta-img {
             width: auto;
@@ -66,13 +66,16 @@ section.meta-navigation {
         }
     }
     .meta-center-box {
-       width: 50%;
+        width: 60%;
+        ul.meta-nav{
+          text-align: center;
           li{
               margin: 0 40px;
           }
+        }
     }
     .meta-right-box {
-        width: 25%;
+        width: 20%;
          ul.meta-nav{
             justify-content: flex-end;
             li{
@@ -88,10 +91,10 @@ section.meta-navigation {
               }
             }
             li.meta-user-settings {
-              padding: 16px 15px;
+              padding: 21px 15px;
               .user-icon{
-                  font-size: 24px;
-                  padding: 10px 12px;
+                  font-size: 18px;
+                  padding: 8px 10px;
                   border: 1px solid;
                   border-radius: 100%;
                   margin-right: 0;
@@ -137,6 +140,7 @@ section.meta-navigation {
           position: absolute;
           top: 52px;
           left: -47px;
+          text-align: left;
           box-shadow: -2px 10px 20px rgba(127,127,127, 0.1);
           li{
               display: block;
@@ -174,6 +178,12 @@ li.meta-user-settings:hover > a{
 
 li.meta-inquire:hover a{
   color: #2b2b2b!important;
+}
+
+@media only screen and (max-width: 1320px){
+    section.meta-navigation .meta-center-box ul.meta-nav li[data-v-257c8456] {
+        margin: 0 20px;
+    }
 }
 
 </style>
