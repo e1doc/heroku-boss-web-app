@@ -1,11 +1,12 @@
 <template>
   <div class="sc-home">
+    <header-nav/>
     <div class="container">
-      <profile-table-menu type="profile"/>
+      <!-- <profile-table-menu type="profile"/> -->
       <div class="mt50">
         <!-- <profile-table/> -->
         <!-- <transaction-table/> -->
-        <application-table/>
+        <!-- <application-table/> -->
       </div>
       <!-- <invoice-dialog/> -->
     </div>  
@@ -21,6 +22,7 @@ import ProfileTable from "@/components/tables/ProfileTable"
 import TransactionTable from "@/components/tables/TransactionTable"
 import ApplicationTable from "@/components/tables/ApplicationTable"
 import InvoiceDialog from "@/components/payment/InvoiceDialog"
+import HeaderNav from "@/components/HeaderNav"
 export default {
   components: {
     ButtonFull,
@@ -30,7 +32,8 @@ export default {
     ProfileTable,
     TransactionTable,
     ApplicationTable,
-    InvoiceDialog
+    InvoiceDialog,
+    HeaderNav
   },
   data() {
     return {
@@ -48,8 +51,8 @@ export default {
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  // display: flex;
+  // flex-wrap: wrap;
+  // align-items: center;
 }
 </style>

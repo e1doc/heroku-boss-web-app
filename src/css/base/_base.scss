@@ -56,3 +56,9 @@ h3{
     display: flex;
     flex-direction: column;
 }
+
+.flex-center{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}

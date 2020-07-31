@@ -122,7 +122,7 @@ export default {
       padding: 60px 70px;
     }
     .expand {
-      width: 70% !important;
+      width: 65% !important;
       padding: 40px 50px !important;
     }
   }

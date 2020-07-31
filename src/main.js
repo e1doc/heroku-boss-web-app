@@ -20,7 +20,10 @@ import {
   faCity,
   faEye,
   faCaretUp,
-  faTimes
+  faTimes,
+  faCommentAlt,
+  faPowerOff,
+  faChevronDown
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add([
@@ -37,7 +40,10 @@ library.add([
   faCity,
   faEye,
   faCaretUp,
-  faTimes
+  faTimes,
+  faCommentAlt,
+  faPowerOff,
+  faChevronDown
 ]);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
