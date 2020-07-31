@@ -7,11 +7,8 @@
       <div>
         <h1>RESET PASSWORD</h1>
       </div>
-      <div>
-        <p>
-          Enter your registered email address to receive the <br />
-          password reset link.
-        </p>
+      <div class="note">
+          Enter your registered email address to receive the password reset link.
       </div>
       <div>
         <base-input-icon
@@ -60,7 +57,12 @@ export default {
 .form-group {
   margin-top: 45px;
   div {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
+}
+.note{
+    font-size: 16px;
+    line-height: 26px;
+    letter-spacing: 0.5px;
 }
 </style>

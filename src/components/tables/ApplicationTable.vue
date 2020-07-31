@@ -33,33 +33,35 @@ name: "ApplicationTable"
 
 <style lang="scss" scoped>
 .thead {
-  border-radius: 8px 8px 0px 0px;
   display: flex;
   flex-direction: row;
-  border-bottom: 2px #e23a36 solid;
   background: #ffffff;
-  box-shadow: 0px 10px 20px rgba(0,0,0, 0.1);
+  border-radius: 8px 8px 0px 0px;
+  border-bottom: 2px #e23a36 solid;
+  box-shadow: 0px 10px 20px rgba(127, 127, 127, 0.1);
   .th {
     flex: 1;
+    font-size: 13px;
+    font-weight: bold;
     text-align: center;
     padding: 20px 0px;
-    font-weight: bold;
   }
 }
 .tbody {
   flex-direction: column;
   margin-top: 10px;
   .tr {
-    border-radius: 8px;
     display: flex;
     flex-direction: row;
     background: #ffffff;
-    box-shadow: 0px 10px 20px rgba(0,0,0, 0.1);
+    box-shadow: 0px 10px 20px rgba(127, 127, 127, 0.1);
+    border-radius: 8px;
     margin-top: 3px;
     .td {
       flex: 1;
+      font-size: 14px;
       text-align: center;
-      padding: 20px 0px;
+      padding: 17px 0px;
     }
   }
 }

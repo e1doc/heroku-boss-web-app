@@ -72,43 +72,40 @@ export default {
 
 <style scoped lang="scss">
 .input-wrapper {
-  background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
-  background: #ffffff 0% 0% no-repeat padding-box;
-  border: 1px solid #cccccc;
-  border-radius: 10px;
-  opacity: 1;
+  background: #ffffff;
+  font-size: 15px;
+  font-family: 'Raleway', sans-serif;
+  padding: 15px;  
   display: flex;
   flex-direction: row;
-  font-size: 1em;
-  box-shadow: 0 0 0 1px #bdc3c7;
-  padding: 1em;
-  position: relative;
+  border-radius: 10px;
+  border: 1px solid #bdc3c7;
   transition: 0.1s;
-  font-family: 'Raleway', sans-serif;
-  .label {
-    position: absolute;
-    background: white;
-    padding: 0px 5px;
-    top: 16px;
-    transition: all 0.25s ease-in-out;
-    z-index: 0;
-    color: #BABABA;
-  }
-  input {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border: none;
-    background: transparent;
-    outline: none;
-    font-size: 16px;
-    cursor: text;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    transition: 0.1s;
-    
-  }
+  position: relative;
+    .label {
+      color: #BABABA;
+      background: white;
+      position: absolute;
+      top: 16px;
+      left: 15px;
+      padding: 0px 5px;
+      z-index: 0;
+      transition: all 0.25s ease-in-out;
+    }
+    input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 16px;
+      width: 100%;
+      height: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      transition: 0.1s;
+      z-index: 1;
+      cursor: text;
+    }
 }
 
 input::placeholder {
@@ -117,25 +114,19 @@ input::placeholder {
 input:focus::placeholder {
   color: #BABABA;
 }
+
 .label-focus {
   line-height: 0.3;
-  top: -3px !important;
-  left: 10 !important;
-  font-size: 14px !important;
-//   color: #dc3545 !important;
-//   font-weight: bold !important;
+  top: -2px !important;
+  left: 5 !important;
+  color: #2699FB !important;
 }
-// .input-wrapper:hover {
-//   box-shadow: 0 0 0 2px #343a40;
-// }
-// .input-wrapper-focus {
-//   box-shadow: 0 0 0 2px #3f51b5;
-// }
 
-// .input-wrapper-focus-danger {
-//   box-shadow: 0 0 0 2px #dc3545;
-// }
-// .input-wrapper-blur {
-//   box-shadow: 0 0 0 1px #5a5f63;
-// }
+.input-wrapper-focus {
+  background-color: #F1F9FF;
+  border-color: #BCE0FD;
+  font-size: 12px !important;
+}
+
+
 </style>

@@ -34,11 +34,17 @@ data() {
 }
 
 /deep/ .mx-input{
-   border-radius: 10px;
-   padding: 1.7em;
-   font-family: 'Raleway', sans-serif;
-   font-size: 16px;
-   border: 2px solid #cccccc;
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+    min-height: 52px;
+    padding: 16px 18px;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+}
+
+/deep/ .mx-input:focus{
+  background-color: #F1F9FF;
+  border-color: #BCE0FD;
 }
 
 /deep/ .mx-icon-calendar, .mx-icon-clear {

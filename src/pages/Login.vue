@@ -1,50 +1,38 @@
 <template>
   <section id="login-section">
     <div class="container">
-      <div class="d-flex">
-        <div class="login-form-holder sc-rounded-div flex-row">
-          <div class="left-div">
+      <div class="login-form-holder sc-rounded-div flex-row">
+        <div class="left-div">
+          <div class="left-div-items">
             <div>
-              <img src="@/assets/bacoor-cavite-logo.png" alt="" class="logo" />
+              <img src="@/assets/bacoor-cavite-logo.png" alt class="logo" />
             </div>
-            <div class="mt30 mb30">
-              <div>
-                City of Bacoor <br />
-                Province of Cavite
-              </div>
+            <div class="mt30 mb30 left-div-title">
+              City of Bacoor
+              <br />Province of Cavite
             </div>
             <div v-if="authType === 'login'">
-              <button-full-outline
-                class="mt20"
-                @click.native="changeDiv('register')"
-              >
-                REGISTER
-              </button-full-outline>
+              <button-full-outline class="mt20" @click.native="changeDiv('register')">REGISTER</button-full-outline>
             </div>
             <div v-if="authType === 'register' || authType === 'forgotpass'">
-              <button-full-outline
-                class="mt20"
-                @click.native="changeDiv('login')"
-              >
-                LOGIN
-              </button-full-outline>
+              <button-full-outline class="mt20" @click.native="changeDiv('login')">LOGIN</button-full-outline>
             </div>
           </div>
-          <div class="right-div">
-            <!-- LOGIN DIV -->
-            <div v-if="authType === 'login'">
-              <login-div />
-            </div>
+        </div>
+        <div class="right-div" :class="{'expand':isExpand}">
+          <!-- LOGIN DIV -->
+          <div v-if="authType === 'login'">
+            <login-div />
+          </div>
 
-            <!-- REGISTER DIV -->
-            <div v-if="authType === 'register'">
-              <register-div />
-            </div>
+          <!-- REGISTER DIV -->
+          <div v-if="authType === 'register'">
+            <register-div />
+          </div>
 
-            <!-- FORGOT PASS DIV -->
-            <div v-if="authType === 'forgotpass'">
-              <forgot-pass-div />
-            </div>
+          <!-- FORGOT PASS DIV -->
+          <div v-if="authType === 'forgotpass'">
+            <forgot-pass-div />
           </div>
         </div>
       </div>
@@ -71,6 +59,7 @@ export default {
   data() {
     return {
       type: "login",
+      isExpand: false,
     };
   },
   computed: {
@@ -79,7 +68,8 @@ export default {
   methods: {
     changeDiv(type) {
       this.$store.commit("setAuthType", type);
-      console.log(type);
+      type === "register" ? (this.isExpand = true) : (this.isExpand = false);
+      console.log(type, this.isExpand);
     },
   },
 };
@@ -100,23 +90,35 @@ export default {
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
-  padding: 100px 200px;
+  padding: 0px 30px;
   display: flex;
+  align-items: center;
   .login-form-holder {
     .left-div {
-      border-radius: 20px 0px 0px 20px;
-      background-image: url("../assets/login-bg.png");
-      background-position: center; /* Center the image */
-      background-repeat: no-repeat; /* Do not repeat the image */
-      background-size: cover;
-      width: 40%;
-      padding: 60px 50px;
       color: #ffffff;
+      border-radius: 20px 0px 0px 20px;
+      background-image: url("../assets/Login-left-bg.png");
+      background-position: center; /* Center the image */
+      background-size: cover;
+      width: 58%;
+      padding: 60px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .left-div-title {
+        font-size: 18px;
+        line-height: 24px;
+        letter-spacing: 0.3px;
+      }
     }
     .right-div {
       width: 60%;
       text-align: center;
-      padding: 60px 50px;
+      padding: 60px 70px;
+    }
+    .expand {
+      width: 65% !important;
+      padding: 40px 50px !important;
     }
   }
 }

@@ -75,17 +75,21 @@ export default {
 
 <style lang="scss" scoped>
 .sc-bs-enrollment {
+  display: flex;
+  flex-wrap: wrap;
   text-align: center;
-  margin-top: 50px;
+  align-items: center;
+  height: 100vh;
   .sc-rounded-div {
     background: #eaf6ff !important;
-    max-width: 60%;
+    max-width: 53%; 
     width: 100%;
+    min-height: 500px;
     margin: 50px auto 0;
     box-shadow: 0px 10px 20px #0000000D;
     .form-group {
       text-align: center;
-      padding: 60px 80px;
+      padding: 80px 80px 50px;
       .title {
         margin-bottom: 50px;
         text-align: left;
