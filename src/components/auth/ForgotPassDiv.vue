@@ -7,7 +7,6 @@
       <div>
         <h1>RESET PASSWORD</h1>
       </div>
-<<<<<<< HEAD
       <div class="form-items" v-if="!isSuccess">
         <div class="note">
           Enter your registered email address to receive the password reset
@@ -29,10 +28,6 @@
             SUBMIT
           </button-full>
         </div>
-=======
-      <div class="note">
-          Enter your registered email address to receive the password reset link.
->>>>>>> 40ac0990f12c384bba7c226b9970f5b5f37ea166
       </div>
       <div class="form-success" v-if="isSuccess">
         <div class="note mt50">
@@ -78,16 +73,9 @@ export default {
     margin-bottom: 20px;
   }
 }
-<<<<<<< HEAD
 .note {
   font-size: 14px;
   line-height: 26px;
   letter-spacing: 0.5px;
-=======
-.note{
-    font-size: 16px;
-    line-height: 26px;
-    letter-spacing: 0.5px;
->>>>>>> 40ac0990f12c384bba7c226b9970f5b5f37ea166
 }
 </style>
