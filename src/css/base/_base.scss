@@ -16,14 +16,14 @@ body {
     background: #2699FB !important;
 }
 h1{
-    font-size: 37px;
+    font-size: 28px;
 }
 
 h2{
-    font-size: 36px;
+    font-size: 27px;
 }
 h3{
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .flex-grow{
@@ -32,6 +32,9 @@ h3{
 
 .sc-rounded-div{
     width: 100%;
+    max-width: 880px;
+    min-height: 583px;
+    margin: 0 auto;
     border-radius: 20px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
 }

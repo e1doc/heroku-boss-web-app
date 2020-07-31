@@ -47,17 +47,17 @@ export default {
 }
 .sc-rounded-div {
   background: #eaf6ff !important;
-  max-width: 70%;
-  min-height: 390px;
+  max-width: 53%;
+  min-height: 380px;
   width: 100%;
+  padding: 50px 50px 20px;
   margin: 50px auto 0;
-  box-shadow: 0px 10px 20px #0000000d;
-  text-align: center;
-  padding: 50px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  box-shadow: 0px 10px 20px #0000000d;
   div{
        width: 100%;
        h3{

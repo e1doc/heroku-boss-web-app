@@ -18,21 +18,23 @@ export default {
 <style lang="scss" scoped>
 @import '../css/base/_colors.scss';
 .btn {
-    color: #ffffff;
+    color: #ffffff;    
     background: transparent;
-    box-shadow: 0px 3px 26px #00000029;
+    font-size: 15px;    
     font-family: 'Raleway', sans-serif;
     font-weight: bold;
-    border: 2px solid #ffffff;;
-    border-radius: 50px;
-    opacity: 1;
-    font-size: 18px;
+    letter-spacing: 0.5px;
     width: 100%;
-    padding: 15px 15px;
+    max-width: 80%;
+    padding: 12px 15px;
+    border-radius: 50px;
+    border: 2px solid #ffffff;
+    opacity: 1;
     outline: none;
     cursor: pointer;
     transition: 0.3s ease;
 }
+
 .btn:hover{
     background-color: #039BE5;
     color: #ffffff;

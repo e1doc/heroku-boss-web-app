@@ -26,52 +26,63 @@ export default {
 
 <style lang="scss" scoped>
 .thead {
-  border-radius: 8px 8px 0px 0px;
-  display: flex;
-  flex-direction: row;
-  border-bottom: 2px #e23a36 solid;
-  background: #ffffff;
-  box-shadow: 0px 10px 20px rgba(0,0,0, 0.1);
-  .th {
-    flex: 1;
-    text-align: center;
-    padding: 20px 0px;
-    font-weight: bold;
-  }
-}
-.tbody {
-  flex-direction: column;
-  margin-top: 10px;
-  .tr {
-    border-radius: 8px;
+    border-radius: 8px 8px 0px 0px;
     display: flex;
     flex-direction: row;
+    border-bottom: 2px #e23a36 solid;
     background: #ffffff;
-    box-shadow: 0px 10px 20px rgba(0,0,0, 0.1);
-    margin-top: 3px;
-    .td {
+    box-shadow: 0px 10px 20px rgba(127, 127, 127, 0.1);
+    .th {
       flex: 1;
+      font-size: 13px;
+      font-weight: bold;
       text-align: center;
-      padding: 20px 0px;
+      padding: 18px 0px;
     }
-    .actions{
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          padding: 10px;
-         div{
-              margin: 0 10px;
-              color: #039BE5;
-              font-weight: bold;
-              padding: 10px;
-              
-         }
-         .bill{
-            padding: 10px 15px;
-             border: 2px #039BE5 solid;
-             border-radius: 5px;
-         }
+}
+.tbody {
+    flex-direction: column;
+    margin-top: 10px;
+    .tr {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      background: #ffffff;
+      box-shadow: 0px 10px 20px rgba(127, 127, 127, 0.1);
+      border-radius: 8px;
+      margin-top: 3px;
+      .td {
+        flex: 1;
+        font-size: 14px;
+        text-align: center;
+        padding: 17px 0px;
       }
-  }
+      .actions{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            padding: 8px 10px;
+          div{
+                color: #039BE5;
+                font-size: 13px;
+                font-weight: bold;
+                padding: 10px;
+                margin: 0 10px;
+          }
+          .bill{
+              font-size: 13px;
+              padding: 8px 13px;
+              border: 2px #039BE5 solid;
+              border-radius: 5px;
+              transition: 0.4s;
+              cursor: pointer;
+          }
+        }
+    }
+}
+
+.bill:hover{
+  color: #ffffff!important;
+  background-color: #039BE5; 
 }
 </style>

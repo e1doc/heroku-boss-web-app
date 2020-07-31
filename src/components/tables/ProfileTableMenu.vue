@@ -44,24 +44,26 @@ export default {
 
 <style lang="scss" scoped>
 .menu-holder {
-  box-shadow: 0px 10px 20px #0000000d;
-  border-radius: 8px;
+  background: #ffffff;
   width: 100%;
   display: flex;
   flex-direction: row;
-  background: #ffffff;
+  padding: 0;
+  border-radius: 8px;
+  box-shadow: 0px 10px 20px #0000000d;
 }
 
 .left-div {
   div{
     .menu-type {
-      margin: 0px 10px;
-      padding: 20px;
       color: #f09795;
-      font-weight: bold;
+      font-weight: bold;    
+      font-size: 14px;
+      padding: 20px;
+      margin-left: 15px;
     }
     .active {
-      border-bottom: 4px #e23a36 solid;
+      border-bottom: 3px #e23a36 solid;
       color: #e23a36;
       font-weight: bold;
     }
@@ -71,15 +73,16 @@ export default {
 .right-div {
   justify-content: flex-end;
   .menu-type {
-    margin: 0px 10px;
-    padding: 10px;
     color: #f09795;
     font-weight: bold;
+    font-size: 12px;
+    padding: 10px 0;
+    margin-right: 15px;
     div {
       padding: 10px;
     }
     .active {
-      border: 2px#f09795 solid;
+      border: 3px #FADDDD solid;
       border-radius: 5px;
       color: #e23a36;
       font-weight: bold;

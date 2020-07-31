@@ -5,7 +5,7 @@
         <div class="store-avatar">
           <font-awesome-icon icon="store" class="icon" />
         </div>
-        <div class="text-bold">SAMPLE BUSINESS NAME HERE</div>
+        <div class="text-bold size14">SAMPLE BUSINESS NAME HERE</div>
         <div class="triangle">
           <font-awesome-icon icon="caret-up" class="icon" />
         </div>
@@ -75,7 +75,7 @@ export default {
   flex-direction: column;
   border-radius: 8px;
   width: 100%;
-  max-width: 573px;
+  max-width: 520px;
   margin: 0 auto;
   .dialog-header {
     background: #2699fb;
@@ -85,14 +85,14 @@ export default {
     flex-direction: column;
     align-items: center;
     color: #ffffff;
-    padding: 50px;
+    padding: 30px 15px;
     .store-avatar {
       border: 2px #ffffff solid;
       border-radius: 13px;
       padding: 15px 10px;
       margin-bottom: 20px;
       .icon {
-        font-size: 49px;
+        font-size: 38px;
       }
     }
     .triangle {
@@ -116,31 +116,32 @@ export default {
   .dialog-body {
     background: #ffffff;
     border-radius: 0px 0px 15px 15px;
-    padding: 0px 40px 20px;
+    padding: 40px 30px 30px;
     .invoice-action {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 30px;
+      padding-bottom: 35px;
       border-bottom: 2px #eaf6ff solid;
       .title {
-        font-size: 28px;
+        font-size: 24px;
       }
       .text-later {
         color: #2699fb;
         font-size: 14px;
         text-decoration: underline;
-        padding: 10px;
+        padding-top: 10px;
         cursor: pointer;
       }
     }
     .invoice-details {
-      padding: 15px 0px;
+      padding: 30px 0px;
       border-bottom: 2px #eaf6ff solid;
       .invoice-title {
         margin-bottom: 25px;
         color: rgba($color: #2699fb, $alpha: 0.73);
         font-weight: bold;
+        font-size: 15px;
       }
       .details-body {
         padding-left: 20px;
@@ -148,10 +149,10 @@ export default {
         flex-wrap: wrap;
         .details-item {
           width: 50%;
-          margin-bottom: 20px;
+          margin-bottom: 25px;
           .item-label {
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-size: 13px;
           }
           .item-value {
@@ -166,7 +167,7 @@ export default {
       .owner-details {
         .item-label {
           font-weight: bold;
-          margin-bottom: 5px;
+          margin-bottom: 8px;
           font-size: 13px;
         }
         .item-value {
@@ -181,9 +182,11 @@ export default {
         flex-wrap: wrap;
         .item-label{
             width: 50%;
+            margin: auto 0;
             color: rgba($color: #2699fb, $alpha: 0.73);
             font-weight: bold;
-            margin: auto 0;
+            font-size: 14px;
+            text-transform: uppercase;
         }
         .item-value{
             width: 50%;
@@ -195,5 +198,12 @@ export default {
       }
     }
   }
+}
+
+.details-item:nth-last-child(-n+2){
+    margin-bottom: 0!important;
+}
+.size14{
+  font-size: 14px;
 }
 </style>

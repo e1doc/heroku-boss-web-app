@@ -34,7 +34,7 @@
         </button-full>
       </div>
       <div @click="changeDiv('forgotpass')" class="forgotpass">
-        Forgot Password
+        Forgot Password?
       </div>
     </div>
   </section>
@@ -73,9 +73,16 @@ export default {
 <style lang="scss" scoped>
 .forgotpass{
   color: #039BE5;
-  cursor: pointer;
+  font-size: 15px;
   padding: 10px;
+  cursor: pointer;
+  transition: 0.3s;
 }
+
+.forgotpass:hover{
+  text-decoration: underline;
+}
+
 .icon {
   font-size: 80px;
   color: #c2c2c2;

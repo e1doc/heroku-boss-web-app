@@ -1,13 +1,13 @@
 <template>
   <div class="sc-home">
     <div class="container">
-      <!-- <profile-table-menu type="soa"/>
+      <profile-table-menu type="profile"/>
       <div class="mt50">
-        <profile-table/>
-        <transaction-table/>
+        <!-- <profile-table/> -->
+        <!-- <transaction-table/> -->
         <application-table/>
-      </div> -->
-      <invoice-dialog/>
+      </div>
+      <!-- <invoice-dialog/> -->
     </div>  
   </div>
 </template>
@@ -16,7 +16,6 @@
 import ButtonFull from "@/components/ButtonFull";
 import ButtonFullOutline from "@/components/ButtonFullOutline";
 import BaseInputIcon from "@/components/forms/BaseInputIcon";
-import RoundedDiv from "@/components/forms/RoundedDiv";
 import ProfileTableMenu from "@/components/tables/ProfileTableMenu"
 import ProfileTable from "@/components/tables/ProfileTable"
 import TransactionTable from "@/components/tables/TransactionTable"
@@ -27,7 +26,6 @@ export default {
     ButtonFull,
     ButtonFullOutline,
     BaseInputIcon,
-    RoundedDiv,
     ProfileTableMenu,
     ProfileTable,
     TransactionTable,
@@ -50,6 +48,8 @@ export default {
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
-  padding-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 </style>
