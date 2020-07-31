@@ -7,24 +7,36 @@
       <div>
         <h1>RESET PASSWORD</h1>
       </div>
-      <div class="note">
-          Enter your registered email address to receive the password reset link.
+      <div class="form-items" v-if="!isSuccess">
+        <div class="note">
+          Enter your registered email address to receive the password reset
+          link.
+        </div>
+        <div>
+          <base-input-icon
+            label="Email"
+            placeholder="Enter email"
+            v-model="email"
+            name="email"
+            refs="user_email"
+            type="email"
+            class="mt40"
+          />
+        </div>
+        <div>
+          <button-full class="mt10">
+            SUBMIT
+          </button-full>
+        </div>
       </div>
-      <div>
-        <base-input-icon
-          label="Email"
-          placeholder="Enter email"
-          v-model="email"
-          name="email"
-          refs="user_email"
-          type="email"
-          class="mt40"
-        />
-      </div>
-      <div>
-        <button-full class="mt10">
-          SUBMIT
-        </button-full>
+      <div class="form-success" v-if="isSuccess">
+        <div class="note mt50">
+          Password reset link will be sent to your email!
+        </div>
+        <div class="note mt30">
+          Please, check your email now. In case you did not receive any email
+          after an hour, just try to send another request
+        </div>
       </div>
     </div>
   </section>
@@ -44,6 +56,7 @@ export default {
   data() {
     return {
       email: "",
+      isSuccess: true,
     };
   },
 };
@@ -60,9 +73,9 @@ export default {
     margin-bottom: 20px;
   }
 }
-.note{
-    font-size: 16px;
-    line-height: 26px;
-    letter-spacing: 0.5px;
+.note {
+  font-size: 14px;
+  line-height: 26px;
+  letter-spacing: 0.5px;
 }
 </style>

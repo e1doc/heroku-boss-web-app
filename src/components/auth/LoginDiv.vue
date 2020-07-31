@@ -1,7 +1,7 @@
 <template>
   <section>
     <div>
-      <font-awesome-icon icon="user-circle" class="mr10 icon" />
+      <font-awesome-icon icon="user-circle" class="icon" />
     </div>
     <div class="mt30">
       <h1>USER LOGIN</h1>
@@ -29,7 +29,7 @@
         />
       </div>
       <div>
-        <button-full class="mt10">
+        <button-full class="mt10" @click.native="changeDiv('otp')">
           LOGIN
         </button-full>
       </div>

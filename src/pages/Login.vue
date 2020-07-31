@@ -8,8 +8,7 @@
               <img src="@/assets/bacoor-cavite-logo.png" alt class="logo" />
             </div>
             <div class="mt30 mb30 left-div-title">
-              City of Bacoor
-              <br />Province of Cavite
+              BACOOR ONE STOP <br> SHOP SYSTEM
             </div>
             <div v-if="authType === 'login'">
               <button-full-outline class="mt20" @click.native="changeDiv('register')">REGISTER</button-full-outline>
@@ -34,6 +33,10 @@
           <div v-if="authType === 'forgotpass'">
             <forgot-pass-div />
           </div>
+
+          <div v-if="authType === 'otp'">
+            <otp-div/>
+          </div>
         </div>
       </div>
     </div>
@@ -46,6 +49,7 @@ import ButtonFullOutline from "@/components/ButtonFullOutline";
 import LoginDiv from "@/components/auth/LoginDiv";
 import RegisterDiv from "@/components/auth/RegisterDiv";
 import ForgotPassDiv from "@/components/auth/ForgotPassDiv";
+import OtpDiv from "@/components/auth/OtpDiv"
 import { mapGetters } from "vuex";
 export default {
   name: "Login",
@@ -55,6 +59,7 @@ export default {
     LoginDiv,
     RegisterDiv,
     ForgotPassDiv,
+    OtpDiv
   },
   data() {
     return {
@@ -117,7 +122,7 @@ export default {
       padding: 60px 70px;
     }
     .expand {
-      width: 65% !important;
+      width: 70% !important;
       padding: 40px 50px !important;
     }
   }
