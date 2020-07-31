@@ -5,8 +5,8 @@
         <div>
           <h2>Business Permit Enrollment</h2>
         </div>
-        <!-- <enrollment-success type="business_permit" account_no="14321" /> -->
-        <div class="sc-rounded-div">
+        <enrollment-success type="business_permit" account_no="14321" />
+        <!-- <div class="sc-rounded-div">
           <div class="form-group">
             <div class="title">
               <h3>Account Information</h3>
@@ -44,7 +44,7 @@
               </button-block>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </section>

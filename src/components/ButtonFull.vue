@@ -19,13 +19,12 @@ export default {
 @import '../css/base/_colors.scss';
 .btn {
     color: #ffffff;
-    background: $primary-color 0% 0% no-repeat padding-box;
+    background: $primary-color;
     font-family: 'Raleway', sans-serif;
     font-weight: bold;
     box-shadow: 0px 3px 26px #00000029;
-    border: 2px solid #039BE5;
+    border: 1px solid #039BE5;
     border-radius: 50px;
-    opacity: 1;
     font-size: 18px;
     width: 100%;
     padding: 15px 15px;

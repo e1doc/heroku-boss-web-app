@@ -1,12 +1,12 @@
 <template>
   <div class="sc-home">
     <div class="container">
-      <!-- <profile-table-menu type="soa"/>
+      <!-- <profile-table-menu type="soa"/> -->
       <div class="mt50">
-        <profile-table/>
-        <transaction-table/>
-        <application-table/>
-      </div> -->
+        <!-- <profile-table/> -->
+        <!-- <transaction-table/> -->
+        <!-- <application-table/> -->
+      </div>
       <invoice-dialog/>
     </div>  
   </div>
