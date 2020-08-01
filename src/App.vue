@@ -1,9 +1,18 @@
 <template>
   <div id="app">
+    <header-nav/>
     <router-view/>
   </div>
 </template>
 
+<script>
+import HeaderNav from "@/components/HeaderNav"
+export default {
+  components:{
+    HeaderNav
+  }
+}
+</script>
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap');
 @import url('/css/main.scss');

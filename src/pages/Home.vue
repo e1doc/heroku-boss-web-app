@@ -1,6 +1,6 @@
 <template>
   <section>
-    <header-nav/>
+    <!-- <header-nav/> -->
     <div class="sc-home">
       <div class="container">
         <profile-table-menu type="profile"/>
