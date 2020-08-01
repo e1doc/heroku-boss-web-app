@@ -8,8 +8,8 @@
                 </div>
                 <div class="meta-right-box">
                     <div class="meta-form-box">
-                        <div class="meta-title">Online Payment</div>
-                        <div class="meta-label">Select Mode of Payment</div>
+                        <div class="meta-title">Select Mode of Payment</div>
+                        <!-- <div class="meta-label">Select Mode of Payment</div> -->
                         <!-- <bank-option/> -->
                         <div class="meta-list flex-wrap">
                             <div class="meta-list-item active">
@@ -53,7 +53,7 @@ section{
         flex-wrap: wrap;
         padding-top: 50px;
         div.container{
-            max-width: 1560px;
+            max-width: 1320px;
             div.meta-left-box{
                 width: 35%;
             }
@@ -65,17 +65,18 @@ section{
                     background-color: #EAF6FF;
                     border-radius: 20px;
                     padding: 60px 80px;
+                    box-shadow: 0 10px 20px rgba(127, 127, 127, 0.1);
                     .meta-title {
-                        font-size: 28px;
+                        font-size: 24px;
                         font-weight: bold;
                         line-height: 50px;
-                        margin-bottom: 30px;
+                        margin-bottom: 25px;
                     }
                     .meta-label {
-                        font-size: 16px;
+                        font-size: 14px;
                         color: #2699FB;
                         line-height: 20px;
-                        margin-bottom: 22px;
+                        margin-bottom: 15px;
                     }
                     .meta-button{
                         text-align: center;
@@ -93,10 +94,10 @@ section{
         margin-right: 15px;
         margin-bottom: 15px;
         img.meta-img{
-            max-height: 66px;
-            padding: 15px;
+            max-height: 60px;
+            padding: 12px;
             border: 2px solid transparent;
-            border-radius: 10px;
+            border-radius: 5px;
         }
     }
 }
@@ -106,6 +107,6 @@ section{
 }
 
 .meta-list-item.active img.meta-img{
-    border-color: #2699fb;
+    border-color: #039be5;
 }
 </style>

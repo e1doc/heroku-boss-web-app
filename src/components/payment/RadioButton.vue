@@ -31,10 +31,10 @@ export default {
 <style lang="scss" scoped>
 div.meta-list{
   .meta-list-option {
-      margin-bottom: 50px;
+      margin-bottom: 30px;
       .meta-radio {
           color: #2b2b2b;
-          font-size: 16px;
+          font-size: 14px;
           font-weight: bold;
           text-transform: uppercase;
           line-height: 20px;
@@ -69,12 +69,13 @@ div.meta-list{
           }
       }
       .meta-desc {
+          font-size: 14px;
+          line-height: 25px;
           color: #646566;
           background: #F6FBFF;
           border-radius: 10px;
           border-top-left-radius: 0;
-          line-height: 28px;
-          padding: 27px;
+          padding: 15px 18px;
     }
   }
 }
