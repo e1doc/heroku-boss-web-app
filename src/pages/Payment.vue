@@ -71,6 +71,7 @@ section{
                         font-weight: bold;
                         line-height: 50px;
                         margin-bottom: 25px;
+                        margin-left: -20px;
                     }
                     .meta-label {
                         font-size: 14px;
@@ -93,6 +94,7 @@ section{
         max-width: 138px;
         margin-right: 15px;
         margin-bottom: 15px;
+        cursor: pointer;
         img.meta-img{
             max-height: 60px;
             padding: 12px;

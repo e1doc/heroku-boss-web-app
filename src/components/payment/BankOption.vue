@@ -13,15 +13,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.meta-list-item{
-    max-width: 138px;
-    margin-right: 15px;
-    margin-bottom: 35px;
-    img.meta-img{
-        max-height: 66px;
-        padding: 15px;
-        border: 2px solid transparent;
-        border-radius: 10px;
+.meta-list{
+    margin-bottom: 20px;
+    .meta-list-item{
+        max-width: 138px;
+        margin-right: 15px;
+        margin-bottom: 15px;
+        cursor: pointer;
+        img.meta-img{
+            max-height: 60px;
+            padding: 12px;
+            border: 2px solid transparent;
+            border-radius: 5px;
+        }
     }
 }
 
@@ -30,6 +34,6 @@ export default {
 }
 
 .meta-list-item.active img.meta-img{
-    border-color: #2699fb;
+    border-color: #039be5;
 }
 </style>
