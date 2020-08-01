@@ -1,5 +1,4 @@
 <template>
-  <section>
     <div class="menu-holder">
       <div class="left-div flex-grow">
         <div class="flex-row" v-if="type === 'profile'">
@@ -26,7 +25,6 @@
         </div>
       </div>
     </div>
-  </section>
 </template>
 
 <script>

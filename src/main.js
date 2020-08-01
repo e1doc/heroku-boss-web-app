@@ -23,7 +23,8 @@ import {
   faTimes,
   faCommentAlt,
   faPowerOff,
-  faChevronDown
+  faChevronDown,
+  faPhone
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add([
@@ -43,7 +44,8 @@ library.add([
   faTimes,
   faCommentAlt,
   faPowerOff,
-  faChevronDown
+  faChevronDown,
+  faPhone
 ]);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
