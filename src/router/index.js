@@ -4,6 +4,7 @@ import Home from '../pages/Home.vue'
 import Login from "../pages/Login.vue"
 import BusinessPermitEnrollment from "../pages/BusinessPermitEnrollment.vue"
 import RealPropertyEnrollment from "../pages/RealPropertyEnrollment.vue"
+import Payment from "../pages/Payment.vue"
 Vue.use(VueRouter)
 
   const routes = [
@@ -26,6 +27,11 @@ Vue.use(VueRouter)
     path: '/real-property-enrollment',
     name: 'RealPropertyEnrollment',
     component: RealPropertyEnrollment
+  },
+  {
+    path: '/payment',
+    name: 'Payment',
+    component: Payment
   },
   // {
   //   path: '/about',
