@@ -21,7 +21,7 @@
         />
       </div>
       <div>
-        <button-full class="mt10">
+        <button-full class="mt10" :link="{path:'main/profile'}">
           VERIFY
         </button-full>
       </div>

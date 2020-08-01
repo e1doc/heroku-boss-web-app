@@ -1,31 +1,46 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../pages/Home.vue'
-import Login from "../pages/Login.vue"
-import BusinessPermitEnrollment from "../pages/BusinessPermitEnrollment.vue"
-import RealPropertyEnrollment from "../pages/RealPropertyEnrollment.vue"
-Vue.use(VueRouter)
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Home from "../pages/Home.vue";
+import Login from "../pages/Login.vue";
+import BusinessPermitEnrollment from "../pages/BusinessPermitEnrollment.vue";
+import RealPropertyEnrollment from "../pages/RealPropertyEnrollment.vue";
+import Profile from "../pages/Profile.vue";
+import StatementOfAccounts from "../pages/StatementOfAccounts.vue";
+import Main from "../Main.vue";
+Vue.use(VueRouter);
 
-  const routes = [
+const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/",
+    name: "Login",
+    component: Login,
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: Login
-  },
-  {
-    path: '/business-enrollment',
-    name: 'BusinessPermitEnrollment',
-    component: BusinessPermitEnrollment
-  },
-  {
-    path: '/real-property-enrollment',
-    name: 'RealPropertyEnrollment',
-    component: RealPropertyEnrollment
+    path: "/main",
+    name: "Main",
+    component: Main,
+    children: [
+      {
+        path: "profile",
+        name: "Profile",
+        component: Profile,
+      },
+      {
+        path: "business-enrollment",
+        name: "BusinessPermitEnrollment",
+        component: BusinessPermitEnrollment,
+      },
+      {
+        path: "real-property-enrollment",
+        name: "RealPropertyEnrollment",
+        component: RealPropertyEnrollment,
+      },
+      {
+        path: "statement-of-accounts",
+        name: "StatementOfAccounts",
+        component: StatementOfAccounts,
+      },
+    ],
   },
   // {
   //   path: '/about',
@@ -35,12 +50,12 @@ Vue.use(VueRouter)
   //   // which is lazy-loaded when the route is visited.
   //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   // }
-]
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

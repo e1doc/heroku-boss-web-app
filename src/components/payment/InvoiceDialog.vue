@@ -9,7 +9,7 @@
         <div class="triangle">
           <font-awesome-icon icon="caret-up" class="icon" />
         </div>
-        <div class="times"><font-awesome-icon icon="times" class="icon" /></div>
+        <div class="times" @click="closeModal()"><font-awesome-icon icon="times" class="icon" /></div>
       </div>
       <div class="dialog-body">
         <div class="invoice-action">
@@ -19,7 +19,7 @@
               >PAY INVOICE</button-full-outline
             >
           </div>
-          <div class="text-later">Pay Later</div>
+          <div class="text-later" @click="closeModal()">Pay Later</div>
         </div>
         <div class="invoice-details">
           <div class="invoice-title">INVOICE DETAILS</div>
@@ -66,6 +66,11 @@ export default {
   components: {
     ButtonFullOutline,
   },
+  methods:{
+    closeModal(){
+      this.$modal.hide('invoiceModal')
+    }
+  }
 };
 </script>
 

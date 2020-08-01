@@ -10,12 +10,12 @@
               <li class="meta-menu has-children">
                 <router-link to="#">Transactions <font-awesome-icon icon="chevron-down" class="mr10 sub-menu-icon" /></router-link>
                 <ul class="meta-sub-menu">
-                    <li class="meta-menu"><router-link to="#">Building Permit Application</router-link></li>
+                  <li class="meta-menu"><router-link to="#">Building Permit Application</router-link></li>
                     <li class="meta-menu"><router-link to="#">Business Permit Application</router-link></li>
-                    <li class="meta-menu"><router-link to="#">Business Permit Enrollment</router-link></li>
-                    <li class="meta-menu"><router-link to="#">Real Property Enrollment</router-link></li>
-                    <li class="meta-menu"><router-link to="#">Search Reference No.</router-link></li>
-                    <li class="meta-menu"><router-link to="#">Statement of Accounts</router-link></li>
+                    <li class="meta-menu"><router-link to="business-enrollment">Business Permit Enrollment</router-link></li>
+                    <li class="meta-menu"><router-link to="real-property-enrollment">Real Property Enrollment</router-link></li>
+                    <!-- <li class="meta-menu"><router-link to="#">Search Reference No.</router-link></li> -->
+                    <li class="meta-menu"><router-link to="statement-of-accounts">Statement of Accounts</router-link></li>
                 </ul>
               </li>
               <li class="meta-menu"><router-link to="#">About</router-link></li>
@@ -30,8 +30,8 @@
               <li class="meta-menu meta-user-settings">
                 <router-link to="#"><font-awesome-icon icon="user" class="mr10 user-icon" /></router-link>
                 <ul class="meta-sub-menu">
-                    <li class="meta-menu"><router-link to="#">View Profile</router-link></li>
-                    <li class="meta-menu"><router-link to="#">Logout <font-awesome-icon icon="power-off" class="logout-icon" /></router-link></li>
+                    <li class="meta-menu"><router-link to="profile">View Profile</router-link></li>
+                    <li class="meta-menu"><a @click="logout()">Logout <font-awesome-icon icon="power-off" class="logout-icon" /></a></li>
                 </ul>
               </li>
           </ul>
@@ -41,7 +41,13 @@
 
 <script>
 export default {
- name : "HeaderNav"
+ name : "HeaderNav",
+ methods:{
+   logout(){
+        this.$store.commit("setAuthType", 'login');
+        this.$router.push({ path: '/' })
+   }
+ }
 }
 </script>
 
@@ -160,10 +166,14 @@ section.meta-navigation {
 section.meta-navigation div.meta-center-box ul.meta-nav li:hover > a,
 section.meta-navigation div.meta-center-box ul.meta-nav li > a:hover,
 section.meta-navigation ul.meta-nav li ul.meta-sub-menu li > a:hover,
+section.meta-navigation ul.meta-nav li ul.meta-sub-menu li > div:hover,
 section.meta-navigation div.meta-center-box ul.meta-nav li.active{
   color: #E23A36;
   border-color: #E23A36;
+  cursor: pointer;
 }
+
+
 
 section.meta-navigation ul.meta-nav > li.has-children{
   padding-bottom: 50px;
@@ -217,7 +227,7 @@ li.meta-inquire:hover a{
               top: 40px;
               width: 245px;
               li{
-                a {
+                div, a {
                   font-size: 12px;
                   padding: 15px!important;
                 }

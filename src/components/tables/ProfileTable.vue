@@ -10,8 +10,8 @@
         <div class="td">F-000248</div>
         <div class="td">BANTA, FLORENCIA AND LUCIA</div>
         <div class="td actions">
-            <div> <font-awesome-icon icon="eye" class="mr5 icon" /> VIEW</div>
-            <div class="bill"><font-awesome-icon icon="receipt" class="mr5 icon" />BILL</div>
+            <div> <font-awesome-icon icon="sync-alt" class="mr5 icon" /> RENEW</div>
+            <div class="bill" @click="showModal()"><font-awesome-icon icon="receipt" class="mr5 icon" />BILL</div>
         </div>
       </div>
     </div>
@@ -21,6 +21,12 @@
 <script>
 export default {
   name: "ProfileTable",
+  methods:{
+    showModal(){
+      console.log('show')
+       this.$modal.show('invoiceModal')
+    }
+  }
 };
 </script>
 

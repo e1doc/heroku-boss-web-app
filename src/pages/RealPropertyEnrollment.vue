@@ -5,7 +5,8 @@
         <div>
           <h2>Real Property Enrollment</h2>
         </div>
-        <div class="sc-rounded-div">
+        <enrollment-success v-if="isSuccess" type="real_property" account_no="14321" />
+        <div v-if="!isSuccess" class="sc-rounded-div">
           <div class="form-group">
             <div class="title">
               <h3>Account Information</h3>
@@ -38,7 +39,7 @@
                <base-date-picker v-model="date"/>
             </div>
             <div>
-              <button-block>
+              <button-block @click.native="verify()" >
                 VERIFY
               </button-block>
             </div>
@@ -53,18 +54,26 @@
 import BaseInputIconEnd from "@/components/forms/BaseInputIconEnd";
 import ButtonBlock from "@/components/ButtonBlock";
 import BaseDatePicker from "@/components/forms/BaseDatePicker"
+import EnrollmentSuccess from "@/components/enrollment/EnrollmentSuccess";
 export default {
   name: "RealPropertyEnrollment",
   components: {
     BaseInputIconEnd,
     ButtonBlock,
-    BaseDatePicker
+    BaseDatePicker,
+    EnrollmentSuccess
   },
   data(){
     return{
       td_no: "",
       official_receipt: "",
-      date: ""
+      date: "",
+      isSuccess: false
+    }
+  },
+  methods:{
+    verify(){
+      this.isSuccess = true
     }
   }
 };

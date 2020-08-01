@@ -11,7 +11,7 @@
         </h3>
       </div>
       <div>
-        <button-block>
+        <button-block :link="{path:'profile'}">
           VIEW PROFILE
         </button-block>
       </div>

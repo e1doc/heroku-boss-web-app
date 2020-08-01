@@ -5,8 +5,8 @@
         <div>
           <h2>Business Permit Enrollment</h2>
         </div>
-        <!-- <enrollment-success type="business_permit" account_no="14321" /> -->
-        <div class="sc-rounded-div">
+        <enrollment-success v-if="isSuccess" type="business_permit" account_no="14321" />
+        <div v-if="!isSuccess" class="sc-rounded-div">
           <div class="form-group">
             <div class="title">
               <h3>Account Information</h3>
@@ -39,7 +39,7 @@
                <base-date-picker v-model="date"/>
             </div>
             <div>
-              <button-block>
+              <button-block @click.native="verify()">
                 VERIFY
               </button-block>
             </div>
@@ -67,7 +67,13 @@ export default {
     return{
       account_no: "",
       official_receipt: "",
-      date: ""
+      date: "",
+      isSuccess: false
+    }
+  },
+  methods:{
+    verify(){
+      this.isSuccess = true
     }
   }
 };

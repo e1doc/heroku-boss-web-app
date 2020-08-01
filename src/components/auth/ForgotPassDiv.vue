@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       email: "",
-      isSuccess: true,
+      isSuccess: false,
     };
   },
 };

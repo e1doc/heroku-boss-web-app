@@ -2,9 +2,9 @@
     <div class="menu-holder">
       <div class="left-div flex-grow">
         <div class="flex-row" v-if="type === 'profile'">
-          <div class="menu-type active">PROFILE</div>
-          <div class="menu-type">APPLICATIONS</div>
-          <div class="menu-type">TRANSACTIONS</div>
+          <div class="menu-type" :class="{ active: activeTab === 'profile'}" @click="changeTab('profile')" >PROFILE</div>
+          <div class="menu-type" :class="{ active: activeTab === 'applications' }" @click="changeTab('applications')">APPLICATIONS</div>
+          <div class="menu-type" :class="{ active: activeTab === 'transactions' }" @click="changeTab('transactions')">TRANSACTIONS</div>
         </div>
          <div class="flex-row" v-if="type === 'soa'">
           <div class="menu-type active">STATEMENT OF ACCOUNTS</div>
@@ -12,13 +12,13 @@
       </div>
       <div class="right-div flex-row flex-grow">
         <div class="menu-type">
-          <div class="active">
+          <div :class="{ active: activeType === 'business' }" @click="changeType('business')" >
             <font-awesome-icon icon="store" class="mr5 icon" />
             BUSINESS
           </div>
         </div>
         <div class="menu-type">
-          <div>
+          <div :class="{ active: activeType === 'real_property' }" @click="changeType('real_property')">
             <font-awesome-icon icon="city" class="mr5 icon" />
             REAL PROPERTY
           </div>
@@ -35,6 +35,20 @@ export default {
       type: String,
       required: true,
       default: "profile"
+    }
+  },
+  data(){
+    return{
+      activeTab: "profile",
+      activeType: "business"
+    }
+  },
+  methods:{
+    changeTab(tab){
+      this.activeTab = tab
+    },
+    changeType(type){
+      this.activeType = type
     }
   }
 };
@@ -59,9 +73,12 @@ export default {
       font-size: 14px;
       padding: 20px;
       margin-left: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+      border-bottom: 3px solid #fff;
     }
     .active {
-      border-bottom: 3px #e23a36 solid;
+      border-color: #e23a36;
       color: #e23a36;
       font-weight: bold;
     }
@@ -78,9 +95,12 @@ export default {
     margin-right: 15px;
     div {
       padding: 10px;
+      cursor: pointer;
+      border: 3px solid #ffffff;
+      transition: 0.3s;
     }
     .active {
-      border: 3px #FADDDD solid;
+      border-color: #FADDDD;
       border-radius: 5px;
       color: #e23a36;
       font-weight: bold;

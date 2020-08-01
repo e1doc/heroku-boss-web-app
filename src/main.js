@@ -6,6 +6,7 @@ import Ripple from "vue-ripple-directive";
 import "@/css/main.scss";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
+import VModal from 'vue-js-modal'
 import {
   faUser,
   faLock,
@@ -24,7 +25,9 @@ import {
   faCommentAlt,
   faPowerOff,
   faChevronDown,
-  faPhone
+  faPhone,
+  faRetweet,
+  faSyncAlt
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add([
@@ -45,10 +48,12 @@ library.add([
   faCommentAlt,
   faPowerOff,
   faChevronDown,
-  faPhone
+  faPhone,
+  faRetweet,
+  faSyncAlt
 ]);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
-
+Vue.use(VModal)
 Vue.directive("ripple", Ripple);
 Vue.config.productionTip = false;
 

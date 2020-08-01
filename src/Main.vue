@@ -1,6 +1,7 @@
 <template>
-  <div id="app">
-    <router-view/>
+  <div id="main">
+    <header-nav />
+    <router-view />
   </div>
 </template>
 
@@ -12,18 +13,19 @@ export default {
   }
 }
 </script>
+
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap');
-@import url('/css/main.scss');
-*{
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap");
+@import url("/css/main.scss");
+* {
   margin: 0;
   padding: 0;
 }
-#app {
-  font-family: 'Raleway', sans-serif;
+#main {
+  font-family: "Raleway", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2B2B2B;
+  color: #2b2b2b;
 }
 
 #nav {
