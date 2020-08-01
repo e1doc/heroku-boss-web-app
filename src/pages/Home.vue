@@ -1,16 +1,18 @@
 <template>
-  <div class="sc-home">
+  <section>
     <header-nav/>
-    <div class="container">
-      <!-- <profile-table-menu type="profile"/> -->
-      <div class="mt50">
-        <!-- <profile-table/> -->
-        <!-- <transaction-table/> -->
-        <!-- <application-table/> -->
-      </div>
-      <!-- <invoice-dialog/> -->
-    </div>  
-  </div>
+    <div class="sc-home">
+      <div class="container">
+        <profile-table-menu type="profile"/>
+        <div class="mt50">
+          <profile-table/>
+          <!-- <transaction-table/> -->
+          <!-- <application-table/> -->
+        </div>
+        <!-- <invoice-dialog/> -->
+      </div>  
+    </div>
+  </section>
 </template>
 
 <script>
@@ -46,13 +48,14 @@ export default {
 
 <style lang="scss" scoped>
 .sc-home {
-  height: 100vh;
+  min-height: calc(100vh - 81px);
   width: 100%;
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
-  // display: flex;
-  // flex-wrap: wrap;
-  // align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
+
 </style>
