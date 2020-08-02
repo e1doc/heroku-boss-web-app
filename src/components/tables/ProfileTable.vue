@@ -1,7 +1,8 @@
 <template>
   <section>
     <div class="thead">
-      <div class="th">ACCOUNT NUMBER</div>
+      <div class="th" v-if="currentType === 'business'">ACCOUNT NUMBER</div>
+      <div class="th" v-if="currentType === 'real_property'">TD NUMBER</div>
       <div class="th" v-if="currentType === 'business'">BUSNESS NAME</div>
       <div class="th" v-if="currentType === 'real_property'">OWNER NAME</div>
       <div class="th">ACTIONS</div>
