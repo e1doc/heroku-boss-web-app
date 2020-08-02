@@ -94,4 +94,25 @@ export default {
     max-width: calc(70% - 30px);
   }
 }
+
+@media only screen and (max-width: 1400px){
+  .sc-home .meta-left-box{
+      max-width: 25%;
+      max-height: 480px;
+  }
+
+  .sc-home .meta-right-box {
+    max-width: calc(75% - 30px);
+  }
+}
+
+@media only screen and ( max-width: 1180px ){
+  .sc-home .meta-left-box{
+      display: none;
+  }
+
+  .sc-home .meta-right-box {
+     max-width: 100%;
+  }
+}
 </style>

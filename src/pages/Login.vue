@@ -1,5 +1,5 @@
 <template>
-  <section id="login-section">
+  <section id="login-section" :class="{'expand':isExpand}">
     <div class="container">
       <div class="login-form-holder sc-rounded-div flex-row">
         <div class="left-div">
@@ -132,6 +132,10 @@ export default {
 
 
 @media only screen and  ( max-width: 1400px ) {
+    #login-section.expand{
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
     #login-section .login-form-holder .left-div .left-div-title {
         font-size: 15px;
     }
@@ -139,5 +143,19 @@ export default {
     #login-section .login-form-holder .right-div {
         padding: 50px 50px 30px;
     }
+
+    #login-section .icon{
+        font-size: 65px!important;
+    }
+    
 }
+
+@media only screen and ( max-height: 650px ){
+  #login-section {
+      padding: 30px;
+      min-height: 100vh;
+      height: auto;
+  }
+}
+
 </style>

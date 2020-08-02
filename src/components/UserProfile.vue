@@ -78,4 +78,17 @@ export default {
         margin-right: 25px;
     }
 }
+
+
+@media only screen and ( max-width: 1400px ){
+    .meta-parent-box .meta-header[data-v-6ef6ca5e] {
+        height: 200px;
+    }
+
+    .meta-parent-box .meta-body .meta-content .meta-name{
+        font-size: 18px;
+        padding: 30px 0 40px;
+    }
+}
+
 </style>
