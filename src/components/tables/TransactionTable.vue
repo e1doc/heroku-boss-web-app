@@ -1,41 +1,78 @@
 <template>
   <section>
-    <div class="thead">
-      <div class="th w10">ACC #</div>
-      <div class="th w10">OR #</div>
-      <div class="th w10">OR DATE</div>
-      <div class="th w35">BUSINESS NAME</div>
-      <div class="th w25">PAID BY</div>
-      <div class="th w10">AMOUNT</div>
+    <div class="business-table" v-if="currentType==='business'">
+      <div class="thead">
+        <div class="th w10">ACC #</div>
+        <div class="th w10">OR #</div>
+        <div class="th w10">OR DATE</div>
+        <div class="th w35" v-if="currentType === 'business'">
+          BUSINESS NAME
+        </div>
+        <div class="th w25">PAID BY</div>
+        <div class="th w10">AMOUNT</div>
+      </div>
+      <div class="tbody">
+        <div class="tr" v-for="index in 5" :key="index">
+          <div class="td w10">F-02248</div>
+          <div class="td w10">102582</div>
+          <div class="td w10">JUN 1, 2020</div>
+          <div class="td w35" v-if="currentType === 'business'">
+            MAMICHELLE FOOD STATION
+          </div>
+          <div class="td w25">JOHN MICHAEL DOE</div>
+          <div class="td w10">₱ 28,063.00</div>
+        </div>
+      </div>
     </div>
-    <div class="tbody">
-      <div class="tr" v-for="index in 5" :key="index">
-        <div class="td w10">F-02248</div>
-        <div class="td w10">102582</div>
-        <div class="td w10">JUN 1, 2020</div>
-        <div class="td w35">MAMICHELLE FOOD STATION</div>
-        <div class="td w25">JOHN MICHAEL DOE</div>
-        <div class="td w10">₱ 28,063.00</div>
+      <div class="business-table" v-if="currentType==='real_property'">
+      <div class="thead">
+        <div class="th w15">TD #</div>
+        <div class="th w15">OR #</div>
+        <div class="th w15">OR DATE</div>
+        <div class="th w25">PAID BY</div>
+        <div class="th w30">AMOUNT</div>
+      </div>
+      <div class="tbody">
+        <div class="tr" v-for="index in 5" :key="index">
+          <div class="td w15">F-02248</div>
+          <div class="td w15">102582</div>
+          <div class="td w15">JUN 1, 2020</div>
+          <div class="td w25">JOHN MICHAEL DOE</div>
+          <div class="td w30">₱ 28,063.00</div>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "TransactionTable",
+  computed: {
+    ...mapGetters(["currentType"]),
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-.w10{
-    width: 10%;
+.w10 {
+  width: 10%;
 }
-.w35{
-    width: 35%;
+.w15 {
+  width: 25%;
 }
-.w25{
-    width: 25%;
+.w25 {
+  width: 25%;
+}
+.w30 {
+  width: 30%;
+}
+.w35 {
+  width: 35%;
+}
+.w45 {
+  width: 45%;
 }
 .thead {
   display: flex;
