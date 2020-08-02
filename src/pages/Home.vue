@@ -55,8 +55,7 @@ export default {
 
 <style lang="scss" scoped>
 .sc-home {
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
+  background-position: center;
   background-size: cover;
   width: 100%;
   min-height: calc(100vh - 81px);
