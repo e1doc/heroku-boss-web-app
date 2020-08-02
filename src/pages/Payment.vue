@@ -17,7 +17,7 @@
             </div>
             <radio-button />
             <div class="meta-button" v-if="paymentOption === 'counter'">
-              <button-block @click.native="printInvoice()">DOWNLOAD</button-block>
+              <button-block>DOWNLOAD</button-block>
             </div>
             <div class="meta-button" v-if="paymentOption === 'online'">
               <button-block>REDIRECT</button-block>

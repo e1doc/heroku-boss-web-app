@@ -11,19 +11,22 @@
       <div class="tr">
         <div class="td">000001</div>
         <div class="td">JUNE 07 2020</div>
-        <div class="td">MINISTOP</div>
+        <div class="td" v-if="currentType === 'business'">MINISTOP</div>
+        <div class="td" v-if="currentType === 'real_property'">A-01543</div>
         <div class="td">DRAFT</div>
       </div>
       <div class="tr">
         <div class="td">000002</div>
         <div class="td">JUNE 07 2020</div>
-        <div class="td">MINISTOP</div>
+        <div class="td" v-if="currentType === 'business'">MINISTOP</div>
+        <div class="td" v-if="currentType === 'real_property'">A-01543</div>
         <div class="td">PENDING</div>
       </div>
       <div class="tr">
         <div class="td">000003</div>
         <div class="td">JUNE 07 2020</div>
-        <div class="td">MINISTOP</div>
+        <div class="td" v-if="currentType === 'business'">MINISTOP</div>
+        <div class="td" v-if="currentType === 'real_property'">A-01543</div>
         <div class="td">FOR PAYMENT</div>
       </div>
     </div>
