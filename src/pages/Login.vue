@@ -91,13 +91,14 @@ export default {
 #login-section {
   text-align: center;
   background-image: url("../assets/login-bg.png");
-  height: 100vh;
+  min-height: 100vh;
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
   padding: 0px 30px;
   display: flex;
-  align-items: center;
+  align-items: center; 
+
   .login-form-holder {
     .left-div {
       color: #ffffff;
@@ -120,11 +121,23 @@ export default {
       width: 60%;
       text-align: center;
       padding: 60px 70px;
+      
     }
     .expand {
       width: 65% !important;
       padding: 40px 50px !important;
     }
   }
+}
+
+
+@media only screen and  ( max-width: 1400px ) {
+    #login-section .login-form-holder .left-div .left-div-title {
+        font-size: 15px;
+    }
+
+    #login-section .login-form-holder .right-div {
+        padding: 50px 50px 30px;
+    }
 }
 </style>

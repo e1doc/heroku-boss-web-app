@@ -141,10 +141,13 @@ input:focus{
   border-color: #BCE0FD;
 }
 
-// .input-wrapper-focus-danger {
-//   box-shadow: 0 0 0 2px #dc3545;
-// }
-// .input-wrapper-blur {
-//   box-shadow: 0 0 0 1px #5a5f63;
-// }
+@media only screen and  ( max-width: 1400px ) {
+  .input-wrapper{
+      padding: 13px 15px;
+      .label{
+        top: 13px;
+      }
+  }
+  
+}
 </style>

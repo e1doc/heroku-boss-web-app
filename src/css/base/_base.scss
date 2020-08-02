@@ -67,3 +67,10 @@ h3{
     display: flex;
     flex-wrap: wrap;
 }
+
+@media only screen and( max-width: 1400px ){
+    .sc-rounded-div{
+        max-width: 830px;
+        min-height: auto;
+    }
+} 
