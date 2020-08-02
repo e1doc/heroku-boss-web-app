@@ -3,7 +3,7 @@
     <div class="meta-parent-box">
       <div class="container flex-wrap">
         <div class="meta-left-box">
-          <invoice-dialog/>
+          <invoice-dialog :isPayment="true"/>
         </div>
         <div class="meta-right-box">
           <div class="meta-form-box">
@@ -16,8 +16,11 @@
               </div>
             </div>
             <radio-button />
-            <div class="meta-button">
+            <div class="meta-button" v-if="paymentOption === 'counter'">
               <button-block @click.native="printInvoice()">DOWNLOAD</button-block>
+            </div>
+            <div class="meta-button" v-if="paymentOption === 'online'">
+              <button-block>REDIRECT</button-block>
             </div>
           </div>
         </div>
@@ -32,6 +35,7 @@ import BankOption from "@/components/payment/BankOption";
 import RadioButton from "@/components/payment/RadioButton";
 import ButtonBlock from "@/components/ButtonBlock";
 import DownloadableInvoice from "@/components/payment/DownloadableInvoice";
+import { mapGetters } from "vuex";
 export default {
   components: {
     InvoiceDialog,
@@ -39,6 +43,9 @@ export default {
     RadioButton,
     ButtonBlock,
     DownloadableInvoice
+  },
+    computed: {
+    ...mapGetters(["paymentOption"]),
   },
   data(){
       return{

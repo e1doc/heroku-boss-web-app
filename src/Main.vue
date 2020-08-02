@@ -1,24 +1,26 @@
 <template>
-  <div id="main">
-      <downloadable-invoice v-if="printInvoice"/>
-    <!-- <header-nav /> -->
-    <router-view />
+  <div>
+    <downloadable-invoice v-if="printInvoice" />
+    <div id="main">
+      <header-nav />
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import HeaderNav from "@/components/HeaderNav"
+import HeaderNav from "@/components/HeaderNav";
 import DownloadableInvoice from "@/components/payment/DownloadableInvoice";
 export default {
-  components:{
+  components: {
     HeaderNav,
-    DownloadableInvoice
+    DownloadableInvoice,
   },
-    computed: {
+  computed: {
     ...mapGetters(["printInvoice"]),
   },
-}
+};
 </script>
 
 <style lang="scss">

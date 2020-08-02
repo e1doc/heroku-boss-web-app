@@ -3,8 +3,8 @@
     <!-- OPTION 1 -->
       <div class="meta-list-option">
           <div class="meta-radio flex-center">
-              <input type="radio" class="radio-button" name="payment-options" id="option_1" checked>
-              <span class="custom-radio flex-center selected"><span class="circle"></span></span>
+              <input type="radio" class="radio-button" name="payment-options" id="option_1" checked @click="selectOptions('counter')">
+              <span class="custom-radio flex-center" :class="{selected: selectedOption === 'counter'}"><span class="circle"></span></span>
               <label for="option_1">Over the Counter</label>
           </div>
           <div class="meta-desc">Pay your bills over the counter in  any Landbank branches.  Click the 'Download' button below to download your SOA which you will present when paying at any Landbank branches.</div>
@@ -12,8 +12,8 @@
     <!-- OPTION 2 -->
       <div class="meta-list-option">
           <div class="meta-radio flex-center">
-              <input type="radio" class="radio-button" name="payment-options" id="option_2">
-              <span class="custom-radio flex-center"><span class="circle"></span></span>
+              <input type="radio" class="radio-button" name="payment-options" id="option_2" @click="selectOptions('online')">
+              <span class="custom-radio flex-center" :class="{selected: selectedOption === 'online'}"><span class="circle"></span></span>
               <label for="option_2">Pay Online</label>
           </div>
           <div class="meta-desc">Pay your bills over the counter in  any Landbank branches.  Click the 'Download' button below to download your SOA which you will present when paying at any Landbank branches.</div>
@@ -24,7 +24,18 @@
 
 <script>
 export default {
-    name: "RadioButton"
+    name: "RadioButton",
+    data(){
+      return{
+        selectedOption: 'counter'
+      }
+    },
+    methods:{
+      selectOptions(option){
+        this.selectedOption = option
+        this.$store.commit('setPaymentOption',option)
+      }
+    }
 }
 </script>
 
