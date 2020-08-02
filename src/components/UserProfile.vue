@@ -81,7 +81,7 @@ export default {
 
 
 @media only screen and ( max-width: 1400px ){
-    .meta-parent-box .meta-header[data-v-6ef6ca5e] {
+    .meta-parent-box .meta-header{
         height: 200px;
     }
 
