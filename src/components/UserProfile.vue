@@ -54,6 +54,7 @@ export default {
             max-width: 266px;
             margin: 0 auto;
             .meta-details{
+                font-family: 'Gotham-Book', sans-serif;
                 div{
                     font-size: 15px;
                     font-weight: normal;
