@@ -9,13 +9,13 @@
         <div class="triangle">
           <font-awesome-icon icon="caret-up" class="icon" />
         </div>
-        <div class="times" @click="closeModal()"><font-awesome-icon icon="times" class="icon" /></div>
+        <div class="times" @click="closeModal()"  v-if="!isPayment"><font-awesome-icon icon="times" class="icon" /></div>
       </div>
       <div class="dialog-body">
-        <div class="invoice-action">
+        <div class="invoice-action" v-if="!isPayment">
           <div class="title mb20">New Invoice</div>
           <div class="mb5">
-            <button-full-outline class="btn-reg"
+            <button-full-outline class="btn-reg" :link="{path:'payment'}"
               >PAY INVOICE</button-full-outline
             >
           </div>
@@ -65,6 +65,13 @@ export default {
   name: "InvoiceDialog",
   components: {
     ButtonFullOutline,
+  },
+  props:{
+    isPayment:{
+      type: Boolean,
+      default: false,
+      required: false
+    }
   },
   methods:{
     closeModal(){

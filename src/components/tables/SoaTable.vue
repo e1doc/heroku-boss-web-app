@@ -16,7 +16,7 @@
         <div class="td w35">MAMICHELLE FOOD STATION</div>
         <div class="td w25">₱ 28,063.00</div>
         <div class="td w10 actions">
-          <div class="bill" @click="showModal()">
+          <div class="bill" @click="redirect()">
             <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
           </div>
         </div>
@@ -28,6 +28,12 @@
 <script>
 export default {
   name: "SoaTable",
+  methods:{
+    redirect(){
+      this.$router.push({path:'payment'})
+    }
+  }
+
 };
 </script>
 

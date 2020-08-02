@@ -1,6 +1,6 @@
 <template>
     <component
-    :is="'button'"
+    :is="link ? 'router-link' : 'button'" :to="link"
     class="btn"
     >
         <slot>
@@ -11,12 +11,26 @@
 
 <script>
 export default {
-    name: 'ButtonFull',
+    name: 'ButtonFullOutline',
+      props: {
+    link: {
+      type: Object,
+      required: false,
+      default: null,
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 @import '../css/base/_colors.scss';
+a{
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    text-align: center;
+}
 .btn {
     color: #ffffff;    
     background: transparent;

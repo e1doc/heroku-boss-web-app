@@ -5,7 +5,7 @@
         <profile-table-menu type="soa" />
       </div>
       <div class="mt50">
-        <soa-table />
+        <soa-table/>
       </div>
     </div>
   </section>

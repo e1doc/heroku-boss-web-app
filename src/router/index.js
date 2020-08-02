@@ -7,6 +7,7 @@ import RealPropertyEnrollment from "../pages/RealPropertyEnrollment.vue";
 import Profile from "../pages/Profile.vue";
 import StatementOfAccounts from "../pages/StatementOfAccounts.vue";
 import Main from "../Main.vue";
+import Payment from "../pages/Payment.vue"
 Vue.use(VueRouter);
 
 const routes = [
@@ -39,6 +40,11 @@ const routes = [
         path: "statement-of-accounts",
         name: "StatementOfAccounts",
         component: StatementOfAccounts,
+      },
+      {
+        path: 'payment',
+        name: 'Payment',
+        component: Payment
       },
     ],
   },
