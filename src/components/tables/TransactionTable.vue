@@ -98,6 +98,8 @@ export default {
     box-shadow: 0px 10px 20px rgba(127, 127, 127, 0.1);
     border-radius: 8px;
     margin-top: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
     .td {
       font-size: 14px;
       text-align: center;
