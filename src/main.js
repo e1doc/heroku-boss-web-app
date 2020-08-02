@@ -7,6 +7,8 @@ import "@/css/main.scss";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import VModal from 'vue-js-modal'
+import VueHtml2pdf from 'vue-html2pdf'
+Vue.use(VueHtml2pdf)
 import {
   faUser,
   faLock,
