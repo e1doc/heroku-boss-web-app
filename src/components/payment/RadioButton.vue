@@ -7,7 +7,7 @@
               <span class="custom-radio flex-center" :class="{selected: selectedOption === 'counter'}"><span class="circle"></span></span>
               <label for="option_1">Over the Counter</label>
           </div>
-          <div class="meta-desc">Pay your bills over the counter in  any Landbank branches.  Click the 'Download' button below to download your SOA which you will present when paying at any Landbank branches.</div>
+          <div class="meta-desc">Pay your bills over the counter on  any Landbank branches.  Click the 'Download' button below to download your SOA which you will present in paying on any Landbank branches.</div>
       </div>
     <!-- OPTION 2 -->
       <div class="meta-list-option">
