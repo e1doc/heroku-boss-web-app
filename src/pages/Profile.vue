@@ -13,9 +13,9 @@
         <div class="meta-right-box">
           <profile-table-menu type="profile" />
           <div class="mt50">
-            <profile-table />
-            <!-- <transaction-table/> -->
-            <!-- <application-table/> -->
+            <profile-table v-if="currentTable === 'profile'"/>
+            <transaction-table v-if="currentTable === 'transactions'"/>
+            <application-table v-if="currentTable === 'applications'"/>
           </div>
         </div>
       </div>
@@ -34,6 +34,7 @@ import ApplicationTable from "@/components/tables/ApplicationTable";
 import InvoiceDialog from "@/components/payment/InvoiceDialog";
 import HeaderNav from "@/components/HeaderNav";
 import UserProfile from "@/components/UserProfile";
+import { mapGetters } from "vuex";
 export default {
   name: "Profile",
   components: {
@@ -47,6 +48,9 @@ export default {
     InvoiceDialog,
     HeaderNav,
     UserProfile,
+  },
+  computed: {
+    ...mapGetters(["currentTable"]),
   },
   data() {
     return {

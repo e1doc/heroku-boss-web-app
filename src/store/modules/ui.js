@@ -1,17 +1,20 @@
 
 
 const state = {
-    authType: 'login'
+    authType: 'login',
+    currentTable: 'profile'
 }
 
 const getters = {
-    authType : state => state.authType
+    authType : state => state.authType,
+    currentTable: state => state.currentTable
 }
 
 const actions = {}
 
 const mutations = {
-    setAuthType : (state, authType) => (state.authType = authType)
+    setAuthType : (state, authType) => (state.authType = authType),
+    setCurrentTable: (state, currentTable) => (state.currentTable = currentTable)
 }
 
 export default {
