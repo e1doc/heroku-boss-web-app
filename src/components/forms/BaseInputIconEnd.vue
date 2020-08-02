@@ -121,18 +121,20 @@ input::placeholder {
   color: transparent;
 }
 input:focus::placeholder {
-  color: #BABABA;
+    color: #BABABA;
 }
 .label-focus {
-  line-height: 0.3;
-  top: -2px !important;
-  left: 2 !important;
-  color: #2699FB !important;
+    font-size: 10px!important;
+    line-height: 0.3;
+    top: -2px !important;
+    left: 2 !important;
+    color: #2699FB !important;
 }
+
 .input-wrapper-focus {
-  background-color: #F1F9FF;
-  border-color: #BCE0FD;
-  font-size: 12px !important;
+    background-color: #F1F9FF;
+    border-color: #BCE0FD;
+    font-size: 12px !important;
 }
 
 .input-wrapper-focus .icon{
@@ -141,5 +143,15 @@ input:focus::placeholder {
 
 input:focus{
   border-color: #BCE0FD;
+}
+
+@media only screen and (max-width: 1400px){
+  .input-wrapper{
+      padding: 12px 18px;
+      .label{
+          font-size: 14px;
+          top: 13px;
+      }
+  }
 }
 </style>

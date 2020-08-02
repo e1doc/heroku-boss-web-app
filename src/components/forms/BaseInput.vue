@@ -116,6 +116,7 @@ input:focus::placeholder {
 }
 
 .label-focus {
+  font-size: 11px!important;
   line-height: 0.3;
   top: -2px !important;
   left: 5 !important;
@@ -128,5 +129,14 @@ input:focus::placeholder {
   font-size: 12px !important;
 }
 
+@media only screen and (max-width: 1400px){
+  .input-wrapper{
+      padding: 12px 18px;
+      .label{
+          font-size: 14px;
+          top: 13px;
+      }
+  }
+}
 
 </style>

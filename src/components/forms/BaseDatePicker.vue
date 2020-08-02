@@ -54,4 +54,12 @@ data() {
 /deep/ .mx-input::placeholder {
   color: #BABABA;
 }
+
+@media only screen and (max-width: 1400px){
+  /deep/ .mx-input{    
+        font-size: 14px;
+        min-height: 44px;
+        padding: 12px 18px;
+  }
+}
 </style>

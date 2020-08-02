@@ -76,4 +76,16 @@ export default {
   letter-spacing: 0.5px;
   margin-bottom: 20px;
 }
+
+@media only screen and ( max-width: 1400px ){
+  .form-group {
+      margin-top: 0;
+      div {
+          margin-bottom: 30px;
+      }
+      .icon{
+          font-size: 50px;
+      }
+  }
+}
 </style>

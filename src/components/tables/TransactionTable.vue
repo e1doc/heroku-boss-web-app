@@ -102,6 +102,7 @@ export default {
     padding-right: 10px;
     .td {
       font-size: 14px;
+      font-family: Proxima Nova;
       text-align: center;
       padding: 17px 0px;
     }
