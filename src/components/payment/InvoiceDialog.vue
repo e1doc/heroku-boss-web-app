@@ -169,6 +169,7 @@ export default {
           }
           .item-value {
             font-size: 16px;
+            font-family: Proxima Nova;
           }
         }
       }
@@ -198,6 +199,7 @@ export default {
             color: rgba($color: #2699fb, $alpha: 0.73);
             font-weight: bold;
             font-size: 14px;
+            font-family: Proxima Nova;
             text-transform: uppercase;
         }
         .item-value{
@@ -205,6 +207,7 @@ export default {
             color: #2699FB;
             font-weight: bold;
             font-size: 20px;
+            font-family: Proxima Nova;
             text-align: right;
         }
       }
