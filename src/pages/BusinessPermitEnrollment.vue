@@ -81,29 +81,47 @@ export default {
 
 <style lang="scss" scoped>
 .sc-bs-enrollment {
-  display: flex;
-  flex-wrap: wrap;
-  text-align: center;
-  align-items: center;
-  height: 100vh;
-  .sc-rounded-div {
-    background: #eaf6ff !important;
-    max-width: 53%; 
-    width: 100%;
-    min-height: 500px;
-    margin: 50px auto 0;
-    box-shadow: 0px 10px 20px #0000000D;
-    .form-group {
-      text-align: center;
-      padding: 80px 80px 50px;
-      .title {
-        margin-bottom: 50px;
-        text-align: left;
-      }
-      div {
-        margin-bottom: 30px;
-      }
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    padding: 70px 30px 50px;
+    .sc-rounded-div {
+        background: #eaf6ff !important;
+        max-width: 53%; 
+        width: 100%;
+        min-height: 500px;
+        margin: 50px auto 0;
+        box-shadow: 0px 10px 20px #0000000D;
+        .form-group {
+            text-align: center;
+            padding: 80px 80px 50px;
+            .title {
+                margin-bottom: 50px;
+                text-align: left;
+            }
+            div {
+              margin-bottom: 30px;
+            }
+        }
     }
+}
+
+@media only screen and (max-width: 1400px){
+  .sc-bs-enrollment {
+      .sc-rounded-div {
+          max-width: 488px;
+          min-height: auto;
+          margin-top: 30px;
+          .form-group {
+              padding: 60px 60px 30px;
+              .title{
+                  margin-bottom: 30px;
+              }
+              div{
+                  margin-bottom: 20px;
+              }
+          }
+      }
   }
 }
 </style>

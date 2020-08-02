@@ -171,6 +171,7 @@ export default {
           }
           .item-value {
             font-size: 16px;
+            font-family: "Proxima Nova Rg";
           }
         }
       }
@@ -194,20 +195,22 @@ export default {
       .amount-details {
         display: flex;
         flex-wrap: wrap;
-        .item-label {
-          width: 50%;
-          margin: auto 0;
-          color: rgba($color: #2699fb, $alpha: 0.73);
-          font-weight: bold;
-          font-size: 14px;
-          text-transform: uppercase;
+        .item-label{
+            width: 50%;
+            margin: auto 0;
+            color: rgba($color: #2699fb, $alpha: 0.73);
+            font-weight: bold;
+            font-size: 14px;
+            font-family: "Proxima Nova Rg";
+            text-transform: uppercase;
         }
-        .item-value {
-          width: 50%;
-          color: #2699fb;
-          font-weight: bold;
-          font-size: 20px;
-          text-align: right;
+        .item-value{
+            width: 50%;
+            color: #2699FB;
+            font-weight: bold;
+            font-size: 20px;
+            font-family: "Proxima Nova Rg";
+            text-align: right;
         }
       }
     }

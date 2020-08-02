@@ -151,4 +151,12 @@ export default {
   line-height: 26px;
   letter-spacing: 0.5px;
 }
+
+@media only screen and (max-width: 1400px){
+  .form-group{
+      div{
+        margin-bottom: 15px;
+      }
+  }
+}
 </style>

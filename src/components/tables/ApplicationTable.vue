@@ -71,6 +71,7 @@ export default {
     .td {
       flex: 1;
       font-size: 14px;
+      font-family: "Proxima Nova Rg";
       text-align: center;
       padding: 17px 0px;
     }
