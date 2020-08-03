@@ -16,7 +16,8 @@
               <span class="custom-radio flex-center" :class="{selected: selectedOption === 'online'}"><span class="circle"></span></span>
               <label for="option_2">Pay Online</label>
           </div>
-          <div class="meta-desc">Pay your bills over the counter in  any Landbank branches.  Click the 'Download' button below to download your SOA which you will present when paying at any Landbank branches.</div>
+          <div class="meta-desc">You can now pay your bills through online without any hassle. This option will redirect you to 
+Landbank's online payment page.</div>
       </div>
 
   </div>
