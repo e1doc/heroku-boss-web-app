@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div v-if="currentType==='business'">
+    <div v-if="currentType === 'business'">
       <div class="thead">
         <div class="th w10">ACC #</div>
         <div class="th w10">OR #</div>
@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-      <div v-if="currentType==='real_property'">
+    <div v-if="currentType === 'real_property'">
       <div class="thead">
         <div class="th w15">TD #</div>
         <div class="th w15">OR #</div>

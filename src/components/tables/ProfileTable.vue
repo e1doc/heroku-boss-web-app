@@ -1,8 +1,8 @@
 <template>
   <section>
     <div class="thead">
-      <div class="th" v-if="currentType === 'business'">ACCOUNT NUMBER</div>
-      <div class="th" v-if="currentType === 'real_property'">TD NUMBER</div>
+      <div class="th" v-if="currentType === 'business'">ACCOUNT #</div>
+      <div class="th" v-if="currentType === 'real_property'">TD #</div>
       <div class="th" v-if="currentType === 'business'">BUSNESS NAME</div>
       <div class="th" v-if="currentType === 'real_property'">OWNER NAME</div>
       <div class="th">ACTIONS</div>
@@ -10,7 +10,8 @@
     <div class="tbody">
       <div class="tr" v-for="index in 5" :key="index">
         <div class="td">F-000248</div>
-        <div class="td">JOHN MICHAEL DOE</div>
+        <div class="td" v-if="currentType === 'business'">JMD SARI SARI STOREa</div>
+        <div class="td" v-if="currentType === 'real_property'">JOHN MICHAEL DOE</div>
         <div class="td actions">
           <div>
             <font-awesome-icon icon="sync-alt" class="mr5 icon" /> RENEW
