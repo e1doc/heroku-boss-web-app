@@ -87,6 +87,7 @@
             REGISTER
           </button-full>
         </div>
+        <base-checkbox label="Option 2"/>
       </div>
     </div>
     <div class="form-success" v-if="isSuccess">
@@ -111,11 +112,13 @@
 import ButtonFull from "@/components/ButtonFull";
 import ButtonFullOutline from "@/components/ButtonFullOutline";
 import BaseInput from "@/components/forms/BaseInput";
+import BaseCheckbox from "@/components/forms/BaseCheckbox"
 export default {
   name: "RegisterDiv",
   components: {
     ButtonFull,
     BaseInput,
+    BaseCheckbox
   },
   data() {
     return {

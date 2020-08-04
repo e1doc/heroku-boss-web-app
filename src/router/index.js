@@ -6,6 +6,7 @@ import BusinessPermitEnrollment from "../pages/BusinessPermitEnrollment.vue";
 import RealPropertyEnrollment from "../pages/RealPropertyEnrollment.vue";
 import Profile from "../pages/Profile.vue";
 import StatementOfAccounts from "../pages/StatementOfAccounts.vue";
+import BusinessPermitApplication from "../pages/BusinessPermitApplication.vue";
 import Main from "../Main.vue";
 import Payment from "../pages/Payment.vue"
 Vue.use(VueRouter);
@@ -45,6 +46,11 @@ const routes = [
         path: 'payment',
         name: 'Payment',
         component: Payment
+      },
+      {
+        path: 'business-permit-application',
+        name: 'BusinessPermitApplication',
+        component: BusinessPermitApplication
       },
     ],
   },
