@@ -1,6 +1,5 @@
 <template>
   <div>
-    <downloadable-invoice v-if="printInvoice" />
     <div id="main">
       <header-nav />
       <router-view />

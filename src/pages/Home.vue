@@ -1,8 +1,7 @@
 <template>
   <section>
-    <!-- <header-nav/> -->
+    <header-nav/>
     <div class="sc-home">
-      <downloadable-invoice/>
     </div>  
   </section>
 </template>
@@ -41,9 +40,6 @@ export default {
       text1: "",
       text2: "",
     };
-  },
-  mounted() {
-    this.$refs.html2Pdf.generatePdf();
   },
 };
 </script>

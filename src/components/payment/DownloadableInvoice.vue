@@ -1,89 +1,75 @@
 <template>
   <section class="sc-invoice">
-    <vue-html2pdf
-      :show-layout="false"
-      :enable-download="true"
-      :preview-modal="true"
-      :paginate-elements-by-height="2500"
-      filename="payment-invoice"
-      :pdf-quality="2"
-      :manual-pagination="false"
-      pdf-format="a4"
-      pdf-orientation="portrait"
-      pdf-content-width="800px"
-      ref="html2Pdf"
-    >
-      <section slot="pdf-content">
-        <div class="dialog-holder">
-          <div class="dialog-header">
-            <div class="store-avatar">
-              <img src="@/assets/bacoor-cavite-logo.png" alt="" />
-            </div>
-            <div class="text-bold size18">Bacoor One Stop Shop System</div>
-            <div class="triangle">
-              <font-awesome-icon icon="caret-up" class="icon" />
+    <div class="dialog-holder" ref="content">
+      <div class="dialog-header">
+        <div class="store-avatar">
+          <img src="@/assets/bacoor-cavite-logo.png" alt="" />
+        </div>
+        <div class="text-bold size18">Bacoor One Stop Shop System</div>
+        <div class="triangle">
+          <font-awesome-icon icon="caret-up" class="icon" />
+        </div>
+      </div>
+      <div class="dialog-body-holder">
+        <div class="mb30"><h3>Stament of Account</h3></div>
+        <div class="dialog-body">
+          <div class="invoice-details">
+            <div class="invoice-title">INVOICE DETAILS</div>
+            <div class="details-body">
+              <div class="details-item">
+                <div class="item-label">Reference No:</div>
+                <div class="item-value">Invoice #00002</div>
+              </div>
+              <div class="details-item">
+                <div class="item-label">Year:</div>
+                <div class="item-value">2020</div>
+              </div>
+              <div class="details-item">
+                <div class="item-label">Issued Date:</div>
+                <div class="item-value">July 25, 2020</div>
+              </div>
+              <div class="details-item">
+                <div class="item-label">Quarter:</div>
+                <div class="item-value">1st Quarter - 2nd Quarter</div>
+              </div>
             </div>
           </div>
-          <div class="dialog-body-holder">
-            <div class="mb30"><h3>Stament of Account</h3></div>
-            <div class="dialog-body">
-              <div class="invoice-details">
-                <div class="invoice-title">INVOICE DETAILS</div>
-                <div class="details-body">
-                  <div class="details-item">
-                    <div class="item-label">Reference No:</div>
-                    <div class="item-value">Invoice #00002</div>
-                  </div>
-                  <div class="details-item">
-                    <div class="item-label">Year:</div>
-                    <div class="item-value">2020</div>
-                  </div>
-                  <div class="details-item">
-                    <div class="item-label">Issued Date:</div>
-                    <div class="item-value">July 25, 2020</div>
-                  </div>
-                  <div class="details-item">
-                    <div class="item-label">Quarter:</div>
-                    <div class="item-value">1st Quarter - 2nd Quarter</div>
-                  </div>
-                </div>
-              </div>
-              <div class="invoice-details">
-                <div class="invoice-title">BUSINESS / OWNER DETAILS</div>
-                <div class="details-body">
-                  <div class="details-item">
-                    <div class="item-label">Account Number:</div>
-                    <div class="item-value">F-02248</div>
-                  </div>
-                </div>
-                <div class="details-body"></div>
-                <div class="details-body mt25">
-                  <div class="details-item">
-                    <div class="item-label">Business Owner:</div>
-                    <div class="item-value">John Michael Doe</div>
-                  </div>
-                </div>
-              </div>
-              <div class="invoice-amount">
-                <div class="amount-details">
-                  <div class="item-label">Total Amount</div>
-                  <div class="item-value amount">₱ 28,083.00</div>
-                </div>
+          <div class="invoice-details">
+            <div class="invoice-title">BUSINESS / OWNER DETAILS</div>
+            <div class="details-body">
+              <div class="details-item">
+                <div class="item-label">Account Number:</div>
+                <div class="item-value">F-02248</div>
               </div>
             </div>
-            <div class="text-note">
-              * You can pay this over the counter at any Landbank branch or even
-              the counter of LGU office in Bacoor, Cavite.
+            <div class="details-body"></div>
+            <div class="details-body mt25">
+              <div class="details-item">
+                <div class="item-label">Business Owner:</div>
+                <div class="item-value">John Michael Doe</div>
+              </div>
+            </div>
+          </div>
+          <div class="invoice-amount">
+            <div class="amount-details">
+              <div class="item-label">Total Amount</div>
+              <div class="item-value amount">₱ 28,083.00</div>
             </div>
           </div>
         </div>
-      </section>
-    </vue-html2pdf>
+        <div class="text-note">
+          * You can pay this over the counter at any Landbank branch or even the
+          counter of LGU office in Bacoor, Cavite.
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 export default {
   name: "DownloadableInvoice",
   computed: {
@@ -101,27 +87,39 @@ export default {
   },
   methods: {
     generateReport() {
-      this.$refs.html2Pdf.generatePdf();
+      console.log('generate report')
+      const doc = new jsPDF("p", "mm", "a4");
+      /** WITH CSS */
+      var width = doc.internal.pageSize.getWidth();
+      var height = doc.internal.pageSize.getHeight();
+      var canvasElement = document.createElement("canvas");
+      html2canvas(this.$refs.content, {
+        canvas: canvasElement,
+        width: 794,
+        height: 1124,
+      }).then(function(canvas) {
+        console.log(canvas)
+        const img = canvas.toDataURL("image/jpeg", 1);
+        doc.addImage(img, "JPEG", 0, 0, width, height);
+        console.log(width, height);
+        doc.save("sample.pdf");
+      });
     },
-  },
-  mounted(){
-    console.log('print mounted')
-    this.generateReport()
   }
 };
 </script>
 
 <style lang="scss" scoped>
 .sc-invoice {
-  width: 100%;
+  width: 210mm;
+  height: 297mm;
 }
 
 .dialog-holder {
   box-shadow: -2px 10px 30px rgba(127, 127, 127, 0.1);
   display: flex;
   flex-direction: column;
-  width: 210mm;
-  height: 297mm;
+  width: 100%;
   .dialog-header {
     background: #2699fb;
     position: relative;

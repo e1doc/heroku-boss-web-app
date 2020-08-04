@@ -11,41 +11,13 @@
               BACOOR ONE STOP <br />
               SHOP SYSTEM
             </div>
-            <div v-if="authType === 'login'">
-              <button-full-outline
-                class="mt20"
-                @click.native="changeDiv('register')"
-                >REGISTER</button-full-outline
-              >
-            </div>
-            <div v-if="authType === 'register' || authType === 'forgotpass'">
-              <button-full-outline
-                class="mt20"
-                @click.native="changeDiv('login')"
-                >LOGIN</button-full-outline
-              >
-            </div>
+            <button-full-outline class="mt20" :link="{'name':'Login'}"
+              >LOGIN</button-full-outline
+            >
           </div>
         </div>
         <div class="right-div" :class="{ expand: isExpand }">
-          <!-- LOGIN DIV -->
-          <div v-if="authType === 'login'">
-            <login-div />
-          </div>
-
-          <!-- REGISTER DIV -->
-          <div v-if="authType === 'register'">
-            <register-div />
-          </div>
-
-          <!-- FORGOT PASS DIV -->
-          <div v-if="authType === 'forgotpass'">
-            <forgot-pass-div />
-          </div>
-
-          <div v-if="authType === 'otp'">
-            <otp-div />
-          </div>
+          <reset-pass-div />
         </div>
       </div>
     </div>
@@ -57,17 +29,17 @@ import ButtonFull from "@/components/ButtonFull";
 import ButtonFullOutline from "@/components/ButtonFullOutline";
 import LoginDiv from "@/components/auth/LoginDiv";
 import RegisterDiv from "@/components/auth/RegisterDiv";
-import ForgotPassDiv from "@/components/auth/ForgotPassDiv";
+import ResetPassDiv from "@/components/auth/ResetPassDiv";
 import OtpDiv from "@/components/auth/OtpDiv";
 import { mapGetters } from "vuex";
 export default {
-  name: "Login",
+  name: "ResetPassword",
   components: {
     ButtonFull,
     ButtonFullOutline,
     LoginDiv,
     RegisterDiv,
-    ForgotPassDiv,
+    ResetPassDiv,
     OtpDiv,
   },
   data() {
@@ -77,15 +49,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["authType", "loginSuccess"])
+    ...mapGetters(["authType", "loginSuccess"]),
   },
   watch: {
     loginSuccess: {
       deep: true,
       handler(isSuccess) {
         if (isSuccess) {
-          console.log(isSuccess)
-          this.$store.commit('setLoginSuccess',false)
+          console.log(isSuccess);
+          this.$store.commit("setLoginSuccess", false);
           this.$router.push({ name: "Profile" });
         }
       },
@@ -95,8 +67,7 @@ export default {
     changeDiv(type) {
       this.$store.commit("setAuthType", type);
       type === "register" ? (this.isExpand = true) : (this.isExpand = false);
-      this.$store.commit('setValidationMessages',{})
-      this.$store.commit('setForgotPasswordSuccess',false)
+      this.$store.commit("setValidationMessages", {});
     },
   },
 };

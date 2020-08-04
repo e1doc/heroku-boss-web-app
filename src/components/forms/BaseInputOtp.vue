@@ -58,11 +58,8 @@ export default {
     },
     updateValue(element) {
       var max_chars = 7;
-      console.log(element);
       if (element.length > max_chars) {
-        console.log(true);
         element = element.substr(0, max_chars);
-        console.log(element);
         this.inputData = element;
       }
     },

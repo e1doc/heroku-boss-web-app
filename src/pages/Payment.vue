@@ -1,5 +1,8 @@
 <template>
   <section>
+    <div class="meta-invoice-holder">
+          <downloadable-invoice />
+    </div>
     <div class="meta-parent-box">
       <div class="container flex-wrap">
         <div class="meta-left-box">
@@ -16,7 +19,7 @@
               </div>
             </div>
             <radio-button />
-            <div class="meta-button" v-if="paymentOption === 'counter'">
+            <div class="meta-button" @click="printInvoice()" v-if="paymentOption === 'counter'">
               <button-block>DOWNLOAD</button-block>
             </div>
             <div class="meta-button" v-if="paymentOption === 'online'">
@@ -49,7 +52,8 @@ export default {
   },
   data(){
       return{
-          printVisible: false
+          printVisible: false,
+          isPayment:true
       }
   },
   methods: {
@@ -62,6 +66,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.meta-invoice-holder{
+  position: absolute;
+  opacity: 0.0;
+  top:-500px;
+  z-index: -1;
+}
 section {
   div.meta-parent-box {
     width: 100%;

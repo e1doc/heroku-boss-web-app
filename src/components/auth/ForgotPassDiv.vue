@@ -5,9 +5,9 @@
         <font-awesome-icon icon="key" class="mr10 icon" />
       </div>
       <div>
-        <h1>RESET PASSWORD</h1>
+        <h1>FORGOT PASSWORD</h1>
       </div>
-      <div class="form-items" v-if="!isSuccess">
+      <div class="form-items" v-if="!forgotPasswordSuccess">
         <div class="note">
           Enter your registered email address to receive the password reset
           link.
@@ -24,12 +24,12 @@
           />
         </div>
         <div>
-          <button-full class="mt10">
+          <button-full class="mt10" @click.native="forgotPassword()">
             SUBMIT
           </button-full>
         </div>
       </div>
-      <div class="form-success" v-if="isSuccess">
+      <div class="form-success" v-if="forgotPasswordSuccess">
         <div class="note mt50">
           Password reset link will be sent to your email!
         </div>
@@ -46,6 +46,7 @@
 import ButtonFull from "@/components/ButtonFull";
 import ButtonFullOutline from "@/components/ButtonFullOutline";
 import BaseInputIcon from "@/components/forms/BaseInputIcon";
+import {mapGetters, mapActions} from "vuex"
 export default {
   name: "ForgotPassDiv",
   components: {
@@ -59,6 +60,15 @@ export default {
       isSuccess: false,
     };
   },
+  computed:{
+    ...mapGetters(["forgotPasswordSuccess"])
+  },
+  methods:{
+    ...mapActions(["forgotPasswordUser"]),
+    forgotPassword(){
+      this.forgotPasswordUser({email:this.email})
+    }
+  }
 };
 </script>
 

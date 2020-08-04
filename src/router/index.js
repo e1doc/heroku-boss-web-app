@@ -8,6 +8,7 @@ import Profile from "../pages/Profile.vue";
 import StatementOfAccounts from "../pages/StatementOfAccounts.vue";
 import Main from "../Main.vue";
 import Payment from "../pages/Payment.vue"
+import ResetPassword from "../pages/ResetPassword.vue"
 Vue.use(VueRouter);
 
 const routes = [
@@ -15,6 +16,11 @@ const routes = [
     path: "/",
     name: "Login",
     component: Login,
+  },
+  {
+    path: "/reset-password/:uid/:token",
+    name: "ResetPassword",
+    component: ResetPassword,
   },
   {
     path: "/home",

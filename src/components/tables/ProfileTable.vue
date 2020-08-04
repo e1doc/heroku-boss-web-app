@@ -10,7 +10,7 @@
     <div class="tbody">
       <div class="tr" v-for="index in 5" :key="index">
         <div class="td">F-000248</div>
-        <div class="td" v-if="currentType === 'business'">JMD SARI SARI STOREa</div>
+        <div class="td" v-if="currentType === 'business'">JMD SARI SARI STORE</div>
         <div class="td" v-if="currentType === 'real_property'">JOHN MICHAEL DOE</div>
         <div class="td actions">
           <div>
