@@ -96,6 +96,8 @@
         <div class="meta-form-group button-right">
             <button-block class="next-button">NEXT</button-block>
         </div>
+
+        <base-checkbox label="Option 1" v-model="option1" />
     </div>
 </template>
 
@@ -122,6 +124,7 @@ export default {
       presidentfirstname: "",
       presidentmiddlename: "",
       presidentlastname: "",
+      option1: ""
     };
   },
 };
@@ -132,6 +135,7 @@ div.meta-container{
     width: 100%;
     padding: 50px;
     background-color: #EAF6FF;
+    border-radius: 20px;
     h1.meta-form-title{
         margin-bottom: 40px;
     }

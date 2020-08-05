@@ -265,6 +265,7 @@ div.meta-container{
     width: 100%;
     padding: 50px;
     background-color: #EAF6FF;
+    border-radius: 20px;
     h1.meta-form-title{
         margin-bottom: 40px;
     }
@@ -297,6 +298,7 @@ div.meta-container{
         div.meta-multi-group{
             padding: 30px;
             background-color: #F1F9FF;
+            border-radius: 15px;
             div.meta-group-title{
                 font-size: 15px;
             }
