@@ -2,6 +2,7 @@
     <div class="meta-container">
         <h1 class="meta-form-title">Business Details</h1>
         <div class="meta-form-group mb60">
+            <div class="meta-group-title">Corporate Name: </div>
              <base-input
                 label="Business Name"
                 v-model="businessname"
@@ -19,7 +20,9 @@
                 type="text"
                 class="mt40"
             />
-
+        </div>
+        <div class="meta-form-group mb60">
+            <div class="meta-group-title">Other Business Details:</div>
              <base-input
                 label="Complete Business Address"
                 v-model="businessaddress"

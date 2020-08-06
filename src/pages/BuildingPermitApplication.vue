@@ -3,15 +3,15 @@
     <div class="container flex-wrap">
         <div class="meta-left-box">
             <progress-indicator 
-            pageTitle = "Application for Business Permit"
+            pageTitle = "Application for Building Permit"
             stepOne = "Basic Information"
-            stepTwo = "Business Details"
+            stepTwo = "Building Details"
             stepThree = "Upload your Requirements"
             lastStep = "Submit your Application"/>
         </div>
         <div class="meta-right-box flex-wrap">
-            <business-step-one />
-            <!-- <business-step-two /> -->
+            <!-- <building-step-one /> -->
+            <building-step-two />
             <!-- <upload-step /> -->
             <!-- <application-success /> -->
         </div>
@@ -20,21 +20,21 @@
 </template>
 
 <script>
-import BusinessStepOne from "@/components/application/BusinessStepOne"
-import BusinessStepTwo from "@/components/application/BusinessStepTwo"
+import BuildingStepOne from "@/components/application/BuildingStepOne"
+import BuildingStepTwo from "@/components/application/BuildingStepTwo"
 import UploadStep from "@/components/application/UploadStep"
 import ApplicationSuccess from "@/components/application/ApplicationSuccess"
 import ProgressIndicator from "@/components/application/ProgressIndicator"
 export default {
-  name: "BusinessPermitApplication",
-  components: {
-    BusinessStepOne,
-    BusinessStepTwo,
-    UploadStep,
-    ApplicationSuccess,
-    ProgressIndicator
-  },
-};
+    name: "BuildingPermitApplication",
+    components: {
+        BuildingStepOne,
+        BuildingStepTwo,
+        UploadStep,
+        ApplicationSuccess,
+        ProgressIndicator
+    },
+}
 </script>
 
 <style lang="scss" scoped>

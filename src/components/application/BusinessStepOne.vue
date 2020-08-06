@@ -61,6 +61,71 @@
                 type="email"
                 class="mt40"
             />
+
+            <base-input
+                label="Account Number"
+                v-model="accountnumber"
+                name="accountnumber"
+                refs="account_number"
+                type="number"
+                class="mt40 input-w3"
+            />
+            <base-input
+                label="DTI/SEC/CDA Registration No."
+                v-model="dtiregnumber"
+                name="dtiregnumber"
+                refs="dti_reg_number"
+                type="text"
+                class="mt40 input-w3"
+            />
+            <base-input
+                label="DTI/SEC/CDA Date of Registration No."
+                v-model="dtiregdate"
+                name="dtiregdate"
+                refs="dti_reg_date"
+                type="date"
+                class="mt40 input-w3"
+            />
+            <base-input
+                label="Type of Organization"
+                v-model="orgtype"
+                name="orgtype"
+                refs="org_type"
+                type="text"
+                class="mt40 input-w3"
+            />
+            <base-input
+                label="CTC No."
+                v-model="ctcnumber"
+                name="ctcnumber"
+                refs="ctc_number"
+                type="number"
+                class="mt40 input-w3"
+            />
+            <base-input
+                label="TIN"
+                v-model="tin"
+                name="tin"
+                refs="tin_number"
+                type="number"
+                class="mt40 input-w3"
+            />
+            <base-input
+                label="Are you enjoying tax incentive from any Government Entity?"
+                v-model="taxincentive"
+                name="taxincentive"
+                refs="tax_incentive"
+                type="text"
+                class="mt40 input-w3"
+            />
+            <base-input
+                label="Please specify the entity:"
+                v-model="goventity"
+                name="goventity"
+                refs="gov_entity"
+                type="text"
+                class="mt40 input-w3"
+            />
         </div>
 
         <div class="meta-form-group mb60">
@@ -96,8 +161,6 @@
         <div class="meta-form-group button-right">
             <button-block class="next-button">NEXT</button-block>
         </div>
-
-        <base-checkbox label="Option 1" v-model="option1" />
     </div>
 </template>
 

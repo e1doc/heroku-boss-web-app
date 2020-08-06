@@ -1,7 +1,8 @@
 <template>
   <div class="meta-checkbox flex-center">
       <input type="checkbox" id="option" v-model="inputValue">
-      <div class="custom-checkbox flex-center checked"><span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span></div>
+      <!-- Add 'checked' class to custom-checkbox -->
+      <div class="custom-checkbox flex-center"><span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span></div>
       <label for="option">{{ label }}</label>
   </div>
 </template>
@@ -27,7 +28,7 @@ export default {
 div.meta-checkbox{
   position: relative;
   label{
-      font-size: 15px;
+      font-size: 13px;
       line-height: 1.6;
   }
   input[type="checkbox"]{
@@ -44,7 +45,7 @@ div.meta-checkbox{
       height: 15px;
       width: 15px;
       border: 2px solid #2593F1;
-      margin-right: 15px;
+      margin-right: 12px;
       .check-icon{
           color: #fff;
           font-size: 14px;
