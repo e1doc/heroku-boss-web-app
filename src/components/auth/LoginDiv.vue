@@ -29,7 +29,7 @@
         />
       </div>
       <div>
-        <button-full class="mt10" @click.native="changeDiv('otp')">
+        <button-full class="mt10" @click.native="login">
           LOGIN
         </button-full>
       </div>
@@ -44,7 +44,7 @@
 import ButtonFull from "@/components/ButtonFull";
 import ButtonFullOutline from "@/components/ButtonFullOutline";
 import BaseInputIcon from "@/components/forms/BaseInputIcon";
-import { mapGetters } from "vuex";
+import { mapGetters,mapActions } from "vuex";
 export default {
   name: "LoginDiv",
   components: {
@@ -53,7 +53,7 @@ export default {
     BaseInputIcon,
   },
   computed: {
-    ...mapGetters(["authType"]),
+    ...mapGetters(["authType", "codeToken"]),
   },
   data() {
     return {
@@ -62,24 +62,30 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["getCodeToken"]),
     changeDiv(type) {
       this.$store.commit("setAuthType", type);
-      console.log(type);
+    },
+    login() {
+      this.getCodeToken({
+        username: this.username,
+        password: this.password,
+      });
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.forgotpass{
-  color: #039BE5;
+.forgotpass {
+  color: #039be5;
   font-size: 15px;
   padding: 10px;
   cursor: pointer;
   transition: 0.3s;
 }
 
-.forgotpass:hover{
+.forgotpass:hover {
   text-decoration: underline;
 }
 

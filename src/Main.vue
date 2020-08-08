@@ -1,17 +1,28 @@
 <template>
-  <div id="main">
-    <header-nav />
-    <router-view />
+  <div>
+    <div id="main">
+      <header-nav />
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
-import HeaderNav from "@/components/HeaderNav"
+import { mapGetters } from "vuex";
+import HeaderNav from "@/components/HeaderNav";
+import DownloadableInvoice from "@/components/payment/DownloadableInvoice";
 export default {
-  components:{
-    HeaderNav
+  components: {
+    HeaderNav,
+    DownloadableInvoice,
+  },
+  computed: {
+    ...mapGetters(["printInvoice"]),
+  },
+  mounted(){
+    this.$store.dispatch('getUserDetails')
   }
-}
+};
 </script>
 
 <style lang="scss">

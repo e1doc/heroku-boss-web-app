@@ -9,13 +9,15 @@
         <div class="triangle">
           <font-awesome-icon icon="caret-up" class="icon" />
         </div>
-        <div class="times" @click="closeModal()"  v-if="!isPayment"><font-awesome-icon icon="times" class="icon" /></div>
+        <div class="times" @click="closeModal()" v-if="!isPayment">
+          <font-awesome-icon icon="times" class="icon" />
+        </div>
       </div>
       <div class="dialog-body">
         <div class="invoice-action" v-if="!isPayment">
           <div class="title mb20">New Invoice</div>
           <div class="mb5">
-            <button-full-outline class="btn-reg" :link="{path:'payment'}"
+            <button-full-outline class="btn-reg" :link="{ path: 'payment' }"
               >PAY INVOICE</button-full-outline
             >
           </div>
@@ -66,18 +68,18 @@ export default {
   components: {
     ButtonFullOutline,
   },
-  props:{
-    isPayment:{
+  props: {
+    isPayment: {
       type: Boolean,
       default: false,
-      required: false
-    }
+      required: false,
+    },
   },
-  methods:{
-    closeModal(){
-      this.$modal.hide('invoiceModal')
-    }
-  }
+  methods: {
+    closeModal() {
+      this.$modal.hide("invoiceModal");
+    },
+  },
 };
 </script>
 
@@ -169,7 +171,7 @@ export default {
           }
           .item-value {
             font-size: 16px;
-            font-family: Proxima Nova;
+            font-family: "Proxima Nova Rg";
           }
         }
       }
@@ -199,7 +201,7 @@ export default {
             color: rgba($color: #2699fb, $alpha: 0.73);
             font-weight: bold;
             font-size: 14px;
-            font-family: Proxima Nova;
+            font-family: "Proxima Nova Rg";
             text-transform: uppercase;
         }
         .item-value{
@@ -207,7 +209,7 @@ export default {
             color: #2699FB;
             font-weight: bold;
             font-size: 20px;
-            font-family: Proxima Nova;
+            font-family: "Proxima Nova Rg";
             text-align: right;
         }
       }
@@ -215,10 +217,10 @@ export default {
   }
 }
 
-.details-item:nth-last-child(-n+2){
-    margin-bottom: 0!important;
+.details-item:nth-last-child(-n + 2) {
+  margin-bottom: 0 !important;
 }
-.size14{
+.size14 {
   font-size: 14px;
 }
 </style>

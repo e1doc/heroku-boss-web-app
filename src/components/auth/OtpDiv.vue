@@ -21,7 +21,7 @@
         />
       </div>
       <div>
-        <button-full class="mt10" :link="{path:'main/profile'}">
+        <button-full @click.native="verifyOtp" class="mt10">
           VERIFY
         </button-full>
       </div>
@@ -34,6 +34,7 @@ import ButtonFull from "@/components/ButtonFull";
 import ButtonFullOutline from "@/components/ButtonFullOutline";
 import BaseInputIcon from "@/components/forms/BaseInputIcon";
 import BaseInputOtp from "@/components/forms/BaseInputOtp";
+import { mapActions } from "vuex";
 export default {
   name: "OtpDiv",
   components: {
@@ -48,6 +49,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["getAuthToken"]),
     updateValue() {
       var max_chars = 7;
       if (this.code.length > max_chars) {
@@ -55,6 +57,9 @@ export default {
       }
       this.$forceUpdate();
     },
+    verifyOtp(){
+       this.getAuthToken(this.code);
+    }
   },
 };
 </script>

@@ -1,29 +1,60 @@
 <template>
   <div id="app">
-    <router-view/>
+    <div class="vld-parent">
+      <loading
+        :active.sync="isLoading"
+        :can-cancel="true"
+      ></loading>
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
-import HeaderNav from "@/components/HeaderNav"
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
+import HeaderNav from "@/components/HeaderNav";
+import { mapGetters, mapActions } from "vuex";
 export default {
-  components:{
-    HeaderNav
+  components: {
+    HeaderNav,
+    Loading,
+  },
+  computed: {
+    ...mapGetters(["isLoading","showPrompt","promptTitle","promptMessage","promptType"]),
+  },
+  methods:{
+    ...mapActions(["closePrompt"]),
+  },
+  watch:{
+    showPrompt:{
+      deep: true,
+      handler(isShow){
+        if(isShow){
+          this.$swal({
+            title: this.promptTitle,
+            text: this.promptMessage,
+            icon: this.promptType,
+            onClose: this.closePrompt()
+          })
+        }
+      }
+    }
   }
-}
+};
 </script>
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap');
-@import url('/css/main.scss');
-*{
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap");
+@import url("/css/main.scss");
+* {
   margin: 0;
   padding: 0;
 }
 #app {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2B2B2B;
+  color: #2b2b2b;
 }
 
 #nav {

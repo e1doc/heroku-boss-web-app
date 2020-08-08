@@ -30,6 +30,7 @@ a{
     display: block;
     box-sizing: border-box;
     text-align: center;
+    margin: 0 auto;
 }
 .btn {
     color: #ffffff;    

@@ -1,7 +1,8 @@
 <template>
   <section>
     <div class="thead">
-      <div class="th">ACCOUNT NUMBER</div>
+      <div class="th" v-if="currentType === 'business'">ACCOUNT #</div>
+      <div class="th" v-if="currentType === 'real_property'">TD #</div>
       <div class="th" v-if="currentType === 'business'">BUSNESS NAME</div>
       <div class="th" v-if="currentType === 'real_property'">OWNER NAME</div>
       <div class="th">ACTIONS</div>
@@ -9,7 +10,8 @@
     <div class="tbody">
       <div class="tr" v-for="index in 5" :key="index">
         <div class="td">F-000248</div>
-        <div class="td">BANTA, FLORENCIA AND LUCIA</div>
+        <div class="td" v-if="currentType === 'business'">JMD SARI SARI STORE</div>
+        <div class="td" v-if="currentType === 'real_property'">JOHN MICHAEL DOE</div>
         <div class="td actions">
           <div>
             <font-awesome-icon icon="sync-alt" class="mr5 icon" /> RENEW
@@ -71,7 +73,7 @@ export default {
     .td {
       flex: 1;
       font-size: 14px;
-      font-family: Proxima Nova;
+      font-family: "Proxima Nova Rg";
       text-align: center;
       padding: 17px 0px;
     }

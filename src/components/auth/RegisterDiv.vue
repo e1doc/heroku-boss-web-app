@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="form-holder" v-if="!isSuccess">
+    <div class="form-holder" v-if="!registerSuccess">
       <div>
         <h1>CREATE AN ACCOUNT</h1>
       </div>
@@ -9,33 +9,36 @@
           <base-input
             label="First Name"
             placeholder="Enter first name"
-            v-model="firstname"
-            name="firstname"
-            refs="first_name"
+            v-model="first_name"
+            name="first_name"
+            refs="firstname"
             type="text"
             class="mt40"
+            :validationMessages ="validationMessages.first_name"
           />
         </div>
         <div>
           <base-input
             label="Middle Name"
             placeholder="Enter middle name"
-            v-model="middlename"
-            name="middlename"
-            refs="middle_name"
+            v-model="middle_name"
+            name="middle_name"
+            refs="middlename"
             type="text"
             class="mt40"
+            :validationMessages ="validationMessages.middle_name"
           />
         </div>
         <div>
           <base-input
             label="Last Name"
             placeholder="Enter last name"
-            v-model="lastname"
-            name="lastname"
-            refs="last_name"
+            v-model="last_name"
+            name="last_name"
+            refs="lastname"
             type="text"
             class="mt40"
+            :validationMessages ="validationMessages.last_name"
           />
         </div>
         <div>
@@ -47,6 +50,7 @@
             refs="user_name"
             type="text"
             class="mt40"
+            :validationMessages ="validationMessages.username"
           />
         </div>
         <div>
@@ -58,17 +62,19 @@
             refs="user_email"
             type="email"
             class="mt40"
+            :validationMessages ="validationMessages.email"
           />
         </div>
         <div>
           <base-input
             label="Phone Number"
             placeholder="Enter phone number"
-            v-model="contactno"
-            name="contactno"
-            refs="contact_no"
-            type="number"
+            v-model="phone_number"
+            name="phone_number"
+            refs="phonenumber"
+            type="text"
             class="mt40"
+            :validationMessages ="validationMessages.phone_number"
           />
         </div>
         <div>
@@ -80,17 +86,18 @@
             refs="user_password"
             type="password"
             class="mt40"
+            :validationMessages ="validationMessages.password"
           />
         </div>
         <div>
-          <button-full class="mt10">
+          <button-full class="mt10" @click.native="register()">
             REGISTER
           </button-full>
         </div>
         <base-checkbox label="Option 2"/>
       </div>
     </div>
-    <div class="form-success" v-if="isSuccess">
+    <div class="form-success" v-if="registerSuccess">
       <div class="mb30">
         <font-awesome-icon icon="user-circle" class="icon" />
       </div>
@@ -112,26 +119,43 @@
 import ButtonFull from "@/components/ButtonFull";
 import ButtonFullOutline from "@/components/ButtonFullOutline";
 import BaseInput from "@/components/forms/BaseInput";
-import BaseCheckbox from "@/components/forms/BaseCheckbox"
+import { mapGetters, mapActions} from "vuex"
 export default {
   name: "RegisterDiv",
   components: {
     ButtonFull,
-    BaseInput,
-    BaseCheckbox
+    BaseInput
   },
   data() {
     return {
-      firstname: "",
-      middlename: "",
-      lastname: "",
+      first_name: "",
+      middle_name: "",
+      last_name: "",
       username: "",
       email: "",
-      contactno: "",
+      phone_number: "",
       password: "",
       isSuccess: false,
     };
   },
+  computed:{
+    ...mapGetters(["registerSuccess","validationMessages"])
+  },
+  methods:{
+    ...mapActions(["registerUser"]),
+    register(){
+     let payload = {
+        username: this.username,
+        first_name: this.first_name,
+        last_name: this.last_name,
+        middle_name: this.middle_name,
+        email: this.email,
+        password: this.password,
+        phone_number: this.phone_number
+      }
+      this.registerUser(payload)
+    }
+  }
 };
 </script>
 

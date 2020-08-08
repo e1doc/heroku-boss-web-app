@@ -10,6 +10,7 @@ import BusinessPermitApplication from "../pages/BusinessPermitApplication.vue";
 import BuildingPermitApplication from "../pages/BuildingPermitApplication.vue";
 import Main from "../Main.vue";
 import Payment from "../pages/Payment.vue"
+import ResetPassword from "../pages/ResetPassword.vue"
 Vue.use(VueRouter);
 
 const routes = [
@@ -17,6 +18,16 @@ const routes = [
     path: "/",
     name: "Login",
     component: Login,
+  },
+  {
+    path: "/reset-password/:uid/:token",
+    name: "ResetPassword",
+    component: ResetPassword,
+  },
+  {
+    path: "/home",
+    name: "Home",
+    component: Home,
   },
   {
     path: "/main",
