@@ -28,7 +28,8 @@ import {
   faPhone,
   faRetweet,
   faSyncAlt,
-  faCheck
+  faCheck,
+  faSave
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add([
@@ -52,7 +53,8 @@ library.add([
   faPhone,
   faRetweet,
   faSyncAlt,
-  faCheck
+  faCheck,
+  faSave
 ]);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.use(VModal)

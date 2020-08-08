@@ -2,13 +2,27 @@
     <div class="meta-container flex-center">
         <h1 class="meta-form-title">Upload your Requirements</h1>
         <div class="meta-note">Almost Done! Please upload your file. Only allowed format - jpg, jpeg, png or pdf file.</div>
-        <div class="meta-upload-box">
-            <div class="meta-custom-upload">
-                <input type="file" id="upload_file">
-                <div class="meta-text big">DRAG YOUR FILE HERE</div>
-                <div class="meta-text small">OR Click this to upload your file</div>
-            </div>
-        </div>
+        <base-file-uploader 
+            label="1. Proof of business registration, incorporation, or legal personality" 
+            description="{i.e. DTI* / SEC Cooperative Development Authority (CDA) registration} including basis for computing taxes, fees, and charges (e.g. business capitalization)." name="businessregproof" 
+            v-model="businessregproof" />
+        <base-file-uploader 
+            label="2. For Franchisee, please upload a copy of Franchise Agreement" 
+            name="franchiseagreement" 
+            v-model="franchiseagreement" />
+        <base-file-uploader 
+            label="3. Occupancy Permit" 
+            description="If required by national laws (e.g. Building Code) and local laws. Note For those without Occupancy Permit, sketch of business location including front full view picture of establishment." 
+            name="occupancypermit" 
+            v-model="occupancypermit" />
+        <base-file-uploader 
+            label="4. Contract of Lease (if Lessee)"
+            name="contractoflease" 
+            v-model="contractoflease" />
+        <base-file-uploader 
+            label="5. One Goverment issued ID"
+            name="governmentid" 
+            v-model="governmentid" />
         <div class="meta-form-group button-left-right">
             <button-block class="back-button">BACK</button-block>
             <button-block class="next-button">NEXT</button-block>
@@ -18,10 +32,12 @@
 
 <script>
 import ButtonBlock from "@/components/ButtonBlock"
+import BaseFileUploader from "@/components/forms/BaseFileUploader"
 export default {
-    name: "UploadStep",
+    name: "BusinessUploadStep",
     components: {
-        ButtonBlock
+        ButtonBlock,
+        BaseFileUploader
     },
 }
 </script>
@@ -37,7 +53,7 @@ div.meta-container{
     }
     .meta-note {
         font-size: 16px;
-        color: #2b2b2b;
+        color: #7ac0fa;
         margin-bottom: 30px;
     }
     .meta-custom-upload {

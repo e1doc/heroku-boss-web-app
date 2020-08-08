@@ -72,6 +72,29 @@ h3{
     text-align: right;
 }
 
+
+ul.main-list{
+    padding-left: 15px!important;
+}
+
+ul.main-list > li {
+    margin-bottom: 15px !important;
+    font-weight: bold !important;
+    color: #00549bb0 !important;
+    line-height: 1.6;
+}
+
+ul.sub-list {
+    margin-left: 16px!important;
+    margin-top: 5px!important;
+}
+
+ul.sub-list > li {
+    font-weight: normal!important;
+    color: #2b2b2b!important;
+}
+
+
 @media only screen and( max-width: 1400px ){
     .sc-rounded-div{
         max-width: 830px;

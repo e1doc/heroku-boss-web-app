@@ -2,6 +2,35 @@
     <div class="meta-container">
         <h1 class="meta-form-title">Business Details</h1>
         <div class="meta-form-group mb60">
+            <div class="meta-group-title">President / Treasurer of Corporation</div>
+            <div class="meta-input-group flex-row">
+                <base-input
+                    label="First Name"
+                    v-model="presidentfirstname"
+                    name="presidentfirstname"
+                    refs="pres_first_name"
+                    type="text"
+                    class="mt40 input-w3"
+                />
+                <base-input
+                    label="Middle Name(optional)"
+                    v-model="presidentmiddlename"
+                    name="presidentmiddlename"
+                    refs="pres_middle_name"
+                    type="text"
+                    class="mt40 input-w3"
+                />
+                <base-input
+                    label="Last Name"
+                    v-model="presidentlastname"
+                    name="presidentlastname"
+                    refs="pres_last_name"
+                    type="text"
+                    class="mt40 input-w3"
+                />
+            </div>
+        </div>
+        <div class="meta-form-group mb60">
             <div class="meta-group-title">Corporate Name: </div>
              <base-input
                 label="Business Name"

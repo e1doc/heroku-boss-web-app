@@ -1,5 +1,6 @@
 <template>
   <div class="meta-parent-box">
+    <div class="container mb30 meta-save-draft"><router-link to="#"><font-awesome-icon icon="save" class="icon" /> SAVE AS DRAFT</router-link></div>
     <div class="container flex-wrap">
         <div class="meta-left-box">
             <progress-indicator 
@@ -12,7 +13,7 @@
         <div class="meta-right-box flex-wrap">
             <!-- <building-step-one /> -->
             <building-step-two />
-            <!-- <upload-step /> -->
+            <!-- <building-upload-step /> -->
             <!-- <application-success /> -->
         </div>
     </div>
@@ -22,7 +23,7 @@
 <script>
 import BuildingStepOne from "@/components/application/BuildingStepOne"
 import BuildingStepTwo from "@/components/application/BuildingStepTwo"
-import UploadStep from "@/components/application/UploadStep"
+import BuildingUploadStep from "@/components/application/BuildingUploadStep"
 import ApplicationSuccess from "@/components/application/ApplicationSuccess"
 import ProgressIndicator from "@/components/application/ProgressIndicator"
 export default {
@@ -30,7 +31,7 @@ export default {
     components: {
         BuildingStepOne,
         BuildingStepTwo,
-        UploadStep,
+        BuildingUploadStep,
         ApplicationSuccess,
         ProgressIndicator
     },
@@ -53,5 +54,18 @@ div.meta-parent-box{
             float: left;
         }
     }
+    .meta-save-draft{
+        font-size: 18px;
+        font-weight: bold;
+        text-align: right;
+        a{
+            text-decoration: none;
+            color: #e23a36;
+        }
+    }
+}
+
+.meta-save-draft a:hover{
+    color: #E8726F!important;
 }
 </style>
