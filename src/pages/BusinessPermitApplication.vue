@@ -11,11 +11,12 @@
             lastStep = "Submit your Application"/>
         </div>
         <div class="meta-right-box flex-wrap">
-            <business-step-one />
+            <!-- <business-step-one /> -->
             <!-- <business-step-two /> -->
             <!-- <business-upload-step /> -->
             <!-- <business-renewal-upload-step /> -->
             <!-- <application-success /> -->
+            <downloadable-business-form />
         </div>
     </div>
   </div>
@@ -28,6 +29,7 @@ import BusinessUploadStep from "@/components/application/BusinessUploadStep"
 import BusinessRenewalUploadStep from "@/components/application/BusinessRenewalUploadStep"
 import ApplicationSuccess from "@/components/application/ApplicationSuccess"
 import ProgressIndicator from "@/components/application/ProgressIndicator"
+import DownloadableBusinessForm from "@/components/application/DownloadableBusinessForm"
 export default {
   name: "BusinessPermitApplication",
   components: {
@@ -36,7 +38,8 @@ export default {
     BusinessUploadStep,
     BusinessRenewalUploadStep,
     ApplicationSuccess,
-    ProgressIndicator
+    ProgressIndicator,
+    DownloadableBusinessForm
   },
 };
 </script>
