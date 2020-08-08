@@ -313,17 +313,27 @@ div.meta-container{
         div.input-wrapper{
             margin-bottom: 15px
         }
-        div.meta-input-group{
+        div.meta-input-group {
             width: 100%;
             .input-w2 {
-                width: calc(50% - 10px);
+                width: 50%;
                 float: left;
                 margin-right: 10px;
             }
             .input-w3 {
-                width: calc(33% - 10px);
+                width: 33%;
                 float: left;
                 margin-right: 10px;
+            }
+            .input-w4 {
+                width: 25%;
+                float: left;
+                margin-right: 10px;
+            }
+            .input-w3:last-child,
+            .input-w4:last-child,
+            .input-w2:last-child {
+                margin-right: 0;
             }
         }
 
@@ -349,11 +359,6 @@ div.meta-container{
             float: right;
         }
     }
-}
-
-div.meta-container div.meta-form-group div.meta-input-group .input-w2:last-child,
-div.meta-container div.meta-form-group div.meta-input-group .input-w3:last-child {
-    margin-right: 0;
 }
 
 .back-button:hover{

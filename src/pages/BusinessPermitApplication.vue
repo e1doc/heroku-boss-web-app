@@ -11,10 +11,10 @@
             lastStep = "Submit your Application"/>
         </div>
         <div class="meta-right-box flex-wrap">
-            <!-- <business-step-one /> -->
+            <business-step-one />
             <!-- <business-step-two /> -->
             <!-- <business-upload-step /> -->
-            <business-renewal-upload-step />
+            <!-- <business-renewal-upload-step /> -->
             <!-- <application-success /> -->
         </div>
     </div>

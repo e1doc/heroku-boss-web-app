@@ -11,8 +11,8 @@
             lastStep = "Submit your Application"/>
         </div>
         <div class="meta-right-box flex-wrap">
-            <!-- <building-step-one /> -->
-            <building-step-two />
+            <building-step-one />
+            <!-- <building-step-two /> -->
             <!-- <building-upload-step /> -->
             <!-- <application-success /> -->
         </div>
@@ -42,6 +42,7 @@ export default {
 div.meta-parent-box{
     width: 100%;
     margin-top: 50px;
+    padding-bottom: 50px;
     div.container{
         max-width: 1400px;
         .meta-left-box {

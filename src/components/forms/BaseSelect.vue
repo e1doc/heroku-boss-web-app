@@ -15,6 +15,7 @@
           {{ option.label }}
         </option>
     </select>
+    <font-awesome-icon icon="chevron-down" class="dropdown-icon" />
     <label>{{ label }}</label>
   </div>
 </template>
@@ -108,6 +109,12 @@ export default {
           line-height: 50px;
           font-family: Raleway;
       }
+  }
+  .dropdown-icon{
+    position: absolute;
+    right: 15px;
+    top: 20px;
+    color: #039be5;
   }
 }
 

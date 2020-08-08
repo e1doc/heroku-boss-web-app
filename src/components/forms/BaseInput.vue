@@ -101,16 +101,17 @@ export default {
   }
 }
 .input-wrapper {
-  background: #ffffff;
   font-size: 15px;
   font-family: "Raleway", sans-serif;
-  padding: 15px;
+  background: #ffffff;
+  border: 1px solid #bdc3c7;
+  border-radius: 10px;
   display: flex;
   flex-direction: row;
-  border-radius: 10px;
-  border: 1px solid #bdc3c7;
+  padding: 15px;
+  position: relative;  
   transition: 0.1s;
-  position: relative;
+  margin-bottom: 15px;
   .label {
     color: #bababa;
     background: white;

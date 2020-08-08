@@ -10,7 +10,7 @@
           name="lotnumber"
           refs="lot_number"
           type="text"
-          class="mt40 input-w4"
+          class="input-w4"
         />
         <base-input
           label="Blk No."
@@ -18,7 +18,7 @@
           name="blknumber"
           refs="blk_number"
           type="text"
-          class="mt40 input-w4"
+          class="input-w4"
         />
         <base-input
           label="TCT No."
@@ -26,7 +26,7 @@
           name="tctnumber"
           refs="tct_number"
           type="text"
-          class="mt40 input-w4"
+          class="input-w4"
         />
         <base-input
           label="Tax Dec. No."
@@ -34,7 +34,7 @@
           name="taxdecnumber"
           refs="tax_dec_number"
           type="text"
-          class="mt40 input-w4"
+          class="input-w4"
         />
       </div>
       <div class="meta-input-group flex-row">
@@ -44,7 +44,7 @@
           name="street"
           refs="street_name"
           type="text"
-          class="mt40 input-w3"
+          class="input-w3"
         />
         <base-input
           label="Barangay"
@@ -52,7 +52,7 @@
           name="barangay"
           refs="barangay_name"
           type="text"
-          class="mt40 input-w3"
+          class="input-w3"
         />
         <base-input
           label="City / Province"
@@ -60,7 +60,7 @@
           name="cityprovince"
           refs="city_province"
           type="text"
-          class="mt40 input-w3"
+          class="input-w3"
         />
       </div>
     </div>
@@ -74,7 +74,7 @@
           name="otherscope"
           refs="other_scope"
           type="text"
-          class="mt40"
+          class=""
         />
     </div>
 
@@ -88,7 +88,7 @@
           name="otheroccupancy"
           refs="other_occupancy"
           type="text"
-          class="mt40"
+          class=""
         />
     </div>
 
@@ -101,7 +101,7 @@
           name="occupancy"
           refs="occupancy_class"
           type="text"
-          class="mt40 input-w2"
+          class=" input-w2"
         />
         <base-input
           label="Total Estimated Cost"
@@ -109,7 +109,7 @@
           name="estimatedcost"
           refs="estimated_cost"
           type="text"
-          class="mt40 input-w2"
+          class=" input-w2"
         />
       </div>
       <div class="meta-input-group flex-row">
@@ -119,7 +119,7 @@
           name="unitscount"
           refs="units_count"
           type="text"
-          class="mt40 input-w3"
+          class="input-w3 "
         />
         <base-input
           label="Total Floor Area in sqm."
@@ -127,7 +127,7 @@
           name="floorarea"
           refs="floor_area"
           type="text"
-          class="mt40 input-w3"
+          class="input-w3 "
         />
         <base-input
           label="Lot Area in sqm."
@@ -135,7 +135,7 @@
           name="lotarea"
           refs="lot_area"
           type="text"
-          class="mt40 input-w3"
+          class="input-w3 "
         />
       </div>
       <base-input
@@ -144,7 +144,7 @@
         name="dateofconstruction"
         refs="date_of_construction"
         type="date"
-        class="mt40"
+        class=""
       />
     </div>
 
@@ -301,19 +301,24 @@ div.meta-container {
     div.meta-input-group {
       width: 100%;
       .input-w2 {
-        width: calc(50% - 10px);
+        width: 50%;
         float: left;
         margin-right: 10px;
       }
       .input-w3 {
-        width: calc(33% - 10px);
+        width: 33%;
         float: left;
         margin-right: 10px;
       }
       .input-w4 {
-        width: calc(25% - 10px);
+        width: 25%;
         float: left;
         margin-right: 10px;
+      }
+      .input-w3:last-child,
+      .input-w4:last-child,
+      .input-w2:last-child {
+        margin-right: 0;
       }
     }
   }
@@ -333,20 +338,5 @@ div.meta-container {
     background-color: #2699FB!important;
     color: #fff!important;
     border-color: #2699FB!important;
-}
-
-div.meta-container
-  div.meta-form-group
-  div.meta-input-group
-  .input-w3:last-child,
-div.meta-container
-  div.meta-form-group
-  div.meta-input-group
-  .input-w3:last-child,
-div.meta-container
-  div.meta-form-group
-  div.meta-input-group
-  .input-w4:last-child {
-  margin-right: 0;
 }
 </style>
