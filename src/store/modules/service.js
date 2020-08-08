@@ -8,7 +8,8 @@ const state = {
   registerSuccess: false,
   forgotPasswordSuccess: false,
   resetPasswordSuccess: false,
-  validationMessages: {}
+  validationMessages: {},
+  userDetails: {}
 };
 
 const getters = {
@@ -18,7 +19,8 @@ const getters = {
   registerSuccess: (state) => state.registerSuccess,
   forgotPasswordSuccess: (state) => state.forgotPasswordSuccess,
   resetPasswordSuccess: (state) => state.resetPasswordSuccess,
-  validationMessages: (state) => state.validationMessages
+  validationMessages: (state) => state.validationMessages,
+  userDetails: (state) => state.userDetails
 };
 
 const mutations = {
@@ -29,6 +31,7 @@ const mutations = {
   setForgotPasswordSuccess: (state, forgotPasswordSuccess) => (state.forgotPasswordSuccess = forgotPasswordSuccess),
   setResetPasswordSuccess: (state, resetPasswordSuccess) => (state.resetPasswordSuccess = resetPasswordSuccess),
   setValidationMessages: (state, validationMessages) => (state.validationMessages = validationMessages),
+  setUserDetails: (state, userDetails) => (state.userDetails = userDetails)
 };
 
 const actions = {
@@ -37,7 +40,8 @@ const actions = {
       commit("setLoading", true);
       const response = await axios.post(
         `${baseUrl}/auth/2fa-auth/get-code-token/`,
-        payload
+        payload,
+        {withCredentials: true }
       );
       commit("setCodeToken", response.data.token);
       commit("setAuthType", "otp");
@@ -60,14 +64,14 @@ const actions = {
       commit("setLoading", true);
       const response = await axios.post(
         `${baseUrl}/auth/2fa-auth/get-auth-token/`,
-        payload
+        payload,
+        {withCredentials: true }
       );
-      console.log(response.data)
-        commit("setLoading", false);
-        commit("setAuthToken", response.data.token);
-        commit("setLoginSuccess", true);
+      commit("setLoading", false);
+      commit("setAuthToken", response.data.token);
+      commit("setLoginSuccess", true);
     } catch (err) {
-      console.log(err.response)
+      console.log(err.response);
       commit("setLoading", false);
       dispatch("createPrompt", {
         type: "error",
@@ -81,34 +85,60 @@ const actions = {
       commit("setLoading", true);
       const response = await axios.post(`${baseUrl}/auth/users/`, payload);
       commit("setLoading", false);
-      commit("setRegisterSuccess", true)
+      commit("setRegisterSuccess", true);
     } catch (err) {
       commit("setLoading", false);
-      commit('setValidationMessages', err.response.data)
+      commit("setValidationMessages", err.response.data);
     }
   },
-  async forgotPasswordUser({commit}, payload){
+  async forgotPasswordUser({ commit }, payload) {
     try {
       commit("setLoading", true);
-      const response = await axios.post(`${baseUrl}/auth/users/reset_password/`, payload);
+      const response = await axios.post(
+        `${baseUrl}/auth/users/reset_password/`,
+        payload
+      );
       commit("setLoading", false);
-      commit("setForgotPasswordSuccess", true)
+      commit("setForgotPasswordSuccess", true);
     } catch (err) {
       commit("setLoading", false);
-      commit('setValidationMessages', err.response.data)
+      commit("setValidationMessages", err.response.data);
     }
   },
-  async resetPasswordUser({commit},payload){
+  async resetPasswordUser({ commit, dispatch }, payload) {
     try {
       commit("setLoading", true);
-      const response = await axios.post(`${baseUrl}/auth/users/reset_password_confirm/`, payload);
+      const response = await axios.post(
+        `${baseUrl}/auth/users/reset_password_confirm/`,
+        payload
+      );
       commit("setLoading", false);
-      commit("setResetPasswordSuccess", true)
+      commit("setResetPasswordSuccess", true);
+      dispatch("createPrompt", {
+        type: "success",
+        title: "Reset Password Success!",
+        message: "Your email was reset successfully.",
+      });
     } catch (err) {
       commit("setLoading", false);
-      commit('setValidationMessages', err.response.data)
+      commit("setValidationMessages", err.response.data);
+      if (err.response.data.non_field_errors) {
+        dispatch("createPrompt", {
+          type: "error",
+          title: "Error!",
+          message: err.response.data.non_field_errors,
+        });
+      }
     }
-  }
+  },
+  async getUserDetails({ commit, getters }) {
+    try {
+      const response = await axios.get(`${baseUrl}/auth/users/me`,{ withCredentials: true })
+      commit('setUserDetails',response.data)
+    } catch (err) {
+      console.log(err)
+    }
+  },
 };
 export default {
   state,

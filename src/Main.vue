@@ -19,6 +19,9 @@ export default {
   computed: {
     ...mapGetters(["printInvoice"]),
   },
+  mounted(){
+    this.$store.dispatch('getUserDetails')
+  }
 };
 </script>
 

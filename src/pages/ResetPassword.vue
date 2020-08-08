@@ -49,16 +49,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["authType", "loginSuccess"]),
+    ...mapGetters(["authType", "resetPasswordSuccess"]),
   },
   watch: {
-    loginSuccess: {
+    resetPasswordSuccess: {
       deep: true,
       handler(isSuccess) {
         if (isSuccess) {
-          console.log(isSuccess);
-          this.$store.commit("setLoginSuccess", false);
-          this.$router.push({ name: "Profile" });
+          this.$router.push({ name: "Login" });
+           this.$store.commit("setResetPasswordSuccess", false);
         }
       },
     },

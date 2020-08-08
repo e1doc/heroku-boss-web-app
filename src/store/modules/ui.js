@@ -1,16 +1,19 @@
-const state = {
-  authType: "login",
-  currentTable: "profile",
-  currentType: "business",
-  printInvoice: false,
-  paymentOption: "counter",
-  isLoading: false,
-  showPrompt: false,
-  promptType: "",
-  promptTitle: "",
-  promptMessage: "",
-};
-
+const getDefaultUIState =  () => {
+  return{
+    authType: "login",
+    currentTable: "profile",
+    currentType: "business",
+    printInvoice: false,
+    paymentOption: "counter",
+    isLoading: false,
+    showPrompt: false,
+    promptType: "",
+    promptTitle: "",
+    promptMessage: "",
+    redirectLogin: false,
+  };
+}
+const state = getDefaultUIState()
 const getters = {
   authType: (state) => state.authType,
   currentTable: (state) => state.currentTable,
@@ -31,7 +34,7 @@ const actions = {
     commit("setShowPrompt", true);
     commit("setPromptTitle", payload.title);
   },
-  closePrompt({ commit }, payload) {
+  closePrompt({ commit, getters}, payload) {
     commit("setPromptType", '');
     commit("setPromptMessage", '');
     commit("setShowPrompt", false);
@@ -50,6 +53,7 @@ const mutations = {
   setPromptType: (state, promptType) => (state.promptType = promptType),
   setPromptTitle: (state, promptTitle) => (state.promptTitle = promptTitle),
   setPromptMessage: (state, promptMessage) => (state.promptMessage = promptMessage),
+  resetUIState: (state) => Object.assign(state, getDefaultUIState())
 };
 
 export default {

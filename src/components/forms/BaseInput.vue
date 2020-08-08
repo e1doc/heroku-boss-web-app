@@ -94,7 +94,7 @@ export default {
   flex-direction: column;
   text-align: left;
   .meta-error-text {
-    margin-top: 5px;
+    margin-top: 10px;
     font-size: 12px;
     color: #e8726f;
     font-weight: bold;

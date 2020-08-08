@@ -10,6 +10,8 @@ import VModal from 'vue-js-modal'
 import VueHtml2pdf from 'vue-html2pdf'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import Skeleton from 'vue-loading-skeleton';
+Vue.use(Skeleton)
 Vue.use(VueSweetalert2);
 Vue.use(VueHtml2pdf)
 import {

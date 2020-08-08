@@ -20,6 +20,7 @@
             refs="newpassword"
             type="password"
             class="mt40"
+            :validationMessages="validationMessages.new_password"
           />
         </div>
         <div>
@@ -30,6 +31,7 @@
             name="re_new_password"
             refs="renewpassword"
             type="password"
+            :validationMessages="validationMessages.re_new_password"
           />
         </div>
         <div>
@@ -62,7 +64,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["resetPasswordSuccess"]),
+    ...mapGetters(["resetPasswordSuccess","validationMessages"]),
   },
   methods: {
     ...mapActions(["resetPasswordUser"]),
@@ -73,6 +75,7 @@ export default {
         new_password: this.new_password,
         re_new_password: this.re_new_password
       }
+      console.log(payload)
       this.resetPasswordUser(payload);
     },
   },

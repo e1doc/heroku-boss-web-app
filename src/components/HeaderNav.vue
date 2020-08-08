@@ -44,8 +44,9 @@ export default {
  name : "HeaderNav",
  methods:{
    logout(){
-        this.$store.commit("setAuthType", 'login');
-        this.$router.push({ path: '/' })
+         this.$store.commit("setAuthType", 'login');
+         this.$store.commit('resetUIState')
+         this.$router.push({ path: '/' })
    }
  }
 }
