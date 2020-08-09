@@ -12,10 +12,10 @@
         </div>
         <div class="meta-right-box flex-wrap">
             <building-step-one />
-            <building-step-two />
+            <!-- <building-step-two /> -->
             <!-- <building-upload-step /> -->
             <!-- <application-success /> -->
-            <downloadable-building-form />
+            <!-- <downloadable-building-form /> -->
         </div>
     </div>
   </div>
