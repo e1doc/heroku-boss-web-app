@@ -138,11 +138,12 @@
           class="input-w3 "
         />
       </div>
-
-      <div class="meta-input-label mt10 mb10">Proposed Date of Construction</div>
-      <base-date-picker 
-        v-model="dateofconstruction" 
-        class="mb15"/>
+      <div class="meta-form-group mb60">
+          <div class="meta-group-title mt10 mb10">Proposed Date of Construction</div>
+          <base-date-picker 
+            v-model="dateofconstruction" 
+            class="mb15"/>
+      </div>
         
     </div>
 
@@ -295,6 +296,12 @@ div.meta-container {
       line-height: 19px;
       width: 100%;
       margin-bottom: 20px;
+    }   
+    div.meta-input-label{
+        color: #2699FB;
+        font-size: 13px;
+        line-height: 19px;
+        width: 100%;
     }
     div.input-wrapper {
       margin-bottom: 15px;
