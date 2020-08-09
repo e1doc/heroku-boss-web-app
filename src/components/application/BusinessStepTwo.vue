@@ -3,7 +3,6 @@
         <h1 class="meta-form-title">Business Details</h1>
         <div class="meta-form-group mb60">
             <div class="meta-group-title">President / Treasurer of Corporation</div>
-            <div class="meta-input-group flex-row">
                 <base-input
                     label="First Name"
                     v-model="presidentfirstname"
@@ -28,7 +27,6 @@
                     type="text"
                     class="mt40"
                 />
-            </div>
         </div>
         <div class="meta-form-group mb60">
             <div class="meta-group-title">Corporate Name: </div>
@@ -128,32 +126,30 @@
 
         <div class="meta-form-group mb60">
             <div class="meta-group-title">If Place of business is rented, please identify the following Lessor's Details: </div>
-            <div class="meta-input-group flex-row">
-                <base-input
-                    label="First Name"
-                    v-model="lessorfirstname"
-                    name="lessorfirstname"
-                    refs="lessor_firstname"
-                    type="text"
-                    class="mt40"
-                />
-                <base-input
-                    label="Middle Name(optional)"
-                    v-model="lessormiddlename"
-                    name="lessormiddlename"
-                    refs="lessor_middlename"
-                    type="text"
-                    class="mt40"
-                />
-                <base-input
-                    label="Last Name"
-                    v-model="lessorlastname"
-                    name="lessorlastname"
-                    refs="lessor_lastname"
-                    type="text"
-                    class="mt40"
-                />
-            </div>
+            <base-input
+                label="First Name"
+                v-model="lessorfirstname"
+                name="lessorfirstname"
+                refs="lessor_firstname"
+                type="text"
+                class="mt40"
+            />
+            <base-input
+                label="Middle Name(optional)"
+                v-model="lessormiddlename"
+                name="lessormiddlename"
+                refs="lessor_middlename"
+                type="text"
+                class="mt40"
+            />
+            <base-input
+                label="Last Name"
+                v-model="lessorlastname"
+                name="lessorlastname"
+                refs="lessor_lastname"
+                type="text"
+                class="mt40"
+            />
             <base-input
                 label="Complete Address"
                 v-model="lessoraddress"
@@ -179,15 +175,7 @@
                     type="number"
                     class="mt40 input-w2"
                 />
-                <!-- <base-input
-                    label="Mobile No."
-                    v-model="lessormobile"
-                    name="lessormobile"
-                    refs="lessor_mobile"
-                    type="number"
-                    class="mt40 input-w2"
-            /> -->
-             <base-tel-number v-model="lessormobile" class="mb15" placeholder="Mobile no."/>
+            <base-tel-number v-model="lessormobile" class="mb15" placeholder="Mobile no."/>
             </div>
             <base-input
                 label="Email Address"
