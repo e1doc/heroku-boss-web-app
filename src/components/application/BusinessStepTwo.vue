@@ -1,45 +1,43 @@
 <template>
-  <div class="meta-container">
-    <h1 class="meta-form-title">Business Details</h1>
-    <div class="meta-form-group mb60">
-      <div class="meta-group-title">President / Treasurer of Corporation</div>
-      <div class="meta-input-group flex-row">
-        <base-input
-          label="First Name"
-          v-model="presidentfirstname"
-          name="presidentfirstname"
-          refs="pres_first_name"
-          type="text"
-          class="mt40"
-        />
-        <base-input
-          label="Middle Name(optional)"
-          v-model="presidentmiddlename"
-          name="presidentmiddlename"
-          refs="pres_middle_name"
-          type="text"
-          class="mt40"
-        />
-        <base-input
-          label="Last Name"
-          v-model="presidentlastname"
-          name="presidentlastname"
-          refs="pres_last_name"
-          type="text"
-          class="mt40"
-        />
-      </div>
-    </div>
-    <div class="meta-form-group mb60">
-      <div class="meta-group-title">Corporate Name:</div>
-      <base-input
-        label="Business Name"
-        v-model="businessname"
-        name="businessname"
-        refs="business_name"
-        type="text"
-        class="mt40"
-      />
+    <div class="meta-container">
+        <h1 class="meta-form-title">Business Details</h1>
+        <div class="meta-form-group mb60">
+            <div class="meta-group-title">President / Treasurer of Corporation</div>
+                <base-input
+                    label="First Name"
+                    v-model="presidentfirstname"
+                    name="presidentfirstname"
+                    refs="pres_first_name"
+                    type="text"
+                    class="mt40"
+                />
+                <base-input
+                    label="Middle Name(optional)"
+                    v-model="presidentmiddlename"
+                    name="presidentmiddlename"
+                    refs="pres_middle_name"
+                    type="text"
+                    class="mt40"
+                />
+                <base-input
+                    label="Last Name"
+                    v-model="presidentlastname"
+                    name="presidentlastname"
+                    refs="pres_last_name"
+                    type="text"
+                    class="mt40"
+                />
+        </div>
+        <div class="meta-form-group mb60">
+            <div class="meta-group-title">Corporate Name: </div>
+             <base-input
+                label="Business Name"
+                v-model="businessname"
+                name="businessname"
+                refs="business_name"
+                type="text"
+                class="mt40"
+            />
 
       <base-input
         label="Trade Name / Franchise"
@@ -102,113 +100,68 @@
         class="mt40"
       />
 
-      <div class="meta-input-group flex-row">
-        <base-input
-          label="Business Area (in sq. m.)"
-          v-model="businessarea"
-          name="businessarea"
-          refs="business_area"
-          type="number"
-          class="mt40 input-w2"
-        />
-        <base-input
-          label="Total No. of Employees"
-          v-model="employees"
-          name="employees"
-          refs="employees_count"
-          type="number"
-          class="mt40 input-w2"
-        />
-      </div>
-      <base-input
-        label="No. of Employees residing  in City/Municipality"
-        v-model="employeesresidence"
-        name="employeesresidence"
-        refs="employees_residence"
-        type="number"
-        class="mt40"
-      />
-    </div>
-
-    <div class="meta-form-group mb60">
-      <div class="meta-group-title">
-        If Place of business is rented, please identify the following Lessor's
-        Details:
-      </div>
-      <div class="meta-input-group flex-row">
-        <base-input
-          label="First Name"
-          v-model="lessorfirstname"
-          name="lessorfirstname"
-          refs="lessor_firstname"
-          type="text"
-          class="mt40"
-        />
-        <base-input
-          label="Middle Name(optional)"
-          v-model="lessormiddlename"
-          name="lessormiddlename"
-          refs="lessor_middlename"
-          type="text"
-          class="mt40"
-        />
-        <base-input
-          label="Last Name"
-          v-model="lessorlastname"
-          name="lessorlastname"
-          refs="lessor_lastname"
-          type="text"
-          class="mt40"
-        />
-      </div>
-      <base-input
-        label="Complete Address"
-        v-model="lessoraddress"
-        name="lessoraddress"
-        refs="lessor_address"
-        type="text"
-        class="mt40"
-      />
-      <base-input
-        label="Gross Monthly Rental"
-        v-model="monthlyrental"
-        name="monthlyrental"
-        refs="monthly_rental"
-        type="text"
-        class="mt40"
-      />
-      <div class="meta-input-group flex-row">
-        <base-input
-          label="Telephone No."
-          v-model="lessortelephone"
-          name="lessortelephone"
-          refs="lessor_telephone"
-          type="number"
-          class="mt40 input-w2"
-        />
-        <!-- <base-input
-                    label="Mobile No."
-                    v-model="lessormobile"
-                    name="lessormobile"
-                    refs="lessor_mobile"
+        <div class="meta-form-group mb60">
+            <div class="meta-group-title">If Place of business is rented, please identify the following Lessor's Details: </div>
+            <base-input
+                label="First Name"
+                v-model="lessorfirstname"
+                name="lessorfirstname"
+                refs="lessor_firstname"
+                type="text"
+                class="mt40"
+            />
+            <base-input
+                label="Middle Name(optional)"
+                v-model="lessormiddlename"
+                name="lessormiddlename"
+                refs="lessor_middlename"
+                type="text"
+                class="mt40"
+            />
+            <base-input
+                label="Last Name"
+                v-model="lessorlastname"
+                name="lessorlastname"
+                refs="lessor_lastname"
+                type="text"
+                class="mt40"
+            />
+            <base-input
+                label="Complete Address"
+                v-model="lessoraddress"
+                name="lessoraddress"
+                refs="lessor_address"
+                type="text"
+                class="mt40"
+            />
+            <base-input
+                label="Gross Monthly Rental"
+                v-model="monthlyrental"
+                name="monthlyrental"
+                refs="monthly_rental"
+                type="text"
+                class="mt40"
+            />
+            <div class="meta-input-group flex-row">
+                <base-input
+                    label="Telephone No."
+                    v-model="lessortelephone"
+                    name="lessortelephone"
+                    refs="lessor_telephone"
                     type="number"
                     class="mt40 input-w2"
-            /> -->
-        <base-tel-number
-          v-model="lessormobile"
-          class="mb15"
-          placeholder="Mobile no."
-        />
-      </div>
-      <base-input
-        label="Email Address"
-        v-model="lessoremail"
-        name="lessoremail"
-        refs="lessor_email"
-        type="email"
-        class="mt40"
-      />
-    </div>
+                />
+            <base-tel-number v-model="lessormobile" class="mb15" placeholder="Mobile no."/>
+            </div>
+            <base-input
+                label="Email Address"
+                v-model="lessoremail"
+                name="lessoremail"
+                refs="lessor_email"
+                type="email"
+                class="mt40"
+            />
+        </div>
 
     <div class="meta-form-group mb60">
       <div class="meta-group-title">Business Activity</div>
@@ -276,7 +229,7 @@
         </div>
       </div>
     </div>
-
+    </div>
     <div class="meta-form-group button-left-right">
       <button-block
         type="back"
