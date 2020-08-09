@@ -125,7 +125,7 @@ const actions = {
       dispatch("createPrompt", {
         type: "success",
         title: "Reset Password Success!",
-        message: "Your email was reset successfully.",
+        message: "Your password was reset successfully.",
       });
     } catch (err) {
       commit("setLoading", false);
