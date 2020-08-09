@@ -11,6 +11,7 @@ const getDefaultUIState =  () => {
     promptTitle: "",
     promptMessage: "",
     redirectLogin: false,
+    currentApplicationStep: '1'
   };
 }
 const state = getDefaultUIState()
@@ -25,6 +26,7 @@ const getters = {
   promptType: (state) => state.promptType,
   promptTitle: (state) => state.promptTitle,
   promptMessage: (state) => state.promptMessage,
+  currentApplicationStep: (state) => state.currentApplicationStep
 };
 
 const actions = {
@@ -53,7 +55,8 @@ const mutations = {
   setPromptType: (state, promptType) => (state.promptType = promptType),
   setPromptTitle: (state, promptTitle) => (state.promptTitle = promptTitle),
   setPromptMessage: (state, promptMessage) => (state.promptMessage = promptMessage),
-  resetUIState: (state) => Object.assign(state, getDefaultUIState())
+  setCurrentApplicationStep: (state, currentApplicationStep) => (state.currentApplicationStep = currentApplicationStep),
+  resetUIState: (state) => Object.assign(state, getDefaultUIState()),
 };
 
 export default {

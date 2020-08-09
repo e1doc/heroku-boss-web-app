@@ -45,14 +45,7 @@
                 type="number"
                 class="mt40"
             />
-             <base-input
-                label="Mobile Number"
-                v-model="mobile"
-                name="mobile"
-                refs="mobile_number"
-                type="number"
-                class="mt40"
-            />
+             <base-tel-number v-model="phone_number" class="mb15"/>
              <base-input
                 label="Email Address"
                 v-model="email"
@@ -129,7 +122,7 @@
         </div>
 
         <div class="meta-form-group button-right">
-            <button-block class="next-button">NEXT</button-block>
+            <button-block class="next-button" @click.native="nextStep()">NEXT</button-block>
         </div>
     </div>
 </template>
@@ -138,12 +131,14 @@
 import BaseInput from "@/components/forms/BaseInput"
 import BaseCheckbox from "@/components/forms/BaseCheckbox"
 import ButtonBlock from "@/components/ButtonBlock"
+import BaseTelNumber from "@/components/forms/BaseTelNumber";
 export default {
   name: "BusinessStepOne",
   components: {
     BaseInput,
     BaseCheckbox,
-    ButtonBlock
+    ButtonBlock,
+    BaseTelNumber
   },
   data() {
     return {
@@ -160,6 +155,11 @@ export default {
       option1: ""
     };
   },
+  methods:{
+      nextStep(){
+          this.$store.commit('setCurrentApplicationStep','2')
+      }
+  }
 };
 </script>
 

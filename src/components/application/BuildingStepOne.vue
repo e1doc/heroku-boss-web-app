@@ -62,7 +62,7 @@
         </div>
 
         <div class="meta-form-group button-right">
-            <button-block class="next-button">NEXT</button-block>
+            <button-block class="next-button" @click.native="nextStep()">NEXT</button-block>
         </div>
     </div>
 </template>
@@ -89,6 +89,11 @@ export default {
       tinnumber: "",
     };
   },
+  methods:{
+      nextStep(){
+          this.$store.commit('setCurrentApplicationStep','2')
+      }
+  }
 };
 </script>
 

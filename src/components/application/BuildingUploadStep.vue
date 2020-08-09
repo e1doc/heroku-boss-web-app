@@ -1,12 +1,15 @@
 <template>
-    <div class="meta-container flex-center">
-        <h1 class="meta-form-title">Upload your Requirements</h1>
-        <div class="meta-note">Almost Done! Please upload your file. Only allowed format - jpg, jpeg, png or pdf file.</div>
-        <div class="meta-form-group mb60">
-            <div class="meta-group-title">A. Legal Documents</div>
-            <base-file-uploader 
-                label = "1. Electronic copy of Transfer Certicicate of Title (TCT) (original copy)" 
-                description = "
+  <div class="meta-container flex-center">
+    <h1 class="meta-form-title">Upload your Requirements</h1>
+    <div class="meta-note">
+      Almost Done! Please upload your file. Only allowed format - jpg, jpeg, png
+      or pdf file.
+    </div>
+    <div class="meta-form-group mb60">
+      <div class="meta-group-title">A. Legal Documents</div>
+      <base-file-uploader
+        label="1. Electronic copy of Transfer Certicicate of Title (TCT) (original copy)"
+        description="
                     <ul class='main-list'>
                         <li> If the applicant is NOT the registered owner of the lot, upload: 
                             <ul class='sub-list'>
@@ -37,51 +40,61 @@
                             </ul>
                         </li>
                     </ul>"
-                name = "tct" 
-                v-model="tct" />
-            <base-file-uploader 
-                label = "2. Tax Declaration of Lot" 
-                name = "taxdeclaration" 
-                v-model="taxdeclaration" />
-            <base-file-uploader 
-                label = "3. Tax Clearance of Real Property for Lot (updated)" 
-                name = "taxclearance" 
-                v-model="taxclearance" />
-            <base-file-uploader 
-                label = "4. Barangay Clearance (for construction - original copy)"
-                name = "brgyclearance" 
-                v-model="brgyclearance" />
-            <base-file-uploader 
-                label = "5. Homeowner's Clearance (for construction - original copy)"
-                name = "homeownerclearance" 
-                v-model="homeownerclearance" />
-            <base-file-uploader 
-                label = "6. Affidavit of Undertaking"
-                description = "(for National Agencies Clearances, Barangay Clearance, HOA Clearance and Neighbor's Consent)"
-                name = "undertakingaffidavit" 
-                v-model="undertakingaffidavit" />
-        </div>
-        <div class="meta-form-group mb60">
-            <div class="meta-group-title">B. Technical Documents</div>
-            <base-file-uploader 
-                label = "1. Unified Application form for Building Permit and FSEC" 
-                name = "unifiedapplicationform" 
-                v-model="unifiedapplicationform" />
-            <base-file-uploader 
-                label = "2a. Ancillary Forms - Architectural Permit" 
-                name = "ancillaryarchitectural" 
-                v-model="ancillaryarchitectural" />
-            <base-file-uploader 
-                label = "2b. Ancillary Forms - Civil/Structural Permit" 
-                name = "ancillarycivil" 
-                v-model="ancillarycivil" />
-            <base-file-uploader 
-                label = "2c. Ancillary Forms - Sanitary/Plumbing Permit" 
-                name = "ancillarysanitary" 
-                v-model="ancillarysanitary" />
-            <base-file-uploader 
-                label = "2d. Ancillary Forms - Electrical Permit" 
-                description = "
+        name="tct"
+        v-model="tct"
+      />
+      <base-file-uploader
+        label="2. Tax Declaration of Lot"
+        name="taxdeclaration"
+        v-model="taxdeclaration"
+      />
+      <base-file-uploader
+        label="3. Tax Clearance of Real Property for Lot (updated)"
+        name="taxclearance"
+        v-model="taxclearance"
+      />
+      <base-file-uploader
+        label="4. Barangay Clearance (for construction - original copy)"
+        name="brgyclearance"
+        v-model="brgyclearance"
+      />
+      <base-file-uploader
+        label="5. Homeowner's Clearance (for construction - original copy)"
+        name="homeownerclearance"
+        v-model="homeownerclearance"
+      />
+      <base-file-uploader
+        label="6. Affidavit of Undertaking"
+        description="(for National Agencies Clearances, Barangay Clearance, HOA Clearance and Neighbor's Consent)"
+        name="undertakingaffidavit"
+        v-model="undertakingaffidavit"
+      />
+    </div>
+    <div class="meta-form-group mb60">
+      <div class="meta-group-title">B. Technical Documents</div>
+      <base-file-uploader
+        label="1. Unified Application form for Building Permit and FSEC"
+        name="unifiedapplicationform"
+        v-model="unifiedapplicationform"
+      />
+      <base-file-uploader
+        label="2a. Ancillary Forms - Architectural Permit"
+        name="ancillaryarchitectural"
+        v-model="ancillaryarchitectural"
+      />
+      <base-file-uploader
+        label="2b. Ancillary Forms - Civil/Structural Permit"
+        name="ancillarycivil"
+        v-model="ancillarycivil"
+      />
+      <base-file-uploader
+        label="2c. Ancillary Forms - Sanitary/Plumbing Permit"
+        name="ancillarysanitary"
+        v-model="ancillarysanitary"
+      />
+      <base-file-uploader
+        label="2d. Ancillary Forms - Electrical Permit"
+        description="
                     <ul class='main-list'>
                         <li> For 200 amperes load and above main circuit breaker: 
                             <ul class='sub-list'>
@@ -90,197 +103,221 @@
                             </ul>
                         </li>
                     </ul>"
-                name = "ancillaryelectrical" 
-                v-model="ancillaryelectrical" />
-            <base-file-uploader 
-                label = "2e. Ancillary Forms - Mechanical Permit" 
-                name = "ancillarymechanical" 
-                v-model="ancillarymechanical" />
-            <base-file-uploader 
-                label = "2f. Ancillary Forms - Sign Permit" 
-                name = "ancillarysign" 
-                v-model="ancillarysign" />
-            <base-file-uploader 
-                label = "2g. Ancillary Forms - Electronic Permit" 
-                name = "ancillaryelectronic" 
-                v-model="ancillaryelectronic" /> 
-            <base-file-uploader 
-                label = "3. Locational Clearance Application Form" 
-                name = "locationalclearance" 
-                v-model="locationalclearance" />
-            <base-file-uploader 
-                label = "4. Contractor's Temporary Business Permit Application Form"
-                name = "contractorbusinesspermit" 
-                v-model="contractorbusinesspermit" />
-            <base-file-uploader 
-                label = "5. Relocation Survey Report and Lot Plan with Vicinity Map"
-                description = "- Duly signed and sealed by a licensed GE."
-                name = "relocationsurvey" 
-                v-model="relocationsurvey" />
-            <base-file-uploader 
-                label = "6. Photocopy of updated valid PRC ID's and PTR of Engrs/Arch"
-                description = "- With 3 specimen signature and dry-seal."
-                name = "prcid" 
-                v-model="prcid" />
-            <base-file-uploader 
-                label = "7. Project Specification"
-                description = "- To be signed and sealed by Engr/Arch."
-                name = "projspecification" 
-                v-model="projspecification" />
-            <base-file-uploader 
-                label = "8. Notarized Bill of Materials"
-                description = "- To be signed and sealed by Engr/Arch."
-                name = "billofmaterials" 
-                v-model="billofmaterials" />
-            <base-file-uploader 
-                label = "9. Structural Design Analysis and Computation"
-                description = "- For structure two(2) storey and above NSCP 5th Edition."
-                name = "structuraldesign" 
-                v-model="structuraldesign" />
-            <base-file-uploader 
-                label = "10. Geotech Report / Soil Boring Test Report"
-                description = "- For building structures three(3) storey and above."
-                name = "geotechreport" 
-                v-model="geotechreport" />
-            <base-file-uploader 
-                label = "11. Selsmic Analysis"
-                description = "- For building exceeding 7.5 meters in height."
-                name = "selsmicanalysis" 
-                v-model="selsmicanalysis" />
-            <base-file-uploader 
-                label = "12. Complete and Detailed Building Plans"
-                description = "
+        name="ancillaryelectrical"
+        v-model="ancillaryelectrical"
+      />
+      <base-file-uploader
+        label="2e. Ancillary Forms - Mechanical Permit"
+        name="ancillarymechanical"
+        v-model="ancillarymechanical"
+      />
+      <base-file-uploader
+        label="2f. Ancillary Forms - Sign Permit"
+        name="ancillarysign"
+        v-model="ancillarysign"
+      />
+      <base-file-uploader
+        label="2g. Ancillary Forms - Electronic Permit"
+        name="ancillaryelectronic"
+        v-model="ancillaryelectronic"
+      />
+      <base-file-uploader
+        label="3. Locational Clearance Application Form"
+        name="locationalclearance"
+        v-model="locationalclearance"
+      />
+      <base-file-uploader
+        label="4. Contractor's Temporary Business Permit Application Form"
+        name="contractorbusinesspermit"
+        v-model="contractorbusinesspermit"
+      />
+      <base-file-uploader
+        label="5. Relocation Survey Report and Lot Plan with Vicinity Map"
+        description="- Duly signed and sealed by a licensed GE."
+        name="relocationsurvey"
+        v-model="relocationsurvey"
+      />
+      <base-file-uploader
+        label="6. Photocopy of updated valid PRC ID's and PTR of Engrs/Arch"
+        description="- With 3 specimen signature and dry-seal."
+        name="prcid"
+        v-model="prcid"
+      />
+      <base-file-uploader
+        label="7. Project Specification"
+        description="- To be signed and sealed by Engr/Arch."
+        name="projspecification"
+        v-model="projspecification"
+      />
+      <base-file-uploader
+        label="8. Notarized Bill of Materials"
+        description="- To be signed and sealed by Engr/Arch."
+        name="billofmaterials"
+        v-model="billofmaterials"
+      />
+      <base-file-uploader
+        label="9. Structural Design Analysis and Computation"
+        description="- For structure two(2) storey and above NSCP 5th Edition."
+        name="structuraldesign"
+        v-model="structuraldesign"
+      />
+      <base-file-uploader
+        label="10. Geotech Report / Soil Boring Test Report"
+        description="- For building structures three(3) storey and above."
+        name="geotechreport"
+        v-model="geotechreport"
+      />
+      <base-file-uploader
+        label="11. Selsmic Analysis"
+        description="- For building exceeding 7.5 meters in height."
+        name="selsmicanalysis"
+        v-model="selsmicanalysis"
+      />
+      <base-file-uploader
+        label="12. Complete and Detailed Building Plans"
+        description="
                 <ul class='sub-list'>
                     <li> Scale of 1:100 duly signed and sealed by the design professionals. </li>
                     <li> Green Building Code (must be observed for construction of more than 10,000m' floor area)</li>
                     <li> Fire Protection Plan (if applicable) </li>
                 </ul>"
-                name = "buildingplans" 
-                v-model="buildingplans" />
-            <base-file-uploader 
-                label = "13. Construction Safety and Health Program (DOLE)"
-                description = "- For Commercial Establishment."
-                name = "constructionsafety" 
-                v-model="constructionsafety" />
-        </div>
-        <div class="meta-form-group mb60">
-            <div class="meta-group-title">C. Supplementary Documents</div>
-            <base-file-uploader 
-                label = "1. Sketch or Key Pin" 
-                description = "- With clear landmarks leading to the lot with name and number of contact person"
-                name = "sketchpin" 
-                v-model="sketchpin" />
-            <base-file-uploader 
-                label = "2. Picture of site/location (colored copy)" 
-                name = "pictureofsite" 
-                v-model="pictureofsite" />
-        </div>
-        <div class="meta-form-group button-left-right">
-            <button-block class="back-button">BACK</button-block>
-            <button-block class="next-button">NEXT</button-block>
-        </div>
+        name="buildingplans"
+        v-model="buildingplans"
+      />
+      <base-file-uploader
+        label="13. Construction Safety and Health Program (DOLE)"
+        description="- For Commercial Establishment."
+        name="constructionsafety"
+        v-model="constructionsafety"
+      />
     </div>
+    <div class="meta-form-group mb60">
+      <div class="meta-group-title">C. Supplementary Documents</div>
+      <base-file-uploader
+        label="1. Sketch or Key Pin"
+        description="- With clear landmarks leading to the lot with name and number of contact person"
+        name="sketchpin"
+        v-model="sketchpin"
+      />
+      <base-file-uploader
+        label="2. Picture of site/location (colored copy)"
+        name="pictureofsite"
+        v-model="pictureofsite"
+      />
+    </div>
+    <div class="meta-form-group button-left-right">
+      <button-block type="back" class="back-button" @click.native="previousStep()">BACK</button-block>
+      <button-block class="next-button" @click.native="nextStep()">NEXT</button-block>
+    </div>
+  </div>
 </template>
 
 <script>
-import ButtonBlock from "@/components/ButtonBlock"
-import BaseFileUploader from "@/components/forms/BaseFileUploader"
+import ButtonBlock from "@/components/ButtonBlock";
+import BaseFileUploader from "@/components/forms/BaseFileUploader";
 export default {
-    name: "BuildingUploadStep",
-    components: {
-        ButtonBlock,
-        BaseFileUploader
+  name: "BuildingUploadStep",
+  components: {
+    ButtonBlock,
+    BaseFileUploader,
+  },
+  methods: {
+    previousStep() {
+      this.$store.commit("setCurrentApplicationStep", "2");
     },
-}
+    nextStep() {
+      this.$store.commit("setCurrentApplicationStep", "4");
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-div.meta-container{
+div.meta-container {
+  width: 100%;
+  padding: 50px;
+  background-color: #eaf6ff;
+  border-radius: 20px;
+  h1.meta-form-title {
+    margin-bottom: 40px;
+  }
+  .meta-note {
+    font-size: 16px;
+    color: #7ac0fa;
+    margin-bottom: 30px;
+  }
+  div.meta-form-group {
     width: 100%;
-    padding: 50px;
-    background-color: #EAF6FF;
-    border-radius: 20px;
-    h1.meta-form-title{
-        margin-bottom: 40px;
+    div.meta-group-title {
+      color: #2699fb;
+      font-size: 20px;
+      line-height: 19px;
+      width: 100%;
+      margin-bottom: 30px;
+      font-weight: bold;
     }
-    .meta-note {
-        font-size: 16px;
-        color: #7ac0fa;
-        margin-bottom: 30px;
-    }
-    div.meta-form-group{
-        width: 100%;
-        div.meta-group-title{
-            color: #2699FB;
-            font-size: 20px;
-            line-height: 19px;
-            width: 100%;
-            margin-bottom: 30px;
-            font-weight: bold;
-        }
-        .meta-custom-upload {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            border: 3px dashed #BCE0FD;
-            padding: 50px 30px;
-            margin-bottom: 30px;
-            transition: 0.4s;
-            
-            input[type="file"] {
-                position: absolute;
-                z-index: 2;
-                height: 100%;
-                width: 100%;
-                opacity: 0;
-                cursor: pointer;
-            }
-            .meta-text.big{
-                color: #64B4F9;
-                font-size: 30px;
-                font-weight: 700;
-                line-height: 1.6;
-                text-transform: uppercase;
-                width: 100%;
-                text-align: center;
-                transition: 0.4s;
-            }
-            .meta-text.small{
-                color: #64B4F9;
-                font-size: 18px;
-                font-weight: 700;
-                line-height: 1.6;
-                transition: 0.4s;
-            }
-        }
-    }
-    
-    div.button-left-right{
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        .back-button{
-            background-color: #73BEFC;
-            border-color: #73BEFC;
-        }
-    }
-}
+    .meta-custom-upload {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border: 3px dashed #bce0fd;
+      padding: 50px 30px;
+      margin-bottom: 30px;
+      transition: 0.4s;
 
+      input[type="file"] {
+        position: absolute;
+        z-index: 2;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        cursor: pointer;
+      }
+      .meta-text.big {
+        color: #64b4f9;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 1.6;
+        text-transform: uppercase;
+        width: 100%;
+        text-align: center;
+        transition: 0.4s;
+      }
+      .meta-text.small {
+        color: #64b4f9;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.6;
+        transition: 0.4s;
+      }
+    }
+  }
+
+  div.button-left-right {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .back-button {
+      background-color: #73befc;
+      border-color: #73befc;
+    }
+  }
+}
 
 div.meta-container .meta-custom-upload:hover {
-    border-color: #039be5;
+  border-color: #039be5;
 }
 
-div.meta-container .meta-custom-upload:hover div.meta-text{
-    color: #039be5;
+div.meta-container .meta-custom-upload:hover div.meta-text {
+  color: #039be5;
 }
 
-.back-button:hover{
-    background-color: #2699FB!important;
-    color: #fff!important;
-    border-color: #2699FB!important;
+.back-button:hover {
+  background-color: #2699fb !important;
+  color: #fff !important;
+  border-color: #2699fb !important;
 }
 </style>

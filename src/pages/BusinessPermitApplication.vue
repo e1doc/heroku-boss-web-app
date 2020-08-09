@@ -11,12 +11,12 @@
             lastStep = "Submit your Application"/>
         </div>
         <div class="meta-right-box flex-wrap">
-            <!-- <business-step-one /> -->
-            <!-- <business-step-two /> -->
-            <!-- <business-upload-step /> -->
+            <business-step-one v-if="currentApplicationStep === '1'"/>
+            <business-step-two v-if="currentApplicationStep === '2'"/>
+            <business-upload-step v-if="currentApplicationStep === '3'"/>
             <!-- <business-renewal-upload-step /> -->
-            <!-- <application-success /> -->
-            <downloadable-business-form />
+            <application-success v-if="currentApplicationStep === '4'"/>
+            <!-- <downloadable-business-form /> -->
         </div>
     </div>
   </div>
@@ -30,6 +30,7 @@ import BusinessRenewalUploadStep from "@/components/application/BusinessRenewalU
 import ApplicationSuccess from "@/components/application/ApplicationSuccess"
 import ProgressIndicator from "@/components/application/ProgressIndicator"
 import DownloadableBusinessForm from "@/components/application/DownloadableBusinessForm"
+import {mapGetters} from "vuex"
 export default {
   name: "BusinessPermitApplication",
   components: {
@@ -41,6 +42,13 @@ export default {
     ProgressIndicator,
     DownloadableBusinessForm
   },
+  computed:{
+      ...mapGetters(["currentApplicationStep"])
+  },
+  beforeRouteLeave (to, from, next) {
+      this.$store.commit('setCurrentApplicationStep','1')
+      next()
+  }
 };
 </script>
 

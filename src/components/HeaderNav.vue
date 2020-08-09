@@ -10,8 +10,8 @@
               <li class="meta-menu has-children">
                 <router-link to="#">Transactions <font-awesome-icon icon="chevron-down" class="mr10 sub-menu-icon" /></router-link>
                 <ul class="meta-sub-menu">
-                  <li class="meta-menu"><router-link to="#">Building Permit Application</router-link></li>
-                    <li class="meta-menu"><router-link to="#">Business Permit Application</router-link></li>
+                  <li class="meta-menu"><router-link to="building-permit-application">Building Permit Application</router-link></li>
+                    <li class="meta-menu"><router-link to="business-permit-application">Business Permit Application</router-link></li>
                     <li class="meta-menu"><router-link to="business-enrollment">Business Permit Enrollment</router-link></li>
                     <li class="meta-menu"><router-link to="real-property-enrollment">Real Property Enrollment</router-link></li>
                     <!-- <li class="meta-menu"><router-link to="#">Search Reference No.</router-link></li> -->
@@ -44,8 +44,9 @@ export default {
  name : "HeaderNav",
  methods:{
    logout(){
-         this.$store.commit("setAuthType", 'login');
+         this.$store.commit("setIsAuthenticated", false);
          this.$store.commit('resetUIState')
+         this.$store.commit('resetAuthState')
          this.$router.push({ path: '/' })
    }
  }

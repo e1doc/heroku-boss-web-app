@@ -24,8 +24,8 @@
             name="governmentid" 
             v-model="governmentid" />
         <div class="meta-form-group button-left-right">
-            <button-block class="back-button">BACK</button-block>
-            <button-block class="next-button">NEXT</button-block>
+            <button-block type="back" class="back-button" @click.native="previousStep()">BACK</button-block>
+            <button-block class="next-button" @click.native="nextStep()">>NEXT</button-block>
         </div>
     </div>
 </template>
@@ -39,6 +39,14 @@ export default {
         ButtonBlock,
         BaseFileUploader
     },
+    methods:{
+        previousStep(){
+            this.$store.commit('setCurrentApplicationStep','2')
+        },
+        nextStep(){
+            this.$store.commit('setCurrentApplicationStep','4')
+        }
+    }
 }
 </script>
 
