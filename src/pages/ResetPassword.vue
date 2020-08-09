@@ -95,7 +95,7 @@ export default {
     .left-div {
       color: #ffffff;
       border-radius: 20px 0px 0px 20px;
-      background-image: url("../assets/Login-left-bg.png");
+      background-image: url("../assets/municipal-hall.png");
       background-position: center; /* Center the image */
       background-size: cover;
       width: 58%;

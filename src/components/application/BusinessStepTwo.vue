@@ -70,14 +70,15 @@
                     type="number"
                     class="mt40 input-w2"
                 />
-                <base-input
+                <!-- <base-input
                     label="Mobile No."
                     v-model="businessmobile"
                     name="businessmobile"
                     refs="business_mobile"
                     type="number"
                     class="mt40 input-w2"
-                />
+                /> -->
+                 <base-tel-number v-model="businessmobile" class="mb15" placeholder="Mobile No."/>
             </div>
             
              <base-input
@@ -178,14 +179,15 @@
                     type="number"
                     class="mt40 input-w2"
                 />
-                <base-input
+                <!-- <base-input
                     label="Mobile No."
                     v-model="lessormobile"
                     name="lessormobile"
                     refs="lessor_mobile"
                     type="number"
                     class="mt40 input-w2"
-            />
+            /> -->
+             <base-tel-number v-model="lessormobile" class="mb15" placeholder="Mobile no."/>
             </div>
             <base-input
                 label="Email Address"
@@ -258,8 +260,8 @@
         </div>
 
         <div class="meta-form-group button-left-right">
-            <button-block class="back-button">BACK</button-block>
-            <button-block class="next-button">NEXT</button-block>
+            <button-block type="back" class="back-button" @click.native="previousStep()">BACK</button-block>
+            <button-block class="next-button" @click.native="nextStep()">NEXT</button-block>
         </div>
     </div>
 </template>
@@ -268,12 +270,14 @@
 import BaseInput from "@/components/forms/BaseInput"
 import BaseCheckbox from "@/components/forms/BaseCheckbox"
 import ButtonBlock from "@/components/ButtonBlock"
+import BaseTelNumber from "@/components/forms/BaseTelNumber";
 export default {
   name: "BusinessStepTwo",
   components: {
     BaseInput,
     BaseCheckbox,
-    ButtonBlock
+    ButtonBlock,
+    BaseTelNumber
   },
   data() {
     return {
@@ -289,6 +293,14 @@ export default {
       presidentlastname: "",
     };
   },
+  methods:{
+      previousStep(){
+          this.$store.commit('setCurrentApplicationStep','1')
+      },
+      nextStep(){
+          this.$store.commit('setCurrentApplicationStep','3')
+      }
+  }
 };
 </script>
 

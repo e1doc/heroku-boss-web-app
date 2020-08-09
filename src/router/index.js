@@ -11,6 +11,7 @@ import BuildingPermitApplication from "../pages/BuildingPermitApplication.vue";
 import Main from "../Main.vue";
 import Payment from "../pages/Payment.vue"
 import ResetPassword from "../pages/ResetPassword.vue"
+import store from "../store";
 Vue.use(VueRouter);
 
 const routes = [
@@ -18,6 +19,16 @@ const routes = [
     path: "/",
     name: "Login",
     component: Login,
+   async beforeEnter(to, from, next) {
+      let hasPermission = await store.state.service.isAuthenticated;
+      if(hasPermission){
+        next({
+          name: "Profile"
+        })
+      }else{
+        next()
+      }
+  }
   },
   {
     path: "/reset-password/:uid/:token",
@@ -70,6 +81,16 @@ const routes = [
         component: BuildingPermitApplication
       },
     ],
+   async beforeEnter(to, from, next) {
+        let hasPermission = await store.state.service.isAuthenticated;
+        if(hasPermission){
+          next()
+        }else{
+          next({
+            name: "Login"
+          })
+        }
+    }
   },
   // {
   //   path: '/about',

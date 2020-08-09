@@ -66,16 +66,7 @@
           />
         </div>
         <div>
-          <base-input
-            label="Phone Number"
-            placeholder="Enter phone number"
-            v-model="phone_number"
-            name="phone_number"
-            refs="phonenumber"
-            type="text"
-            class="mt40"
-            :validationMessages ="validationMessages.phone_number"
-          />
+      <base-tel-number v-model="phone_number"/>
         </div>
         <div>
           <base-input
@@ -94,7 +85,6 @@
             REGISTER
           </button-full>
         </div>
-        <base-checkbox label="Option 2"/>
       </div>
     </div>
     <div class="form-success" v-if="registerSuccess">
@@ -119,12 +109,14 @@
 import ButtonFull from "@/components/ButtonFull";
 import ButtonFullOutline from "@/components/ButtonFullOutline";
 import BaseInput from "@/components/forms/BaseInput";
+import BaseTelNumber from "@/components/forms/BaseTelNumber";
 import { mapGetters, mapActions} from "vuex"
 export default {
   name: "RegisterDiv",
   components: {
     ButtonFull,
-    BaseInput
+    BaseInput,
+    BaseTelNumber
   },
   data() {
     return {

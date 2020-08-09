@@ -1,16 +1,20 @@
 import axios from "axios";
 
 const baseUrl = "http://localhost:8000";
-const state = {
-  codeToken: "",
-  authToken: "",
-  loginSuccess: false,
-  registerSuccess: false,
-  forgotPasswordSuccess: false,
-  resetPasswordSuccess: false,
-  validationMessages: {},
-  userDetails: {}
-};
+const getDefaultAuthState = () =>{
+  return {
+    codeToken: "",
+    authToken: "",
+    loginSuccess: false,
+    registerSuccess: false,
+    forgotPasswordSuccess: false,
+    resetPasswordSuccess: false,
+    validationMessages: {},
+    userDetails: {},
+    isAuthenticated: false
+  }
+}
+const state = getDefaultAuthState()
 
 const getters = {
   codeToken: (state) => state.codeToken,
@@ -20,7 +24,8 @@ const getters = {
   forgotPasswordSuccess: (state) => state.forgotPasswordSuccess,
   resetPasswordSuccess: (state) => state.resetPasswordSuccess,
   validationMessages: (state) => state.validationMessages,
-  userDetails: (state) => state.userDetails
+  userDetails: (state) => state.userDetails,
+  isAuthenticated: (state) => state.isAuthenticated
 };
 
 const mutations = {
@@ -31,7 +36,9 @@ const mutations = {
   setForgotPasswordSuccess: (state, forgotPasswordSuccess) => (state.forgotPasswordSuccess = forgotPasswordSuccess),
   setResetPasswordSuccess: (state, resetPasswordSuccess) => (state.resetPasswordSuccess = resetPasswordSuccess),
   setValidationMessages: (state, validationMessages) => (state.validationMessages = validationMessages),
-  setUserDetails: (state, userDetails) => (state.userDetails = userDetails)
+  setUserDetails: (state, userDetails) => (state.userDetails = userDetails),
+  setIsAuthenticated: (state, isAuthenticated) => (state.isAuthenticated = isAuthenticated),
+  resetAuthState: (state) => Object.assign(state, getDefaultAuthState()),
 };
 
 const actions = {
@@ -68,10 +75,10 @@ const actions = {
         {withCredentials: true }
       );
       commit("setLoading", false);
-      commit("setAuthToken", response.data.token);
       commit("setLoginSuccess", true);
+      commit("setIsAuthenticated",true)
+      commit("setAuthType", "login");
     } catch (err) {
-      console.log(err.response);
       commit("setLoading", false);
       dispatch("createPrompt", {
         type: "error",

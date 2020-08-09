@@ -4,10 +4,11 @@
   class="btn"
   :to="link"
   >
+  <font-awesome-icon icon="arrow-left" class="icon-left" v-if="type==='back'"/>
     <slot>
       Button
     </slot>
-    <font-awesome-icon icon="arrow-right" class="icon" />
+    <font-awesome-icon icon="arrow-right" class="icon-right" v-if="type !=='back'"/>
   </component>
 </template>
 
@@ -20,6 +21,10 @@ export default {
       required: false,
       default: null,
     },
+    type:{
+      type: String,
+      required: false,
+    }
   },
 };
 </script>
@@ -29,8 +34,11 @@ export default {
 a{
     text-decoration: none;
 }
-.icon {
+.icon-right{
   margin-left: 10px;
+}
+.icon-left {
+  margin-right: 10px;
 }
 .btn {
   color: #ffffff;

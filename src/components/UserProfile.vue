@@ -58,7 +58,7 @@ export default {
   .meta-header {
     height: 274px;
     width: 100%;
-    background-image: url("../assets/Login-left-bg.png");
+    background-image: url("../assets/municipal-hall.png");
     background-position: center;
     background-size: cover;
     border-top-left-radius: 20px;

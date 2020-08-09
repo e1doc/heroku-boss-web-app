@@ -4,6 +4,7 @@ const getDefaultUIState =  () => {
     currentTable: "profile",
     currentType: "business",
     printInvoice: false,
+    printBusiness: false,
     paymentOption: "counter",
     isLoading: false,
     showPrompt: false,
@@ -11,6 +12,7 @@ const getDefaultUIState =  () => {
     promptTitle: "",
     promptMessage: "",
     redirectLogin: false,
+    currentApplicationStep: '1'
   };
 }
 const state = getDefaultUIState()
@@ -19,12 +21,14 @@ const getters = {
   currentTable: (state) => state.currentTable,
   currentType: (state) => state.currentType,
   printInvoice: (state) => state.printInvoice,
+  printBusiness: (state) => state.printBusiness,
   paymentOption: (state) => state.paymentOption,
   isLoading: (state) => state.isLoading,
   showPrompt: (state) => state.showPrompt,
   promptType: (state) => state.promptType,
   promptTitle: (state) => state.promptTitle,
   promptMessage: (state) => state.promptMessage,
+  currentApplicationStep: (state) => state.currentApplicationStep
 };
 
 const actions = {
@@ -47,13 +51,15 @@ const mutations = {
   setCurrentTable: (state, currentTable) => (state.currentTable = currentTable),
   setCurrentType: (state, currentType) => (state.currentType = currentType),
   setPrintInvoice: (state, printInvoice) => (state.printInvoice = printInvoice),
+  setPrintBusiness: (state, printBusiness) => (state.printBusiness = printBusiness),
   setPaymentOption: (state, paymentOption) => (state.paymentOption = paymentOption),
   setLoading: (state, isLoading) => (state.isLoading = isLoading),
   setShowPrompt: (state, showPrompt) => (state.showPrompt = showPrompt),
   setPromptType: (state, promptType) => (state.promptType = promptType),
   setPromptTitle: (state, promptTitle) => (state.promptTitle = promptTitle),
   setPromptMessage: (state, promptMessage) => (state.promptMessage = promptMessage),
-  resetUIState: (state) => Object.assign(state, getDefaultUIState())
+  setCurrentApplicationStep: (state, currentApplicationStep) => (state.currentApplicationStep = currentApplicationStep),
+  resetUIState: (state) => Object.assign(state, getDefaultUIState()),
 };
 
 export default {
