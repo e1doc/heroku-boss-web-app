@@ -90,7 +90,7 @@ export default {
 .form-group {
   margin-top: 45px;
   div {
-      margin-bottom: 30px;
+      margin-bottom: 15px;
     }
 }
 .note {
@@ -103,7 +103,7 @@ export default {
   .form-group {
     margin-top: 0;
     div {
-      margin-bottom: 30px;
+      margin-bottom: 15px;
     }
     .icon {
       font-size: 50px;
