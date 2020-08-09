@@ -138,14 +138,12 @@
           class="input-w3 "
         />
       </div>
-      <base-input
-        label="Proposed Date of Construction"
-        v-model="dateofconstruction"
-        name="dateofconstruction"
-        refs="date_of_construction"
-        type="date"
-        class=""
-      />
+
+      <div class="meta-input-label mt10 mb10">Proposed Date of Construction</div>
+      <base-date-picker 
+        v-model="dateofconstruction" 
+        class="mb15"/>
+        
     </div>
 
     <div class="meta-form-group button-left-right">
@@ -160,13 +158,15 @@ import BaseInput from "@/components/forms/BaseInput";
 import BaseCheckbox from "@/components/forms/BaseCheckbox";
 import ButtonBlock from "@/components/ButtonBlock";
 import BaseSelect from "@/components/forms/BaseSelect";
+import BaseDatePicker from "@/components/forms/BaseDatePicker"
 export default {
   name: "BuildingStepTwo",
   components: {
     BaseInput,
     BaseCheckbox,
     ButtonBlock,
-    BaseSelect
+    BaseSelect,
+    BaseDatePicker
   },
   data() {
     return {
@@ -180,6 +180,7 @@ export default {
       presidentfirstname: "",
       presidentmiddlename: "",
       presidentlastname: "",
+      dateofconstruction: "",
       scopeofwork: [
         {
           label: "New Construction",

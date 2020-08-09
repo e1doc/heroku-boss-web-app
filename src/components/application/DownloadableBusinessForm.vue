@@ -19,6 +19,18 @@
                   <strong>DTI/SEC/CDA Date of Registration No. : </strong><br>
                   Lorem Ipsum
               </div>
+              <div class="meta-text w6">
+                  <strong>Type of Organization : </strong><br>
+                  Lorem Ipsum
+              </div>
+              <div class="meta-text w2">
+                  <strong>CTC No. : </strong><br>
+                  1234
+              </div>
+              <div class="meta-text w2">
+                  <strong>TIN : </strong><br>
+                  0215453698
+              </div>
           </div>
       </div>
   </div>
@@ -36,19 +48,25 @@ export default {
 
 <style lang="scss" scoped>
 div.meta-container {
+    width: 210mm;
+    height: 297mm;
     width : 100%;
+    background-color : #fff;
     div.meta-form-body {
-        background-color : #fff;
-        height : 500px;
-        width : 100%;
+        height: 100%;
+        width: 100%;
         padding : 50px 30px;
         div.meta-text-group {
             width : 100%;
             div.meta-text {
                 color: #2b2b2b;
-                font-size : 14px;
+                font-size : 12px;
                 line-height : 1.6;
-                padding: 10px 15px;
+                padding: 7px 15px;
+            }
+            .w2 {
+                width: calc( 16.6% - 30px );
+                float : left;
             }
             .w3 {
                 width: calc( 25% - 30px );

@@ -3,32 +3,30 @@
         <h1 class="meta-form-title">Basic Information</h1>
         <div class="meta-form-group mb60">
             <div class="meta-group-title">Taxpayer / Owner Details</div>
-            <div class="meta-input-group flex-row">
-                <base-input
-                    label="First Name"
-                    v-model="firstname"
-                    name="firstname"
-                    refs="first_name"
-                    type="text"
-                    class="mt40 input-w3"
-                />
-                <base-input
-                    label="Middle Name(optional)"
-                    v-model="middlename"
-                    name="middlename"
-                    refs="middle_name"
-                    type="text"
-                    class="mt40 input-w3"
-                />
-                <base-input
-                    label="Last Name"
-                    v-model="lastname"
-                    name="lastname"
-                    refs="last_name"
-                    type="text"
-                    class="mt40 input-w3"
-                />
-            </div>
+            <base-input
+                label="First Name"
+                v-model="firstname"
+                name="firstname"
+                refs="first_name"
+                type="text"
+                class="mt40"
+            />
+            <base-input
+                label="Middle Name(optional)"
+                v-model="middlename"
+                name="middlename"
+                refs="middle_name"
+                type="text"
+                class="mt40"
+            />
+            <base-input
+                label="Last Name"
+                v-model="lastname"
+                name="lastname"
+                refs="last_name"
+                type="text"
+                class="mt40"
+            />
              <base-input
                 label="Complete Owner's Address"
                 v-model="owneraddress"
@@ -78,22 +76,16 @@
                 type="text"
                 class="mt40 input-w3"
             />
-            <base-input
-                label="DTI/SEC/CDA Date of Registration No."
-                v-model="dtiregdate"
-                name="dtiregdate"
-                refs="dti_reg_date"
-                type="date"
-                class="mt40 input-w3"
-            />
-            <base-input
-                label="Type of Organization"
-                v-model="orgtype"
-                name="orgtype"
-                refs="org_type"
-                type="text"
-                class="mt40 input-w3"
-            />
+            <div class="meta-input-label mt10 mb10">DTI/SEC/CDA Date of Registration No.</div>
+            <base-date-picker 
+                v-model="dtiregdate" 
+                class="mb15"/>
+            <div class="meta-input-label mt10 mb10">Type of Organization</div>
+            <base-select 
+                placeholder = "--- Choose type of organization ---" 
+                :options="typeoforganization" 
+                name="selectOptions" 
+                class="mb15" /> 
             <base-input
                 label="CTC No."
                 v-model="ctcnumber"
@@ -110,14 +102,12 @@
                 type="number"
                 class="mt40 input-w3"
             />
-            <base-input
-                label="Are you enjoying tax incentive from any Government Entity?"
-                v-model="taxincentive"
-                name="taxincentive"
-                refs="tax_incentive"
-                type="text"
-                class="mt40 input-w3"
-            />
+            <div class="meta-input-label mt10 mb10">Are you enjoying tax incentive from any Government Entity?</div>
+            <base-select 
+                placeholder = "--- Select from the options ---" 
+                :options="taxincentive" 
+                name="selectOptions" 
+                class="mb15" /> 
             <base-input
                 label="Please specify the entity:"
                 v-model="goventity"
@@ -138,12 +128,16 @@
 import BaseInput from "@/components/forms/BaseInput"
 import BaseCheckbox from "@/components/forms/BaseCheckbox"
 import ButtonBlock from "@/components/ButtonBlock"
+import BaseSelect from "@/components/forms/BaseSelect"
+import BaseDatePicker from "@/components/forms/BaseDatePicker"
 export default {
   name: "BusinessStepOne",
   components: {
     BaseInput,
     BaseCheckbox,
-    ButtonBlock
+    ButtonBlock,
+    BaseSelect,
+    BaseDatePicker
   },
   data() {
     return {
@@ -154,10 +148,38 @@ export default {
       telephone: "",
       mobile: "",
       email: "",
+      dtiregdate: "",
       presidentfirstname: "",
       presidentmiddlename: "",
       presidentlastname: "",
-      option1: ""
+      typeoforganization: [
+        {
+          label: "Single",
+          value: "single",
+        },
+        {
+          label: "Partnership",
+          value: "partnership",
+        },
+        {
+          label: "Corporation",
+          value: "corporation",
+        },
+        {
+          label: "Cooperative",
+          value: "cooperative",
+        },
+      ],
+      taxincentive: [
+        {
+          label: "Yes (Specify below)",
+          value: "yes",
+        },
+        {
+          label: "No",
+          value: "no",
+        },
+      ],
     };
   },
 };
@@ -180,6 +202,12 @@ div.meta-container{
             line-height: 19px;
             width: 100%;
             margin-bottom: 20px;
+        }
+        div.meta-input-label{
+            color: #2699FB;
+            font-size: 13px;
+            line-height: 19px;
+            width: 100%;
         }
         div.input-wrapper{
             margin-bottom: 15px
