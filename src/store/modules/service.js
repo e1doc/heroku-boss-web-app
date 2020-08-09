@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // const baseUrl = "http://localhost:8000";
-const baseUrl = "http://boss-web-api.herokuapp.com";
+const baseUrl = "https://boss-web-api.herokuapp.com";
 const getDefaultAuthState = () =>{
   return {
     codeToken: "",
