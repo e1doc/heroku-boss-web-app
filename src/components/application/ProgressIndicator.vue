@@ -57,7 +57,7 @@
       <!-- STEP FOUR -->
       <div
         class="meta-step-box"
-        :class="{ 'current-active': currentApplicationStep === '4' }"
+        :class="{ 'completed': currentApplicationStep === '4' }"
       >
         <div class="meta-step flex-center">
           <div class="meta-step-label">{{ lastStep }}</div>

@@ -10,7 +10,7 @@
                     name="presidentfirstname"
                     refs="pres_first_name"
                     type="text"
-                    class="mt40 input-w3"
+                    class="mt40"
                 />
                 <base-input
                     label="Middle Name(optional)"
@@ -18,7 +18,7 @@
                     name="presidentmiddlename"
                     refs="pres_middle_name"
                     type="text"
-                    class="mt40 input-w3"
+                    class="mt40"
                 />
                 <base-input
                     label="Last Name"
@@ -26,7 +26,7 @@
                     name="presidentlastname"
                     refs="pres_last_name"
                     type="text"
-                    class="mt40 input-w3"
+                    class="mt40"
                 />
             </div>
         </div>
@@ -135,7 +135,7 @@
                     name="lessorfirstname"
                     refs="lessor_firstname"
                     type="text"
-                    class="mt40 input-w3"
+                    class="mt40"
                 />
                 <base-input
                     label="Middle Name(optional)"
@@ -143,7 +143,7 @@
                     name="lessormiddlename"
                     refs="lessor_middlename"
                     type="text"
-                    class="mt40 input-w3"
+                    class="mt40"
                 />
                 <base-input
                     label="Last Name"
@@ -151,7 +151,7 @@
                     name="lessorlastname"
                     refs="lessor_lastname"
                     type="text"
-                    class="mt40 input-w3"
+                    class="mt40"
                 />
             </div>
             <base-input

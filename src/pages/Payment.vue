@@ -58,7 +58,6 @@ export default {
   },
   methods: {
     printInvoice() {
-    //   this.printVisible = true
     this.$store.commit('setPrintInvoice',true)
     },
   },

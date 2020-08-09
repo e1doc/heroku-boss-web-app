@@ -5,17 +5,31 @@
         </div>
         <div class="meta-right-box">
             <div class="meta-text">Republic of the Philippines</div>
-            <div class="meta-text">Province of  Cavite</div>
-            <div class="meta-text caps">CITY OF BACOOR </div>
-            <div class="meta-text caps">BUSINESS PERMIT AND LICENSING OFFICE</div>
-            <div class="meta-text caps">TAX YEAR ____</div>
+            <div class="meta-text">Province of  Cavite CITY OF BACOOR</div>
+            <div class="meta-text caps">{{ formtitle }}</div>
+            <div class="meta-text caps">{{ additionaltext }}</div>
         </div>
+        <div class="meta-form-number">Application No. {{ applicationnumber }}</div>
     </div>
 </template>
 
 <script>
 export default {
-    name: "BasePdfHeader"
+    name: "BasePdfHeader",
+    props: {
+    applicationnumber: {
+      type: Number,
+      default: "",
+    },
+    formtitle:{
+        type: String,
+        default: "",
+    },
+    additionaltext:{
+        type: String,
+        default: "",
+    }
+  }
 }
 </script>
 
@@ -23,21 +37,33 @@ export default {
 div.meta-header{
     width: 100%;
     background-color: #2699fb;
-    padding: 30px 40px;
+    padding: 15px 30px;
+    position: relative;
     div.meta-left-box{
-        width : 126px;
+        width : 50px;
         float : left;
+        img{
+            width: 50px;
+        }
     }
     div.meta-right-box{
-        width : calc( 100% - 146px );
+        width : calc( 100% - 70px );
         float : left;
         margin-left : 20px;
         div.meta-text{
             color : #fff;
-            font-size : 14px;
+            font-size : 9px;
             font-weight: bold;
             line-height : 1.6;
         }
+    }
+    div.meta-form-number{
+        color: #fff;
+        font-size: 14px;
+        font-weight: bold;
+        font-family: "Proxima Nova Rg";
+        position: absolute;
+        right: 30px;
     }
 }
 </style>

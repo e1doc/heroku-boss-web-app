@@ -1,6 +1,18 @@
 <template>
   <div class="meta-container">
     <h1 class="meta-form-title">Building Details</h1>
+
+    <div class="meta-form-group mb60">
+        <div class="meta-group-title">For Construction Owned by an Enterprise</div>
+        <base-input
+            label="Form of Ownership"
+            v-model="formofownership"
+            name="formofownership"
+            refs="form_of_ownership"
+            type="text"
+            class="mt40" />
+    </div>
+
     <div class="meta-form-group mb60">
       <div class="meta-group-title">Location of Construction</div>
       <div class="meta-input-group flex-row">
@@ -138,14 +150,13 @@
           class="input-w3 "
         />
       </div>
-      <base-input
-        label="Proposed Date of Construction"
-        v-model="dateofconstruction"
-        name="dateofconstruction"
-        refs="date_of_construction"
-        type="date"
-        class=""
-      />
+      <div class="meta-form-group mb60">
+          <div class="meta-group-title mt10 mb10">Proposed Date of Construction</div>
+          <base-date-picker 
+            v-model="dateofconstruction" 
+            class="mb15"/>
+      </div>
+        
     </div>
 
     <div class="meta-form-group button-left-right">
@@ -160,13 +171,15 @@ import BaseInput from "@/components/forms/BaseInput";
 import BaseCheckbox from "@/components/forms/BaseCheckbox";
 import ButtonBlock from "@/components/ButtonBlock";
 import BaseSelect from "@/components/forms/BaseSelect";
+import BaseDatePicker from "@/components/forms/BaseDatePicker"
 export default {
   name: "BuildingStepTwo",
   components: {
     BaseInput,
     BaseCheckbox,
     ButtonBlock,
-    BaseSelect
+    BaseSelect,
+    BaseDatePicker
   },
   data() {
     return {
@@ -180,6 +193,8 @@ export default {
       presidentfirstname: "",
       presidentmiddlename: "",
       presidentlastname: "",
+      dateofconstruction: "",
+      formofownership: "",
       scopeofwork: [
         {
           label: "New Construction",
@@ -303,6 +318,12 @@ div.meta-container {
       line-height: 19px;
       width: 100%;
       margin-bottom: 20px;
+    }   
+    div.meta-input-label{
+        color: #2699FB;
+        font-size: 13px;
+        line-height: 19px;
+        width: 100%;
     }
     div.input-wrapper {
       margin-bottom: 15px;
