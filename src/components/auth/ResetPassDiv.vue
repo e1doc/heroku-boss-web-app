@@ -19,7 +19,7 @@
             name="new_password"
             refs="newpassword"
             type="password"
-            class="mt40"
+            class="mt40 mb15"
             :validationMessages="validationMessages.new_password"
           />
         </div>
@@ -89,6 +89,9 @@ export default {
 }
 .form-group {
   margin-top: 45px;
+  div {
+      margin-bottom: 30px;
+    }
 }
 .note {
   font-size: 14px;
