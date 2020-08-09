@@ -1,5 +1,8 @@
 <template>
   <div class="meta-parent-box">
+    <div class="meta-form-holder">
+      <downloadable-building-form />
+    </div>
     <div class="container mb30 meta-save-draft">
       <router-link to="#"
         ><font-awesome-icon icon="save" class="icon" /> SAVE AS
@@ -32,6 +35,7 @@ import BuildingStepTwo from "@/components/application/BuildingStepTwo";
 import BuildingUploadStep from "@/components/application/BuildingUploadStep";
 import ApplicationSuccess from "@/components/application/ApplicationSuccess";
 import ProgressIndicator from "@/components/application/ProgressIndicator";
+import DownloadableBuildingForm from "@/components/application/DownloadableBuildingForm";
 import { mapGetters } from "vuex";
 export default {
   name: "BuildingPermitApplication",
@@ -41,13 +45,17 @@ export default {
     BuildingUploadStep,
     ApplicationSuccess,
     ProgressIndicator,
+    DownloadableBuildingForm,
   },
   computed: {
     ...mapGetters(["currentApplicationStep"]),
   },
   beforeRouteLeave(to, from, next) {
-    this.$store.commit("setCurrentApplicationStep",'1');
+    this.$store.commit("setCurrentApplicationStep", "1");
     next();
+  },
+  mounted() {
+    this.$store.commit("setApplicationType", "property");
   },
 };
 </script>
@@ -57,6 +65,12 @@ div.meta-parent-box {
   width: 100%;
   margin-top: 50px;
   padding-bottom: 50px;
+  .meta-form-holder {
+    position: absolute;
+    opacity: 0;
+    top: -500px;
+    z-index: -1;
+  }
   div.container {
     max-width: 1400px;
     .meta-left-box {

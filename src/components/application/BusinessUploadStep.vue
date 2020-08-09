@@ -25,7 +25,7 @@
             v-model="governmentid" />
         <div class="meta-form-group button-left-right">
             <button-block type="back" class="back-button" @click.native="previousStep()">BACK</button-block>
-            <button-block class="next-button" @click.native="nextStep()">>NEXT</button-block>
+            <button-block class="next-button" @click.native="nextStep()">NEXT</button-block>
         </div>
     </div>
 </template>

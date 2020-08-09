@@ -5,6 +5,7 @@ const getDefaultUIState =  () => {
     currentType: "business",
     printInvoice: false,
     printBusiness: false,
+    printProperty: false,
     paymentOption: "counter",
     isLoading: false,
     showPrompt: false,
@@ -12,7 +13,8 @@ const getDefaultUIState =  () => {
     promptTitle: "",
     promptMessage: "",
     redirectLogin: false,
-    currentApplicationStep: '1'
+    currentApplicationStep: '1',
+    applicationType: ''
   };
 }
 const state = getDefaultUIState()
@@ -22,13 +24,15 @@ const getters = {
   currentType: (state) => state.currentType,
   printInvoice: (state) => state.printInvoice,
   printBusiness: (state) => state.printBusiness,
+  printProperty: (state) => state.printProperty,
   paymentOption: (state) => state.paymentOption,
   isLoading: (state) => state.isLoading,
   showPrompt: (state) => state.showPrompt,
   promptType: (state) => state.promptType,
   promptTitle: (state) => state.promptTitle,
   promptMessage: (state) => state.promptMessage,
-  currentApplicationStep: (state) => state.currentApplicationStep
+  currentApplicationStep: (state) => state.currentApplicationStep,
+  applicationType: (state) =>  state.applicationType,
 };
 
 const actions = {
@@ -52,6 +56,7 @@ const mutations = {
   setCurrentType: (state, currentType) => (state.currentType = currentType),
   setPrintInvoice: (state, printInvoice) => (state.printInvoice = printInvoice),
   setPrintBusiness: (state, printBusiness) => (state.printBusiness = printBusiness),
+  setPrintProperty: (state, printProperty) => (state.printProperty = printProperty),
   setPaymentOption: (state, paymentOption) => (state.paymentOption = paymentOption),
   setLoading: (state, isLoading) => (state.isLoading = isLoading),
   setShowPrompt: (state, showPrompt) => (state.showPrompt = showPrompt),
@@ -60,6 +65,7 @@ const mutations = {
   setPromptMessage: (state, promptMessage) => (state.promptMessage = promptMessage),
   setCurrentApplicationStep: (state, currentApplicationStep) => (state.currentApplicationStep = currentApplicationStep),
   resetUIState: (state) => Object.assign(state, getDefaultUIState()),
+  setApplicationType: (state, applicationType) => (state.applicationType = applicationType) 
 };
 
 export default {

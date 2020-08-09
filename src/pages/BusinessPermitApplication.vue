@@ -58,6 +58,9 @@ export default {
     this.$store.commit("setCurrentApplicationStep", "1");
     next();
   },
+  mounted(){
+    this.$store.commit("setApplicationType","business")
+  },
 };
 </script>
 
