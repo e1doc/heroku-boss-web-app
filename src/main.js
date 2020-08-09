@@ -37,7 +37,8 @@ import {
   faSyncAlt,
   faCheck,
   faSave,
-  faArrowLeft
+  faArrowLeft,
+  faPlusCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add([
@@ -63,7 +64,8 @@ library.add([
   faSyncAlt,
   faCheck,
   faSave,
-  faArrowLeft
+  faArrowLeft,
+  faPlusCircle
 ]);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.use(VModal)

@@ -4,10 +4,9 @@
       <downloadable-business-form />
     </div>
     <div class="container mb30 meta-save-draft">
-      <router-link to="#"
-        ><font-awesome-icon icon="save" class="icon" /> SAVE AS
-        DRAFT</router-link
-      >
+      <div @click="saveAsDraft">
+        <font-awesome-icon icon="save" class="icon" /> SAVE AS DRAFT
+      </div>
     </div>
     <div class="container flex-wrap">
       <div class="meta-left-box">
@@ -58,8 +57,18 @@ export default {
     this.$store.commit("setCurrentApplicationStep", "1");
     next();
   },
-  mounted(){
-    this.$store.commit("setApplicationType","business")
+  mounted() {
+    this.$store.commit("setApplicationType", "business");
+  },
+  methods: {
+    saveAsDraft() {
+      this.$swal({
+        title: "Success!",
+        text: "data successfully saved as draft.",
+        icon: "success",
+        onClose: this.$router.push({ name: "Profile" }),
+      });
+    },
   },
 };
 </script>
@@ -91,9 +100,10 @@ div.meta-parent-box {
     font-size: 18px;
     font-weight: bold;
     text-align: right;
-    a {
+    div {
       text-decoration: none;
       color: #e23a36;
+      cursor: pointer;
     }
   }
 }
