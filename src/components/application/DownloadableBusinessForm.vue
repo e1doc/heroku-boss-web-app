@@ -233,7 +233,6 @@ export default {
       deep: true,
       handler(status) {
         if (status) {
-            console.log(status)
           this.generateReport();
           this.$store.commit('setPrintBusiness',false)
         }
@@ -242,7 +241,6 @@ export default {
   },
   methods: {
     generateReport() {
-      console.log("generate report");
       const doc = new jsPDF("p", "mm", "a4");
       /** WITH CSS */
       var width = doc.internal.pageSize.getWidth();

@@ -1,9 +1,9 @@
 <template>
     <div class="meta-container">
         <h1 class="meta-form-title">Your Application has been submitted!</h1>
-        <div class="meta-text">Great! Your application has been successfully submitted.</br>Please note that the assessment will take 1-5 working days. </br>We will send you an email once your application has been reviewed.</div>
+        <div class="meta-text">Great! Your application has been successfully submitted.<br>Please note that the assessment will take 1-5 working days. <br>We will send you an email once your application has been reviewed.</div>
         <div class="meta-form-group">
-            <div class="meta-link"><router-link to="#">VIEW YOUR APPLICATIONS</router-link></div>
+            <div class="meta-link"><router-link :to="{name:'Profile'}">VIEW YOUR APPLICATIONS</router-link></div>
             <button-block @click.native="printForm()">DOWNLOAD</button-block>
         </div>
     </div>
@@ -11,15 +11,23 @@
 
 <script>
 import ButtonBlock from "@/components/ButtonBlock"
+import {mapGetters} from "vuex"
 export default {
     name: "ApplicationSuccess",
     components: {
         ButtonBlock
     },
+    computed:{
+        ...mapGetters(['applicationType'])
+    },
     methods:{
         printForm(){
-            console.log('print')
-            this.$store.commit('setPrintBusiness',true)
+            if(this.applicationType === 'business'){
+                this.$store.commit('setPrintBusiness',true)
+            }
+            else if(this.applicationType === 'property'){
+                this.$store.commit('setPrintProperty',true)
+            }
         }
     }
 }

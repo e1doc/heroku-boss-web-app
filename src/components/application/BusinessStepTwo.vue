@@ -201,11 +201,11 @@
 
         <div class="meta-form-group mb60">
             <div class="meta-group-title">Business Activity</div>
-            <div class="meta-multi-group">
+            <div class="meta-multi-group" v-for="(activity,index) in activities" :key=index >
                 <div class="meta-input-group flex-row">
                     <base-input
                         label="Code"
-                        v-model="businesscode"
+                        v-model="activity.business_code"
                         name="businesscode"
                         refs="business_code"
                         type="text"
@@ -213,7 +213,7 @@
                     />
                     <base-input
                         label="Line of Business"
-                        v-model="lineofbusiness"
+                        v-model="activity.line_of_business"
                         name="lineofbusiness"
                         refs="line_of_business"
                         type="text"
@@ -221,7 +221,7 @@
                     />
                     <base-input
                         label="No. of Units"
-                        v-model="businessunits"
+                        v-model="activity.business_units"
                         name="businessunits"
                         refs="business_units"
                         type="text"
@@ -230,7 +230,7 @@
                 </div>
                  <base-input
                     label="Capitalization (for New Business)"
-                    v-model="capitalization"
+                    v-model="activity.capitalization"
                     name="capitalization"
                     refs="business_capitalization"
                     type="text"
@@ -241,7 +241,7 @@
                 <div class="meta-input-group flex-row">
                     <base-input
                         label="Essential"
-                        v-model="essential"
+                        v-model="activity.essential"
                         name="essential"
                         refs="renew_essential"
                         type="text"
@@ -249,7 +249,7 @@
                     />
                     <base-input
                         label="Non-essential"
-                        v-model="nonessential"
+                        v-model="activity.non_essential"
                         name="nonessential"
                         refs="non_essential"
                         type="text"
@@ -291,6 +291,16 @@ export default {
       presidentfirstname: "",
       presidentmiddlename: "",
       presidentlastname: "",
+      activities:[
+          {
+          businesscode: "",
+          line_of_business: "",
+          business_units: "",
+          capitalization: "",
+          essential: "",
+          non_essential: ""
+      }
+      ]
     };
   },
   methods:{
