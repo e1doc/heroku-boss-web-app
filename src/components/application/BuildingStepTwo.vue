@@ -1,6 +1,18 @@
 <template>
   <div class="meta-container">
     <h1 class="meta-form-title">Building Details</h1>
+
+    <div class="meta-form-group mb60">
+        <div class="meta-group-title">For Construction Owned by an Enterprise</div>
+        <base-input
+            label="Form of Ownership"
+            v-model="formofownership"
+            name="formofownership"
+            refs="form_of_ownership"
+            type="text"
+            class="mt40" />
+    </div>
+
     <div class="meta-form-group mb60">
       <div class="meta-group-title">Location of Construction</div>
       <div class="meta-input-group flex-row">
@@ -182,6 +194,7 @@ export default {
       presidentmiddlename: "",
       presidentlastname: "",
       dateofconstruction: "",
+      formofownership: "",
       scopeofwork: [
         {
           label: "New Construction",

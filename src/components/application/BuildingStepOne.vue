@@ -60,7 +60,6 @@
                 class="mt40"
             />
         </div>
-
         <div class="meta-form-group button-right">
             <button-block class="next-button">NEXT</button-block>
         </div>

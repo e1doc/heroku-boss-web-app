@@ -15,6 +15,7 @@
             <building-step-two />
             <!-- <building-upload-step /> -->
             <!-- <application-success /> -->
+            <downloadable-building-form />
         </div>
     </div>
   </div>
@@ -26,6 +27,7 @@ import BuildingStepTwo from "@/components/application/BuildingStepTwo"
 import BuildingUploadStep from "@/components/application/BuildingUploadStep"
 import ApplicationSuccess from "@/components/application/ApplicationSuccess"
 import ProgressIndicator from "@/components/application/ProgressIndicator"
+import DownloadableBuildingForm from "@/components/application/DownloadableBuildingForm"
 export default {
     name: "BuildingPermitApplication",
     components: {
@@ -33,7 +35,8 @@ export default {
         BuildingStepTwo,
         BuildingUploadStep,
         ApplicationSuccess,
-        ProgressIndicator
+        ProgressIndicator,
+        DownloadableBuildingForm
     },
 }
 </script>
