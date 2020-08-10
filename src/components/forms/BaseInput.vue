@@ -93,6 +93,7 @@ export default {
   display: flex;
   flex-direction: column;
   text-align: left;
+  margin-bottom: 15px;
   .meta-error-text {
     margin-top: 10px;
     font-size: 12px;
@@ -111,7 +112,6 @@ export default {
   padding: 15px;
   position: relative;  
   transition: 0.1s;
-  margin-bottom: 15px;
   .label {
     color: #bababa;
     background: white;
