@@ -153,7 +153,7 @@ export default {
 
 <style lang="scss" scoped>
 .meta-tel-holder{
-  margin-bottom: 30px !important;
+  margin-bottom: 15px !important;
 }
 .form-success {
   margin-top: 60px;
@@ -163,10 +163,7 @@ export default {
   }
 }
 .form-group {
-  margin-top: 45px;
-  div {
-    margin-bottom: 20px;
-  }
+  margin-top: 40px;
 }
 .note {
   font-size: 14px;
@@ -175,10 +172,6 @@ export default {
 }
 
 @media only screen and (max-width: 1400px) {
-  .form-group {
-    div {
-      margin-bottom: 15px;
-    }
-  }
+
 }
 </style>
