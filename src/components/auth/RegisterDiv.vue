@@ -66,7 +66,7 @@
           />
         </div>
         <div class="meta-tel-holder">
-          <base-tel-number v-model="phone_number" class="mb20"/>
+          <base-tel-number v-model="phone_number" class="mb20" :validationMessages="validationMessages.phone_number"/>
         </div>
         <div>
           <base-input
