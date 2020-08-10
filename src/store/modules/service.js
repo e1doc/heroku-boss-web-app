@@ -95,6 +95,7 @@ const actions = {
       commit("setLoading", false);
       commit("setRegisterSuccess", true);
     } catch (err) {
+      console.log(err.response.data)
       commit("setLoading", false);
       commit("setValidationMessages", err.response.data);
     }
