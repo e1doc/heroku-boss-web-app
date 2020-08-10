@@ -1,0 +1,57 @@
+<template>
+    <div class="admin-container">
+        <div class="admin-page-title flex-center">
+            <font-awesome-icon icon="users" class="admin-icon"/>
+            All Registered Users
+        </div>
+        <div class="admin-body">
+            <div class="admin-search"><base-input-search /></div>
+            <div class="admin-content"><users-table /></div>
+        </div>
+    </div>
+</template>
+
+<script>
+import BaseInputSearch from "@/components/forms/BaseInputSearch";
+import UsersTable from "@/components/tables/UsersTable";
+export default {
+    name : "Users",
+    components : {
+        BaseInputSearch,
+        UsersTable
+    },
+}
+</script>
+
+<style lang="scss" scoped>
+div.admin-container{
+    width : 100%;
+    div.admin-page-title{
+        color : #1492E6;
+        font-size : 30px;
+        font-weight : bold;
+        line-height : 29px;
+        text-transform : capitalize;
+        margin-bottom: 40px;
+        .admin-icon{
+            color : #1492E6;
+            font-size : 35px;
+            margin-right : 15px; 
+        }
+    }
+    div.admin-body{
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        div.admin-search{
+            width : 100%;
+            display : flex;
+            flex-wrap : wrap;
+            justify-content: flex-end;
+        }
+        div.admin-content{
+            margin-top : 35px;
+        }
+    }
+}
+</style>

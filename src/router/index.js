@@ -11,6 +11,7 @@ import BuildingPermitApplication from "../pages/BuildingPermitApplication.vue";
 import Main from "../Main.vue";
 import Payment from "../pages/Payment.vue"
 import ResetPassword from "../pages/ResetPassword.vue"
+import Admin from "../pages/Admin.vue"
 import store from "../store";
 Vue.use(VueRouter);
 
@@ -80,6 +81,7 @@ const routes = [
         name: 'BuildingPermitApplication',
         component: BuildingPermitApplication
       },
+      
     ],
   //  async beforeEnter(to, from, next) {
   //       let hasPermission = await store.state.service.isAuthenticated;
@@ -91,6 +93,11 @@ const routes = [
   //         })
   //       }
   //   }
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin
   },
   // {
   //   path: '/about',
