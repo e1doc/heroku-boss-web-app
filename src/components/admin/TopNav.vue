@@ -21,6 +21,7 @@ div.admin-header{
     position : fixed;
     top : 0;
     right : 0;
+    z-index: 2;
     .admin-container {
         background-color : #fff;
         box-shadow : 0px 10px 20px #0000000D;

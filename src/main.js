@@ -41,7 +41,10 @@ import {
   faChartLine,
   faCoins,
   faUsers,
-  faSearch
+  faSearch,
+  faCommentSlash,
+  faComments,
+  faInbox
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add([
@@ -71,7 +74,10 @@ library.add([
   faChartLine,
   faCoins,
   faUsers,
-  faSearch
+  faSearch,
+  faCommentSlash,
+  faComments,
+  faInbox
 ]);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.use(VModal)

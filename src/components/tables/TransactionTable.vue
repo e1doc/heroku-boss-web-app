@@ -56,6 +56,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+section{
+  width: 100%;
+}
 .w10 {
   width: 10%;
 }

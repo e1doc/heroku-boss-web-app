@@ -14,15 +14,15 @@ export default {
 <style scoped lang="scss">
 .input-wrapper{
     position : relative;
-    width : 270px;
+    width : 240px;
     input {
         width: 100%;
         padding: 10px 30px 10px 10px;
         font-family : Raleway;
-        font-size : 14px;
+        font-size : 12px;
         background: #FADDDD30;
         border: 1px solid #E56A67;
-        border-radius : 8px;
+        border-radius : 5px;
     }
     input::placeholder{
         color : #A4A4A4CC;
