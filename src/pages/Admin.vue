@@ -26,7 +26,7 @@ export default {
         Users,
         Transactions,
         Dashboard,
-        Inquiries
+        Inquiries,
     },
 }
 </script>

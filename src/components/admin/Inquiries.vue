@@ -6,7 +6,10 @@
         </div>
         <div class="admin-body flex-wrap">
             <inquiry-table-menu type="profile" />
-            <div class="admin-content"><transaction-table /></div>
+            <div class="admin-content">
+                <!-- <inquiry-table /> -->
+                <reply-inquiry />
+            </div>
         </div>
     </div>
 </template>
@@ -14,13 +17,15 @@
 <script>
 
 import InquiryTableMenu from "@/components/tables/InquiryTableMenu";
-import TransactionTable from "@/components/tables/TransactionTable";
+import InquiryTable from "@/components/tables/InquiryTable";
+import ReplyInquiry from "@/components/admin/ReplyInquiry";
 import { mapGetters } from "vuex";
 export default {
   name: "Inquiries",
   components: {
     InquiryTableMenu,
-    TransactionTable,
+    InquiryTable,
+    ReplyInquiry
   },
   computed: {
     ...mapGetters(["currentTable"]),

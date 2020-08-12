@@ -44,7 +44,10 @@ import {
   faSearch,
   faCommentSlash,
   faComments,
-  faInbox
+  faInbox,
+  faEnvelopeOpenText,
+  faReply,
+  faPaperPlane
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add([
@@ -77,7 +80,10 @@ library.add([
   faSearch,
   faCommentSlash,
   faComments,
-  faInbox
+  faInbox,
+  faEnvelopeOpenText,
+  faReply,
+  faPaperPlane
 ]);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.use(VModal)
