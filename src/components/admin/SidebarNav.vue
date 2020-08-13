@@ -7,26 +7,26 @@
 
         <div class="admin-body">
             <ul class="admin-nav">
-                <li class="admin-item">
-                    <router-link to="#">
+                <li class="admin-item" :class="{ active: activeTab === 'dashboard'}" @click="changeTab('dashboard')">
+                    <router-link to="dashboard">
                         <font-awesome-icon icon="chart-line" class="admin-icon"/>
                         DASHBOARD 
                     </router-link>
                 </li>
-                <li class="admin-item">
-                    <router-link to="#">
+                <li class="admin-item" :class="{ active: activeTab === 'transactions'}" @click="changeTab('transactions')">
+                    <router-link to="transactions">
                         <font-awesome-icon icon="coins" class="admin-icon"/>
                         TRANSACTIONS 
                     </router-link>
                 </li>
-                <li class="admin-item active">
-                    <router-link to="#">
+                <li class="admin-item" :class="{ active: activeTab === 'all-users'}" @click="changeTab('all-users')">
+                    <router-link to="all-users">
                         <font-awesome-icon icon="users" class="admin-icon"/>
                         REGISTERED USERS 
                     </router-link>
                 </li>
-                <li class="admin-item">
-                    <router-link to="#">
+                <li class="admin-item" :class="{ active: activeTab === 'inquiries'}" @click="changeTab('inquiries')">
+                    <router-link to="inquiries">
                         <font-awesome-icon icon="comment-alt" class="admin-icon"/>
                         INQUIRIES 
                     </router-link>
@@ -38,7 +38,17 @@
 
 <script>
 export default {
-    name : "SidebarNav"
+    name : "SidebarNav",
+    data(){
+        return{
+            activeTab: "dashboard",
+        }
+    },
+  methods:{
+    changeTab(tab){
+      this.activeTab = tab
+    },
+  }
 }
 </script>
 

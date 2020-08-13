@@ -11,7 +11,12 @@ import BuildingPermitApplication from "../pages/BuildingPermitApplication.vue";
 import Main from "../Main.vue";
 import Payment from "../pages/Payment.vue"
 import ResetPassword from "../pages/ResetPassword.vue"
-import Admin from "../pages/Admin.vue"
+import Admin from "../Admin.vue"
+import AllUsers from "../pages/admin/AllUsers"
+import Transactions from "../pages/admin/Transactions"
+import Dashboard from "../pages/admin/Dashboard"
+import Inquiries from "../pages/admin/Inquiries"
+import ReplyInquiry from "../pages/admin/ReplyInquiry"
 import store from "../store";
 Vue.use(VueRouter);
 
@@ -20,16 +25,16 @@ const routes = [
     path: "/",
     name: "Login",
     component: Login,
-  //  async beforeEnter(to, from, next) {
-  //     let hasPermission = await store.state.service.isAuthenticated;
-  //     if(hasPermission){
-  //       next({
-  //         name: "Profile"
-  //       })
-  //     }else{
-  //       next()
-  //     }
-  // }
+   async beforeEnter(to, from, next) {
+      let hasPermission = await store.state.service.isAuthenticated;
+      if(hasPermission){
+        next({
+          name: "Profile"
+        })
+      }else{
+        next()
+      }
+  }
   },
   {
     path: "/reset-password/:uid/:token",
@@ -83,6 +88,48 @@ const routes = [
       },
       
     ],
+   async beforeEnter(to, from, next) {
+        let hasPermission = await store.state.service.isAuthenticated;
+        if(hasPermission){
+          next()
+        }else{
+          next({
+            name: "Login"
+          })
+        }
+    }
+  },
+  {
+    path: "/admin",
+    name: "Admin",
+    component: Admin,
+    children: [
+      {
+        path: "dashboard",
+        name: "Dashboard",
+        component: Dashboard,
+      },
+      {
+        path: "all-users",
+        name: "AllUsers",
+        component: AllUsers,
+      },
+      {
+        path: "transactions",
+        name: "Transactions",
+        component: Transactions,
+      },
+      {
+        path: "inquiries",
+        name: "Inquiries",
+        component: Inquiries,
+      },
+      {
+        path: "reply-inquiry",
+        name: "reply-inquiry",
+        component: ReplyInquiry,
+      },
+    ],
   //  async beforeEnter(to, from, next) {
   //       let hasPermission = await store.state.service.isAuthenticated;
   //       if(hasPermission){
@@ -93,11 +140,6 @@ const routes = [
   //         })
   //       }
   //   }
-  },
-  {
-    path: '/admin',
-    name: 'Admin',
-    component: Admin
   },
   // {
   //   path: '/about',

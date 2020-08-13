@@ -3,10 +3,7 @@
         <sidebar-nav />
         <top-nav />
         <div class="admin-content">
-            <!-- <users /> -->
-            <!-- <transactions /> -->
-            <!-- <dashboard /> -->
-            <inquiries />
+            <router-view />
         </div>
     </section>
 </template>
@@ -14,24 +11,18 @@
 <script>
 import SidebarNav from "@/components/admin/SidebarNav"
 import TopNav from "@/components/admin/TopNav"
-import Users from "@/components/admin/Users"
-import Transactions from "@/components/admin/Transactions"
-import Dashboard from "@/components/admin/Dashboard"
-import Inquiries from "@/components/admin/Inquiries"
 export default {
     name : "Admin",
     components : {
         SidebarNav,
-        TopNav,
-        Users,
-        Transactions,
-        Dashboard,
-        Inquiries,
+        TopNav
     },
 }
 </script>
 
 <style lang="scss" scoped>
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap");
+@import url("/css/main.scss");
 section.admin-section{
     div.admin-content{
         min-height: calc( 100vh - 207px);   
@@ -40,6 +31,12 @@ section.admin-section{
         margin-top : 83px;
         display : flex;
         flex-wrap : wrap;
+    }
+}
+
+@media only screen and ( max-width: 1380px ){
+    section.admin-section div.admin-content{
+        padding : 40px;
     }
 }
 </style>

@@ -1,26 +1,31 @@
 <template>
     <div class="admin-container">
         <div class="admin-page-title flex-center">
-            <font-awesome-icon icon="users" class="admin-icon"/>
-            All Registered Users
+            <font-awesome-icon icon="coins" class="admin-icon"/>
+            Transactions
         </div>
-        <div class="admin-body">
-            <div class="admin-search"><base-input-search /></div>
-            <div class="admin-content"><users-table /></div>
+        <div class="admin-body flex-wrap">
+            <transaction-table-menu type="profile" />
+            <div class="admin-content"><transaction-table /></div>
         </div>
     </div>
 </template>
 
 <script>
-import BaseInputSearch from "@/components/forms/BaseInputSearch";
-import UsersTable from "@/components/tables/UsersTable";
+
+import TransactionTableMenu from "@/components/tables/TransactionTableMenu";
+import TransactionTable from "@/components/tables/TransactionTable";
+import { mapGetters } from "vuex";
 export default {
-    name : "Users",
-    components : {
-        BaseInputSearch,
-        UsersTable
-    },
-}
+  name: "Transactions",
+  components: {
+    TransactionTableMenu,
+    TransactionTable,
+  },
+  computed: {
+    ...mapGetters(["currentTable"]),
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -32,7 +37,7 @@ div.admin-container{
         font-weight : bold;
         line-height : 29px;
         text-transform : capitalize;
-        margin-bottom: 40px;
+        margin-bottom: 90px;
         .admin-icon{
             color : #1492E6;
             font-size : 35px;
@@ -50,8 +55,16 @@ div.admin-container{
             justify-content: flex-end;
         }
         div.admin-content{
+            width: 100%;
             margin-top : 35px;
         }
+    }
+}
+
+@media only screen and ( max-width: 1380px ){
+    div.admin-container div.admin-page-title{
+        font-size: 28px;
+        margin-bottom: 40px;
     }
 }
 </style>

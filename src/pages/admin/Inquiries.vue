@@ -7,8 +7,7 @@
         <div class="admin-body flex-wrap">
             <inquiry-table-menu type="profile" />
             <div class="admin-content">
-                <!-- <inquiry-table /> -->
-                <reply-inquiry />
+                <inquiry-table />
             </div>
         </div>
     </div>
@@ -18,14 +17,12 @@
 
 import InquiryTableMenu from "@/components/tables/InquiryTableMenu";
 import InquiryTable from "@/components/tables/InquiryTable";
-import ReplyInquiry from "@/components/admin/ReplyInquiry";
 import { mapGetters } from "vuex";
 export default {
   name: "Inquiries",
   components: {
     InquiryTableMenu,
     InquiryTable,
-    ReplyInquiry
   },
   computed: {
     ...mapGetters(["currentTable"]),
@@ -63,6 +60,13 @@ div.admin-container{
             width: 100%;
             margin-top : 35px;
         }
+    }
+}
+
+@media only screen and ( max-width: 1380px ){
+    div.admin-container div.admin-page-title{
+        font-size: 28px;
+        margin-bottom: 40px;
     }
 }
 </style>

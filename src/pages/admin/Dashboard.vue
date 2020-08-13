@@ -160,4 +160,30 @@ div.admin-container{
         }
     }
 }
+
+@media only screen and ( max-width: 1380px ){
+
+    div.admin-container div.admin-page-title{
+        font-size: 28px;
+        margin-bottom: 40px;
+    }
+
+   div.admin-container div.admin-body div.admin-items div.admin-item div.item-content{
+        padding: 25px 25px 30px;
+   }
+
+    div.admin-container div.admin-body div.admin-items div.admin-item div.item-content div.item-icon{
+            width: 80px;
+            height: 80px;
+    }
+
+    div.admin-container div.admin-body div.admin-items div.admin-item div.item-content div.item-icon .icon{
+        color: #1492E6;
+        font-size: 38px;
+    }
+
+    div.admin-container div.admin-body div.admin-items div.admin-item div.item-content div.item-value{
+        font-size: 25px;
+    }
+}
 </style>

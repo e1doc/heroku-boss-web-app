@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div v-if="currentType === 'business'">
+    <div>
       <div class="thead">
         <div class="th w10">ID</div>
         <div class="th w20">USERNAME</div>
