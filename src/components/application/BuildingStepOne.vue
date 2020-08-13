@@ -131,4 +131,12 @@ div.meta-container{
 div.meta-container div.meta-form-group div.meta-input-group .input-w3:last-child {
     margin-right: 0;
 }
+
+
+
+@media only screen and ( max-width : 1380px ){
+    div.meta-container h1.meta-form-title{
+        font-size: 22px;
+    }
+}
 </style>

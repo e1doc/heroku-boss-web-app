@@ -74,4 +74,13 @@ div.meta-container{
 .meta-link a:hover{
     color: #73BEFC!important;
 }
+
+
+
+
+@media only screen and ( max-width : 1380px ){
+    div.meta-container h1.meta-form-title{
+        font-size: 22px;
+    }
+}
 </style>

@@ -126,4 +126,11 @@ div.meta-container .meta-custom-upload:hover div.meta-text{
     color: #fff!important;
     border-color: #2699FB!important;
 }
+
+
+@media only screen and ( max-width : 1380px ){
+    div.meta-container h1.meta-form-title{
+        font-size: 22px;
+    }
+}
 </style>

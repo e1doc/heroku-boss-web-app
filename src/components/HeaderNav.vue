@@ -23,7 +23,7 @@
           </ul>
       </div>
       <div class="meta-right-box">
-          <ul class="meta-nav flex-center">
+          <ul class="meta-nav flex-center hide-in-mobile">
               <li class="meta-menu meta-inquire">
                 <router-link to="#"><font-awesome-icon icon="comment-alt" class="mr10 icon" />Inquire</router-link>
               </li>
@@ -35,6 +35,9 @@
                 </ul>
               </li>
           </ul>
+          <div class="mobile-menu-nav show-in-mobile">
+              <font-awesome-icon icon="bars" class="menu-icon" />
+          </div>
       </div>
   </section>
 </template>
@@ -175,7 +178,9 @@ section.meta-navigation div.meta-center-box ul.meta-nav li.active{
   cursor: pointer;
 }
 
-
+.show-in-mobile{
+    display: none!important;
+}
 
 section.meta-navigation ul.meta-nav > li.has-children{
   padding-bottom: 50px;
@@ -239,4 +244,40 @@ li.meta-inquire:hover a{
     }
 }
 
+
+@media only screen and ( max-width: 1080px ){
+  section.meta-navigation .meta-right-box ul.meta-nav li.meta-user-settings{
+      padding: 11px 0;
+  }
+}
+
+@media only screen and ( max-width: 991px ){
+  .hide-in-mobile{
+      display: none!important;
+  }
+  .show-in-mobile{
+      display: block!important;
+  }
+  section.meta-navigation .meta-right-box ul.meta-nav li.meta-user-settings{
+      padding: 11px 0;
+  }
+
+  section.meta-navigation .meta-center-box{
+      display: none;
+  }
+
+  section.meta-navigation .meta-left-box,
+  section.meta-navigation .meta-right-box{
+      width: 50%;
+  }
+
+  .mobile-menu-nav {
+      text-align: right;
+  }
+
+  .mobile-menu-nav .menu-icon{
+      font-size: 28px;
+      color: #e23a36;
+  }
+}
 </style>
