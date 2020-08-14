@@ -2,23 +2,23 @@
     <div class="admin-container">
         <div class="admin-page-title flex-center">
             <font-awesome-icon icon="users" class="admin-icon"/>
-            All Registered Users
+            Applications
         </div>
         <div class="admin-body">
-            <div class="admin-search"><base-input-search /></div>
-            <div class="admin-content"><users-table /></div>
+            <div class="admin-search"><transaction-table-menu type="profile" /></div>
+            <div class="admin-content"><application-table /></div>
         </div>
     </div>
 </template>
 
 <script>
-import BaseInputSearch from "@/components/forms/BaseInputSearch"
-import UsersTable from "@/components/tables/UsersTable"
+import TransactionTableMenu from "@/components/tables/TransactionTableMenu";
+import ApplicationTable from "@/components/tables/ApplicationTable"
 export default {
-    name : "AllUsers",
+    name : "Applications",
     components : {
-        BaseInputSearch,
-        UsersTable
+        ApplicationTable,
+        TransactionTableMenu
     },
 }
 </script>

@@ -6,6 +6,7 @@
       <div class="th" v-if="currentType === 'business'">BUSINESS NAME</div>
       <div class="th" v-if="currentType === 'real_property'">TD #</div>
       <div class="th">STATUS</div>
+      <div class="th">ACTIONS</div>
     </div>
     <div class="tbody">
       <div class="tr">
@@ -14,6 +15,11 @@
         <div class="td" v-if="currentType === 'business'">MINISTOP</div>
         <div class="td" v-if="currentType === 'real_property'">A-01543</div>
         <div class="td">DRAFT</div>
+        <div class="td actions">
+          <router-link to="business-application-details">
+              <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
+          </router-link>
+        </div>
       </div>
       <div class="tr">
         <div class="td">000002</div>
@@ -21,6 +27,11 @@
         <div class="td" v-if="currentType === 'business'">MINISTOP</div>
         <div class="td" v-if="currentType === 'real_property'">A-01543</div>
         <div class="td">PENDING</div>
+        <div class="td actions">
+          <router-link to="business-application-details">
+              <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
+          </router-link>
+        </div>
       </div>
       <div class="tr">
         <div class="td">000003</div>
@@ -28,6 +39,11 @@
         <div class="td" v-if="currentType === 'business'">MINISTOP</div>
         <div class="td" v-if="currentType === 'real_property'">A-01543</div>
         <div class="td">FOR PAYMENT</div>
+        <div class="td actions">
+          <router-link to="business-application-details">
+              <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
+          </router-link>
+        </div>
       </div>
     </div>
   </section>
@@ -60,24 +76,35 @@ export default {
   }
 }
 .tbody {
-  flex-direction: column;
-  margin-top: 10px;
-  .tr {
-    display: flex;
-    flex-direction: row;
-    background: #ffffff;
-    box-shadow: 0px 10px 20px rgba(127, 127, 127, 0.1);
-    border-radius: 8px;
-    margin-top: 3px;
-    padding-left: 10px;
-    padding-right: 10px;
-    .td {
-      flex: 1;
-      font-size: 14px;
-      font-family: "Proxima Nova Rg";
-      text-align: center;
-      padding: 17px 0px;
+    flex-direction: column;
+    margin-top: 10px;
+    .tr {
+        display: flex;
+        flex-direction: row;
+        background: #ffffff;
+        box-shadow: 0px 10px 20px rgba(127, 127, 127, 0.1);
+        border-radius: 8px;
+        margin-top: 3px;
+        padding-left: 10px;
+        padding-right: 10px;
+        .td {
+            flex: 1;
+            font-size: 14px;
+            font-family: "Proxima Nova Rg";
+            text-align: center;
+            padding: 17px 0px;
+        }
+        .td.actions a {
+            color: #1492e6;
+            font-size: 13px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+        .td.actions a:hover{
+            color: #2b2b2b;
+        }
     }
-  }
 }
 </style>

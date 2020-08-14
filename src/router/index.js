@@ -8,11 +8,13 @@ import Profile from "../pages/Profile.vue";
 import StatementOfAccounts from "../pages/StatementOfAccounts.vue";
 import BusinessPermitApplication from "../pages/BusinessPermitApplication.vue";
 import BuildingPermitApplication from "../pages/BuildingPermitApplication.vue";
+import BusinessApplicationDetails from "../pages/BusinessApplicationDetails.vue";
+import BuildingApplicationDetails from "../pages/BuildingApplicationDetails.vue";
 import Main from "../Main.vue";
 import Payment from "../pages/Payment.vue"
 import ResetPassword from "../pages/ResetPassword.vue"
 import Admin from "../Admin.vue"
-import AllUsers from "../pages/admin/AllUsers"
+import Applications from "../pages/admin/Applications"
 import Transactions from "../pages/admin/Transactions"
 import Dashboard from "../pages/admin/Dashboard"
 import Inquiries from "../pages/admin/Inquiries"
@@ -86,6 +88,16 @@ const routes = [
         name: 'BuildingPermitApplication',
         component: BuildingPermitApplication
       },
+      {
+        path: 'business-application-details',
+        name: 'BusinessApplicationDetails',
+        component: BusinessApplicationDetails
+      },
+      {
+        path: 'building-application-details',
+        name: 'BuildingApplicationDetails',
+        component: BuildingApplicationDetails
+      },
       
     ],
   //  async beforeEnter(to, from, next) {
@@ -110,9 +122,9 @@ const routes = [
         component: Dashboard,
       },
       {
-        path: "all-users",
-        name: "AllUsers",
-        component: AllUsers,
+        path: "applications",
+        name: "Applications",
+        component: Applications,
       },
       {
         path: "transactions",

@@ -19,10 +19,10 @@
                         TRANSACTIONS 
                     </router-link>
                 </li>
-                <li class="admin-item" :class="{ active: activeTab === 'all-users'}" @click="changeTab('all-users')">
-                    <router-link to="all-users">
+                <li class="admin-item" :class="{ active: activeTab === 'applications'}" @click="changeTab('applications')">
+                    <router-link to="applications">
                         <font-awesome-icon icon="users" class="admin-icon"/>
-                        REGISTERED USERS 
+                        APPLICATIONS
                     </router-link>
                 </li>
                 <li class="admin-item" :class="{ active: activeTab === 'inquiries'}" @click="changeTab('inquiries')">

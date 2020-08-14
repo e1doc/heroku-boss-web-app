@@ -7,13 +7,13 @@ import "@/css/main.scss";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import VModal from 'vue-js-modal'
-import VueHtml2pdf from 'vue-html2pdf'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import Skeleton from 'vue-loading-skeleton';
+import Lightbox from 'vue-easy-lightbox'
 Vue.use(Skeleton)
 Vue.use(VueSweetalert2);
-Vue.use(VueHtml2pdf)
+Vue.use(Lightbox)
 import {
   faUser,
   faLock,
