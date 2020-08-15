@@ -110,26 +110,31 @@
           <div class="meta-value">1,000 square meters</div>
         </div>
       </div>
-              <!-- Uploaded Requirements -->
-        <div class="meta-text-group flex-wrap">
-            <div class="meta-group-title">Uploaded Requirements</div>
-            <div class="gallery-box">
-                <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
-                <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
-                <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
-                <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
-                <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
-                <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
-                <vue-easy-lightbox
-                  escDisabled
-                  moveDisabled
-                  :visible="visible"
-                  :imgs="imgs"
-                  :index="index"
-                  @hide="handleHide"
-                ></vue-easy-lightbox>
-          </div>
+
+      <!-- Uploaded Requirements -->
+      <div class="meta-text-group flex-wrap">
+          <div class="meta-group-title">Uploaded Requirements</div>
+          <div class="gallery-box">
+              <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
+              <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
+              <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
+              <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
+              <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
+              <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
+              <vue-easy-lightbox
+                escDisabled
+                moveDisabled
+                :visible="visible"
+                :imgs="imgs"
+                :index="index"
+                @hide="handleHide"
+              ></vue-easy-lightbox>
         </div>
+      </div>
+      <div class="meta-button-group flex-center">
+            <button-block type="approve"> Approve </button-block>
+            <button-block class="red-btn" type="disapprove"> Disapprove </button-block>
+      </div>
       </div>
     </div>
   </div>
@@ -137,10 +142,12 @@
 
 <script>
 import VueEasyLightbox from 'vue-easy-lightbox'
+import ButtonBlock from "@/components/ButtonBlock";
 export default {
-  name: "BuildingApplicationDetails",
+  name: "ApproveBuildingApplication",
       components: {
-        VueEasyLightbox
+        VueEasyLightbox,
+        ButtonBlock
     },
     data() {
         return {
@@ -305,6 +312,15 @@ div.meta-parent-box {
       float: left;
       margin: 5px;
     }
+
+    div.meta-button-group{
+        justify-content: center;
+        width: 100%;
+        margin-top: 20px;
+        button{
+          margin: 0 15px;
+        }
+    }
   }
 }
 
@@ -319,5 +335,15 @@ div.meta-parent-box {
 }
 .no-bb {
   border-bottom: 0 !important;
+}
+
+.red-btn{
+  background-color: #e23a36;
+  border-color: #e23a36;
+}
+
+.red-btn:hover{
+  color: #e23a36;
+  border-color: #e23a36;
 }
 </style>

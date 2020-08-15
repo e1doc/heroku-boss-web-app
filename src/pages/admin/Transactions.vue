@@ -8,7 +8,6 @@
             <transaction-table-menu />
             <div class="admin-content">
                 <transaction-table />
-                <gallery />
             </div>
         </div>
     </div>
@@ -18,14 +17,12 @@
 
 import TransactionTableMenu from "@/components/tables/TransactionTableMenu";
 import TransactionTable from "@/components/tables/TransactionTable";
-import Gallery from "@/components/admin/Gallery";
 import { mapGetters } from "vuex";
 export default {
   name: "Transactions",
   components: {
     TransactionTableMenu,
     TransactionTable,
-    Gallery
   },
   computed: {
     ...mapGetters(["currentTable"]),

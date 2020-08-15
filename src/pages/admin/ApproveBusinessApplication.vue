@@ -233,6 +233,11 @@
                 ></vue-easy-lightbox>
           </div>
         </div>
+
+        <div class="meta-button-group flex-center">
+            <button-block type="approve"> Approve </button-block>
+            <button-block class="red-btn" type="disapprove"> Disapprove </button-block>
+        </div>
       </div>
     </div>
   </div>
@@ -240,10 +245,12 @@
 
 <script>
 import VueEasyLightbox from 'vue-easy-lightbox'
+import ButtonBlock from "@/components/ButtonBlock";
 export default {
-  name: "BusinessApplicationDetails",
+  name: "ApproveBusinessApplication",
       components: {
-        VueEasyLightbox
+        VueEasyLightbox,
+        ButtonBlock
     },
     data() {
         return {
@@ -408,6 +415,15 @@ div.meta-parent-box {
       float: left;
       margin: 5px;
     }
+
+    div.meta-button-group{
+      justify-content: center;
+      width: 100%;
+      margin-top: 20px;
+      button{
+        margin: 0 15px;
+      }
+    }
   }
 }
 
@@ -422,5 +438,15 @@ div.meta-parent-box {
 }
 .no-bb {
   border-bottom: 0 !important;
+}
+
+.red-btn{
+  background-color: #e23a36;
+  border-color: #e23a36;
+}
+
+.red-btn:hover{
+  color: #e23a36;
+  border-color: #e23a36;
 }
 </style>

@@ -5,19 +5,19 @@
             Applications
         </div>
         <div class="admin-body">
-            <div class="admin-search"><transaction-table-menu type="profile" /></div>
-            <div class="admin-content"><application-table /></div>
+            <div class="admin-search"><transaction-table-menu /></div>
+            <div class="admin-content"><admin-application-table /></div>
         </div>
     </div>
 </template>
 
 <script>
 import TransactionTableMenu from "@/components/tables/TransactionTableMenu";
-import ApplicationTable from "@/components/tables/ApplicationTable"
+import AdminApplicationTable from "@/components/admin/AdminApplicationTable"
 export default {
     name : "Applications",
     components : {
-        ApplicationTable,
+        AdminApplicationTable,
         TransactionTableMenu
     },
 }

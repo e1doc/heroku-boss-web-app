@@ -507,12 +507,12 @@ div.meta-container {
   }
 }
 
+
 .back-button:hover {
   background-color: #2699fb !important;
   color: #fff !important;
   border-color: #2699fb !important;
 }
-<<<<<<< HEAD
 
 
 
@@ -522,6 +522,3 @@ div.meta-container {
     }
 }
 </style>
-=======
-</style>
->>>>>>> 072a45d9bc188277790991b9bf07c7ea3f7d8f0f

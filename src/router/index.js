@@ -8,8 +8,8 @@ import Profile from "../pages/Profile.vue";
 import StatementOfAccounts from "../pages/StatementOfAccounts.vue";
 import BusinessPermitApplication from "../pages/BusinessPermitApplication.vue";
 import BuildingPermitApplication from "../pages/BuildingPermitApplication.vue";
-import BusinessApplicationDetails from "../pages/BusinessApplicationDetails.vue";
-import BuildingApplicationDetails from "../pages/BuildingApplicationDetails.vue";
+import ViewBusinessDetails from "../pages/ViewBusinessDetails.vue";
+import ViewBuildingDetails from "../pages/ViewBuildingDetails.vue";
 import Main from "../Main.vue";
 import Payment from "../pages/Payment.vue"
 import ResetPassword from "../pages/ResetPassword.vue"
@@ -19,6 +19,8 @@ import Transactions from "../pages/admin/Transactions"
 import Dashboard from "../pages/admin/Dashboard"
 import Inquiries from "../pages/admin/Inquiries"
 import ReplyInquiry from "../pages/admin/ReplyInquiry"
+import ApproveBusinessApplication from "../pages/admin/ApproveBusinessApplication.vue";
+import ApproveBuildingApplication from "../pages/admin/ApproveBuildingApplication.vue";
 import store from "../store";
 Vue.use(VueRouter);
 
@@ -27,16 +29,16 @@ const routes = [
     path: "/",
     name: "Login",
     component: Login,
-   async beforeEnter(to, from, next) {
-      let hasPermission = await store.state.service.isAuthenticated;
-      if(hasPermission){
-        next({
-          name: "Profile"
-        })
-      }else{
-        next()
-      }
-  }
+  //  async beforeEnter(to, from, next) {
+  //     let hasPermission = await store.state.service.isAuthenticated;
+  //     if(hasPermission){
+  //       next({
+  //         name: "Profile"
+  //       })
+  //     }else{
+  //       next()
+  //     }
+  // }
   },
   {
     path: "/reset-password/:uid/:token",
@@ -89,14 +91,14 @@ const routes = [
         component: BuildingPermitApplication
       },
       {
-        path: 'business-application-details',
-        name: 'BusinessApplicationDetails',
-        component: BusinessApplicationDetails
+        path: 'view-business-details',
+        name: 'ViewBusinessDetails',
+        component: ViewBusinessDetails
       },
       {
-        path: 'building-application-details',
-        name: 'BuildingApplicationDetails',
-        component: BuildingApplicationDetails
+        path: 'view-building-details',
+        name: 'ViewBuildingDetails',
+        component: ViewBuildingDetails
       },
       
     ],
@@ -138,20 +140,30 @@ const routes = [
       },
       {
         path: "reply-inquiry",
-        name: "reply-inquiry",
+        name: "ReplyInquiry",
         component: ReplyInquiry,
       },
+      {
+        path: "approve-building-application",
+        name: "ApproveBuildingApplication",
+        component: ApproveBuildingApplication,
+      },
+      {
+        path: "approve-business-application",
+        name: "ApproveBusinessApplication",
+        component: ApproveBusinessApplication,
+      },
     ],
-   async beforeEnter(to, from, next) {
-        let hasPermission = await store.state.service.isAuthenticated;
-        if(hasPermission){
-          next()
-        }else{
-          next({
-            name: "Login"
-          })
-        }
-    }
+  //  async beforeEnter(to, from, next) {
+  //       let hasPermission = await store.state.service.isAuthenticated;
+  //       if(hasPermission){
+  //         next()
+  //       }else{
+  //         next({
+  //           name: "Login"
+  //         })
+  //       }
+  //   }
   },
   // {
   //   path: '/about',

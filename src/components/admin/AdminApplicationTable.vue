@@ -85,13 +85,13 @@
         <div class="td" v-if="currentType === 'real_property'">A-01543</div>
         <div class="td">DRAFT</div>
         <div class="td actions" v-if="currentType === 'business'">
-          <router-link to="business-permit-application">
-              <font-awesome-icon icon="edit" class="mr5 view-icon" />EDIT
+          <router-link to="approve-business-application">
+              <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
           </router-link>
         </div>
         <div class="td actions" v-if="currentType === 'real_property'">
-          <router-link to="building-permit-application">
-              <font-awesome-icon icon="edit" class="mr5 view-icon" />EDIT
+          <router-link to="approve-building-application">
+              <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
           </router-link>
         </div>
       </div>
@@ -102,12 +102,12 @@
         <div class="td" v-if="currentType === 'real_property'">A-01543</div>
         <div class="td">PENDING</div>
         <div class="td actions" v-if="currentType === 'business'">
-          <router-link to="view-business-details">
+          <router-link to="approve-business-application">
               <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
           </router-link>
         </div>
         <div class="td actions" v-if="currentType === 'real_property'">
-          <router-link to="view-building-details">
+          <router-link to="approve-building-application">
               <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
           </router-link>
         </div>
@@ -119,12 +119,12 @@
         <div class="td" v-if="currentType === 'real_property'">A-01543</div>
         <div class="td">FOR PAYMENT</div>
         <div class="td actions" v-if="currentType === 'business'">
-          <router-link to="view-business-details">
+          <router-link to="approve-business-application">
               <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
           </router-link>
         </div>
         <div class="td actions" v-if="currentType === 'real_property'">
-          <router-link to="view-building-details">
+          <router-link to="approve-building-application">
               <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
           </router-link>
         </div>
@@ -136,7 +136,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  name: "ApplicationTable",
+  name: "AdminApplicationTable",
   computed: {
     ...mapGetters(["currentType", "applications","buildingApplications"]),
   },
