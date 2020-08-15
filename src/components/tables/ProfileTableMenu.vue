@@ -2,9 +2,9 @@
     <div class="menu-holder">
       <div class="left-div flex-grow">
         <div class="flex-row" v-if="type === 'profile'">
-          <div class="menu-type" :class="{ active: activeTab === 'profile'}" @click="changeTab('profile')" >PROFILE</div>
-          <div class="menu-type" :class="{ active: activeTab === 'applications' }" @click="changeTab('applications')">APPLICATIONS</div>
-          <div class="menu-type" :class="{ active: activeTab === 'transactions' }" @click="changeTab('transactions')">TRANSACTIONS</div>
+          <div class="menu-type" :class="{ active: currentTable === 'profile'}" @click="changeTab('profile')" >PROFILE</div>
+          <div class="menu-type" :class="{ active: currentTable === 'applications' }" @click="changeTab('applications')">APPLICATIONS</div>
+          <div class="menu-type" :class="{ active: currentTable === 'transactions' }" @click="changeTab('transactions')">TRANSACTIONS</div>
         </div>
          <div class="flex-row" v-if="type === 'soa'">
           <div class="menu-type active">STATEMENT OF ACCOUNTS</div>
@@ -12,13 +12,13 @@
       </div>
       <div class="right-div flex-row flex-grow">
         <div class="menu-type">
-          <div :class="{ active: activeType === 'business' }" @click="changeType('business')" >
+          <div :class="{ active: currentType === 'business' }" @click="changeType('business')" >
             <font-awesome-icon icon="store" class="mr5 icon" />
             BUSINESS
           </div>
         </div>
         <div class="menu-type">
-          <div :class="{ active: activeType === 'real_property' }" @click="changeType('real_property')">
+          <div :class="{ active: currentType === 'real_property' }" @click="changeType('real_property')">
             <font-awesome-icon icon="city" class="mr5 icon" />
             REAL PROPERTY
           </div>
@@ -28,8 +28,12 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex"
 export default {
   name: "ProfileTableMenu",
+  computed:{
+    ...mapGetters(["currentType", "currentTable"]),
+  },
   props:{
     type:{
       type: String,

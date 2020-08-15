@@ -14,7 +14,7 @@
             refs="firstname"
             type="text"
             class="mt40"
-            :validationMessages ="validationMessages.first_name"
+            :validationMessages="validationMessages.first_name"
           />
         </div>
         <div>
@@ -26,7 +26,7 @@
             refs="middlename"
             type="text"
             class="mt40"
-            :validationMessages ="validationMessages.middle_name"
+            :validationMessages="validationMessages.middle_name"
           />
         </div>
         <div>
@@ -38,7 +38,7 @@
             refs="lastname"
             type="text"
             class="mt40"
-            :validationMessages ="validationMessages.last_name"
+            :validationMessages="validationMessages.last_name"
           />
         </div>
         <div>
@@ -50,7 +50,7 @@
             refs="user_name"
             type="text"
             class="mt40"
-            :validationMessages ="validationMessages.username"
+            :validationMessages="validationMessages.username"
           />
         </div>
         <div>
@@ -62,11 +62,11 @@
             refs="user_email"
             type="email"
             class="mt40"
-            :validationMessages ="validationMessages.email"
+            :validationMessages="validationMessages.email"
           />
         </div>
-        <div>
-      <base-tel-number v-model="phone_number"/>
+        <div class="meta-tel-holder">
+          <base-tel-number v-model="phone_number" class="mb20" :validationMessages="validationMessages.phone_number"/>
         </div>
         <div>
           <base-input
@@ -77,7 +77,7 @@
             refs="user_password"
             type="password"
             class="mt40"
-            :validationMessages ="validationMessages.password"
+            :validationMessages="validationMessages.password"
           />
         </div>
         <div>
@@ -110,13 +110,13 @@ import ButtonFull from "@/components/ButtonFull";
 import ButtonFullOutline from "@/components/ButtonFullOutline";
 import BaseInput from "@/components/forms/BaseInput";
 import BaseTelNumber from "@/components/forms/BaseTelNumber";
-import { mapGetters, mapActions} from "vuex"
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "RegisterDiv",
   components: {
     ButtonFull,
     BaseInput,
-    BaseTelNumber
+    BaseTelNumber,
   },
   data() {
     return {
@@ -130,28 +130,31 @@ export default {
       isSuccess: false,
     };
   },
-  computed:{
-    ...mapGetters(["registerSuccess","validationMessages"])
+  computed: {
+    ...mapGetters(["registerSuccess", "validationMessages"]),
   },
-  methods:{
+  methods: {
     ...mapActions(["registerUser"]),
-    register(){
-     let payload = {
+    register() {
+      let payload = {
         username: this.username,
         first_name: this.first_name,
         last_name: this.last_name,
         middle_name: this.middle_name,
         email: this.email,
         password: this.password,
-        phone_number: this.phone_number
-      }
-      this.registerUser(payload)
-    }
-  }
+        phone_number: this.phone_number,
+      };
+      this.registerUser(payload);
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+.meta-tel-holder{
+  margin-bottom: 15px !important;
+}
 .form-success {
   margin-top: 60px;
   .icon {
@@ -160,10 +163,7 @@ export default {
   }
 }
 .form-group {
-  margin-top: 45px;
-  div {
-    margin-bottom: 20px;
-  }
+  margin-top: 40px;
 }
 .note {
   font-size: 14px;
@@ -171,11 +171,7 @@ export default {
   letter-spacing: 0.5px;
 }
 
-@media only screen and (max-width: 1400px){
-  .form-group{
-      div{
-        margin-bottom: 15px;
-      }
-  }
+@media only screen and (max-width: 1400px) {
+
 }
 </style>

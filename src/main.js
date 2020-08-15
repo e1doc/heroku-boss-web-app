@@ -13,7 +13,12 @@ import Skeleton from 'vue-loading-skeleton';
 import Lightbox from 'vue-easy-lightbox'
 Vue.use(Skeleton)
 Vue.use(VueSweetalert2);
+<<<<<<< HEAD
 Vue.use(Lightbox)
+=======
+Vue.use(VueHtml2pdf)
+Vue.use(require('vue-moment'));
+>>>>>>> 072a45d9bc188277790991b9bf07c7ea3f7d8f0f
 import {
   faUser,
   faLock,
@@ -38,6 +43,7 @@ import {
   faCheck,
   faSave,
   faArrowLeft,
+<<<<<<< HEAD
   faChartLine,
   faCoins,
   faUsers,
@@ -49,6 +55,9 @@ import {
   faReply,
   faPaperPlane,
   faBars
+=======
+  faPlusCircle
+>>>>>>> 072a45d9bc188277790991b9bf07c7ea3f7d8f0f
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add([
@@ -75,6 +84,7 @@ library.add([
   faCheck,
   faSave,
   faArrowLeft,
+<<<<<<< HEAD
   faChartLine,
   faCoins,
   faUsers,
@@ -86,6 +96,9 @@ library.add([
   faReply,
   faPaperPlane,
   faBars
+=======
+  faPlusCircle
+>>>>>>> 072a45d9bc188277790991b9bf07c7ea3f7d8f0f
 ]);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.use(VModal)

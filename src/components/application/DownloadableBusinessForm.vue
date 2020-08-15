@@ -1,7 +1,7 @@
 <template>
   <div class="meta-container flex-wrap" ref="content">
     <base-pdf-header
-      applicationnumber="5427"
+      :applicationnumber="5427"
       formtitle="BUSINESS PERMIT AND LICENSING OFFICE"
       additionaltext="TAX YEAR ____"
     />

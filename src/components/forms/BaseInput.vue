@@ -7,6 +7,7 @@
         v-model="inputData"
         :placeholder="placeholder"
         :type="type === 'password' ? passType : type"
+        :value="value"
         @input="$emit('input', (inputData = $event.target.value))"
       />
       <label class="label" :id="refs">{{ label }}</label>
@@ -31,6 +32,7 @@ export default {
       wrapper: "",
       inputData: "",
       passType: "password",
+      preFillDone: false
     };
   },
   props: {
@@ -61,9 +63,35 @@ export default {
       type: String,
       required: true,
     },
+     value: {
+      type: [String, Number],
+      required: false,
+    },
+    inputValue:{
+      type: String,
+      required: false,
+    }
   },
   mounted() {
     this.getWrapper();
+    if(this.value){
+      this.inputData = this.value
+      this.handleFocus()
+      this.handleBlur()
+    }
+  },
+  watch: {
+    value:{
+      deep: true,
+      handler(newValue) {
+        if(!this.preFillDone){
+          this.$emit('input', (this.inputData = newValue))
+          this.preFillDone = true
+          this.handleFocus()
+          this.handleBlur()
+        }
+      },
+    }
   },
   methods: {
     getWrapper() {
@@ -93,6 +121,7 @@ export default {
   display: flex;
   flex-direction: column;
   text-align: left;
+  margin-bottom: 15px;
   .meta-error-text {
     margin-top: 10px;
     font-size: 12px;
@@ -111,7 +140,6 @@ export default {
   padding: 15px;
   position: relative;  
   transition: 0.1s;
-  margin-bottom: 15px;
   .label {
     color: #bababa;
     background: white;

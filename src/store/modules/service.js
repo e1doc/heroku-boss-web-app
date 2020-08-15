@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:8000";
+const baseUrl = process.env.VUE_APP_API_URL;
+// const baseUrl = "https://boss-web-api.herokuapp.com";
 const getDefaultAuthState = () =>{
   return {
     codeToken: "",
@@ -44,6 +45,7 @@ const mutations = {
 const actions = {
   async getCodeToken({ commit, dispatch }, payload) {
     try {
+      console.log(process.env.BASE_URL)
       commit("setLoading", true);
       const response = await axios.post(
         `${baseUrl}/auth/2fa-auth/get-code-token/`,
@@ -54,8 +56,9 @@ const actions = {
       commit("setAuthType", "otp");
       commit("setLoading", false);
     } catch (err) {
+      console.log(err)
       commit("setLoading", false);
-      dispatch("createPrompt", {
+       dispatch("createPrompt", {
         type: "error",
         title: err.response.statusText,
         message: err.response.data.detail,
@@ -124,7 +127,7 @@ const actions = {
       dispatch("createPrompt", {
         type: "success",
         title: "Reset Password Success!",
-        message: "Your email was reset successfully.",
+        message: "Your password was reset successfully.",
       });
     } catch (err) {
       commit("setLoading", false);
