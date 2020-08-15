@@ -50,6 +50,7 @@ export default {
   },
   beforeRouteLeave(to, from, next) {
     this.$store.commit("setCurrentApplicationStep", "1");
+    this.$store.commit("resetPropertyState")
     next();
   },
   mounted() {

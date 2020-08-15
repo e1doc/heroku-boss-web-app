@@ -1,47 +1,52 @@
 <template>
-    <div class="meta-container">
-        <h1 class="meta-form-title">Business Details</h1>
-        <div class="meta-form-group mb60">
-            <div class="meta-group-title">President / Treasurer of Corporation</div>
-                <base-input
-                    label="First Name"
-                    v-model="presidentfirstname"
-                    name="presidentfirstname"
-                    refs="pres_first_name"
-                    type="text"
-                    class="mt40"
-                />
-                <base-input
-                    label="Middle Name(optional)"
-                    v-model="presidentmiddlename"
-                    name="presidentmiddlename"
-                    refs="pres_middle_name"
-                    type="text"
-                    class="mt40"
-                />
-                <base-input
-                    label="Last Name"
-                    v-model="presidentlastname"
-                    name="presidentlastname"
-                    refs="pres_last_name"
-                    type="text"
-                    class="mt40"
-                />
-        </div>
-        <div class="meta-form-group mb60">
-            <div class="meta-group-title">Corporate Name: </div>
-             <base-input
-                label="Business Name"
-                v-model="businessname"
-                name="businessname"
-                refs="business_name"
-                type="text"
-                class="mt40"
-            />
+  <div class="meta-container">
+    <h1 class="meta-form-title">Business Details</h1>
+    <div class="meta-form-group mb60">
+      <div class="meta-group-title">President / Treasurer of Corporation</div>
+      <base-input
+        label="First Name"
+        v-model="business_details.president_first_name"
+        :validationMessages="stepTwoErrors.business_details.president_first_name"
+        name="presidentfirstname"
+        refs="pres_first_name"
+        type="text"
+        class="mt40"
+      />
+      <base-input
+        label="Middle Name(optional)"
+        v-model="business_details.president_middle_name"
+        :validationMessages="stepTwoErrors.business_details.president_middle_name"
+        name="presidentmiddlename"
+        refs="pres_middle_name"
+        type="text"
+        class="mt40"
+      />
+      <base-input
+        label="Last Name"
+        v-model="business_details.president_last_name"
+        :validationMessages="stepTwoErrors.business_details.president_last_name"
+        name="presidentlastname"
+        refs="pres_last_name"
+        type="text"
+        class="mt40"
+      />
+    </div>
+    <div class="meta-form-group mb60">
+      <div class="meta-group-title">Corporate Name:</div>
+      <base-input
+        label="Business Name"
+        v-model="business_details.name"
+        :validationMessages="stepTwoErrors.business_details.name"
+        name="businessname"
+        refs="business_name"
+        type="text"
+        class="mt40"
+      />
 
       <base-input
         label="Trade Name / Franchise"
-        v-model="tradename"
+        v-model="business_details.trade_name"
+        :validationMessages="stepTwoErrors.business_details.trade_name"
         name="tradename"
         refs="trade_name"
         type="text"
@@ -52,7 +57,8 @@
       <div class="meta-group-title">Other Business Details:</div>
       <base-input
         label="Complete Business Address"
-        v-model="businessaddress"
+        v-model="business_details.complete_business_address"
+        :validationMessages="stepTwoErrors.business_details.complete_business_address"
         name="businessaddress"
         refs="business_address"
         type="text"
@@ -62,7 +68,8 @@
       <div class="meta-input-group flex-row">
         <base-input
           label="Telephone No."
-          v-model="businesstelephone"
+          v-model="business_details.telephone_number"
+          :validationMessages="stepTwoErrors.business_details.telephone_number"
           name="businesstelephone"
           refs="business_telephone"
           type="number"
@@ -77,7 +84,8 @@
                     class="mt40 input-w2"
                 /> -->
         <base-tel-number
-          v-model="businessmobile"
+          v-model="business_details.mobile_number"
+          :validationMessages="stepTwoErrors.business_details.mobile_number"
           class="mb15"
           placeholder="Mobile No."
         />
@@ -85,7 +93,8 @@
 
       <base-input
         label="Email Address"
-        v-model="businessemail"
+        v-model="business_details.email_address"
+        :validationMessages="stepTwoErrors.business_details.email_address"
         name="businessemail"
         refs="business_email"
         type="email"
@@ -93,142 +102,190 @@
       />
       <base-input
         label="Property Index Pin (PIN)"
-        v-model="pin"
+        v-model="business_details.property_index_number"
+        :validationMessages="stepTwoErrors.business_details.property_index_number"
         name="pin"
         refs="pin_number"
         type="number"
         class="mt40"
       />
 
-        <div class="meta-form-group mb60">
-            <div class="meta-group-title">If Place of business is rented, please identify the following Lessor's Details: </div>
-            <base-input
-                label="First Name"
-                v-model="lessorfirstname"
-                name="lessorfirstname"
-                refs="lessor_firstname"
-                type="text"
-                class="mt40"
-            />
-            <base-input
-                label="Middle Name(optional)"
-                v-model="lessormiddlename"
-                name="lessormiddlename"
-                refs="lessor_middlename"
-                type="text"
-                class="mt40"
-            />
-            <base-input
-                label="Last Name"
-                v-model="lessorlastname"
-                name="lessorlastname"
-                refs="lessor_lastname"
-                type="text"
-                class="mt40"
-            />
-            <base-input
-                label="Complete Address"
-                v-model="lessoraddress"
-                name="lessoraddress"
-                refs="lessor_address"
-                type="text"
-                class="mt40"
-            />
-            <base-input
-                label="Gross Monthly Rental"
-                v-model="monthlyrental"
-                name="monthlyrental"
-                refs="monthly_rental"
-                type="text"
-                class="mt40"
-            />
-            <div class="meta-input-group flex-row">
-                <base-input
-                    label="Telephone No."
-                    v-model="lessortelephone"
-                    name="lessortelephone"
-                    refs="lessor_telephone"
-                    type="number"
-                    class="mt40 input-w2"
-                />
-            <base-tel-number v-model="lessormobile" class="mb15" placeholder="Mobile no."/>
-            </div>
-            <base-input
-                label="Email Address"
-                v-model="lessoremail"
-                name="lessoremail"
-                refs="lessor_email"
-                type="email"
-                class="mt40"
-            />
-        </div>
+      <base-input
+        label="Business Area"
+        v-model="business_details.area"
+        :validationMessages="stepTwoErrors.business_details.area"
+        name="area"
+        refs="business_area"
+        type="number"
+        class="mt40"
+      />
 
-    <div class="meta-form-group mb60">
-      <div class="meta-group-title">Business Activity</div>
-      <div class="add-icon" @click="addActivity">
-        <font-awesome-icon icon="plus-circle" />
-      </div>
-      <div
-        class="meta-multi-group"
-        v-for="(activity, index) in activities"
-        :key="index"
-      >
+      <base-input
+        label="Total No. of Employeess"
+        v-model="business_details.total_employees"
+        :validationMessages="stepTwoErrors.business_details.total_employees"
+        name="total_employees"
+        refs="employees"
+        type="number"
+        class="mt40"
+      />
+
+      <base-input
+        label="No. of Employees residing in City/Municipality"
+        v-model="business_details.residing_employees"
+        :validationMessages="stepTwoErrors.business_details.residing_employees"
+        name="residing_employees"
+        refs="ref_residing_employees"
+        type="number"
+        class="mt40"
+      />
+
+      <div class="meta-form-group mb60">
+        <div class="meta-group-title">
+          If Place of business is rented, please identify the following Lessor's
+          Details:
+        </div>
+        <base-input
+          label="First Name"
+          v-model="lessor_details.first_name"
+          :validationMessages="stepTwoErrors.lessor_details.first_name"
+          name="lessorfirstname"
+          refs="lessor_firstname"
+          type="text"
+          class="mt40"
+        />
+        <base-input
+          label="Middle Name(optional)"
+          v-model="lessor_details.middle_name"
+          :validationMessages="stepTwoErrors.lessor_details.middle_name"
+          name="lessormiddlename"
+          refs="lessor_middlename"
+          type="text"
+          class="mt40"
+        />
+        <base-input
+          label="Last Name"
+          v-model="lessor_details.last_name"
+          :validationMessages="stepTwoErrors.lessor_details.last_name"
+          name="lessorlastname"
+          refs="lessor_lastname"
+          type="text"
+          class="mt40"
+        />
+        <base-input
+          label="Complete Address"
+          v-model="lessor_details.complete_address"
+          :validationMessages="stepTwoErrors.lessor_details.complete_address"
+          name="lessoraddress"
+          refs="lessor_address"
+          type="text"
+          class="mt40"
+        />
+        <base-input
+          label="Gross Monthly Rental"
+          v-model="lessor_details.gross_monthly_rental"
+          :validationMessages="stepTwoErrors.lessor_details.gross_monthly_rental"
+          name="monthlyrental"
+          refs="monthly_rental"
+          type="text"
+          class="mt40"
+        />
         <div class="meta-input-group flex-row">
           <base-input
-            label="Code"
-            v-model="activity.business_code"
-            name="businesscode"
-            refs="business_code"
-            type="text"
-            class="mt40 input-w3"
+            label="Telephone No."
+            v-model="lessor_details.telephone_number"
+            :validationMessages="stepTwoErrors.lessor_details.telephone_number"
+            name="lessortelephone"
+            refs="lessor_telephone"
+            type="number"
+            class="mt40 input-w2"
           />
-          <base-input
-            label="Line of Business"
-            v-model="activity.line_of_business"
-            name="lineofbusiness"
-            refs="line_of_business"
-            type="text"
-            class="mt40 input-w3"
-          />
-          <base-input
-            label="No. of Units"
-            v-model="activity.business_units"
-            name="businessunits"
-            refs="business_units"
-            type="text"
-            class="mt40 input-w3"
+          <base-tel-number
+            v-model="lessor_details.mobile_number"
+            :validationMessages="stepTwoErrors.lessor_details.mobile_number"
+            class="mb15"
+            placeholder="Mobile no."
           />
         </div>
         <base-input
-          label="Capitalization (for New Business)"
-          v-model="activity.capitalization"
-          name="capitalization"
-          refs="business_capitalization"
-          type="text"
-          class="mt40 mb30"
+          label="Email Address"
+          v-model="lessor_details.email_address"
+          :validationMessages="stepTwoErrors.lessor_details.email_address"
+          name="lessoremail"
+          refs="lessor_email"
+          type="email"
+          class="mt40"
         />
+      </div>
 
-        <div class="meta-group-title">Gross Sales / Receipts (For Renewal)</div>
-        <div class="meta-input-group flex-row">
+      <div class="meta-form-group mb60">
+        <div class="meta-group-title">Business Activity</div>
+        <div class="add-icon" @click="addActivity">
+          <font-awesome-icon icon="plus-circle" />
+        </div>
+        <div
+          class="meta-multi-group"
+          v-for="(activity, index) in activities"
+          :key="index"
+        >
+          <div class="meta-input-group flex-row">
+            <base-input
+              label="Code"
+              v-model="activity.code"
+              :name="`businesscode${index}`"
+              :refs="`business_code${index}`"
+              type="text"
+              class="mt40 input-w3"
+            />
+            <base-input
+              label="Line of Business"
+              v-model="activity.line_of_business"
+              :name="`lineofbusiness${index}`"
+              :refs="`line_of_business${index}`"
+              type="text"
+              class="mt40 input-w3"
+            />
+            <base-input
+              label="No. of Units"
+              v-model="activity.units"
+              :name="`businessunits${index}`"
+              :refs="`business_units${index}`"
+              type="number"
+              class="mt40 input-w3"
+            />
+          </div>
           <base-input
-            label="Essential"
-            v-model="activity.essential"
-            name="essential"
-            refs="renew_essential"
+            label="Capitalization (for New Business)"
+            v-model="activity.capitalization"
+            :name="`capitalization${index}`"
+            :refs="`business_capitalization${index}`"
             type="text"
-            class="mt40 input-w2"
+            class="mt40 mb30"
           />
-          <base-input
-            label="Non-essential"
-            v-model="activity.non_essential"
-            name="nonessential"
-            refs="non_essential"
-            type="text"
-            class="mt40 input-w2"
-          />
+
+          <div class="meta-group-title">
+            Gross Sales / Receipts (For Renewal)
+          </div>
+          <div class="meta-input-group flex-row">
+            <base-input
+              label="Essential"
+              v-model="activity.essential"
+              :name="`essential${index}`"
+              :refs="`renew_essential${index}`"
+              type="text"
+              class="mt40 input-w2"
+            />
+            <base-input
+              label="Non-essential"
+              v-model="activity.non_essential"
+              :name="`nonessential${index}`"
+              :refs="`non_essential${index}`"
+              type="text"
+              class="mt40 input-w2"
+            />
+          </div>
         </div>
       </div>
-    </div>
     </div>
     <div class="meta-form-group button-left-right">
       <button-block
@@ -249,6 +306,7 @@ import BaseInput from "@/components/forms/BaseInput";
 import BaseCheckbox from "@/components/forms/BaseCheckbox";
 import ButtonBlock from "@/components/ButtonBlock";
 import BaseTelNumber from "@/components/forms/BaseTelNumber";
+import { mapGetters } from "vuex";
 export default {
   name: "BusinessStepTwo",
   components: {
@@ -259,41 +317,108 @@ export default {
   },
   data() {
     return {
-      firstname: "",
-      middlename: "",
-      lastname: "",
-      owneraddress: "",
-      telephone: "",
-      mobile: "",
-      email: "",
-      presidentfirstname: "",
-      presidentmiddlename: "",
-      presidentlastname: "",
-      activities: [
-        {
-          businesscode: "",
-          line_of_business: "",
-          business_units: "",
-          capitalization: "",
-          essential: "",
-          non_essential: "",
-        },
-      ],
+      business_details: {
+        name: "",
+        trade_name: "",
+        complete_business_address: "",
+        president_first_name: "",
+        president_middle_name: "",
+        president_last_name: "",
+        telephone_number: "",
+        mobile_number: "",
+        email_address: "",
+        property_index_number: "",
+        area: "",
+        total_employees: "",
+        residing_employees: "",
+      },
+      lessor_details: {
+        first_name: "",
+        middle_name: "",
+        last_name: "",
+        complete_address: "",
+        telephone_number: "",
+        mobile_number: "",
+        email_address: "",
+        gross_monthly_rental: "",
+      },
+      activities: [],
+      activity: {
+        code: "",
+        line_of_business: "",
+        units: "",
+        capitalization: "",
+        essential: "",
+        non_essential: "",
+      },
     };
+  },
+  computed: {
+    ...mapGetters(["businessDetails", "lessorDetails", "businessActivities","detailsHasError","lessorDetailsHasError","stepTwoErrors"]),
+  },
+  mounted() {
+    this.addActivity();
+    this.preFillForm();
+  },
+  watch:{
+    businessActivities(value){
+    }
   },
   methods: {
     previousStep() {
       this.$store.commit("setCurrentApplicationStep", "1");
     },
-    nextStep() {
-      this.$store.commit("setCurrentApplicationStep", "3");
+   async nextStep() {
+      this.$store.commit("setLoading", true);
+      if(this.businessDetails.id){
+         await this.$store.dispatch("updateBusinessDetails",this.business_details)
+      }else{
+        await this.$store.dispatch("addBusinessDetails", this.business_details);
+      }
+      if(this.lessor_details.id){
+       await this.$store.dispatch("updateLessorDetails", this.lessor_details)
+      }else{
+        await this.$store.dispatch("addLessorDetails", this.lessor_details);
+      }
+      if(this.businessActivities.length > 0){
+        if(this.activities.length > this.businessActivities.length){
+          let add = await this.activities.slice(this.businessActivities.length)
+          await this.$store.dispatch("addBusinessActivity", add);
+          let update = await this.activities.slice(0,this.businessActivities.length)
+          await this.$store.dispatch("updateBusinessActivity", update);
+        }else{
+          await this.$store.dispatch("updateBusinessActivity", this.activities);
+        }
+      }else{
+        await this.$store.dispatch("addBusinessActivity", this.activities);
+      }
+      if(!this.detailsHasError && !this.lessorDetailsHasError){
+          this.$store.commit("setCurrentApplicationStep", "3");
+      }else{
+        console.log('hasError')
+      }
+       this.$store.commit("setLoading", false);
+    },
+    preFillForm() {
+      if (Object.entries(this.businessDetails).length > 0) {
+        this.business_details = this.businessDetails;
+      }
+      if (Object.entries(this.lessorDetails).length > 0) {
+        this.lessor_details = this.lessorDetails;
+      }
+      if (this.businessActivities.length > 0) {
+        this.activities.splice(0,this.activities.length)
+        this.businessActivities.forEach((element) => {
+          this.activities.push(element)
+        });
+      }
     },
     addActivity() {
       if (this.activities.length < 4) {
         let activity = {
-          businesscode: "",
+          code: "",
           line_of_business: "",
-          business_units: "",
+          units: "",
           capitalization: "",
           essential: "",
           non_essential: "",

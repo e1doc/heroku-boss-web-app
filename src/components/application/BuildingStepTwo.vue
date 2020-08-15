@@ -6,7 +6,8 @@
         <div class="meta-group-title">For Construction Owned by an Enterprise</div>
         <base-input
             label="Form of Ownership"
-            v-model="formofownership"
+            v-model="building_details.form_of_ownership"
+            :validationMessages="buildingStepTwoErrors.building_details.form_of_ownership"
             name="formofownership"
             refs="form_of_ownership"
             type="text"
@@ -18,7 +19,8 @@
       <div class="meta-input-group flex-row">
         <base-input
           label="Lot No."
-          v-model="lotnumber"
+          v-model="building_details.lot_no"
+          :validationMessages="buildingStepTwoErrors.building_details.lot_no"
           name="lotnumber"
           refs="lot_number"
           type="text"
@@ -26,7 +28,8 @@
         />
         <base-input
           label="Blk No."
-          v-model="blknumber"
+          v-model="building_details.blk_no"
+          :validationMessages="buildingStepTwoErrors.building_details.blk_no"
           name="blknumber"
           refs="blk_number"
           type="text"
@@ -34,7 +37,8 @@
         />
         <base-input
           label="TCT No."
-          v-model="tctnumber"
+          v-model="building_details.tct_no"
+          :validationMessages="buildingStepTwoErrors.building_details.tct_no"
           name="tctnumber"
           refs="tct_number"
           type="text"
@@ -42,7 +46,8 @@
         />
         <base-input
           label="Tax Dec. No."
-          v-model="taxdecnumber"
+          v-model="building_details.tax_dec_no"
+          :validationMessages="buildingStepTwoErrors.building_details.tax_dec_no"
           name="taxdecnumber"
           refs="tax_dec_number"
           type="text"
@@ -52,7 +57,8 @@
       <div class="meta-input-group flex-row">
         <base-input
           label="Street"
-          v-model="street"
+          v-model="building_details.street"
+          :validationMessages="buildingStepTwoErrors.building_details.street"
           name="street"
           refs="street_name"
           type="text"
@@ -60,7 +66,8 @@
         />
         <base-input
           label="Barangay"
-          v-model="barangay"
+          v-model="building_details.barangay"
+          :validationMessages="buildingStepTwoErrors.building_details.barangay"
           name="barangay"
           refs="barangay_name"
           type="text"
@@ -68,7 +75,8 @@
         />
         <base-input
           label="City / Province"
-          v-model="cityprovince"
+          v-model="building_details.city"
+          :validationMessages="buildingStepTwoErrors.building_details.city"
           name="cityprovince"
           refs="city_province"
           type="text"
@@ -79,10 +87,18 @@
     <!-- SCOPE OF WORK -->
     <div class="meta-form-group mb60">
         <div class="meta-group-title">Scope of Work</div>
-        <base-select placeholder = "------ Choose scope of work ------" :options="scopeofwork" name="selectFields" class="mb15" />
+        
+        <base-select 
+        placeholder = "------ Choose scope of work ------" 
+        :options="scopeofwork" 
+        v-model="building_details.scope_of_work"
+        name="selectFields" 
+        class="mb15" />
+
         <base-input
           label="Others (Specify)"
-          v-model="otherscope"
+          v-model="building_details.scope_of_work_others"
+          :validationMessages="buildingStepTwoErrors.building_details.scope_of_work_others"
           name="otherscope"
           refs="other_scope"
           type="text"
@@ -93,10 +109,18 @@
     <!-- USER OF CHARACTER OF OCCUPANCY -->
     <div class="meta-form-group mb60">
         <div class="meta-group-title">User or Character of Occupancy</div>
-        <base-select placeholder = "------ Select from the options ------" :options="characterofoccupancy" name="selectOptions" class="mb15" /> 
+
+        <base-select 
+        placeholder = "------ Select from the options ------" 
+        :options="characterofoccupancy" 
+        v-model="building_details.character_of_occupancy"
+        name="selectOptions" 
+        class="mb15" /> 
+
         <base-input
           label="Others (Specify)"
-          v-model="otheroccupancy"
+          v-model="building_details.character_of_occupancy_others"
+          :validationMessages="buildingStepTwoErrors.building_details.character_of_occupancy_others"
           name="otheroccupancy"
           refs="other_occupancy"
           type="text"
@@ -109,7 +133,8 @@
       <div class="meta-input-group flex-row">
         <base-input
           label="Occupancy Classified"
-          v-model="occupancy"
+          v-model="building_other_details.occupancy_classified"
+          :validationMessages="buildingStepTwoErrors.building_other_details.occupancy_classified"
           name="occupancy"
           refs="occupancy_class"
           type="text"
@@ -117,43 +142,47 @@
         />
         <base-input
           label="Total Estimated Cost"
-          v-model="estimatedcost"
+          v-model="building_other_details.total_estimated_cost"
+          :validationMessages="buildingStepTwoErrors.building_other_details.total_estimated_cost"
           name="estimatedcost"
           refs="estimated_cost"
-          type="text"
+          type="number"
           class=" input-w2"
         />
       </div>
       <div class="meta-input-group flex-row">
         <base-input
           label="Number of Units"
-          v-model="unitscount"
+          v-model="building_other_details.units"
+          :validationMessages="buildingStepTwoErrors.building_other_details.units"
           name="unitscount"
           refs="units_count"
-          type="text"
+          type="number"
           class="input-w3 "
         />
         <base-input
           label="Total Floor Area in sqm."
-          v-model="floorarea"
+          v-model="building_other_details.floor_area"
+          :validationMessages="buildingStepTwoErrors.building_other_details.floor_area"
           name="floorarea"
           refs="floor_area"
-          type="text"
+          type="number"
           class="input-w3 "
         />
         <base-input
           label="Lot Area in sqm."
-          v-model="lotarea"
+          v-model="building_other_details.lot_area"
+          :validationMessages="buildingStepTwoErrors.building_other_details.lot_area"
           name="lotarea"
           refs="lot_area"
-          type="text"
+          type="number"
           class="input-w3 "
         />
       </div>
       <div class="meta-form-group mb60">
           <div class="meta-group-title mt10 mb10">Proposed Date of Construction</div>
           <base-date-picker 
-            v-model="dateofconstruction" 
+            v-model="building_other_details.date_of_construction" 
             class="mb15"/>
       </div>
         
@@ -172,6 +201,7 @@ import BaseCheckbox from "@/components/forms/BaseCheckbox";
 import ButtonBlock from "@/components/ButtonBlock";
 import BaseSelect from "@/components/forms/BaseSelect";
 import BaseDatePicker from "@/components/forms/BaseDatePicker"
+import {mapGetters} from "vuex"
 export default {
   name: "BuildingStepTwo",
   components: {
@@ -183,18 +213,28 @@ export default {
   },
   data() {
     return {
-      firstname: "",
-      middlename: "",
-      lastname: "",
-      owneraddress: "",
-      telephone: "",
-      mobile: "",
-      email: "",
-      presidentfirstname: "",
-      presidentmiddlename: "",
-      presidentlastname: "",
-      dateofconstruction: "",
-      formofownership: "",
+      building_details:{
+        form_of_ownership: "",
+        lot_no: "",
+        blk_no: "",
+        tct_no: "",
+        tax_dec_no: "",
+        street: "",
+        barangay: "",
+        city: "",
+        scope_of_work: "",
+        scope_of_work_others: "",
+        character_of_occupancy: "",
+        character_of_occupancy_others: "",
+      },
+      building_other_details:{
+        occupancy_classified: "",
+        total_estimated_cost: "",
+        units: "",
+        floor_area: "",
+        lot_area: "",
+        date_of_construction: ""
+      },
       scopeofwork: [
         {
           label: "New Construction",
@@ -289,13 +329,41 @@ export default {
       ],
     };
   },
+  computed:{
+    ...mapGetters(["buildingDetails","buildingOtherDetails","buildingDetailsHasError","buildingOtherDetailsHasError","buildingStepTwoErrors"])
+  },
+  mounted(){
+    this.preFillForm()
+  },
   methods:{
     previousStep(){
       console.log('clicked')
       this.$store.commit('setCurrentApplicationStep','1')
     },
-    nextStep(){
-      this.$store.commit('setCurrentApplicationStep','3')
+    async nextStep(){
+
+      if(this.buildingDetails.id){
+        await this.$store.dispatch("updateBuildingDetails",this.building_details)
+      }else{
+        await this.$store.dispatch("addBuildingDetails",this.building_details)
+      }
+      if(this.buildingOtherDetails.id){
+        await this.$store.dispatch("updateBuildingOtherDetails",this.building_other_details)
+      }else{
+        await this.$store.dispatch("addBuildingOtherDetails",this.building_other_details)
+      }
+
+      if(!this.buildingDetailsHasError && !this.buildingOtherDetailsHasError){
+          this.$store.commit('setCurrentApplicationStep','3')
+      }
+    },
+    preFillForm(){
+      if(Object.entries(this.buildingDetails).length > 0){
+        this.building_details = this.buildingDetails
+      }
+      if(Object.entries(this.buildingOtherDetails).length > 0){
+        this.building_other_details = this.buildingOtherDetails
+      }
     }
   }
 };

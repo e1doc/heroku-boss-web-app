@@ -5,7 +5,8 @@
       <div class="meta-group-title">Taxpayer / Owner Details</div>
       <base-input
         label="First Name"
-        v-model="firstname"
+        v-model="basic_information.owner_first_name"
+        :validationMessages="stepOneErrors.basic_information.owner_first_name"
         name="firstname"
         refs="first_name"
         type="text"
@@ -13,7 +14,8 @@
       />
       <base-input
         label="Middle Name(optional)"
-        v-model="middlename"
+        v-model="basic_information.owner_middle_name"
+        :validationMessages="stepOneErrors.basic_information.owner_middle_name"
         name="middlename"
         refs="middle_name"
         type="text"
@@ -21,7 +23,8 @@
       />
       <base-input
         label="Last Name"
-        v-model="lastname"
+        v-model="basic_information.owner_last_name"
+        :validationMessages="stepOneErrors.basic_information.owner_last_name"
         name="lastname"
         refs="last_name"
         type="text"
@@ -29,7 +32,8 @@
       />
       <base-input
         label="Complete Owner's Address"
-        v-model="owneraddress"
+        v-model="basic_information.owner_complete_address"
+        :validationMessages="stepOneErrors.basic_information.owner_complete_address"
         name="owneraddress"
         refs="owner_address"
         type="text"
@@ -37,16 +41,22 @@
       />
       <base-input
         label="Telephone Number"
-        v-model="telephone"
+        v-model="basic_information.owner_telephone_number"
+        :validationMessages="stepOneErrors.basic_information.owner_telephone_number"
         name="telephone"
         refs="tel_number"
         type="number"
         class="mt40"
       />
-      <base-tel-number v-model="phone_number" class="mb15" />
+      <base-tel-number
+        v-model="basic_information.owner_mobile_number"
+        :validationMessages="stepOneErrors.basic_information.owner_mobile_number"
+        class="mb15"
+      />
       <base-input
         label="Email Address"
-        v-model="email"
+        v-model="basic_information.owner_email_address"
+        :validationMessages="stepOneErrors.basic_information.owner_email_address"
         name="email"
         refs="email_add"
         type="email"
@@ -55,7 +65,8 @@
 
       <base-input
         label="Account Number"
-        v-model="accountnumber"
+        v-model="business_application.account_number"
+        :validationMessages="stepOneErrors.application.account_number"
         name="accountnumber"
         refs="account_number"
         type="number"
@@ -63,7 +74,8 @@
       />
       <base-input
         label="DTI/SEC/CDA Registration No."
-        v-model="dtiregnumber"
+        v-model="basic_information.dti_sec_cda_reg_number"
+        :validationMessages="stepOneErrors.basic_information.dti_sec_cda_reg_number"
         name="dtiregnumber"
         refs="dti_reg_number"
         type="text"
@@ -72,17 +84,22 @@
       <div class="meta-input-label mt10 mb10">
         DTI/SEC/CDA Date of Registration No.
       </div>
-      <base-date-picker v-model="dtiregdate" class="mb15" />
+      <base-date-picker
+        v-model="basic_information.dti_sec_cda_reg_date"
+        class="mb15"
+      />
       <div class="meta-input-label mt10 mb10">Type of Organization</div>
       <base-select
         placeholder="--- Choose type of organization ---"
-        :options="typeoforganization"
+        :options="types_of_organization"
         name="selectOptions"
+        v-model="basic_information.type_of_organization"
         class="mb15"
       />
       <base-input
         label="CTC No."
-        v-model="ctcnumber"
+        v-model="basic_information.ctc_no"
+        :validationMessages="stepOneErrors.basic_information.ctc_no"
         name="ctcnumber"
         refs="ctc_number"
         type="number"
@@ -90,7 +107,8 @@
       />
       <base-input
         label="TIN"
-        v-model="tin"
+        v-model="basic_information.tin"
+        :validationMessages="stepOneErrors.basic_information.tin"
         name="tin"
         refs="tin_number"
         type="number"
@@ -102,12 +120,13 @@
       <base-select
         placeholder="--- Select from the options ---"
         :options="taxincentive"
+        v-model="basic_information.has_tax_incentive"
         name="selectOptions"
         class="mb15"
       />
       <base-input
         label="Please specify the entity:"
-        v-model="goventity"
+        v-model="basic_information.government_entity"
         name="goventity"
         refs="gov_entity"
         type="text"
@@ -130,6 +149,7 @@ import ButtonBlock from "@/components/ButtonBlock";
 import BaseTelNumber from "@/components/forms/BaseTelNumber";
 import BaseSelect from "@/components/forms/BaseSelect";
 import BaseDatePicker from "@/components/forms/BaseDatePicker";
+import { mapGetters } from "vuex";
 export default {
   name: "BusinessStepOne",
   components: {
@@ -142,18 +162,26 @@ export default {
   },
   data() {
     return {
-      firstname: "",
-      middlename: "",
-      lastname: "",
-      owneraddress: "",
-      telephone: "",
-      mobile: "",
-      email: "",
-      dtiregdate: "",
-      presidentfirstname: "",
-      presidentmiddlename: "",
-      presidentlastname: "",
-      typeoforganization: [
+      business_application: {
+        account_number: "",
+      },
+      basic_information: {
+        dti_sec_cda_reg_number: "",
+        dti_sec_cda_reg_date: "",
+        type_of_organization: "",
+        ctc_no: "",
+        tin: "",
+        has_tax_incentive: "",
+        government_entity: "",
+        owner_first_name: "",
+        owner_middle_name: "",
+        owner_last_name: "",
+        owner_complete_address: "",
+        owner_telephone_number: "",
+        owner_mobile_number: "",
+        owner_email_address: "",
+      },
+      types_of_organization: [
         {
           label: "Single",
           value: "single",
@@ -174,18 +202,45 @@ export default {
       taxincentive: [
         {
           label: "Yes (Specify below)",
-          value: "yes",
+          value: true,
         },
         {
           label: "No",
-          value: "no",
+          value: false,
         },
       ],
     };
   },
+  computed: {
+    ...mapGetters(["businessBasicInformation", "businessApplication", "basicInfoHasError", "applicationHasError","stepOneErrors"]),
+  },
+  mounted() {
+    this.preFillForm();
+  },
   methods: {
-    nextStep() {
-      this.$store.commit("setCurrentApplicationStep", "2");
+   async nextStep() {
+      this.$store.commit("setLoading", true);
+      if(this.businessApplication.id){
+       await this.$store.dispatch("updateBusinessApplication", this.business_application)
+      }else{
+        let payload = {business_application: this.business_application, basic_information: this.basic_information}
+       await this.$store.dispatch("addBusinessApplication",payload)
+      }
+      if(this.businessApplication.id && !this.businessBasicInformation.id){
+        await this.$store.dispatch("addBusinessBasicInformation", this.basic_information)
+      }else if(this.businessApplication.id && this.businessBasicInformation.id){
+       await this.$store.dispatch("updateBusinessBasicInformation", this.basic_information)
+      }
+      if(!this.applicationHasError && !this.basicInfoHasError){
+        this.$store.commit("setCurrentApplicationStep", "2")
+      }
+      this.$store.commit("setLoading", false);
+    },
+    preFillForm() {
+      if (Object.entries(this.businessApplication).length > 0) {
+        this.basic_information = this.businessBasicInformation;
+        this.business_application = this.businessApplication;
+      }
     },
   },
 };

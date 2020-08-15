@@ -43,10 +43,25 @@ export default {
         return [];
       },
     },
+   value: {
+      required: false,
+    },
+  },
+    watch: {
+    value:{
+      deep: true,
+      handler(newValue) {
+        if(!this.preFillDone){
+          this.$emit('input', (this.inputData = newValue))
+          this.preFillDone = true
+        }
+      },
+    }
   },
   data() {
     return {
       inputData: "",
+      preFillDone: false
     };
   },
   methods: {

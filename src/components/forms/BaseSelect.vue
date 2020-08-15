@@ -4,7 +4,9 @@
         v-model="selected"
         :data-value="selected"
         @focus="handleFocus"
-        @blur="handleBlur" >
+        @blur="handleBlur" 
+        @change="$emit('change', $event.target.value)"
+        @input="$emit('input', $event.target.value)">
 
         <option value="">{{ placeholder }}</option>
         <option
@@ -26,7 +28,8 @@ export default {
   data() {
     return {
       selected: "",
-      wrapper: ""
+      wrapper: "",
+      prefillDone: false
     };
   },
   props: {
@@ -49,10 +52,24 @@ export default {
       type: String,
       required: false,
       default: ""
-    }
+    },
+    value: {
+      required: false,
+    },
   },
   mounted() {
     this.getWrapper();
+  },
+    watch: {
+    value:{
+      deep: true,
+      handler(newValue) {
+        if(!this.preFillDone){
+          this.$emit('input', (this.selected = newValue))
+          this.preFillDone = true
+        }
+      },
+    }
   },
   methods: {
     getWrapper() {

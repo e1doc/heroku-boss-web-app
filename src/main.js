@@ -14,6 +14,7 @@ import Skeleton from 'vue-loading-skeleton';
 Vue.use(Skeleton)
 Vue.use(VueSweetalert2);
 Vue.use(VueHtml2pdf)
+Vue.use(require('vue-moment'));
 import {
   faUser,
   faLock,

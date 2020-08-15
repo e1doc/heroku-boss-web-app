@@ -5,7 +5,8 @@
             <div class="meta-group-title">Owner / Applicant Details</div>
             <base-input
                 label="First Name"
-                v-model="firstname"
+                v-model="basic_information.owner_first_name"
+                :validationMessages="buildingStepOneErrors.basic_information.owner_first_name"
                 name="firstname"
                 refs="first_name"
                 type="text"
@@ -13,7 +14,8 @@
             />
             <base-input
                 label="Middle Name(optional)"
-                v-model="middlename"
+                v-model="basic_information.owner_middle_name"
+                :validationMessages="buildingStepOneErrors.basic_information.owner_middle_name"
                 name="middlename"
                 refs="middle_name"
                 type="text"
@@ -21,7 +23,8 @@
             />
             <base-input
                 label="Last Name"
-                v-model="lastname"
+                v-model="basic_information.owner_last_name"
+                :validationMessages="buildingStepOneErrors.basic_information.owner_last_name"
                 name="lastname"
                 refs="last_name"
                 type="text"
@@ -29,7 +32,8 @@
             />
              <base-input
                 label="Complete Address"
-                v-model="completeaddress"
+                v-model="basic_information.owner_complete_address"
+                :validationMessages="buildingStepOneErrors.basic_information.owner_complete_address"
                 name="completeaddress"
                 refs="complete_address"
                 type="text"
@@ -37,7 +41,8 @@
             />
             <base-input
                 label="Zip Code"
-                v-model="zipcode"
+                v-model="basic_information.owner_zip_code"
+                :validationMessages="buildingStepOneErrors.basic_information.owner_zip_code"
                 name="zipcode"
                 refs="zip_code"
                 type="number"
@@ -45,7 +50,8 @@
             />
             <base-input
                 label="Telephone Number"
-                v-model="telephone"
+                v-model="basic_information.owner_telephone_number"
+                :validationMessages="buildingStepOneErrors.basic_information.owner_telephone_number"
                 name="telephone"
                 refs="tel_number"
                 type="number"
@@ -53,7 +59,8 @@
             />
              <base-input
                 label="TIN No."
-                v-model="tinnumber"
+                v-model="basic_information.tin"
+                :validationMessages="buildingStepOneErrors.basic_information.tin"
                 name="tinnumber"
                 refs="tin_number"
                 type="text"
@@ -70,6 +77,7 @@
 import BaseInput from "@/components/forms/BaseInput"
 import BaseCheckbox from "@/components/forms/BaseCheckbox"
 import ButtonBlock from "@/components/ButtonBlock"
+import { mapGetters } from "vuex"
 export default {
   name: "BuildingStepOne",
   components: {
@@ -77,20 +85,47 @@ export default {
     BaseCheckbox,
     ButtonBlock
   },
+  computed:{
+      ...mapGetters(["buildingApplication", "buildingBasicInformation","buildingBasicInfoHasError","buildingStepOneErrors"])
+  },
+  mounted(){
+      this.preFillForm()
+  },
   data() {
     return {
-      firstname: "",
-      middlename: "",
-      lastname: "",
-      completeaddress: "",
-      telephone: "",
-      zipcode: "",
-      tinnumber: "",
+        building_application:{
+            area_no: ""
+        },
+        basic_information: {
+            owner_first_name: "",
+            owner_middle_name: "",
+            owner_last_name: "",
+            owner_complete_address: "",
+            owner_zip_code: "",
+            owner_telephone_number: "",
+            tin: ""
+        }
     };
   },
   methods:{
-      nextStep(){
-          this.$store.commit('setCurrentApplicationStep','2')
+     async nextStep(){
+          this.$store.commit("setLoading", true);
+          if(!this.buildingApplication.id){
+              let payload  = {basic_information: this.basic_information}
+              await this.$store.dispatch("addBuildingApplication",payload)
+          }
+          if(this.buildingBasicInformation.id){
+             await this.$store.dispatch("updateBuildingBasicInformation",this.basic_information)
+          }
+          if(!this.buildingBasicInfoHasError){
+             this.$store.commit("setCurrentApplicationStep", "2")   
+          }
+           this.$store.commit("setLoading", false);
+      },
+      preFillForm(){
+          if(Object.entries(this.buildingBasicInformation).length > 0){
+              this.basic_information = this.buildingBasicInformation
+          }
       }
   }
 };
