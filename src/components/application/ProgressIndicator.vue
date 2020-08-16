@@ -190,4 +190,48 @@ div.meta-container {
       margin-bottom: 80px;
   }
 } 
+
+@media only screen and ( max-width: 1180px ){
+    div.meta-container div.meta-page-title{
+        display: none;
+    }
+
+    div.meta-container div.meta-progress-bar{
+        display: flex;
+        flex-wrap: wrap;
+        padding-right: 0;
+    }
+
+    div.meta-container div.meta-progress-bar div.meta-step-box .meta-line{
+        height: 4px;
+        width: 92%;
+        margin-left: auto;
+        position: absolute;
+        right: -129px;
+        bottom: 20px;
+        z-index: 1;
+    }
+
+    div.meta-container div.meta-progress-bar div.meta-step-box{
+        width: 25%;
+        float: left;
+        position: relative;
+    }
+
+    div.meta-container div.meta-progress-bar div.meta-step-box div.meta-step-label{
+        font-size: 16px;
+        text-align: center;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    div.meta-container div.meta-progress-bar div.meta-step-box div.meta-number{
+        font-size: 20px;
+        height: 42px;
+        width: 42px;
+        margin: 10px auto;
+        position: relative;
+        z-index: 2;
+    }
+}
 </style>

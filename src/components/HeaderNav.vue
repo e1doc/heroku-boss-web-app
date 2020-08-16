@@ -414,6 +414,7 @@ span.meta-name {
 
 div.meta-mobile-nav .profile-menu span.meta-email {
     font-size: 14px;
+    clear: both;
 }
 
 div.meta-mobile-nav .profile-menu span.meta-icon .user-icon{

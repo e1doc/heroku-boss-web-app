@@ -9,6 +9,7 @@
       </div>
     </div>
     <div class="container flex-wrap">
+      <div class="meta-page-title show-in-sm-screens">Application for Business Permit</div>
       <div class="meta-left-box">
         <progress-indicator
           pageTitle="Application for Business Permit"
@@ -113,6 +114,23 @@ div.meta-parent-box {
   color: #e8726f !important;
 }
 
+
+/*
+MOBILE RESPONSIVENESS 
+--------------------------------------------------------------*/
+.show-in-sm-screens{
+  display: none;
+}
+
+div.meta-page-title {
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: right;
+    margin-bottom: 50px;
+}
+
+
 @media only screen and ( max-width: 1380px ){
     div.meta-parent-box{
       margin-top: 30px;
@@ -135,5 +153,43 @@ div.meta-parent-box {
     div.meta-parent-box div.container .meta-right-box{
         width: calc(100% - 520px);
     }
+}
+
+@media only screen and ( max-width: 1180px ){
+  div.meta-parent-box{
+      margin-top: 50px;
+  }
+
+  .show-in-sm-screens{
+      display: block;
+  }
+  div.meta-parent-box div.container .meta-left-box{
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: 30px;
+  }
+
+  div.meta-parent-box div.container .meta-right-box{
+      width: 100%;
+  }
+
+  div.meta-parent-box .meta-save-draft div{
+      font-size: 16px;
+  }
+
+  div.meta-parent-box div.container.meta-save-draft{
+      width: auto;
+      max-width: unset;
+      padding-left: 0;
+      padding-right: 0;
+      position: absolute;
+      right: 50px;
+      margin-bottom: 0;
+  }
+
+  div.meta-parent-box .meta-form-holder{
+      width: 100%;
+      overflow: hidden;
+  }
 }
 </style>

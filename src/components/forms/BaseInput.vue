@@ -140,6 +140,7 @@ export default {
   padding: 15px;
   position: relative;  
   transition: 0.1s;
+  overflow: hidden;
   .label {
     color: #bababa;
     background: white;
