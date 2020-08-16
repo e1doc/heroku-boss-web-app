@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="thead">
+    <div class="thead hide-in-mobile">
       <div class="th">APPLICATION #</div>
       <div class="th">DATE</div>
       <div class="th" v-if="currentType === 'business'">Account #</div>
@@ -16,17 +16,21 @@
           :key="index"
         >
           <div class="td">
+            <span class="td-label show-in-mobile">APPLICATION NO. : </span>
             {{ application.businessbasicinformation.reference_number }}
           </div>
           <div class="td">
+            <span class="td-label show-in-mobile">DATE : </span>
             {{ application.created_at | moment("MMMM DD YYYY") }}
           </div>
           <div class="td">
+            <span class="td-label show-in-mobile">ACCOUNT #: </span>
             {{
               application.account_number ? application.account_number : "N/A"
             }}
           </div>
           <div class="td">
+            <span class="td-label show-in-mobile">STATUS : </span>
             {{
               application.is_draft
                 ? "DRAFT"
@@ -52,10 +56,18 @@
     <div v-if="currentType === 'real_property'">
       <div class="tbody" v-if="buildingApplications.length > 0">
         <div class="tr" v-for="(application, index) in buildingApplications" :key="index">
-        <div class="td">{{application.buildingbasicinformation.reference_number}}</div>
-        <div class="td">{{application.created_at |  moment("MMMM DD YYYY")}}</div>
-        <div class="td">{{application.buildingdetails.tax_dec_no}}</div>
-        <div class="td">{{
+        <div class="td">
+          <span class="td-label show-in-mobile">APPLICATION NO. : </span>
+          {{application.buildingbasicinformation.reference_number}}</div>
+        <div class="td">
+          <span class="td-label show-in-mobile">DATE : </span>
+          {{application.created_at |  moment("MMMM DD YYYY")}}</div>
+        <div class="td">
+          <span class="td-label show-in-mobile">TD # : </span>
+          {{application.buildingdetails.tax_dec_no}}</div>
+        <div class="td">
+          <span class="td-label show-in-mobile">STATUS : </span>
+          {{
               application.is_draft
                 ? "DRAFT"
                 : application.is_approve
@@ -79,11 +91,21 @@
 
     <div class="tbody">
       <div class="tr">
-        <div class="td">000001</div>
-        <div class="td">JUNE 07 2020</div>
-        <div class="td" v-if="currentType === 'business'">MINISTOP</div>
-        <div class="td" v-if="currentType === 'real_property'">A-01543</div>
-        <div class="td">DRAFT</div>
+        <div class="td">
+            <span class="td-label show-in-mobile">APPLICATION NO. : </span>
+            000001</div>
+        <div class="td">
+            <span class="td-label show-in-mobile">DATE : </span>
+            JUNE 07 2020</div>
+        <div class="td" v-if="currentType === 'business'">
+            <span class="td-label show-in-mobile">ACCOUNT # : </span>
+            MINISTOP</div>
+        <div class="td" v-if="currentType === 'real_property'">
+            <span class="td-label show-in-mobile">TD # : </span>
+            A-01543</div>
+        <div class="td">
+            <span class="td-label show-in-mobile">STATUS : </span>
+            DRAFT</div>
         <div class="td actions" v-if="currentType === 'business'">
           <router-link to="business-permit-application">
               <font-awesome-icon icon="edit" class="mr5 view-icon" />EDIT
@@ -96,11 +118,21 @@
         </div>
       </div>
       <div class="tr">
-        <div class="td">000002</div>
-        <div class="td">JUNE 07 2020</div>
-        <div class="td" v-if="currentType === 'business'">MINISTOP</div>
-        <div class="td" v-if="currentType === 'real_property'">A-01543</div>
-        <div class="td">PENDING</div>
+        <div class="td">
+            <span class="td-label show-in-mobile">APPLICATION NO : </span>
+            000002</div>
+        <div class="td">
+            <span class="td-label show-in-mobile">DATE : </span>
+            JUNE 07 2020</div>
+        <div class="td" v-if="currentType === 'business'">
+            <span class="td-label show-in-mobile">ACCOUNT # : </span>
+            MINISTOP</div>
+        <div class="td" v-if="currentType === 'real_property'">
+            <span class="td-label show-in-mobile">TD # : </span>
+            A-01543</div>
+        <div class="td">
+            <span class="td-label show-in-mobile">STATUS : </span>
+            PENDING</div>
         <div class="td actions" v-if="currentType === 'business'">
           <router-link to="view-business-details">
               <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
@@ -113,11 +145,21 @@
         </div>
       </div>
       <div class="tr">
-        <div class="td">000003</div>
-        <div class="td">JUNE 07 2020</div>
-        <div class="td" v-if="currentType === 'business'">MINISTOP</div>
-        <div class="td" v-if="currentType === 'real_property'">A-01543</div>
-        <div class="td">FOR PAYMENT</div>
+        <div class="td">
+            <span class="td-label show-in-mobile">APPLICATION NO : </span>
+            000003</div>
+        <div class="td">
+            <span class="td-label show-in-mobile">DATE : </span>
+            JUNE 07 2020</div>
+        <div class="td" v-if="currentType === 'business'">
+            <span class="td-label show-in-mobile">ACCOUNT # : </span>
+            MINISTOP</div>
+        <div class="td" v-if="currentType === 'real_property'">
+            <span class="td-label show-in-mobile">TD # : </span>
+            A-01543</div>
+        <div class="td">
+            <span class="td-label show-in-mobile">STATUS : </span>
+            FOR PAYMENT</div>
         <div class="td actions" v-if="currentType === 'business'">
           <router-link to="view-business-details">
               <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
@@ -194,5 +236,81 @@ export default {
             color: #2b2b2b;
         }
     }
+}
+
+
+/*
+MOBILE RESPONSIVENESS ------------------------------------------- */
+
+span.td-label.show-in-mobile {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #000c114d;
+}
+
+.show-in-mobile{
+  display: none;
+}
+
+@media only screen and ( max-width: 860px ){
+    .show-in-mobile{
+        display: block;
+    }
+
+    .thead{
+      display: none;
+    }
+
+    .tbody{
+        flex-direction: unset;
+        margin-top: 0;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .tbody .tr{
+        // background: #eef8ff;  
+        flex-wrap: wrap;
+        flex-direction: unset;
+        padding: 15px 20px;
+        width: calc( 50% - 60px );
+        float: left;
+        margin: 0 10px 20px;
+    }
+
+    .tbody .tr .td{
+        flex: unset;
+        width: 100%;
+        float: left;
+        text-align: left;
+    }
+
+    .tbody .tr .td.actions {
+        text-align: center;
+        padding: 0;
+    }
+
+    .tbody .tr .td.actions a{
+        width: 100%;
+        padding: 17px 0px;
+        display: block;
+        border: 1px solid #BCE0FD;
+        border-radius: 10px;
+    }
+    .tbody .tr .td.actions a:hover,
+    .tbody .tr .td.actions a:focus{
+        color: #fff;
+        background-color: #1492e6;
+    }
+}
+
+@media only screen and ( max-width: 650px ){
+  .tbody .tr{
+      width: 100%;
+      float: left;
+      margin: 0 0 20px;
+  }
 }
 </style>

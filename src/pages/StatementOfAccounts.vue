@@ -1,10 +1,10 @@
 <template>
   <section>
     <div class="container">
-      <div class="mt50">
+      <div class="mt50 soa-header"> 
         <profile-table-menu type="soa" />
       </div>
-      <div class="mt50">
+      <div class="mt50 soa-table">
         <soa-table/>
       </div>
     </div>
@@ -23,4 +23,11 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@media only screen and ( max-width : 768px ){
+    .soa-header,
+    .soa-table{
+        margin-top: 30px;
+    }
+}
+</style>

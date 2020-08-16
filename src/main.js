@@ -50,7 +50,13 @@ import {
   faPaperPlane,
   faBars,
   faPlusCircle,
-  faEdit
+  faEdit,
+  faGlobe,
+  faBusinessTime,
+  faLaptopHouse,
+  faFileInvoiceDollar,
+  faInfoCircle,
+  faQuestion
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add([
@@ -89,7 +95,13 @@ library.add([
   faPaperPlane,
   faBars,
   faPlusCircle,
-  faEdit
+  faEdit,
+  faGlobe,
+  faBusinessTime,
+  faLaptopHouse,
+  faFileInvoiceDollar,
+  faInfoCircle,
+  faQuestion
 ]);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.use(VModal)
