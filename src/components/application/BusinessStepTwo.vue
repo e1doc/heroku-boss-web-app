@@ -354,7 +354,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["businessDetails", "lessorDetails", "businessActivities","detailsHasError","lessorDetailsHasError","stepTwoErrors"]),
+    ...mapGetters(["businessApplication","businessDetails", "lessorDetails", "businessActivities","detailsHasError","lessorDetailsHasError","stepTwoErrors","applicationRequirements"]),
   },
   mounted() {
     this.addActivity();
@@ -393,6 +393,10 @@ export default {
         await this.$store.dispatch("addBusinessActivity", this.activities);
       }
       if(!this.detailsHasError && !this.lessorDetailsHasError){
+          let payload = {application_id: this.businessApplication.id}
+          if(!this.applicationRequirements.id){
+            this.$store.dispatch("addApplicationRequirements",payload)
+          }
           this.$store.commit("setCurrentApplicationStep", "3");
       }else{
         console.log('hasError')

@@ -1,89 +1,162 @@
 <template>
   <div class="meta-upload-box flex-wrap">
-        <div class="meta-label">{{ label }}</div>
-        <div class="meta-desc" v-html="description">{{ description }}</div>
-        <div class="meta-custom-upload">
-            <input type="file" name="name">
-            <!-- <div class="meta-text big">DRAG/CLICK TO UPLOAD YOUR FILE HERE</div> -->
-            <div class="meta-text small">DRAG/CLICK TO UPLOAD YOUR FILE HERE</div>
+    <div class="meta-label">{{ label }}</div>
+    <div class="meta-desc" v-html="description">{{ description }}</div>
+    <div class="meta-custom-upload">
+      <form enctype="multipart/form-data" novalidate>
+        <input
+          type="file"
+          name="file"
+          accept="image/*"
+          @change="filesChange($event.target.name, $event.target.files)"
+          :disabled="isUploading"
+        />
+        <!-- <div class="meta-text big">DRAG/CLICK TO UPLOAD YOUR FILE HERE</div> -->
+        <div class="meta-text small" v-if="!isUploading">
+          {{
+            filename ? filename  : properties.filename ? properties.filename : "DRAG/CLICK TO UPLOAD YOUR FILE HERE" 
+          }}
         </div>
+         <div class="meta-text small" v-if="isUploading">
+            Uploading...
+        </div>
+      </form>
     </div>
+  </div>
 </template>
 
 <script>
+const STATUS_INITIAL = 0,
+  STATUS_SAVING = 1,
+  STATUS_SUCCESS = 2,
+  STATUS_FAILED = 3;
+import { mapGetters } from "vuex";
 export default {
-    name: "BaseFileUploader",
-    props: {
-        label: {
-            type: String,
-            default: "",
-        },
-        description: {
-            type: String,
-            default: "",
-        },
+  name: "BaseFileUploader",
+  props: {
+    label: {
+      type: String,
+      default: "",
     },
+    description: {
+      type: String,
+      default: "",
+    },
+    properties:{
+        type: Object,
+        default: {}
+    },
+    type:{
+        type: String,
+        default: ""
+    }
+  },
+  data() {
+    return {
+      currentStatus: null,
+      filename: "",
+    };
+  },
+  computed: {
+    ...mapGetters(['applicationRequirements','isUploading']),
+    isInitial() {
+      return this.currentStatus === STATUS_INITIAL;
+    },
+    isSaving() {
+      return this.currentStatus === STATUS_SAVING;
+    },
+    isSuccess() {
+      return this.currentStatus === STATUS_SUCCESS;
+    },
+    isFailed() {
+      return this.currentStatus === STATUS_FAILED;
+    },
+  },
+  methods: {
+    save(formData) {
+      console.log(formData);
+      if(type === 'business'){
+          this.$store.dispatch("uploadRequirements",formData)
+      }
+    },
+    filesChange(fieldName, fileList) {
+      // handle file changes
+      var formData = new FormData();
+      if (!fileList.length) return;
+
+      // append the files to FormData
+      Array.from(Array(fileList.length).keys()).map((x) => {
+        this.filename = fileList[x].name;
+        formData.append(fieldName, fileList[x])
+        formData.append('requirement_id', this.applicationRequirements.id)
+        formData.append('requirements_label', 'Lorem')
+        formData.append('filename',fileList[x].name)
+      });
+      // save it
+      this.save(formData);
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-.meta-upload-box{
+.meta-upload-box {
+  width: 100%;
+  .meta-label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .meta-desc {
+    font-size: 14px;
+    padding-left: 17px;
+    margin-bottom: 18px;
     width: 100%;
-    .meta-label {
-        font-size: 16px;
-        font-weight: bold;
-        margin-bottom: 10px;
+  }
+  .meta-custom-upload {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    padding: 15px 30px;
+    margin: 0 0 30px 17px;
+    border: 3px dashed #bce0fd;
+    transition: 0.4s;
+    input[type="file"] {
+      position: absolute;
+      z-index: 2;
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+      cursor: pointer;
     }
-    .meta-desc{
-        font-size: 14px;
-        padding-left: 17px;
-        margin-bottom: 18px;
-        width: 100%;
+    .meta-text.big {
+      color: #64b4f9;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.6;
+      text-transform: uppercase;
+      width: 100%;
+      text-align: center;
+      transition: 0.4s;
     }
-    .meta-custom-upload {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        width: 100%;
-        padding: 15px 30px;
-        margin: 0 0 30px 17px;
-        border: 3px dashed #BCE0FD;
-        transition: 0.4s;
-        input[type="file"] {
-            position: absolute;
-            z-index: 2;
-            height: 100%;
-            width: 100%;
-            opacity: 0;
-            cursor: pointer;
-        }
-        .meta-text.big{
-            color: #64B4F9;
-            font-size: 30px;
-            font-weight: 700;
-            line-height: 1.6;
-            text-transform: uppercase;
-            width: 100%;
-            text-align: center;
-            transition: 0.4s;
-        }
-        .meta-text.small{
-            color: #64B4F9;
-            font-size: 15px;
-            font-weight: 700;
-            line-height: 1.6;
-            transition: 0.4s;
-        }
+    .meta-text.small {
+      color: #64b4f9;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.6;
+      transition: 0.4s;
     }
+  }
 }
 
 div.meta-container .meta-custom-upload:hover {
-    border-color: #039be5;
+  border-color: #039be5;
 }
 
-div.meta-container .meta-custom-upload:hover div.meta-text{
-    color: #039be5;
+div.meta-container .meta-custom-upload:hover div.meta-text {
+  color: #039be5;
 }
 </style>

@@ -237,7 +237,7 @@ export default {
       this.$store.commit("setLoading", false);
     },
     preFillForm() {
-      if (Object.entries(this.businessApplication).length > 0) {
+      if (this.businessApplication.id) {
         this.basic_information = this.businessBasicInformation;
         this.business_application = this.businessApplication;
       }

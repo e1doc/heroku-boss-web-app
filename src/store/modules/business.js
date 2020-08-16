@@ -21,7 +21,10 @@ const getDefaultBusinessState = () => {
       business_details: [],
       lessor_details: []
     },
-    applications: []
+    applications: [],
+    applicationRequirements: {},
+    requirements: [],
+    isUploading: false
   };
 };
 
@@ -41,7 +44,10 @@ const getters = {
   activitiesHasError: (state) => state.activitiesHasError,
   stepOneErrors: (state) => state.stepOneErrors,
   stepTwoErrors: (state) => state.stepTwoErrors,
-  applications: (state) => state.applications
+  applications: (state) => state.applications,
+  applicationRequirements: (state) => state.applicationRequirements,
+  isUploading: (state) => state.isUploading,
+  requirements: (state) => state.requirements
 };
 
 const mutations = {
@@ -69,7 +75,10 @@ const mutations = {
   setStepTwoErrors: (state,stepTwoErrors)=>{
     state.stepTwoErrors[`${stepTwoErrors.key}`] = stepTwoErrors.value
   },
-  setApplications: (state, applications) => (state.applications = applications)
+  setApplications: (state, applications) => (state.applications = applications),
+  setApplicationRequirements: (state, applicationRequirements) => (state.applicationRequirements = applicationRequirements),
+  setIsUploading: (state, isUploading) => (state.isUploading = isUploading),
+  setRequirements: (state, requirements) => (state.requirements = requirements)
 };
 
 const actions = {
@@ -180,6 +189,7 @@ const actions = {
       commit("setApplicationHasError", false)
       commit("setBusinessApplication", response.data);
     } catch (err) {
+      console.log(err)
       let errors = {key:'application',value: err.response.data}
       commit("setStepOneErrors",errors)
       commit("setApplicationHasError", true)
@@ -257,6 +267,45 @@ const actions = {
       console.log(err.response);
     }
   },
+  async addApplicationRequirements({ commit, getters }, payload) {
+    try {
+      console.log(payload)
+      const response = await axios.post(
+        `${baseUrl}/api/application-requirements/`,
+        payload,
+        { withCredentials: true }
+      );
+      commit("setApplicationRequirements", response.data);
+    } catch (err) {
+      console.log(err.response);
+    }
+  },
+  async uploadRequirements({ commit, getters }, payload) {
+    try {
+      commit("setIsUploading", true)
+      const response = await axios.post(
+        `${baseUrl}/api/file-upload/`,
+        payload,
+        { withCredentials: true }
+      );
+      commit("setIsUploading", false)
+    } catch (err) {
+      console.log(err.response);
+    }
+  },
+  async getApplicationRequirements({ commit, getters }){
+    try {
+      let payload = {id:getters.applicationRequirements.id}
+      const response = await axios.get(
+        `${baseUrl}/api/application-requirements/`,
+        { withCredentials: true, params: payload }
+      );
+      commit('setRequirements', response.data)
+      console.log(response.data)
+    } catch (err) {
+      console.log(err.response);
+    }
+  }
 };
 
 export default {
