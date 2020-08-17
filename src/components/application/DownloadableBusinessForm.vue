@@ -1,50 +1,66 @@
 <template>
-  <div class="meta-container flex-wrap" ref="content">
+  <div class="meta-container flex-wrap" ref="business_content">
     <base-pdf-header
-      :applicationnumber="5427"
+      :applicationnumber="businessBasicInformation.reference_number"
       formtitle="BUSINESS PERMIT AND LICENSING OFFICE"
-      additionaltext="TAX YEAR ____"
+      :additionaltext="businessApplication.created_at"
+      type="business"
     />
     <div class="meta-form-body">
       <!-- Application Date and Nos. -->
       <div class="meta-text-group flex-wrap">
         <div class="meta-text w6 no-br no-bb">
           <div class="meta-label">Date of Application :</div>
-          <div class="meta-value">August 09, 2020</div>
+          <div class="meta-value">
+            {{ businessApplication.created_at | moment("MMMM DD, YYYY") }}
+          </div>
         </div>
         <div class="meta-text w6 no-bb">
           <div class="meta-label">DTI/SEC/CDA Registration No. :</div>
-          <div class="meta-value">Lorem Ipsum</div>
+          <div class="meta-value">
+            {{ businessBasicInformation.dti_sec_cda_reg_number }}
+          </div>
         </div>
         <div class="meta-text w6 no-br no-bb">
           <div class="meta-label">Account No :</div>
-          <div class="meta-value">0215453698</div>
+          <div class="meta-value">{{ businessApplication.account_number }}</div>
         </div>
         <div class="meta-text w6 no-bb">
           <div class="meta-label">DTI/SEC/CDA Date of Registration No. :</div>
-          <div class="meta-value">Lorem Ipsum</div>
+          <div class="meta-value">
+            {{
+              businessBasicInformation.dti_sec_cda_reg_date
+                | moment("MMMM DD, YYYY")
+            }}
+          </div>
         </div>
         <div class="meta-text w6 no-br no-bb">
           <div class="meta-label">Type of Organization :</div>
-          <div class="meta-value">Lorem Ipsum</div>
+          <div class="meta-value">
+            {{ businessBasicInformation.type_of_organization }}
+          </div>
         </div>
         <div class="meta-text w3 no-br no-bb">
           <div class="meta-label">CTC No. :</div>
-          <div class="meta-value">1234</div>
+          <div class="meta-value">{{ businessBasicInformation.ctc_no }}</div>
         </div>
         <div class="meta-text w3 no-bb">
           <div class="meta-label">TIN :</div>
-          <div class="meta-value">0215453698</div>
+          <div class="meta-value">{{ businessBasicInformation.tin }}</div>
         </div>
         <div class="meta-text w6 no-br">
           <div class="meta-label">
             Are You enjoying tax incentive from any Government Entity ?
           </div>
-          <div class="meta-value">Yes</div>
+          <div class="meta-value">
+            {{ businessBasicInformation.has_tax_incentive ? "Yes" : "No" }}
+          </div>
         </div>
         <div class="meta-text w6">
           <div class="meta-label">Please specify the entity :</div>
-          <div class="meta-value">Lorem ipsum dolor</div>
+          <div class="meta-value">
+            {{ businessBasicInformation.government_entity }}
+          </div>
         </div>
       </div>
 
@@ -53,23 +69,29 @@
         <div class="meta-group-title">Name of Taxpayer/Corporate Name :</div>
         <div class="meta-text w4 no-br no-bb">
           <div class="meta-label">Last Name :</div>
-          <div class="meta-value">Lorem Ipsum</div>
+          <div class="meta-value">
+            {{ businessBasicInformation.owner_last_name }}
+          </div>
         </div>
         <div class="meta-text w4 no-br no-bb">
           <div class="meta-label">First Name :</div>
-          <div class="meta-value">Lorem Ipsum</div>
+          <div class="meta-value">
+            {{ businessBasicInformation.owner_first_name }}
+          </div>
         </div>
         <div class="meta-text w4 no-bb">
           <div class="meta-label">Middle Name :</div>
-          <div class="meta-value">Lorem Ipsum</div>
+          <div class="meta-value">
+            {{ businessBasicInformation.owner_middle_name }}
+          </div>
         </div>
         <div class="meta-text w6 no-br">
           <div class="meta-label">Business Name :</div>
-          <div class="meta-value">Lorem Ipsum</div>
+          <div class="meta-value">{{ businessDetails.name }}</div>
         </div>
         <div class="meta-text w6">
           <div class="meta-label">Trade Name/Franchise :</div>
-          <div class="meta-value">Lorem Ipsum</div>
+          <div class="meta-value">{{ businessDetails.trade_name }}</div>
         </div>
       </div>
 
@@ -80,15 +102,21 @@
         </div>
         <div class="meta-text w4 no-br">
           <div class="meta-label">Last Name :</div>
-          <div class="meta-value">Lorem Ipsum</div>
+          <div class="meta-value">
+            {{ businessDetails.president_last_name }}
+          </div>
         </div>
         <div class="meta-text w4 no-br">
           <div class="meta-label">First Name :</div>
-          <div class="meta-value">Lorem Ipsum</div>
+          <div class="meta-value">
+            {{ businessDetails.president_first_name }}
+          </div>
         </div>
         <div class="meta-text w4">
           <div class="meta-label">Middle Name :</div>
-          <div class="meta-value">Lorem Ipsum</div>
+          <div class="meta-value">
+            {{ businessDetails.president_middle_name }}
+          </div>
         </div>
       </div>
 
@@ -97,15 +125,35 @@
         <div class="meta-group-title">Business Address :</div>
         <div class="meta-text no-br no-bb">
           <div class="meta-label">Complete Address :</div>
-          <div class="meta-value">Lorem Ipsum</div>
+          <div class="meta-value">
+            {{ businessDetails.complete_business_address }}
+          </div>
         </div>
         <div class="meta-text no-br no-bb">
           <div class="meta-label">Telephone No. & Mobile No. :</div>
-          <div class="meta-value">012-4526 / 09422136582</div>
+          <div class="meta-value">
+            {{
+              businessDetails.telephone_number
+                ? businessDetails.telephone_number
+                : "N/A"
+            }}
+            /
+            {{
+              businessDetails.mobile_number
+                ? businessDetails.mobile_number
+                : "N/A"
+            }}
+          </div>
         </div>
         <div class="meta-text no-br no-bb">
           <div class="meta-label">Email Address :</div>
-          <div class="meta-value">sampleemail@email.com</div>
+          <div class="meta-value">
+            {{
+              businessDetails.email_address
+                ? businessDetails.email_address
+                : "N/A"
+            }}
+          </div>
         </div>
       </div>
       <!-- Owner Details -->
@@ -113,15 +161,31 @@
         <div class="meta-group-title">Owner's Address :</div>
         <div class="meta-text no-bb">
           <div class="meta-label">Complete Address :</div>
-          <div class="meta-value">Lorem Ipsum</div>
+          <div class="meta-value">
+            {{ businessBasicInformation.owner_complete_address }}
+          </div>
         </div>
         <div class="meta-text no-bb">
           <div class="meta-label">Telephone No. & Mobile No. :</div>
-          <div class="meta-value">012-4526 / 09422136582</div>
+          <div class="meta-value">
+            {{
+              businessBasicInformation.owner_telephone_number
+                ? businessBasicInformation.owner_telephone_number
+                : "N/A"
+            }}
+            /
+            {{
+              businessBasicInformation.owner_mobile_number
+                ? businessBasicInformation.owner_mobile_number
+                : "N/A"
+            }}
+          </div>
         </div>
         <div class="meta-text no-bb">
           <div class="meta-label">Email Address :</div>
-          <div class="meta-value">sampleemail@email.com</div>
+          <div class="meta-value">
+            {{ businessBasicInformation.owner_email_address }}
+          </div>
         </div>
       </div>
 
@@ -129,21 +193,23 @@
       <div class="meta-text-group flex-wrap">
         <div class="meta-text no-bb">
           <div class="meta-label">Property Index Number (PIN) :</div>
-          <div class="meta-value">021159</div>
+          <div class="meta-value">
+            {{ businessDetails.property_index_number }}
+          </div>
         </div>
         <div class="meta-text w4 no-br">
           <div class="meta-label">Business Area (in sq m) :</div>
-          <div class="meta-value">10,000 sqm</div>
+          <div class="meta-value">{{ businessDetails.area }} sqm</div>
         </div>
         <div class="meta-text w4 no-br">
           <div class="meta-label">Total No. of Employees :</div>
-          <div class="meta-value">100</div>
+          <div class="meta-value">{{ businessDetails.total_employees }}</div>
         </div>
         <div class="meta-text w4">
           <div class="meta-label">
             No. of Employees residing in City/Municipality :
           </div>
-          <div class="meta-value">10</div>
+          <div class="meta-value">{{ businessDetails.residing_employees }}</div>
         </div>
       </div>
 
@@ -154,37 +220,71 @@
         </div>
         <div class="meta-text w6 no-br no-bb">
           <div class="meta-label">Lessor's Name :</div>
-          <div class="meta-value">Lorem Ipsum Dolor</div>
+          <div class="meta-value">
+            {{ lessorDetails.last_name ? lessorDetails.last_name : "N/A" }}
+            {{ lessorDetails.first_name ? lessorDetails.first_name : "N/A" }}
+            {{ lessorDetails.middle_name ? lessorDetails.middle_name : "N/A" }}
+          </div>
         </div>
         <div class="meta-text w6 no-bb">
           <div class="meta-label">Gross Monthly Rental :</div>
-          <div class="meta-value">10,000 sqm</div>
+          <div class="meta-value">
+            {{
+              lessorDetails.gross_monthly_rental
+                ? `₱ ${parseFloat(lessorDetails.gross_monthly_rental).toFixed(2)}`
+                : "N/A"
+            }}
+          </div>
         </div>
         <div class="meta-text w4 no-br no-bb">
           <div class="meta-label">Last Name :</div>
-          <div class="meta-value">Lorem Ipsum</div>
+          <div class="meta-value">
+            {{ lessorDetails.last_name ? lessorDetails.last_name : "N/A" }}
+          </div>
         </div>
         <div class="meta-text w4 no-br no-bb">
           <div class="meta-label">First Name :</div>
-          <div class="meta-value">Dolor ipsum</div>
+          <div class="meta-value">
+            {{ lessorDetails.first_name ? lessorDetails.first_name : "N/A" }}
+          </div>
         </div>
         <div class="meta-text w4 no-bb">
           <div class="meta-label">Middle Name :</div>
-          <div class="meta-value">Dolor</div>
+          <div class="meta-value">
+            {{ lessorDetails.middle_name ? lessorDetails.middle_name : "N/A" }}
+          </div>
         </div>
         <div class="meta-text no-bb">
           <div class="meta-label">Lessor's Address :</div>
           <div class="meta-value">
-            Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            {{
+              lessorDetails.complete_address
+                ? lessorDetails.complete_address
+                : "N/A"
+            }}
           </div>
         </div>
         <div class="meta-text w6 no-br">
           <div class="meta-label">Telephone No. & Mobile No. :</div>
-          <div class="meta-value">012-4526 / 09422136582</div>
+          <div class="meta-value">
+            {{
+              lessorDetails.telephone_number
+                ? lessorDetails.telephone_number
+                : "N/A"
+            }}
+            /
+            {{
+              lessorDetails.mobile_number ? lessorDetails.mobile_number : "N/A"
+            }}
+          </div>
         </div>
         <div class="meta-text w6">
           <div class="meta-label">Email Address :</div>
-          <div class="meta-value">sampleemail@email.com</div>
+          <div class="meta-value">
+            {{
+              lessorDetails.email_address ? lessorDetails.email_address : "N/A"
+            }}
+          </div>
         </div>
       </div>
 
@@ -203,12 +303,35 @@
             </div>
           </div>
         </div>
-        <div class="meta-table-row flex-center">
-          <div class="form-td code no-bt no-br">0125</div>
-          <div class="form-td line no-bt no-br">Lorem Ipsum Lorem Ipsum</div>
-          <div class="form-td units no-bt no-br">90</div>
-          <div class="form-td sales no-bt no-br">Lorem Ipsum</div>
-          <div class="form-td sales no-bt">Lorem Ipsum</div>
+        <div class="meta-table-row" v-if="businessActivities.length > 0">
+          <div
+            class="flex-center"
+            v-for="(activity, index) in businessActivities"
+            :key="index"
+          >
+            <div class="form-td code no-bt no-br">{{ activity.code }}</div>
+            <div class="form-td line no-bt no-br">
+              {{ activity.line_of_business }}
+            </div>
+            <div class="form-td units no-bt no-br">{{ activity.units }}</div>
+            <div class="form-td sales no-bt no-br">
+              {{ activity.essential }}
+            </div>
+            <div class="form-td sales no-bt">{{ activity.non_essential }}</div>
+          </div>
+        </div>
+        <div class="meta-table-row" v-if="businessActivities.length < 0">
+          <div
+            class="flex-center"
+          >
+            <div class="form-td code no-bt no-br"></div>
+            <div class="form-td line no-bt no-br">
+            </div>
+            <div class="form-td units no-bt no-br"></div>
+            <div class="form-td sales no-bt no-br">
+            </div>
+            <div class="form-td sales no-bt"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -219,14 +342,21 @@
 import BasePdfHeader from "@/components/forms/BasePdfHeader";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-import {mapGetters} from "vuex"
+import { mapGetters } from "vuex";
 export default {
   name: "DownloadableBusinessForm",
   components: {
     BasePdfHeader,
   },
-    computed: {
-    ...mapGetters(["printBusiness"]),
+  computed: {
+    ...mapGetters([
+      "printBusiness",
+      "businessApplication",
+      "businessBasicInformation",
+      "businessDetails",
+      "lessorDetails",
+      "businessActivities",
+    ]),
   },
   watch: {
     printBusiness: {
@@ -234,10 +364,13 @@ export default {
       handler(status) {
         if (status) {
           this.generateReport();
-          this.$store.commit('setPrintBusiness',false)
+          this.$store.commit("setPrintBusiness", false);
         }
       },
     },
+  },
+  mounted() {
+    this.$store.commit("setPrintBusiness", false);
   },
   methods: {
     generateReport() {
@@ -246,7 +379,7 @@ export default {
       var width = doc.internal.pageSize.getWidth();
       var height = doc.internal.pageSize.getHeight();
       var canvasElement = document.createElement("canvas");
-      html2canvas(this.$refs.content, {
+      html2canvas(this.$refs.business_content, {
         canvas: canvasElement,
         width: 794,
         height: 1124,
@@ -344,6 +477,7 @@ div.meta-container {
           border: 1px solid;
         }
       }
+
       div.form-th.code,
       div.form-td.code {
         width: calc(15% - 1.5px);

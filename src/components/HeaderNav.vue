@@ -23,7 +23,7 @@
           </ul>
       </div>
       <div class="meta-right-box">
-          <ul class="meta-nav flex-center">
+          <ul class="meta-nav flex-center hide-in-mobile">
               <li class="meta-menu meta-inquire">
                 <router-link to="#"><font-awesome-icon icon="comment-alt" class="mr10 icon" />Inquire</router-link>
               </li>
@@ -35,6 +35,95 @@
                 </ul>
               </li>
           </ul>
+          <div class="mobile-menu-nav show-in-mobile">
+              <font-awesome-icon icon="bars" class="menu-icon" @click="slidemenu = true"  />
+          </div>
+      </div>
+
+      <!-- MOBILE SLIDE MENU -->
+      <div class="meta-mobile-nav" :class="{active:slidemenu == true}">
+        <div class="meta-wrap">
+            <div class="close-menu">
+                <font-awesome-icon icon="times" class="close-icon" @click="slidemenu = false"  />
+            </div>
+            <div class="profile-menu flex-center">
+                <div class="meta-user-icon">
+                    <span class="meta-icon"><font-awesome-icon icon="user" class="mr10 user-icon" /></span>
+                </div>
+                <div class="meta-user-info">
+                    <span class="meta-name">JOHN MICHAEL DOE</span>
+                    <span class="meta-email">johnmich@gmail.com</span>
+                </div>
+            </div>
+            <ul class="mobile-menu">
+                <li class="meta-menu" @click="slidemenu = false, menuActive = 'profile'" :class="{active:menuActive == 'profile'}">
+                    <router-link to="profile">
+                        <span class="meta-label flex-center" @click="slidemenu = false">
+                            <font-awesome-icon icon="user" class="mr10 icon" />
+                            Profile
+                        </span>
+                    </router-link>
+                </li>
+                <li class="meta-menu" @click="slidemenu = false">
+                    <router-link to="#" >
+                        <font-awesome-icon icon="globe" class="mr10 icon" />
+                        Bacoor.gov.ph
+                    </router-link>
+                </li>
+                <li class="meta-menu" @click="slidemenu = false; menuActive = 'business_application'" :class="{active:menuActive == 'business_application'}">
+                    <router-link to="business-permit-application">
+                        <font-awesome-icon icon="store" class="mr10 icon" />
+                        Business Permit Application
+                    </router-link>
+                </li>
+                <li class="meta-menu" @click="slidemenu = false; menuActive = 'building_application'" :class="{active:menuActive == 'building_application'}">
+                    <router-link to="building-permit-application">
+                        <font-awesome-icon icon="city" class="mr10 icon" />
+                        Building Permit Application
+                    </router-link>
+                </li>
+                <li class="meta-menu" @click="slidemenu = false; menuActive = 'business_enrollment'" :class="{active:menuActive == 'business_enrollment'}">
+                    <router-link to="business-enrollment">
+                        <font-awesome-icon icon="business-time" class="mr10 icon" />
+                        Business Permit Enrollment
+                    </router-link>
+                </li>
+                <li class="meta-menu" @click="slidemenu = false; menuActive = 'realp_enrollment'" :class="{active:menuActive == 'realp_enrollment'}">
+                    <router-link to="real-property-enrollment">
+                        <font-awesome-icon icon="laptop-house" class="mr10 icon" />
+                        Real Property Enrollment
+                    </router-link>
+                </li>
+                <li class="meta-menu" @click="slidemenu = false; menuActive = 'soa'" :class="{active:menuActive == 'soa'}">
+                    <router-link to="statement-of-accounts">
+                        <font-awesome-icon icon="file-invoice-dollar" class="mr10 icon" />
+                        Statement of Accounts
+                    </router-link>
+                </li>
+                <li class="meta-menu" @click="slidemenu = false; menuActive = 'about'" :class="{active:menuActive == 'about'}">
+                    <router-link to="#">
+                        <font-awesome-icon icon="info-circle" class="mr10 icon" />
+                        About
+                    </router-link></li>
+                <li class="meta-menu" @click="slidemenu = false; menuActive = 'faqs'" :class="{active:menuActive == 'faqs'}">
+                    <router-link to="#">
+                        <font-awesome-icon icon="question" class="mr10 icon" />
+                        FAQ's
+                    </router-link></li>
+                <li class="meta-menu meta-inquire" @click="slidemenu = false; menuActive = 'inquire'" :class="{active:menuActive == 'inquire'}">
+                    <router-link to="#">
+                        <font-awesome-icon icon="comment-alt" class="mr10 icon" />
+                        Inquire
+                    </router-link>
+                </li>
+            </ul> 
+        </div>
+        <div class="meta-menu logout-menu" @click="slidemenu = false">
+            <a @click="logout()">
+                <font-awesome-icon icon="power-off" class="logout-icon" />
+                Logout
+            </a>
+        </div>
       </div>
   </section>
 </template>
@@ -42,13 +131,19 @@
 <script>
 export default {
  name : "HeaderNav",
+ data() {
+    return {
+      slidemenu: false,
+      menuActive: 'profile'
+    };
+  },
  methods:{
    logout(){
          this.$store.commit("setIsAuthenticated", false);
          this.$store.commit('resetUIState')
          this.$store.commit('resetAuthState')
          this.$router.push({ path: '/' })
-   }
+   },
  }
 }
 </script>
@@ -175,7 +270,9 @@ section.meta-navigation div.meta-center-box ul.meta-nav li.active{
   cursor: pointer;
 }
 
-
+.show-in-mobile{
+    display: none!important;
+}
 
 section.meta-navigation ul.meta-nav > li.has-children{
   padding-bottom: 50px;
@@ -191,6 +288,177 @@ li.meta-user-settings:hover > a{
 
 li.meta-inquire:hover a{
   color: #2b2b2b!important;
+}
+
+
+
+/*
+MOBILE SLIDE MENU
+----------------------------------------------------------------------------- */
+
+div.meta-mobile-nav {
+    background: #fff;
+    height: 100%;
+    width: 100%;
+    // padding: 0 30px;
+    display: flex;
+    flex-wrap: wrap;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 4;
+    
+    opacity: 0;
+    overflow: scroll;
+    transform: translateX(200%);
+    transition: 0.6s;
+}
+
+.meta-wrap {
+    width: 100%;
+    padding: 0 30px;
+}
+
+div.meta-mobile-nav.active{
+    opacity: 1;
+    transform: translateX(0);
+}
+
+div.meta-mobile-nav ul.mobile-menu {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    padding: 30px 0 0;
+}
+
+div.meta-mobile-nav ul.mobile-menu li {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+
+div.meta-mobile-nav ul.mobile-menu li a {    
+    color: #47525d;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    width: 100%;
+    display: block;
+    padding: 18px 0px;
+}
+
+div.meta-mobile-nav ul.mobile-menu li.meta-menu .icon {
+    font-size: 18px;
+    margin-right: 16px;
+    width: 20px;
+    color: #ccc;
+}
+
+div.meta-mobile-nav ul.mobile-menu li.meta-menu.active a,
+div.meta-mobile-nav ul.mobile-menu li.meta-menu.active .icon {
+    color: #e23a36;
+}
+
+div.meta-mobile-nav .close-menu {
+    width: auto;
+    height: auto;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 2;
+    text-align: right;
+}
+
+div.meta-mobile-nav .close-menu .close-icon {
+    font-size: 25px;
+    color: #e23a36;
+    width: auto;
+}
+
+div.meta-mobile-nav .profile-menu {
+    width: 100%;
+    height: auto;
+    margin-top: 40px;
+    padding: 30px 0;
+    color: #e23a36;
+    border-bottom: 2px solid #e23a3626;
+}
+
+div.meta-mobile-nav .profile-menu .meta-user-icon {
+    // width: 100%;
+    height: 52px;
+    width: 52px;
+    margin-right: 15px;
+    justify-content: center;
+    float: left;
+}
+
+div.meta-mobile-nav .profile-menu .meta-user-info {
+    width: calc( 100% - 67px );
+    float: left;
+}
+
+div.meta-mobile-nav .profile-menu .meta-user-info span{
+    line-height: 1.6;
+    float: left;
+}
+
+span.meta-name {
+    font-weight: bold;
+}
+
+div.meta-mobile-nav .profile-menu span.meta-email {
+    font-size: 14px;
+}
+
+div.meta-mobile-nav .profile-menu span.meta-icon .user-icon{
+    margin-right: 0;
+    padding: 15px;
+    margin-bottom: 30px;
+    border: 1px solid;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+}
+
+div.meta-mobile-nav .profile-menu a {
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    color: #2699fb;
+}
+
+div.meta-mobile-nav .logout-menu{
+    width: 100%;
+    margin-top: 50px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+div.meta-mobile-nav .logout-menu a{
+    color: #fff;
+    background-color: #e23a36;
+    text-align: center;
+    display: block;
+    width: 100%;
+    padding: 15px 0;
+    transition: 0.4s;
+}
+
+div.meta-mobile-nav .logout-menu a:hover,
+div.meta-mobile-nav .logout-menu a:focus{
+    opacity: 0.75;
+}
+
+div.meta-mobile-nav .logout-menu .logout-icon{
+    margin-right: 15px;
 }
 
 @media only screen and (max-width: 1320px){
@@ -239,4 +507,58 @@ li.meta-inquire:hover a{
     }
 }
 
+
+@media only screen and ( max-width: 1080px ){
+  section.meta-navigation .meta-right-box ul.meta-nav li.meta-user-settings{
+      padding: 11px 0;
+  }
+}
+
+@media only screen and ( max-width: 991px ){
+  .hide-in-mobile{
+      display: none!important;
+  }
+  .show-in-mobile{
+      display: block!important;
+  }
+  section.meta-navigation .meta-right-box ul.meta-nav li.meta-user-settings{
+      padding: 11px 0;
+  }
+
+  section.meta-navigation .meta-center-box{
+      display: none;
+  }
+
+  section.meta-navigation .meta-left-box,
+  section.meta-navigation .meta-right-box{
+      width: 50%;
+  }
+
+  .mobile-menu-nav {
+      text-align: right;
+  }
+
+  .mobile-menu-nav .menu-icon{
+      font-size: 28px;
+      color: #e23a36;
+  }
+}
+
+@media only screen and ( max-width: 600px ){
+    section.meta-navigation{
+        padding: 0px 15px;
+    }
+    section.meta-navigation .meta-left-box{
+        width: 70%;
+    }
+    section.meta-navigation .meta-right-box{
+        width: 30%;
+    }
+}
+
+@media only screen and ( max-width : 480px ){
+  div.meta-mobile-nav ul.mobile-menu li a{
+    font-size: 13px;
+  }
+}
 </style>

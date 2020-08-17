@@ -1,31 +1,45 @@
 <template>
   <section>
     <div v-if="currentType === 'business'">
-      <div class="thead">
+      <div class="thead hide-in-mobile">
         <div class="th w10">ACC #</div>
         <div class="th w10">OR #</div>
         <div class="th w10">OR DATE</div>
-        <div class="th w35" v-if="currentType === 'business'">
-          BUSINESS NAME
-        </div>
+        <div class="th w35">BUSINESS NAME</div>
         <div class="th w25">PAID BY</div>
         <div class="th w10">AMOUNT</div>
       </div>
       <div class="tbody">
         <div class="tr" v-for="index in 5" :key="index">
-          <div class="td w10">F-02248</div>
-          <div class="td w10">102582</div>
-          <div class="td w10">JUN 1, 2020</div>
-          <div class="td w35" v-if="currentType === 'business'">
-            MAMICHELLE FOOD STATION
+          <div class="td w10">
+              <span class="td-label show-in-mobile">ACCOUNT # : </span>
+              F-02248
           </div>
-          <div class="td w25">JOHN MICHAEL DOE</div>
-          <div class="td w10">₱ 28,063.00</div>
+          <div class="td w10">
+              <span class="td-label show-in-mobile">OR # : </span>
+              102582
+          </div>
+          <div class="td w10">
+              <span class="td-label show-in-mobile">OR DATE : </span>
+              JUN 1, 2020 
+          </div>
+          <div class="td w35">
+              <span class="td-label show-in-mobile">BUSINES NAME : </span>
+              MAMICHELLE FOOD STATION
+          </div>
+          <div class="td w25">
+              <span class="td-label show-in-mobile">PAID BY : </span>
+              JOHN MICHAEL DOE
+          </div>
+          <div class="td w10">
+              <span class="td-label show-in-mobile">AMOUNT : </span>
+              ₱ 28,063.00
+          </div>
         </div>
       </div>
     </div>
     <div v-if="currentType === 'real_property'">
-      <div class="thead">
+      <div class="thead hide-in-mobile">
         <div class="th w15">TD #</div>
         <div class="th w15">OR #</div>
         <div class="th w15">OR DATE</div>
@@ -34,11 +48,26 @@
       </div>
       <div class="tbody">
         <div class="tr" v-for="index in 5" :key="index">
-          <div class="td w15">F-02248</div>
-          <div class="td w15">102582</div>
-          <div class="td w15">JUN 1, 2020</div>
-          <div class="td w25">JOHN MICHAEL DOE</div>
-          <div class="td w30">₱ 28,063.00</div>
+          <div class="td w15">
+              <span class="td-label show-in-mobile">TD # : </span>
+              F-02248
+          </div>
+          <div class="td w15">
+              <span class="td-label show-in-mobile">OR # : </span>
+              102582
+          </div>
+          <div class="td w15">
+              <span class="td-label show-in-mobile">OR DATE : </span>
+              JUN 1, 2020
+          </div>
+          <div class="td w25">
+              <span class="td-label show-in-mobile">PAID BY : </span>
+              JOHN MICHAEL DOE
+          </div>
+          <div class="td w30">
+              <span class="td-label show-in-mobile">AMOUNT : </span>
+              ₱ 28,063.00
+          </div>
         </div>
       </div>
     </div>
@@ -56,6 +85,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+section{
+  width: 100%;
+}
 .w10 {
   width: 10%;
 }
@@ -106,6 +138,63 @@ export default {
       text-align: center;
       padding: 17px 0px;
     }
+  }
+}
+
+/*
+MOBILE RESPONSIVENESS ------------------------------------------- */
+
+span.td-label.show-in-mobile {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #000c114d;
+}
+
+.show-in-mobile{
+  display: none;
+}
+
+@media only screen and ( max-width: 860px ){
+    .show-in-mobile{
+        display: block;
+    }
+
+    .thead{
+      display: none;
+    }
+
+    .tbody{
+        flex-direction: unset;
+        margin-top: 0;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .tbody .tr{
+        // background: #eef8ff;  
+        flex-wrap: wrap;
+        flex-direction: unset;
+        padding: 15px 20px;
+        width: calc( 50% - 60px );
+        float: left;
+        margin: 0 10px 20px;
+    }
+
+    .tbody .tr .td{
+        flex: unset;
+        width: 100%;
+        float: left;
+        text-align: left;
+    }
+}
+
+@media only screen and ( max-width: 650px ){
+  .tbody .tr{
+      width: 100%;
+      float: left;
+      margin: 0 0 20px;
   }
 }
 </style>

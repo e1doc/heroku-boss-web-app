@@ -109,7 +109,7 @@ export default {
 @media only screen and (max-width: 1400px){
   .sc-bs-enrollment {
       .sc-rounded-div {
-          max-width: 488px;
+          max-width: 570px;
           min-height: auto;
           margin-top: 30px;
           .form-group {

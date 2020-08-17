@@ -3,15 +3,20 @@
     <h1 class="meta-form-title">Building Details</h1>
 
     <div class="meta-form-group mb60">
-        <div class="meta-group-title">For Construction Owned by an Enterprise</div>
-        <base-input
-            label="Form of Ownership"
-            v-model="building_details.form_of_ownership"
-            :validationMessages="buildingStepTwoErrors.building_details.form_of_ownership"
-            name="formofownership"
-            refs="form_of_ownership"
-            type="text"
-            class="mt40" />
+      <div class="meta-group-title">
+        For Construction Owned by an Enterprise
+      </div>
+      <base-input
+        label="Form of Ownership"
+        v-model="building_details.form_of_ownership"
+        :validationMessages="
+          buildingStepTwoErrors.building_details.form_of_ownership
+        "
+        name="formofownership"
+        refs="form_of_ownership"
+        type="text"
+        class="mt40"
+      />
     </div>
 
     <div class="meta-form-group mb60">
@@ -47,7 +52,9 @@
         <base-input
           label="Tax Dec. No."
           v-model="building_details.tax_dec_no"
-          :validationMessages="buildingStepTwoErrors.building_details.tax_dec_no"
+          :validationMessages="
+            buildingStepTwoErrors.building_details.tax_dec_no
+          "
           name="taxdecnumber"
           refs="tax_dec_number"
           type="text"
@@ -86,46 +93,52 @@
     </div>
     <!-- SCOPE OF WORK -->
     <div class="meta-form-group mb60">
-        <div class="meta-group-title">Scope of Work</div>
-        
-        <base-select 
-        placeholder = "------ Choose scope of work ------" 
-        :options="scopeofwork" 
-        v-model="building_details.scope_of_work"
-        name="selectFields" 
-        class="mb15" />
+      <div class="meta-group-title">Scope of Work</div>
 
-        <base-input
-          label="Others (Specify)"
-          v-model="building_details.scope_of_work_others"
-          :validationMessages="buildingStepTwoErrors.building_details.scope_of_work_others"
-          name="otherscope"
-          refs="other_scope"
-          type="text"
-          class=""
-        />
+      <base-select
+        placeholder="------ Choose scope of work ------"
+        :options="scopeofwork"
+        v-model="building_details.scope_of_work"
+        name="selectFields"
+        class="mb15"
+      />
+
+      <base-input
+        label="Others (Specify)"
+        v-model="building_details.scope_of_work_others"
+        :validationMessages="
+          buildingStepTwoErrors.building_details.scope_of_work_others
+        "
+        name="otherscope"
+        refs="other_scope"
+        type="text"
+        class=""
+      />
     </div>
 
     <!-- USER OF CHARACTER OF OCCUPANCY -->
     <div class="meta-form-group mb60">
-        <div class="meta-group-title">User or Character of Occupancy</div>
+      <div class="meta-group-title">User or Character of Occupancy</div>
 
-        <base-select 
-        placeholder = "------ Select from the options ------" 
-        :options="characterofoccupancy" 
+      <base-select
+        placeholder="------ Select from the options ------"
+        :options="characterofoccupancy"
         v-model="building_details.character_of_occupancy"
-        name="selectOptions" 
-        class="mb15" /> 
+        name="selectOptions"
+        class="mb15"
+      />
 
-        <base-input
-          label="Others (Specify)"
-          v-model="building_details.character_of_occupancy_others"
-          :validationMessages="buildingStepTwoErrors.building_details.character_of_occupancy_others"
-          name="otheroccupancy"
-          refs="other_occupancy"
-          type="text"
-          class=""
-        />
+      <base-input
+        label="Others (Specify)"
+        v-model="building_details.character_of_occupancy_others"
+        :validationMessages="
+          buildingStepTwoErrors.building_details.character_of_occupancy_others
+        "
+        name="otheroccupancy"
+        refs="other_occupancy"
+        type="text"
+        class=""
+      />
     </div>
 
     <div class="meta-form-group mb60">
@@ -134,7 +147,9 @@
         <base-input
           label="Occupancy Classified"
           v-model="building_other_details.occupancy_classified"
-          :validationMessages="buildingStepTwoErrors.building_other_details.occupancy_classified"
+          :validationMessages="
+            buildingStepTwoErrors.building_other_details.occupancy_classified
+          "
           name="occupancy"
           refs="occupancy_class"
           type="text"
@@ -143,7 +158,9 @@
         <base-input
           label="Total Estimated Cost"
           v-model="building_other_details.total_estimated_cost"
-          :validationMessages="buildingStepTwoErrors.building_other_details.total_estimated_cost"
+          :validationMessages="
+            buildingStepTwoErrors.building_other_details.total_estimated_cost
+          "
           name="estimatedcost"
           refs="estimated_cost"
           type="number"
@@ -154,7 +171,9 @@
         <base-input
           label="Number of Units"
           v-model="building_other_details.units"
-          :validationMessages="buildingStepTwoErrors.building_other_details.units"
+          :validationMessages="
+            buildingStepTwoErrors.building_other_details.units
+          "
           name="unitscount"
           refs="units_count"
           type="number"
@@ -163,7 +182,9 @@
         <base-input
           label="Total Floor Area in sqm."
           v-model="building_other_details.floor_area"
-          :validationMessages="buildingStepTwoErrors.building_other_details.floor_area"
+          :validationMessages="
+            buildingStepTwoErrors.building_other_details.floor_area
+          "
           name="floorarea"
           refs="floor_area"
           type="number"
@@ -172,7 +193,9 @@
         <base-input
           label="Lot Area in sqm."
           v-model="building_other_details.lot_area"
-          :validationMessages="buildingStepTwoErrors.building_other_details.lot_area"
+          :validationMessages="
+            buildingStepTwoErrors.building_other_details.lot_area
+          "
           name="lotarea"
           refs="lot_area"
           type="number"
@@ -180,17 +203,26 @@
         />
       </div>
       <div class="meta-form-group mb60">
-          <div class="meta-group-title mt10 mb10">Proposed Date of Construction</div>
-          <base-date-picker 
-            v-model="building_other_details.date_of_construction" 
-            class="mb15"/>
+        <div class="meta-group-title mt10 mb10">
+          Proposed Date of Construction
+        </div>
+        <base-date-picker
+          v-model="building_other_details.date_of_construction"
+          class="mb15"
+        />
       </div>
-        
     </div>
 
     <div class="meta-form-group button-left-right">
-      <button-block type="back" class="back-button" @click.native="previousStep()">BACK</button-block>
-      <button-block class="next-button" @click.native="nextStep()">NEXT</button-block>
+      <button-block
+        type="back"
+        class="back-button"
+        @click.native="previousStep()"
+        >BACK</button-block
+      >
+      <button-block class="next-button" @click.native="nextStep()"
+        >NEXT</button-block
+      >
     </div>
   </div>
 </template>
@@ -200,8 +232,8 @@ import BaseInput from "@/components/forms/BaseInput";
 import BaseCheckbox from "@/components/forms/BaseCheckbox";
 import ButtonBlock from "@/components/ButtonBlock";
 import BaseSelect from "@/components/forms/BaseSelect";
-import BaseDatePicker from "@/components/forms/BaseDatePicker"
-import {mapGetters} from "vuex"
+import BaseDatePicker from "@/components/forms/BaseDatePicker";
+import { mapGetters } from "vuex";
 export default {
   name: "BuildingStepTwo",
   components: {
@@ -209,11 +241,11 @@ export default {
     BaseCheckbox,
     ButtonBlock,
     BaseSelect,
-    BaseDatePicker
+    BaseDatePicker,
   },
   data() {
     return {
-      building_details:{
+      building_details: {
         form_of_ownership: "",
         lot_no: "",
         blk_no: "",
@@ -227,54 +259,54 @@ export default {
         character_of_occupancy: "",
         character_of_occupancy_others: "",
       },
-      building_other_details:{
+      building_other_details: {
         occupancy_classified: "",
         total_estimated_cost: "",
         units: "",
         floor_area: "",
         lot_area: "",
-        date_of_construction: ""
+        date_of_construction: "",
       },
       scopeofwork: [
         {
           label: "New Construction",
-          value: "new_construction",
+          value: "New Construction",
         },
         {
           label: "Addition",
-          value: "addition",
+          value: "Addition",
         },
         {
           label: "Accessory Building Structure",
-          value: "accessory_building_structure",
+          value: "Accessory Building Structure",
         },
         {
           label: "Alteration",
-          value: "alteration",
+          value: "Alteration",
         },
         {
           label: "Conversion",
-          value: "conversion",
+          value: "Conversion",
         },
         {
           label: "Erection",
-          value: "erection",
+          value: "Erection",
         },
         {
           label: "Moving",
-          value: "moving",
+          value: "Moving",
         },
         {
           label: "Raising",
-          value: "raising",
+          value: "Raising",
         },
         {
           label: "Renovation",
-          value: "renovation",
+          value: "Renovation",
         },
         {
           label: "Repair",
-          value: "repair",
+          value: "Repair",
         },
         {
           label: "Others, Specify on the field below",
@@ -284,43 +316,43 @@ export default {
       characterofoccupancy: [
         {
           label: "GROUP A : Residential Dwellings",
-          value: "groupa",
+          value: "GROUP A : Residential Dwellings",
         },
         {
           label: "GROUP B : Residential Hotel, Apartment",
-          value: "groupb",
+          value: "GROUP B : Residential Hotel, Apartment",
         },
         {
           label: "GROUP C : Educational Recreational",
-          value: "groupc",
+          value: "GROUP C : Educational Recreational",
         },
         {
           label: "GROUP D : Institutional",
-          value: "groupd",
+          value: "GROUP D : Institutional",
         },
         {
           label: "GROUP E : Business and Mercantile",
-          value: "groupe",
+          value: "GROUP E : Business and Mercantile",
         },
         {
           label: "GROUP F : Industrial",
-          value: "groupf",
+          value: "GROUP F : Industrial",
         },
         {
           label: "GROUP G : Industrial Storage and Hazardous",
-          value: "groupg",
+          value: "GROUP G : Industrial Storage and Hazardous",
         },
         {
           label: "GROUP H : Recreational, Assembly Occupant Load less 1000",
-          value: "grouph",
+          value: "GROUP H : Recreational, Assembly Occupant Load less 1000",
         },
         {
           label: "GROUP I : Recreational, Assembly Occupant Load 1000 or more",
-          value: "groupi",
+          value: "GROUP I : Recreational, Assembly Occupant Load 1000 or more",
         },
         {
           label: "GROUP J : Agricultural Accessory",
-          value: "groupj",
+          value: "GROUP J : Agricultural Accessory",
         },
         {
           label: "Others, Specify on the field below",
@@ -329,43 +361,70 @@ export default {
       ],
     };
   },
-  computed:{
-    ...mapGetters(["buildingDetails","buildingOtherDetails","buildingDetailsHasError","buildingOtherDetailsHasError","buildingStepTwoErrors"])
+  computed: {
+    ...mapGetters([
+      "buildingDetails",
+      "buildingOtherDetails",
+      "buildingDetailsHasError",
+      "buildingOtherDetailsHasError",
+      "buildingStepTwoErrors",
+      "draftProperty"
+    ]),
   },
-  mounted(){
-    this.preFillForm()
+  mounted() {
+    this.preFillForm();
   },
-  methods:{
-    previousStep(){
-      console.log('clicked')
-      this.$store.commit('setCurrentApplicationStep','1')
+  watch: {
+    draftProperty: {
+      deep: true,
+      handler(status) {
+        if (status) {
+          this.nextStep();
+        }
+      },
     },
-    async nextStep(){
-
-      if(this.buildingDetails.id){
-        await this.$store.dispatch("updateBuildingDetails",this.building_details)
-      }else{
-        await this.$store.dispatch("addBuildingDetails",this.building_details)
+  },
+  methods: {
+    previousStep() {
+      console.log("clicked");
+      this.$store.commit("setCurrentApplicationStep", "1");
+    },
+    async nextStep() {
+      if (this.buildingDetails.id) {
+        await this.$store.dispatch(
+          "updateBuildingDetails",
+          this.building_details
+        );
+      } else {
+        await this.$store.dispatch("addBuildingDetails", this.building_details);
       }
-      if(this.buildingOtherDetails.id){
-        await this.$store.dispatch("updateBuildingOtherDetails",this.building_other_details)
-      }else{
-        await this.$store.dispatch("addBuildingOtherDetails",this.building_other_details)
+      if (this.buildingOtherDetails.id) {
+        await this.$store.dispatch(
+          "updateBuildingOtherDetails",
+          this.building_other_details
+        );
+      } else {
+        await this.$store.dispatch(
+          "addBuildingOtherDetails",
+          this.building_other_details
+        );
       }
 
-      if(!this.buildingDetailsHasError && !this.buildingOtherDetailsHasError){
-          this.$store.commit('setCurrentApplicationStep','3')
+      if (!this.buildingDetailsHasError && !this.buildingOtherDetailsHasError) {
+        if(!this.draftProperty){
+          this.$store.commit("setCurrentApplicationStep", "3");
+        }
       }
     },
-    preFillForm(){
-      if(Object.entries(this.buildingDetails).length > 0){
-        this.building_details = this.buildingDetails
+    preFillForm() {
+      if (Object.entries(this.buildingDetails).length > 0) {
+        this.building_details = this.buildingDetails;
       }
-      if(Object.entries(this.buildingOtherDetails).length > 0){
-        this.building_other_details = this.buildingOtherDetails
+      if (Object.entries(this.buildingOtherDetails).length > 0) {
+        this.building_other_details = this.buildingOtherDetails;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -386,12 +445,12 @@ div.meta-container {
       line-height: 19px;
       width: 100%;
       margin-bottom: 20px;
-    }   
-    div.meta-input-label{
-        color: #2699FB;
-        font-size: 13px;
-        line-height: 19px;
-        width: 100%;
+    }
+    div.meta-input-label {
+      color: #2699fb;
+      font-size: 13px;
+      line-height: 19px;
+      width: 100%;
     }
     div.input-wrapper {
       margin-bottom: 15px;
@@ -432,9 +491,15 @@ div.meta-container {
   }
 }
 
-.back-button:hover{
-    background-color: #2699FB!important;
-    color: #fff!important;
-    border-color: #2699FB!important;
+.back-button:hover {
+  background-color: #2699fb !important;
+  color: #fff !important;
+  border-color: #2699fb !important;
+}
+
+@media only screen and (max-width: 1380px) {
+  div.meta-container h1.meta-form-title {
+    font-size: 22px;
+  }
 }
 </style>

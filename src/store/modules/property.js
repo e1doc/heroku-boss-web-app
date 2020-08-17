@@ -17,7 +17,8 @@ const getDefaultPropertyState = () => {
             building_details: [],
             building_other_details: []
         },
-        buildingApplications: []
+        buildingApplications: [],
+        draftProperty: false
     }
 }
 
@@ -34,7 +35,8 @@ const getters = {
     buildingOtherDetailsHasError: (state) => state.buildingOtherDetailsHasError,
     buildingStepOneErrors: (state) => state.buildingStepOneErrors,
     buildingStepTwoErrors: (state) => state.buildingStepTwoErrors,
-    buildingApplications: (state) => state.buildingApplications
+    buildingApplications: (state) => state.buildingApplications,
+    draftProperty: (state) => state.draftProperty
 }
 
 const mutations = {
@@ -53,7 +55,8 @@ const mutations = {
       buildingSetStepTwoErrors: (state,buildingStepTwoErrors)=>{
         state.buildingStepTwoErrors[`${buildingStepTwoErrors.key}`] = buildingStepTwoErrors.value
     },  
-    setBuildingApplications: (state, buildingApplications) => (state.buildingApplications = buildingApplications)
+    setBuildingApplications: (state, buildingApplications) => (state.buildingApplications = buildingApplications),
+    setDraftProperty: (state, draftProperty) => (state.draftProperty = draftProperty)
 }
 
 const actions = {

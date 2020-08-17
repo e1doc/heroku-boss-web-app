@@ -166,4 +166,28 @@ div.meta-container {
     }
   }
 }
+
+@media only screen and ( max-width: 1380px ){
+
+  div.meta-container div.meta-page-title{
+      font-size: 25px;
+  }
+
+  div.meta-container div.meta-progress-bar div.meta-step-box div.meta-step-label{
+      font-size: 18px;
+  }
+
+  div.meta-container div.meta-progress-bar div.meta-step-box div.meta-number{
+      font-size: 20px;
+      height: 42px;
+      width: 42px;
+  }
+  div.meta-container div.meta-progress-bar div.meta-step-box .meta-line{
+      margin-right: 20px;
+  }
+
+  div.meta-container div.meta-page-title{
+      margin-bottom: 80px;
+  }
+} 
 </style>

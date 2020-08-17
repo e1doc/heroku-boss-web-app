@@ -7,7 +7,7 @@
             <div class="meta-text">Republic of the Philippines</div>
             <div class="meta-text">Province of  Cavite CITY OF BACOOR</div>
             <div class="meta-text caps">{{ formtitle }}</div>
-            <div class="meta-text caps">{{ additionaltext }}</div>
+            <div class="meta-text caps" v-if="type === 'business'">TAX YEAR <span class="text-underline">{{additionaltext | moment("YYYY") }}</span></div>
         </div>
         <div class="meta-form-number">Application No. {{ applicationnumber }}</div>
     </div>
@@ -18,7 +18,7 @@ export default {
     name: "BasePdfHeader",
     props: {
     applicationnumber: {
-      type: Number,
+      type: String,
       default: "",
     },
     formtitle:{
@@ -28,6 +28,10 @@ export default {
     additionaltext:{
         type: String,
         default: "",
+    },
+    type: {
+        type: String,
+        default: ""
     }
   }
 }

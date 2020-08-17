@@ -24,7 +24,8 @@ const getDefaultBusinessState = () => {
     applications: [],
     applicationRequirements: {},
     requirements: [],
-    isUploading: false
+    isUploading: false,
+    draftBusiness: false,
   };
 };
 
@@ -47,7 +48,8 @@ const getters = {
   applications: (state) => state.applications,
   applicationRequirements: (state) => state.applicationRequirements,
   isUploading: (state) => state.isUploading,
-  requirements: (state) => state.requirements
+  requirements: (state) => state.requirements,
+  draftBusiness: (state) => state.draftBusiness
 };
 
 const mutations = {
@@ -78,7 +80,8 @@ const mutations = {
   setApplications: (state, applications) => (state.applications = applications),
   setApplicationRequirements: (state, applicationRequirements) => (state.applicationRequirements = applicationRequirements),
   setIsUploading: (state, isUploading) => (state.isUploading = isUploading),
-  setRequirements: (state, requirements) => (state.requirements = requirements)
+  setRequirements: (state, requirements) => (state.requirements = requirements),
+  setDraftBusiness: (state, draftBusiness) => (state.draftBusiness = draftBusiness)
 };
 
 const actions = {
@@ -250,6 +253,7 @@ const actions = {
   async updateBusinessActivity({ commit, getters }, payload) {
     try {
       if(payload.length > 0){
+        console.log(payload)
         let x = 0
         payload.forEach(element => {
             element.id = getters.businessActivities[x].id

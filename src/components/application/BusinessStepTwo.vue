@@ -6,7 +6,9 @@
       <base-input
         label="First Name"
         v-model="business_details.president_first_name"
-        :validationMessages="stepTwoErrors.business_details.president_first_name"
+        :validationMessages="
+          stepTwoErrors.business_details.president_first_name
+        "
         name="presidentfirstname"
         refs="pres_first_name"
         type="text"
@@ -15,7 +17,9 @@
       <base-input
         label="Middle Name(optional)"
         v-model="business_details.president_middle_name"
-        :validationMessages="stepTwoErrors.business_details.president_middle_name"
+        :validationMessages="
+          stepTwoErrors.business_details.president_middle_name
+        "
         name="presidentmiddlename"
         refs="pres_middle_name"
         type="text"
@@ -58,7 +62,9 @@
       <base-input
         label="Complete Business Address"
         v-model="business_details.complete_business_address"
-        :validationMessages="stepTwoErrors.business_details.complete_business_address"
+        :validationMessages="
+          stepTwoErrors.business_details.complete_business_address
+        "
         name="businessaddress"
         refs="business_address"
         type="text"
@@ -103,7 +109,9 @@
       <base-input
         label="Property Index Pin (PIN)"
         v-model="business_details.property_index_number"
-        :validationMessages="stepTwoErrors.business_details.property_index_number"
+        :validationMessages="
+          stepTwoErrors.business_details.property_index_number
+        "
         name="pin"
         refs="pin_number"
         type="number"
@@ -184,7 +192,9 @@
         <base-input
           label="Gross Monthly Rental"
           v-model="lessor_details.gross_monthly_rental"
-          :validationMessages="stepTwoErrors.lessor_details.gross_monthly_rental"
+          :validationMessages="
+            stepTwoErrors.lessor_details.gross_monthly_rental
+          "
           name="monthlyrental"
           refs="monthly_rental"
           type="text"
@@ -354,66 +364,91 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["businessApplication","businessDetails", "lessorDetails", "businessActivities","detailsHasError","lessorDetailsHasError","stepTwoErrors","applicationRequirements"]),
+    ...mapGetters([
+      "businessApplication",
+      "businessDetails",
+      "lessorDetails",
+      "businessActivities",
+      "detailsHasError",
+      "lessorDetailsHasError",
+      "stepTwoErrors",
+      "applicationRequirements",
+      "draftBusiness",
+    ]),
   },
   mounted() {
     this.addActivity();
     this.preFillForm();
   },
-  watch:{
-    businessActivities(value){
-    }
+  watch: {
+    draftBusiness: {
+      deep: true,
+      handler(status) {
+        if (status) {
+          this.nextStep();
+        }
+      },
+    },
   },
   methods: {
     previousStep() {
       this.$store.commit("setCurrentApplicationStep", "1");
     },
-   async nextStep() {
+    async nextStep() {
       this.$store.commit("setLoading", true);
-      if(this.businessDetails.id){
-         await this.$store.dispatch("updateBusinessDetails",this.business_details)
-      }else{
+      if (this.businessDetails.id) {
+        await this.$store.dispatch(
+          "updateBusinessDetails",
+          this.business_details
+        );
+      } else {
         await this.$store.dispatch("addBusinessDetails", this.business_details);
       }
-      if(this.lessor_details.id){
-       await this.$store.dispatch("updateLessorDetails", this.lessor_details)
-      }else{
+      if (this.lessor_details.id) {
+        await this.$store.dispatch("updateLessorDetails", this.lessor_details);
+      } else {
         await this.$store.dispatch("addLessorDetails", this.lessor_details);
       }
-      if(this.businessActivities.length > 0){
-        if(this.activities.length > this.businessActivities.length){
-          let add = await this.activities.slice(this.businessActivities.length)
-          await this.$store.dispatch("addBusinessActivity", add);
-          let update = await this.activities.slice(0,this.businessActivities.length)
-          await this.$store.dispatch("updateBusinessActivity", update);
-        }else{
-          await this.$store.dispatch("updateBusinessActivity", this.activities);
-        }
-      }else{
+      if (this.businessActivities.length > 0) {
+        // if (this.activities.length > this.businessActivities.length) {
+        //   let add = await this.activities.slice(this.businessActivities.length);
+        //   await this.$store.dispatch("addBusinessActivity", add);
+        //   let update = await this.activities.slice(
+        //     0,
+        //     this.businessActivities.length
+        //   );
+        //   await this.$store.dispatch("updateBusinessActivity", update);
+        // } else {
+        //   await this.$store.dispatch("updateBusinessActivity", this.activities);
+        // }
+        await this.$store.dispatch("updateBusinessActivity", this.activities);
+      } else {
         await this.$store.dispatch("addBusinessActivity", this.activities);
       }
-      if(!this.detailsHasError && !this.lessorDetailsHasError){
-          let payload = {application_id: this.businessApplication.id}
-          if(!this.applicationRequirements.id){
-            this.$store.dispatch("addApplicationRequirements",payload)
-          }
+      if (!this.detailsHasError && !this.lessorDetailsHasError) {
+        let payload = { application_id: this.businessApplication.id };
+        if (this.applicationRequirements) {
+          this.$store.dispatch("addApplicationRequirements", payload);
+        }
+        if (!this.draftBusiness) {
           this.$store.commit("setCurrentApplicationStep", "3");
-      }else{
-        console.log('hasError')
+        }
+      } else {
+        console.log("hasError");
       }
-       this.$store.commit("setLoading", false);
+      this.$store.commit("setLoading", false);
     },
     preFillForm() {
-      if (Object.entries(this.businessDetails).length > 0) {
+      if (this.businessDetails.id) {
         this.business_details = this.businessDetails;
       }
-      if (Object.entries(this.lessorDetails).length > 0) {
+      if (this.lessorDetails.id) {
         this.lessor_details = this.lessorDetails;
       }
       if (this.businessActivities.length > 0) {
-        this.activities.splice(0,this.activities.length)
+        this.activities.splice(0, this.activities.length);
         this.businessActivities.forEach((element) => {
-          this.activities.push(element)
+          this.activities.push(element);
         });
       }
     },
@@ -515,5 +550,11 @@ div.meta-container {
   background-color: #2699fb !important;
   color: #fff !important;
   border-color: #2699fb !important;
+}
+
+@media only screen and (max-width: 1380px) {
+  div.meta-container h1.meta-form-title {
+    font-size: 22px;
+  }
 }
 </style>

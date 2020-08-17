@@ -7,13 +7,13 @@ import "@/css/main.scss";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import VModal from 'vue-js-modal'
-import VueHtml2pdf from 'vue-html2pdf'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import Skeleton from 'vue-loading-skeleton';
+import Lightbox from 'vue-easy-lightbox'
 Vue.use(Skeleton)
-Vue.use(VueSweetalert2);
-Vue.use(VueHtml2pdf)
+Vue.use(VueSweetalert2)
+Vue.use(Lightbox)
 Vue.use(require('vue-moment'));
 import {
   faUser,
@@ -39,8 +39,26 @@ import {
   faCheck,
   faSave,
   faArrowLeft,
-  faPlusCircle
-} from "@fortawesome/free-solid-svg-icons";
+  faChartLine,
+  faCoins,
+  faUsers,
+  faSearch,
+  faCommentSlash,
+  faComments,
+  faInbox,
+  faEnvelopeOpenText,
+  faReply,
+  faPaperPlane,
+  faBars,
+  faPlusCircle,
+  faEdit,
+  faGlobe,
+  faBusinessTime,
+  faLaptopHouse,
+  faFileInvoiceDollar,
+  faInfoCircle,
+  faQuestion
+} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add([
   faUser,
@@ -66,7 +84,25 @@ library.add([
   faCheck,
   faSave,
   faArrowLeft,
-  faPlusCircle
+  faChartLine,
+  faCoins,
+  faUsers,
+  faSearch,
+  faCommentSlash,
+  faComments,
+  faInbox,
+  faEnvelopeOpenText,
+  faReply,
+  faPaperPlane,
+  faBars,
+  faPlusCircle,
+  faEdit,
+  faGlobe,
+  faBusinessTime,
+  faLaptopHouse,
+  faFileInvoiceDollar,
+  faInfoCircle,
+  faQuestion
 ]);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.use(VModal)

@@ -18,7 +18,6 @@ import InvoiceDialog from "@/components/payment/InvoiceDialog";
 import HeaderNav from "@/components/HeaderNav";
 import UserProfile from "@/components/UserProfile";
 import DownloadableInvoice from "@/components/payment/DownloadableInvoice";
-import VueHtml2pdf from 'vue-html2pdf'
  
 export default {
   components: {
@@ -33,7 +32,6 @@ export default {
     HeaderNav,
     UserProfile,
     DownloadableInvoice,
-    VueHtml2pdf
   },
   data() {
     return {

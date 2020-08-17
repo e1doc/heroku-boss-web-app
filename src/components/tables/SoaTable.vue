@@ -1,7 +1,7 @@
 <template>
   <section>
     <div v-if="currentType === 'business'">
-      <div class="thead">
+      <div class="thead hide-in-mobile">
         <div class="th w10">ACCOUNT #</div>
         <div class="th w10">REFERENCE #</div>
         <div class="th w10">DATE</div>
@@ -11,11 +11,26 @@
       </div>
       <div class="tbody">
         <div class="tr" v-for="index in 5" :key="index">
-          <div class="td w10">F-02248</div>
-          <div class="td w10">102582</div>
-          <div class="td w10">JUN 1, 2020</div>
-          <div class="td w35">MAMICHELLE FOOD STATION</div>
-          <div class="td w25">₱ 28,063.00</div>
+          <div class="td w10">
+              <span class="td-label show-in-mobile">ACCOUNT # : </span>
+              F-02248
+          </div>
+          <div class="td w10">
+              <span class="td-label show-in-mobile">REFERENCE # : </span>
+              102582
+          </div>
+          <div class="td w10">
+              <span class="td-label show-in-mobile">DATE : </span>
+              JUN 1, 2020
+          </div>
+          <div class="td w35">
+              <span class="td-label show-in-mobile">BUSINESS NAME : </span>
+              MAMICHELLE FOOD STATION
+          </div>
+          <div class="td w25">
+              <span class="td-label show-in-mobile">AMOUNT : </span>
+              ₱ 28,063.00
+          </div>
           <div class="td w10 actions">
             <div class="bill" @click="redirect()">
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
@@ -25,7 +40,7 @@
       </div>
     </div>
     <div v-if="currentType === 'real_property'">
-      <div class="thead">
+      <div class="thead hide-in-mobile">
         <div class="th w15">TD #</div>
         <div class="th w15">REFERENCE #</div>
         <div class="th w15">DATE</div>
@@ -34,10 +49,22 @@
       </div>
       <div class="tbody">
         <div class="tr" v-for="index in 5" :key="index">
-          <div class="td w15">F-02248</div>
-          <div class="td w15">102582</div>
-          <div class="td w15">JUN 1, 2020</div>
-          <div class="td w25">₱ 28,063.00</div>
+          <div class="td w15">
+              <span class="td-label show-in-mobile">TD # : </span>
+              F-02248
+          </div>
+          <div class="td w15">
+              <span class="td-label show-in-mobile">REFERENCE # : </span>
+              102582
+          </div>
+          <div class="td w15">
+              <span class="td-label show-in-mobile">DATE : </span>
+              JUN 1, 2020
+          </div>
+          <div class="td w25">
+              <span class="td-label show-in-mobile">AMOUNT : </span>
+              ₱ 28,063.00
+          </div>
           <div class="td w15 actions">
             <div class="bill" @click="redirect()">
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
@@ -122,19 +149,78 @@ export default {
 }
 
 .bill {
-  max-width: 117px;
-  margin: 0 auto;
+  color: #039be5;
   font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+  max-width: 117px;
   padding: 8px 0px;
+  margin: 0 auto;
   border: 2px #039be5 solid;
   border-radius: 5px;
   transition: 0.4s;
   cursor: pointer;
-  color: #039be5;
-  font-weight: bold;
 }
 .bill:hover {
   color: #ffffff !important;
   background-color: #039be5;
+}
+
+
+/*
+MOBILE RESPONSIVENESS ------------------------------------------- */
+
+span.td-label.show-in-mobile {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #000c114d;
+}
+
+.show-in-mobile{
+  display: none;
+}
+
+@media only screen and ( max-width: 860px ){
+    .show-in-mobile{
+        display: block;
+    }
+
+    .thead{
+      display: none;
+    }
+
+    .tbody{
+        flex-direction: unset;
+        margin-top: 0;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .tbody .tr{
+        // background: #eef8ff;  
+        flex-wrap: wrap;
+        flex-direction: unset;
+        padding: 15px 20px;
+        width: calc( 50% - 60px );
+        float: left;
+        margin: 0 10px 20px;
+    }
+
+    .tbody .tr .td{
+        flex: unset;
+        width: 100%;
+        float: left;
+        text-align: left;
+    }
+}
+
+@media only screen and ( max-width: 650px ){
+  .tbody .tr{
+      width: 100%;
+      float: left;
+      margin: 0 0 20px;
+  }
 }
 </style>

@@ -86,7 +86,7 @@ export default {
     ButtonBlock
   },
   computed:{
-      ...mapGetters(["buildingApplication", "buildingBasicInformation","buildingBasicInfoHasError","buildingStepOneErrors"])
+      ...mapGetters(["buildingApplication", "buildingBasicInformation","buildingBasicInfoHasError","buildingStepOneErrors","draftProperty"])
   },
   mounted(){
       this.preFillForm()
@@ -107,6 +107,16 @@ export default {
         }
     };
   },
+    watch:{
+    draftProperty:{
+      deep: true,
+      handler(status) {
+        if(status){
+          this.nextStep()
+        }
+      }
+    }
+  },
   methods:{
      async nextStep(){
           this.$store.commit("setLoading", true);
@@ -118,12 +128,15 @@ export default {
              await this.$store.dispatch("updateBuildingBasicInformation",this.basic_information)
           }
           if(!this.buildingBasicInfoHasError){
-             this.$store.commit("setCurrentApplicationStep", "2")   
+             if(!this.draftProperty){
+                 console.log(this.draftProperty)
+                 this.$store.commit("setCurrentApplicationStep", "2")   
+             }
           }
            this.$store.commit("setLoading", false);
       },
       preFillForm(){
-          if(Object.entries(this.buildingBasicInformation).length > 0){
+          if(this.buildingBasicInformation.id){
               this.basic_information = this.buildingBasicInformation
           }
       }
@@ -165,5 +178,13 @@ div.meta-container{
 
 div.meta-container div.meta-form-group div.meta-input-group .input-w3:last-child {
     margin-right: 0;
+}
+
+
+
+@media only screen and ( max-width : 1380px ){
+    div.meta-container h1.meta-form-title{
+        font-size: 22px;
+    }
 }
 </style>

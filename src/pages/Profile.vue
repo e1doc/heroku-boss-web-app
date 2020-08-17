@@ -12,7 +12,7 @@
         </div>
         <div class="meta-right-box">
           <profile-table-menu type="profile" />
-          <div class="mt50">
+          <div class="meta-table-box mt50">
             <profile-table v-if="currentTable === 'profile'"/>
             <transaction-table v-if="currentTable === 'transactions'"/>
             <application-table v-if="currentTable === 'applications'"/>
@@ -95,6 +95,10 @@ export default {
   }
 }
 
+
+/*
+MOBILE RESPONSIVENESS ------------------------------------------- */
+
 @media only screen and (max-width: 1400px){
   .sc-home .meta-left-box{
       max-width: 25%;
@@ -113,6 +117,16 @@ export default {
 
   .sc-home .meta-right-box {
      max-width: 100%;
+  }
+}
+
+@media only screen and ( max-width: 768px ){
+  .meta-table-box {
+      margin-top: 20px;
+  }
+
+  .sc-home{
+      padding-top: 30px;
   }
 }
 </style>

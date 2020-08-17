@@ -212,7 +212,17 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["businessBasicInformation", "businessApplication", "basicInfoHasError", "applicationHasError","stepOneErrors"]),
+    ...mapGetters(["businessBasicInformation", "businessApplication", "basicInfoHasError", "applicationHasError","stepOneErrors","draftBusiness"]),
+  },
+  watch:{
+    draftBusiness:{
+      deep: true,
+      handler(status) {
+        if(status){
+          this.nextStep()
+        }
+      }
+    }
   },
   mounted() {
     this.preFillForm();
@@ -232,7 +242,9 @@ export default {
        await this.$store.dispatch("updateBusinessBasicInformation", this.basic_information)
       }
       if(!this.applicationHasError && !this.basicInfoHasError){
-        this.$store.commit("setCurrentApplicationStep", "2")
+        if(!this.draftBusiness){
+            this.$store.commit("setCurrentApplicationStep", "2")
+        }
       }
       this.$store.commit("setLoading", false);
     },
@@ -304,5 +316,14 @@ div.meta-container
   div.meta-input-group
   .input-w3:last-child {
   margin-right: 0;
+}
+
+
+
+
+@media only screen and ( max-width : 1380px ){
+    div.meta-container h1.meta-form-title{
+        font-size: 22px;
+    }
 }
 </style>

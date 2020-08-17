@@ -5,10 +5,13 @@
   :to="link"
   >
   <font-awesome-icon icon="arrow-left" class="icon-left" v-if="type==='back'"/>
+  <font-awesome-icon icon="paper-plane" class="icon-left" v-if="type==='send'"/>
+  <font-awesome-icon icon="check" class="icon-left" v-if="type==='approve'"/>
+  <font-awesome-icon icon="times" class="icon-left" v-if="type==='disapprove'"/>
     <slot>
       Button
     </slot>
-    <font-awesome-icon icon="arrow-right" class="icon-right" v-if="type !=='back'"/>
+    <font-awesome-icon icon="arrow-right" class="icon-right" v-if="type !=='back' && type !== 'send' && type !== 'approve' && type !== 'disapprove'"/>
   </component>
 </template>
 
