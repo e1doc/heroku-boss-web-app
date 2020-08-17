@@ -133,4 +133,37 @@ div.meta-container .meta-custom-upload:hover div.meta-text{
         font-size: 22px;
     }
 }
+
+@media only screen and ( max-width : 650px ){
+    div.meta-container{
+        padding: 40px 30px;
+    }
+
+    div.meta-container h1.meta-form-title{
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+}
+
+@media only screen and ( max-width : 480px ){
+    div.meta-container div.button-left-right .back-button{
+        background-color: #048cff;
+        border-color: #73befc;
+        width: auto;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        color: #2699fb;
+        min-width: unset;
+    }
+
+    div.meta-container div.button-left-right .next-button{
+        width: auto;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        min-width: unset;
+        color: #2699fb;
+    }
+}
 </style>

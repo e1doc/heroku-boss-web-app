@@ -215,33 +215,37 @@ export default {
     ...mapGetters(["businessBasicInformation", "businessApplication", "basicInfoHasError", "applicationHasError","stepOneErrors"]),
   },
   mounted() {
-    this.preFillForm();
+    // this.preFillForm();
   },
   methods: {
    async nextStep() {
-      this.$store.commit("setLoading", true);
-      if(this.businessApplication.id){
-       await this.$store.dispatch("updateBusinessApplication", this.business_application)
-      }else{
-        let payload = {business_application: this.business_application, basic_information: this.basic_information}
-       await this.$store.dispatch("addBusinessApplication",payload)
-      }
-      if(this.businessApplication.id && !this.businessBasicInformation.id){
-        await this.$store.dispatch("addBusinessBasicInformation", this.basic_information)
-      }else if(this.businessApplication.id && this.businessBasicInformation.id){
-       await this.$store.dispatch("updateBusinessBasicInformation", this.basic_information)
-      }
-      if(!this.applicationHasError && !this.basicInfoHasError){
         this.$store.commit("setCurrentApplicationStep", "2")
-      }
-      this.$store.commit("setLoading", false);
+
+  //     this.$store.commit("setLoading", true);
+  //     if(this.businessApplication.id){
+  //      await this.$store.dispatch("updateBusinessApplication", this.business_application)
+  //     }else{
+  //       let payload = {business_application: this.business_application, basic_information: this.basic_information}
+  //      await this.$store.dispatch("addBusinessApplication",payload)
+  //     }
+  //     if(this.businessApplication.id && !this.businessBasicInformation.id){
+  //       await this.$store.dispatch("addBusinessBasicInformation", this.basic_information)
+  //     }else if(this.businessApplication.id && this.businessBasicInformation.id){
+  //      await this.$store.dispatch("updateBusinessBasicInformation", this.basic_information)
+  //     }
+  //     if(!this.applicationHasError && !this.basicInfoHasError){
+  //       this.$store.commit("setCurrentApplicationStep", "2")
+  //     }
+  //     this.$store.commit("setLoading", false);
+  //   },
+  //   preFillForm() {
+  //     if (Object.entries(this.businessApplication).length > 0) {
+  //       this.basic_information = this.businessBasicInformation;
+  //       this.business_application = this.businessApplication;
+  //     }
+    
     },
-    preFillForm() {
-      if (Object.entries(this.businessApplication).length > 0) {
-        this.basic_information = this.businessBasicInformation;
-        this.business_application = this.businessApplication;
-      }
-    },
+  
   },
 };
 </script>
@@ -312,6 +316,23 @@ div.meta-container
 @media only screen and ( max-width : 1380px ){
     div.meta-container h1.meta-form-title{
         font-size: 22px;
+    }
+}
+
+@media only screen and ( max-width : 650px ){
+    div.meta-container{
+        padding: 40px 30px;
+    }
+
+    div.meta-container h1.meta-form-title[data-v-1923f44a] {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+}
+
+@media only screen and ( max-width: 480px ){
+    .next-button{
+        width: 100%;
     }
 }
 </style>

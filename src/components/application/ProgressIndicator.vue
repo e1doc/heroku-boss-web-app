@@ -234,4 +234,65 @@ div.meta-container {
         z-index: 2;
     }
 }
+
+@media only screen and ( max-width: 991px ){
+  div.meta-container div.meta-progress-bar div.meta-step-box div.meta-step-label{
+      min-height: 51px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+  }
+
+  div.meta-container div.meta-progress-bar div.meta-step-box .meta-line{
+      right: -107px;
+  }
+}
+
+@media only screen and ( max-width: 768px ){
+  div.meta-container div.meta-progress-bar div.meta-step-box div.meta-step-label{
+    display: none;
+  }
+
+  .meta-progress-bar {
+      position: fixed;
+      bottom: 0;
+      z-index: 2;
+      width: 100%;
+      left: 0;
+      background-color: #fff;
+      box-shadow: 0px -5px 20px rgba(127, 127, 127, 0.1);
+      padding: 5px 0;
+  }
+
+  div.meta-container div.meta-progress-bar div.meta-step-box .meta-line{
+      width: 100%;
+      right: -93px;
+      margin-right: 0;
+  }
+}
+
+@media only screen and ( max-width: 600px ){
+    div.meta-container div.meta-progress-bar div.meta-step-box .meta-line{
+        right: -74px;
+    }
+}
+
+@media only screen and ( max-width : 480px ){
+  div.meta-container div.meta-progress-bar div.meta-step-box div.meta-number{
+      font-size: 18px;
+      height: 35px;
+      width: 35px;
+      margin: 0px auto;
+  }
+
+  div.meta-container div.meta-progress-bar{
+      padding: 10px 0;  
+  }
+
+  div.meta-container div.meta-progress-bar div.meta-step-box .meta-line{
+      right: -50px;
+      bottom: 9px;
+  }
+}
 </style>

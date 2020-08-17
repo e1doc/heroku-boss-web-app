@@ -83,4 +83,38 @@ div.meta-container{
         font-size: 22px;
     }
 }
+
+
+@media only screen and ( max-width : 768px ){
+    div.meta-container{
+        min-height: 300px;
+    }
+    div.meta-container h1.meta-form-title{
+        font-size: 18px;
+        margin-bottom: 30px;
+        line-height: 1.6;
+    }
+
+    div.meta-container .meta-text{
+        font-size: 16px;
+        line-height: 2;
+        margin-bottom: 50px;
+    }
+}
+
+@media only screen and ( max-width : 480px ){
+    div.meta-container{
+        min-height: unset;
+        padding-bottom: 40px;
+    }
+
+    div.meta-container h1.meta-form-title{
+        font-size: 15px;
+    }
+
+    div.meta-container .meta-text{
+        font-size: 14px;
+        line-height: 1.6;
+    }
+}
 </style>

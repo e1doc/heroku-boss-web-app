@@ -357,8 +357,8 @@ export default {
     ...mapGetters(["businessDetails", "lessorDetails", "businessActivities","detailsHasError","lessorDetailsHasError","stepTwoErrors"]),
   },
   mounted() {
-    this.addActivity();
-    this.preFillForm();
+    // this.addActivity();
+    // this.preFillForm();
   },
   watch:{
     businessActivities(value){
@@ -369,63 +369,64 @@ export default {
       this.$store.commit("setCurrentApplicationStep", "1");
     },
    async nextStep() {
-      this.$store.commit("setLoading", true);
-      if(this.businessDetails.id){
-         await this.$store.dispatch("updateBusinessDetails",this.business_details)
-      }else{
-        await this.$store.dispatch("addBusinessDetails", this.business_details);
-      }
-      if(this.lessor_details.id){
-       await this.$store.dispatch("updateLessorDetails", this.lessor_details)
-      }else{
-        await this.$store.dispatch("addLessorDetails", this.lessor_details);
-      }
-      if(this.businessActivities.length > 0){
-        if(this.activities.length > this.businessActivities.length){
-          let add = await this.activities.slice(this.businessActivities.length)
-          await this.$store.dispatch("addBusinessActivity", add);
-          let update = await this.activities.slice(0,this.businessActivities.length)
-          await this.$store.dispatch("updateBusinessActivity", update);
-        }else{
-          await this.$store.dispatch("updateBusinessActivity", this.activities);
-        }
-      }else{
-        await this.$store.dispatch("addBusinessActivity", this.activities);
-      }
-      if(!this.detailsHasError && !this.lessorDetailsHasError){
-          this.$store.commit("setCurrentApplicationStep", "3");
-      }else{
-        console.log('hasError')
-      }
-       this.$store.commit("setLoading", false);
+      // this.$store.commit("setLoading", true);
+      // if(this.businessDetails.id){
+      //    await this.$store.dispatch("updateBusinessDetails",this.business_details)
+      // }else{
+      //   await this.$store.dispatch("addBusinessDetails", this.business_details);
+      // }
+      // if(this.lessor_details.id){
+      //  await this.$store.dispatch("updateLessorDetails", this.lessor_details)
+      // }else{
+      //   await this.$store.dispatch("addLessorDetails", this.lessor_details);
+      // }
+      // if(this.businessActivities.length > 0){
+      //   if(this.activities.length > this.businessActivities.length){
+      //     let add = await this.activities.slice(this.businessActivities.length)
+      //     await this.$store.dispatch("addBusinessActivity", add);
+      //     let update = await this.activities.slice(0,this.businessActivities.length)
+      //     await this.$store.dispatch("updateBusinessActivity", update);
+      //   }else{
+      //     await this.$store.dispatch("updateBusinessActivity", this.activities);
+      //   }
+      // }else{
+      //   await this.$store.dispatch("addBusinessActivity", this.activities);
+      // }
+      // if(!this.detailsHasError && !this.lessorDetailsHasError){
+      //     this.$store.commit("setCurrentApplicationStep", "3");
+      // }else{
+      //   console.log('hasError')
+      // }
+      //  this.$store.commit("setLoading", false);
+       this.$store.commit("setCurrentApplicationStep", "3");
     },
-    preFillForm() {
-      if (Object.entries(this.businessDetails).length > 0) {
-        this.business_details = this.businessDetails;
-      }
-      if (Object.entries(this.lessorDetails).length > 0) {
-        this.lessor_details = this.lessorDetails;
-      }
-      if (this.businessActivities.length > 0) {
-        this.activities.splice(0,this.activities.length)
-        this.businessActivities.forEach((element) => {
-          this.activities.push(element)
-        });
-      }
-    },
-    addActivity() {
-      if (this.activities.length < 4) {
-        let activity = {
-          code: "",
-          line_of_business: "",
-          units: "",
-          capitalization: "",
-          essential: "",
-          non_essential: "",
-        };
-        this.activities.push(activity);
-      }
-    },
+    // preFillForm() {
+    //   if (Object.entries(this.businessDetails).length > 0) {
+    //     this.business_details = this.businessDetails;
+    //   }
+    //   if (Object.entries(this.lessorDetails).length > 0) {
+    //     this.lessor_details = this.lessorDetails;
+    //   }
+    //   if (this.businessActivities.length > 0) {
+    //     this.activities.splice(0,this.activities.length)
+    //     this.businessActivities.forEach((element) => {
+    //       this.activities.push(element)
+    //     });
+    //   }
+    // },
+    // addActivity() {
+    //   if (this.activities.length < 4) {
+    //     let activity = {
+    //       code: "",
+    //       line_of_business: "",
+    //       units: "",
+    //       capitalization: "",
+    //       essential: "",
+    //       non_essential: "",
+    //     };
+    //     this.activities.push(activity);
+    //   }
+    // },
   },
 };
 </script>
@@ -519,6 +520,39 @@ div.meta-container {
 @media only screen and ( max-width : 1380px ){
     div.meta-container h1.meta-form-title{
         font-size: 22px;
+    }
+}
+
+@media only screen and ( max-width : 650px ){
+    div.meta-container{
+        padding: 40px 30px;
+    }
+
+    div.meta-container h1.meta-form-title {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+}
+
+@media only screen and ( max-width : 480px ){
+    div.meta-container div.button-left-right .back-button{
+        background-color: #048cff;
+        border-color: #73befc;
+        width: auto;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        color: #2699fb;
+        min-width: unset;
+    }
+
+    div.meta-container div.button-left-right .next-button{
+        width: auto;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        min-width: unset;
+        color: #2699fb;
     }
 }
 </style>

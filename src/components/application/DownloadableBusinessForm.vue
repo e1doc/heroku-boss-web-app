@@ -204,11 +204,13 @@
           </div>
         </div>
         <div class="meta-table-row flex-center">
+          <div>
           <div class="form-td code no-bt no-br">0125</div>
           <div class="form-td line no-bt no-br">Lorem Ipsum Lorem Ipsum</div>
           <div class="form-td units no-bt no-br">90</div>
           <div class="form-td sales no-bt no-br">Lorem Ipsum</div>
           <div class="form-td sales no-bt">Lorem Ipsum</div>
+          </div>
         </div>
       </div>
     </div>

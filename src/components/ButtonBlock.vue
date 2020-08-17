@@ -65,4 +65,13 @@ a{
   border-color: #027ab5;
   box-shadow: none;
 }
+
+@media only screen and ( max-width: 480px ){
+  .btn{
+      width: 100%;
+      font-size: 14px;
+      padding: 12px;
+      margin-bottom: 10px;
+  }
+}
 </style>

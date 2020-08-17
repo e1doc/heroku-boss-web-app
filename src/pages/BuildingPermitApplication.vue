@@ -4,11 +4,16 @@
       <downloadable-building-form />
     </div>
     <div class="container mb30 meta-save-draft">
-      <div @click="saveAsDraft"><font-awesome-icon icon="save" class="icon" /> SAVE AS
-        DRAFT</div>
+      <div @click="saveAsDraft" class="hide-in-mobile">
+        <font-awesome-icon icon="save" class="icon" /> SAVE AS
+        DRAFT
+      </div>
     </div>
     <div class="container flex-wrap">
       <div class="meta-page-title show-in-sm-screens">Application for Building Permit</div>
+      <div @click="saveAsDraft" class="show-in-mobile meta-save-draft">
+          <font-awesome-icon icon="save" class="icon" />
+      </div>
       <div class="meta-left-box">
         <progress-indicator
           pageTitle="Application for Building Permit"
@@ -115,7 +120,11 @@ div.meta-parent-box {
 MOBILE RESPONSIVENESS 
 --------------------------------------------------------------*/
 .show-in-sm-screens{
-  display: none;
+    display: none;
+}
+
+.show-in-mobile{
+    display: none;
 }
 
 div.meta-page-title {
@@ -125,7 +134,6 @@ div.meta-page-title {
     text-align: right;
     margin-bottom: 50px;
 }
-
 
 @media only screen and ( max-width: 1380px ){
     div.meta-parent-box{
@@ -182,9 +190,58 @@ div.meta-page-title {
       right: 50px;
       margin-bottom: 0;
   }
+
   div.meta-parent-box .meta-form-holder{
       width: 100%;
       overflow: hidden;
+  }
+}
+
+@media only screen and ( max-width: 768px ){
+    .show-in-mobile{
+      display: block;
+    }
+    .hide-in-mobile{
+      display: none;
+    }
+
+     div.meta-page-title{
+        font-size: 23px;
+        text-align: center;
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    div.meta-parent-box .meta-save-draft{
+        color: #e23a36;
+        font-size: 26px;
+        width: auto;
+        position: fixed;
+        right: 16px;
+        bottom: 99px;
+        z-index: 2;
+        padding: 12px 17px;
+        background: #fcfcfc;
+        border-radius: 100%;
+        box-shadow: -2px 10px 30px rgba(127,127,127, 0.1);
+    }
+}
+
+@media only screen and ( max-width: 650px ){
+  div.meta-parent-box div.container{
+      padding-left: 30px;
+      padding-right: 30px;
+  }
+}
+
+@media only screen and ( max-width: 480px ){
+  div.meta-parent-box div.container{
+      padding-left: 15px;
+      padding-right: 15px;
+  }
+
+  div.meta-page-title{
+      font-size: 20px;
   }
 }
 </style>
