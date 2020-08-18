@@ -63,6 +63,7 @@ div.meta-container{
         font-size: 16px;
         color: #7ac0fa;
         margin-bottom: 30px;
+        width: 100%;
     }
     .meta-custom-upload {
         display: flex;
@@ -128,9 +129,30 @@ div.meta-container .meta-custom-upload:hover div.meta-text{
 }
 
 
+
+
+/*
+MOBILE RESPONSIVENESS 
+--------------------------------------------------------------*/
+
 @media only screen and ( max-width : 1380px ){
     div.meta-container h1.meta-form-title{
         font-size: 22px;
+    }
+}
+
+@media only screen and ( max-width : 768px ){
+    div.meta-container h1.meta-form-title{
+        font-size: 20px;
+    }
+
+    .meta-upload-box .meta-label{
+        font-size: 15px;
+    }
+
+    div.meta-container .meta-note{
+        font-size: 15px;
+        text-align: center;
     }
 }
 
@@ -145,7 +167,16 @@ div.meta-container .meta-custom-upload:hover div.meta-text{
     }
 }
 
+
 @media only screen and ( max-width : 480px ){
+    div.meta-container{
+        padding: 30px 15px;
+    }
+
+    div.meta-container h1.meta-form-title{
+        font-size: 16px;
+    }
+    
     div.meta-container div.button-left-right .back-button{
         background-color: #048cff;
         border-color: #73befc;
@@ -164,6 +195,10 @@ div.meta-container .meta-custom-upload:hover div.meta-text{
         box-shadow: none;
         min-width: unset;
         color: #2699fb;
+    }
+
+    div.meta-container .meta-note{
+        font-size: 14px;
     }
 }
 </style>

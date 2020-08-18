@@ -86,4 +86,34 @@ div.meta-container .meta-custom-upload:hover {
 div.meta-container .meta-custom-upload:hover div.meta-text{
     color: #039be5;
 }
+
+
+/*
+MOBILE RESPONSIVENESS 
+--------------------------------------------------------------*/
+
+@media only screen and ( max-width : 768px ){
+    .meta-upload-box .meta-label{
+        font-size: 15px;
+    }
+
+    .meta-upload-box .meta-custom-upload .meta-text.small{
+        font-size: 13px;
+    }
+}
+
+@media only screen and ( max-width: 480px ){
+    .meta-upload-box .meta-label{
+        font-size: 13px;
+    }
+
+    .meta-upload-box .meta-desc{
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+    .meta-upload-box .meta-custom-upload .meta-text.small{
+        font-size: 12px;
+        text-align: center;
+    }
+}
 </style>

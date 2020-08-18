@@ -60,7 +60,7 @@ export default {
     next();
   },
   mounted() {
-    this.$store.commit("setApplicationType", "property");
+    // this.$store.commit("setApplicationType", "property");
   },
   methods: {
     saveAsDraft() {
@@ -235,6 +235,10 @@ div.meta-page-title {
 }
 
 @media only screen and ( max-width: 480px ){
+  div.meta-parent-box{
+      margin-top: 35px;
+  }
+
   div.meta-parent-box div.container{
       padding-left: 15px;
       padding-right: 15px;

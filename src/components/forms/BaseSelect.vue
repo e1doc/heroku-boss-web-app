@@ -112,6 +112,7 @@ export default {
       width: 100%;
       height: 100%;
       padding: 15px;
+      padding-right: 30px;
       background: transparent;
       border: none;
       outline: none;
@@ -148,5 +149,32 @@ select:not([data-value=""]):valid ~ label {
   // box-shadow: 0 0 0 2px #343a40;
   background-color: #F1F9FF;
   border-color: #BCE0FD;
+}
+
+
+
+@media only screen and (max-width: 1400px) {
+    .select-wrapper select,
+    .select-wrapper select option{
+        font-size: 14px;
+    }
+}
+
+@media only screen and ( max-width : 768px ){
+    .select-wrapper{
+        margin-bottom: 8px;
+    }
+}
+
+@media only screen and ( max-width: 480px ){
+  .select-wrapper select,
+  .select-wrapper select option{
+      font-size: 12px;
+  }
+
+  .select-wrapper .dropdown-icon{
+      font-size: 12px;
+      top: 18px;
+  }
 }
 </style>

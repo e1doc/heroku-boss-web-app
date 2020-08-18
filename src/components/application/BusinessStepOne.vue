@@ -51,7 +51,7 @@
       <base-tel-number
         v-model="basic_information.owner_mobile_number"
         :validationMessages="stepOneErrors.basic_information.owner_mobile_number"
-        class="mb15"
+        class="mb15 input-tel"
       />
       <base-input
         label="Email Address"
@@ -215,34 +215,34 @@ export default {
     ...mapGetters(["businessBasicInformation", "businessApplication", "basicInfoHasError", "applicationHasError","stepOneErrors"]),
   },
   mounted() {
-    // this.preFillForm();
+    this.preFillForm();
   },
   methods: {
    async nextStep() {
-        this.$store.commit("setCurrentApplicationStep", "2")
 
-  //     this.$store.commit("setLoading", true);
-  //     if(this.businessApplication.id){
-  //      await this.$store.dispatch("updateBusinessApplication", this.business_application)
-  //     }else{
-  //       let payload = {business_application: this.business_application, basic_information: this.basic_information}
-  //      await this.$store.dispatch("addBusinessApplication",payload)
-  //     }
-  //     if(this.businessApplication.id && !this.businessBasicInformation.id){
-  //       await this.$store.dispatch("addBusinessBasicInformation", this.basic_information)
-  //     }else if(this.businessApplication.id && this.businessBasicInformation.id){
-  //      await this.$store.dispatch("updateBusinessBasicInformation", this.basic_information)
-  //     }
-  //     if(!this.applicationHasError && !this.basicInfoHasError){
-  //       this.$store.commit("setCurrentApplicationStep", "2")
-  //     }
-  //     this.$store.commit("setLoading", false);
-  //   },
-  //   preFillForm() {
-  //     if (Object.entries(this.businessApplication).length > 0) {
-  //       this.basic_information = this.businessBasicInformation;
-  //       this.business_application = this.businessApplication;
-  //     }
+      this.$store.commit("setLoading", true);
+      if(this.businessApplication.id){
+       await this.$store.dispatch("updateBusinessApplication", this.business_application)
+      }else{
+        let payload = {business_application: this.business_application, basic_information: this.basic_information}
+       await this.$store.dispatch("addBusinessApplication",payload)
+      }
+      if(this.businessApplication.id && !this.businessBasicInformation.id){
+        await this.$store.dispatch("addBusinessBasicInformation", this.basic_information)
+      }else if(this.businessApplication.id && this.businessBasicInformation.id){
+       await this.$store.dispatch("updateBusinessBasicInformation", this.basic_information)
+      }
+      if(!this.applicationHasError && !this.basicInfoHasError){
+        this.$store.commit("setCurrentApplicationStep", "2")
+      }
+      this.$store.commit("setLoading", false);
+      // this.$store.commit("setCurrentApplicationStep", "2")
+    },
+    preFillForm() {
+      if (Object.entries(this.businessApplication).length > 0) {
+        this.basic_information = this.businessBasicInformation;
+        this.business_application = this.businessApplication;
+      }
     
     },
   
@@ -263,10 +263,11 @@ div.meta-container {
     width: 100%;
     div.meta-group-title {
       color: #2699fb;
-      font-size: 15px;
+      font-size: 16px;
       line-height: 19px;
       width: 100%;
       margin-bottom: 20px;
+      margin-top: 30px;
     }
     div.meta-input-label {
       color: #2699fb;
@@ -311,11 +312,28 @@ div.meta-container
 }
 
 
-
+/*
+MOBILE RESPONSIVENESS 
+--------------------------------------------------------------*/
 
 @media only screen and ( max-width : 1380px ){
     div.meta-container h1.meta-form-title{
         font-size: 22px;
+    }
+}
+
+@media only screen and ( max-width : 768px ){
+    .input-tel{
+        margin-bottom: 8px;
+    }
+
+    div.meta-container h1.meta-form-title{
+        font-size: 20px;
+    }
+    
+    div.meta-container div.meta-form-group div.meta-group-title{
+        font-size: 15px;
+        margin-bottom: 10px;
     }
 }
 
@@ -324,7 +342,7 @@ div.meta-container
         padding: 40px 30px;
     }
 
-    div.meta-container h1.meta-form-title[data-v-1923f44a] {
+    div.meta-container h1.meta-form-title{
         font-size: 18px;
         margin-bottom: 30px;
     }
@@ -333,6 +351,19 @@ div.meta-container
 @media only screen and ( max-width: 480px ){
     .next-button{
         width: 100%;
+    }
+
+    div.meta-container{
+        padding: 30px 15px;
+    }
+
+    div.meta-container h1.meta-form-title{
+        font-size: 16px;
+    }
+
+    div.meta-container div.meta-form-group div.meta-group-title{
+        font-size: 14px;
+        margin-bottom: 15px;
     }
 }
 </style>

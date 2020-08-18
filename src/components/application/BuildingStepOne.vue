@@ -121,6 +121,8 @@ export default {
              this.$store.commit("setCurrentApplicationStep", "2")   
           }
            this.$store.commit("setLoading", false);
+           
+        // this.$store.commit("setCurrentApplicationStep", "2")   
       },
       preFillForm(){
           if(Object.entries(this.buildingBasicInformation).length > 0){
@@ -143,11 +145,12 @@ div.meta-container{
     div.meta-form-group{
         width: 100%;
         div.meta-group-title{
-            color: #2699FB;
-            font-size: 15px;
+            color: #2699fb;
+            font-size: 16px;
             line-height: 19px;
             width: 100%;
             margin-bottom: 20px;
+            margin-top: 30px;
         }
         div.input-wrapper{
             margin-bottom: 15px
@@ -168,10 +171,58 @@ div.meta-container div.meta-form-group div.meta-input-group .input-w3:last-child
 }
 
 
+/*
+MOBILE RESPONSIVENESS 
+--------------------------------------------------------------*/
 
 @media only screen and ( max-width : 1380px ){
     div.meta-container h1.meta-form-title{
         font-size: 22px;
+    }
+}
+
+@media only screen and ( max-width : 768px ){
+    .input-tel{
+        margin-bottom: 8px;
+    }
+
+    div.meta-container h1.meta-form-title{
+        font-size: 20px;
+    }
+    
+    div.meta-container div.meta-form-group div.meta-group-title{
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and ( max-width : 650px ){
+    div.meta-container{
+        padding: 40px 30px;
+    }
+
+    div.meta-container h1.meta-form-title{
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+}
+
+@media only screen and ( max-width: 480px ){
+    .next-button{
+        width: 100%;
+    }
+
+    div.meta-container{
+        padding: 30px 15px;
+    }
+
+    div.meta-container h1.meta-form-title{
+        font-size: 16px;
+    }
+
+    div.meta-container div.meta-form-group div.meta-group-title{
+        font-size: 14px;
+        margin-bottom: 15px;
     }
 }
 </style>

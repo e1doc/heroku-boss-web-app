@@ -114,7 +114,7 @@
       <!-- Uploaded Requirements -->
       <div class="meta-text-group flex-wrap">
           <div class="meta-group-title">Uploaded Requirements</div>
-          <div class="gallery-box">
+          <div class="gallery-box flex-wrap">
               <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
               <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
               <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
@@ -175,6 +175,7 @@ div.meta-parent-box {
   div.meta-container {
     max-width: 1060px;
     margin: 0 auto;
+    padding: 0 30px;
   }
   div.meta-form-body {   
     height: 100%;
@@ -197,6 +198,9 @@ div.meta-parent-box {
         font-size: 14px;
         font-weight: bold;
         padding: 10px 0;
+      }
+      .gallery-box{
+        justify-content: center;
       }
       div.meta-text {
         width: 100%;
@@ -341,5 +345,80 @@ div.meta-parent-box {
 .red-btn:hover{
   color: #e23a36;
   border-color: #e23a36;
+}
+
+
+
+/*
+MOBILE RESPONSIVENESS 
+--------------------------------------------------------------*/
+@media only screen and ( max-width: 1400px ){
+    div.meta-parent-box div.meta-form-body .meta-form-title{
+        font-size: 28px;
+    }
+}
+
+@media only screen and ( max-width: 768px ){
+    div.meta-parent-box div.meta-form-body .meta-form-title{
+        font-size: 24px;
+    }
+
+    div.meta-parent-box div.meta-form-body div.meta-text-group div.meta-text.w3,
+    div.meta-parent-box div.meta-form-body div.meta-text-group div.meta-text.w4,
+    div.meta-parent-box div.meta-form-body div.meta-text-group div.meta-text.w6{
+        width: 100%;
+    }
+
+    div.meta-parent-box div.meta-form-body div.meta-text-group div.meta-text.no-br{
+        border-right: 1px solid!important;
+        border-bottom: 0;
+    }
+
+    div.meta-parent-box div.meta-form-body div.gallery-image {
+        height: 100px;
+        width: 100px;
+    }
+}
+
+@media only screen and ( max-width: 580px ){
+  div.meta-parent-box div.meta-form-body{
+      padding: 50px 30px;
+  }
+
+  div.meta-parent-box div.meta-form-body .meta-form-title{
+      font-size: 20px;
+  }
+
+  div.meta-parent-box div.meta-form-body div.meta-text-group div.meta-text .meta-label{
+      font-size: 12px;
+  }
+}
+
+@media only screen and ( max-width: 480px ){
+  div.meta-parent-box div.meta-form-body{
+      padding: 30px 15px;
+  }
+  div.meta-parent-box{
+      margin-top: 30px;
+  }
+  div.meta-parent-box div.meta-container{
+      padding: 0 15px;
+  }
+  div.meta-parent-box div.meta-form-body .meta-form-title{
+      font-size: 18px;
+  }
+  div.meta-parent-box div.meta-form-body div.meta-text-group div.meta-group-title{
+      font-size: 12px;
+  }
+  div.meta-parent-box div.meta-form-body div.meta-text-group{
+      padding-bottom: 15px;
+  }
+}
+
+@media only screen and ( max-width: 380px ){
+  div.meta-parent-box div.meta-form-body div.gallery-image{
+      height: 70px;
+      width: 70px;
+  }
 }
 </style>
