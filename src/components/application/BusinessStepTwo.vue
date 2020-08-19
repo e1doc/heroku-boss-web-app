@@ -446,6 +446,7 @@ export default {
           text: "Please fix the validation errors before saving as draft.",
           icon: "error",
         });
+        this.$store.commit("setDraftBusiness", false);
       }
       this.$store.commit("setLoading", false);
     },

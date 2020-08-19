@@ -376,7 +376,7 @@ export default {
       "buildingOtherDetailsHasError",
       "buildingStepTwoErrors",
       "draftProperty",
-      "buildingApplicationRequirements"
+      "buildingApplicationRequirements",
     ]),
   },
   mounted() {
@@ -398,6 +398,7 @@ export default {
       this.$store.commit("setCurrentApplicationStep", "1");
     },
     async nextStep() {
+      this.$store.commit("setLoading", true);
       if (this.buildingDetails.id) {
         await this.$store.dispatch(
           "updateBuildingDetails",
@@ -421,15 +422,34 @@ export default {
       if (!this.buildingDetailsHasError && !this.buildingOtherDetailsHasError) {
         let payload = { application_id: this.buildingApplication.id };
         if (this.buildingApplicationRequirements) {
-          if(!this.buildingApplicationRequirements.id){
-             this.$store.dispatch("addBuildingApplicationRequirements", payload);
+          if (!this.buildingApplicationRequirements.id) {
+            this.$store.dispatch("addBuildingApplicationRequirements", payload);
           }
         }
-        if(!this.draftProperty){
+        if (!this.draftProperty) {
           this.$store.commit("setCurrentApplicationStep", "3");
+        } else {
+          this.$swal({
+            title: "Success!",
+            text: "data successfully saved as draft.",
+            icon: "success",
+          }).then((value) => {
+            this.toProfile();
+          });
         }
+      } else {
+        this.$swal({
+          title: "Failed!",
+          text: "Please fix the validation errors before saving as draft.",
+          icon: "error",
+        });
+        this.$store.commit("setDraftProperty", false);
       }
-      // this.$store.commit('setCurrentApplicationStep','3')
+      this.$store.commit("setLoading", false);
+    },
+    toProfile() {
+      this.$router.push({ name: "Profile" });
+      this.$store.commit("setDraftProperty", false);
     },
     preFillForm() {
       if (Object.entries(this.buildingDetails).length > 0) {
@@ -461,12 +481,12 @@ div.meta-container {
       width: 100%;
       margin-bottom: 20px;
       margin-top: 30px;
-    }   
-    div.meta-input-label{
-        color: #2699FB;
-        font-size: 13px;
-        line-height: 19px;
-        width: 100%;
+    }
+    div.meta-input-label {
+      color: #2699fb;
+      font-size: 13px;
+      line-height: 19px;
+      width: 100%;
     }
     div.input-wrapper {
       margin-bottom: 15px;
@@ -513,107 +533,108 @@ div.meta-container {
   border-color: #2699fb !important;
 }
 
-
-
 /*
 MOBILE RESPONSIVENESS 
 --------------------------------------------------------------*/
 
-@media only screen and ( max-width : 1380px ){
-    div.meta-container h1.meta-form-title{
-        font-size: 22px;
-    }
-} 
-
-@media only screen and ( max-width : 768px ){
-    div.meta-container h1.meta-form-title{
-        font-size: 20px;
-    }
-
-    .input-phone{
-        margin-bottom: 8px;
-    }
-
-    div.meta-container div.meta-form-group div.meta-group-title{
-        font-size: 15px;
-        margin-bottom: 10px;
-    }
-
-    div.meta-container div.meta-form-group div.meta-input-group .input-w3{
-        width: 100%;
-        float: left;
-        margin-right: 0;
-        flex-direction: unset;
-    }
-
-    div.meta-container div.meta-form-group div.meta-input-group.flex-row.w3,
-    div.meta-container div.meta-form-group div.meta-input-group.flex-row.w4{
-        width: 100%;
-        flex-direction: unset;
-        flex-wrap: wrap;
-    }
-
-    div.meta-container div.meta-form-group div.meta-input-group .input-w4{
-        width: calc( 50% - 3px); 
-        margin-right: 6px;
-    }
-    
-    div.meta-container div.meta-form-group div.meta-input-group .input-w2{
-      margin-right: 6px;
-    }
-
-    div.meta-container div.meta-form-group div.meta-input-group .input-w4:nth-child(even){
-        margin-right: 0;
-    }
+@media only screen and (max-width: 1380px) {
+  div.meta-container h1.meta-form-title {
+    font-size: 22px;
+  }
 }
 
-@media only screen and ( max-width : 650px ){
-    div.meta-container{
-        padding: 40px 30px;
-    }
+@media only screen and (max-width: 768px) {
+  div.meta-container h1.meta-form-title {
+    font-size: 20px;
+  }
 
-    div.meta-container h1.meta-form-title {
-        font-size: 18px;
-        margin-bottom: 30px;
-    }
+  .input-phone {
+    margin-bottom: 8px;
+  }
+
+  div.meta-container div.meta-form-group div.meta-group-title {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  div.meta-container div.meta-form-group div.meta-input-group .input-w3 {
+    width: 100%;
+    float: left;
+    margin-right: 0;
+    flex-direction: unset;
+  }
+
+  div.meta-container div.meta-form-group div.meta-input-group.flex-row.w3,
+  div.meta-container div.meta-form-group div.meta-input-group.flex-row.w4 {
+    width: 100%;
+    flex-direction: unset;
+    flex-wrap: wrap;
+  }
+
+  div.meta-container div.meta-form-group div.meta-input-group .input-w4 {
+    width: calc(50% - 3px);
+    margin-right: 6px;
+  }
+
+  div.meta-container div.meta-form-group div.meta-input-group .input-w2 {
+    margin-right: 6px;
+  }
+
+  div.meta-container
+    div.meta-form-group
+    div.meta-input-group
+    .input-w4:nth-child(even) {
+    margin-right: 0;
+  }
 }
 
-@media only screen and ( max-width : 480px ){
-    div.meta-container{
-        padding: 30px 15px;
-    }
+@media only screen and (max-width: 650px) {
+  div.meta-container {
+    padding: 40px 30px;
+  }
 
-    div.meta-container div.meta-form-group.mb60{
-        margin-bottom: 20px;
-    }
+  div.meta-container h1.meta-form-title {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+}
 
-    div.meta-container h1.meta-form-title{
-        font-size: 16px;
-    }
+@media only screen and (max-width: 480px) {
+  div.meta-container {
+    padding: 30px 15px;
+  }
 
-    div.meta-container div.meta-form-group div.meta-group-title{
-        font-size: 14px;
-        margin-bottom: 15px;
-    }
+  div.meta-container div.meta-form-group.mb60 {
+    margin-bottom: 20px;
+  }
 
-    div.meta-container div.button-left-right .back-button{
-        background-color: #048cff;
-        border-color: #73befc;
-        width: auto;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        color: #2699fb;
-        min-width: unset;
-    }
+  div.meta-container h1.meta-form-title {
+    font-size: 16px;
+  }
 
-    div.meta-container div.button-left-right .next-button{
-        width: auto;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        min-width: unset;
-        color: #2699fb;
-    }
+  div.meta-container div.meta-form-group div.meta-group-title {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+
+  div.meta-container div.button-left-right .back-button {
+    background-color: #048cff;
+    border-color: #73befc;
+    width: auto;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: #2699fb;
+    min-width: unset;
+  }
+
+  div.meta-container div.button-left-right .next-button {
+    width: auto;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    min-width: unset;
+    color: #2699fb;
+  }
 }
 </style>
