@@ -50,7 +50,7 @@ const mutations = {
     setBuildingBasicInformation: (state, buildingBasicInformation) => (state.buildingBasicInformation = buildingBasicInformation),
     setBuildingDetails: (state, buildingDetails) => (state.buildingDetails = buildingDetails),
     setBuildingOtherDetails: (state, buildingOtherDetails) => (state.buildingOtherDetails = buildingOtherDetails),
-    setBuildingBasicInfoHasError: (state, buildingBasicInfoHasError) => (state.buildingBasicInfoHasError = buildingBasicInfoHasError),
+    setBuildingBasicInfoHasError: (state, buildingBasicInfoHasError) => (state.buildingOtherDetailsHasError = buildingBasicInfoHasError),
     setBuildingDetailsHasError: (state, buildingDetailsHasError ) => (state.buildingDetailsHasError = buildingDetailsHasError),
     setBuildingOtherDetailsHasError: (state, buildingOtherDetailsHasError) => (state.buildingOtherDetailsHasError = buildingOtherDetailsHasError),
     buildingSetStepOneErrors: (state,buildingStepOneErrors)=>{
@@ -105,10 +105,10 @@ const actions = {
             await commit("setBuildingBasicInformation",response.data)
             commit("setBuildingBasicInfoHasError", false)
         } catch (err) {
+            commit("setBuildingBasicInfoHasError", true)
             let errors = {key:'basic_information',value: err.response.data}
             commit("buildingSetStepOneErrors",errors)
             console.log(err)
-            commit("setBuildingBasicInfoHasError", true)
         }
     },
     async updateBuildingBasicInformation({commit, getters}, payload){
