@@ -29,16 +29,16 @@ const routes = [
     path: "/",
     name: "Login",
     component: Login,
-   async beforeEnter(to, from, next) {
-      let hasPermission = await store.state.service.isAuthenticated;
-      if(hasPermission){
-        next({
-          name: "Profile"
-        })
-      }else{
-        next()
-      }
-  }
+  //  async beforeEnter(to, from, next) {
+  //     let hasPermission = await store.state.service.isAuthenticated;
+  //     if(hasPermission){
+  //       next({
+  //         name: "Profile"
+  //       })
+  //     }else{
+  //       next()
+  //     }
+  // }
   },
   {
     path: "/reset-password/:uid/:token",
@@ -102,16 +102,16 @@ const routes = [
       },
       
     ],
-   async beforeEnter(to, from, next) {
-        let hasPermission = await store.state.service.isAuthenticated;
-        if(hasPermission){
-          next()
-        }else{
-          next({
-            name: "Login"
-          })
-        }
-    }
+  //  async beforeEnter(to, from, next) {
+  //       let hasPermission = await store.state.service.isAuthenticated;
+  //       if(hasPermission){
+  //         next()
+  //       }else{
+  //         next({
+  //           name: "Login"
+  //         })
+  //       }
+  //   }
   },
   {
     path: "/admin",

@@ -136,7 +136,7 @@ MOBILE RESPONSIVENESS ------------------------------------------- */
       position: fixed;
       bottom: 0;
       left: 0;
-      z-index: 2;
+      z-index: 4;
       background-color: #fff;
       box-shadow: 0px 0px 20px rgba(127, 127, 127, 0.1);
   }

@@ -222,7 +222,7 @@ div.meta-page-title {
         position: fixed;
         right: 16px;
         bottom: 99px;
-        z-index: 2;
+        z-index: 4;
         padding: 12px 17px;
         background: #fcfcfc;
         border-radius: 100%;

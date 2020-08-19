@@ -64,12 +64,18 @@ export default {
 <style lang="scss" scoped>
 /deep/ .vm--modal{
     overflow: auto;
+    width: 100%!important;
+    left: 0!important;
+    right: 0!important;
+    height: 100%!important;
+    margin: 0 auto!important;
     box-shadow: none;
     background: transparent;
 }
 /deep/ .vm--modal::-webkit-scrollbar {
   display: none;
 }
+
 .sc-home {
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
