@@ -169,11 +169,73 @@ export default {
   }
 }
 
-@media only screen and (max-height: 650px) {
+@media only screen and ( max-width : 860px ){
+  #login-section{
+    padding: 50px 0;
+  }
+  .container {
+      margin-bottom: 0;
+  }
+  .sc-rounded-div {
+      max-width: 480px;
+      flex-wrap: wrap;
+  }
+  #login-section .login-form-holder .left-div,
+  #login-section .login-form-holder .right-div,
+  #login-section .login-form-holder .expand{
+      width: 100%!important;
+  }
+
+  #login-section .login-form-holder .left-div{
+      border-top-right-radius: 20px;
+      border-bottom-left-radius: 0;
+      padding: 30px 30px;
+  }
+
+  #login-section .login-form-holder .right-div{
+      padding: 40px 50px 30px;
+  }
+
+  .logo{
+      width: 65px;  
+  }
+
+  #login-section .login-form-holder .left-div .left-div-title{
+      margin: 15px 0;
+  }
+}
+
+
+@media only screen and (max-width: 650px) {
+    #login-section {
+        padding: 30px 0;
+    }
+}
+@media only screen and (max-height: 650px) and ( min-width: 991px ) {
   #login-section {
     padding: 30px;
     min-height: 100vh;
     height: auto;
+  }
+}
+
+@media only screen and ( max-width: 480px ){
+    #login-section .login-form-holder .right-div{
+        padding: 30px 30px!important;
+    }
+
+    .form-group div{
+        margin-bottom: 15px;
+    }
+}
+
+@media only screen and ( max-width: 350px ){
+  #login-section .login-form-holder .right-div,
+  #login-section .login-form-holder .left-div{
+      padding: 30px 15px!important;
+  }
+  .btn{
+      max-width: 100%;
   }
 }
 </style>

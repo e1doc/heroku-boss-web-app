@@ -121,6 +121,9 @@ export default {
   }
 }
 
+
+
+
 @media only screen and (max-width: 1400px) {
   #login-section.expand {
     padding-top: 30px;
@@ -136,6 +139,7 @@ export default {
 
   #login-section .icon {
     font-size: 65px !important;
+    margin-right: 0;
   }
 }
 

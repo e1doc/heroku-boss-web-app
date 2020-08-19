@@ -145,13 +145,35 @@ input:focus{
   border-color: #BCE0FD;
 }
 
-@media only screen and (max-width: 1400px){
-  .input-wrapper{
-      padding: 12px 18px;
-      .label{
-          font-size: 14px;
-          top: 13px;
-      }
+
+/*
+MOBILE RESPONSIVENESS 
+--------------------------------------------------------------*/
+
+@media only screen and (max-width: 1400px) {
+  .input-wrapper {
+    padding: 12px 18px;
+    .label {
+      font-size: 14px;
+      top: 13px;
+    }
+  }
+}
+
+@media only screen and ( max-width : 768px ){
+    .input-holder{
+        margin-bottom: 8px;
+    }
+
+    .input-wrapper.fw-mobile{
+      width: 100%;
+    }
+}
+
+@media only screen and ( max-width: 480px ){
+  .input-wrapper .label{
+      font-size: 12px;
+      padding: 0;
   }
 }
 </style>
