@@ -33,7 +33,9 @@
       <base-input
         label="Complete Owner's Address"
         v-model="basic_information.owner_complete_address"
-        :validationMessages="stepOneErrors.basic_information.owner_complete_address"
+        :validationMessages="
+          stepOneErrors.basic_information.owner_complete_address
+        "
         name="owneraddress"
         refs="owner_address"
         type="text"
@@ -42,7 +44,9 @@
       <base-input
         label="Telephone Number"
         v-model="basic_information.owner_telephone_number"
-        :validationMessages="stepOneErrors.basic_information.owner_telephone_number"
+        :validationMessages="
+          stepOneErrors.basic_information.owner_telephone_number
+        "
         name="telephone"
         refs="tel_number"
         type="number"
@@ -50,13 +54,17 @@
       />
       <base-tel-number
         v-model="basic_information.owner_mobile_number"
-        :validationMessages="stepOneErrors.basic_information.owner_mobile_number"
+        :validationMessages="
+          stepOneErrors.basic_information.owner_mobile_number
+        "
         class="mb15 input-tel"
       />
       <base-input
         label="Email Address"
         v-model="basic_information.owner_email_address"
-        :validationMessages="stepOneErrors.basic_information.owner_email_address"
+        :validationMessages="
+          stepOneErrors.basic_information.owner_email_address
+        "
         name="email"
         refs="email_add"
         type="email"
@@ -75,7 +83,9 @@
       <base-input
         label="DTI/SEC/CDA Registration No."
         v-model="basic_information.dti_sec_cda_reg_number"
-        :validationMessages="stepOneErrors.basic_information.dti_sec_cda_reg_number"
+        :validationMessages="
+          stepOneErrors.basic_information.dti_sec_cda_reg_number
+        "
         name="dtiregnumber"
         refs="dti_reg_number"
         type="text"
@@ -212,40 +222,75 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["businessBasicInformation", "businessApplication", "basicInfoHasError", "applicationHasError","stepOneErrors","draftBusiness"]),
+    ...mapGetters([
+      "businessBasicInformation",
+      "businessApplication",
+      "basicInfoHasError",
+      "applicationHasError",
+      "stepOneErrors",
+      "draftBusiness",
+    ]),
   },
-  watch:{
-    draftBusiness:{
+  watch: {
+    draftBusiness: {
       deep: true,
       handler(status) {
-        if(status){
-          this.nextStep()
+        if (status) {
+          this.nextStep();
         }
-      }
-    }
+      },
+    },
   },
   mounted() {
     this.preFillForm();
   },
   methods: {
-   async nextStep() {
-
+    async nextStep() {
       this.$store.commit("setLoading", true);
-      if(this.businessApplication.id){
-       await this.$store.dispatch("updateBusinessApplication", this.business_application)
-      }else{
-        let payload = {business_application: this.business_application, basic_information: this.basic_information}
-       await this.$store.dispatch("addBusinessApplication",payload)
+      if (this.businessApplication.id) {
+        await this.$store.dispatch(
+          "updateBusinessApplication",
+          this.business_application
+        );
+      } else {
+        let payload = {
+          business_application: this.business_application,
+          basic_information: this.basic_information,
+        };
+        await this.$store.dispatch("addBusinessApplication", payload);
       }
-      if(this.businessApplication.id && !this.businessBasicInformation.id){
-        await this.$store.dispatch("addBusinessBasicInformation", this.basic_information)
-      }else if(this.businessApplication.id && this.businessBasicInformation.id){
-       await this.$store.dispatch("updateBusinessBasicInformation", this.basic_information)
+      if (this.businessApplication.id && !this.businessBasicInformation.id) {
+        await this.$store.dispatch(
+          "addBusinessBasicInformation",
+          this.basic_information
+        );
+      } else if (
+        this.businessApplication.id &&
+        this.businessBasicInformation.id
+      ) {
+        await this.$store.dispatch(
+          "updateBusinessBasicInformation",
+          this.basic_information
+        );
       }
-      if(!this.applicationHasError && !this.basicInfoHasError){
-        if(!this.draftBusiness){
-            this.$store.commit("setCurrentApplicationStep", "2")
+      if (!this.applicationHasError && !this.basicInfoHasError) {
+        if (!this.draftBusiness) {
+          this.$store.commit("setCurrentApplicationStep", "2");
+        } else {
+          this.$swal({
+            title: "Success!",
+            text: "data successfully saved as draft.",
+            icon: "success",
+          }).then((value) => {
+            this.toProfile();
+          });
         }
+      } else {
+        this.$swal({
+          title: "Failed!",
+          text: "Please fix the validation errors before saving as draft.",
+          icon: "error",
+        });
       }
       this.$store.commit("setLoading", false);
       // this.$store.commit("setCurrentApplicationStep", "2")
@@ -255,9 +300,11 @@ export default {
         this.basic_information = this.businessBasicInformation;
         this.business_application = this.businessApplication;
       }
-    
     },
-  
+    toProfile() {
+      this.$router.push({ name: "Profile" });
+      this.$store.commit("setDraftBusiness", false);
+    },
   },
 };
 </script>
@@ -323,59 +370,58 @@ div.meta-container
   margin-right: 0;
 }
 
-
 /*
 MOBILE RESPONSIVENESS 
 --------------------------------------------------------------*/
 
-@media only screen and ( max-width : 1380px ){
-    div.meta-container h1.meta-form-title{
-        font-size: 22px;
-    }
+@media only screen and (max-width: 1380px) {
+  div.meta-container h1.meta-form-title {
+    font-size: 22px;
+  }
 }
 
-@media only screen and ( max-width : 768px ){
-    .input-tel{
-        margin-bottom: 8px;
-    }
+@media only screen and (max-width: 768px) {
+  .input-tel {
+    margin-bottom: 8px;
+  }
 
-    div.meta-container h1.meta-form-title{
-        font-size: 20px;
-    }
-    
-    div.meta-container div.meta-form-group div.meta-group-title{
-        font-size: 15px;
-        margin-bottom: 10px;
-    }
+  div.meta-container h1.meta-form-title {
+    font-size: 20px;
+  }
+
+  div.meta-container div.meta-form-group div.meta-group-title {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
 }
 
-@media only screen and ( max-width : 650px ){
-    div.meta-container{
-        padding: 40px 30px;
-    }
+@media only screen and (max-width: 650px) {
+  div.meta-container {
+    padding: 40px 30px;
+  }
 
-    div.meta-container h1.meta-form-title{
-        font-size: 18px;
-        margin-bottom: 30px;
-    }
+  div.meta-container h1.meta-form-title {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
 }
 
-@media only screen and ( max-width: 480px ){
-    .next-button{
-        width: 100%;
-    }
+@media only screen and (max-width: 480px) {
+  .next-button {
+    width: 100%;
+  }
 
-    div.meta-container{
-        padding: 30px 15px;
-    }
+  div.meta-container {
+    padding: 30px 15px;
+  }
 
-    div.meta-container h1.meta-form-title{
-        font-size: 16px;
-    }
+  div.meta-container h1.meta-form-title {
+    font-size: 16px;
+  }
 
-    div.meta-container div.meta-form-group div.meta-group-title{
-        font-size: 14px;
-        margin-bottom: 15px;
-    }
+  div.meta-container div.meta-form-group div.meta-group-title {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
 }
 </style>

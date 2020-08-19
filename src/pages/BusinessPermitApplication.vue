@@ -68,17 +68,6 @@ export default {
   methods: {
     saveAsDraft() {
       this.$store.commit('setDraftBusiness', true)
-      this.$swal({
-        title: "Success!",
-        text: "data successfully saved as draft.",
-        icon: "success",
-      }).then((value)=>{
-        this.toProfile()
-      });
-    },
-    toProfile(){
-      this.$router.push({ name: "Profile" })
-      this.$store.commit('setDraftBusiness',false)
     }
   },
 };

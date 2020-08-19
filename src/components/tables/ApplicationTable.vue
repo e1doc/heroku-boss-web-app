@@ -17,7 +17,7 @@
         >
           <div class="td">
             <span class="td-label show-in-mobile">APPLICATION NO. : </span>
-            {{ application.businessbasicinformation.reference_number }}
+            {{ application.businessbasicinformation !== null ?  application.businessbasicinformation.reference_number : "N/A" }}
           </div>
           <div class="td">
             <span class="td-label show-in-mobile">DATE : </span>

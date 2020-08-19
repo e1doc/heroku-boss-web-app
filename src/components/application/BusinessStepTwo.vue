@@ -411,13 +411,10 @@ export default {
       }
       if (this.businessActivities.length > 0) {
         if (this.activities.length > this.businessActivities.length) {
-          let update = this.activities.slice(
-            0,
-            this.businessActivities.length
-          );
+          let update = this.activities.slice(0, this.businessActivities.length);
           let add = this.activities.slice(this.businessActivities.length);
           await this.$store.dispatch("updateBusinessActivity", update);
-            await this.$store.dispatch("addBusinessActivity", add);
+          await this.$store.dispatch("addBusinessActivity", add);
         } else {
           await this.$store.dispatch("updateBusinessActivity", this.activities);
         }
@@ -428,17 +425,33 @@ export default {
       if (!this.detailsHasError && !this.lessorDetailsHasError) {
         let payload = { application_id: this.businessApplication.id };
         if (this.applicationRequirements) {
-          if(!this.applicationRequirements.id){
-             this.$store.dispatch("addApplicationRequirements", payload);
+          if (!this.applicationRequirements.id) {
+            this.$store.dispatch("addApplicationRequirements", payload);
           }
         }
         if (!this.draftBusiness) {
           this.$store.commit("setCurrentApplicationStep", "3");
+        } else {
+          this.$swal({
+            title: "Success!",
+            text: "data successfully saved as draft.",
+            icon: "success",
+          }).then((value) => {
+            this.toProfile();
+          });
         }
       } else {
-        console.log("hasError");
+        this.$swal({
+          title: "Failed!",
+          text: "Please fix the validation errors before saving as draft.",
+          icon: "error",
+        });
       }
       this.$store.commit("setLoading", false);
+    },
+    toProfile() {
+      this.$router.push({ name: "Profile" });
+      this.$store.commit("setDraftBusiness", false);
     },
     preFillForm() {
       if (this.businessDetails.id) {
@@ -523,8 +536,8 @@ div.meta-container {
         margin-right: 0;
       }
 
-      .input-phone{
-          width: 60%;
+      .input-phone {
+        width: 60%;
       }
     }
 
@@ -559,79 +572,77 @@ div.meta-container {
   border-color: #2699fb !important;
 }
 
-
-
 /*
 MOBILE RESPONSIVENESS 
 --------------------------------------------------------------*/
 
-@media only screen and ( max-width : 1380px ){
-    div.meta-container h1.meta-form-title{
-        font-size: 22px;
-    }
-} 
-@media only screen and ( max-width : 768px ){
-    div.meta-container h1.meta-form-title{
-        font-size: 20px;
-    }
+@media only screen and (max-width: 1380px) {
+  div.meta-container h1.meta-form-title {
+    font-size: 22px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  div.meta-container h1.meta-form-title {
+    font-size: 20px;
+  }
 
-    .input-phone{
-        margin-bottom: 8px;
-    }
+  .input-phone {
+    margin-bottom: 8px;
+  }
 
-    div.meta-container div.meta-form-group div.meta-group-title{
-        font-size: 15px;
-        margin-bottom: 10px;
-    }
+  div.meta-container div.meta-form-group div.meta-group-title {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
 }
 
-@media only screen and ( max-width : 650px ){
-    div.meta-container{
-        padding: 40px 30px;
-    }
+@media only screen and (max-width: 650px) {
+  div.meta-container {
+    padding: 40px 30px;
+  }
 
-    div.meta-container h1.meta-form-title {
-        font-size: 18px;
-        margin-bottom: 30px;
-    }
+  div.meta-container h1.meta-form-title {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
 }
 
-@media only screen and ( max-width : 480px ){
-    div.meta-container{
-        padding: 30px 15px;
-    }
+@media only screen and (max-width: 480px) {
+  div.meta-container {
+    padding: 30px 15px;
+  }
 
-    div.meta-container div.meta-form-group.mb60{
-        margin-bottom: 20px;
-    }
+  div.meta-container div.meta-form-group.mb60 {
+    margin-bottom: 20px;
+  }
 
-    div.meta-container h1.meta-form-title{
-        font-size: 16px;
-    }
+  div.meta-container h1.meta-form-title {
+    font-size: 16px;
+  }
 
-    div.meta-container div.meta-form-group div.meta-group-title{
-        font-size: 14px;
-        margin-bottom: 15px;
-    }
+  div.meta-container div.meta-form-group div.meta-group-title {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
 
-    div.meta-container div.button-left-right .back-button{
-        background-color: #048cff;
-        border-color: #73befc;
-        width: auto;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        color: #2699fb;
-        min-width: unset;
-    }
+  div.meta-container div.button-left-right .back-button {
+    background-color: #048cff;
+    border-color: #73befc;
+    width: auto;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: #2699fb;
+    min-width: unset;
+  }
 
-    div.meta-container div.button-left-right .next-button{
-        width: auto;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        min-width: unset;
-        color: #2699fb;
-    }
+  div.meta-container div.button-left-right .next-button {
+    width: auto;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    min-width: unset;
+    color: #2699fb;
+  }
 }
 </style>
