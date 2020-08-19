@@ -81,7 +81,6 @@ const actions = {
             {},
             { withCredentials: true })
             commit("setBuildingApplication", response.data)
-            dispatch("addBuildingBasicInformation",payload.basic_information)
         } catch (err) {
             console.log(err.response)
         }
