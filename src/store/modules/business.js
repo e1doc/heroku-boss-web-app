@@ -165,7 +165,7 @@ const actions = {
       console.log(err.response);
     }
   },
-  async addBusinessActivity({ commit, getters }, payload) {
+  async addBusinessActivity({ commit, getters, dispatch }, payload) {
     try {
       for (let item of payload) {
         item.application_number = getters.businessApplication.id;
@@ -176,7 +176,7 @@ const actions = {
         payload,
         { withCredentials: true }
       );
-      commit("setBusinessActivities", response.data);
+      dispatch('getBusinessActivity')
     } catch (err) {
       console.log(err.response);
     }
@@ -266,9 +266,17 @@ const actions = {
         payload,
         { withCredentials: true }
       );
-      commit("setBusinessActivities", response.data);
     } catch (err) {
       console.log(err.response);
+    }
+  },
+  async getBusinessActivity({commit, getters}){
+    try {
+      let payload = {application_number: getters.businessApplication.id}
+      const response = await axios.get(`${baseUrl}/api/business-activity/`,{ withCredentials: true, params: payload })
+      commit("setBusinessActivities", response.data);
+    } catch (err) {
+      console.log(err)
     }
   },
   async addApplicationRequirements({ commit, getters }, payload) {

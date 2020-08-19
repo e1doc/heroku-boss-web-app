@@ -410,25 +410,27 @@ export default {
         await this.$store.dispatch("addLessorDetails", this.lessor_details);
       }
       if (this.businessActivities.length > 0) {
-        // if (this.activities.length > this.businessActivities.length) {
-        //   let add = await this.activities.slice(this.businessActivities.length);
-        //   await this.$store.dispatch("addBusinessActivity", add);
-        //   let update = await this.activities.slice(
-        //     0,
-        //     this.businessActivities.length
-        //   );
-        //   await this.$store.dispatch("updateBusinessActivity", update);
-        // } else {
-        //   await this.$store.dispatch("updateBusinessActivity", this.activities);
-        // }
-        await this.$store.dispatch("updateBusinessActivity", this.activities);
+        if (this.activities.length > this.businessActivities.length) {
+          let update = this.activities.slice(
+            0,
+            this.businessActivities.length
+          );
+          let add = this.activities.slice(this.businessActivities.length);
+          await this.$store.dispatch("updateBusinessActivity", update);
+            await this.$store.dispatch("addBusinessActivity", add);
+        } else {
+          await this.$store.dispatch("updateBusinessActivity", this.activities);
+        }
+        // await this.$store.dispatch("updateBusinessActivity", this.activities);
       } else {
         await this.$store.dispatch("addBusinessActivity", this.activities);
       }
       if (!this.detailsHasError && !this.lessorDetailsHasError) {
         let payload = { application_id: this.businessApplication.id };
         if (this.applicationRequirements) {
-          this.$store.dispatch("addApplicationRequirements", payload);
+          if(!this.applicationRequirements.id){
+             this.$store.dispatch("addApplicationRequirements", payload);
+          }
         }
         if (!this.draftBusiness) {
           this.$store.commit("setCurrentApplicationStep", "3");

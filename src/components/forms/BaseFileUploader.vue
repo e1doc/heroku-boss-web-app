@@ -44,11 +44,17 @@ export default {
     },
     properties:{
         type: Object,
-        default: {}
+        default() {
+            return {}
+        }
     },
     type:{
         type: String,
         default: ""
+    },
+    fileLabel:{
+      type: String,
+      default: ""
     }
   },
   data() {
@@ -58,7 +64,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['applicationRequirements','isUploading']),
+    ...mapGetters(['applicationRequirements','isUploading','buildingApplicationRequirements']),
     isInitial() {
       return this.currentStatus === STATUS_INITIAL;
     },
@@ -75,8 +81,10 @@ export default {
   methods: {
     save(formData) {
       console.log(formData);
-      if(type === 'business'){
-          this.$store.dispatch("uploadRequirements",formData)
+      if(this.type === 'business'){
+        this.$store.dispatch("uploadRequirements", formData)
+      }else if(this.type === 'property'){
+        this.$store.dispatch("uploadBuildingRequirements", formData)
       }
     },
     filesChange(fieldName, fileList) {
@@ -88,8 +96,9 @@ export default {
       Array.from(Array(fileList.length).keys()).map((x) => {
         this.filename = fileList[x].name;
         formData.append(fieldName, fileList[x])
-        formData.append('requirement_id', this.applicationRequirements.id)
-        formData.append('requirements_label', 'Lorem')
+        let requirement_id = this.type === 'business' ? this.applicationRequirements.id : this.buildingApplicationRequirements.id
+        formData.append('requirement_id', requirement_id)
+        formData.append('requirements_label', this.fileLabel)
         formData.append('filename',fileList[x].name)
       });
       // save it

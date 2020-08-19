@@ -80,7 +80,9 @@
                 ? "DRAFT"
                 : application.is_approve
                 ? "FOR PAYMENT"
-                : "DISAPPROVED"
+                : application.is_disapprove
+                ? "DISAPPROVED":
+                "FOR APPROVAL"
             }}
           </div>
           <div class="td actions">
@@ -228,6 +230,7 @@ export default {
         this.$store.commit('setBusinessActivities',data.businessactivity)
       }
       if(data.businessapplicationrequirements){
+        
         this.$store.commit('setApplicationRequirements',data.businessapplicationrequirements[0])
       }
       this.$router.push({ name: "BusinessPermitApplication" })
@@ -245,6 +248,9 @@ export default {
       }
       if(data.buildingotherdetails !== null){
         this.$store.commit("setBuildingOtherDetails", data.buildingotherdetails)
+      }
+      if(data.buildingapplicationrequirements.length > 0){
+        this.$store.commit("setBuildingApplicationRequirements",data.buildingapplicationrequirements[0])
       }
       this.$router.push({ name: "BuildingPermitApplication" })
     }

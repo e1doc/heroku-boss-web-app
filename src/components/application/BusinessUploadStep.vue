@@ -10,12 +10,14 @@
       description="{i.e. DTI* / SEC Cooperative Development Authority (CDA) registration} including basis for computing taxes, fees, and charges (e.g. business capitalization)."
       name="businessregproof"
       type="business"
+      fileLabel="business_registration_proof"
       :properties="getProperty('business_registration_proof')"
     />
     <base-file-uploader
       label="2. For Franchisee, please upload a copy of Franchise Agreement"
       name="franchiseagreement"
       :properties="getProperty('franchise_agreement')"
+      fileLabel="franchise_agreement"
       type="business"
     />
     <base-file-uploader
@@ -23,18 +25,21 @@
       description="If required by national laws (e.g. Building Code) and local laws. Note For those without Occupancy Permit, sketch of business location including front full view picture of establishment."
       name="occupancypermit"
       :properties="getProperty('occupancy_permit')"
+      fileLabel="occupancy_permit"
       type="business"
     />
     <base-file-uploader
       label="4. Contract of Lease (if Lessee)"
       name="contractoflease"
       :properties="getProperty('contract_of_lease')"
+      fileLabel="contract_of_lease"
       type="business"
     />
     <base-file-uploader
       label="5. One Goverment issued ID"
       name="governmentid"
       :properties="getProperty('government_id')"
+      fileLabel="government_id"
       type="business"
     />
     <div class="meta-form-group button-left-right">
@@ -82,7 +87,7 @@ export default {
     },
     async nextStep() {
       let payload = {is_draft: false}
-      await this.$store.dispatch('updateBusinessApplication',payload)
+      await this.$store.dispatch('updateBuildingApplication',payload)
       this.$store.commit("setCurrentApplicationStep", "4");
     },
     async getRequirements() {

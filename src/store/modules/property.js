@@ -18,6 +18,8 @@ const getDefaultPropertyState = () => {
             building_other_details: []
         },
         buildingApplications: [],
+        buildingApplicationRequirements: {},
+        buildingRequirements: [],
         draftProperty: false
     }
 }
@@ -36,7 +38,9 @@ const getters = {
     buildingStepOneErrors: (state) => state.buildingStepOneErrors,
     buildingStepTwoErrors: (state) => state.buildingStepTwoErrors,
     buildingApplications: (state) => state.buildingApplications,
-    draftProperty: (state) => state.draftProperty
+    draftProperty: (state) => state.draftProperty,
+    buildingApplicationRequirements: (state) => state.buildingApplicationRequirements,
+    buildingRequirements: (state) => state.buildingRequirements,
 }
 
 const mutations = {
@@ -56,7 +60,9 @@ const mutations = {
         state.buildingStepTwoErrors[`${buildingStepTwoErrors.key}`] = buildingStepTwoErrors.value
     },  
     setBuildingApplications: (state, buildingApplications) => (state.buildingApplications = buildingApplications),
-    setDraftProperty: (state, draftProperty) => (state.draftProperty = draftProperty)
+    setDraftProperty: (state, draftProperty) => (state.draftProperty = draftProperty),
+    setBuildingApplicationRequirements: (state, buildingApplicationRequirements) => (state.buildingApplicationRequirements = buildingApplicationRequirements),
+    setBuildingRequirements: (state, buildingRequirements) => (state.buildingRequirements = buildingRequirements),
 }
 
 const actions = {
@@ -76,6 +82,16 @@ const actions = {
             { withCredentials: true })
             commit("setBuildingApplication", response.data)
             dispatch("addBuildingBasicInformation",payload.basic_information)
+        } catch (err) {
+            console.log(err.response)
+        }
+    },
+    async updateBuildingApplication({ commit, getters,dispatch }, payload){
+        try {
+            payload.id = getters.buildingApplication.id
+            const response = await axios.put(`${baseUrl}/api/building-permit-application/`,
+            payload,
+            { withCredentials: true })
         } catch (err) {
             console.log(err.response)
         }
@@ -169,7 +185,43 @@ const actions = {
             console.log(err.response)
             commit("setBuildingOtherDetailsHasError", true)
         }
-    }
+    },
+    async addBuildingApplicationRequirements({ commit, getters }, payload) {
+        try {
+          const response = await axios.post(
+            `${baseUrl}/api/building-application-requirements/`,
+            payload,
+            { withCredentials: true }
+          );
+          commit("setBuildingApplicationRequirements", response.data);
+        } catch (err) {
+          console.log(err.response);
+        }
+      },
+      async uploadBuildingRequirements({ commit, getters }, payload) {
+        try {
+          const response = await axios.post(
+            `${baseUrl}/api/building-file-upload/`,
+            payload,
+            { withCredentials: true }
+          );
+        } catch (err) {
+          console.log(err.response);
+        }
+      },
+      async getBuildingApplicationRequirements({ commit, getters }){
+        try {
+          let payload = {id:getters.buildingApplicationRequirements.id}
+          const response = await axios.get(
+            `${baseUrl}/api/building-application-requirements/`,
+            { withCredentials: true, params: payload }
+          );
+          commit('setBuildingRequirements', response.data)
+          console.log(response.data)
+        } catch (err) {
+          console.log(err.response);
+        }
+      }
 }
 
 export default {

@@ -363,12 +363,14 @@ export default {
   },
   computed: {
     ...mapGetters([
+      "buildingApplication",
       "buildingDetails",
       "buildingOtherDetails",
       "buildingDetailsHasError",
       "buildingOtherDetailsHasError",
       "buildingStepTwoErrors",
-      "draftProperty"
+      "draftProperty",
+      "buildingApplicationRequirements"
     ]),
   },
   mounted() {
@@ -411,6 +413,12 @@ export default {
       }
 
       if (!this.buildingDetailsHasError && !this.buildingOtherDetailsHasError) {
+        let payload = { application_id: this.buildingApplication.id };
+        if (this.buildingApplicationRequirements) {
+          if(!this.buildingApplicationRequirements.id){
+             this.$store.dispatch("addBuildingApplicationRequirements", payload);
+          }
+        }
         if(!this.draftProperty){
           this.$store.commit("setCurrentApplicationStep", "3");
         }
