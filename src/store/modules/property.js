@@ -50,7 +50,7 @@ const mutations = {
     setBuildingBasicInformation: (state, buildingBasicInformation) => (state.buildingBasicInformation = buildingBasicInformation),
     setBuildingDetails: (state, buildingDetails) => (state.buildingDetails = buildingDetails),
     setBuildingOtherDetails: (state, buildingOtherDetails) => (state.buildingOtherDetails = buildingOtherDetails),
-    setBuildingBasicInfoHasError: (state, buildingBasicInfoHasError) => (state.buildingOtherDetailsHasError = buildingBasicInfoHasError),
+    setBuildingBasicInfoHasError: (state, buildingBasicInfoHasError) => (state.buildingBasicInfoHasError = buildingBasicInfoHasError),
     setBuildingDetailsHasError: (state, buildingDetailsHasError ) => (state.buildingDetailsHasError = buildingDetailsHasError),
     setBuildingOtherDetailsHasError: (state, buildingOtherDetailsHasError) => (state.buildingOtherDetailsHasError = buildingOtherDetailsHasError),
     buildingSetStepOneErrors: (state,buildingStepOneErrors)=>{
