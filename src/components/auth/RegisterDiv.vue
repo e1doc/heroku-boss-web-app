@@ -171,7 +171,19 @@ export default {
   letter-spacing: 0.5px;
 }
 
-@media only screen and (max-width: 1400px) {
-
+@media only screen and ( max-width: 860px ){
+  h1 {
+    font-size: 22px;
+  }
+  .form-group{
+      margin-top: 30px;
+  }
 }
+
+@media only screen and ( max-width: 350px ){
+  h1{
+      font-size: 20px;
+  }
+}
+
 </style>

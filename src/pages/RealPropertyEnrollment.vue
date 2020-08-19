@@ -109,6 +109,11 @@ export default {
   width: 100%;
 }
 
+
+
+/*
+MOBILE RESPONSIVENESS 
+--------------------------------------------------------------*/
 @media only screen and (max-width: 1400px){
   .sc-rp-enrollment {
       .sc-rounded-div {
@@ -125,6 +130,43 @@ export default {
               }
           }
       }
+  }
+}
+
+@media only screen and (max-width: 768px){
+  h2 {
+      font-size: 20px;
+  }
+
+  .sc-rp-enrollment .sc-rounded-div .form-group{
+      padding: 50px 30px 30px;
+  }
+
+  h3 {
+      font-size: 17px;
+  }
+}
+
+@media only screen and (max-width: 580px){
+  h2 {
+      font-size: 20px;
+  }
+}
+
+@media only screen and ( max-width: 480px ){
+  .sc-rp-enrollment{
+      padding: 70px 0 30px;
+  }
+
+}
+
+@media only screen and ( max-width: 480px ){
+  .sc-rp-enrollment .sc-rounded-div .form-group{
+      padding: 30px 15px 10px;
+  }
+
+  h3{
+      font-size: 15px;
   }
 }
 </style>

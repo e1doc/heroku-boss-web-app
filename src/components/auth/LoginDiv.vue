@@ -3,7 +3,7 @@
     <div>
       <font-awesome-icon icon="user-circle" class="icon" />
     </div>
-    <div class="mt30">
+    <div class="mt30 meta-title">
       <h1>USER LOGIN</h1>
     </div>
     <div class="form-group">
@@ -97,6 +97,39 @@ export default {
   margin-top: 45px;
   div {
     margin-bottom: 20px;
+  }
+}
+
+@media only screen and ( max-width: 860px ){
+    
+  .icon{
+    font-size: 60px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  .form-group{
+      margin-top: 30px;
+  }
+
+  .form-group div.forgotpass{
+      margin-bottom: 0;
+  }
+}
+
+@media only screen and ( max-width: 350px ){
+  h1{
+      font-size: 20px;
+  }
+
+  .meta-title{
+      margin-top: 20px;
+  }
+
+  .btn{
+      width: 100%;
   }
 }
 </style>

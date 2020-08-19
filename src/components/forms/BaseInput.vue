@@ -194,6 +194,12 @@ input:focus::placeholder {
   font-size: 12px !important;
 }
 
+
+
+/*
+MOBILE RESPONSIVENESS 
+--------------------------------------------------------------*/
+
 @media only screen and (max-width: 1400px) {
   .input-wrapper {
     padding: 12px 18px;

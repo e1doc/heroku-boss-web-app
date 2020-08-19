@@ -96,8 +96,31 @@ export default {
           margin-bottom: 30px;
       }
       .icon{
-          font-size: 50px;
+          font-size: 60px;
+          margin-right: 0;
       }
+  }
+}
+
+@media only screen and ( max-width: 860px ){
+    
+  .icon{
+    font-size: 50px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  .form-group{
+      margin-top: 0;
+  }
+
+}
+
+@media only screen and ( max-width: 350px ){
+  h1{
+      font-size: 20px;
   }
 }
 </style>
