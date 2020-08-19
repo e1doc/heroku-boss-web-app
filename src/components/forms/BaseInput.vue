@@ -1,6 +1,8 @@
 <template>
   <div class="input-holder">
-    <div class="input-wrapper" :id="name">
+    <div class="input-wrapper" 
+      :id="name" 
+      :class="inputClass">
       <input
         @focus="handleFocus"
         @blur="handleBlur"
@@ -70,6 +72,10 @@ export default {
     inputValue:{
       type: String,
       required: false,
+    },
+    inputClass: {
+      type: String,
+      default: "",
     }
   },
   mounted() {
@@ -140,6 +146,7 @@ export default {
   padding: 15px;
   position: relative;  
   transition: 0.1s;
+  // overflow: hidden;
   .label {
     color: #bababa;
     background: white;
@@ -194,6 +201,23 @@ input:focus::placeholder {
       font-size: 14px;
       top: 13px;
     }
+  }
+}
+
+@media only screen and ( max-width : 768px ){
+    .input-holder{
+        margin-bottom: 8px;
+    }
+
+    .input-wrapper.fw-mobile{
+      width: 100%;
+    }
+}
+
+@media only screen and ( max-width: 480px ){
+  .input-wrapper .label{
+      font-size: 12px;
+      padding: 0;
   }
 }
 </style>

@@ -92,7 +92,7 @@
         <base-tel-number
           v-model="business_details.mobile_number"
           :validationMessages="stepTwoErrors.business_details.mobile_number"
-          class="mb15"
+          class="mb15 input-phone"
           placeholder="Mobile No."
         />
       </div>
@@ -213,7 +213,7 @@
           <base-tel-number
             v-model="lessor_details.mobile_number"
             :validationMessages="stepTwoErrors.lessor_details.mobile_number"
-            class="mb15"
+            class="mb15 input-phone"
             placeholder="Mobile no."
           />
         </div>
@@ -495,6 +495,7 @@ div.meta-container {
       line-height: 19px;
       width: 100%;
       margin-bottom: 20px;
+      margin-top: 30px;
     }
     div.input-wrapper {
       margin-bottom: 15px;
@@ -520,6 +521,10 @@ div.meta-container {
       .input-w4:last-child,
       .input-w2:last-child {
         margin-right: 0;
+      }
+
+      .input-phone{
+          width: 60%;
       }
     }
 
@@ -554,9 +559,79 @@ div.meta-container {
   border-color: #2699fb !important;
 }
 
-@media only screen and (max-width: 1380px) {
-  div.meta-container h1.meta-form-title {
-    font-size: 22px;
-  }
+
+
+/*
+MOBILE RESPONSIVENESS 
+--------------------------------------------------------------*/
+
+@media only screen and ( max-width : 1380px ){
+    div.meta-container h1.meta-form-title{
+        font-size: 22px;
+    }
+} 
+@media only screen and ( max-width : 768px ){
+    div.meta-container h1.meta-form-title{
+        font-size: 20px;
+    }
+
+    .input-phone{
+        margin-bottom: 8px;
+    }
+
+    div.meta-container div.meta-form-group div.meta-group-title{
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and ( max-width : 650px ){
+    div.meta-container{
+        padding: 40px 30px;
+    }
+
+    div.meta-container h1.meta-form-title {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+}
+
+@media only screen and ( max-width : 480px ){
+    div.meta-container{
+        padding: 30px 15px;
+    }
+
+    div.meta-container div.meta-form-group.mb60{
+        margin-bottom: 20px;
+    }
+
+    div.meta-container h1.meta-form-title{
+        font-size: 16px;
+    }
+
+    div.meta-container div.meta-form-group div.meta-group-title{
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    div.meta-container div.button-left-right .back-button{
+        background-color: #048cff;
+        border-color: #73befc;
+        width: auto;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        color: #2699fb;
+        min-width: unset;
+    }
+
+    div.meta-container div.button-left-right .next-button{
+        width: auto;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        min-width: unset;
+        color: #2699fb;
+    }
 }
 </style>

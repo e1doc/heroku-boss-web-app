@@ -155,6 +155,12 @@ div.meta-container {
       text-align: center;
       transition: 0.4s;
     }
+    .meta-note {
+        font-size: 16px;
+        color: #7ac0fa;
+        margin-bottom: 30px;
+        width: 100%;
+    }
     .meta-text.small {
       color: #64b4f9;
       font-size: 18px;
@@ -190,9 +196,76 @@ div.meta-container .meta-custom-upload:hover div.meta-text {
 }
 
 
+
+
+/*
+MOBILE RESPONSIVENESS 
+--------------------------------------------------------------*/
+
 @media only screen and ( max-width : 1380px ){
     div.meta-container h1.meta-form-title{
         font-size: 22px;
+    }
+}
+
+@media only screen and ( max-width : 768px ){
+    div.meta-container h1.meta-form-title{
+        font-size: 20px;
+    }
+
+    .meta-upload-box .meta-label{
+        font-size: 15px;
+    }
+
+    div.meta-container .meta-note{
+        font-size: 15px;
+        text-align: center;
+    }
+}
+
+@media only screen and ( max-width : 650px ){
+    div.meta-container{
+        padding: 40px 30px;
+    }
+
+    div.meta-container h1.meta-form-title{
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+}
+
+
+@media only screen and ( max-width : 480px ){
+    div.meta-container{
+        padding: 30px 15px;
+    }
+
+    div.meta-container h1.meta-form-title{
+        font-size: 16px;
+    }
+    
+    div.meta-container div.button-left-right .back-button{
+        background-color: #048cff;
+        border-color: #73befc;
+        width: auto;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        color: #2699fb;
+        min-width: unset;
+    }
+
+    div.meta-container div.button-left-right .next-button{
+        width: auto;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        min-width: unset;
+        color: #2699fb;
+    }
+
+    div.meta-container .meta-note{
+        font-size: 14px;
     }
 }
 </style>

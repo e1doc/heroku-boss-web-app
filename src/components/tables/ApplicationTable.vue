@@ -42,9 +42,12 @@
             }}
           </div>
           <div class="td actions">
-            <div @click="openBusinessApplication(application)">
+            <div @click="openBusinessApplication('edit', application)" v-if="application.is_draft">
               <font-awesome-icon icon="edit" class="mr5 view-icon" />EDIT
             </div>
+          <div @click="openBusinessApplication('view',application)" v-if="!application.is_draft">
+            <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
+          </div>
           </div>
         </div>
       </div>
@@ -86,9 +89,12 @@
             }}
           </div>
           <div class="td actions">
-            <div @click="openBuildingApplication(application)">
+            <div @click="openBuildingApplication('edit', application)" v-if="application.is_draft">
               <font-awesome-icon icon="edit" class="mr5 view-icon" />EDIT
             </div>
+            <div @click="openBuildingApplication('view', application)" v-if="!application.is_draft">
+            <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
+          </div>
           </div>
         </div>
       </div>
@@ -212,7 +218,7 @@ export default {
     this.$store.dispatch("getBuildingApplications")
   },
   methods:{
-    openBusinessApplication(data){
+    openBusinessApplication(type,data){
       if(data.id){
         let application = {id:data.id,created_at: data.created_at, is_draft: data.is_draft, is_approve: data.is_approve, account_number: data.account_number}
         this.$store.commit('setBusinessApplication', application)
@@ -229,13 +235,16 @@ export default {
       if(data.businessactivity.length > 0){
         this.$store.commit('setBusinessActivities',data.businessactivity)
       }
-      if(data.businessapplicationrequirements){
-        
+      if(data.businessapplicationrequirements.length > 0){
         this.$store.commit('setApplicationRequirements',data.businessapplicationrequirements[0])
       }
-      this.$router.push({ name: "BusinessPermitApplication" })
+      if(type==='edit'){
+        this.$router.push({ name: "BusinessPermitApplication" })
+      }else{
+        this.$router.push({ name: "ViewBusinessDetails" })
+      }
     },
-    openBuildingApplication(data){
+    openBuildingApplication(type, data){
       if(data.id){
         let application = {id: data.id, is_draft: data.is_draft, is_approve: data.is_approve, is_disapprove: data.is_disapprove, created_at: data.created_at}
         this.$store.commit("setBuildingApplication", application)
@@ -252,7 +261,11 @@ export default {
       if(data.buildingapplicationrequirements.length > 0){
         this.$store.commit("setBuildingApplicationRequirements",data.buildingapplicationrequirements[0])
       }
-      this.$router.push({ name: "BuildingPermitApplication" })
+      if(type === 'edit'){
+        this.$router.push({ name: "BuildingPermitApplication" })
+      }else{
+        this.$router.push({ name: "ViewBuildingDetails" })
+      }
     }
   }
 };
@@ -293,7 +306,7 @@ export default {
       text-align: center;
       padding: 17px 0px;
     }
-    .td.actions div {
+    .td.actions div, a {
       color: #1492e6;
       font-size: 13px;
       font-weight: bold;

@@ -192,7 +192,7 @@
         <!-- Business Activity -->
         <div class="meta-text-group flex-wrap">
           <div class="meta-group-title">Business Activity</div>
-          <div class="meta-table-header flex-center">
+          <div class="meta-table-header flex-center hide-in-mobile">
             <div class="form-th code no-br">Code :</div>
             <div class="form-th line no-br">Line of Business</div>
             <div class="form-th units no-br">No. of Units</div>
@@ -204,19 +204,36 @@
               </div>
             </div>
           </div>
-          <div class="meta-table-row flex-center">
-            <div class="form-td code no-bt no-br">0125</div>
-            <div class="form-td line no-bt no-br">Lorem Ipsum Lorem Ipsum</div>
-            <div class="form-td units no-bt no-br">90</div>
-            <div class="form-td sales no-bt no-br">Lorem Ipsum</div>
-            <div class="form-td sales no-bt">Lorem Ipsum</div>
+          <div class="meta-table-row">
+            <div class="flex-center">
+                <div class="form-td code no-bt no-br">
+                  <span class="form-td-label show-in-mobile">Code :</span>
+                  0125
+                </div>
+                <div class="form-td line no-bt no-br">
+                  <span class="form-td-label show-in-mobile">Line of Business :</span>
+                  Lorem Ipsum Lorem Ipsum
+                </div>
+                <div class="form-td units no-bt no-br">
+                  <span class="form-td-label show-in-mobile">No. of Units :</span>
+                  90
+                </div>
+                <div class="form-td sales no-bt no-br">
+                  <span class="form-td-label show-in-mobile">Essential :</span>
+                  Lorem Ipsum
+                </div>
+                <div class="form-td sales no-bt">
+                  <span class="form-td-label show-in-mobile">Non-Essential :</span>
+                  Lorem Ipsum
+                </div>
+            </div>
           </div>
         </div>
 
         <!-- Uploaded Requirements -->
         <div class="meta-text-group flex-wrap">
             <div class="meta-group-title">Uploaded Requirements</div>
-            <div class="gallery-box">
+            <div class="gallery-box flex-wrap">
                 <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
                 <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
                 <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
@@ -282,6 +299,7 @@ div.meta-parent-box {
   div.meta-container {
     max-width: 1060px;
     margin: 0 auto;
+    padding: 0 30px;
   }
   div.meta-form-body {   
     height: 100%;
@@ -304,6 +322,9 @@ div.meta-parent-box {
         font-size: 14px;
         font-weight: bold;
         padding: 10px 0;
+      }
+      .gallery-box{
+        justify-content: center;
       }
       div.meta-text {
         width: 100%;
@@ -448,5 +469,116 @@ div.meta-parent-box {
 .red-btn:hover{
   color: #e23a36;
   border-color: #e23a36;
+}
+
+/*
+MOBILE RESPONSIVENESS 
+--------------------------------------------------------------*/
+.show-in-mobile{
+  display: none;
+}
+
+span.form-td-label{
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.6;
+  width: 100%;
+}
+
+@media only screen and ( max-width: 1400px ){
+    div.meta-parent-box div.meta-form-body .meta-form-title{
+        font-size: 28px;
+    }
+}
+
+@media only screen and ( max-width: 768px ){
+    div.meta-parent-box div.meta-form-body .meta-form-title{
+        font-size: 24px;
+    }
+
+    div.meta-parent-box div.meta-form-body div.meta-text-group div.meta-text.w3,
+    div.meta-parent-box div.meta-form-body div.meta-text-group div.meta-text.w4,
+    div.meta-parent-box div.meta-form-body div.meta-text-group div.meta-text.w6{
+        width: 100%;
+    }
+
+    div.meta-parent-box div.meta-form-body div.meta-text-group div.meta-text.no-br{
+        border-right: 1px solid!important;
+        border-bottom: 0;
+    }
+
+    div.meta-parent-box div.meta-form-body div.gallery-image {
+        height: 100px;
+        width: 100px;
+    }
+
+    .show-in-mobile{
+        display: block;
+    }
+    
+    .hide-in-mobile{
+        display: none;
+    }
+
+    div.meta-parent-box div.meta-form-body div.meta-text-group div.meta-table-row div.form-td{
+        width: 100%;
+        padding: 4px 10px;
+        text-align: left;
+    }
+
+    div.meta-parent-box div.meta-form-body div.meta-text-group div.form-td.code{
+        border-top: 1px solid!important;  
+    }
+
+    div.meta-parent-box div.meta-form-body div.meta-text-group div.form-td.no-br{
+        border-right: 1px solid!important;
+    }
+
+    div.meta-parent-box div.meta-form-body div.meta-text-group div.meta-table-row{
+        margin-bottom: 20px;
+    }
+}
+
+@media only screen and ( max-width: 580px ){
+  div.meta-parent-box div.meta-form-body{
+      padding: 50px 30px;
+  }
+
+  div.meta-parent-box div.meta-form-body .meta-form-title{
+      font-size: 20px;
+  }
+
+  div.meta-parent-box div.meta-form-body div.meta-text-group div.meta-text .meta-label,
+  div.meta-parent-box div.meta-form-body div.meta-text-group div.form-td span{
+      font-size: 12px;
+  }
+}
+
+@media only screen and ( max-width: 480px ){
+  div.meta-parent-box div.meta-form-body{
+      padding: 30px 15px;
+  }
+  div.meta-parent-box{
+      margin-top: 30px;
+  }
+  div.meta-parent-box div.meta-container{
+      padding: 0 15px;
+  }
+  div.meta-parent-box div.meta-form-body .meta-form-title{
+      font-size: 18px;
+  }
+  div.meta-parent-box div.meta-form-body div.meta-text-group div.meta-group-title{
+      font-size: 12px;
+  }
+  div.meta-parent-box div.meta-form-body div.meta-text-group{
+      padding-bottom: 15px;
+  }
+}
+
+@media only screen and ( max-width: 380px ){
+  div.meta-parent-box div.meta-form-body div.gallery-image{
+      height: 70px;
+      width: 70px;
+  }
 }
 </style>

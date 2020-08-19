@@ -83,4 +83,10 @@ export default {
     padding: 12px 18px;
   }
 }
+
+@media only screen and (max-width: 480px) {
+  /deep/ .mx-input {
+      font-size: 12px;
+  }
+}
 </style>

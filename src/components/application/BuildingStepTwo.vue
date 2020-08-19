@@ -21,7 +21,7 @@
 
     <div class="meta-form-group mb60">
       <div class="meta-group-title">Location of Construction</div>
-      <div class="meta-input-group flex-row">
+      <div class="meta-input-group flex-row w4">
         <base-input
           label="Lot No."
           v-model="building_details.lot_no"
@@ -61,7 +61,7 @@
           class="input-w4"
         />
       </div>
-      <div class="meta-input-group flex-row">
+      <div class="meta-input-group flex-row w3">
         <base-input
           label="Street"
           v-model="building_details.street"
@@ -70,6 +70,7 @@
           refs="street_name"
           type="text"
           class="input-w3"
+          inputClass="fw-mobile"
         />
         <base-input
           label="Barangay"
@@ -79,6 +80,7 @@
           refs="barangay_name"
           type="text"
           class="input-w3"
+          inputClass="fw-mobile"
         />
         <base-input
           label="City / Province"
@@ -88,6 +90,7 @@
           refs="city_province"
           type="text"
           class="input-w3"
+          inputClass="fw-mobile"
         />
       </div>
     </div>
@@ -167,7 +170,7 @@
           class=" input-w2"
         />
       </div>
-      <div class="meta-input-group flex-row">
+      <div class="meta-input-group flex-row w3">
         <base-input
           label="Number of Units"
           v-model="building_other_details.units"
@@ -177,7 +180,8 @@
           name="unitscount"
           refs="units_count"
           type="number"
-          class="input-w3 "
+          class="input-w3"
+          inputClass="fw-mobile"
         />
         <base-input
           label="Total Floor Area in sqm."
@@ -188,7 +192,8 @@
           name="floorarea"
           refs="floor_area"
           type="number"
-          class="input-w3 "
+          class="input-w3"
+          inputClass="fw-mobile"
         />
         <base-input
           label="Lot Area in sqm."
@@ -199,7 +204,8 @@
           name="lotarea"
           refs="lot_area"
           type="number"
-          class="input-w3 "
+          class="input-w3"
+          inputClass="fw-mobile"
         />
       </div>
       <div class="meta-form-group mb60">
@@ -423,6 +429,7 @@ export default {
           this.$store.commit("setCurrentApplicationStep", "3");
         }
       }
+      // this.$store.commit('setCurrentApplicationStep','3')
     },
     preFillForm() {
       if (Object.entries(this.buildingDetails).length > 0) {
@@ -449,16 +456,17 @@ div.meta-container {
     width: 100%;
     div.meta-group-title {
       color: #2699fb;
-      font-size: 15px;
+      font-size: 16px;
       line-height: 19px;
       width: 100%;
       margin-bottom: 20px;
-    }
-    div.meta-input-label {
-      color: #2699fb;
-      font-size: 13px;
-      line-height: 19px;
-      width: 100%;
+      margin-top: 30px;
+    }   
+    div.meta-input-label{
+        color: #2699FB;
+        font-size: 13px;
+        line-height: 19px;
+        width: 100%;
     }
     div.input-wrapper {
       margin-bottom: 15px;
@@ -505,9 +513,107 @@ div.meta-container {
   border-color: #2699fb !important;
 }
 
-@media only screen and (max-width: 1380px) {
-  div.meta-container h1.meta-form-title {
-    font-size: 22px;
-  }
+
+
+/*
+MOBILE RESPONSIVENESS 
+--------------------------------------------------------------*/
+
+@media only screen and ( max-width : 1380px ){
+    div.meta-container h1.meta-form-title{
+        font-size: 22px;
+    }
+} 
+
+@media only screen and ( max-width : 768px ){
+    div.meta-container h1.meta-form-title{
+        font-size: 20px;
+    }
+
+    .input-phone{
+        margin-bottom: 8px;
+    }
+
+    div.meta-container div.meta-form-group div.meta-group-title{
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+
+    div.meta-container div.meta-form-group div.meta-input-group .input-w3{
+        width: 100%;
+        float: left;
+        margin-right: 0;
+        flex-direction: unset;
+    }
+
+    div.meta-container div.meta-form-group div.meta-input-group.flex-row.w3,
+    div.meta-container div.meta-form-group div.meta-input-group.flex-row.w4{
+        width: 100%;
+        flex-direction: unset;
+        flex-wrap: wrap;
+    }
+
+    div.meta-container div.meta-form-group div.meta-input-group .input-w4{
+        width: calc( 50% - 3px); 
+        margin-right: 6px;
+    }
+    
+    div.meta-container div.meta-form-group div.meta-input-group .input-w2{
+      margin-right: 6px;
+    }
+
+    div.meta-container div.meta-form-group div.meta-input-group .input-w4:nth-child(even){
+        margin-right: 0;
+    }
+}
+
+@media only screen and ( max-width : 650px ){
+    div.meta-container{
+        padding: 40px 30px;
+    }
+
+    div.meta-container h1.meta-form-title {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+}
+
+@media only screen and ( max-width : 480px ){
+    div.meta-container{
+        padding: 30px 15px;
+    }
+
+    div.meta-container div.meta-form-group.mb60{
+        margin-bottom: 20px;
+    }
+
+    div.meta-container h1.meta-form-title{
+        font-size: 16px;
+    }
+
+    div.meta-container div.meta-form-group div.meta-group-title{
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    div.meta-container div.button-left-right .back-button{
+        background-color: #048cff;
+        border-color: #73befc;
+        width: auto;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        color: #2699fb;
+        min-width: unset;
+    }
+
+    div.meta-container div.button-left-right .next-button{
+        width: auto;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        min-width: unset;
+        color: #2699fb;
+    }
 }
 </style>

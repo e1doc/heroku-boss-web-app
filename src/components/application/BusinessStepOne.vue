@@ -51,7 +51,7 @@
       <base-tel-number
         v-model="basic_information.owner_mobile_number"
         :validationMessages="stepOneErrors.basic_information.owner_mobile_number"
-        class="mb15"
+        class="mb15 input-tel"
       />
       <base-input
         label="Email Address"
@@ -229,6 +229,7 @@ export default {
   },
   methods: {
    async nextStep() {
+
       this.$store.commit("setLoading", true);
       if(this.businessApplication.id){
        await this.$store.dispatch("updateBusinessApplication", this.business_application)
@@ -247,13 +248,16 @@ export default {
         }
       }
       this.$store.commit("setLoading", false);
+      // this.$store.commit("setCurrentApplicationStep", "2")
     },
     preFillForm() {
       if (this.businessApplication.id) {
         this.basic_information = this.businessBasicInformation;
         this.business_application = this.businessApplication;
       }
+    
     },
+  
   },
 };
 </script>
@@ -271,10 +275,11 @@ div.meta-container {
     width: 100%;
     div.meta-group-title {
       color: #2699fb;
-      font-size: 15px;
+      font-size: 16px;
       line-height: 19px;
       width: 100%;
       margin-bottom: 20px;
+      margin-top: 30px;
     }
     div.meta-input-label {
       color: #2699fb;
@@ -319,11 +324,58 @@ div.meta-container
 }
 
 
-
+/*
+MOBILE RESPONSIVENESS 
+--------------------------------------------------------------*/
 
 @media only screen and ( max-width : 1380px ){
     div.meta-container h1.meta-form-title{
         font-size: 22px;
+    }
+}
+
+@media only screen and ( max-width : 768px ){
+    .input-tel{
+        margin-bottom: 8px;
+    }
+
+    div.meta-container h1.meta-form-title{
+        font-size: 20px;
+    }
+    
+    div.meta-container div.meta-form-group div.meta-group-title{
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and ( max-width : 650px ){
+    div.meta-container{
+        padding: 40px 30px;
+    }
+
+    div.meta-container h1.meta-form-title{
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+}
+
+@media only screen and ( max-width: 480px ){
+    .next-button{
+        width: 100%;
+    }
+
+    div.meta-container{
+        padding: 30px 15px;
+    }
+
+    div.meta-container h1.meta-form-title{
+        font-size: 16px;
+    }
+
+    div.meta-container div.meta-form-group div.meta-group-title{
+        font-size: 14px;
+        margin-bottom: 15px;
     }
 }
 </style>

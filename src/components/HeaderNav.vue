@@ -383,7 +383,7 @@ div.meta-mobile-nav .close-menu .close-icon {
 div.meta-mobile-nav .profile-menu {
     width: 100%;
     height: auto;
-    margin-top: 40px;
+    margin-top: 26px;
     padding: 30px 0;
     color: #e23a36;
     border-bottom: 2px solid #e23a3626;
@@ -414,6 +414,7 @@ span.meta-name {
 
 div.meta-mobile-nav .profile-menu span.meta-email {
     font-size: 14px;
+    clear: both;
 }
 
 div.meta-mobile-nav .profile-menu span.meta-icon .user-icon{

@@ -7,45 +7,64 @@
         <div class="meta-text-group flex-wrap">
           <div class="meta-text no-bb">
             <div class="meta-label">Application Number :</div>
-            <div class="meta-value">#02220</div>
+            <div class="meta-value">
+              #{{ businessBasicInformation.reference_number }}
+            </div>
           </div>
           <div class="meta-text w6 no-br no-bb">
             <div class="meta-label">Date of Application :</div>
-            <div class="meta-value">August 09, 2020</div>
+            <div class="meta-value">
+              {{ businessApplication.created_at | moment("MMMM DD, YYYY") }}
+            </div>
           </div>
           <div class="meta-text w6 no-bb">
             <div class="meta-label">DTI/SEC/CDA Registration No. :</div>
-            <div class="meta-value">Lorem Ipsum</div>
+            <div class="meta-value">
+              {{ businessBasicInformation.dti_sec_cda_reg_number }}
+            </div>
           </div>
           <div class="meta-text w6 no-br no-bb">
             <div class="meta-label">Account No :</div>
-            <div class="meta-value">0215453698</div>
+            <div class="meta-value">
+              {{ businessApplication.account_number }}
+            </div>
           </div>
           <div class="meta-text w6 no-bb">
             <div class="meta-label">DTI/SEC/CDA Date of Registration No. :</div>
-            <div class="meta-value">Lorem Ipsum</div>
+            <div class="meta-value">
+              {{
+                businessBasicInformation.dti_sec_cda_reg_date
+                  | moment("MMMM DD, YYYY")
+              }}
+            </div>
           </div>
           <div class="meta-text w6 no-br no-bb">
             <div class="meta-label">Type of Organization :</div>
-            <div class="meta-value">Lorem Ipsum</div>
+            <div class="meta-value">
+              {{ businessBasicInformation.type_of_organization }}
+            </div>
           </div>
           <div class="meta-text w3 no-br no-bb">
             <div class="meta-label">CTC No. :</div>
-            <div class="meta-value">1234</div>
+            <div class="meta-value">{{ businessBasicInformation.ctc_no }}</div>
           </div>
           <div class="meta-text w3 no-bb">
             <div class="meta-label">TIN :</div>
-            <div class="meta-value">0215453698</div>
+            <div class="meta-value">{{ businessBasicInformation.tin }}</div>
           </div>
           <div class="meta-text w6 no-br">
             <div class="meta-label">
               Are You enjoying tax incentive from any Government Entity ?
             </div>
-            <div class="meta-value">Yes</div>
+            <div class="meta-value">
+              {{ businessBasicInformation.has_tax_incentive ? "Yes" : "No" }}
+            </div>
           </div>
           <div class="meta-text w6">
             <div class="meta-label">Please specify the entity :</div>
-            <div class="meta-value">Lorem ipsum dolor</div>
+            <div class="meta-value">
+              {{ businessBasicInformation.government_entity }}
+            </div>
           </div>
         </div>
 
@@ -54,23 +73,29 @@
           <div class="meta-group-title">Name of Taxpayer/Corporate Name :</div>
           <div class="meta-text w4 no-br no-bb">
             <div class="meta-label">Last Name :</div>
-            <div class="meta-value">Lorem Ipsum</div>
+            <div class="meta-value">
+              {{ businessBasicInformation.owner_last_name }}
+            </div>
           </div>
           <div class="meta-text w4 no-br no-bb">
             <div class="meta-label">First Name :</div>
-            <div class="meta-value">Lorem Ipsum</div>
+            <div class="meta-value">
+              {{ businessBasicInformation.owner_first_name }}
+            </div>
           </div>
           <div class="meta-text w4 no-bb">
             <div class="meta-label">Middle Name :</div>
-            <div class="meta-value">Lorem Ipsum</div>
+            <div class="meta-value">
+              {{ businessBasicInformation.owner_middle_name }}
+            </div>
           </div>
           <div class="meta-text w6 no-br">
             <div class="meta-label">Business Name :</div>
-            <div class="meta-value">Lorem Ipsum</div>
+            <div class="meta-value">{{ businessDetails.name }}</div>
           </div>
           <div class="meta-text w6">
             <div class="meta-label">Trade Name/Franchise :</div>
-            <div class="meta-value">Lorem Ipsum</div>
+            <div class="meta-value">{{ businessDetails.trade_name }}</div>
           </div>
         </div>
 
@@ -81,15 +106,21 @@
           </div>
           <div class="meta-text w4 no-br">
             <div class="meta-label">Last Name :</div>
-            <div class="meta-value">Lorem Ipsum</div>
+            <div class="meta-value">
+              {{ businessDetails.president_last_name }}
+            </div>
           </div>
           <div class="meta-text w4 no-br">
             <div class="meta-label">First Name :</div>
-            <div class="meta-value">Lorem Ipsum</div>
+            <div class="meta-value">
+              {{ businessDetails.president_first_name }}
+            </div>
           </div>
           <div class="meta-text w4">
             <div class="meta-label">Middle Name :</div>
-            <div class="meta-value">Lorem Ipsum</div>
+            <div class="meta-value">
+              {{ businessDetails.president_middle_name }}
+            </div>
           </div>
         </div>
 
@@ -98,15 +129,35 @@
           <div class="meta-group-title">Business Address :</div>
           <div class="meta-text no-bb">
             <div class="meta-label">Complete Address :</div>
-            <div class="meta-value">Lorem Ipsum</div>
+            <div class="meta-value">
+              {{ businessDetails.complete_business_address }}
+            </div>
           </div>
           <div class="meta-text no-bb">
             <div class="meta-label">Telephone No. & Mobile No. :</div>
-            <div class="meta-value">012-4526 / 09422136582</div>
+            <div class="meta-value">
+              {{
+                businessDetails.telephone_number
+                  ? businessDetails.telephone_number
+                  : "N/A"
+              }}
+              /
+              {{
+                businessDetails.mobile_number
+                  ? businessDetails.mobile_number
+                  : "N/A"
+              }}
+            </div>
           </div>
           <div class="meta-text">
             <div class="meta-label">Email Address :</div>
-            <div class="meta-value">sampleemail@email.com</div>
+            <div class="meta-value">
+              {{
+                businessDetails.email_address
+                  ? businessDetails.email_address
+                  : "N/A"
+              }}
+            </div>
           </div>
         </div>
         <!-- Owner Details -->
@@ -114,15 +165,31 @@
           <div class="meta-group-title">Owner's Address :</div>
           <div class="meta-text no-bb">
             <div class="meta-label">Complete Address :</div>
-            <div class="meta-value">Lorem Ipsum</div>
+            <div class="meta-value">
+              {{ businessBasicInformation.owner_complete_address }}
+            </div>
           </div>
           <div class="meta-text no-bb">
             <div class="meta-label">Telephone No. & Mobile No. :</div>
-            <div class="meta-value">012-4526 / 09422136582</div>
+            <div class="meta-value">
+              {{
+                businessBasicInformation.owner_telephone_number
+                  ? businessBasicInformation.owner_telephone_number
+                  : "N/A"
+              }}
+              /
+              {{
+                businessBasicInformation.owner_mobile_number
+                  ? businessBasicInformation.owner_mobile_number
+                  : "N/A"
+              }}
+            </div>
           </div>
           <div class="meta-text">
             <div class="meta-label">Email Address :</div>
-            <div class="meta-value">sampleemail@email.com</div>
+            <div class="meta-value">
+              {{ businessBasicInformation.owner_email_address }}
+            </div>
           </div>
         </div>
 
@@ -130,21 +197,25 @@
         <div class="meta-text-group flex-wrap">
           <div class="meta-text no-bb">
             <div class="meta-label">Property Index Number (PIN) :</div>
-            <div class="meta-value">021159</div>
+            <div class="meta-value">
+              {{ businessDetails.property_index_number }}
+            </div>
           </div>
           <div class="meta-text w4 no-br">
             <div class="meta-label">Business Area (in sq m) :</div>
-            <div class="meta-value">10,000 sqm</div>
+            <div class="meta-value">{{ businessDetails.area }} sqm</div>
           </div>
           <div class="meta-text w4 no-br">
             <div class="meta-label">Total No. of Employees :</div>
-            <div class="meta-value">100</div>
+            <div class="meta-value">{{ businessDetails.total_employees }}</div>
           </div>
           <div class="meta-text w4">
             <div class="meta-label">
               No. of Employees residing in City/Municipality :
             </div>
-            <div class="meta-value">10</div>
+            <div class="meta-value">
+              {{ businessDetails.residing_employees }}
+            </div>
           </div>
         </div>
 
@@ -155,44 +226,86 @@
           </div>
           <div class="meta-text w6 no-br no-bb">
             <div class="meta-label">Lessor's Name :</div>
-            <div class="meta-value">Lorem Ipsum Dolor</div>
+            <div class="meta-value">
+              {{ lessorDetails.last_name }}
+              {{ lessorDetails.first_name }}
+              {{ lessorDetails.middle_name }}
+            </div>
           </div>
           <div class="meta-text w6 no-bb">
             <div class="meta-label">Gross Monthly Rental :</div>
-            <div class="meta-value">10,000 sqm</div>
+            <div class="meta-value">
+              {{
+                lessorDetails.gross_monthly_rental
+                  ? `₱ ${parseFloat(lessorDetails.gross_monthly_rental).toFixed(
+                      2
+                    )}`
+                  : "N/A"
+              }}
+            </div>
           </div>
           <div class="meta-text w4 no-br no-bb">
             <div class="meta-label">Last Name :</div>
-            <div class="meta-value">Lorem Ipsum</div>
+            <div class="meta-value">
+              {{ lessorDetails.last_name ? lessorDetails.last_name : "N/A" }}
+            </div>
           </div>
           <div class="meta-text w4 no-br no-bb">
             <div class="meta-label">First Name :</div>
-            <div class="meta-value">Dolor ipsum</div>
+            <div class="meta-value">
+              {{ lessorDetails.first_name ? lessorDetails.first_name : "N/A" }}
+            </div>
           </div>
           <div class="meta-text w4 no-bb">
             <div class="meta-label">Middle Name :</div>
-            <div class="meta-value">Dolor</div>
+            <div class="meta-value">
+              {{
+                lessorDetails.middle_name ? lessorDetails.middle_name : "N/A"
+              }}
+            </div>
           </div>
           <div class="meta-text no-bb">
             <div class="meta-label">Lessor's Address :</div>
             <div class="meta-value">
-              Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+              {{
+                lessorDetails.complete_address
+                  ? lessorDetails.complete_address
+                  : "N/A"
+              }}
             </div>
           </div>
           <div class="meta-text w6 no-br">
             <div class="meta-label">Telephone No. & Mobile No. :</div>
-            <div class="meta-value">012-4526 / 09422136582</div>
+            <div class="meta-value">
+              {{
+                lessorDetails.telephone_number
+                  ? lessorDetails.telephone_number
+                  : "N/A"
+              }}
+              /
+              {{
+                lessorDetails.mobile_number
+                  ? lessorDetails.mobile_number
+                  : "N/A"
+              }}
+            </div>
           </div>
           <div class="meta-text w6">
             <div class="meta-label">Email Address :</div>
-            <div class="meta-value">sampleemail@email.com</div>
+            <div class="meta-value">
+              {{
+                lessorDetails.email_address
+                  ? lessorDetails.email_address
+                  : "N/A"
+              }}
+            </div>
           </div>
         </div>
 
         <!-- Business Activity -->
         <div class="meta-text-group flex-wrap">
           <div class="meta-group-title">Business Activity</div>
-          <div class="meta-table-header flex-center">
+          <div class="meta-table-header flex-center hide-in-mobile">
             <div class="form-th code no-br">Code :</div>
             <div class="form-th line no-br">Line of Business</div>
             <div class="form-th units no-br">No. of Units</div>
@@ -204,69 +317,135 @@
               </div>
             </div>
           </div>
-          <div class="meta-table-row flex-center">
-            <div class="form-td code no-bt no-br">0125</div>
-            <div class="form-td line no-bt no-br">Lorem Ipsum Lorem Ipsum</div>
-            <div class="form-td units no-bt no-br">90</div>
-            <div class="form-td sales no-bt no-br">Lorem Ipsum</div>
-            <div class="form-td sales no-bt">Lorem Ipsum</div>
+          <div class="meta-table-row" v-if="businessActivities.length > 0">
+            <div
+              class="flex-center"
+              v-for="(activity, index) in businessActivities"
+              :key="index"
+            >
+              <div class="form-td code no-bt no-br">
+                <span class="form-td-label show-in-mobile">Code :</span>
+                {{ activity.code }}
+              </div>
+              <div class="form-td line no-bt no-br">
+                <span class="form-td-label show-in-mobile"
+                  >Line of Business :</span
+                >
+                {{ activity.line_of_business }}
+              </div>
+              <div class="form-td units no-bt no-br">
+                <span class="form-td-label show-in-mobile">No. of Units :</span>
+                {{ activity.units }}
+              </div>
+              <div class="form-td sales no-bt no-br">
+                <span class="form-td-label show-in-mobile">Essential :</span>
+                {{ activity.essential }}
+              </div>
+              <div class="form-td sales no-bt">
+                <span class="form-td-label show-in-mobile"
+                  >Non-Essential :</span
+                >
+                {{ activity.non_essential }}
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Uploaded Requirements -->
-        <div class="meta-text-group flex-wrap">
-            <div class="meta-group-title">Uploaded Requirements</div>
-            <div class="gallery-box">
-                <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
-                <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
-                <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
-                <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
-                <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
-                <div class="gallery-image" @click="showSingle" style="background-image: url('https://via.placeholder.com/450.png/fff');"></div>
-                <vue-easy-lightbox
-                  escDisabled
-                  moveDisabled
-                  :visible="visible"
-                  :imgs="imgs"
-                  :index="index"
-                  @hide="handleHide"
-                ></vue-easy-lightbox>
+        <div class="meta-text-group flex-wrap" v-if="requirements">
+          <div class="meta-group-title">Uploaded Requirements</div>
+          <div class="gallery-box flex-wrap">
+            <div
+              v-for="(requirement, index) in requirements.requirements" :key="index"
+              class="gallery-image"
+              @click="showSingle"
+              :style="`background-image: url(${replaceUrl(requirement.file)});`"
+            ></div>
+            <vue-easy-lightbox
+              escDisabled
+              moveDisabled
+              :visible="visible"
+              :imgs="imgs"
+              :index="index"
+              @hide="handleHide"
+            ></vue-easy-lightbox>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import VueEasyLightbox from 'vue-easy-lightbox'
+import VueEasyLightbox from "vue-easy-lightbox";
 import ButtonBlock from "@/components/ButtonBlock";
+import { mapGetters } from "vuex";
 export default {
   name: "BusinessApplicationDetails",
-      components: {
-        VueEasyLightbox,
-        ButtonBlock
-    },
-    data() {
-        return {
-        imgs: '',  // Img Url , string or Array of string
-        visible: false,
-        index: 0   // default: 0
+  components: {
+    VueEasyLightbox,
+    ButtonBlock,
+  },
+  computed: {
+    ...mapGetters([
+      "businessApplication",
+      "businessBasicInformation",
+      "businessDetails",
+      "lessorDetails",
+      "businessActivities",
+      "applicationRequirements",
+      "requirements"
+    ]),
+  },
+  mounted() {
+    this.getRequirements()
+    console.log(this.requirements.requirements)
+  },
+   beforeRouteLeave(to, from, next) {
+    this.$store.commit("setCurrentApplicationStep", "1");
+    this.$store.commit("resetBusinessState")
+    next();
+  },
+  data() {
+    return {
+      imgs: [], // Img Url , string or Array of string
+      visible: false,
+      index: 0, // default: 0
+    };
+  },
+  methods: {
+    showSingle() {
+      if(this.requirements){
+        if(this.requirements.requirements.length > 0){
+          this.requirements.requirements.map(item=>{
+            let img = {
+              title: this.formatLabel(item.requirements_label),
+              src: this.replaceUrl(item.file)
+            }
+            this.imgs.push(img)
+          })
         }
+      }
+      this.show();
     },
-    methods: {
-        showSingle() {
-        this.imgs =[{ title: 'Requirements Label', src: 'https://via.placeholder.com/450.png/fff' }] 
-        this.show()
-        },
-        show() {
-        this.visible = true
-        },
-        handleHide() {
-        this.visible = false
-        }
+    show() {
+      this.visible = true;
+    },
+    handleHide() {
+      this.visible = false;
+    },
+    async getRequirements() {
+      if (this.applicationRequirements.id) {
+        await this.$store.dispatch("getApplicationRequirements");
+      }
+    },
+    replaceUrl(url){
+      return url.replace("/bacoor/","/")
+    },
+    formatLabel(string){
+      return string.replace(/_/g," ").toUpperCase()
     }
+  },
 };
 </script>
 
@@ -278,14 +457,15 @@ div.meta-parent-box {
   div.meta-container {
     max-width: 1060px;
     margin: 0 auto;
+    padding: 0 30px;
   }
-  div.meta-form-body {   
+  div.meta-form-body {
     height: 100%;
     width: 100%;
     padding: 50px;
-    background-color: #EAF6FF;
-    border-radius: 20px; 
-    .meta-form-title{
+    background-color: #eaf6ff;
+    border-radius: 20px;
+    .meta-form-title {
       font-size: 35px;
       text-align: center;
       width: 100%;
@@ -300,6 +480,9 @@ div.meta-parent-box {
         font-size: 14px;
         font-weight: bold;
         padding: 10px 0;
+      }
+      .gallery-box {
+        justify-content: center;
       }
       div.meta-text {
         width: 100%;
@@ -359,7 +542,7 @@ div.meta-parent-box {
         text-align: center;
         width: 100%;
         div.form-td {
-          font-size: 10px;
+          font-size: 14px;
           line-height: 1.6;
           padding: 5px 0;
           border: 1px solid;
@@ -402,7 +585,7 @@ div.meta-parent-box {
       float: left;
     }
 
-    div.gallery-image{
+    div.gallery-image {
       height: 150px;
       width: 150px;
       background-position: center;
@@ -412,11 +595,11 @@ div.meta-parent-box {
       margin: 5px;
     }
 
-    div.meta-button-group{
+    div.meta-button-group {
       justify-content: center;
       width: 100%;
       margin-top: 20px;
-      button{
+      button {
         margin: 0 15px;
       }
     }
@@ -436,13 +619,141 @@ div.meta-parent-box {
   border-bottom: 0 !important;
 }
 
-.red-btn{
+.red-btn {
   background-color: #e23a36;
   border-color: #e23a36;
 }
 
-.red-btn:hover{
+.red-btn:hover {
   color: #e23a36;
   border-color: #e23a36;
+}
+
+/*
+MOBILE RESPONSIVENESS 
+--------------------------------------------------------------*/
+.show-in-mobile {
+  display: none;
+}
+
+span.form-td-label {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.6;
+  width: 100%;
+}
+
+@media only screen and (max-width: 1400px) {
+  div.meta-parent-box div.meta-form-body .meta-form-title {
+    font-size: 28px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  div.meta-parent-box div.meta-form-body .meta-form-title {
+    font-size: 24px;
+  }
+
+  div.meta-parent-box div.meta-form-body div.meta-text-group div.meta-text.w3,
+  div.meta-parent-box div.meta-form-body div.meta-text-group div.meta-text.w4,
+  div.meta-parent-box div.meta-form-body div.meta-text-group div.meta-text.w6 {
+    width: 100%;
+  }
+
+  div.meta-parent-box
+    div.meta-form-body
+    div.meta-text-group
+    div.meta-text.no-br {
+    border-right: 1px solid !important;
+    border-bottom: 0;
+  }
+
+  div.meta-parent-box div.meta-form-body div.gallery-image {
+    height: 100px;
+    width: 100px;
+  }
+
+  .show-in-mobile {
+    display: block;
+  }
+
+  .hide-in-mobile {
+    display: none;
+  }
+
+  div.meta-parent-box
+    div.meta-form-body
+    div.meta-text-group
+    div.meta-table-row
+    div.form-td {
+    width: 100%;
+    padding: 4px 10px;
+    text-align: left;
+  }
+
+  div.meta-parent-box div.meta-form-body div.meta-text-group div.form-td.code {
+    border-top: 1px solid !important;
+  }
+
+  div.meta-parent-box div.meta-form-body div.meta-text-group div.form-td.no-br {
+    border-right: 1px solid !important;
+  }
+
+  div.meta-parent-box
+    div.meta-form-body
+    div.meta-text-group
+    div.meta-table-row {
+    margin-bottom: 20px;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  div.meta-parent-box div.meta-form-body {
+    padding: 50px 30px;
+  }
+
+  div.meta-parent-box div.meta-form-body .meta-form-title {
+    font-size: 20px;
+  }
+
+  div.meta-parent-box
+    div.meta-form-body
+    div.meta-text-group
+    div.meta-text
+    .meta-label,
+  div.meta-parent-box div.meta-form-body div.meta-text-group div.form-td span {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  div.meta-parent-box div.meta-form-body {
+    padding: 30px 15px;
+  }
+  div.meta-parent-box {
+    margin-top: 30px;
+  }
+  div.meta-parent-box div.meta-container {
+    padding: 0 15px;
+  }
+  div.meta-parent-box div.meta-form-body .meta-form-title {
+    font-size: 18px;
+  }
+  div.meta-parent-box
+    div.meta-form-body
+    div.meta-text-group
+    div.meta-group-title {
+    font-size: 12px;
+  }
+  div.meta-parent-box div.meta-form-body div.meta-text-group {
+    padding-bottom: 15px;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  div.meta-parent-box div.meta-form-body div.gallery-image {
+    height: 70px;
+    width: 70px;
+  }
 }
 </style>

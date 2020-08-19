@@ -116,4 +116,41 @@ export default {
 /deep/ .country-selector.lg .country-selector__country-flag {
   top: 20px;
 }
+
+
+@media only screen and ( max-width : 1400px ){
+  /deep/ .input-tel.lg .input-tel__input {
+      font-size: 14px;
+      height: 44px;
+      min-height: 40px;
+  }
+
+  /deep/ .input-tel.lg,
+  /deep/ .country-selector.lg {
+      height: 44px;
+      min-height: 44px;
+  }
+
+  /deep/ .country-selector.lg .country-selector__input {
+      height: 44px;
+      min-height: 44px;
+  }
+}
+
+@media only screen and ( max-width : 480px ){
+  /deep/ .country-selector.has-value .country-selector__input{
+      padding-left: 38px;
+      padding-right: 0;
+  }
+
+  /deep/ .input-tel.lg .input-tel__input{
+      font-size: 12px;
+  }
+
+  /deep/ .vue-phone-number-input.lg .select-country-container {
+      width: 50px;
+      min-width: 50px;
+      max-width: 77px;
+  }
+}
 </style>
