@@ -17,9 +17,6 @@
             filename ? filename  : properties.filename ? properties.filename : "DRAG/CLICK TO UPLOAD YOUR FILE HERE" 
           }}
         </div>
-         <div class="meta-text small" v-if="isUploading">
-            Uploading...
-        </div>
       </form>
     </div>
   </div>
