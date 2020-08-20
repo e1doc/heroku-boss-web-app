@@ -103,4 +103,11 @@ div.meta-list{
 span.custom-radio.selected span.circle{
     background-color: #2699fb;
 }
+
+@media only screen and ( max-width: 480px ){
+  div.meta-list .meta-list-option .meta-desc{
+    font-size: 12px;
+    line-height: 1.6;
+  }
+}
 </style>

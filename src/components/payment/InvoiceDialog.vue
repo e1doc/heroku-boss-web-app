@@ -90,7 +90,7 @@ export default {
   border-radius: 8px;
   width: 100%;
   max-width: 520px;
-  margin: 0 auto;
+  margin: 30px auto;
   .dialog-header {
     background: #2699fb;
     position: relative;
@@ -222,5 +222,46 @@ export default {
 }
 .size14 {
   font-size: 14px;
+}
+
+@media only screen and ( max-width: 860px ){
+    .dialog-holder{
+        max-width: 90%;
+    }
+}
+
+@media only screen and ( max-width: 480px ){
+
+  .dialog-holder{
+      max-width: 100%;
+      margin: 0;  
+  }
+
+  .dialog-holder .dialog-body .invoice-details{
+    padding-top: 0;
+  }
+
+  .dialog-holder .dialog-body .invoice-details .details-body{
+      padding-left: 0;
+  }
+  .dialog-holder .dialog-body .invoice-details .details-body .details-item{
+      width: 100%;
+  }
+
+  .details-item:nth-last-child(-n + 2){
+      margin-bottom: 25px!important;
+  }
+
+  .dialog-holder .dialog-body .invoice-amount .amount-details .item-value{
+      font-size: 18px;
+      text-align: left;
+      width: 100%;
+      margin-top: 15px;
+  }
+
+  .dialog-holder .dialog-body .invoice-details .details-body .details-item .item-value,
+  .dialog-holder .dialog-body .invoice-owner .owner-details .item-value{
+      font-size: 14px;
+  }
 }
 </style>

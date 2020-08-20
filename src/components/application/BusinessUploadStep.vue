@@ -87,7 +87,7 @@ export default {
     },
     async nextStep() {
       let payload = {is_draft: false}
-      await this.$store.dispatch('updateBuildingApplication',payload)
+      await this.$store.dispatch('updateBusinessApplication',payload)
       this.$store.commit("setCurrentApplicationStep", "4");
     },
     async getRequirements() {
