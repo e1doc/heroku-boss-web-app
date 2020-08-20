@@ -8,25 +8,25 @@
         <div class="admin-body">
             <ul class="admin-nav">
                 <li class="admin-item" :class="{ active: activeTab === 'dashboard'}" @click="changeTab('dashboard')">
-                    <router-link to="dashboard">
+                    <router-link :to="{name:'Dashboard'}">
                         <font-awesome-icon icon="chart-line" class="admin-icon"/>
                         DASHBOARD 
                     </router-link>
                 </li>
                 <li class="admin-item" :class="{ active: activeTab === 'transactions'}" @click="changeTab('transactions')">
-                    <router-link to="transactions">
+                    <router-link :to="{name:'Transactions'}">
                         <font-awesome-icon icon="coins" class="admin-icon"/>
                         TRANSACTIONS 
                     </router-link>
                 </li>
                 <li class="admin-item" :class="{ active: activeTab === 'applications'}" @click="changeTab('applications')">
-                    <router-link to="applications">
+                    <router-link :to="{name:'Applications'}">
                         <font-awesome-icon icon="users" class="admin-icon"/>
                         APPLICATIONS
                     </router-link>
                 </li>
                 <li class="admin-item" :class="{ active: activeTab === 'inquiries'}" @click="changeTab('inquiries')">
-                    <router-link to="inquiries">
+                    <router-link :to="{name:'Inquiries'}">
                         <font-awesome-icon icon="comment-alt" class="admin-icon"/>
                         INQUIRIES 
                     </router-link>
