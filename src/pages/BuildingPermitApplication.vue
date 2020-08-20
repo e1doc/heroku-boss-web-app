@@ -59,7 +59,7 @@ export default {
     next();
   },
   mounted() {
-    // this.$store.commit("setApplicationType", "property");
+    this.$store.commit("setApplicationType", "property");
   },
   methods: {
     saveAsDraft() {
