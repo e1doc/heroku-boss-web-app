@@ -105,7 +105,6 @@ const actions = {
       );
       commit("setApplicationHasError", false)
       commit("setBusinessApplication", response.data);
-      dispatch("addBusinessBasicInformation", payload.basic_information);
     } catch (err) {
       commit("setApplicationHasError",true)
       let errors = {key:'application',value: err.response.data}

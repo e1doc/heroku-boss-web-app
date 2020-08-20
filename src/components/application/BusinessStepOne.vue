@@ -258,6 +258,7 @@ export default {
           basic_information: this.basic_information,
         };
         await this.$store.dispatch("addBusinessApplication", payload);
+        await this.$store.dispatch("addBusinessBasicInformation", this.basic_information);
       }
       if (this.businessApplication.id && !this.businessBasicInformation.id) {
         await this.$store.dispatch(
@@ -273,6 +274,8 @@ export default {
           this.basic_information
         );
       }
+
+
       if (!this.applicationHasError && !this.basicInfoHasError) {
         if (!this.draftBusiness) {
           this.$store.commit("setCurrentApplicationStep", "2");

@@ -143,13 +143,14 @@ export default {
       if (!this.buildingApplication.id) {
         let payload = { basic_information: this.basic_information };
         await this.$store.dispatch("addBuildingApplication", payload);
-        await this.$store.dispatch("addBuildingBasicInformation",this.basic_information)
       }
       if (this.buildingBasicInformation.id) {
         await this.$store.dispatch(
           "updateBuildingBasicInformation",
           this.basic_information
         );
+      }else{
+        await this.$store.dispatch("addBuildingBasicInformation",this.basic_information)
       }
       if (!this.buildingBasicInfoHasError) {
         if (!this.draftProperty) {
