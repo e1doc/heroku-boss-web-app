@@ -137,4 +137,84 @@ section {
 .meta-list-item.active img.meta-img {
   border-color: #039be5;
 }
+
+@media only screen and (max-width: 1180px){
+  section div.meta-parent-box{
+      padding-bottom: 50px;
+  }
+
+  section div.meta-parent-box div.container div.meta-left-box{
+      width: 45%;
+  }
+
+  section div.meta-parent-box div.container div.meta-right-box{
+      width: calc(55% - 30px);
+      margin-left: 30px;
+  }
+
+  section div.meta-parent-box div.container div.meta-right-box div.meta-form-box{
+      padding: 30px 30px 50px 50px;
+  }
+
+}
+
+@media only screen and (max-width: 860px){
+  section div.meta-parent-box{
+      padding-top: 20px;
+  }
+
+  section div.meta-parent-box div.container div.meta-left-box{
+      width: 100%;
+  }
+
+  section div.meta-parent-box div.container div.meta-right-box{
+      width: 100%;
+      margin-left: 0;
+  }
+
+  .meta-invoice-holder{ 
+      overflow: hidden;
+      width: 100%;
+  }
+
+  section div.meta-parent-box div.container div.meta-right-box div.meta-form-box .meta-title{
+      font-size: 20px;
+      margin-left: 0;
+  }
+
+  .container{
+    margin-bottom: 0!important;
+  }
+
+  section div.meta-parent-box div.container div.meta-right-box div.meta-form-box{
+      padding: 40px 50px;
+  }
+}
+
+@media only screen and ( max-width: 480px ){
+
+  section div.meta-parent-box{
+    padding-top: 30px;
+  }
+  section div.meta-parent-box div.container div.meta-right-box div.meta-form-box{
+      padding: 30px 30px 40px;
+      min-height: auto;
+      margin-top: 20px;
+  }
+
+  section div.meta-parent-box div.container div.meta-right-box div.meta-form-box .meta-title{
+    font-size: 18px;
+    line-height: 1.6;
+  }
+  
+  .meta-list .meta-list-item img.meta-img{
+      max-height: 40px;
+  }
+}
+
+@media only screen and ( max-width: 350px ){
+  section div.meta-parent-box div.container div.meta-right-box div.meta-form-box{
+      padding: 30px 15px;
+  }
+}
 </style>

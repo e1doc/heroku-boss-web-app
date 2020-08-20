@@ -36,4 +36,5 @@ export default {
 .meta-list-item.active img.meta-img{
     border-color: #039be5;
 }
+
 </style>
