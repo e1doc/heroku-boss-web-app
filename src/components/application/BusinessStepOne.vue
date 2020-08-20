@@ -104,6 +104,7 @@
         :options="types_of_organization"
         name="selectOptions"
         v-model="basic_information.type_of_organization"
+        :validationMessages="stepOneErrors.basic_information.type_of_organization"
         class="mb15"
       />
       <base-input
@@ -131,6 +132,7 @@
         placeholder="--- Select from the options ---"
         :options="taxincentive"
         v-model="basic_information.has_tax_incentive"
+        :validationMessages="stepOneErrors.basic_information.has_tax_incentive"
         name="selectOptions"
         class="mb15"
       />

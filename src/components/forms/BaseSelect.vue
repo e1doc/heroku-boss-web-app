@@ -1,24 +1,36 @@
 <template>
-  <div class="select-wrapper" :id="name">
-    <select
+  <div class="input-holder">
+    <div class="select-wrapper" :id="name">
+      <select
         v-model="selected"
         :data-value="selected"
         @focus="handleFocus"
-        @blur="handleBlur" 
+        @blur="handleBlur"
         @change="$emit('change', $event.target.value)"
-        @input="$emit('input', $event.target.value)">
-
+        @input="$emit('input', $event.target.value)"
+      >
         <option value="">{{ placeholder }}</option>
         <option
           v-for="(option, key) in options"
           :key="key"
           :value="option.value"
-          v-bind="{ selected: option.value === selected }" >
+          v-bind="{ selected: option.value === selected }"
+        >
           {{ option.label }}
         </option>
-    </select>
-    <font-awesome-icon icon="chevron-down" class="dropdown-icon" />
-    <label>{{ label }}</label>
+      </select>
+      <font-awesome-icon icon="chevron-down" class="dropdown-icon" />
+      <label>{{ label }}</label>
+    </div>
+    <div v-if="validationMessages.length > 0">
+      <div
+        class="meta-error-text"
+        v-for="(message, index) in validationMessages"
+        :key="index"
+      >
+        * {{ message }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -29,29 +41,36 @@ export default {
     return {
       selected: "",
       wrapper: "",
-      prefillDone: false
+      prefillDone: false,
     };
   },
   props: {
+    validationMessages: {
+      type: Array,
+      required: false,
+      default: function() {
+        return [];
+      },
+    },
     label: {
       type: String,
       required: false,
-      default: ""
+      default: "",
     },
     name: {
       type: String,
       required: false,
-      default: ""
+      default: "",
     },
     options: {
       type: Array,
       required: true,
-      default: () => []
+      default: () => [],
     },
     placeholder: {
       type: String,
       required: false,
-      default: ""
+      default: "",
     },
     value: {
       required: false,
@@ -60,16 +79,16 @@ export default {
   mounted() {
     this.getWrapper();
   },
-    watch: {
-    value:{
+  watch: {
+    value: {
       deep: true,
       handler(newValue) {
-        if(!this.preFillDone){
-          this.$emit('input', (this.selected = newValue))
-          this.preFillDone = true
+        if (!this.preFillDone) {
+          this.$emit("input", (this.selected = newValue));
+          this.preFillDone = true;
         }
       },
-    }
+    },
   },
   methods: {
     getWrapper() {
@@ -82,12 +101,23 @@ export default {
     handleBlur() {
       this.wrapper.classList.remove("select-wrapper-focus");
       this.wrapper.classList.add("select-wrapper-blur");
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
+.input-holder {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  .meta-error-text {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #e8726f;
+    font-weight: bold;
+  }
+}
 .select-wrapper {
   display: flex;
   flex-direction: column;
@@ -98,37 +128,37 @@ export default {
   position: relative;
   transition: 0.1s;
   label {
-      position: absolute;
-      background: white;
-      padding: 0px 5px;
-      top: 13px;
-      left: 10px;
-      transition: all 0.25s ease-in-out;
-      z-index: 0;
+    position: absolute;
+    background: white;
+    padding: 0px 5px;
+    top: 13px;
+    left: 10px;
+    transition: all 0.25s ease-in-out;
+    z-index: 0;
   }
   select {
+    font-size: 16px;
+    font-family: Raleway;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    padding-right: 30px;
+    background: transparent;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    z-index: 1;
+    option {
+      display: flex;
       font-size: 16px;
+      line-height: 50px;
       font-family: Raleway;
-      width: 100%;
-      height: 100%;
-      padding: 15px;
-      padding-right: 30px;
-      background: transparent;
-      border: none;
-      outline: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      cursor: pointer;
-      z-index: 1;
-      option {
-          display: flex;
-          font-size: 16px;
-          line-height: 50px;
-          font-family: Raleway;
-      }
+    }
   }
-  .dropdown-icon{
+  .dropdown-icon {
     position: absolute;
     right: 15px;
     top: 20px;
@@ -147,34 +177,32 @@ select:not([data-value=""]):valid ~ label {
 .select-wrapper:hover,
 .select-wrapper-focus {
   // box-shadow: 0 0 0 2px #343a40;
-  background-color: #F1F9FF;
-  border-color: #BCE0FD;
+  background-color: #f1f9ff;
+  border-color: #bce0fd;
 }
-
-
 
 @media only screen and (max-width: 1400px) {
-    .select-wrapper select,
-    .select-wrapper select option{
-        font-size: 14px;
-    }
-}
-
-@media only screen and ( max-width : 768px ){
-    .select-wrapper{
-        margin-bottom: 8px;
-    }
-}
-
-@media only screen and ( max-width: 480px ){
   .select-wrapper select,
-  .select-wrapper select option{
-      font-size: 12px;
+  .select-wrapper select option {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .select-wrapper {
+    margin-bottom: 8px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .select-wrapper select,
+  .select-wrapper select option {
+    font-size: 12px;
   }
 
-  .select-wrapper .dropdown-icon{
-      font-size: 12px;
-      top: 18px;
+  .select-wrapper .dropdown-icon {
+    font-size: 12px;
+    top: 18px;
   }
 }
 </style>

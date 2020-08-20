@@ -102,6 +102,8 @@
         placeholder="------ Choose scope of work ------"
         :options="scopeofwork"
         v-model="building_details.scope_of_work"
+        :validationMessages="
+          buildingStepTwoErrors.building_details.scope_of_work"
         name="selectFields"
         class="mb15"
       />
@@ -127,6 +129,8 @@
         placeholder="------ Select from the options ------"
         :options="characterofoccupancy"
         v-model="building_details.character_of_occupancy"
+        :validationMessages="
+          buildingStepTwoErrors.building_details.character_of_occupancy"
         name="selectOptions"
         class="mb15"
       />
