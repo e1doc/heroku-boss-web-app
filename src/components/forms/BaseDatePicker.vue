@@ -1,11 +1,22 @@
 <template>
-  <date-picker
-    valueType="format"
-    placeholder="Enter Date"
-    v-model="inputData"
-    @input="onInput"
-    :value="value"
-  ></date-picker>
+  <div class="input-holder">
+    <date-picker
+      valueType="format"
+      placeholder="Enter Date"
+      v-model="inputData"
+      @input="onInput"
+      :value="value"
+    ></date-picker>
+    <div v-if="validationMessages.length > 0">
+      <div
+        class="meta-error-text"
+        v-for="(message, index) in validationMessages"
+        :key="index"
+      >
+        * {{ message }}
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -20,12 +31,19 @@ export default {
   data() {
     return {
       inputData: "",
-      preFillDone: false
+      preFillDone: false,
     };
   },
   props: {
     value: {
       required: false,
+    },
+    validationMessages: {
+      type: Array,
+      required: false,
+      default: function() {
+        return [];
+      },
     },
   },
   methods: {
@@ -35,20 +53,32 @@ export default {
     },
   },
   watch: {
-    value:{
+    value: {
       deep: true,
       handler(newValue) {
-        if(!this.preFillDone){
-          this.$emit('input', (this.inputData = newValue))
-          this.preFillDone = true
+        if (!this.preFillDone) {
+          this.$emit("input", (this.inputData = newValue));
+          this.preFillDone = true;
         }
       },
-    }
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.input-holder {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  .meta-error-text {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #e8726f;
+    font-weight: bold;
+  }
+}
+
 .mx-datepicker {
   width: 100% !important;
 }
@@ -86,7 +116,7 @@ export default {
 
 @media only screen and (max-width: 480px) {
   /deep/ .mx-input {
-      font-size: 12px;
+    font-size: 12px;
   }
 }
 </style>

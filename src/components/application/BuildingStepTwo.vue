@@ -218,6 +218,9 @@
         </div>
         <base-date-picker
           v-model="building_other_details.date_of_construction"
+          :validationMessages="
+            buildingStepTwoErrors.building_other_details.date_of_construction
+          "
           class="mb15"
         />
       </div>

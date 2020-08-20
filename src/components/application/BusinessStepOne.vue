@@ -44,7 +44,7 @@
       <base-input
         label="Telephone Number"
         v-model="basic_information.owner_telephone_number"
-        :validationMessages="stepOneErrors.basic_information.owner_telephone_number !== '' ? 'Invalid phone number' : '' "
+        :validationMessages="stepOneErrors.basic_information.owner_telephone_number"
         name="telephone"
         refs="tel_number"
         type="number"
@@ -94,6 +94,7 @@
       </div>
       <base-date-picker
         v-model="basic_information.dti_sec_cda_reg_date"
+        :validationMessages="stepOneErrors.basic_information.dti_sec_cda_reg_date"
         class="mb15"
       />
       <div class="meta-input-label mt10 mb10">Type of Organization</div>
