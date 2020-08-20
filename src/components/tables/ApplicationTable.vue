@@ -74,7 +74,7 @@
           </div>
           <div class="td">
             <span class="td-label show-in-mobile">TD # : </span>
-            {{ application.buildingdetails.tax_dec_no }}
+            {{ application.buildingdetails !== null ?  application.buildingdetails.tax_dec_no : "N/A"}}
           </div>
           <div class="td">
             <span class="td-label show-in-mobile">STATUS : </span>
