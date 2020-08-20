@@ -44,9 +44,7 @@
       <base-input
         label="Telephone Number"
         v-model="basic_information.owner_telephone_number"
-        :validationMessages="
-          stepOneErrors.basic_information.owner_telephone_number
-        "
+        :validationMessages="stepOneErrors.basic_information.owner_telephone_number !== '' ? 'Invalid phone number' : '' "
         name="telephone"
         refs="tel_number"
         type="number"
