@@ -396,6 +396,7 @@ export default {
     },
     async nextStep() {
       this.$store.commit("setLoading", true);
+      
       if (this.businessDetails.id) {
         await this.$store.dispatch(
           "updateBusinessDetails",

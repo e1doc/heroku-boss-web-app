@@ -44,7 +44,9 @@
       <base-input
         label="Telephone Number"
         v-model="basic_information.owner_telephone_number"
-        :validationMessages="stepOneErrors.basic_information.owner_telephone_number"
+        :validationMessages="
+          stepOneErrors.basic_information.owner_telephone_number
+        "
         name="telephone"
         refs="tel_number"
         type="number"
@@ -94,7 +96,9 @@
       </div>
       <base-date-picker
         v-model="basic_information.dti_sec_cda_reg_date"
-        :validationMessages="stepOneErrors.basic_information.dti_sec_cda_reg_date"
+        :validationMessages="
+          stepOneErrors.basic_information.dti_sec_cda_reg_date
+        "
         class="mb15"
       />
       <div class="meta-input-label mt10 mb10">Type of Organization</div>
@@ -103,7 +107,9 @@
         :options="types_of_organization"
         name="selectOptions"
         v-model="basic_information.type_of_organization"
-        :validationMessages="stepOneErrors.basic_information.type_of_organization"
+        :validationMessages="
+          stepOneErrors.basic_information.type_of_organization
+        "
         class="mb15"
       />
       <base-input
@@ -254,28 +260,24 @@ export default {
           this.business_application
         );
       } else {
-        let payload = {
-          business_application: this.business_application,
-          basic_information: this.basic_information,
-        };
-        await this.$store.dispatch("addBusinessApplication", payload);
-        await this.$store.dispatch("addBusinessBasicInformation", this.basic_information);
-      }
-      if (this.businessApplication.id && !this.businessBasicInformation.id) {
         await this.$store.dispatch(
-          "addBusinessBasicInformation",
-          this.basic_information
+          "addBusinessApplication",
+          this.business_application
         );
-      } else if (
-        this.businessApplication.id &&
-        this.businessBasicInformation.id
-      ) {
+        // await this.$store.dispatch("addBusinessBasicInformation", this.basic_information);
+      }
+
+      if (this.businessBasicInformation.id) {
         await this.$store.dispatch(
           "updateBusinessBasicInformation",
           this.basic_information
         );
+      } else {
+        await this.$store.dispatch(
+          "addBusinessBasicInformation",
+          this.basic_information
+        );
       }
-
 
       if (!this.applicationHasError && !this.basicInfoHasError) {
         if (!this.draftBusiness) {

@@ -140,10 +140,12 @@ export default {
   methods: {
     async nextStep() {
       this.$store.commit("setLoading", true);
+      
       if (!this.buildingApplication.id) {
         let payload = { basic_information: this.basic_information };
         await this.$store.dispatch("addBuildingApplication", payload);
       }
+
       if (this.buildingBasicInformation.id) {
         await this.$store.dispatch(
           "updateBuildingBasicInformation",

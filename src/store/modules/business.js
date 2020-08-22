@@ -100,7 +100,7 @@ const actions = {
     try {
       const response = await axios.post(
         `${baseUrl}/api/business-permit-application/`,
-        payload.business_application,
+        payload,
         { withCredentials: true }
       );
       commit("setApplicationHasError", false)
