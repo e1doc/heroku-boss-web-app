@@ -287,7 +287,7 @@ export default {
     this.getRequirements();
   },
   computed: {
-    ...mapGetters(["buildingApplicationRequirements", "buildingRequirements"]),
+    ...mapGetters(["buildingApplicationRequirements", "buildingRequirements","draftProperty"]),
   },
   methods: {
     previousStep() {

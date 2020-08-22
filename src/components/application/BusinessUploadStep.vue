@@ -76,7 +76,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["applicationRequirements", "requirements"]),
+    ...mapGetters(["applicationRequirements", "requirements","draftBusiness"]),
   },
   mounted() {
     this.getRequirements();
