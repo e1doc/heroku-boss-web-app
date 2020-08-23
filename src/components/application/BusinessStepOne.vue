@@ -148,6 +148,7 @@
         refs="gov_entity"
         type="text"
         class="mt40 input-w3"
+        :validationMessages="stepOneErrors.basic_information.government_entity"
       />
     </div>
 
@@ -226,6 +227,10 @@ export default {
           value: false,
         },
       ],
+      unrequired: {
+        business_application: [],
+        basic_information: ["government_entity"]
+      },
     };
   },
   computed: {
@@ -250,6 +255,7 @@ export default {
   },
   mounted() {
     this.preFillForm();
+    this.$store.commit("setLoading", false);
   },
   methods: {
     async nextStep() {
@@ -281,7 +287,8 @@ export default {
 
       if (!this.applicationHasError && !this.basicInfoHasError) {
         if (!this.draftBusiness) {
-          this.$store.commit("setCurrentApplicationStep", "2");
+          this.validateRequiredFields();
+          this.$store.commit("setLoading", false);
         } else {
           this.$swal({
             title: "Success!",
@@ -292,12 +299,21 @@ export default {
           });
         }
       } else {
-        this.$swal({
-          title: "Failed!",
-          text: "Please fix the validation errors before saving as draft.",
-          icon: "error",
-        });
-        this.$store.commit("setDraftBusiness", false);
+        if (this.draftBusiness) {
+          this.$swal({
+            title: "Failed!",
+            text: "Please fix the validation errors before saving as draft.",
+            icon: "error",
+          });
+          this.$store.commit("setDraftBusiness", false);
+        } else {
+          this.$swal({
+            title: "Failed!",
+            text:
+              "Please fix the validation errors before proceeding to the next step.",
+            icon: "error",
+          });
+        }
       }
       this.$store.commit("setLoading", false);
       // this.$store.commit("setCurrentApplicationStep", "2")
@@ -311,6 +327,58 @@ export default {
     toProfile() {
       this.$router.push({ name: "Profile" });
       this.$store.commit("setDraftBusiness", false);
+    },
+    validateRequiredFields() {
+      let basic_info_errors = { key: "basic_information", value: {} };
+      let application_errors = { key: "application", value: {} };
+      let isBasicInfoClean = true;
+      let isApplicationClean = true;
+      for (let key in this.basic_information) {
+        if (!this.unrequired.basic_information.includes(key)) {
+          if (this.basic_information[key] === "") {
+            basic_info_errors.value[`${key}`] = [];
+            basic_info_errors.value[`${key}`].push(
+              "This field may not be blank."
+            );
+          }
+        }
+      }
+      for (let key in this.business_application) {
+        if (!this.unrequired.business_application.includes(key)) {
+          if (this.business_application[key] === "") {
+            application_errors.value[`${key}`] = [];
+            application_errors.value[`${key}`].push(
+              "This field may not be blank."
+            );
+          }
+        }
+      }
+
+      if (Object.entries(basic_info_errors.value).length > 0) {
+        this.$store.commit("setStepOneErrors", basic_info_errors);
+        isBasicInfoClean = false;
+      } else {
+        this.$store.commit("setStepOneErrors", {
+          key: "basic_information",
+          value: {},
+        });
+        isBasicInfoClean = true;
+      }
+      
+      if (Object.entries(application_errors.value).length > 0) {
+        this.$store.commit("setStepOneErrors", application_errors);
+        isApplicationClean = false;
+      } else {
+        this.$store.commit("setStepOneErrors", {
+          key: "application",
+          value: {},
+        });
+        isApplicationClean = true;
+      }
+
+      if (isApplicationClean && isBasicInfoClean) {
+        this.$store.commit("setCurrentApplicationStep", "2");
+      }
     },
   },
 };

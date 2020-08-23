@@ -361,6 +361,19 @@ export default {
         essential: "",
         non_essential: "",
       },
+      unrequired: {
+        business_details: [],
+        lessor_details: [
+          "first_name",
+          "middle_name",
+          "last_name",
+          "complete_address",
+          "telephone_number",
+          "mobile_number",
+          "email_address",
+          "gross_monthly_rental",
+        ],
+      },
     };
   },
   computed: {
@@ -431,7 +444,8 @@ export default {
           }
         }
         if (!this.draftBusiness) {
-          this.$store.commit("setCurrentApplicationStep", "3");
+          this.validateRequiredFields();
+          this.$store.commit("setLoading", false);
         } else {
           this.$swal({
             title: "Success!",
@@ -442,12 +456,21 @@ export default {
           });
         }
       } else {
-        this.$swal({
-          title: "Failed!",
-          text: "Please fix the validation errors before saving as draft.",
-          icon: "error",
-        });
-        this.$store.commit("setDraftBusiness", false);
+        if (this.draftBusiness) {
+          this.$swal({
+            title: "Failed!",
+            text: "Please fix the validation errors before saving as draft.",
+            icon: "error",
+          });
+          this.$store.commit("setDraftBusiness", false);
+        } else {
+          this.$swal({
+            title: "Failed!",
+            text:
+              "Please fix the validation errors before proceeding to the next step.",
+            icon: "error",
+          });
+        }
       }
       this.$store.commit("setLoading", false);
     },
@@ -480,6 +503,60 @@ export default {
           non_essential: "",
         };
         this.activities.push(activity);
+      }
+    },
+    validateRequiredFields() {
+      let business_details_errors = { key: "business_details", value: {} };
+      let lessor_details_errors = { key: "lessor_details", value: {} };
+      let isBusinessDetailsClean = true;
+      let isLessorDetailsClean = true;
+
+      for (let key in this.business_details) {
+        if (!this.unrequired.business_details.includes(key)) {
+          if (this.business_details[key] === "") {
+            business_details_errors.value[`${key}`] = [];
+            business_details_errors.value[`${key}`].push(
+              "This field may not be blank."
+            );
+          }
+        }
+      }
+
+      for (let key in this.lessor_details) {
+        if (!this.unrequired.lessor_details.includes(key)) {
+          if (this.lessor_details[key] === "") {
+            lessor_details_errors.value[`${key}`] = [];
+            lessor_details_errors.value[`${key}`].push(
+              "This field may not be blank."
+            );
+          }
+        }
+      }
+
+      if (Object.entries(business_details_errors.value).length > 0) {
+        this.$store.commit("setStepTwoErrors", business_details_errors);
+        isBusinessDetailsClean = false;
+      } else {
+        this.$store.commit("setStepTwoErrors", {
+          key: "business_details",
+          value: {},
+        });
+        isBusinessDetailsClean = true;
+      }
+
+      if (Object.entries(lessor_details_errors.value).length > 0) {
+        this.$store.commit("setStepTwoErrors", lessor_details_errors);
+        isLessorDetailsClean = false;
+      } else {
+        this.$store.commit("setStepTwoErrors", {
+          key: "lessor_details",
+          value: {},
+        });
+        isLessorDetailsClean = true;
+      }
+
+      if (isBusinessDetailsClean && isLessorDetailsClean) {
+        this.$store.commit("setCurrentApplicationStep", "3");
       }
     },
   },

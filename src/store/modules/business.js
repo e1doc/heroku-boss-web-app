@@ -105,6 +105,8 @@ const actions = {
       );
       commit("setApplicationHasError", false)
       commit("setBusinessApplication", response.data);
+      let errors = {key:'application',value:{}}
+      commit("setStepOneErrors",errors)
     } catch (err) {
       commit("setApplicationHasError",true)
       let errors = {key:'application',value: err.response.data}
@@ -123,6 +125,8 @@ const actions = {
       commit("setBasicInfoHasError", false)
       commit("setBusinessBasicInformation", response.data);
       commit("setCurrentApplicationStep", "2");
+      let errors = {key:'basic_information',value: {}}
+      commit("setStepOneErrors",errors)
     } catch (err) {
       console.log(err.response);
       let errors = {key:'basic_information',value: err.response.data}
@@ -140,6 +144,8 @@ const actions = {
       );
       commit("setDetailsHasError", false)
       commit("setBusinessDetails", response.data);
+      let errors = {key:'business_details',value: {}}
+      commit("setStepTwoErrors",errors)
     } catch (err) {
       let errors = {key:'business_details',value: err.response.data}
       commit("setStepTwoErrors",errors)
@@ -157,6 +163,8 @@ const actions = {
       );
       commit("setLessorDetailsHasError", false)
       commit("setLessorDetails", response.data);
+      let errors = {key:'lessor_details',value: {}}
+      commit("setStepTwoErrors",errors)
     } catch (err) {
       let errors = {key:'lessor_details',value: err.response.data}
       commit("setStepTwoErrors",errors)
@@ -169,7 +177,6 @@ const actions = {
       for (let item of payload) {
         item.application_number = getters.businessApplication.id;
       }
-      console.log('add',payload)
       const response = await axios.post(
         `${baseUrl}/api/business-activity/`,
         payload,
@@ -190,6 +197,8 @@ const actions = {
       );
       commit("setApplicationHasError", false)
       commit("setBusinessApplication", response.data);
+      let errors = {key:'application',value: {}}
+      commit("setStepOneErrors",errors)
     } catch (err) {
       console.log(err)
       let errors = {key:'application',value: err.response.data}
@@ -208,6 +217,8 @@ const actions = {
       );
       commit("setBasicInfoHasError", false)
       commit("setBusinessBasicInformation", response.data);
+      let errors = {key:'basic_information',value: {}}
+      commit("setStepOneErrors",errors)
     } catch (err) {
       let errors = {key:'basic_information',value: err.response.data}
       commit("setStepOneErrors",errors)
@@ -225,6 +236,8 @@ const actions = {
       );
       commit("setBusinessDetails", response.data);
       commit("setDetailsHasError", false)
+      let errors = {key:'business_details',value: {}}
+      commit("setStepTwoErrors",errors)
     } catch (err) {
       let errors = {key:'business_details',value: err.response.data}
       commit("setStepTwoErrors",errors)
@@ -242,6 +255,8 @@ const actions = {
       );
       commit("setLessorDetailsHasError", false)
       commit("setLessorDetails", response.data);
+      let errors = {key:'lessor_details',value: {}}
+      commit("setStepTwoErrors",errors)
     } catch (err) {
       let errors = {key:'lessor_details',value: err.response.data}
       commit("setStepTwoErrors",errors)
@@ -252,14 +267,12 @@ const actions = {
   async updateBusinessActivity({ commit, getters }, payload) {
     try {
       if(payload.length > 0){
-        console.log(payload)
         let x = 0
         payload.forEach(element => {
             element.id = getters.businessActivities[x].id
             x++
         });
       }
-      console.log('update',payload)
       const response = await axios.put(
         `${baseUrl}/api/business-activity/`,
         payload,
