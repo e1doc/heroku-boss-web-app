@@ -287,7 +287,7 @@ export default {
           "scope_of_work_others",
           "character_of_occupancy_others",
         ],
-        building_details: [],
+        building_other_details: [],
       },
       scopeofwork: [
         {
