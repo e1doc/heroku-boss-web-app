@@ -103,7 +103,8 @@
         :options="scopeofwork"
         v-model="building_details.scope_of_work"
         :validationMessages="
-          buildingStepTwoErrors.building_details.scope_of_work"
+          buildingStepTwoErrors.building_details.scope_of_work
+        "
         name="selectFields"
         class="mb15"
       />
@@ -130,7 +131,8 @@
         :options="characterofoccupancy"
         v-model="building_details.character_of_occupancy"
         :validationMessages="
-          buildingStepTwoErrors.building_details.character_of_occupancy"
+          buildingStepTwoErrors.building_details.character_of_occupancy
+        "
         name="selectOptions"
         class="mb15"
       />
@@ -279,6 +281,13 @@ export default {
         floor_area: "",
         lot_area: "",
         date_of_construction: "",
+      },
+      unrequired: {
+        building_details: [
+          "scope_of_work_others",
+          "character_of_occupancy_others",
+        ],
+        building_details: [],
       },
       scopeofwork: [
         {
@@ -434,7 +443,8 @@ export default {
           }
         }
         if (!this.draftProperty) {
-          this.$store.commit("setCurrentApplicationStep", "3");
+          this.validateRequiredFields();
+          this.$store.commit("setLoading", false);
         } else {
           this.$swal({
             title: "Success!",
@@ -445,12 +455,21 @@ export default {
           });
         }
       } else {
-        this.$swal({
-          title: "Failed!",
-          text: "Please fix the validation errors before saving as draft.",
-          icon: "error",
-        });
-        this.$store.commit("setDraftProperty", false);
+        if (this.draftProperty) {
+          this.$swal({
+            title: "Failed!",
+            text: "Please fix the validation errors before saving as draft.",
+            icon: "error",
+          });
+          this.$store.commit("setDraftProperty", false);
+        } else {
+          this.$swal({
+            title: "Failed!",
+            text:
+              "Please fix the validation errors before proceeding to the next step.",
+            icon: "error",
+          });
+        }
       }
       this.$store.commit("setLoading", false);
     },
@@ -464,6 +483,71 @@ export default {
       }
       if (Object.entries(this.buildingOtherDetails).length > 0) {
         this.building_other_details = this.buildingOtherDetails;
+      }
+    },
+    validateRequiredFields() {
+      let building_details_errors = { key: "building_details", value: {} };
+      let building_other_details_errors = {
+        key: "building_other_details",
+        value: {},
+      };
+      let isBuildingDetailsClean = false;
+      let isBuildingOtherDetailsClean = false;
+
+      for (let key in this.building_details) {
+        if (!this.unrequired.building_details.includes(key)) {
+          if (this.unrequired.building_details[key] === "") {
+            building_details_errors.value[`${key}`] = [];
+            building_details_errors.value[`${key}`].push(
+              "This field may not be blank."
+            );
+          }
+        }
+      }
+
+      for (let key in this.building_other_details) {
+        if (!this.unrequired.building_other_details.includes(key)) {
+          if (this.unrequired.building_other_details[key] === "") {
+            building_other_details_errors.value[`${key}`] = [];
+            building_other_details_errors.value[`${key}`].push(
+              "This field may not be blank."
+            );
+          }
+        }
+      }
+
+      if (Object.entries(building_details_errors.value).length > 0) {
+        this.$store.commit("buildingSetStepTwoErrors", building_details_errors);
+        isBuildingDetailsClean = false;
+      } else {
+        this.$store.commit("buildingSetStepTwoErrors", {
+          key: "building_details",
+          value: {},
+        });
+      }
+
+      if (Object.entries(building_other_details_errors.value).length > 0) {
+        this.$store.commit(
+          "buildingSetStepTwoErrors",
+          building_other_details_errors
+        );
+        isBuildingOtherDetailsClean = false;
+      } else {
+        this.$store.commit("buildingSetStepTwoErrors", {
+          key: "building_other_details",
+          value: {},
+        });
+      }
+
+      if (isBuildingDetailsClean && isBuildingOtherDetailsClean) {
+        this.$store.commit("setCurrentApplicationStep", "3");
+      } else {
+        this.$swal({
+          title: "Failed!",
+          text:
+            "Please fix the validation errors before proceeding to the next step.",
+          icon: "error",
+        });
       }
     },
   },

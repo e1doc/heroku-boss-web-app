@@ -362,17 +362,9 @@ export default {
         non_essential: "",
       },
       unrequired: {
-        business_details: [],
-        lessor_details: [
-          "first_name",
-          "middle_name",
-          "last_name",
-          "complete_address",
-          "telephone_number",
-          "mobile_number",
-          "email_address",
-          "gross_monthly_rental",
-        ],
+        business_details: [
+          "president_middle_name"
+        ]
       },
     };
   },
@@ -507,26 +499,13 @@ export default {
     },
     validateRequiredFields() {
       let business_details_errors = { key: "business_details", value: {} };
-      let lessor_details_errors = { key: "lessor_details", value: {} };
       let isBusinessDetailsClean = true;
-      let isLessorDetailsClean = true;
 
       for (let key in this.business_details) {
         if (!this.unrequired.business_details.includes(key)) {
           if (this.business_details[key] === "") {
             business_details_errors.value[`${key}`] = [];
             business_details_errors.value[`${key}`].push(
-              "This field may not be blank."
-            );
-          }
-        }
-      }
-
-      for (let key in this.lessor_details) {
-        if (!this.unrequired.lessor_details.includes(key)) {
-          if (this.lessor_details[key] === "") {
-            lessor_details_errors.value[`${key}`] = [];
-            lessor_details_errors.value[`${key}`].push(
               "This field may not be blank."
             );
           }
@@ -541,22 +520,17 @@ export default {
           key: "business_details",
           value: {},
         });
-        isBusinessDetailsClean = true;
       }
 
-      if (Object.entries(lessor_details_errors.value).length > 0) {
-        this.$store.commit("setStepTwoErrors", lessor_details_errors);
-        isLessorDetailsClean = false;
-      } else {
-        this.$store.commit("setStepTwoErrors", {
-          key: "lessor_details",
-          value: {},
-        });
-        isLessorDetailsClean = true;
-      }
-
-      if (isBusinessDetailsClean && isLessorDetailsClean) {
+      if (isBusinessDetailsClean) {
         this.$store.commit("setCurrentApplicationStep", "3");
+      }else{
+        this.$swal({
+            title: "Failed!",
+            text:
+              "Please fix the validation errors before proceeding to the next step.",
+            icon: "error",
+          });
       }
     },
   },

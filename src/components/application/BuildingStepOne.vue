@@ -125,6 +125,9 @@ export default {
         owner_telephone_number: "",
         tin: "",
       },
+      unrequired: {
+        basic_information: ["owner_middle_name"],
+      },
     };
   },
   watch: {
@@ -140,7 +143,7 @@ export default {
   methods: {
     async nextStep() {
       this.$store.commit("setLoading", true);
-      
+
       if (!this.buildingApplication.id) {
         let payload = { basic_information: this.basic_information };
         await this.$store.dispatch("addBuildingApplication", payload);
@@ -151,13 +154,16 @@ export default {
           "updateBuildingBasicInformation",
           this.basic_information
         );
-      }else{
-        await this.$store.dispatch("addBuildingBasicInformation",this.basic_information)
+      } else {
+        await this.$store.dispatch(
+          "addBuildingBasicInformation",
+          this.basic_information
+        );
       }
       if (!this.buildingBasicInfoHasError) {
         if (!this.draftProperty) {
-          console.log(this.draftProperty);
-          this.$store.commit("setCurrentApplicationStep", "2");
+          this.validateRequiredFields();
+          this.$store.commit("setLoading", false);
         } else {
           this.$swal({
             title: "Success!",
@@ -168,12 +174,21 @@ export default {
           });
         }
       } else {
-        this.$swal({
-          title: "Failed!",
-          text: "Please fix the validation errors before saving as draft.",
-          icon: "error",
-        });
-        this.$store.commit("setDraftProperty", false);
+        if (this.draftProperty) {
+          this.$swal({
+            title: "Failed!",
+            text: "Please fix the validation errors before saving as draft.",
+            icon: "error",
+          });
+          this.$store.commit("setDraftProperty", false);
+        } else {
+          this.$swal({
+            title: "Failed!",
+            text:
+              "Please fix the validation errors before proceeding to the next step.",
+            icon: "error",
+          });
+        }
       }
       this.$store.commit("setLoading", false);
 
@@ -187,6 +202,42 @@ export default {
     toProfile() {
       this.$router.push({ name: "Profile" });
       this.$store.commit("setDraftProperty", false);
+    },
+    validateRequiredFields() {
+      let basic_info_errors = { key: "basic_information", value: {} };
+      let isBasicInfoClean = true;
+
+      for (let key in this.basic_information) {
+        if (!this.unrequired.basic_information.includes(key)) {
+          if (this.basic_information[key] === "") {
+            basic_info_errors.value[`${key}`] = [];
+            basic_info_errors.value[`${key}`].push(
+              "This field may not be blank."
+            );
+          }
+        }
+      }
+
+      if (Object.entries(basic_info_errors.value).length > 0) {
+        this.$store.commit("buildingSetStepOneErrors", business_details_errors);
+        isBasicInfoClean = false;
+      } else {
+        this.$store.commit("buildingSetStepOneErrors", {
+          key: "basic_information",
+          value: {},
+        });
+      }
+
+      if (isBasicInfoClean) {
+        this.$store.commit("setCurrentApplicationStep", "2");
+      } else {
+        this.$swal({
+          title: "Failed!",
+          text:
+            "Please fix the validation errors before proceeding to the next step.",
+          icon: "error",
+        });
+      }
     },
   },
 };
