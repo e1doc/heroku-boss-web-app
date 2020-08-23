@@ -76,7 +76,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["applicationRequirements", "requirements","draftBusiness"]),
+    ...mapGetters(["applicationRequirements", "requirements", "draftBusiness"]),
   },
   mounted() {
     this.getRequirements();
@@ -114,8 +114,14 @@ export default {
       deep: true,
       handler(status) {
         if (status) {
-          this.$router.push({ name: "Profile" });
-          this.$store.commit("setDraftBusiness", false);
+          this.$swal({
+            title: "Success!",
+            text: "data successfully saved as draft.",
+            icon: "success",
+          }).then((value) => {
+            this.$store.commit("setDraftBusiness", false);
+            this.$router.push({ name: "Profile" });
+          });
         }
       },
     },

@@ -10,7 +10,7 @@
         :placeholder="placeholder"
         :type="type === 'password' ? passType : type"
         :value="value"
-        @input="$emit('input', (inputData = $event.target.value))"
+        @input="$emit('input', (inputData = $event.target.value));validateMin($event.target.value)"
       />
       <label class="label" :id="refs">{{ label }}</label>
     </div>
@@ -85,6 +85,11 @@ export default {
       this.handleFocus()
       this.handleBlur()
     }
+   if(this.type === 'number' && this.inputData === ''){
+     this.$emit('input',(this.inputData = 0))
+     this.handleFocus()
+     this.handleBlur()
+   }
   },
   watch: {
     value:{
@@ -118,6 +123,17 @@ export default {
         this.wrapper.classList.add("input-wrapper-blur");
       }
     },
+    validateMin(val){
+
+      if(this.type==='number' && this.inputData === ''){
+        this.$emit('input',(this.inputData = 0))
+      }else{
+        if(val[0] === '0'){
+          val = val.substring(1)
+        }
+        this.$emit('input',(this.inputData = val))
+      }
+    }
   },
 };
 </script>

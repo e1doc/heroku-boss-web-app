@@ -49,7 +49,7 @@
         "
         name="telephone"
         refs="tel_number"
-        type="number"
+        type="tel"
         class="mt40"
       />
       <base-tel-number

@@ -78,7 +78,7 @@
           :validationMessages="stepTwoErrors.business_details.telephone_number"
           name="businesstelephone"
           refs="business_telephone"
-          type="number"
+          type="tel"
           class="mt40 input-w2"
         />
         <!-- <base-input
@@ -197,7 +197,7 @@
           "
           name="monthlyrental"
           refs="monthly_rental"
-          type="text"
+          type="number"
           class="mt40"
         />
         <div class="meta-input-group flex-row">
@@ -207,7 +207,7 @@
             :validationMessages="stepTwoErrors.lessor_details.telephone_number"
             name="lessortelephone"
             refs="lessor_telephone"
-            type="number"
+            type="tel"
             class="mt40 input-w2"
           />
           <base-tel-number
@@ -396,7 +396,7 @@ export default {
     },
     async nextStep() {
       this.$store.commit("setLoading", true);
-      
+
       if (this.businessDetails.id) {
         await this.$store.dispatch(
           "updateBusinessDetails",

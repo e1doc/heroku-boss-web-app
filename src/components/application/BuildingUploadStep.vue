@@ -287,7 +287,11 @@ export default {
     this.getRequirements();
   },
   computed: {
-    ...mapGetters(["buildingApplicationRequirements", "buildingRequirements","draftProperty"]),
+    ...mapGetters([
+      "buildingApplicationRequirements",
+      "buildingRequirements",
+      "draftProperty",
+    ]),
   },
   methods: {
     previousStep() {
@@ -324,8 +328,14 @@ export default {
       deep: true,
       handler(status) {
         if (status) {
-          this.$router.push({ name: "Profile" });
-          this.$store.commit("setDraftProperty", false);
+          this.$swal({
+            title: "Success!",
+            text: "data successfully saved as draft.",
+            icon: "success",
+          }).then((value) => {
+            this.$store.commit("setDraftProperty", false);
+            this.$router.push({ name: "Profile" });
+          });
         }
       },
     },
