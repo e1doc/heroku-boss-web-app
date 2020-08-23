@@ -100,11 +100,11 @@
                         Statement of Accounts
                     </router-link>
                 </li>
-                <li class="meta-menu" @click="slidemenu = false; menuActive = 'about'" :class="{active:menuActive == 'about'}">
+                <!-- <li class="meta-menu" @click="slidemenu = false; menuActive = 'about'" :class="{active:menuActive == 'about'}">
                     <router-link to="#">
                         <font-awesome-icon icon="info-circle" class="mr10 icon" />
                         About
-                    </router-link></li>
+                    </router-link></li> -->
                 <li class="meta-menu" @click="slidemenu = false; menuActive = 'faqs'" :class="{active:menuActive == 'faqs'}">
                     <router-link to="#">
                         <font-awesome-icon icon="question" class="mr10 icon" />
