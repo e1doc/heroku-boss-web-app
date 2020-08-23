@@ -410,7 +410,7 @@ export default {
       } else {
         await this.$store.dispatch("addBusinessDetails", this.business_details);
       }
-      if (this.lessor_details.id) {
+      if (this.lessorDetails.id) {
         await this.$store.dispatch("updateLessorDetails", this.lessor_details);
       } else {
         await this.$store.dispatch("addLessorDetails", this.lessor_details);
