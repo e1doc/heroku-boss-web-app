@@ -3,6 +3,7 @@
     <div id="main">
       <header-nav />
       <router-view />
+      <footer-section />
     </div>
   </div>
 </template>
@@ -10,10 +11,12 @@
 <script>
 import { mapGetters } from "vuex";
 import HeaderNav from "@/components/HeaderNav";
+import FooterSection from "@/components/FooterSection";
 import DownloadableInvoice from "@/components/payment/DownloadableInvoice";
 export default {
   components: {
     HeaderNav,
+    FooterSection,
     DownloadableInvoice,
   },
   computed: {
