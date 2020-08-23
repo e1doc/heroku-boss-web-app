@@ -491,12 +491,13 @@ export default {
         key: "building_other_details",
         value: {},
       };
-      let isBuildingDetailsClean = false;
-      let isBuildingOtherDetailsClean = false;
+      let isBuildingDetailsClean = true;
+      let isBuildingOtherDetailsClean = true;
 
       for (let key in this.building_details) {
         if (!this.unrequired.building_details.includes(key)) {
-          if (this.unrequired.building_details[key] === "") {
+          if (this.building_details[key] === "") {
+            console.log(key)
             building_details_errors.value[`${key}`] = [];
             building_details_errors.value[`${key}`].push(
               "This field may not be blank."
@@ -507,7 +508,7 @@ export default {
 
       for (let key in this.building_other_details) {
         if (!this.unrequired.building_other_details.includes(key)) {
-          if (this.unrequired.building_other_details[key] === "") {
+          if (this.building_other_details[key] === "") {
             building_other_details_errors.value[`${key}`] = [];
             building_other_details_errors.value[`${key}`].push(
               "This field may not be blank."
@@ -519,6 +520,7 @@ export default {
       if (Object.entries(building_details_errors.value).length > 0) {
         this.$store.commit("buildingSetStepTwoErrors", building_details_errors);
         isBuildingDetailsClean = false;
+        console.log(building_details_errors)
       } else {
         this.$store.commit("buildingSetStepTwoErrors", {
           key: "building_details",
@@ -532,6 +534,7 @@ export default {
           building_other_details_errors
         );
         isBuildingOtherDetailsClean = false;
+        console.log(building_other_details_errors)
       } else {
         this.$store.commit("buildingSetStepTwoErrors", {
           key: "building_other_details",
@@ -542,6 +545,7 @@ export default {
       if (isBuildingDetailsClean && isBuildingOtherDetailsClean) {
         this.$store.commit("setCurrentApplicationStep", "3");
       } else {
+        console.log(building_other_details_errors)
         this.$swal({
           title: "Failed!",
           text:
