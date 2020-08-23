@@ -219,7 +219,7 @@ export default {
       }
 
       if (Object.entries(basic_info_errors.value).length > 0) {
-        this.$store.commit("buildingSetStepOneErrors", business_details_errors);
+        this.$store.commit("buildingSetStepOneErrors", basic_info_errors);
         isBasicInfoClean = false;
       } else {
         this.$store.commit("buildingSetStepOneErrors", {
