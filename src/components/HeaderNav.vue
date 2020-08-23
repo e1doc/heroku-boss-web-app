@@ -18,7 +18,7 @@
                     <li class="meta-menu"><router-link to="statement-of-accounts">Statement of Accounts</router-link></li>
                 </ul>
               </li>
-              <li class="meta-menu"><router-link to="#">About</router-link></li>
+              <!-- <li class="meta-menu"><router-link to="#">About</router-link></li> -->
               <li class="meta-menu"><router-link to="#">FAQ's</router-link></li>
           </ul>
       </div>
