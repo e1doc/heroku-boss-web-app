@@ -229,7 +229,7 @@ export default {
       ],
       unrequired: {
         business_application: [],
-        basic_information: ["government_entity", "owner_middle_name"]
+        basic_information: ["government_entity", "owner_middle_name"],
       },
     };
   },
@@ -316,7 +316,6 @@ export default {
         }
       }
       this.$store.commit("setLoading", false);
-      // this.$store.commit("setCurrentApplicationStep", "2")
     },
     preFillForm() {
       if (this.businessApplication.id) {
@@ -363,7 +362,7 @@ export default {
           value: {},
         });
       }
-      
+
       if (Object.entries(application_errors.value).length > 0) {
         this.$store.commit("setStepOneErrors", application_errors);
         isApplicationClean = false;
@@ -376,13 +375,14 @@ export default {
 
       if (isApplicationClean && isBasicInfoClean) {
         this.$store.commit("setCurrentApplicationStep", "2");
-      }else{
+        console.log('clean')
+      } else {
         this.$swal({
-            title: "Failed!",
-            text:
-              "Please fix the validation errors before proceeding to the next step.",
-            icon: "error",
-          });
+          title: "Failed!",
+          text:
+            "Please fix the validation errors before proceeding to the next step.",
+          icon: "error",
+        });
       }
     },
   },

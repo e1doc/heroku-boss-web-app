@@ -124,7 +124,6 @@ const actions = {
       );
       commit("setBasicInfoHasError", false)
       commit("setBusinessBasicInformation", response.data);
-      commit("setCurrentApplicationStep", "2");
       let errors = {key:'basic_information',value: {}}
       commit("setStepOneErrors",errors)
     } catch (err) {
