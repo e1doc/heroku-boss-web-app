@@ -77,7 +77,7 @@
         :validationMessages="stepOneErrors.application.account_number"
         name="accountnumber"
         refs="account_number"
-        type="number"
+        type="text"
         class="mt40 input-w3"
       />
       <base-input
