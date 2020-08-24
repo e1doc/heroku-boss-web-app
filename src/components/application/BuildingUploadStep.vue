@@ -48,8 +48,8 @@
       <base-file-uploader
         label="2. Tax Declaration of Lot"
         name="taxdeclaration"
-        fileLabel="taxt_declaration"
-        :properties="getProperty('taxt_declaration')"
+        fileLabel="tax_declaration"
+        :properties="getProperty('tax_declaration')"
         type="property"
       />
       <base-file-uploader
@@ -286,6 +286,39 @@ export default {
   mounted() {
     this.getRequirements();
   },
+  data() {
+    return {
+      required: [
+        "tct",
+        "tax_declaration",
+        "tax_clearance",
+        "barangay_clearance",
+        "home_owner_clearance",
+        "undertaking_affidavit",
+        "unified_application_form",
+        "architectural_permit",
+        "civil_structural_permit",
+        "sanitary_plumbing_permit",
+        "electrical_permit",
+        "mechanical_permit",
+        "sign_permit",
+        "electronic_permit",
+        "location_clearance",
+        "contractor_business_permit",
+        "relocation_survey",
+        "prc_id",
+        "project_specification",
+        "bill_of_materials",
+        "structural_design",
+        "geotech_report",
+        "selsmic_analysis",
+        "building_plans",
+        "construction_safety",
+        "sketch_pin",
+        "picture_of_site",
+      ],
+    };
+  },
   computed: {
     ...mapGetters([
       "buildingApplicationRequirements",
@@ -294,13 +327,42 @@ export default {
     ]),
   },
   methods: {
+    validateRequiredFields() {
+      let validated = [];
+      if (this.buildingRequirements) {
+        if (this.buildingRequirements.buildingrequirements.length > 0) {
+          this.buildingRequirements.buildingrequirements.map((item) => {
+            if (this.required.includes(item.requirements_label)) {
+              validated.push(item.requirements_label);
+            }
+          });
+        }
+      }
+      if (validated.length === this.required.length) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     previousStep() {
       this.$store.commit("setCurrentApplicationStep", "2");
     },
     async nextStep() {
-      let payload = { is_draft: false };
-      await this.$store.dispatch("updateBuildingApplication", payload);
-      this.$store.commit("setCurrentApplicationStep", "4");
+      if (!this.draftProperty) {
+        let isValidated = this.validateRequiredFields();
+        if (isValidated) {
+          let payload = { is_draft: false };
+          await this.$store.dispatch("updateBuildingApplication", payload);
+          this.$store.commit("setCurrentApplicationStep", "4");
+        } else {
+          this.$swal({
+            title: "Failed!",
+            text:
+              "Please upload the remaining requirements before you submit the application.",
+            icon: "error",
+          });
+        }
+      }
     },
     async getRequirements() {
       if (this.buildingApplicationRequirements.id) {

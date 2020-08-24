@@ -73,6 +73,12 @@ export default {
       occupancy_permit: {},
       contract_of_lease: {},
       government_id: {},
+      required: [
+        "business_registration_proof",
+        "franchise_agreement",
+        "occupancy_permit",
+        "government_id",
+      ],
     };
   },
   computed: {
@@ -82,13 +88,42 @@ export default {
     this.getRequirements();
   },
   methods: {
+    validateRequiredFields() {
+      let validated = [];
+      if (this.requirements) {
+        if (this.requirements.requirements.length > 0) {
+          this.requirements.requirements.map(item => {
+            if (this.required.includes(item.requirements_label)) {
+              validated.push(item.requirements_label);
+            }
+          });
+        }
+      }
+      if (validated.length === this.required.length) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     previousStep() {
       this.$store.commit("setCurrentApplicationStep", "2");
     },
     async nextStep() {
-      let payload = { is_draft: false };
-      await this.$store.dispatch("updateBusinessApplication", payload);
-      this.$store.commit("setCurrentApplicationStep", "4");
+      if (!this.draftBusiness) {
+        let isValidated = this.validateRequiredFields()
+        if (isValidated) {
+          let payload = { is_draft: false };
+          await this.$store.dispatch("updateBusinessApplication", payload);
+          this.$store.commit("setCurrentApplicationStep", "4");
+        } else {
+          this.$swal({
+            title: "Failed!",
+            text:
+              "Please upload the remaining requirements before you submit the application.",
+            icon: "error",
+          });
+        }
+      }
     },
     async getRequirements() {
       if (this.applicationRequirements.id) {

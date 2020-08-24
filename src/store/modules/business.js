@@ -303,16 +303,18 @@ const actions = {
       console.log(err.response);
     }
   },
-  async uploadRequirements({ commit, getters }, payload) {
+  async uploadRequirements({ commit, getters, dispatch}, payload) {
     try {
-      commit("setIsUploading", true)
+      commit("setLoading", true)
       const response = await axios.post(
         `${baseUrl}/api/file-upload/`,
         payload,
         { withCredentials: true }
       );
-      commit("setIsUploading", false)
+      commit("setLoading", false)
+     await dispatch("getApplicationRequirements")
     } catch (err) {
+      commit("setLoading", false)
       console.log(err.response);
     }
   },
@@ -324,7 +326,6 @@ const actions = {
         { withCredentials: true, params: payload }
       );
       commit('setRequirements', response.data)
-      console.log(response.data)
     } catch (err) {
       console.log(err.response);
     }

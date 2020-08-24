@@ -12,7 +12,7 @@
           :disabled="isUploading"
         />
         <!-- <div class="meta-text big">DRAG/CLICK TO UPLOAD YOUR FILE HERE</div> -->
-        <div class="meta-text small" v-if="!isUploading">
+        <div class="meta-text small">
           {{
             filename ? filename  : properties.filename ? properties.filename : "DRAG/CLICK TO UPLOAD YOUR FILE HERE" 
           }}

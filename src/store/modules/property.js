@@ -197,15 +197,19 @@ const actions = {
           console.log(err.response);
         }
       },
-      async uploadBuildingRequirements({ commit, getters }, payload) {
+      async uploadBuildingRequirements({ commit, getters, dispatch }, payload) {
         try {
+          commit("setLoading",true)
           const response = await axios.post(
             `${baseUrl}/api/building-file-upload/`,
             payload,
             { withCredentials: true }
           );
+          await dispatch("getBuildingApplicationRequirements")
+          commit("setLoading",false)
         } catch (err) {
           console.log(err.response);
+          commit("setLoading",false)
         }
       },
       async getBuildingApplicationRequirements({ commit, getters }){
