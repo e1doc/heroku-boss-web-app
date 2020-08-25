@@ -14,6 +14,7 @@ import Main from "../Main.vue";
 import Payment from "../pages/Payment.vue"
 import ResetPassword from "../pages/ResetPassword.vue"
 import Admin from "../Admin.vue"
+import AdminLogin from "../pages/AdminLogin"
 import Applications from "../pages/admin/Applications"
 import Transactions from "../pages/admin/Transactions"
 import Dashboard from "../pages/admin/Dashboard"
@@ -112,6 +113,11 @@ const routes = [
           })
         }
     }
+  },
+  {
+    path: "/admin-login",
+    name: "AdminLogin",
+    component: AdminLogin,
   },
   {
     path: "/admin",
