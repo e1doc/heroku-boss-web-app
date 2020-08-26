@@ -11,14 +11,14 @@ import BuildingPermitApplication from "../pages/BuildingPermitApplication.vue";
 import ViewBusinessDetails from "../pages/ViewBusinessDetails.vue";
 import ViewBuildingDetails from "../pages/ViewBuildingDetails.vue";
 import Main from "../Main.vue";
-import Payment from "../pages/Payment.vue"
-import ResetPassword from "../pages/ResetPassword.vue"
-import Admin from "../Admin.vue"
-import Applications from "../pages/admin/Applications"
-import Transactions from "../pages/admin/Transactions"
-import Dashboard from "../pages/admin/Dashboard"
-import Inquiries from "../pages/admin/Inquiries"
-import ReplyInquiry from "../pages/admin/ReplyInquiry"
+import Payment from "../pages/Payment.vue";
+import ResetPassword from "../pages/ResetPassword.vue";
+import Admin from "../Admin.vue";
+import Applications from "../pages/admin/Applications";
+import Transactions from "../pages/admin/Transactions";
+import Dashboard from "../pages/admin/Dashboard";
+import Inquiries from "../pages/admin/Inquiries";
+import ReplyInquiry from "../pages/admin/ReplyInquiry";
 import ApproveBusinessApplication from "../pages/admin/ApproveBusinessApplication.vue";
 import ApproveBuildingApplication from "../pages/admin/ApproveBuildingApplication.vue";
 import store from "../store";
@@ -29,16 +29,16 @@ const routes = [
     path: "/",
     name: "Login",
     component: Login,
-   async beforeEnter(to, from, next) {
+    async beforeEnter(to, from, next) {
       let hasPermission = await store.state.service.isAuthenticated;
-      if(hasPermission){
+      if (hasPermission) {
         next({
-          name: "Profile"
-        })
-      }else{
-        next()
+          name: "Profile",
+        });
+      } else {
+        next();
       }
-  }
+    },
   },
   {
     path: "/reset-password/:uid/:token",
@@ -76,42 +76,41 @@ const routes = [
         component: StatementOfAccounts,
       },
       {
-        path: 'payment',
-        name: 'Payment',
-        component: Payment
+        path: "payment",
+        name: "Payment",
+        component: Payment,
       },
       {
-        path: 'business-permit-application',
-        name: 'BusinessPermitApplication',
-        component: BusinessPermitApplication
+        path: "business-permit-application",
+        name: "BusinessPermitApplication",
+        component: BusinessPermitApplication,
       },
       {
-        path: 'building-permit-application',
-        name: 'BuildingPermitApplication',
-        component: BuildingPermitApplication
+        path: "building-permit-application",
+        name: "BuildingPermitApplication",
+        component: BuildingPermitApplication,
       },
       {
-        path: 'view-business-details',
-        name: 'ViewBusinessDetails',
-        component: ViewBusinessDetails
+        path: "view-business-details",
+        name: "ViewBusinessDetails",
+        component: ViewBusinessDetails,
       },
       {
-        path: 'view-building-details',
-        name: 'ViewBuildingDetails',
-        component: ViewBuildingDetails
+        path: "view-building-details",
+        name: "ViewBuildingDetails",
+        component: ViewBuildingDetails,
       },
-      
     ],
-   async beforeEnter(to, from, next) {
-        let hasPermission = await store.state.service.isAuthenticated;
-        if(hasPermission){
-          next()
-        }else{
-          next({
-            name: "Login"
-          })
-        }
-    }
+    async beforeEnter(to, from, next) {
+      let hasPermission = await store.state.service.isAuthenticated;
+      if (hasPermission) {
+        next();
+      } else {
+        next({
+          name: "Login",
+        });
+      }
+    },
   },
   {
     path: "/admin",
@@ -159,16 +158,16 @@ const routes = [
         component: ApproveBusinessApplication,
       },
     ],
-   async beforeEnter(to, from, next) {
-        let hasPermission = await store.state.service.isAuthenticated;
-        if(hasPermission){
-          next()
-        }else{
-          next({
-            name: "Login"
-          })
-        }
-    }
+    async beforeEnter(to, from, next) {
+      let hasPermission = await store.state.service.isAuthenticated;
+      if (hasPermission) {
+        next();
+      } else {
+        next({
+          name: "Login",
+        });
+      }
+    },
   },
   // {
   //   path: '/about',
