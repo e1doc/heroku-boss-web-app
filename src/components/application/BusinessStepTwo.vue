@@ -71,7 +71,7 @@
         class="mt40"
       />
 
-      <div class="meta-input-group flex-row">
+      <div class="meta-input-group flex-row w2">
         <base-input
           label="Telephone No."
           v-model="business_details.telephone_number"
@@ -92,7 +92,7 @@
         <base-tel-number
           v-model="business_details.mobile_number"
           :validationMessages="stepTwoErrors.business_details.mobile_number"
-          class="mb15 input-phone"
+          class="mb15 input-phone input-w2"
           placeholder="Mobile No."
         />
       </div>
@@ -200,7 +200,7 @@
           type="number"
           class="mt40"
         />
-        <div class="meta-input-group flex-row">
+        <div class="meta-input-group flex-row w2">
           <base-input
             label="Telephone No."
             v-model="lessor_details.telephone_number"
@@ -213,7 +213,7 @@
           <base-tel-number
             v-model="lessor_details.mobile_number"
             :validationMessages="stepTwoErrors.lessor_details.mobile_number"
-            class="mb15 input-phone"
+            class="mb15 input-phone input-w2"
             placeholder="Mobile no."
           />
         </div>
@@ -228,7 +228,7 @@
         />
       </div>
 
-      <div class="meta-form-group mb60">
+      <div class="meta-form-group p-relative mb60">
         <div class="meta-group-title">Business Activity</div>
         <div class="add-icon" @click="addActivity">
           <font-awesome-icon icon="plus-circle" />
@@ -238,7 +238,7 @@
           v-for="(activity, index) in activities"
           :key="index"
         >
-          <div class="meta-input-group flex-row">
+          <div class="meta-input-group flex-row w3">
             <base-input
               label="Code"
               v-model="activity.code"
@@ -246,6 +246,7 @@
               :refs="`business_code${index}`"
               type="text"
               class="mt40 input-w3"
+              inputClass="fw-mobile"
             />
             <base-input
               label="Line of Business"
@@ -254,6 +255,7 @@
               :refs="`line_of_business${index}`"
               type="text"
               class="mt40 input-w3"
+              inputClass="fw-mobile"
             />
             <base-input
               label="No. of Units"
@@ -262,6 +264,7 @@
               :refs="`business_units${index}`"
               type="number"
               class="mt40 input-w3"
+              inputClass="fw-mobile"
             />
           </div>
           <base-input
@@ -276,7 +279,7 @@
           <div class="meta-group-title">
             Gross Sales / Receipts (For Renewal)
           </div>
-          <div class="meta-input-group flex-row">
+          <div class="meta-input-group flex-row w2">
             <base-input
               label="Essential"
               v-model="activity.essential"
@@ -540,10 +543,13 @@ export default {
 <style lang="scss" scoped>
 .add-icon {
   text-align: right;
-  font-size: 28px;
+  font-size: 25px;
   padding: 10px 0px 10px 10px;
   cursor: pointer;
   color: #2699fb;
+  position: absolute;
+  right: 0;
+  top: -10px;
 }
 div.meta-container {
   width: 100%;
@@ -625,6 +631,10 @@ div.meta-container {
   border-color: #2699fb !important;
 }
 
+.p-relative{
+  position: relative;
+}
+
 /*
 MOBILE RESPONSIVENESS 
 --------------------------------------------------------------*/
@@ -634,6 +644,7 @@ MOBILE RESPONSIVENESS
     font-size: 22px;
   }
 }
+
 @media only screen and (max-width: 768px) {
   div.meta-container h1.meta-form-title {
     font-size: 20px;
@@ -646,6 +657,35 @@ MOBILE RESPONSIVENESS
   div.meta-container div.meta-form-group div.meta-group-title {
     font-size: 15px;
     margin-bottom: 10px;
+  }
+  
+  div.meta-container div.meta-form-group div.meta-input-group .input-w3 {
+    width: 100%;
+    float: left;
+    margin-right: 0;
+    flex-direction: unset;
+  }
+
+  div.meta-container div.meta-form-group div.meta-input-group.flex-row.w2,
+  div.meta-container div.meta-form-group div.meta-input-group.flex-row.w3,
+  div.meta-container div.meta-form-group div.meta-input-group.flex-row.w4 {
+    width: 100%;
+    flex-direction: unset;
+    flex-wrap: wrap;
+    margin-right: 0;
+  }
+
+  div.meta-container div.meta-form-group div.meta-input-group .input-w4,
+  div.meta-container div.meta-form-group div.meta-input-group .input-w2 {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  div.meta-container
+    div.meta-form-group
+    div.meta-input-group
+    .input-w4:nth-child(even) {
+    margin-right: 0;
   }
 }
 
@@ -696,6 +736,10 @@ MOBILE RESPONSIVENESS
     box-shadow: none;
     min-width: unset;
     color: #2699fb;
+  }
+
+  div.meta-container div.meta-form-group div.meta-multi-group{
+    padding: 15px;
   }
 }
 </style>

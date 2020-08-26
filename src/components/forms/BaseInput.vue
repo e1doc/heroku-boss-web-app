@@ -210,6 +210,12 @@ input:focus::placeholder {
   font-size: 12px !important;
 }
 
+.disabled-input input{
+    color: #bababa;
+    font-size: 15px;
+    font-weight: 400;
+}
+
 
 
 /*

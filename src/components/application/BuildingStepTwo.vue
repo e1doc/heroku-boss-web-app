@@ -4,6 +4,23 @@
 
     <div class="meta-form-group mb60">
       <div class="meta-group-title">
+        Area No.
+      </div>
+      <base-input
+        label="Enter the area number here"
+        v-model="building_details.area_no"
+        :validationMessages="
+          buildingStepTwoErrors.building_details.area_no
+        "
+        name="areanumber"
+        refs="area_number"
+        type="text"
+        class="mt40"
+      />
+    </div>
+
+    <div class="meta-form-group mb60">
+      <div class="meta-group-title">
         For Construction Owned by an Enterprise
       </div>
       <base-input
@@ -89,11 +106,26 @@
           name="cityprovince"
           refs="city_province"
           type="text"
-          class="input-w3"
-          inputClass="fw-mobile"
+          class="input-w3 disabled"
+          inputClass="fw-mobile disabled-input"
         />
       </div>
     </div>
+    <!-- PROPERTY TYPE -->
+    <div class="meta-form-group mb60">
+        <div class="meta-group-title">Property Type</div>
+        <base-select
+          placeholder="------ Choose type of property ------"
+          :options="propertytype"
+          v-model="building_details.property_type"
+          :validationMessages="
+            buildingStepTwoErrors.building_details.property_type
+          "
+          name="selectProperty"
+          class="mb15"
+        />
+    </div>
+
     <!-- SCOPE OF WORK -->
     <div class="meta-form-group mb60">
       <div class="meta-group-title">Scope of Work</div>
@@ -152,7 +184,7 @@
 
     <div class="meta-form-group mb60">
       <div class="meta-group-title">Other Details</div>
-      <div class="meta-input-group flex-row">
+      <div class="meta-input-group flex-row w2">
         <base-input
           label="Occupancy Classified"
           v-model="building_other_details.occupancy_classified"
@@ -261,6 +293,7 @@ export default {
   data() {
     return {
       building_details: {
+        area_no: "",
         form_of_ownership: "",
         lot_no: "",
         blk_no: "",
@@ -268,7 +301,7 @@ export default {
         tax_dec_no: "",
         street: "",
         barangay: "",
-        city: "",
+        city: "Bacoor City, Cavite",
         scope_of_work: "",
         scope_of_work_others: "",
         character_of_occupancy: "",
@@ -289,6 +322,20 @@ export default {
         ],
         building_other_details: [],
       },
+      propertytype: [
+        {
+          label: "Land",
+          value: "Land",
+        },
+        {
+          label: "Building",
+          value: "Building",
+        },
+        {
+          label: "Machinery",
+          value: "Machinery",
+        },
+      ],
       scopeofwork: [
         {
           label: "New Construction",
@@ -628,6 +675,10 @@ div.meta-container {
   border-color: #2699fb !important;
 }
 
+.disabled{
+  pointer-events: none;
+}
+
 /*
 MOBILE RESPONSIVENESS 
 --------------------------------------------------------------*/
@@ -651,7 +702,7 @@ MOBILE RESPONSIVENESS
     font-size: 15px;
     margin-bottom: 10px;
   }
-
+  
   div.meta-container div.meta-form-group div.meta-input-group .input-w3 {
     width: 100%;
     float: left;
@@ -659,20 +710,19 @@ MOBILE RESPONSIVENESS
     flex-direction: unset;
   }
 
+  div.meta-container div.meta-form-group div.meta-input-group.flex-row.w2,
   div.meta-container div.meta-form-group div.meta-input-group.flex-row.w3,
   div.meta-container div.meta-form-group div.meta-input-group.flex-row.w4 {
     width: 100%;
     flex-direction: unset;
     flex-wrap: wrap;
+    margin-right: 0;
   }
 
-  div.meta-container div.meta-form-group div.meta-input-group .input-w4 {
-    width: calc(50% - 3px);
-    margin-right: 6px;
-  }
-
+  div.meta-container div.meta-form-group div.meta-input-group .input-w4,
   div.meta-container div.meta-form-group div.meta-input-group .input-w2 {
-    margin-right: 6px;
+    width: 100%;
+    margin-right: 0;
   }
 
   div.meta-container
