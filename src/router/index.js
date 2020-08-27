@@ -175,7 +175,7 @@ const routes = [
         next();
       } else {
         next({
-          name: "Login",
+          name: "AdminLogin",
         });
       }
     },
