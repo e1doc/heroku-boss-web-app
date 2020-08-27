@@ -55,6 +55,11 @@ export default {
       password: "",
     };
   },
+  methods:{
+    login(){
+      this.$store.dispatch('adminLogin', {username: this.username, password: this.password})
+    }
+  }
 };
 </script>
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import router from "../../router/index.js"
 const baseUrl = process.env.VUE_APP_API_URL;
 // const baseUrl = "https://boss-web-api.herokuapp.com";
 const getDefaultAuthState = () =>{
@@ -12,7 +12,8 @@ const getDefaultAuthState = () =>{
     resetPasswordSuccess: false,
     validationMessages: {},
     userDetails: {},
-    isAuthenticated: false
+    isAuthenticated: false,
+    isAdminAuthenticated: false
   }
 }
 const state = getDefaultAuthState()
@@ -26,7 +27,8 @@ const getters = {
   resetPasswordSuccess: (state) => state.resetPasswordSuccess,
   validationMessages: (state) => state.validationMessages,
   userDetails: (state) => state.userDetails,
-  isAuthenticated: (state) => state.isAuthenticated
+  isAuthenticated: (state) => state.isAuthenticated,
+  isAdminAuthenticated: (state) => state.isAdminAuthenticated
 };
 
 const mutations = {
@@ -39,6 +41,7 @@ const mutations = {
   setValidationMessages: (state, validationMessages) => (state.validationMessages = validationMessages),
   setUserDetails: (state, userDetails) => (state.userDetails = userDetails),
   setIsAuthenticated: (state, isAuthenticated) => (state.isAuthenticated = isAuthenticated),
+  setAdminIsAuthenticated: (state, isAdminAuthenticated) => (state.isAdminAuthenticated = isAdminAuthenticated),
   resetAuthState: (state) => Object.assign(state, getDefaultAuthState()),
 };
 
@@ -144,11 +147,52 @@ const actions = {
   async getUserDetails({ commit, getters }) {
     try {
       const response = await axios.get(`${baseUrl}/auth/users/me`,{ withCredentials: true })
+      console.log(response.data)
       commit('setUserDetails',response.data)
     } catch (err) {
       console.log(err)
     }
   },
+  async adminLogin({ commit, dispatch }, payload){
+    try {
+      commit("setLoading", true);
+      const response = await axios.post(`${baseUrl}/auth/admin/`,payload, {withCredentials: true })
+      dispatch("checkIfAdmin")
+    } catch (err) {
+      console.log(err.data)
+      commit("setLoading", false);
+      dispatch("createPrompt", {
+        type: "error",
+        title: "Forbidden",
+        message: "Incorrect authentication credentials.",
+      });
+    }
+  },
+ async checkIfAdmin({commit, dispatch }){
+    try {
+      const response = await axios.post(`${baseUrl}/api/get-level/`, {} ,{ withCredentials: true })
+      commit("setLoading", false);
+      if(response.data.is_admin){
+        console.log(response.data)
+        commit("setAdminIsAuthenticated",true)
+        router.push({name:'Dashboard'})
+      }else{
+        dispatch("createPrompt", {
+          type: "error",
+          title: "Forbidden",
+          message: "Please enter the correct username and password for a staff account. ",
+        });
+      }
+    } catch (err) {
+      commit("setLoading", false);
+      console.log(err)
+      dispatch("createPrompt", {
+        type: "error",
+        title: "Ooops!",
+        message: "Something went wrong. Please try again.",
+      });
+    }
+  }
 };
 export default {
   state,

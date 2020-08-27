@@ -36,6 +36,9 @@ export default {
     ButtonFullOutline,
     AdminLoginDiv
   },
+  mounted(){
+    this.$store.commit("setLoading", false)
+  }
 };
 </script>
 
