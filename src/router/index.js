@@ -107,16 +107,16 @@ const routes = [
         component: ViewBuildingDetails,
       },
     ],
-    async beforeEnter(to, from, next) {
-      let hasPermission = await store.state.service.isAuthenticated;
-      if (hasPermission) {
-        next();
-      } else {
-        next({
-          name: "Login",
-        });
-      }
-    },
+    // async beforeEnter(to, from, next) {
+    //   let hasPermission = await store.state.service.isAuthenticated;
+    //   if (hasPermission) {
+    //     next();
+    //   } else {
+    //     next({
+    //       name: "Login",
+    //     });
+    //   }
+    // },
   },
   {
     path: "/admin-login",

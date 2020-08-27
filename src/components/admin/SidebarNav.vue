@@ -7,25 +7,25 @@
 
         <div class="admin-body">
             <ul class="admin-nav">
-                <li class="admin-item" :class="{ active: activeTab === 'dashboard'}" @click="changeTab('dashboard')">
+                <li class="admin-item" :class="{ active: currentAdminTab === 'dashboard'}" @click="changeTab('dashboard')">
                     <router-link :to="{name:'Dashboard'}">
                         <font-awesome-icon icon="chart-line" class="admin-icon"/>
                         DASHBOARD 
                     </router-link>
                 </li>
-                <li class="admin-item" :class="{ active: activeTab === 'transactions'}" @click="changeTab('transactions')">
+                <li class="admin-item" :class="{ active: currentAdminTab === 'transactions'}" @click="changeTab('transactions')">
                     <router-link :to="{name:'Transactions'}">
                         <font-awesome-icon icon="coins" class="admin-icon"/>
                         TRANSACTIONS 
                     </router-link>
                 </li>
-                <li class="admin-item" :class="{ active: activeTab === 'applications'}" @click="changeTab('applications')">
+                <li class="admin-item" :class="{ active: currentAdminTab === 'applications'}" @click="changeTab('applications')">
                     <router-link :to="{name:'Applications'}">
                         <font-awesome-icon icon="users" class="admin-icon"/>
                         APPLICATIONS
                     </router-link>
                 </li>
-                <li class="admin-item" :class="{ active: activeTab === 'inquiries'}" @click="changeTab('inquiries')">
+                <li class="admin-item" :class="{ active: currentAdminTab  === 'inquiries'}" @click="changeTab('inquiries')">
                     <router-link :to="{name:'Inquiries'}">
                         <font-awesome-icon icon="comment-alt" class="admin-icon"/>
                         INQUIRIES 
@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex"
 export default {
     name : "SidebarNav",
     data(){
@@ -44,9 +45,13 @@ export default {
             activeTab: "dashboard",
         }
     },
+  computed:{
+      ...mapGetters(['currentAdminTab'])
+  },
   methods:{
     changeTab(tab){
       this.activeTab = tab
+      this.$store.commit('setAdminCurrentTab', tab)
     },
   }
 }

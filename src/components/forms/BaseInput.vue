@@ -11,6 +11,7 @@
         :type="type === 'password' ? passType : type"
         :value="value"
         @input="$emit('input', (inputData = $event.target.value));validateMin($event.target.value)"
+        :disabled="disabled"
       />
       <label class="label" :id="refs">{{ label }}</label>
     </div>
@@ -76,7 +77,12 @@ export default {
     inputClass: {
       type: String,
       default: "",
-    }
+    },
+    disabled:{
+      type: Boolean,
+      default: false,
+      required: false
+    },
   },
   mounted() {
     this.getWrapper();
@@ -208,6 +214,12 @@ input:focus::placeholder {
   background-color: #f1f9ff;
   border-color: #bce0fd;
   font-size: 12px !important;
+}
+
+.disabled-input input{
+    color: #bababa;
+    font-size: 15px;
+    font-weight: 400;
 }
 
 

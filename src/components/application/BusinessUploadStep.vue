@@ -91,18 +91,22 @@ export default {
     validateRequiredFields() {
       let validated = [];
       if (this.requirements) {
-        if (this.requirements.requirements.length > 0) {
-          this.requirements.requirements.map(item => {
-            if (this.required.includes(item.requirements_label)) {
-              validated.push(item.requirements_label);
-            }
-          });
+        if (this.requirements.requirements) {
+          if (this.requirements.requirements.length > 0) {
+            this.requirements.requirements.map((item) => {
+              if (this.required.includes(item.requirements_label)) {
+                validated.push(item.requirements_label);
+              }
+            });
+          }
+          if (validated.length === this.required.length) {
+            return true;
+          } else {
+            return false;
+          }
+        }else{
+          return false
         }
-      }
-      if (validated.length === this.required.length) {
-        return true;
-      } else {
-        return false;
       }
     },
     previousStep() {
@@ -110,7 +114,7 @@ export default {
     },
     async nextStep() {
       if (!this.draftBusiness) {
-        let isValidated = this.validateRequiredFields()
+        let isValidated = this.validateRequiredFields();
         if (isValidated) {
           let payload = { is_draft: false };
           await this.$store.dispatch("updateBusinessApplication", payload);

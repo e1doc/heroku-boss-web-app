@@ -328,20 +328,25 @@ export default {
   },
   methods: {
     validateRequiredFields() {
+      console.log(this.buildingRequirements.buildingrequirements);
       let validated = [];
       if (this.buildingRequirements) {
-        if (this.buildingRequirements.buildingrequirements.length > 0) {
-          this.buildingRequirements.buildingrequirements.map((item) => {
-            if (this.required.includes(item.requirements_label)) {
-              validated.push(item.requirements_label);
-            }
-          });
+        if (this.buildingRequirements.buildingrequirements) {
+          if (this.buildingRequirements.buildingrequirements.length > 0) {
+            this.buildingRequirements.buildingrequirements.map((item) => {
+              if (this.required.includes(item.requirements_label)) {
+                validated.push(item.requirements_label);
+              }
+            });
+          }
+          if (validated.length === this.required.length) {
+            return true;
+          } else {
+            return false;
+          }
+        }else{
+          return false;
         }
-      }
-      if (validated.length === this.required.length) {
-        return true;
-      } else {
-        return false;
       }
     },
     previousStep() {

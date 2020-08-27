@@ -2,13 +2,13 @@
     <div class="menu-holder">
       <div class="left-div flex-center">
           <div class="menu-type">
-              <div :class="{ active: activeType === 'business' }" @click="changeType('business')" >
+              <div :class="{ active: currentType === 'business' }" @click="changeType('business')" >
                 <font-awesome-icon icon="store" class="mr5 icon" />
                 BUSINESS
               </div>
           </div>
           <div class="menu-type">
-              <div :class="{ active: activeType === 'real_property' }" @click="changeType('real_property')">
+              <div :class="{ active: currentType === 'real_property' }" @click="changeType('real_property')">
                 <font-awesome-icon icon="city" class="mr5 icon" />
                 REAL PROPERTY
               </div>
@@ -22,10 +22,14 @@
 
 <script>
 import BaseInputSearch from "@/components/forms/BaseInputSearch";
+import { mapGetters } from "vuex"
 export default {
   name: "TransactionTableMenu",
   components: {
       BaseInputSearch,
+  },
+  computed:{
+    ...mapGetters(["currentType", "currentTable"]),
   },
   props:{
     type:{

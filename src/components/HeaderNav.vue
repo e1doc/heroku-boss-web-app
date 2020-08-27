@@ -142,6 +142,8 @@ export default {
          this.$store.commit("setIsAuthenticated", false);
          this.$store.commit('resetUIState')
          this.$store.commit('resetAuthState')
+         this.$store.commit('resetBusinessState')
+         this.$store.commit('resetPropertyState')
          this.$router.push({ path: '/' })
    },
  }
