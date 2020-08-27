@@ -306,7 +306,7 @@ div.meta-mobile-nav {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 4;
+    z-index: 9;
     
     opacity: 0;
     overflow: scroll;

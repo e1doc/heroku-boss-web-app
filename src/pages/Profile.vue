@@ -85,7 +85,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   padding-top: 50px;
-
+  padding-bottom: 30px;
   .meta-left-box {
     width: 100%;
     max-width: 30%;
