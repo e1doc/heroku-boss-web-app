@@ -85,6 +85,7 @@ export default {
     flex-wrap: wrap;
     text-align: center;
     padding: 70px 30px 50px;
+    min-height: calc( 100vh - 285px );
     .sc-rounded-div {
         background: #eaf6ff !important;
         max-width: 53%; 

@@ -1,6 +1,9 @@
 <template>
   <section class="footer-section">
-      <div class="footer-text">Powered by 1Document Corp.</div>
+      <div class="footer-text flex-center">
+        Powered by
+        <img src="@/assets/OneDocument.jpeg">
+      </div>
   </section>
 </template>
 
@@ -17,7 +20,13 @@ section.footer-section{
     background-color: #f3f3f3;
   .footer-text{
       color: #2b2b2b;
-      font-size: 12px;
+      font-size: 15px;
+      justify-content: center;
+      padding-top: 5px;
+      img {
+          margin-left: 15px;
+          max-height: 35px;
+      }
   }
 }
 </style>

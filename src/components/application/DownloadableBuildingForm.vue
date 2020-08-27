@@ -31,6 +31,10 @@
         <div class="meta-group-title">
           For Construction Owned by an Enterprise :
         </div>
+        <div class="meta-text no-bb">
+          <div class="meta-label">Area No.</div>
+          <div class="meta-value">{{buildingDetails.area_no}}</div>
+        </div>
         <div class="meta-text">
           <div class="meta-label">Form of Ownership</div>
           <div class="meta-value">{{buildingDetails.form_of_ownership}}</div>
@@ -73,6 +77,11 @@
         </div>
 
         <div class="clearfix"></div>
+
+        <div class="meta-text no-bb">
+          <div class="meta-label">Property Type</div>
+          <div class="meta-value">{{buildingDetails.property_type}}</div>
+        </div>
 
         <div class="meta-text no-bb">
           <div class="meta-label">Scope of Work :</div>

@@ -24,6 +24,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+section{
+    min-height: calc( 100vh - 321px);
+    padding-bottom: 30px;
+}
 @media only screen and ( max-width : 768px ){
     .soa-header,
     .soa-table{
