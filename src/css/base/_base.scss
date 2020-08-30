@@ -96,6 +96,33 @@ ul.sub-list > li {
     color: #2b2b2b!important;
 }
 
+ul.pagination{
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    padding: 30px 0;
+}
+
+ul.pagination li{
+    display: inline!important;
+    color: #e23a36;
+    padding: 0 15px;
+    font-size: 15px;
+    font-family: Proxima Nova Rg;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+ul.pagination li:hover,
+ul.pagination li:focus,
+ul.pagination li.active,
+ul.pagination li a:focus{
+    color: #2b2b2b;
+    outline: none;
+    border: 0;
+}
+
 
 @media only screen and( max-width: 1400px ){
     .sc-rounded-div{

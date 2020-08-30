@@ -263,14 +263,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.pagination {
-  list-style-type: none;
-  display: flex;
-  flex-wrap: wrap;
-}
-.page-item{
-    display: inline!important;
-}
+
 .thead {
   display: flex;
   flex-direction: row;

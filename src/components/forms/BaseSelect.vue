@@ -1,6 +1,7 @@
 <template>
-  <div class="input-holder">
-    <div class="select-wrapper" :id="name">
+  <div class="input-holder" :class="customclass">
+    <font-awesome-icon icon="filter" class="filter-icon" v-if="customclass == 'filter-select'" />
+    <div :id="name" class="select-wrapper">
       <select
         v-model="selected"
         :data-value="selected"
@@ -75,6 +76,10 @@ export default {
     value: {
       required: false,
     },
+    customclass: {
+      type: String,
+      default: ""
+    }
   },
   mounted() {
     this.getWrapper();
@@ -118,6 +123,7 @@ export default {
     font-weight: bold;
   }
 }
+
 .select-wrapper {
   display: flex;
   flex-direction: column;
@@ -163,6 +169,37 @@ export default {
     right: 15px;
     top: 20px;
     color: #039be5;
+  }
+}
+
+.filter-select {
+  flex-wrap: wrap;
+  flex-direction: unset!important;
+  align-items: center;
+  margin-bottom: 0;
+  margin-right: 20px;
+  .select-wrapper{
+    border: 0;
+    background-color: 0;
+    appearance: none;
+    select{
+      padding: 0 15px;
+      color: #e23a36;
+      font-weight: bold;
+      option{
+        color: #2b2b2b;
+      }
+    }
+    .dropdown-icon{
+      display: none;
+    }
+  }
+  .filter-icon{
+      color: #e23a36;
+  }
+  .select-wrapper:hover,
+  .select-wrapper-focus{
+    background-color: transparent;
   }
 }
 

@@ -15,6 +15,13 @@
           </div>
       </div>
       <div class="right-div flex-wrap">
+          <base-select
+              placeholder="Filter"
+              :options="filterlist"
+              name="filterLists"
+              class="mb15"
+              customclass="filter-select"
+            />
           <base-input-search />
       </div>
     </div>
@@ -22,11 +29,13 @@
 
 <script>
 import BaseInputSearch from "@/components/forms/BaseInputSearch";
+import BaseSelect from "@/components/forms/BaseSelect";
 import { mapGetters } from "vuex"
 export default {
   name: "TransactionTableMenu",
   components: {
       BaseInputSearch,
+      BaseSelect
   },
   computed:{
     ...mapGetters(["currentType", "currentTable"]),
@@ -41,7 +50,21 @@ export default {
   data(){
     return{
       activeTab: "profile",
-      activeType: "business"
+      activeType: "business",
+      filterlist: [
+        {
+          label: "Approved",
+          value: "Approved",
+        },
+        {
+          label: "Disapproved",
+          value: "Disapproved",
+        },
+        {
+          label: "For Approval",
+          value: "For Approval",
+        },
+      ],
     }
   },
   methods:{

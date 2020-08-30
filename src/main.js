@@ -58,7 +58,8 @@ import {
   faLaptopHouse,
   faFileInvoiceDollar,
   faInfoCircle,
-  faQuestion
+  faQuestion,
+  faFilter
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add([
@@ -103,7 +104,8 @@ library.add([
   faLaptopHouse,
   faFileInvoiceDollar,
   faInfoCircle,
-  faQuestion
+  faQuestion,
+  faFilter
 ]);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.component('paginate', Paginate)
