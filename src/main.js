@@ -11,6 +11,7 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import Skeleton from 'vue-loading-skeleton';
 import Lightbox from 'vue-easy-lightbox'
+import Paginate from 'vuejs-paginate'
 Vue.use(Skeleton)
 Vue.use(VueSweetalert2)
 Vue.use(Lightbox)
@@ -105,6 +106,7 @@ library.add([
   faQuestion
 ]);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
+Vue.component('paginate', Paginate)
 Vue.use(VModal)
 Vue.directive("ripple", Ripple);
 Vue.config.productionTip = false;
