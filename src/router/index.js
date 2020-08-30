@@ -11,15 +11,15 @@ import BuildingPermitApplication from "../pages/BuildingPermitApplication.vue";
 import ViewBusinessDetails from "../pages/ViewBusinessDetails.vue";
 import ViewBuildingDetails from "../pages/ViewBuildingDetails.vue";
 import Main from "../Main.vue";
-import Payment from "../pages/Payment.vue";
-import ResetPassword from "../pages/ResetPassword.vue";
-import Admin from "../Admin.vue";
-import AdminLogin from "../pages/AdminLogin";
-import Applications from "../pages/admin/Applications";
-import Transactions from "../pages/admin/Transactions";
-import Dashboard from "../pages/admin/Dashboard";
-import Inquiries from "../pages/admin/Inquiries";
-import ReplyInquiry from "../pages/admin/ReplyInquiry";
+import Payment from "../pages/Payment.vue"
+import ResetPassword from "../pages/ResetPassword.vue"
+import Admin from "../Admin.vue"
+import AdminLogin from "../pages/AdminLogin"
+import Applications from "../pages/admin/Applications"
+import Transactions from "../pages/admin/Transactions"
+import Dashboard from "../pages/admin/Dashboard"
+import Inquiries from "../pages/admin/Inquiries"
+import ReplyInquiry from "../pages/admin/ReplyInquiry"
 import ApproveBusinessApplication from "../pages/admin/ApproveBusinessApplication.vue";
 import ApproveBuildingApplication from "../pages/admin/ApproveBuildingApplication.vue";
 import store from "../store";
@@ -31,13 +31,8 @@ const routes = [
     name: "Login",
     component: Login,
     async beforeEnter(to, from, next) {
-      let isAdmin = await store.state.service.isAdminAuthenticated;
-      let isUser = await store.state.service.isAuthenticated;
-      if (isAdmin) {
-        next({
-          name: "Dashboard",
-        });
-      } else if (isUser) {
+      let hasPermission = await store.state.service.isAuthenticated;
+      if (hasPermission) {
         next({
           name: "Profile",
         });
@@ -170,12 +165,12 @@ const routes = [
       },
     ],
     async beforeEnter(to, from, next) {
-      let hasPermission = await store.state.service.isAdminAuthenticated;
+      let hasPermission = await store.state.service.isAuthenticated;
       if (hasPermission) {
         next();
       } else {
         next({
-          name: "AdminLogin",
+          name: "Login",
         });
       }
     },
