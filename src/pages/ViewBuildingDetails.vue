@@ -224,7 +224,7 @@ export default {
   },
   data() {
     return {
-      imgs: [], // Img Url , string or Array of string
+      imgs: [],
       visible: false,
       index: 0, // default: 0
     };

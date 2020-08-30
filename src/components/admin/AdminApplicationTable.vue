@@ -77,59 +77,100 @@
       </div>
     </div> -->
 
-    <div class="tbody">
-      <div class="tr">
-        <div class="td">000001</div>
-        <div class="td">JUNE 07 2020</div>
-        <div class="td" v-if="currentType === 'business'">MINISTOP</div>
-        <div class="td" v-if="currentType === 'real_property'">A-01543</div>
-        <div class="td">DRAFT</div>
-        <div class="td actions" v-if="currentType === 'business'">
-          <router-link to="approve-business-application">
+    <div v-if="currentType === 'business'">
+      <div class="tbody" v-if="applications.length > 0">
+        <div
+          class="tr"
+          v-for="(application, index) in applications"
+          :key="index"
+        >
+          <div class="td">
+            {{
+              application.businessbasicinformation !== null
+                ? application.businessbasicinformation.reference_number
+                : "N/A"
+            }}
+          </div>
+          <div class="td">
+            {{ application.created_at | moment("MMMM DD YYYY") }}
+          </div>
+          <div class="td">
+            {{
+              application.account_number ? application.account_number : "N/A"
+            }}
+          </div>
+          <div class="td">
+            {{
+              application.is_draft
+                ? "DRAFT"
+                : application.is_approve
+                ? "FOR PAYMENT"
+                : application.is_disapprove
+                ? "DISAPPROVED"
+                : "FOR APPROVAL"
+            }}
+          </div>
+          <div class="td actions">
+            <div @click="openBusinessApplication(application)">
               <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
-          </router-link>
-        </div>
-        <div class="td actions" v-if="currentType === 'real_property'">
-          <router-link to="approve-building-application">
-              <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
-          </router-link>
-        </div>
-      </div>
-      <div class="tr">
-        <div class="td">000002</div>
-        <div class="td">JUNE 07 2020</div>
-        <div class="td" v-if="currentType === 'business'">MINISTOP</div>
-        <div class="td" v-if="currentType === 'real_property'">A-01543</div>
-        <div class="td">PENDING</div>
-        <div class="td actions" v-if="currentType === 'business'">
-          <router-link to="approve-business-application">
-              <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
-          </router-link>
-        </div>
-        <div class="td actions" v-if="currentType === 'real_property'">
-          <router-link to="approve-building-application">
-              <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
-          </router-link>
-        </div>
-      </div>
-      <div class="tr">
-        <div class="td">000003</div>
-        <div class="td">JUNE 07 2020</div>
-        <div class="td" v-if="currentType === 'business'">MINISTOP</div>
-        <div class="td" v-if="currentType === 'real_property'">A-01543</div>
-        <div class="td">FOR PAYMENT</div>
-        <div class="td actions" v-if="currentType === 'business'">
-          <router-link to="approve-business-application">
-              <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
-          </router-link>
-        </div>
-        <div class="td actions" v-if="currentType === 'real_property'">
-          <router-link to="approve-building-application">
-              <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
-          </router-link>
+            </div>
+          </div>
         </div>
       </div>
+      <div class="tbody" v-if="applications.length < 1">
+        <div class="tr">
+          <div class="td">No data available</div>
+        </div>
       </div>
+    </div>
+    <div v-if="currentType === 'real_property'">
+      <div class="tbody" v-if="buildingApplications.length > 0">
+        <div
+          class="tr"
+          v-for="(application, index) in buildingApplications"
+          :key="index"
+        >
+          <div class="td">
+            {{
+              application.buildingbasicinformation !== null
+                ? application.buildingbasicinformation.reference_number
+                : "N/A"
+            }}
+          </div>
+          <div class="td">
+            {{ application.created_at | moment("MMMM DD YYYY") }}
+          </div>
+          <div class="td">
+            {{
+              application.buildingdetails !== null
+                ? application.buildingdetails.tax_dec_no
+                : "N/A"
+            }}
+          </div>
+          <div class="td">
+            {{
+              application.is_draft
+                ? "DRAFT"
+                : application.is_approve
+                ? "FOR PAYMENT"
+                : application.is_disapprove
+                ? "DISAPPROVED"
+                : "FOR APPROVAL"
+            }}
+          </div>
+          <div class="td actions">
+            <div @click="openBuildingApplication('view', application)">
+              <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tbody" v-if="buildingApplications.length < 1">
+        <div class="tr">
+          <div class="td">No data available</div>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -138,12 +179,84 @@ import { mapGetters } from "vuex";
 export default {
   name: "AdminApplicationTable",
   computed: {
-    ...mapGetters(["currentType", "applications","buildingApplications"]),
+    ...mapGetters(["currentType", "applications", "buildingApplications"]),
   },
-  // mounted() {
-  //   this.$store.dispatch("getBusinessApplications");
-  //   this.$store.dispatch("getBuildingApplications")
-  // },
+  mounted() {
+    this.$store.dispatch("getAllBusinessApplications");
+    this.$store.dispatch("getAllBuildingApplications");
+    console.log(this.applications)
+  },
+  methods: {
+    openBusinessApplication(data) {
+      if (data.id) {
+        let application = {
+          id: data.id,
+          created_at: data.created_at,
+          is_draft: data.is_draft,
+          is_approve: data.is_approve,
+          is_disapprove: data.is_disapprove,
+          account_number: data.account_number,
+        };
+        this.$store.commit("setBusinessApplication", application);
+      }
+      if (data.businessbasicinformation !== null) {
+        this.$store.commit(
+          "setBusinessBasicInformation",
+          data.businessbasicinformation
+        );
+      }
+      if (data.businessdetails !== null) {
+        this.$store.commit("setBusinessDetails", data.businessdetails);
+      }
+      if (data.lessordetails !== null) {
+        this.$store.commit("setLessorDetails", data.lessordetails);
+      }
+      if (data.businessactivity.length > 0) {
+        this.$store.commit("setBusinessActivities", data.businessactivity);
+      }
+      if (data.businessapplicationrequirements.length > 0) {
+        this.$store.commit(
+          "setApplicationRequirements",
+          data.businessapplicationrequirements[0]
+        );
+      }
+      this.$router.push({ name: "ApproveBusinessApplication" });
+    },
+    openBuildingApplication(type, data) {
+      if (data.id) {
+        let application = {
+          id: data.id,
+          is_draft: data.is_draft,
+          is_approve: data.is_approve,
+          is_disapprove: data.is_disapprove,
+          created_at: data.created_at,
+        };
+        this.$store.commit("setBuildingApplication", application);
+      }
+      if (data.buildingbasicinformation !== null) {
+        this.$store.commit(
+          "setBuildingBasicInformation",
+          data.buildingbasicinformation
+        );
+      }
+      if (data.buildingdetails !== null) {
+        this.$store.commit("setBuildingDetails", data.buildingdetails);
+      }
+      if (data.buildingotherdetails !== null) {
+        this.$store.commit(
+          "setBuildingOtherDetails",
+          data.buildingotherdetails
+        );
+      }
+      if (data.buildingapplicationrequirements.length > 0) {
+        this.$store.commit(
+          "setBuildingApplicationRequirements",
+          data.buildingapplicationrequirements[0]
+        );
+      }
+      this.$router.push({ name: "ApproveBuildingApplication" });
+    },
+  },
 };
 </script>
 
@@ -164,35 +277,35 @@ export default {
   }
 }
 .tbody {
-    flex-direction: column;
-    margin-top: 10px;
-    .tr {
-        display: flex;
-        flex-direction: row;
-        background: #ffffff;
-        box-shadow: 0px 10px 20px rgba(127, 127, 127, 0.1);
-        border-radius: 8px;
-        margin-top: 3px;
-        padding-left: 10px;
-        padding-right: 10px;
-        .td {
-            flex: 1;
-            font-size: 14px;
-            font-family: "Proxima Nova Rg";
-            text-align: center;
-            padding: 17px 0px;
-        }
-        .td.actions a {
-            color: #1492e6;
-            font-size: 13px;
-            font-weight: bold;
-            text-decoration: none;
-            cursor: pointer;
-            transition: 0.4s;
-        }
-        .td.actions a:hover{
-            color: #2b2b2b;
-        }
+  flex-direction: column;
+  margin-top: 10px;
+  .tr {
+    display: flex;
+    flex-direction: row;
+    background: #ffffff;
+    box-shadow: 0px 10px 20px rgba(127, 127, 127, 0.1);
+    border-radius: 8px;
+    margin-top: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    .td {
+      flex: 1;
+      font-size: 14px;
+      font-family: "Proxima Nova Rg";
+      text-align: center;
+      padding: 17px 0px;
     }
+    .td.actions div {
+      color: #1492e6;
+      font-size: 13px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.4s;
+    }
+    .td.actions a:hover {
+      color: #2b2b2b;
+    }
+  }
 }
 </style>

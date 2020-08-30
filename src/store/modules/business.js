@@ -85,6 +85,34 @@ const mutations = {
 };
 
 const actions = {
+  async approveBusinessApplication({commit, dispatch, getters}, payload){
+    try {
+      const response = await axios.put(`${baseUrl}/staff/business-permit-application/`,
+      payload,
+      { withCredentials: true })
+      let action = payload.is_approve ? 'approved' : 'disapproved'
+      dispatch("createPrompt", {
+        type: "success",
+        title: 'Success!',
+        message: `Application was successfully ${action}!`,
+      });
+    } catch (err) {
+      console.log(err)
+      commit('setLoading', false)
+    }
+  },
+  async getAllBusinessApplications({commit, dispatch, getters}){
+    try {
+      const response = await axios.get(
+        `${baseUrl}/staff/business-permit-application/`,
+        { withCredentials: true }
+      );
+      commit("setApplications",response.data)
+    } catch (err) {
+      console.log(err.response)
+      commit('setLoading', false)
+    }
+  },  
   async getBusinessApplications({commit, dispatch, getters}){
     try {
       const response = await axios.get(
@@ -94,6 +122,7 @@ const actions = {
       commit("setApplications",response.data)
     } catch (err) {
       console.log(err.response)
+      commit('setLoading', false)
     }
   },  
   async addBusinessApplication({ commit, dispatch, getters }, payload) {
@@ -112,6 +141,7 @@ const actions = {
       let errors = {key:'application',value: err.response.data}
       commit("setStepOneErrors",errors)
       console.log(err.response);
+      commit('setLoading', false)
     }
   },
   async addBusinessBasicInformation({ commit, getters }, payload) {
@@ -131,6 +161,7 @@ const actions = {
       let errors = {key:'basic_information',value: err.response.data}
       commit("setStepOneErrors",errors)
       commit("setBasicInfoHasError", true)
+      commit('setLoading', false)
     }
   },
   async addBusinessDetails({ commit, getters }, payload) {
@@ -150,6 +181,7 @@ const actions = {
       commit("setStepTwoErrors",errors)
       console.log(err.response);
       commit("setDetailsHasError", true)
+      commit('setLoading', false)
     }
   },
   async addLessorDetails({ commit, getters }, payload) {
@@ -169,6 +201,7 @@ const actions = {
       commit("setStepTwoErrors",errors)
       commit("setLessorDetailsHasError", true)
       console.log(err.response);
+      commit('setLoading', false)
     }
   },
   async addBusinessActivity({ commit, getters, dispatch }, payload) {
@@ -184,6 +217,7 @@ const actions = {
       dispatch('getBusinessActivity')
     } catch (err) {
       console.log(err.response);
+      commit('setLoading', false)
     }
   },
   async updateBusinessApplication({ commit, getters }, payload) {
@@ -204,6 +238,7 @@ const actions = {
       commit("setStepOneErrors",errors)
       commit("setApplicationHasError", true)
       console.log(err.response);
+      commit('setLoading', false)
     }
   },
   async updateBusinessBasicInformation({ commit, getters }, payload) {
@@ -223,6 +258,7 @@ const actions = {
       commit("setStepOneErrors",errors)
       console.log(err);
       commit("setBasicInfoHasError", true)
+      commit('setLoading', false)
     }
   },
   async updateBusinessDetails({ commit, getters }, payload) {
@@ -242,6 +278,7 @@ const actions = {
       commit("setStepTwoErrors",errors)
       commit("setDetailsHasError", true)
       console.log(err.response);
+      commit('setLoading', false)
     }
   },
   async updateLessorDetails({ commit, getters }, payload) {
@@ -261,6 +298,7 @@ const actions = {
       commit("setStepTwoErrors",errors)
       commit("setLessorDetailsHasError", true)
       console.log(err.response);
+      commit('setLoading', false)
     }
   },
   async updateBusinessActivity({ commit, getters }, payload) {
@@ -279,6 +317,7 @@ const actions = {
       );
     } catch (err) {
       console.log(err.response);
+      commit('setLoading', false)
     }
   },
   async getBusinessActivity({commit, getters}){
@@ -288,6 +327,7 @@ const actions = {
       commit("setBusinessActivities", response.data);
     } catch (err) {
       console.log(err)
+      commit('setLoading', false)
     }
   },
   async addApplicationRequirements({ commit, getters }, payload) {
@@ -316,6 +356,7 @@ const actions = {
     } catch (err) {
       commit("setLoading", false)
       console.log(err.response);
+      commit('setLoading', false)
     }
   },
   async getApplicationRequirements({ commit, getters }){
@@ -328,6 +369,7 @@ const actions = {
       commit('setRequirements', response.data)
     } catch (err) {
       console.log(err.response);
+      commit('setLoading', false)
     }
   }
 };

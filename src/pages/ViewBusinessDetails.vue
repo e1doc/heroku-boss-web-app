@@ -54,7 +54,7 @@
           </div>
           <div class="meta-text w6 no-br">
             <div class="meta-label">
-              Are You enjoying tax incentive from any Government Entity ?
+              Are You enjoying tax incentive from any Government Entity?
             </div>
             <div class="meta-value">
               {{ businessBasicInformation.has_tax_incentive ? "Yes" : "No" }}

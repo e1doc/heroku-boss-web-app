@@ -219,9 +219,8 @@ export default {
   },
   methods:{
     openBusinessApplication(type,data){
-      console.log(data)
       if(data.id){
-        let application = {id:data.id,created_at: data.created_at, is_draft: data.is_draft, is_approve: data.is_approve, account_number: data.account_number}
+        let application = {id:data.id,created_at: data.created_at, is_draft: data.is_draft, is_approve: data.is_approve, is_disapprove: data.is_disapprove,account_number: data.account_number}
         this.$store.commit('setBusinessApplication', application)
       }
       if(data.businessbasicinformation !== null){
