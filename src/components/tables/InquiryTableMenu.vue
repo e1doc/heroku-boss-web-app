@@ -20,9 +20,9 @@
         </div>
       </div>
     </div>
-    <div class="right-div flex-wrap">
+    <!-- <div class="right-div flex-wrap">
       <base-input-search />
-    </div>
+    </div> -->
   </div>
 </template>
 
