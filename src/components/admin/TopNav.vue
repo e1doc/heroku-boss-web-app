@@ -25,6 +25,8 @@ export default {
           this.$store.commit("setAdminIsAuthenticated", false);
           this.$store.commit("resetUIState");
           this.$store.commit("resetAuthState");
+          this.$store.commit("resetBusinessState");
+          this.$store.commit("resetPropertyState");
           this.$router.push({ name: "AdminLogin" });
         }
       });

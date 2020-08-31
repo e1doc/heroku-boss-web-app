@@ -101,13 +101,15 @@ const actions = {
       commit('setLoading', false)
     }
   },
-  async getAllBuildingApplications({ commit, getters, dispatch }, payload) {
+  async getAllBuildingApplications({ commit, getters, dispatch }, page = 1) {
     try {
+      console.log(getters.filterBy)
       const response = await axios.get(
-        `${baseUrl}/staff/building-permit-application/`,
+        `${baseUrl}/staff/building-permit-application/?page=${page}&filter_by=${getters.filterBy}`,
         { withCredentials: true }
       );
-      commit("setBuildingApplications", response.data);
+      commit('setPageCount', response.data.total_pages)
+      commit("setBuildingApplications", response.data.results);
     } catch (err) {
       console.log(err.response);
     }

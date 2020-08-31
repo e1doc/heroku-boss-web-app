@@ -5,7 +5,7 @@
             Applications
         </div>
         <div class="admin-body">
-            <div class="admin-search"><transaction-table-menu /></div>
+            <div class="admin-search"><transaction-table-menu type='adminApplications'/></div>
             <div class="admin-content"><admin-application-table /></div>
         </div>
     </div>

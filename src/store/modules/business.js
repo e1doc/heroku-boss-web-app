@@ -26,6 +26,8 @@ const getDefaultBusinessState = () => {
     requirements: [],
     isUploading: false,
     draftBusiness: false,
+    pageCount: 0,
+    filterBy: 'all'
   };
 };
 
@@ -49,7 +51,9 @@ const getters = {
   applicationRequirements: (state) => state.applicationRequirements,
   isUploading: (state) => state.isUploading,
   requirements: (state) => state.requirements,
-  draftBusiness: (state) => state.draftBusiness
+  draftBusiness: (state) => state.draftBusiness,
+  pageCount: (state) => state.pageCount,
+  filterBy: (state) => state.filterBy
 };
 
 const mutations = {
@@ -81,7 +85,9 @@ const mutations = {
   setApplicationRequirements: (state, applicationRequirements) => (state.applicationRequirements = applicationRequirements),
   setIsUploading: (state, isUploading) => (state.isUploading = isUploading),
   setRequirements: (state, requirements) => (state.requirements = requirements),
-  setDraftBusiness: (state, draftBusiness) => (state.draftBusiness = draftBusiness)
+  setDraftBusiness: (state, draftBusiness) => (state.draftBusiness = draftBusiness),
+  setPageCount: (state, pageCount) => (state.pageCount = pageCount),
+  setFilterBy: (state, filterBy) => (state.filterBy = filterBy)
 };
 
 const actions = {
@@ -101,13 +107,16 @@ const actions = {
       commit('setLoading', false)
     }
   },
-  async getAllBusinessApplications({commit, dispatch, getters}){
+  async getAllBusinessApplications({commit, dispatch, getters},page = 1){
     try {
+      console.log(getters.filterBy)
       const response = await axios.get(
-        `${baseUrl}/staff/business-permit-application/`,
+        `${baseUrl}/staff/business-permit-application/?page=${page}&filter_by=${getters.filterBy}`,
         { withCredentials: true }
       );
-      commit("setApplications",response.data)
+      console.log(response.data)
+      commit('setPageCount', response.data.total_pages)
+      commit("setApplications",response.data.results)
     } catch (err) {
       console.log(err.response)
       commit('setLoading', false)

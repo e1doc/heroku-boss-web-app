@@ -122,7 +122,17 @@
           <div class="td">No data available</div>
         </div>
       </div>
+      <paginate
+        :page-count="pageCount"
+        :prev-text="'Prev'"
+        :next-text="'Next'"
+        :container-class="'pagination'"
+        :page-class="'page-item'"
+        :click-handler="businessClickCallback"
+      >
+      </paginate>
     </div>
+
     <div v-if="currentType === 'real_property'">
       <div class="tbody" v-if="buildingApplications.length > 0">
         <div
@@ -170,9 +180,16 @@
           <div class="td">No data available</div>
         </div>
       </div>
+      <paginate
+        :page-count="pageCount"
+        :prev-text="'Prev'"
+        :next-text="'Next'"
+        :container-class="'pagination'"
+        :page-class="'page-item'"
+        :click-handler="buildingClickCallBack"
+      >
+      </paginate>
     </div>
-    <paginate :page-count="20" :prev-text="'Prev'" :next-text="'Next'" :container-class="'pagination'" :page-class="'page-item'">
-    </paginate>
   </section>
 </template>
 
@@ -181,14 +198,24 @@ import { mapGetters } from "vuex";
 export default {
   name: "AdminApplicationTable",
   computed: {
-    ...mapGetters(["currentType", "applications", "buildingApplications"]),
+    ...mapGetters([
+      "currentType",
+      "applications",
+      "buildingApplications",
+      "pageCount",
+    ]),
   },
   mounted() {
     this.$store.dispatch("getAllBusinessApplications");
     this.$store.dispatch("getAllBuildingApplications");
-    console.log(this.applications);
   },
   methods: {
+    businessClickCallback(pageNum) {
+      this.$store.dispatch("getAllBusinessApplications", pageNum);
+    },
+    buildingClickCallBack(pageNum){
+      this.$store.dispatch("getAllBuildingApplications", pageNum);
+    },
     openBusinessApplication(data) {
       if (data.id) {
         let application = {
@@ -263,7 +290,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .thead {
   display: flex;
   flex-direction: row;
