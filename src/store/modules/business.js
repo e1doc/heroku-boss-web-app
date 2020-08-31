@@ -1,5 +1,6 @@
 import axios from "axios";
 const baseUrl = process.env.VUE_APP_API_URL;
+import router from "../../router/index.js"
 const getDefaultBusinessState = () => {
   return {
     currentBusinessStep: "1",
@@ -102,6 +103,7 @@ const actions = {
         title: 'Success!',
         message: `Application was successfully ${action}!`,
       });
+      router.push({name:'Applications'})
     } catch (err) {
       console.log(err)
       commit('setLoading', false)
