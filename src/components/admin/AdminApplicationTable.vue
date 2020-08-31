@@ -123,7 +123,7 @@
         </div>
       </div>
       <paginate
-        v-if="applications.length > 0"
+        v-if="applications.length > 9"
         :page-count="pageCount"
         :prev-text="'Prev'"
         :next-text="'Next'"
@@ -182,7 +182,7 @@
         </div>
       </div>
       <paginate
-        v-if="buildingApplications.length > 0"
+        v-if="buildingApplications.length > 9"
         :page-count="pageCount"
         :prev-text="'Prev'"
         :next-text="'Next'"
