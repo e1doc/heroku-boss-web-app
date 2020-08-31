@@ -22,7 +22,7 @@
               class="mb15"
               customclass="filter-select"
             />
-          <base-input-search />
+          <!-- <base-input-search /> -->
       </div>
     </div>
 </template>
