@@ -75,8 +75,6 @@ export default {
       government_id: {},
       required: [
         "business_registration_proof",
-        "franchise_agreement",
-        "occupancy_permit",
         "government_id",
       ],
     };

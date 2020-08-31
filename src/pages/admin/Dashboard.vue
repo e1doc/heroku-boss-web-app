@@ -11,7 +11,7 @@
                         <div class="item-icon flex-center">
                             <font-awesome-icon icon="users" class="icon"/>
                         </div>
-                        <div class="item-value">102</div>
+                        <div class="item-value">0</div>
                         <div class="item-label">Registered Users</div>
                     </div>
                 </div>
@@ -20,7 +20,7 @@
                         <div class="item-icon flex-center">
                             <font-awesome-icon icon="store" class="icon"/>
                         </div>
-                        <div class="item-value">50</div>
+                        <div class="item-value">{{dashboard.business}}</div>
                         <div class="item-label">Business Permit Applications</div>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                         <div class="item-icon flex-center">
                             <font-awesome-icon icon="city" class="icon"/>
                         </div>
-                        <div class="item-value">72</div>
+                        <div class="item-value">{{dashboard.building}}</div>
                         <div class="item-label">Building Permit Applications</div>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                         <div class="item-icon flex-center">
                             <font-awesome-icon icon="coins" class="icon"/>
                         </div>
-                        <div class="item-value">200</div>
+                        <div class="item-value">0</div>
                         <div class="item-label">Overall Transactions</div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                         <div class="item-icon flex-center">
                             <font-awesome-icon icon="comment-slash" class="icon"/>
                         </div>
-                        <div class="item-value">12</div>
+                        <div class="item-value">0</div>
                         <div class="item-label">Unresponded Inquiries</div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                         <div class="item-icon flex-center">
                             <font-awesome-icon icon="comments" class="icon"/>
                         </div>
-                        <div class="item-value">25</div>
+                        <div class="item-value">0</div>
                         <div class="item-label">Overall Inquiries</div>
                     </div>
                 </div>
@@ -72,10 +72,17 @@
 
 <script>
 import TransactionTable from "@/components/tables/TransactionTable";
+import { mapGetters } from "vuex"
 export default {
     name: "Dashboard",
     components: {
         TransactionTable,
+    },
+    computed:{
+        ...mapGetters(['dashboard'])
+    },
+    mounted(){
+        this.$store.dispatch('getDashboardData')
     }
 }
 </script>
