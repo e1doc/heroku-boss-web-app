@@ -111,7 +111,7 @@ const actions = {
     try {
       console.log(getters.filterBy)
       const response = await axios.get(
-        `${baseUrl}/staff/business-permit-application/?page=${page}&filter_by=${getters.filterBy}`,
+        `${baseUrl}/staff/business-permit-application-list/?page=${page}&filter_by=${getters.filterBy}`,
         { withCredentials: true }
       );
       console.log(response.data)

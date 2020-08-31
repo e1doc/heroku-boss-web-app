@@ -105,7 +105,7 @@ const actions = {
     try {
       console.log(getters.filterBy)
       const response = await axios.get(
-        `${baseUrl}/staff/building-permit-application/?page=${page}&filter_by=${getters.filterBy}`,
+        `${baseUrl}/staff/building-permit-application-list/?page=${page}&filter_by=${getters.filterBy}`,
         { withCredentials: true }
       );
       commit('setPageCount', response.data.total_pages)
