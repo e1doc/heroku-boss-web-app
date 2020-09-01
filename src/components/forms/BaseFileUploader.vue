@@ -166,6 +166,12 @@ div.meta-container .meta-custom-upload:hover div.meta-text {
   color: #039be5;
 }
 
+.meta-custom-upload.has-error,
+.meta-custom-upload.has-error .meta-text{
+    border-color: #e23a36;
+    color: #e23a36;
+}
+
 
 /*
 MOBILE RESPONSIVENESS 
