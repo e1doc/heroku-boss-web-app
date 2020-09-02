@@ -13,6 +13,8 @@ import ViewBuildingDetails from "../pages/ViewBuildingDetails.vue";
 import Main from "../Main.vue";
 import Payment from "../pages/Payment.vue";
 import ResetPassword from "../pages/ResetPassword.vue";
+import UserInquiries from "../pages/UserInquiries";
+import UserReplyInquiry from "../pages/UserReplyInquiry";
 import Admin from "../Admin.vue";
 import AdminLogin from "../pages/AdminLogin";
 import Applications from "../pages/admin/Applications";
@@ -103,6 +105,16 @@ const routes = [{
         path: "view-building-details",
         name: "ViewBuildingDetails",
         component: ViewBuildingDetails,
+      },
+      {
+        path: "user-inquiries",
+        name: "UserInquiries",
+        component: UserInquiries,
+      },
+      {
+        path: "user-reply-inquiry",
+        name: "UserReplyInquiry",
+        component: UserReplyInquiry,
       },
     ],
     async beforeEnter(to, from, next) {

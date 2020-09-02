@@ -25,7 +25,7 @@
       <div class="meta-right-box">
           <ul class="meta-nav flex-center hide-in-mobile">
               <li class="meta-menu meta-inquire">
-                <router-link to="#"><font-awesome-icon icon="comment-alt" class="mr10 icon" />Inquire</router-link>
+                <router-link to="user-inquiries"><font-awesome-icon icon="comment-alt" class="mr10 icon" />Inquire</router-link>
               </li>
               <li class="meta-menu meta-user-settings">
                 <router-link to="#"><font-awesome-icon icon="user" class="mr10 user-icon" /></router-link>
@@ -111,7 +111,7 @@
                         FAQ's
                     </router-link></li>
                 <li class="meta-menu meta-inquire" @click="slidemenu = false; menuActive = 'inquire'" :class="{active:menuActive == 'inquire'}">
-                    <router-link to="#">
+                    <router-link to="user-inquiries">
                         <font-awesome-icon icon="comment-alt" class="mr10 icon" />
                         Inquire
                     </router-link>
