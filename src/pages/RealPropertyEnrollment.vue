@@ -12,6 +12,13 @@
               <h3>Account Information</h3>
             </div>
             <div>
+              <base-select
+                placeholder="------ Choose type of property ------"
+                :options="propertytype"
+                v-model="property_type"
+                name="selectProperty"
+                class="mb15"
+              />
               <base-input-icon-end
                 label="Tax Declaration Number"
                 placeholder="Enter tax declaration number"
@@ -55,20 +62,36 @@ import BaseInputIconEnd from "@/components/forms/BaseInputIconEnd";
 import ButtonBlock from "@/components/ButtonBlock";
 import BaseDatePicker from "@/components/forms/BaseDatePicker"
 import EnrollmentSuccess from "@/components/enrollment/EnrollmentSuccess";
+import BaseSelect from "@/components/forms/BaseSelect";
 export default {
   name: "RealPropertyEnrollment",
   components: {
     BaseInputIconEnd,
     ButtonBlock,
     BaseDatePicker,
-    EnrollmentSuccess
+    EnrollmentSuccess,
+    BaseSelect
   },
   data(){
     return{
       td_no: "",
       official_receipt: "",
       date: "",
-      isSuccess: false
+      isSuccess: false,
+      propertytype: [
+        {
+          label: "Land",
+          value: "Land",
+        },
+        {
+          label: "Building",
+          value: "Building",
+        },
+        {
+          label: "Machinery",
+          value: "Machinery",
+        },
+      ],
     }
   },
   methods:{
