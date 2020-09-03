@@ -92,6 +92,10 @@ const mutations = {
 };
 
 const actions = {
+  async businessEnrollment({commit, dispatch}, payload){
+    const response  = await axios.post(`http://122.55.20.85:8012/lguapi/api/business-permit-application/`, payload)
+    console.log(response.data)
+  },
   async approveBusinessApplication({commit, dispatch, getters}, payload){
     try {
       const response = await axios.put(`${baseUrl}/staff/business-permit-application/`,

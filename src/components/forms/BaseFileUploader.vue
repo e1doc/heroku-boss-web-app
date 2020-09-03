@@ -2,7 +2,7 @@
   <div class="meta-upload-box flex-wrap">
     <div class="meta-label">{{ label }}</div>
     <div class="meta-desc" v-html="description">{{ description }}</div>
-    <div class="meta-custom-upload">
+    <div class="meta-custom-upload" :class="{'has-error': hasError}">
       <form enctype="multipart/form-data" novalidate>
         <input
           type="file"
@@ -31,6 +31,11 @@ import { mapGetters } from "vuex";
 export default {
   name: "BaseFileUploader",
   props: {
+    hasError: {
+      type: Boolean,
+      default: false,
+      required: false
+    },
     label: {
       type: String,
       default: "",
@@ -169,7 +174,7 @@ div.meta-container .meta-custom-upload:hover div.meta-text {
 .meta-custom-upload.has-error,
 .meta-custom-upload.has-error .meta-text{
     border-color: #e23a36;
-    color: #e23a36;
+    color: #e23a36!important;
 }
 
 

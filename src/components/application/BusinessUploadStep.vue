@@ -11,6 +11,7 @@
       name="businessregproof"
       type="business"
       fileLabel="business_registration_proof"
+      :hasError="uploadErrors.business_registration_proof"
       :properties="getProperty('business_registration_proof')"
     />
     <base-file-uploader
@@ -41,6 +42,7 @@
       :properties="getProperty('government_id')"
       fileLabel="government_id"
       type="business"
+      :hasError="uploadErrors.government_id"
     />
     <div class="meta-form-group button-left-right">
       <button-block
@@ -73,10 +75,8 @@ export default {
       occupancy_permit: {},
       contract_of_lease: {},
       government_id: {},
-      required: [
-        "business_registration_proof",
-        "government_id",
-      ],
+      required: ["business_registration_proof", "government_id"],
+      uploadErrors: {},
     };
   },
   computed: {
@@ -97,13 +97,18 @@ export default {
               }
             });
           }
+          this.required.forEach((element) => {
+            if (!validated.includes(element)) {
+              this.uploadErrors[`${element}`] = true;
+            }
+          });
           if (validated.length === this.required.length) {
             return true;
           } else {
             return false;
           }
-        }else{
-          return false
+        } else {
+          return false;
         }
       }
     },

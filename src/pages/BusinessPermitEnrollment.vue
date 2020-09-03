@@ -5,7 +5,11 @@
         <div>
           <h2>Business Permit Enrollment</h2>
         </div>
-        <enrollment-success v-if="isSuccess" type="business_permit" account_no="14321" />
+        <enrollment-success
+          v-if="isSuccess"
+          type="business_permit"
+          account_no="14321"
+        />
         <div v-if="!isSuccess" class="sc-rounded-div">
           <div class="form-group">
             <div class="title">
@@ -36,7 +40,7 @@
               />
             </div>
             <div>
-               <base-date-picker v-model="date"/>
+              <base-date-picker v-model="date" />
             </div>
             <div>
               <button-block @click.native="verify()">
@@ -54,118 +58,123 @@
 import BaseInputIconEnd from "@/components/forms/BaseInputIconEnd";
 import ButtonBlock from "@/components/ButtonBlock";
 import EnrollmentSuccess from "@/components/enrollment/EnrollmentSuccess";
-import BaseDatePicker from "@/components/forms/BaseDatePicker"
+import BaseDatePicker from "@/components/forms/BaseDatePicker";
 export default {
   name: "BusinessPermitEnrollment",
   components: {
     BaseInputIconEnd,
     ButtonBlock,
     EnrollmentSuccess,
-    BaseDatePicker
+    BaseDatePicker,
   },
-  data(){
-    return{
+  data() {
+    return {
       account_no: "",
       official_receipt: "",
       date: "",
-      isSuccess: false
-    }
+      isSuccess: false,
+    };
   },
-  methods:{
-    verify(){
-      this.isSuccess = true
-    }
-  }
+  methods: {
+    async verify() {
+      let payload = {
+        name: "BusinessPermitEnrollment",
+        param: {
+          accountno: this.account_no,
+          ordate: this.date,
+          ornumber: this.official_receipt,
+        },
+      };
+      console.log(payload)
+      await this.$store.dispatch("businessEnrollment", payload);
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .sc-bs-enrollment {
-    display: flex;
-    flex-wrap: wrap;
-    text-align: center;
-    padding: 70px 30px 50px;
-    min-height: calc( 100vh - 285px );
-    .sc-rounded-div {
-        background: #eaf6ff !important;
-        max-width: 53%; 
-        width: 100%;
-        min-height: 500px;
-        margin: 50px auto 0;
-        box-shadow: 0px 10px 20px #0000000D;
-        .form-group {
-            text-align: center;
-            padding: 80px 80px 50px;
-            .title {
-                margin-bottom: 50px;
-                text-align: left;
-            }
-            div {
-              margin-bottom: 30px;
-            }
-        }
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  padding: 70px 30px 50px;
+  min-height: calc(100vh - 285px);
+  .sc-rounded-div {
+    background: #eaf6ff !important;
+    max-width: 53%;
+    width: 100%;
+    min-height: 500px;
+    margin: 50px auto 0;
+    box-shadow: 0px 10px 20px #0000000d;
+    .form-group {
+      text-align: center;
+      padding: 80px 80px 50px;
+      .title {
+        margin-bottom: 50px;
+        text-align: left;
+      }
+      div {
+        margin-bottom: 30px;
+      }
     }
+  }
 }
-
-
-
 
 /*
 MOBILE RESPONSIVENESS 
 --------------------------------------------------------------*/
-@media only screen and (max-width: 1400px){
+@media only screen and (max-width: 1400px) {
   .sc-bs-enrollment {
-      .sc-rounded-div {
-          max-width: 570px;
-          min-height: auto;
-          margin-top: 30px;
-          .form-group {
-              padding: 60px 60px 30px;
-              .title{
-                  margin-bottom: 30px;
-              }
-              div{
-                  margin-bottom: 20px;
-              }
-          }
+    .sc-rounded-div {
+      max-width: 570px;
+      min-height: auto;
+      margin-top: 30px;
+      .form-group {
+        padding: 60px 60px 30px;
+        .title {
+          margin-bottom: 30px;
+        }
+        div {
+          margin-bottom: 20px;
+        }
       }
+    }
   }
 }
 
-@media only screen and (max-width: 768px){
+@media only screen and (max-width: 768px) {
   h2 {
-      font-size: 20px;
+    font-size: 20px;
   }
 
-  .sc-bs-enrollment .sc-rounded-div .form-group{
-      padding: 50px 30px 30px;
+  .sc-bs-enrollment .sc-rounded-div .form-group {
+    padding: 50px 30px 30px;
   }
 
   h3 {
-      font-size: 17px;
+    font-size: 17px;
   }
 }
 
-@media only screen and (max-width: 580px){
+@media only screen and (max-width: 580px) {
   h2 {
-      font-size: 20px;
+    font-size: 20px;
   }
 }
 
-@media only screen and ( max-width: 480px ){
-  .sc-bs-enrollment{
-      padding: 70px 0 30px;
+@media only screen and (max-width: 480px) {
+  .sc-bs-enrollment {
+    padding: 70px 0 30px;
   }
-
 }
 
-@media only screen and ( max-width: 480px ){
-  .sc-bs-enrollment .sc-rounded-div .form-group{
-      padding: 30px 15px 10px;
+@media only screen and (max-width: 480px) {
+  .sc-bs-enrollment .sc-rounded-div .form-group {
+    padding: 30px 15px 10px;
   }
 
-  h3{
-      font-size: 15px;
+  h3 {
+    font-size: 15px;
   }
 }
 </style>

@@ -44,6 +44,7 @@
         fileLabel="tct"
         :properties="getProperty('tct')"
         type="property"
+        :hasError="uploadErrors.tct"
       />
       <base-file-uploader
         label="2. Tax Declaration of Lot"
@@ -51,6 +52,7 @@
         fileLabel="tax_declaration"
         :properties="getProperty('tax_declaration')"
         type="property"
+        :hasError="uploadErrors.tax_declaration"
       />
       <base-file-uploader
         label="3. Tax Clearance of Real Property for Lot (updated)"
@@ -58,6 +60,7 @@
         fileLabel="tax_clearance"
         :properties="getProperty('tax_clearance')"
         type="property"
+        :hasError="uploadErrors.tax_clearance"
       />
       <base-file-uploader
         label="4. Barangay Clearance (for construction - original copy)"
@@ -65,6 +68,7 @@
         fileLabel="barangay_clearance"
         :properties="getProperty('barangay_clearance')"
         type="property"
+        :hasError="uploadErrors.barangay_clearance"
       />
       <base-file-uploader
         label="5. Homeowner's Clearance (for construction - original copy)"
@@ -72,6 +76,7 @@
         fileLabel="home_owner_clearance"
         :properties="getProperty('home_owner_clearance')"
         type="property"
+        :hasError="uploadErrors.home_owner_clearance"
       />
       <base-file-uploader
         label="6. Affidavit of Undertaking"
@@ -80,6 +85,7 @@
         fileLabel="undertaking_affidavit"
         :properties="getProperty('undertaking_affidavit')"
         type="property"
+        :hasError="uploadErrors.undertaking_affidavit"
       />
     </div>
     <div class="meta-form-group mb60">
@@ -90,6 +96,7 @@
         fileLabel="unified_application_form"
         :properties="getProperty('unified_application_form')"
         type="property"
+        :hasError="uploadErrors.unified_application_form"
       />
       <base-file-uploader
         label="2a. Ancillary Forms - Architectural Permit"
@@ -97,6 +104,7 @@
         fileLabel="architectural_permit"
         :properties="getProperty('architectural_permit')"
         type="property"
+        :hasError="uploadErrors.architectural_permit"
       />
       <base-file-uploader
         label="2b. Ancillary Forms - Civil/Structural Permit"
@@ -104,6 +112,7 @@
         fileLabel="civil_structural_permit"
         :properties="getProperty('civil_structural_permit')"
         type="property"
+        :hasError="uploadErrors.civil_structural_permit"
       />
       <base-file-uploader
         label="2c. Ancillary Forms - Sanitary/Plumbing Permit"
@@ -111,6 +120,7 @@
         fileLabel="sanitary_plumbing_permit"
         :properties="getProperty('sanitary_plumbing_permit')"
         type="property"
+        :hasError="uploadErrors.sanitary_plumbing_permit"
       />
       <base-file-uploader
         label="2d. Ancillary Forms - Electrical Permit"
@@ -134,6 +144,7 @@
         fileLabel="mechanical_permit"
         :properties="getProperty('mechanical_permit')"
         type="property"
+        :hasError="uploadErrors.mechanical_permit"
       />
       <base-file-uploader
         label="2f. Ancillary Forms - Sign Permit"
@@ -141,6 +152,7 @@
         fileLabel="sign_permit"
         :properties="getProperty('sign_permit')"
         type="property"
+        :hasError="uploadErrors.sign_permit"
       />
       <base-file-uploader
         label="2g. Ancillary Forms - Electronic Permit"
@@ -148,6 +160,7 @@
         fileLabel="electronic_permit"
         :properties="getProperty('electronic_permit')"
         type="property"
+        :hasError="uploadErrors.electronic_permit"
       />
       <base-file-uploader
         label="3. Locational Clearance Application Form"
@@ -155,6 +168,7 @@
         fileLabel="location_clearance"
         :properties="getProperty('location_clearance')"
         type="property"
+        :hasError="uploadErrors.location_clearance"
       />
       <base-file-uploader
         label="4. Contractor's Temporary Business Permit Application Form"
@@ -162,6 +176,7 @@
         fileLabel="contractor_business_permit"
         :properties="getProperty('contractor_business_permit')"
         type="property"
+        :hasError="uploadErrors.contractor_business_permit"
       />
       <base-file-uploader
         label="5. Relocation Survey Report and Lot Plan with Vicinity Map"
@@ -170,6 +185,7 @@
         fileLabel="relocation_survey"
         :properties="getProperty('relocation_survey')"
         type="property"
+        :hasError="uploadErrors.relocation_survey"
       />
       <base-file-uploader
         label="6. Photocopy of updated valid PRC ID's and PTR of Engrs/Arch"
@@ -178,6 +194,7 @@
         fileLabel="prc_id"
         :properties="getProperty('prc_id')"
         type="property"
+        :hasError="uploadErrors.prc_id"
       />
       <base-file-uploader
         label="7. Project Specification"
@@ -186,6 +203,7 @@
         fileLabel="project_specification"
         :properties="getProperty('project_specification')"
         type="property"
+        :hasError="uploadErrors.project_specification"
       />
       <base-file-uploader
         label="8. Notarized Bill of Materials"
@@ -194,6 +212,7 @@
         fileLabel="bill_of_materials"
         :properties="getProperty('bill_of_materials')"
         type="property"
+        :hasError="uploadErrors.bill_of_materials"
       />
       <base-file-uploader
         label="9. Structural Design Analysis and Computation"
@@ -231,6 +250,7 @@
         fileLabel="building_plans"
         :properties="getProperty('building_plans')"
         type="property"
+        :hasError="uploadErrors.building_plans"
       />
       <base-file-uploader
         label="13. Construction Safety and Health Program (DOLE)"
@@ -250,6 +270,7 @@
         fileLabel="sketch_pin"
         :properties="getProperty('sketch_pin')"
         type="property"
+        :hasError="uploadErrors.sketch_pin"
       />
       <base-file-uploader
         label="2. Picture of site/location (colored copy)"
@@ -257,6 +278,7 @@
         fileLabel="picture_of_site"
         :properties="getProperty('picture_of_site')"
         type="property"
+        :hasError="uploadErrors.picture_of_site"
       />
     </div>
     <div class="meta-form-group button-left-right">
@@ -312,6 +334,7 @@ export default {
         "sketch_pin",
         "picture_of_site",
       ],
+      uploadErrors: {}
     };
   },
   computed: {
@@ -323,7 +346,7 @@ export default {
   },
   methods: {
     validateRequiredFields() {
-      console.log(this.buildingRequirements.buildingrequirements);
+      this.uploadErrors = {}
       let validated = [];
       if (this.buildingRequirements) {
         if (this.buildingRequirements.buildingrequirements) {
@@ -334,6 +357,11 @@ export default {
               }
             });
           }
+            this.required.forEach(element=>{
+              if(!validated.includes(element)){
+                this.uploadErrors[`${element}`] = true
+              }
+            })
           if (validated.length === this.required.length) {
             return true;
           } else {
