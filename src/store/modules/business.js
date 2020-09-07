@@ -1,5 +1,6 @@
 import axios from "axios";
 const baseUrl = process.env.VUE_APP_API_URL;
+const oneDocToken = process.env.VUE_APP_ONE_DOC_TOKEN;
 import router from "../../router/index.js"
 const getDefaultBusinessState = () => {
   return {
@@ -28,7 +29,8 @@ const getDefaultBusinessState = () => {
     isUploading: false,
     draftBusiness: false,
     pageCount: 0,
-    filterBy: 'all'
+    filterBy: 'all',
+    isBusinessEnrollmentSuccess: false,
   };
 };
 
@@ -54,7 +56,8 @@ const getters = {
   requirements: (state) => state.requirements,
   draftBusiness: (state) => state.draftBusiness,
   pageCount: (state) => state.pageCount,
-  filterBy: (state) => state.filterBy
+  filterBy: (state) => state.filterBy,
+  isBusinessEnrollmentSuccess: (state) => state.isBusinessEnrollmentSuccess,
 };
 
 const mutations = {
@@ -88,13 +91,23 @@ const mutations = {
   setRequirements: (state, requirements) => (state.requirements = requirements),
   setDraftBusiness: (state, draftBusiness) => (state.draftBusiness = draftBusiness),
   setPageCount: (state, pageCount) => (state.pageCount = pageCount),
-  setFilterBy: (state, filterBy) => (state.filterBy = filterBy)
+  setFilterBy: (state, filterBy) => (state.filterBy = filterBy),
+  setIsBusinessEnrollmentSuccess: (state, isBusinessEnrollmentSuccess) => (state.isBusinessEnrollmentSuccess = isBusinessEnrollmentSuccess)
 };
 
 const actions = {
   async businessEnrollment({commit, dispatch}, payload){
-    const response  = await axios.post(`http://122.55.20.85:8012/lguapi/api/business-permit-application/`, payload)
-    console.log(response.data)
+    let config = {
+      headers: {
+        'OneDoc-Token': oneDocToken,
+        'Content-Type': 'application/json'
+      },
+    };
+    console.log(oneDocToken, baseUrl)
+    const response  = await axios.post(`http://122.55.20.85:8012/lguapi/`, payload, config)
+    if (response.data.Response.Result.businessid){
+      commit('setIsBusinessEnrollmentSuccess', true)
+    }
   },
   async approveBusinessApplication({commit, dispatch, getters}, payload){
     try {

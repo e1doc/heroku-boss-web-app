@@ -75,7 +75,12 @@ export default {
     verify(){
       let payload = {
         name: "RealPropertyTaxEnrollment",
-        
+        param: {
+          property_type: "",
+          tdno: this.td_no,
+          or_date: this.date,
+          ornumber: this.official_receipt
+        }
       }
       this.isSuccess = true
     }

@@ -1,6 +1,7 @@
 import axios from "axios";
 const baseUrl = process.env.VUE_APP_API_URL;
-import router from "../../router/index.js"
+const oneDocToken = process.env.VUE_APP_ONE_DOC_TOKEN;
+import router from "../../router/index.js";
 const getDefaultPropertyState = () => {
   return {
     currentPropertyStep: "1",
@@ -86,31 +87,46 @@ const mutations = {
 };
 
 const actions = {
-  async approveBuildingApplication({commit, dispatch, getters}, payload){
-    try {
-      const response = await axios.put(`${baseUrl}/staff/building-permit-application/`,
+  async propertyEnrollment({ commit, dispatch }, payload) {
+    let config = {
+      headers: {
+        'OneDoc-Token': oneDocToken
+      },
+    };
+    const response = await axios.post(
+      `http://122.55.20.85:8012/lguapi/`,
       payload,
-      { withCredentials: true })
-      let action = payload.is_approve ? 'approved' : 'disapproved'
+      config
+    );
+    console.log(response.data);
+  },
+  async approveBuildingApplication({ commit, dispatch, getters }, payload) {
+    try {
+      const response = await axios.put(
+        `${baseUrl}/staff/building-permit-application/`,
+        payload,
+        { withCredentials: true }
+      );
+      let action = payload.is_approve ? "approved" : "disapproved";
       dispatch("createPrompt", {
         type: "success",
-        title: 'Success!',
+        title: "Success!",
         message: `Application was successfully ${action}!`,
       });
-      router.push({name:'Applications'})
+      router.push({ name: "Applications" });
     } catch (err) {
-      console.log(err)
-      commit('setLoading', false)
+      console.log(err);
+      commit("setLoading", false);
     }
   },
   async getAllBuildingApplications({ commit, getters, dispatch }, page = 1) {
     try {
-      console.log(getters.filterBy)
+      console.log(getters.filterBy);
       const response = await axios.get(
         `${baseUrl}/staff/building-permit-application-list/?page=${page}&filter_by=${getters.filterBy}`,
         { withCredentials: true }
       );
-      commit('setPageCount', response.data.total_pages)
+      commit("setPageCount", response.data.total_pages);
       commit("setBuildingApplications", response.data.results);
     } catch (err) {
       console.log(err.response);
