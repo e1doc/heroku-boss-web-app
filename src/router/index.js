@@ -15,6 +15,7 @@ import Payment from "../pages/Payment.vue";
 import ResetPassword from "../pages/ResetPassword.vue";
 import UserInquiries from "../pages/UserInquiries";
 import UserReplyInquiry from "../pages/UserReplyInquiry";
+import NewInquiry from "../pages/NewInquiry";
 import Admin from "../Admin.vue";
 import AdminLogin from "../pages/AdminLogin";
 import Applications from "../pages/admin/Applications";
@@ -115,6 +116,11 @@ const routes = [{
         path: "user-reply-inquiry",
         name: "UserReplyInquiry",
         component: UserReplyInquiry,
+      },
+      {
+        path: "new-inquiry",
+        name: "NewInquiry",
+        component: NewInquiry,
       },
     ],
     async beforeEnter(to, from, next) {
