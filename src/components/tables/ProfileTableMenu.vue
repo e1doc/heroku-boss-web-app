@@ -20,7 +20,7 @@
         <div class="menu-type">
           <div :class="{ active: currentType === 'real_property' }" @click="changeType('real_property')">
             <font-awesome-icon icon="city" class="mr5 icon" />
-            REAL PROPERTY
+            BUILDING
           </div>
         </div>
       </div>

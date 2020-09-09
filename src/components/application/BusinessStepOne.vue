@@ -2,6 +2,30 @@
   <div class="meta-container">
     <h1 class="meta-form-title">Basic Information</h1>
     <div class="meta-form-group mb60">
+      
+      <div class="meta-input-label mt10 mb10">Type of Organization</div>
+      <base-select
+        placeholder="--- Choose type of organization ---"
+        :options="types_of_organization"
+        name="selectOptions"
+        v-model="basic_information.type_of_organization"
+        :validationMessages="
+          stepOneErrors.basic_information.type_of_organization
+        "
+        class="mb15"
+      />
+      <div class="meta-input-label mt10 mb10">
+        Mode of Payment
+      </div>
+      <base-select
+        placeholder="--- Select from the options ---"
+        :options="modeofpayment"
+        v-model="basic_information.mode_of_payment"
+        :validationMessages="stepOneErrors.basic_information.has_tax_incentive"
+        name="selectOptions"
+        class="mb15"
+      />
+
       <div class="meta-group-title">Taxpayer / Owner Details</div>
       <base-input
         label="First Name"
@@ -42,7 +66,7 @@
         class="mt40"
       />
       <base-input
-        label="Telephone Number"
+        label="Telephone/Phone Number"
         v-model="basic_information.owner_telephone_number"
         :validationMessages="
           stepOneErrors.basic_information.owner_telephone_number
@@ -52,13 +76,13 @@
         type="tel"
         class="mt40"
       />
-      <base-tel-number
+      <!-- <base-tel-number
         v-model="basic_information.owner_mobile_number"
         :validationMessages="
           stepOneErrors.basic_information.owner_mobile_number
         "
         class="mb15 input-tel"
-      />
+      /> -->
       <base-input
         label="Email Address"
         v-model="basic_information.owner_email_address"
@@ -71,7 +95,7 @@
         class="mt40"
       />
 
-      <base-input
+      <!-- <base-input
         label="Account Number"
         v-model="business_application.account_number"
         :validationMessages="stepOneErrors.application.account_number"
@@ -79,7 +103,7 @@
         refs="account_number"
         type="text"
         class="mt40 input-w3"
-      />
+      /> -->
       <base-input
         label="DTI/SEC/CDA Registration No."
         v-model="basic_information.dti_sec_cda_reg_number"
@@ -98,17 +122,6 @@
         v-model="basic_information.dti_sec_cda_reg_date"
         :validationMessages="
           stepOneErrors.basic_information.dti_sec_cda_reg_date
-        "
-        class="mb15"
-      />
-      <div class="meta-input-label mt10 mb10">Type of Organization</div>
-      <base-select
-        placeholder="--- Choose type of organization ---"
-        :options="types_of_organization"
-        name="selectOptions"
-        v-model="basic_information.type_of_organization"
-        :validationMessages="
-          stepOneErrors.basic_information.type_of_organization
         "
         class="mb15"
       />
@@ -189,6 +202,7 @@ export default {
         type_of_organization: "",
         ctc_no: "",
         tin: "",
+        modeofpayment: "",
         has_tax_incentive: "",
         government_entity: "",
         owner_first_name: "",
@@ -215,6 +229,16 @@ export default {
         {
           label: "Cooperative",
           value: "cooperative",
+        },
+      ],
+      modeofpayment: [
+        {
+          label: "Over the Counter",
+          value: "Over the Counter",
+        },
+        {
+          label: "Pay Online",
+          value: "Pay Online",
         },
       ],
       taxincentive: [

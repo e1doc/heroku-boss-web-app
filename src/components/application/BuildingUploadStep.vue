@@ -6,7 +6,7 @@
       or pdf file.
     </div>
     <div class="meta-form-group mb60">
-      <div class="meta-group-title">A. Legal Documents</div>
+      <div class="meta-group-title">A. Legal Documents - Only one PDF File for all legal documents.</div>
       <base-file-uploader
         label="1. Electronic copy of Transfer Certicicate of Title (TCT) (original copy)"
         description="
@@ -90,16 +90,16 @@
     </div>
     <div class="meta-form-group mb60">
       <div class="meta-group-title">B. Technical Documents</div>
-      <base-file-uploader
+      <!-- <base-file-uploader
         label="1. Unified Application form for Building Permit and FSEC"
         name="unifiedapplicationform"
         fileLabel="unified_application_form"
         :properties="getProperty('unified_application_form')"
         type="property"
         :hasError="uploadErrors.unified_application_form"
-      />
+      /> -->
       <base-file-uploader
-        label="2a. Ancillary Forms - Architectural Permit"
+        label="1a. Ancillary Forms - Architectural Permit"
         name="ancillaryarchitectural"
         fileLabel="architectural_permit"
         :properties="getProperty('architectural_permit')"
@@ -107,7 +107,7 @@
         :hasError="uploadErrors.architectural_permit"
       />
       <base-file-uploader
-        label="2b. Ancillary Forms - Civil/Structural Permit"
+        label="1b. Ancillary Forms - Civil/Structural Permit"
         name="ancillarycivil"
         fileLabel="civil_structural_permit"
         :properties="getProperty('civil_structural_permit')"
@@ -115,14 +115,14 @@
         :hasError="uploadErrors.civil_structural_permit"
       />
       <base-file-uploader
-        label="2c. Ancillary Forms - Sanitary/Plumbing Permit"
+        label="1c. Ancillary Forms - Sanitary/Plumbing Permit"
         name="ancillarysanitary"
         fileLabel="sanitary_plumbing_permit"
         :properties="getProperty('sanitary_plumbing_permit')"
         type="property"
         :hasError="uploadErrors.sanitary_plumbing_permit"
       />
-      <base-file-uploader
+      <!-- <base-file-uploader
         label="2d. Ancillary Forms - Electrical Permit"
         description="
                     <ul class='main-list'>
@@ -137,9 +137,9 @@
         fileLabel="electrical_permit"
         :properties="getProperty('electrical_permit')"
         type="property"
-      />
+      /> -->
       <base-file-uploader
-        label="2e. Ancillary Forms - Mechanical Permit"
+        label="1d. Ancillary Forms - Mechanical Permit"
         name="ancillarymechanical"
         fileLabel="mechanical_permit"
         :properties="getProperty('mechanical_permit')"
@@ -147,7 +147,7 @@
         :hasError="uploadErrors.mechanical_permit"
       />
       <base-file-uploader
-        label="2f. Ancillary Forms - Sign Permit"
+        label="1e. Ancillary Forms - Sign Permit"
         name="ancillarysign"
         fileLabel="sign_permit"
         :properties="getProperty('sign_permit')"
@@ -155,7 +155,7 @@
         :hasError="uploadErrors.sign_permit"
       />
       <base-file-uploader
-        label="2g. Ancillary Forms - Electronic Permit"
+        label="1f. Ancillary Forms - Electronic Permit"
         name="ancillaryelectronic"
         fileLabel="electronic_permit"
         :properties="getProperty('electronic_permit')"
