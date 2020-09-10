@@ -2,6 +2,17 @@
   <div class="meta-container">
     <h1 class="meta-form-title">Basic Information</h1>
     <div class="meta-form-group mb60">
+      <div class="meta-input-label mt10 mb10">Ownership Type</div>
+      <base-select
+        placeholder="--- Choose type of ownership ---"
+        :options="ownership_type"
+        name="selectOptions"
+        v-model="basic_information.ownership_type"
+        :validationMessages="
+          buildingStepOneErrors.basic_information.ownership_type
+        "
+        class="mb15"
+      />
       <div class="meta-group-title">Owner / Applicant Details</div>
       <base-input
         label="First Name"
@@ -91,6 +102,7 @@
 import BaseInput from "@/components/forms/BaseInput";
 import BaseCheckbox from "@/components/forms/BaseCheckbox";
 import ButtonBlock from "@/components/ButtonBlock";
+import BaseSelect from "@/components/forms/BaseSelect";
 import { mapGetters } from "vuex";
 export default {
   name: "BuildingStepOne",
@@ -98,6 +110,7 @@ export default {
     BaseInput,
     BaseCheckbox,
     ButtonBlock,
+    BaseSelect
   },
   computed: {
     ...mapGetters([
@@ -117,6 +130,7 @@ export default {
         area_no: "",
       },
       basic_information: {
+        ownership_type: "",
         owner_first_name: "",
         owner_middle_name: "",
         owner_last_name: "",
@@ -128,6 +142,32 @@ export default {
       unrequired: {
         basic_information: ["owner_middle_name"],
       },
+      ownership_type: [
+        {
+          label: "Single",
+          value: "single",
+        },
+        {
+          label: "Cooperative",
+          value: "cooperative",
+        },
+        {
+          label: "Corporation",
+          value: "corporation",
+        },
+        {
+          label: "Partnership",
+          value: "partnership",
+        },
+        {
+          label: "Local Government",
+          value: "local Government",
+        },
+        {
+          label: "National Government",
+          value: "national Government",
+        },
+      ],
     };
   },
   watch: {
@@ -251,6 +291,12 @@ div.meta-container {
   border-radius: 20px;
   h1.meta-form-title {
     margin-bottom: 40px;
+  }
+  div.meta-input-label {
+    color: #2699fb;
+    font-size: 13px;
+    line-height: 19px;
+    width: 100%;
   }
   div.meta-form-group {
     width: 100%;

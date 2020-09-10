@@ -73,13 +73,13 @@
 
       <div class="meta-input-group flex-row w2">
         <base-input
-          label="Telephone No."
+          label="Telephone/Phone No."
           v-model="business_details.telephone_number"
           :validationMessages="stepTwoErrors.business_details.telephone_number"
           name="businesstelephone"
           refs="business_telephone"
           type="tel"
-          class="mt40 input-w2"
+          class="mt40"
         />
         <!-- <base-input
                     label="Mobile No."
@@ -89,12 +89,12 @@
                     type="number"
                     class="mt40 input-w2"
                 /> -->
-        <base-tel-number
+        <!-- <base-tel-number
           v-model="business_details.mobile_number"
           :validationMessages="stepTwoErrors.business_details.mobile_number"
           class="mb15 input-phone input-w2"
           placeholder="Mobile No."
-        />
+        /> -->
       </div>
 
       <base-input
@@ -129,7 +129,7 @@
       />
 
       <base-input
-        label="Total No. of Employeess"
+        label="Total No. of Employees(including owner)"
         v-model="business_details.total_employees"
         :validationMessages="stepTwoErrors.business_details.total_employees"
         name="total_employees"
@@ -239,7 +239,7 @@
           :key="index"
         >
           <div class="meta-input-group flex-row w3">
-            <base-input
+            <!-- <base-input
               label="Code"
               v-model="activity.code"
               :name="`businesscode${index}`"
@@ -247,14 +247,14 @@
               type="text"
               class="mt40 input-w3"
               inputClass="fw-mobile"
-            />
+            /> -->
             <base-input
               label="Line of Business"
               v-model="activity.line_of_business"
               :name="`lineofbusiness${index}`"
               :refs="`line_of_business${index}`"
               type="text"
-              class="mt40 input-w3"
+              class="mt40 input-w2"
               inputClass="fw-mobile"
             />
             <base-input
@@ -263,7 +263,7 @@
               :name="`businessunits${index}`"
               :refs="`business_units${index}`"
               type="number"
-              class="mt40 input-w3"
+              class="mt40 input-w2"
               inputClass="fw-mobile"
             />
           </div>
@@ -279,7 +279,7 @@
           <div class="meta-group-title">
             Gross Sales / Receipts (For Renewal)
           </div>
-          <div class="meta-input-group flex-row w2">
+          <!-- <div class="meta-input-group flex-row w2">
             <base-input
               label="Essential"
               v-model="activity.essential"
@@ -296,7 +296,15 @@
               type="text"
               class="mt40 input-w2"
             />
-          </div>
+          </div> -->
+           <base-input
+              label="Essential/Non-essential"
+              v-model="activity.essential"
+              :name="`essential${index}`"
+              :refs="`renew_essential${index}`"
+              type="text"
+              class="mt40"
+            />
         </div>
       </div>
     </div>

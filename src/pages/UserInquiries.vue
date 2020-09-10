@@ -5,7 +5,7 @@
       Inquiries
     </div>
     <div class="admin-body flex-wrap">
-      <inquiry-table-menu type="profile" />
+      <user-inquiry-table-menu type="profile" />
       <div class="admin-content">
         <user-inquiry-table />
       </div>
@@ -14,13 +14,13 @@
 </template>
 
 <script>
-import InquiryTableMenu from "@/components/tables/InquiryTableMenu";
+import UserInquiryTableMenu from "@/components/tables/UserInquiryTableMenu";
 import UserInquiryTable from "@/components/tables/UserInquiryTable";
 import { mapGetters } from "vuex";
 export default {
   name: "Inquiries",
   components: {
-    InquiryTableMenu,
+    UserInquiryTableMenu,
     UserInquiryTable,
   },
   beforeRouteLeave(to, from, next) {

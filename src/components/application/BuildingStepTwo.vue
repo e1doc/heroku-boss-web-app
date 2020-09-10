@@ -2,7 +2,7 @@
   <div class="meta-container">
     <h1 class="meta-form-title">Building Details</h1>
 
-    <div class="meta-form-group mb60">
+    <!-- <div class="meta-form-group mb60">
       <div class="meta-group-title">
         Area No.
       </div>
@@ -17,9 +17,9 @@
         type="text"
         class="mt40"
       />
-    </div>
+    </div> -->
 
-    <div class="meta-form-group mb60">
+    <!-- <div class="meta-form-group mb60">
       <div class="meta-group-title">
         For Construction Owned by an Enterprise
       </div>
@@ -34,7 +34,7 @@
         type="text"
         class="mt40"
       />
-    </div>
+    </div> -->
 
     <div class="meta-form-group mb60">
       <div class="meta-group-title">Location of Construction</div>
@@ -113,7 +113,7 @@
       </div>
     </div>
     <!-- PROPERTY TYPE -->
-    <div class="meta-form-group mb60">
+    <!-- <div class="meta-form-group mb60">
         <div class="meta-group-title">Property Type</div>
         <base-select
           placeholder="------ Choose type of property ------"
@@ -125,7 +125,7 @@
           name="selectProperty"
           class="mb15"
         />
-    </div>
+    </div> -->
 
     <!-- SCOPE OF WORK -->
     <div class="meta-form-group mb60">
@@ -186,7 +186,7 @@
     <div class="meta-form-group mb60">
       <div class="meta-group-title">Other Details</div>
       <div class="meta-input-group flex-row w2">
-        <base-input
+        <!-- <base-input
           label="Occupancy Classified"
           v-model="building_other_details.occupancy_classified"
           :validationMessages="
@@ -196,7 +196,7 @@
           refs="occupancy_class"
           type="text"
           class=" input-w2"
-        />
+        /> -->
         <base-input
           label="Total Estimated Cost"
           v-model="building_other_details.total_estimated_cost"
@@ -206,7 +206,7 @@
           name="estimatedcost"
           refs="estimated_cost"
           type="number"
-          class=" input-w2"
+          
         />
       </div>
       <div class="meta-input-group flex-row w3">
@@ -311,7 +311,7 @@ export default {
       building_other_details: {
         occupancy_classified: "",
         total_estimated_cost: "",
-        units: "",
+        units: "1",
         floor_area: "",
         lot_area: "",
         date_of_construction: "",
