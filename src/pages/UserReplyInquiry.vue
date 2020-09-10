@@ -21,10 +21,24 @@
                 <div class="item-date">June 1, 2020 4:40 PM</div>
             </div>
 
+            <div class="resolve-column flex-wrap">
+                <div class="resolve-button">
+                    <button type="send" class="btn-resolve">
+                        <font-awesome-icon icon="check" class="admin-icon"/>
+                        MARK AS RESOLVED
+                    </button>
+                </div>
+                <div class="resolve-note">
+                    <span>Note:</span>
+                    Once this is marked as resolved, you can no longer reply to this thread.
+                </div>
+            </div>
+
             <!-- REPLY SECTION -->
             <div class="inquiry-footer">
                 <div class="inquiry-footer-text">
-                    <font-awesome-icon icon="reply" class="admin-icon"/>REPLY
+                    <font-awesome-icon icon="reply" class="admin-icon"/>
+                    REPLY
                 </div>
                 <textarea name="reply" id="reply" rows="4" placeholder="Type your text here"></textarea>
                 <div class="inquiry-button">
@@ -169,4 +183,47 @@ div.inquiry-box{
         }
     }
 }
+
+div.resolve-column{
+    width: 100%;
+    justify-content: center;
+    padding: 15px 0;
+
+    div.resolve-button{
+        width: 100%;
+        text-align: center;
+        button.btn-resolve {
+            background: #81c784;
+            color: #fff;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 50px;
+            border: 1px solid #81c784;
+            padding: 12px 25px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        button.btn-resolve:hover{
+            color: #81c784;
+            background-color: transparent;
+        }
+
+        button.btn-resolve:focus{
+            outline: none;
+        }
+    }
+
+    .resolve-note{
+        font-size: 14px;
+        color: #969696;
+        span {
+            font-weight: bold;
+        }
+    }
+}
+
+
+
 </style>
