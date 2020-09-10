@@ -5,7 +5,7 @@
             <div class="th date">DATE</div>
             <div class="th subject">SUBJECT</div>
             <div class="th sender">SENDER</div>
-            <div class="th content">INQUIRY CONTENT</div>
+            <!-- <div class="th content">INQUIRY CONTENT</div> -->
             <div class="th status">STATUS</div>
             <div class="th actions">ACTIONS</div>
         </div>
@@ -14,7 +14,7 @@
                 <div class="td date">JULY 01, 2020</div>
                 <div class="td subject">INQUIRY SUBJECT</div>
                 <div class="td sender">JOHN MICHAEL DOE</div>
-                <div class="td content">Sample overview of the inquiry here. </div>
+                <!-- <div class="td content">Sample overview of the inquiry here. </div> -->
                 <div class="td status">UNREAD</div>
                 <div class="td actions">
                     <router-link to="reply-inquiry">
@@ -44,19 +44,19 @@ section{
 }
 
 .date{
-    width: 13%;
+    width: 14%;
     text-transform: uppercase;
 }
 
 .subject,
 .sender{
-    width: 21%;
+    width: 30%;
     text-transform: uppercase;
 }
 
-.content {
-  width: 28%;
-}
+// .content {
+//   width: 28%;
+// }
 
 .status{
     width: 13%;
