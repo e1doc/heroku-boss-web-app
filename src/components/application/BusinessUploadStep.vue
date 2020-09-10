@@ -7,7 +7,7 @@
     </div>
     <base-file-uploader
       label="1. Proof of business registration, incorporation, or legal personality"
-      description="{i.e. DTI* / SEC Cooperative Development Authority (CDA) registration} including basis for computing taxes, fees, and charges (e.g. business capitalization)."
+      description="{i.e. DTI / SEC (Including articles and by-laws)/Cooperative Development Authority (CDA)."
       name="businessregproof"
       type="business"
       fileLabel="business_registration_proof"
@@ -75,7 +75,7 @@ export default {
       occupancy_permit: {},
       contract_of_lease: {},
       government_id: {},
-      required: ["business_registration_proof", "government_id"],
+      required: ["business_registration_proof", "occupancy_permit"],
       uploadErrors: {},
     };
   },
