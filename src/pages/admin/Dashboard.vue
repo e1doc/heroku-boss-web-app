@@ -47,7 +47,7 @@
                         <div class="item-icon flex-center">
                             <font-awesome-icon icon="comment-slash" class="icon"/>
                         </div>
-                        <div class="item-value">0</div>
+                        <div class="item-value">{{dashboard.pending_inquiries}}</div>
                         <div class="item-label">Unresponded Inquiries</div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                         <div class="item-icon flex-center">
                             <font-awesome-icon icon="comments" class="icon"/>
                         </div>
-                        <div class="item-value">0</div>
+                        <div class="item-value">{{dashboard.all_inquiries}}</div>
                         <div class="item-label">Overall Inquiries</div>
                     </div>
                 </div>

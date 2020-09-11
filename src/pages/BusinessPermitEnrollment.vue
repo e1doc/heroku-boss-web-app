@@ -93,10 +93,6 @@ export default {
         },
       };
       await this.businessEnrollment(payload)
-      await this.$store.dispatch(
-          "addBusinessBasicInformation",
-          {}
-        );
       this.$store.commit('setLoading', false)
     },
     async businessEnrollment(payload) {
@@ -113,13 +109,17 @@ export default {
         config
       );
       if (response.data.Response.Result.businessid) {
-        this.isSuccess =  true
-        this.account_no = response.data.Response.Result.account_number
          await this.$store.dispatch(
           "addBusinessApplication",
           {account_number: this.account_no, is_draft: false, is_enrolled: true}
         );
+        await this.$store.dispatch(
+          "addBusinessBasicInformation",
+          {}
+        );
+        await this.$store.dispatch('addBusinessDetails', {name: response.data.Response.Result.businessname})
         this.isSuccess =  true
+        this.account_no = response.data.Response.Result.account_number
       }
       } catch (err) {
         console.log(err)

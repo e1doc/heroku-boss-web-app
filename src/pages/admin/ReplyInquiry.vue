@@ -1,24 +1,17 @@
 <template>
     <div class="inquiry-box">
         <div class="inquiry-header">
-             <div class="inquiry-subj">Sample Inquiry Subject</div>
-             <div class="inquiry-date">Date: June 01, 2020</div>
+             <div class="inquiry-subj">{{inquiry.subject}}</div>
+             <div class="inquiry-date">{{ inquiry.created_at | moment("MMMM DD YYYY") }}</div>
         </div>
         <div class="inquiry-body">
             <!-- START OF THREAD -->
-            <div class="item-row sender">
+            <div class="item-row sender" v-for="(message, index) in inquiry.messages" :key="index">
                 <div class="item-name">John Michael Doe</div>
                 <div class="item-content">
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+                    {{message.body}}
                 </div>
-                <div class="item-date">June 1, 2020 3:40 PM</div>
-            </div>
-            <div class="item-row me">
-                <div class="item-name">Administrator</div>
-                <div class="item-content">
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consev
-                </div>
-                <div class="item-date">June 1, 2020 4:40 PM</div>
+                <div class="item-date"> {{ message.created_at | moment("MMMM DD, YYYY HH:MM A") }}</div>
             </div>
 
             <!-- REPLY SECTION -->
@@ -49,9 +42,26 @@ export default {
     InquiryTable,
     ButtonBlock
   },
-  computed: {
-    ...mapGetters(["currentTable"]),
+  props:{
+      thread: {
+          required: false,
+          default: "",
+          type: String
+      }
   },
+  computed: {
+    ...mapGetters(["currentTable", "inquiry", "currentInquiry"]),
+  },
+  mounted(){
+      this.getInquiry()
+  },
+  methods:{
+      async getInquiry(){
+          console.log(this.thread)
+          let id= this.thread != "" ? this.thread : this.currentInquiry
+          await this.$store.dispatch('getInquiry', id)
+      }
+  }
 };
 </script>
 

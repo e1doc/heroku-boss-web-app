@@ -9,11 +9,11 @@
             <div class="th actions">ACTIONS</div>
         </div>
         <div class="tbody">
-            <div class="tr" v-for="index in 10" :key="index">
-                <div class="td date">JULY 01, 2020</div>
-                <div class="td subject">INQUIRY SUBJECT</div>
+            <div class="tr" v-for="(inquiry, index) in inquiries" :key="index">
+                <div class="td date">{{ inquiry.created_at | moment("MMMM DD YYYY") }}</div>
+                <div class="td subject">{{inquiry.subject}}</div>
                 <div class="td content">Sample overview of the inquiry here. </div>
-                <div class="td status">UNREAD</div>
+                <div class="td status">{{inquiry.status}}</div>
                 <div class="td actions">
                     <router-link to="user-reply-inquiry">
                         <font-awesome-icon icon="envelope-open-text" class="mr5 icon" /> READ
@@ -21,6 +21,16 @@
                 </div>
             </div>
         </div>
+       <paginate
+        v-if="inquiries.length > 9"
+        :page-count="pageCount"
+        :prev-text="'Prev'"
+        :next-text="'Next'"
+        :container-class="'pagination'"
+        :page-class="'page-item'"
+        :click-handler="getAllInquiries"
+      >
+      </paginate>
     </div>
   </section>
 </template>
@@ -30,8 +40,20 @@ import { mapGetters } from "vuex";
 export default {
   name: "InquiryTable",
   computed: {
-    ...mapGetters(["currentType"]),
+    ...mapGetters(["currentType","inquiries","pageCount"]),
   },
+  mounted(){
+      this.getAllInquiries()
+  },
+  methods:{
+    async inquiryClickCallBack(pageNum){
+     await this.$store.dispatch('getAllUserInquiries', pageNum) 
+    },
+      async getAllInquiries(pageNum = 1){
+          await this.$store.dispatch('getAllUserInquiries')
+          console.log(this.inquiries)
+      }
+  }
 };
 </script>
 

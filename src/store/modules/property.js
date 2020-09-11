@@ -20,6 +20,7 @@ const getDefaultPropertyState = () => {
       building_other_details: [],
     },
     buildingApplications: [],
+    buildingProfiles: [],
     buildingApplicationRequirements: {},
     buildingRequirements: [],
     draftProperty: false,
@@ -40,6 +41,7 @@ const getters = {
   buildingStepOneErrors: (state) => state.buildingStepOneErrors,
   buildingStepTwoErrors: (state) => state.buildingStepTwoErrors,
   buildingApplications: (state) => state.buildingApplications,
+  buildingProfiles: (state) => state.buildingProfiles,
   draftProperty: (state) => state.draftProperty,
   buildingApplicationRequirements: (state) =>
     state.buildingApplicationRequirements,
@@ -75,6 +77,7 @@ const mutations = {
   },
   setBuildingApplications: (state, buildingApplications) =>
     (state.buildingApplications = buildingApplications),
+  setBuildingProfiles: (state, buildingProfiles) => (state.buildingProfiles = buildingProfiles),
   setDraftProperty: (state, draftProperty) =>
     (state.draftProperty = draftProperty),
   setBuildingApplicationRequirements: (
@@ -143,11 +146,22 @@ const actions = {
       console.log(err.response);
     }
   },
+  async getBuildingProfiles({ commit, getters, dispatch }, payload) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/api/building-profile/`,
+        { withCredentials: true }
+      );
+      commit("setBuildingProfiles", response.data);
+    } catch (err) {
+      console.log(err.response);
+    }
+  },
   async addBuildingApplication({ commit, getters, dispatch }, payload) {
     try {
       const response = await axios.post(
         `${baseUrl}/api/building-permit-application/`,
-        {},
+        payload,
         { withCredentials: true }
       );
       commit("setBuildingApplication", response.data);

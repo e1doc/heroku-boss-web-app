@@ -24,6 +24,7 @@ const getDefaultBusinessState = () => {
       lessor_details: []
     },
     applications: [],
+    businessProfiles: [],
     applicationRequirements: {},
     requirements: [],
     isUploading: false,
@@ -51,6 +52,7 @@ const getters = {
   stepOneErrors: (state) => state.stepOneErrors,
   stepTwoErrors: (state) => state.stepTwoErrors,
   applications: (state) => state.applications,
+  businessProfiles: (state) => state.businessProfiles,
   applicationRequirements: (state) => state.applicationRequirements,
   isUploading: (state) => state.isUploading,
   requirements: (state) => state.requirements,
@@ -86,6 +88,7 @@ const mutations = {
     state.stepTwoErrors[`${stepTwoErrors.key}`] = stepTwoErrors.value
   },
   setApplications: (state, applications) => (state.applications = applications),
+  setBusinessProfiles: (state, businessProfiles) => (state.businessProfiles = businessProfiles),
   setApplicationRequirements: (state, applicationRequirements) => (state.applicationRequirements = applicationRequirements),
   setIsUploading: (state, isUploading) => (state.isUploading = isUploading),
   setRequirements: (state, requirements) => (state.requirements = requirements),
@@ -153,6 +156,18 @@ const actions = {
       commit('setLoading', false)
     }
   },  
+  async getBusinessProfiles({commit, dispatch, getters}){
+    try {
+      const response = await axios.get(
+        `${baseUrl}/api/business-profile/`,
+        { withCredentials: true }
+      );
+      commit("setBusinessProfiles",response.data)
+    } catch (err) {
+      console.log(err.response)
+      commit('setLoading', false)
+    }
+  }, 
   async addBusinessApplication({ commit, dispatch, getters }, payload) {
     try {
       const response = await axios.post(

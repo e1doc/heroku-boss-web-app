@@ -144,6 +144,7 @@ export default {
          this.$store.commit('resetAuthState')
          this.$store.commit('resetBusinessState')
          this.$store.commit('resetPropertyState')
+         this.$store.commit('resetInquiryState')
          this.$router.push({ path: '/' })
    },
  }
