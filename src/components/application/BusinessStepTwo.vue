@@ -38,7 +38,7 @@
     <div class="meta-form-group mb60">
       <div class="meta-group-title">Corporate Name:</div>
       <base-input
-        label="Business Name"
+        label="Corporate Name"
         v-model="business_details.name"
         :validationMessages="stepTwoErrors.business_details.name"
         name="businessname"
