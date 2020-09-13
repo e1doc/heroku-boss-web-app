@@ -763,6 +763,15 @@ export default {
     },
   },
   methods: {
+    changeTypeOfOrganization(){
+      if (this.typeOfOrganization === 'corporation'){
+        this.unrequired.business_details.push('name')
+        this.unrequired.business_details.filter(item => item !== 'trade_name')
+      }else{
+        this.unrequired.business_details.push('trade_name')
+        this.unrequired.business_details.filter(item => item !== 'name')
+      }
+    },
     previousStep() {
       this.$store.commit("setCurrentApplicationStep", "1");
     },

@@ -7,17 +7,16 @@
       <div class="th" v-if="currentType === 'real_property'">OWNER NAME</div>
       <div class="th">ACTIONS</div>
     </div>
-<<<<<<< HEAD
     <div v-if="currentType === 'business'">
       <div class="tbody" v-if="businessProfiles.length > 0">
         <div class="tr" v-for="(business, index) in businessProfiles" :key="index">
-          <div class="td">
+          <!-- <div class="td">
             <span
               class="td-label show-in-mobile"
               >ACCOUNT # :
             </span>
             {{business.account_number}}
-          </div>
+          </div> -->
           <div class="td" v-if="currentType === 'business'">
             <span class="td-label show-in-mobile">BUSINESS NAME : </span>
             {{business.businessdetails.name}}
@@ -34,19 +33,6 @@
               <font-awesome-icon icon="receipt" class="mr5 icon" />BILL
             </div>
           </div>
-=======
-    <div class="tbody">
-      <div class="tr" v-for="index in 5" :key="index">
-        <div class="td" v-if="currentType === 'real_property'">
-          <!-- <span class="td-label show-in-mobile" v-if="currentType === 'business'">ACCOUNT # : </span> -->
-          <!-- <span class="td-label show-in-mobile" v-if="currentType === 'real_property'">TD # : </span> -->
-          <span class="td-label show-in-mobile" >TD # : </span>
-          F-000248
-        </div>
-        <div class="td" v-if="currentType === 'business'">
-          <span class="td-label show-in-mobile">BUSINESS NAME : </span>
-          JMD SARI SARI STORE
->>>>>>> c7b69527d659d29aacada59225cfab32bc401a78
         </div>
       </div>
       <div class="tbody" v-if="businessProfiles.length < 1">
