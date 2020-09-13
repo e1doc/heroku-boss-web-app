@@ -3,7 +3,7 @@
     <div class="left-div flex-center">
       <div class="menu-type">
         <div
-          :class="{ active: activeType === 'all_inquiries' }"
+          :class="{ active: currentType === 'all_inquiries'} "
           @click="changeType('all_inquiries')"
         >
           <font-awesome-icon icon="inbox" class="mr5 icon" />
@@ -12,11 +12,11 @@
       </div>
       <div class="menu-type">
         <div
-          :class="{ active: activeType === 'unread_inquiries' }"
+          :class="{ active: currentType === 'unread_inquiries' }"
           @click="changeType('unread_inquiries')"
         >
           <font-awesome-icon icon="envelope" class="mr5 icon" />
-          UNREAD INQUIRIES
+          UNRESPONDED INQUIRIES
         </div>
       </div>
     </div>
@@ -43,6 +43,9 @@ export default {
       required: true,
       default: "profile",
     },
+  },
+  mounted(){
+    this.$store.commit("setCurrentType", 'all_inquiries');
   },
   data() {
     return {

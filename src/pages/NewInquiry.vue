@@ -9,11 +9,11 @@
             <!-- REPLY SECTION -->
             <div class="inquiry-new">
                 <div class="inquiry-new-text">SUBJECT</div>
-                <input type="text" name="subject" id="subject" class="input-subject" placeholder="Type your subject here">
+                <input type="text" name="subject" id="subject" class="input-subject" placeholder="Type your subject here" v-model="subject">
                 <div class="inquiry-new-text">INQUIRY</div>
-                <textarea name="inquiry" id="inquiry" rows="6" placeholder="Type your text here"></textarea>
+                <textarea name="inquiry" id="inquiry" rows="6" placeholder="Type your text here" v-model="body"></textarea>
                 <div class="inquiry-button">
-                    <button-block type="send">SEND</button-block>
+                    <button-block type="send" :disabled="body === '' || subject === '' ? true : false" @click.native="sendMessage">SEND</button-block>
                 </div>
             </div>
         </div>
@@ -37,8 +37,29 @@ export default {
     BaseInput
   },
   computed: {
-    ...mapGetters(["currentTable"]),
+    ...mapGetters(["currentTable", "currentInquiry"]),
   },
+  data() {
+      return{
+          subject: "",
+          body: ""
+      }
+  },
+  methods: {
+      async sendMessage(){
+          await this.$store.commit('setLoading', true)
+          await this.$store.dispatch('addThread',{ subject: this.subject })
+          await this.$store.dispatch('addMessage', {thread: this.currentInquiry, body: this.body})
+          await this.$store.commit('setLoading', false)
+            await this.$swal({
+                title: "Success!",
+                text: "Inquiry successfully sent.",
+                icon: "success",
+            }).then((value) => {
+                this.$router.push({ name: 'UserInquiries' });
+            });
+      }
+  }
 };
 </script>
 

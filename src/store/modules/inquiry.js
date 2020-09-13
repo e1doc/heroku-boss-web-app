@@ -32,9 +32,9 @@ const actions = {
             console.log(err)
         }
     },
-    async getAllAdminInquiries({commit}, page = 1){
+    async getAllAdminInquiries({commit}, {page = 1, filter_by = 'all_inquiries'}){
         try {
-            const response = await axios.get(`${baseUrl}/staff/threads/?page=${page}`, { withCredentials: true })
+            const response = await axios.get(`${baseUrl}/staff/threads/?page=${page}&filter_by=${filter_by}`, { withCredentials: true })
             commit('setPageCount', response.data.total_pages)
             commit('setInquiries', response.data.results)
         } catch (err) {
@@ -47,6 +47,35 @@ const actions = {
             console.log('Inquiry details',response.data)
             commit('setInquiry', response.data)
             commit('setCurrentInquiry',response.data.id)
+        } catch (err) {
+            console.log(err)
+        }
+    },
+    async addThread({ commit }, payload){
+        try {
+            const response = await axios.post(`${baseUrl}/api/threads/`, payload, { withCredentials: true })
+            commit('setCurrentInquiry',response.data.id)
+        } catch (err) {
+            console.log(err)
+        }
+    },
+    async addMessage({ commit }, payload){
+        try {
+            const response = await axios.post(`${baseUrl}/api/messages/`, payload, { withCredentials: true })
+        } catch (err) {
+            console.log(err)
+        }
+    },
+    async adminRespond({commit}, payload){
+        try {
+            const response = await axios.put(`${baseUrl}/staff/thread/`, payload, { withCredentials: true })
+        } catch (err) {
+            console.log(err)
+        }
+    },
+    async resolveInquiry({commit}, payload){
+        try {
+            const response = await axios.put(`${baseUrl}/api/resolve-inquiry/`, payload, { withCredentials: true })
         } catch (err) {
             console.log(err)
         }

@@ -4,7 +4,7 @@
         <div class="thead">
             <div class="th date">DATE</div>
             <div class="th subject">SUBJECT</div>
-            <div class="th content">INQUIRY CONTENT</div>
+            <!-- <div class="th content">INQUIRY CONTENT</div> -->
             <div class="th status">STATUS</div>
             <div class="th actions">ACTIONS</div>
         </div>
@@ -12,10 +12,9 @@
             <div class="tr" v-for="(inquiry, index) in inquiries" :key="index">
                 <div class="td date">{{ inquiry.created_at | moment("MMMM DD YYYY") }}</div>
                 <div class="td subject">{{inquiry.subject}}</div>
-                <div class="td content">Sample overview of the inquiry here. </div>
                 <div class="td status">{{inquiry.status}}</div>
                 <div class="td actions">
-                    <router-link to="user-reply-inquiry">
+                    <router-link :to="{name:'UserReplyInquiry', params:{thread: inquiry.id}}">
                         <font-awesome-icon icon="envelope-open-text" class="mr5 icon" /> READ
                     </router-link>
                 </div>
@@ -64,26 +63,25 @@ section{
 }
 
 .date{
-    width: 13%;
+    width: 20%;
     text-transform: uppercase;
 }
 
-.subject,
-.sender{
-    width: 21%;
+.subject{
+    width: 40%;
     text-transform: uppercase;
 }
 
-.content {
-  width: 28%;
-}
+// .content {
+//   width: 28%;
+// }
 
 .status{
-    width: 13%;
+    width: 20%;
     text-transform: uppercase;
 }
 .actions{
-    width: 13%;
+    width: 20%;
     text-transform: uppercase;
 }
 

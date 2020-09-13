@@ -1,6 +1,6 @@
 <template>
   <div class="menu-holder">
-    <div class="left-div flex-center">
+    <!-- <div class="left-div flex-center">
       <div class="menu-type">
         <div
           :class="{ active: activeType === 'all_inquiries' }"
@@ -19,8 +19,8 @@
           UNREAD INQUIRIES
         </div>
       </div>
-    </div>
-    <div class="right-div flex-wrap">
+    </div> -->
+    <!-- <div class="right-div flex-wrap"> -->
       <!-- <base-input-search /> -->
       <div class="right-button flex-center">
         <router-link to="new-inquiry" class="add-inquiry-button">
@@ -28,7 +28,7 @@
           Add Inquiry
         </router-link>
       </div>
-    </div>
+    <!-- </div> -->
   </div>
 </template>
 
@@ -77,7 +77,7 @@ export default {
   flex-direction: row;
   padding: 10px 20px;
   border-radius: 8px;
-  box-shadow: 0px 10px 20px #0000000d;
+  // box-shadow: 0px 10px 20px #0000000d;
   .left-div {
     width: 50%;
     .menu-type {

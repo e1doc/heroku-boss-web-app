@@ -2,7 +2,9 @@
   <div>
     <div id="main">
       <header-nav />
-      <router-view />
+      <div class="main-content">
+          <router-view />
+      </div>
       <footer-section />
     </div>
   </div>
@@ -40,6 +42,10 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2b2b2b;
+}
+
+.main-content{
+    min-height: calc( 100vh - 195px );
 }
 
 #nav {
