@@ -8,19 +8,6 @@
         <h1>VERIFY EMAIL</h1>
       </div>
 
-      <!-- COUNTDOWN TIMER -->
-      <div class="resend-code-div flex-center">
-        <span class="resend-text" 
-           v-bind:class="timerCount != 0 ? 'disabled' : '' "
-           @click="resetValue">
-           Resend Code 
-        </span>
-        <span class="countdown-timer" 
-           v-if="timerCount != 0">
-            ( {{ timerCount }} seconds )
-        </span>
-      </div>
-
       <div class="note">
         OTP has been sent to you on your email address. Please enter it below.
       </div>
@@ -38,6 +25,18 @@
         <button-full @click.native="verifyOtp" class="mt10">
           VERIFY
         </button-full>
+      </div>
+            <!-- COUNTDOWN TIMER -->
+      <div class="resend-code-div flex-center">
+        <span class="resend-text" 
+           v-bind:class="timerCount != 0 ? 'disabled' : '' "
+           @click="resetValue">
+           Resend Code 
+        </span>
+        <span class="countdown-timer" 
+           v-if="timerCount != 0">
+            ( {{ timerCount }} seconds )
+        </span>
       </div>
     </div>
   </section>
