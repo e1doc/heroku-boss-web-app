@@ -388,7 +388,10 @@ export default {
           "blk_no",
           "phase_no",
           "subdivision_name",
-          "street"
+          "street",
+          "property_type",
+          "area_no",
+          "form_of_ownership"
         ],
         building_other_details: [
           "units",

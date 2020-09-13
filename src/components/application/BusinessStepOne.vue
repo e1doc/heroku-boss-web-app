@@ -203,17 +203,15 @@ export default {
         type_of_organization: "",
         ctc_no: "",
         tin: "",
-        modeofpayment: "",
-        has_tax_incentive: "",
+        mode_of_payment: "",
+        has_tax_incentive: false,
         government_entity: "",
         owner_first_name: "",
         owner_middle_name: "",
         owner_last_name: "",
         owner_complete_address: "",
-        owner_telephone_number: "",
         owner_mobile_number: "",
         owner_email_address: "",
-        mode_of_payment: ""
       },
       types_of_organization: [
         {
@@ -255,7 +253,7 @@ export default {
       ],
       unrequired: {
         business_application: ['account_number'],
-        basic_information: ["government_entity", "owner_middle_name", "ctc_no", "tin", "has_tax_incentive"],
+        basic_information: ["government_entity", "owner_middle_name", "ctc_no", "tin", "has_tax_incentive", "owner_telephone_number"],
       },
     };
   },
