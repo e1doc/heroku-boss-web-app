@@ -847,11 +847,11 @@ export default {
       this.$store.commit("setDraftBusiness", false);
     },
     preFillForm() {
-      if (this.businessDetails) {
+      if (this.businessDetails.id) {
         console.log(this.businessDetails.id);
         this.business_details = this.businessDetails;
       }
-      if (this.lessorDetails) {
+      if (this.lessorDetails.id) {
         this.lessor_details = this.lessorDetails;
       }
       if (this.businessActivities.length > 0) {

@@ -47,7 +47,7 @@ import ButtonFull from "@/components/ButtonFull";
 import ButtonFullOutline from "@/components/ButtonFullOutline";
 import BaseInputIcon from "@/components/forms/BaseInputIcon";
 import BaseInputOtp from "@/components/forms/BaseInputOtp";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "OtpDiv",
   components: {
@@ -62,6 +62,9 @@ export default {
       timerCount: 30
     };
   },
+  computed:{
+    ...mapGetters(['credentials'])
+  },
   methods: {
     ...mapActions(["getAuthToken"]),
     updateValue() {
@@ -74,7 +77,8 @@ export default {
     verifyOtp(){
        this.getAuthToken(this.code);
     },
-    resetValue() {
+   async resetValue() {
+        await this.$store.dispatch('getCodeToken',this.credentials)
         this.timerCount = '30'
     }
   },
