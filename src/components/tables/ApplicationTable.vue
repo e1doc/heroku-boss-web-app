@@ -3,7 +3,7 @@
     <div class="thead hide-in-mobile">
       <div class="th">APPLICATION #</div>
       <div class="th">DATE</div>
-      <div class="th" v-if="currentType === 'business'">Account #</div>
+      <!-- <div class="th" v-if="currentType === 'business'">Account #</div> -->
       <div class="th" v-if="currentType === 'real_property'">TD #</div>
       <div class="th">STATUS</div>
       <div class="th">ACTIONS</div>
@@ -23,12 +23,12 @@
             <span class="td-label show-in-mobile">DATE : </span>
             {{ application.created_at | moment("MMMM DD YYYY") }}
           </div>
-          <div class="td">
+          <!-- <div class="td">
             <span class="td-label show-in-mobile">ACCOUNT #: </span>
             {{
               application.account_number ? application.account_number : "N/A"
             }}
-          </div>
+          </div> -->
           <div class="td">
             <span class="td-label show-in-mobile">STATUS : </span>
             {{
