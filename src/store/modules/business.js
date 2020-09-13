@@ -32,6 +32,7 @@ const getDefaultBusinessState = () => {
     pageCount: 0,
     filterBy: 'all',
     isBusinessEnrollmentSuccess: false,
+    typeOfOrganization: ''
   };
 };
 
@@ -60,6 +61,7 @@ const getters = {
   pageCount: (state) => state.pageCount,
   filterBy: (state) => state.filterBy,
   isBusinessEnrollmentSuccess: (state) => state.isBusinessEnrollmentSuccess,
+  typeOfOrganization: ( state ) => state.typeOfOrganization
 };
 
 const mutations = {
@@ -95,7 +97,8 @@ const mutations = {
   setDraftBusiness: (state, draftBusiness) => (state.draftBusiness = draftBusiness),
   setPageCount: (state, pageCount) => (state.pageCount = pageCount),
   setFilterBy: (state, filterBy) => (state.filterBy = filterBy),
-  setIsBusinessEnrollmentSuccess: (state, isBusinessEnrollmentSuccess) => (state.isBusinessEnrollmentSuccess = isBusinessEnrollmentSuccess)
+  setIsBusinessEnrollmentSuccess: (state, isBusinessEnrollmentSuccess) => (state.isBusinessEnrollmentSuccess = isBusinessEnrollmentSuccess),
+  setTypeOfOrganization: (state, typeOfOrganization) => (state.typeOfOrganization = typeOfOrganization)
 };
 
 const actions = {
