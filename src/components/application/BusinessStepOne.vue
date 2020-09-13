@@ -21,7 +21,7 @@
         placeholder="--- Select from the options ---"
         :options="modeofpayment"
         v-model="basic_information.mode_of_payment"
-        :validationMessages="stepOneErrors.basic_information.has_tax_incentive"
+        :validationMessages="stepOneErrors.basic_information.mode_of_payment"
         name="selectOptions"
         class="mb15"
       />

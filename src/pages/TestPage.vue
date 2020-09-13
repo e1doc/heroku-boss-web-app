@@ -1,21 +1,24 @@
 <template>
   <section>
-      <!-- <business-step-two/> -->
+      <!-- <building-step-two/> -->
       <!-- <div class="countdown-timer">
         {{ timerCount }}
       </div> -->
-      <otp-div/>
+      <!-- <otp-div/> -->
+      <downloadable-building-form/>
   </section>
 </template>
 
 <script>
-import BusinessStepTwo from "@/components/application/BusinessStepTwo";
+import BuildingStepTwo from "@/components/application/BuildingStepTwo";
+import DownloadableBuildingForm from "@/components/application/DownloadableBuildingForm";
 import OtpDiv from "@/components/auth/OtpDiv";
 export default {
     name: "TestPage",
     components: {
-        BusinessStepTwo,
-        OtpDiv
+        BuildingStepTwo,
+        OtpDiv,
+        DownloadableBuildingForm
   },
   data() {
       return {

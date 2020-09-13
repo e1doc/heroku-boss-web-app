@@ -11,24 +11,36 @@
               #{{ businessBasicInformation.reference_number }}
             </div>
           </div>
-          <div class="meta-text w6 no-br no-bb">
+          <div class="meta-text no-bb">
             <div class="meta-label">Date of Application :</div>
             <div class="meta-value">
               {{ businessApplication.created_at | moment("MMMM DD, YYYY") }}
             </div>
           </div>
-          <div class="meta-text w6 no-bb">
+          <div class="meta-text no-bb">
+            <div class="meta-label">Type of Organization :</div>
+            <div class="meta-value">
+              {{ businessBasicInformation.type_of_organization }}
+            </div>
+          </div>
+          <div class="meta-text no-bb">
+              <div class="meta-label">Mode of Payment :</div>
+              <div class="meta-value">
+                {{ businessBasicInformation.mode_of_payment }}
+              </div>
+          </div>
+          <div class="meta-text w6 no-br no-bb">
             <div class="meta-label">DTI/SEC/CDA Registration No. :</div>
             <div class="meta-value">
               {{ businessBasicInformation.dti_sec_cda_reg_number }}
             </div>
           </div>
-          <div class="meta-text w6 no-br no-bb">
+          <!-- <div class="meta-text w6 no-br no-bb">
             <div class="meta-label">Account No :</div>
             <div class="meta-value">
               {{ businessApplication.account_number }}
             </div>
-          </div>
+          </div> -->
           <div class="meta-text w6 no-bb">
             <div class="meta-label">DTI/SEC/CDA Date of Registration No. :</div>
             <div class="meta-value">
@@ -39,16 +51,10 @@
             </div>
           </div>
           <div class="meta-text w6 no-br no-bb">
-            <div class="meta-label">Type of Organization :</div>
-            <div class="meta-value">
-              {{ businessBasicInformation.type_of_organization }}
-            </div>
-          </div>
-          <div class="meta-text w3 no-br no-bb">
             <div class="meta-label">CTC No. :</div>
             <div class="meta-value">{{ businessBasicInformation.ctc_no }}</div>
           </div>
-          <div class="meta-text w3 no-bb">
+          <div class="meta-text w6 no-bb">
             <div class="meta-label">TIN :</div>
             <div class="meta-value">{{ businessBasicInformation.tin }}</div>
           </div>
@@ -127,26 +133,44 @@
         <!-- Business Address -->
         <div class="meta-text-group flex-wrap">
           <div class="meta-group-title">Business Address :</div>
-          <div class="meta-text no-bb">
-            <div class="meta-label">Complete Address :</div>
+          <div class="meta-text w6 no-br no-bb">
+            <div class="meta-label">House No. :</div>
             <div class="meta-value">
-              {{ businessDetails.complete_business_address }}
+              {{ businessDetails.house_no }}
+            </div>
+          </div>
+          <div class="meta-text w6 no-bb">
+            <div class="meta-label">Barangay :</div>
+            <div class="meta-value">
+              {{ businessDetails.barangay }}
+            </div>
+          </div>
+          <div class="meta-text w6 no-br no-bb">
+            <div class="meta-label">Street :</div>
+            <div class="meta-value">
+              {{ businessDetails.street }}
+            </div>
+          </div>
+          <div class="meta-text w6 no-bb">
+            <div class="meta-label">City :</div>
+            <div class="meta-value">
+              {{ businessDetails.city }}
             </div>
           </div>
           <div class="meta-text no-bb">
-            <div class="meta-label">Telephone No. & Mobile No. :</div>
+            <div class="meta-label">Telephone / Mobile No. :</div>
             <div class="meta-value">
               {{
                 businessDetails.telephone_number
                   ? businessDetails.telephone_number
                   : "N/A"
               }}
-              /
+              <!-- /
               {{
                 businessDetails.mobile_number
                   ? businessDetails.mobile_number
                   : "N/A"
-              }}
+              }} -->
             </div>
           </div>
           <div class="meta-text">
@@ -170,19 +194,19 @@
             </div>
           </div>
           <div class="meta-text no-bb">
-            <div class="meta-label">Telephone No. & Mobile No. :</div>
+            <div class="meta-label">Telephone / Mobile No. :</div>
             <div class="meta-value">
               {{
                 businessBasicInformation.owner_telephone_number
                   ? businessBasicInformation.owner_telephone_number
                   : "N/A"
               }}
-              /
+              <!-- /
               {{
                 businessBasicInformation.owner_mobile_number
                   ? businessBasicInformation.owner_mobile_number
                   : "N/A"
-              }}
+              }} -->
             </div>
           </div>
           <div class="meta-text">
@@ -206,7 +230,7 @@
             <div class="meta-value">{{ businessDetails.area }} sqm</div>
           </div>
           <div class="meta-text w4 no-br">
-            <div class="meta-label">Total No. of Employees :</div>
+            <div class="meta-label">Total No. of Employees (including owner):</div>
             <div class="meta-value">{{ businessDetails.total_employees }}</div>
           </div>
           <div class="meta-text w4">
@@ -275,19 +299,19 @@
             </div>
           </div>
           <div class="meta-text w6 no-br">
-            <div class="meta-label">Telephone No. & Mobile No. :</div>
+            <div class="meta-label">Telephone / Mobile No. :</div>
             <div class="meta-value">
               {{
                 lessorDetails.telephone_number
                   ? lessorDetails.telephone_number
                   : "N/A"
               }}
-              /
+              <!-- /
               {{
                 lessorDetails.mobile_number
                   ? lessorDetails.mobile_number
                   : "N/A"
-              }}
+              }} -->
             </div>
           </div>
           <div class="meta-text w6">
@@ -306,14 +330,14 @@
         <div class="meta-text-group flex-wrap">
           <div class="meta-group-title">Business Activity</div>
           <div class="meta-table-header flex-center hide-in-mobile">
-            <div class="form-th code no-br">Code :</div>
+            <!-- <div class="form-th code no-br">Code :</div> -->
             <div class="form-th line no-br">Line of Business</div>
             <div class="form-th units no-br">No. of Units</div>
             <div class="form-th sales">
               Gross Sales/Receipts (for Renewal)
               <div class="form-sub-th">
-                <div class="form-th no-br no-bl no-bb">Essential :</div>
-                <div class="form-th no-br no-bl no-bb">Non-Essential :</div>
+                <div class="form-th no-br no-bl no-bb">Essential / Non-essential :</div>
+                <!-- <div class="form-th no-br no-bl no-bb">Non-Essential :</div> -->
               </div>
             </div>
           </div>
@@ -323,10 +347,10 @@
               v-for="(activity, index) in businessActivities"
               :key="index"
             >
-              <div class="form-td code no-bt no-br">
+              <!-- <div class="form-td code no-bt no-br">
                 <span class="form-td-label show-in-mobile">Code :</span>
                 {{ activity.code }}
-              </div>
+              </div> -->
               <div class="form-td line no-bt no-br">
                 <span class="form-td-label show-in-mobile"
                   >Line of Business :</span
@@ -564,7 +588,7 @@ div.meta-parent-box {
         float: left;
       }
       div.form-th.sales {
-        width: calc(35% - 1.5px);
+        width: calc(50% - 1.5px);
         float: left;
       }
       div.form-td.sales {
@@ -575,7 +599,7 @@ div.meta-parent-box {
       div.form-sub-th {
         width: 100%;
         div.form-th {
-          width: calc(50% - 1.5px);
+          width: calc(100% - 1.5px);
           float: left;
         }
       }

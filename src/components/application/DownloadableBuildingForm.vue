@@ -4,120 +4,197 @@
       :applicationnumber="buildingBasicInformation.reference_number"
       formtitle="APPLICATION FORM FOR BUILDING PERMIT"
     />
-    <div class="meta-form-body">
-      <!-- Owner / Applicant : -->
-      <div class="meta-text-group flex-wrap">
-        <div class="meta-group-title">Owner / Applicant :</div>
-        <div class="meta-text w3 no-br">
-          <div class="meta-label">Last Name :</div>
-          <div class="meta-value">{{buildingBasicInformation.owner_last_name}}</div>
+      <div class="meta-form-body">
+        <div class="meta-text-group flex-wrap">
+          <div class="meta-text no-bb">
+            <div class="meta-label">Application Number :</div>
+            <div class="meta-value">
+              #{{ buildingBasicInformation.reference_number }}
+            </div>
+          </div>
+          <div class="meta-text">
+            <div class="meta-label">Ownership Type: </div>
+            <div class="meta-value">
+              {{ buildingDetails.ownership_type }}
+            </div>
+          </div>
         </div>
-        <div class="meta-text w3 no-br">
-          <div class="meta-label">First Name :</div>
-          <div class="meta-value">{{buildingBasicInformation.owner_first_name}}</div>
-        </div>
-        <div class="meta-text w3 no-br">
-          <div class="meta-label">Middle Initial :</div>
-          <div class="meta-value">{{buildingBasicInformation.owner_middle_name}}</div>
-        </div>
-        <div class="meta-text w3">
-          <div class="meta-label">TIN :</div>
-          <div class="meta-value">{{buildingBasicInformation.tin}}</div>
-        </div>
-      </div>
-
-      <!-- Name of President/Treasurer of Corporation : -->
-      <div class="meta-text-group flex-wrap">
-        <div class="meta-group-title">
-          For Construction Owned by an Enterprise :
-        </div>
-        <div class="meta-text no-bb">
-          <div class="meta-label">Area No.</div>
-          <div class="meta-value">{{buildingDetails.area_no}}</div>
-        </div>
-        <div class="meta-text">
-          <div class="meta-label">Form of Ownership</div>
-          <div class="meta-value">{{buildingDetails.form_of_ownership}}</div>
-        </div>
-      </div>
-
-      <!-- Business Address -->
-      <div class="meta-text-group flex-wrap">
-        <div class="meta-group-title">Location of Construction :</div>
-        <div class="meta-text w3 no-br no-bb">
-          <div class="meta-label">Lot No. :</div>
-          <div class="meta-value">{{buildingDetails.lot_no}}</div>
-        </div>
-        <div class="meta-text w3 no-br no-bb">
-          <div class="meta-label">Blk No. :</div>
-          <div class="meta-value">{{buildingDetails.blk_no}}</div>
-        </div>
-        <div class="meta-text w3 no-br no-bb">
-          <div class="meta-label">TCT No. :</div>
-          <div class="meta-value">{{buildingDetails.tct_no}}</div>
-        </div>
-        <div class="meta-text w3 no-bb">
-          <div class="meta-label">Tax Dec. No. :</div>
-          <div class="meta-value">{{buildingDetails.tax_dec_no}}</div>
+        <!-- Owner / Applicant : -->
+        <div class="meta-text-group flex-wrap">
+          <div class="meta-group-title">Owner / Applicant :</div>
+          <div class="meta-text w3 no-br">
+            <div class="meta-label">Last Name :</div>
+            <div class="meta-value">
+              {{ buildingBasicInformation.owner_last_name }}
+            </div>
+          </div>
+          <div class="meta-text w3 no-br">
+            <div class="meta-label">First Name :</div>
+            <div class="meta-value">
+              {{ buildingBasicInformation.owner_first_name }}
+            </div>
+          </div>
+          <div class="meta-text w3 no-br">
+            <div class="meta-label">Middle Initial :</div>
+            <div class="meta-value">
+              {{ buildingBasicInformation.owner_middle_name }}
+            </div>
+          </div>
+          <div class="meta-text w3">
+            <div class="meta-label">TIN :</div>
+            <div class="meta-value">{{ buildingBasicInformation.tin }}</div>
+          </div>
         </div>
 
-        <div class="clearfix"></div>
+        <!-- Name of President/Treasurer of Corporation : -->
+        <!-- <div class="meta-text-group flex-wrap">
+          <div class="meta-group-title">
+            For Construction Owned by an Enterprise :
+          </div>
+          <div class="meta-text no-bb">
+            <div class="meta-label">Area No.</div>
+            <div class="meta-value">
+              {{ buildingDetails.area_no }}
+            </div>
+          </div>
+          <div class="meta-text">
+            <div class="meta-label">Form of Ownership</div>
+            <div class="meta-value">
+              {{ buildingDetails.form_of_ownership }}
+            </div>
+          </div>
+        </div> -->
+        <div class="meta-text-group flex-wrap mt20">
+          <div class="meta-text no-bb">
+            <div class="meta-label">TCT No. :</div>
+            <div class="meta-value">{{ buildingDetails.tct_no }}</div>
+          </div>
+          <div class="meta-text">
+            <div class="meta-label">Tax Dec. No. :</div>
+            <div class="meta-value">{{ buildingDetails.tax_dec_no }}</div>
+          </div>
+        </div>
+        <!-- Business Address -->
+        <div class="meta-text-group flex-wrap">
+          <div class="meta-group-title">Location of Construction :</div>
+          <div class="meta-text w4 no-br no-bb">
+            <div class="meta-label">Address No. :</div>
+            <div class="meta-value">{{ buildingDetails.address_no }}</div>
+          </div>
+          <div class="meta-text w4 no-br no-bb">
+            <div class="meta-label">Lot No. :</div>
+            <div class="meta-value">{{ buildingDetails.lot_no }}</div>
+          </div>
+          <div class="meta-text w4 no-bb">
+            <div class="meta-label">Lot No. count (default 1) :</div>
+            <div class="meta-value">{{ buildingDetails.lot_no_count }}</div>
+          </div>
 
-        <div class="meta-text w4 no-br no-bb">
-          <div class="meta-label">Street :</div>
-          <div class="meta-value">{{buildingDetails.street}}</div>
-        </div>
-        <div class="meta-text w4 no-br no-bb">
-          <div class="meta-label">Barangay :</div>
-          <div class="meta-value">{{buildingDetails.barangay}}</div>
-        </div>
-        <div class="meta-text w4 no-bb">
-          <div class="meta-label">City / Province:</div>
-          <div class="meta-value">{{buildingDetails.city}}</div>
+          <div class="clearfix"></div>
+
+          <div class="meta-text w4 no-br no-bb">
+            <div class="meta-label">Blk No. :</div>
+            <div class="meta-value">{{ buildingDetails.blk_no }}</div>
+          </div>
+          <div class="meta-text w4 no-br no-bb">
+            <div class="meta-label">Phase No. :</div>
+            <div class="meta-value">{{ buildingDetails.phase_no }}</div>
+          </div>
+          <div class="meta-text w4 no-bb">
+            <div class="meta-label">Subdivision :</div>
+            <div class="meta-value">{{ buildingDetails.subdivision_name }}</div>
+          </div>
+
+          <div class="clearfix"></div>
+
+          <div class="meta-text w6 no-br no-bb">
+            <div class="meta-label">Street :</div>
+            <div class="meta-value">{{ buildingDetails.street }}</div>
+          </div>
+          <div class="meta-text w6 no-bb">
+            <div class="meta-label">District :</div>
+            <div class="meta-value">{{ buildingDetails.district }}</div>
+          </div>
+
+          <div class="clearfix"></div>
+
+          <div class="meta-text no-bb">
+            <div class="meta-label">Barangay :</div>
+            <div class="meta-value">{{ buildingDetails.barangay }}</div>
+          </div>
+          <div class="meta-text">
+            <div class="meta-label">City / Province:</div>
+            <div class="meta-value">{{ buildingDetails.city }}</div>
+          </div>
+          <!-- <div class="meta-text no-bb">
+            <div class="meta-label">Property Type</div>
+            <div class="meta-value">{{ buildingDetails.property_type }}</div>
+          </div> -->
+
+          <div class="meta-text no-bb mt20">
+            <div class="meta-label">Scope of Work : </div>
+            <div class="meta-value">
+              {{
+                buildingDetails.scope_of_work_others === ""
+                  ? buildingDetails.scope_of_work
+                  : buildingDetails.scope_of_work_others
+              }}
+            </div>
+          </div>
+          <div class="meta-text mb20">
+            <div class="meta-label">Use or Character of Occupancy : </div>
+            <div class="meta-value">
+              {{
+                buildingDetails.character_of_occupancy_others === ""
+                  ? buildingDetails.character_of_occupancy
+                  : buildingDetails.character_of_occupancy_others
+              }}
+            </div>
+          </div>
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="meta-text no-bb">
-          <div class="meta-label">Property Type</div>
-          <div class="meta-value">{{buildingDetails.property_type}}</div>
-        </div>
-
-        <div class="meta-text no-bb">
-          <div class="meta-label">Scope of Work :</div>
-          <div class="meta-value">{{ buildingDetails.scope_of_work_others === "" ? buildingDetails.scope_of_work : buildingDetails.scope_of_work_others }}</div>
-        </div>
-        <div class="meta-text no-bb">
-          <div class="meta-label">Use or Character of Occupancy</div>
-          <div class="meta-value">{{buildingDetails.character_of_occupancy_others === "" ? buildingDetails.character_of_occupancy : buildingDetails.character_of_occupancy_others }}</div>
-        </div>
-      </div>
-
-      <!-- Other Details -->
-      <div class="meta-text-group flex-wrap">
-        <div class="meta-text w6 no-br no-bb">
-          <div class="meta-label">Occupancy Classified:</div>
-          <div class="meta-value">{{buildingOtherDetails.occupancy_classified}}</div>
-        </div>
-        <div class="meta-text w6 no-bb">
-          <div class="meta-label">Total Estimated Cost :</div>
-          <div class="meta-value">₱ {{parseFloat(buildingOtherDetails.total_estimated_cost).toFixed(2)}}</div>
-        </div>
-        <div class="meta-text w6 no-br no-bb">
-          <div class="meta-label">Number of Units :</div>
-          <div class="meta-value">{{buildingOtherDetails.units}}</div>
-        </div>
-        <div class="meta-text w6 no-bb">
-          <div class="meta-label">Proposed Date of Construction :</div>
-          <div class="meta-value">{{buildingOtherDetails.date_of_construction | moment("MMMM DD, YYYY")}}</div>
-        </div>
-        <div class="meta-text no-bb">
-          <div class="meta-label">Total Floor Area :</div>
-          <div class="meta-value">{{buildingOtherDetails.floor_area}} square meters</div>
-        </div>
-        <div class="meta-text">
-          <div class="meta-label">Lot Area :</div>
-          <div class="meta-value">{{buildingOtherDetails.lot_area}} square meters</div>
+        <!-- Other Details -->
+        <div class="meta-text-group flex-wrap">
+          <!-- <div class="meta-text w6 no-br no-bb">
+            <div class="meta-label">Occupancy Classified:</div>
+            <div class="meta-value">
+              {{ buildingOtherDetails.occupancy_classified }}
+            </div>
+          </div> -->
+          <div class="meta-text no-bb">
+            <div class="meta-label">Total Estimated Cost :</div>
+            <div class="meta-value">
+              ₱
+              {{
+                parseFloat(buildingOtherDetails.total_estimated_cost).toFixed(2)
+              }}
+            </div>
+          </div>
+          <div class="meta-text w6 no-br no-bb">
+            <div class="meta-label">Number of Units :</div>
+            <div class="meta-value">{{ buildingOtherDetails.units }}</div>
+          </div>
+          <div class="meta-text w6 no-bb">
+            <div class="meta-label">Proposed Date of Construction :</div>
+            <div class="meta-value">
+              {{
+                buildingOtherDetails.date_of_construction
+                  | moment("MMMM DD, YYYY")
+              }}
+            </div>
+          </div>
+          <div class="meta-text no-bb">
+            <div class="meta-label">Total Floor Area :</div>
+            <div class="meta-value">
+              {{ buildingOtherDetails.floor_area }} square meters
+            </div>
+          </div>
+          <div class="meta-text">
+            <div class="meta-label">Lot Area :</div>
+            <div class="meta-value">
+              {{ buildingOtherDetails.lot_area }} square meters
+            </div>
+          </div>
         </div>
       </div>
     </div>
