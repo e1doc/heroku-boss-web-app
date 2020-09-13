@@ -50,4 +50,11 @@ a{
   border-color: #027ab5;
   box-shadow: none;
 }
+
+.btn-disabled{
+  pointer-events: none;
+  color: #fff;
+  border-color: #a8a8a8;
+  background-color: #a8a8a8;
+}
 </style>
