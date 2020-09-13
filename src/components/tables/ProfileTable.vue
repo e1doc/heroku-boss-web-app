@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="thead hide-in-mobile">
-      <div class="th" v-if="currentType === 'business'">ACCOUNT #</div>
+      <!-- <div class="th" v-if="currentType === 'business'">ACCOUNT #</div> -->
       <div class="th" v-if="currentType === 'real_property'">TD #</div>
       <div class="th" v-if="currentType === 'business'">BUSINESS NAME</div>
       <div class="th" v-if="currentType === 'real_property'">OWNER NAME</div>
@@ -9,9 +9,10 @@
     </div>
     <div class="tbody">
       <div class="tr" v-for="index in 5" :key="index">
-        <div class="td">
-          <span class="td-label show-in-mobile" v-if="currentType === 'business'">ACCOUNT # : </span>
-          <span class="td-label show-in-mobile" v-if="currentType === 'real_property'">TD # : </span>
+        <div class="td" v-if="currentType === 'real_property'">
+          <!-- <span class="td-label show-in-mobile" v-if="currentType === 'business'">ACCOUNT # : </span> -->
+          <!-- <span class="td-label show-in-mobile" v-if="currentType === 'real_property'">TD # : </span> -->
+          <span class="td-label show-in-mobile" >TD # : </span>
           F-000248
         </div>
         <div class="td" v-if="currentType === 'business'">

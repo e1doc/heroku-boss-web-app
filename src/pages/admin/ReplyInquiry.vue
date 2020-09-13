@@ -152,6 +152,7 @@ div.inquiry-box{
                 font-family: Raleway;
                 line-height: 28px;
                 width: calc( 100% - 60px );
+                max-height: 150px;
                 padding: 25px 30px;
                 margin-bottom: 15px;
                 border-radius: 12px;

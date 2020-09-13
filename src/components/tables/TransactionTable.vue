@@ -2,7 +2,7 @@
   <section>
     <div v-if="currentType === 'business'">
       <div class="thead hide-in-mobile">
-        <div class="th w10">ACC #</div>
+        <!-- <div class="th w10">ACC #</div> -->
         <div class="th w10">OR #</div>
         <div class="th w10">OR DATE</div>
         <div class="th w35">BUSINESS NAME</div>
@@ -11,10 +11,10 @@
       </div>
       <div class="tbody">
         <div class="tr" v-for="index in 5" :key="index">
-          <div class="td w10">
+          <!-- <div class="td w10">
               <span class="td-label show-in-mobile">ACCOUNT # : </span>
               F-02248
-          </div>
+          </div> -->
           <div class="td w10">
               <span class="td-label show-in-mobile">OR # : </span>
               102582

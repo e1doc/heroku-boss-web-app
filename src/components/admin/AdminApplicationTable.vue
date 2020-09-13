@@ -3,7 +3,7 @@
     <div class="thead">
       <div class="th">APPLICATION #</div>
       <div class="th">DATE</div>
-      <div class="th" v-if="currentType === 'business'">Account #</div>
+      <!-- <div class="th" v-if="currentType === 'business'">Account #</div> -->
       <div class="th" v-if="currentType === 'real_property'">TD #</div>
       <div class="th">STATUS</div>
       <div class="th">ACTIONS</div>
