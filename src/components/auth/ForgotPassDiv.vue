@@ -29,6 +29,12 @@
           </button-full>
         </div>
       </div>
+
+      <!-- COUNTDOWN TIMER -->
+      <div class="countdown-timer">
+        {{ timerCount }}
+      </div>
+
       <div class="form-success" v-if="forgotPasswordSuccess">
         <div class="note mt50">
           Password reset link will be sent to your email!
@@ -58,6 +64,7 @@ export default {
     return {
       email: "",
       isSuccess: false,
+      timerCount: 30
     };
   },
   computed:{
@@ -68,6 +75,19 @@ export default {
     forgotPassword(){
       this.forgotPasswordUser({email:this.email})
     }
+  },
+  // COUNTDOWN TIMER
+  watch: {
+    timerCount: {
+      handler(value) {
+        if (value > 0) {
+          setTimeout(() => {
+              this.timerCount--;
+          }, 1000);
+        }
+      },
+      immediate: true // This ensures the watcher is triggered upon creation
+    }
   }
 };
 </script>
@@ -77,18 +97,28 @@ export default {
   font-size: 80px;
   color: #c2c2c2;
 }
+
 .form-group {
   margin-top: 45px;
   div {
     margin-bottom: 20px;
   }
 }
+
 .note {
   font-size: 14px;
   line-height: 26px;
   letter-spacing: 0.5px;
 }
 
+.countdown-timer {
+    color: #039be5bf;
+    font-size: 50px;
+    font-family: "Proxima Nova Rg";
+    font-weight: bold;
+    letter-spacing: 5px;
+    text-align: center;
+}
 @media only screen and ( max-width: 1400px ){
   .form-group {
       margin-top: 0;

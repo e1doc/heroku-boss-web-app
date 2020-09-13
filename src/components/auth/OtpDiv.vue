@@ -7,6 +7,12 @@
       <div>
         <h1>VERIFY EMAIL</h1>
       </div>
+
+      <!-- COUNTDOWN TIMER -->
+      <div class="countdown-timer">
+        {{ timerCount }}
+      </div>
+
       <div class="note">
         OTP has been sent to you on your email address. Please enter it below.
       </div>
@@ -46,6 +52,7 @@ export default {
   data() {
     return {
       code: "",
+      timerCount: 30
     };
   },
   methods: {
@@ -61,6 +68,19 @@ export default {
        this.getAuthToken(this.code);
     }
   },
+  // COUNTDOWN TIMER
+  watch: {
+    timerCount: {
+      handler(value) {
+        if (value > 0) {
+          setTimeout(() => {
+              this.timerCount--;
+          }, 1000);
+        }
+      },
+      immediate: true // This ensures the watcher is triggered upon creation
+    }
+  }
 };
 </script>
 
@@ -80,6 +100,15 @@ export default {
   line-height: 26px;
   letter-spacing: 0.5px;
   margin-bottom: 20px;
+}
+
+.countdown-timer {
+    color: #039be5bf;
+    font-size: 50px;
+    font-family: "Proxima Nova Rg";
+    font-weight: bold;
+    letter-spacing: 5px;
+    text-align: center;
 }
 
 @media only screen and ( max-width: 1400px ){

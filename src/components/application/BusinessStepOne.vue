@@ -253,7 +253,7 @@ export default {
       ],
       unrequired: {
         business_application: [],
-        basic_information: ["government_entity", "owner_middle_name"],
+        basic_information: ["government_entity", "owner_middle_name", "ctc_no", "tin", "has_tax_incentive", "owner_email_address"],
       },
     };
   },

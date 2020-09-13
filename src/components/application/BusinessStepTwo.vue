@@ -59,7 +59,7 @@
     </div>
     <div class="meta-form-group mb60">
       <div class="meta-group-title">Other Business Details:</div>
-      <base-input
+      <!-- <base-input
         label="Complete Business Address"
         v-model="business_details.complete_business_address"
         :validationMessages="
@@ -69,9 +69,56 @@
         refs="business_address"
         type="text"
         class="mt40"
-      />
+      /> -->
 
       <div class="meta-input-group flex-row w2">
+          <base-input
+            label="House No."
+            v-model="business_details.house_no"
+            :validationMessages="stepTwoErrors.business_details.house_no"
+            name="housenumber"
+            refs="house_number"
+            type="text"
+            class="input-w2"
+          />
+          <base-input
+            label="Street"
+            v-model="business_details.street"
+            :validationMessages="stepTwoErrors.business_details.street"
+            name="businessstreet"
+            refs="business_street"
+            type="text"
+            class="input-w2"
+          />
+      </div>
+      <!-- OTHER BUSINESS DETAILS - Barangay -->
+      <div class="meta-form-group mb20">
+        <div class="meta-group-title no-mt">Barangay <span class="asterisk">*</span></div>
+        <base-select
+          placeholder="------ Choose from the list of barangay ------"
+          v-model="business_details.barangay"
+          :validationMessages="stepTwoErrors.business_details.barangay"
+          name="nameofbarangay"
+          refs="barangay_name"
+          :options="barangayname"
+          type="text"
+          inputClass="fw-mobile"
+        />
+      </div>
+      <!-- OTHER BUSINESS DETAILS - City/Province -->
+      <base-input
+        label="City / Province"
+        v-model="business_details.city"
+        :validationMessages="stepTwoErrors.business_details.city"
+        name="cityprovince"
+        refs="city_province"
+        type="text"
+        class="disabled"
+        inputClass="fw-mobile disabled-input"
+        :disabled="true"
+      />
+      <!-- OTHER BUSINESS DETAILS - Telephone/Phone Number -->
+      <div class="meta-input-group">
         <base-input
           label="Telephone/Phone No."
           v-model="business_details.telephone_number"
@@ -79,7 +126,7 @@
           name="businesstelephone"
           refs="business_telephone"
           type="tel"
-          class="mt40"
+          class="mt40 input-required"
         />
         <!-- <base-input
                     label="Mobile No."
@@ -125,7 +172,7 @@
         name="area"
         refs="business_area"
         type="number"
-        class="mt40"
+        class="mt40 input-required"
       />
 
       <base-input
@@ -135,7 +182,7 @@
         name="total_employees"
         refs="employees"
         type="number"
-        class="mt40"
+        class="mt40 input-required"
       />
 
       <base-input
@@ -189,6 +236,7 @@
           type="text"
           class="mt40"
         />
+        
         <base-input
           label="Gross Monthly Rental"
           v-model="lessor_details.gross_monthly_rental"
@@ -200,23 +248,25 @@
           type="number"
           class="mt40"
         />
-        <div class="meta-input-group flex-row w2">
-          <base-input
-            label="Telephone No."
-            v-model="lessor_details.telephone_number"
-            :validationMessages="stepTwoErrors.lessor_details.telephone_number"
-            name="lessortelephone"
-            refs="lessor_telephone"
-            type="tel"
-            class="mt40 input-w2"
+
+        
+        <div class="meta-input-group">
+            <base-input
+              label="Telephone / Phone No."
+              v-model="lessor_details.telephone_number"
+              :validationMessages="stepTwoErrors.lessor_details.telephone_number"
+              name="lessortelephone"
+              refs="lessor_telephone"
+              type="tel"
+              class="mt40"
           />
-          <base-tel-number
+          <!-- <base-tel-number
             v-model="lessor_details.mobile_number"
             :validationMessages="stepTwoErrors.lessor_details.mobile_number"
             class="mb15 input-phone input-w2"
             placeholder="Mobile no."
-          />
-        </div>
+          /> -->
+        </div> 
         <base-input
           label="Email Address"
           v-model="lessor_details.email_address"
@@ -324,6 +374,7 @@
 
 <script>
 import BaseInput from "@/components/forms/BaseInput";
+import BaseSelect from "@/components/forms/BaseSelect";
 import BaseCheckbox from "@/components/forms/BaseCheckbox";
 import ButtonBlock from "@/components/ButtonBlock";
 import BaseTelNumber from "@/components/forms/BaseTelNumber";
@@ -334,12 +385,15 @@ export default {
     BaseInput,
     BaseCheckbox,
     ButtonBlock,
+    BaseSelect,
     BaseTelNumber,
   },
   data() {
     return {
       business_details: {
         name: "",
+        barangay: "",
+        city: "Bacoor City, Cavite",
         trade_name: "",
         complete_business_address: "",
         president_first_name: "",
@@ -374,9 +428,308 @@ export default {
       },
       unrequired: {
         business_details: [
-          "president_middle_name"
-        ]
+          "president_middle_name",
+          "president_first_name",
+          "president_last_name",
+          "email_address",
+          "property_index_number",
+          "residing_employees"
+        ],
       },
+      barangayname: [
+        {
+          label: "Alima",
+          value: "Alima"
+        },
+        {
+          label: "Aniban I",
+          value: "Aniban I"
+        },
+        {
+          label: "Aniban II",
+          value: "Aniban II"
+        },
+        {
+          label: "Aniban III",
+          value: "Aniban III"
+        },
+        {
+          label: "Aniban IV",
+          value: "Aniban IV"
+        },
+        {
+          label: "Aniban V",
+          value: "Aniban V"
+        },
+        {
+          label: "Banalo",
+          value: "Banalo"
+        },
+        {
+          label: "Bayanan",
+          value: "Bayanan"
+        },
+        {
+          label: "Camposanto",
+          value: "Camposanto"
+        },
+        {
+          label: "Daang-Bukid",
+          value: "Daang-Bukid"
+        },
+        {
+          label: "Digman",
+          value: "Digman"
+        },
+        {
+          label: "Dulong-Bayan",
+          value: "Dulong-Bayan"
+        },
+        {
+          label: "Habay I",
+          value: "Habay I"
+        },
+        {
+          label: "Habay II",
+          value: "Habay II"
+        },
+        {
+          label: "Kaingin",
+          value: "Kaingin"
+        },
+        {
+          label: "Ligas I",
+          value: "Ligas I"
+        },
+        {
+          label: "Ligas II",
+          value: "Ligas II"
+        },
+        {
+          label: "Ligas III",
+          value: "Ligas III"
+        },
+        {
+          label: "Mabolo I",
+          value: "Mabolo I"
+        },
+        {
+          label: "Mabolo II",
+          value: "Mabolo II"
+        },
+        {
+          label: "Mabolo III",
+          value: "Mabolo III"
+        },
+        {
+          label: "Maliksi I",
+          value: "Maliksi I"
+        },
+        {
+          label: "Maliksi II",
+          value: "Maliksi II"
+        },
+        {
+          label: "Maliksi III",
+          value: "Maliksi III"
+        },
+        {
+          label: "Mambog I",
+          value: "Mambog I"
+        },
+        {
+          label: "Mambog II",
+          value: "Mambog II"
+        },
+        {
+          label: "Mambog III",
+          value: "Mambog III"
+        },
+        {
+          label: "Mambog IV",
+          value: "Mambog IV"
+        },
+        {
+          label: "Mambog V",
+          value: "Mambog V"
+        },
+        {
+          label: "Molino I/Burol",
+          value: "Molino I/Burol"
+        },
+        {
+          label: "Molino II",
+          value: "Molino II"
+        },
+        {
+          label: "Molino III",
+          value: "Molino III"
+        },
+        {
+          label: "Molino IV",
+          value: "Molino IV"
+        },
+        {
+          label: "Molino V/Bahayang Pag-Asa",
+          value: "Molino V/Bahayang Pag-Asa"
+        },
+        {
+          label: "Molino VI",
+          value: "Molino VI"
+        },
+        {
+          label: "Molino VII/Gawaran",
+          value: "Molino VII/Gawaran"
+        },
+        {
+          label: "Niog I",
+          value: "Niog I"
+        },
+        {
+          label: "Niog II",
+          value: "Niog II"
+        },
+        {
+          label: "Niog III",
+          value: "Niog III"
+        },
+        {
+          label: "P.F. Espiritu II (Panapaan II)",
+          value: "P.F. Espiritu II (Panapaan II)"
+        },
+        {
+          label: "P.F. Espiritu III (Panapaan III)",
+          value: "P.F. Espiritu III (Panapaan III)"
+        },
+        {
+          label: "P.F. Espiritu IV (Panapaan IV)",
+          value: "P.F. Espiritu IV (Panapaan IV)"
+        },
+        {
+          label: "P.F. Espiritu V (Panapaan V)",
+          value: "P.F. Espiritu V (Panapaan V)"
+        },
+        {
+          label: "P.F. Espiritu VI (Panapaan VI)",
+          value: "P.F. Espiritu VI (Panapaan VI)"
+        },
+        {
+          label: "P.F. Espiritu VII (Panapaan VII)",
+          value: "P.F. Espiritu VII (Panapaan VII)"
+        },
+        {
+          label: "P.F. Espiritu VIII (Panapaan VIII)",
+          value: "P.F. Espiritu VIII (Panapaan VIII)"
+        },
+        {
+          label: "P.F. Espirtu I (Panapaan I)",
+          value: "P.F. Espirtu I (Panapaan I)"
+        },
+        {
+          label: "Queens Row Central",
+          value: "Queens Row Central"
+        },
+        {
+          label: "Queens Row East",
+          value: "Queens Row East"
+        },
+        {
+          label: "Queens Row West",
+          value: "Queens Row West"
+        },
+        {
+          label: "Real I",
+          value: "Real I"
+        },
+        {
+          label: "Real II",
+          value: "Real II"
+        },
+        {
+          label: "Salinas I",
+          value: "Salinas I"
+        },
+        {
+          label: "Salinas II",
+          value: "Salinas II"
+        },
+        {
+          label: "Salinas III",
+          value: "Salinas III"
+        },
+        {
+          label: "Salinas IV",
+          value: "Salinas IV"
+        },
+        {
+          label: "San Nicolas I",
+          value: "San Nicolas I"
+        },
+        {
+          label: "San Nicolas II",
+          value: "San Nicolas II"
+        },
+        {
+          label: "San Nicolas III",
+          value: "San Nicolas III"
+        },
+        {
+          label: "Sineguelasan",
+          value: "Sineguelasan"
+        },
+        {
+          label: "Tabing-Dagat (Town Proper)",
+          value: "Tabing-Dagat (Town Proper)"
+        },
+        {
+          label: "Talaba I",
+          value: "Talaba I"
+        },
+        {
+          label: "Talaba II",
+          value: "Talaba II"
+        },
+        {
+          label: "Talaba III",
+          value: "Talaba III"
+        },
+        {
+          label: "Talaba IV",
+          value: "Talaba IV"
+        },
+        {
+          label: "Talaba V",
+          value: "Talaba V"
+        },
+        {
+          label: "Talaba VI",
+          value: "Talaba VI"
+        },
+        {
+          label: "Talaba VII",
+          value: "Talaba VII"
+        },
+        {
+          label: "Zapote I",
+          value: "Zapote I"
+        },
+        {
+          label: "Zapote II",
+          value: "Zapote II"
+        },
+        {
+          label: "Zapote III",
+          value: "Zapote III"
+        },
+        {
+          label: "Zapote IV",
+          value: "Zapote IV"
+        },
+        {
+          label: "Zapote V (Longos-Zapote V)",
+          value: "Zapote V (Longos-Zapote V)"
+        },
+      ],
     };
   },
   computed: {
@@ -641,6 +994,10 @@ div.meta-container {
 
 .p-relative{
   position: relative;
+}
+
+.no-mt{
+   margin-top: 0!important;
 }
 
 /*
