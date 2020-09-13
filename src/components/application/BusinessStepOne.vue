@@ -21,7 +21,7 @@
         placeholder="--- Select from the options ---"
         :options="modeofpayment"
         v-model="basic_information.mode_of_payment"
-        :validationMessages="stepOneErrors.basic_information.has_tax_incentive"
+        :validationMessages="stepOneErrors.basic_information.mode_of_payment"
         name="selectOptions"
         class="mb15"
       />
@@ -253,7 +253,7 @@ export default {
       ],
       unrequired: {
         business_application: [],
-        basic_information: ["government_entity", "owner_middle_name"],
+        basic_information: ["government_entity", "owner_middle_name", "ctc_no", "tin", "has_tax_incentive", "owner_email_address"],
       },
     };
   },

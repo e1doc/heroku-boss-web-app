@@ -71,6 +71,13 @@ a{
   box-shadow: none;
 }
 
+.btn-disabled{
+  pointer-events: none;
+  color: #fff;
+  border-color: #a8a8a8;
+  background-color: #a8a8a8;
+}
+
 @media only screen and ( max-width: 480px ){
   .btn{
       width: 100%;

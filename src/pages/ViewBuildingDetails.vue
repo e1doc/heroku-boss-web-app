@@ -5,10 +5,16 @@
         <h1 class="meta-form-title">Building Application Details</h1>
 
         <div class="meta-text-group flex-wrap">
-          <div class="meta-text">
+          <div class="meta-text no-bb">
             <div class="meta-label">Application Number :</div>
             <div class="meta-value">
               #{{ buildingBasicInformation.reference_number }}
+            </div>
+          </div>
+          <div class="meta-text">
+            <div class="meta-label">Ownership Type: </div>
+            <div class="meta-value">
+              {{ buildingDetails.ownership_type }}
             </div>
           </div>
         </div>
@@ -40,7 +46,7 @@
         </div>
 
         <!-- Name of President/Treasurer of Corporation : -->
-        <div class="meta-text-group flex-wrap">
+        <!-- <div class="meta-text-group flex-wrap">
           <div class="meta-group-title">
             For Construction Owned by an Enterprise :
           </div>
@@ -56,51 +62,75 @@
               {{ buildingDetails.form_of_ownership }}
             </div>
           </div>
-        </div>
-
-        <!-- Business Address -->
+        </div> -->
         <div class="meta-text-group flex-wrap">
-          <div class="meta-group-title">Location of Construction :</div>
-          <div class="meta-text w3 no-br no-bb">
-            <div class="meta-label">Lot No. :</div>
-            <div class="meta-value">{{ buildingDetails.lot_no }}</div>
-          </div>
-          <div class="meta-text w3 no-br no-bb">
-            <div class="meta-label">Blk No. :</div>
-            <div class="meta-value">{{ buildingDetails.blk_no }}</div>
-          </div>
-          <div class="meta-text w3 no-br no-bb">
+          <div class="meta-text no-bb">
             <div class="meta-label">TCT No. :</div>
             <div class="meta-value">{{ buildingDetails.tct_no }}</div>
           </div>
-          <div class="meta-text w3 no-bb">
+          <div class="meta-text">
             <div class="meta-label">Tax Dec. No. :</div>
             <div class="meta-value">{{ buildingDetails.tax_dec_no }}</div>
           </div>
+        </div>
+        <!-- Business Address -->
+        <div class="meta-text-group flex-wrap">
+          <div class="meta-group-title">Location of Construction :</div>
+          <div class="meta-text w4 no-br no-bb">
+            <div class="meta-label">Address No. :</div>
+            <div class="meta-value">{{ buildingDetails.address_no }}</div>
+          </div>
+          <div class="meta-text w4 no-br no-bb">
+            <div class="meta-label">Lot No. :</div>
+            <div class="meta-value">{{ buildingDetails.lot_no }}</div>
+          </div>
+          <div class="meta-text w4 no-bb">
+            <div class="meta-label">Lot No. count (default 1) :</div>
+            <div class="meta-value">{{ buildingDetails.lot_no_count }}</div>
+          </div>
 
           <div class="clearfix"></div>
 
           <div class="meta-text w4 no-br no-bb">
+            <div class="meta-label">Blk No. :</div>
+            <div class="meta-value">{{ buildingDetails.blk_no }}</div>
+          </div>
+          <div class="meta-text w4 no-br no-bb">
+            <div class="meta-label">Phase No. :</div>
+            <div class="meta-value">{{ buildingDetails.phase_no }}</div>
+          </div>
+          <div class="meta-text w4 no-bb">
+            <div class="meta-label">Subdivision :</div>
+            <div class="meta-value">{{ buildingDetails.subdivision_name }}</div>
+          </div>
+
+          <div class="clearfix"></div>
+
+          <div class="meta-text w6 no-br no-bb">
             <div class="meta-label">Street :</div>
             <div class="meta-value">{{ buildingDetails.street }}</div>
           </div>
-          <div class="meta-text w4 no-br no-bb">
-            <div class="meta-label">Barangay :</div>
-            <div class="meta-value">{{ buildingDetails.barangay }}</div>
-          </div>
-          <div class="meta-text w4 no-bb">
-            <div class="meta-label">City / Province:</div>
-            <div class="meta-value">{{ buildingDetails.city }}</div>
+          <div class="meta-text w6 no-bb">
+            <div class="meta-label">District :</div>
+            <div class="meta-value">{{ buildingDetails.district }}</div>
           </div>
 
           <div class="clearfix"></div>
 
           <div class="meta-text no-bb">
+            <div class="meta-label">Barangay :</div>
+            <div class="meta-value">{{ buildingDetails.barangay }}</div>
+          </div>
+          <div class="meta-text">
+            <div class="meta-label">City / Province:</div>
+            <div class="meta-value">{{ buildingDetails.city }}</div>
+          </div>
+          <!-- <div class="meta-text no-bb">
             <div class="meta-label">Property Type</div>
             <div class="meta-value">{{ buildingDetails.property_type }}</div>
-          </div>
+          </div> -->
 
-          <div class="meta-text no-bb">
+          <div class="meta-text no-bb mt20">
             <div class="meta-label">Scope of Work :</div>
             <div class="meta-value">
               {{
@@ -111,7 +141,7 @@
             </div>
           </div>
           <div class="meta-text">
-            <div class="meta-label">Use or Character of Occupancy</div>
+            <div class="meta-label">Use or Character of Occupancy : </div>
             <div class="meta-value">
               {{
                 buildingDetails.character_of_occupancy_others === ""
@@ -124,13 +154,13 @@
 
         <!-- Other Details -->
         <div class="meta-text-group flex-wrap">
-          <div class="meta-text w6 no-br no-bb">
+          <!-- <div class="meta-text w6 no-br no-bb">
             <div class="meta-label">Occupancy Classified:</div>
             <div class="meta-value">
               {{ buildingOtherDetails.occupancy_classified }}
             </div>
-          </div>
-          <div class="meta-text w6 no-bb">
+          </div> -->
+          <div class="meta-text no-bb">
             <div class="meta-label">Total Estimated Cost :</div>
             <div class="meta-value">
               ₱

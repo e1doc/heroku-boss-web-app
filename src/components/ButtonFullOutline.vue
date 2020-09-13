@@ -55,4 +55,11 @@ a{
     color: #ffffff;
     border-color: #039BE5
 }
+
+.btn-disabled{
+  pointer-events: none;
+  color: #fff;
+  border-color: #a8a8a8;
+  background-color: #a8a8a8;
+}
 </style>

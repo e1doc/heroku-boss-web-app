@@ -7,6 +7,20 @@
       <div>
         <h1>VERIFY EMAIL</h1>
       </div>
+
+      <!-- COUNTDOWN TIMER -->
+      <div class="resend-code-div flex-center">
+        <span class="resend-text" 
+           v-bind:class="timerCount != 0 ? 'disabled' : '' "
+           @click="resetValue">
+           Resend Code 
+        </span>
+        <span class="countdown-timer" 
+           v-if="timerCount != 0">
+            ( {{ timerCount }} seconds )
+        </span>
+      </div>
+
       <div class="note">
         OTP has been sent to you on your email address. Please enter it below.
       </div>
@@ -46,6 +60,7 @@ export default {
   data() {
     return {
       code: "",
+      timerCount: 30
     };
   },
   methods: {
@@ -59,8 +74,24 @@ export default {
     },
     verifyOtp(){
        this.getAuthToken(this.code);
+    },
+    resetValue() {
+        this.timerCount = '30'
     }
   },
+  // COUNTDOWN TIMER
+  watch: {
+    timerCount: {
+      handler(value) {
+        if (value > 0) {
+          setTimeout(() => {
+              this.timerCount--;
+          }, 1000);
+        }
+      },
+      immediate: true // This ensures the watcher is triggered upon creation
+    }
+  }
 };
 </script>
 
@@ -80,6 +111,32 @@ export default {
   line-height: 26px;
   letter-spacing: 0.5px;
   margin-bottom: 20px;
+}
+
+// COUNTDOWN TIMER
+.resend-code-div{
+  display: flex;
+  justify-content: center;
+}
+.resend-text{
+  width: auto;
+  float: left;
+  font-size: 16px;
+  color: #039be5bf;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.resend-text.disabled{
+  color: #cbcbcb;
+  text-decoration: none;
+  pointer-events: none;
+}
+.countdown-timer {
+    color: #039be5bf;
+    font-size: 16px;
+    font-family: "Proxima Nova Rg";
+    text-align: center;
 }
 
 @media only screen and ( max-width: 1400px ){

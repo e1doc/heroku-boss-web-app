@@ -29,6 +29,20 @@
           </button-full>
         </div>
       </div>
+
+      <!-- COUNTDOWN TIMER -->
+      <div class="resend-code-div flex-center">
+        <span class="resend-text" 
+           v-bind:class="timerCount != 0 ? 'disabled' : '' "
+           @click="resetValue">
+           Resend Code 
+        </span>
+        <span class="countdown-timer" 
+           v-if="timerCount != 0">
+            ( {{ timerCount }} seconds )
+        </span>
+      </div>
+
       <div class="form-success" v-if="forgotPasswordSuccess">
         <div class="note mt50">
           Password reset link will be sent to your email!
@@ -58,6 +72,7 @@ export default {
     return {
       email: "",
       isSuccess: false,
+      timerCount: 30
     };
   },
   computed:{
@@ -67,6 +82,22 @@ export default {
     ...mapActions(["forgotPasswordUser"]),
     forgotPassword(){
       this.forgotPasswordUser({email:this.email})
+    },
+    resetValue() {
+        this.timerCount = '30'
+    }
+  },
+  // COUNTDOWN TIMER
+  watch: {
+    timerCount: {
+      handler(value) {
+        if (value > 0) {
+          setTimeout(() => {
+              this.timerCount--;
+          }, 1000);
+        }
+      },
+      immediate: true // This ensures the watcher is triggered upon creation
     }
   }
 };
@@ -77,16 +108,44 @@ export default {
   font-size: 80px;
   color: #c2c2c2;
 }
+
 .form-group {
   margin-top: 45px;
   div {
     margin-bottom: 20px;
   }
 }
+
 .note {
   font-size: 14px;
   line-height: 26px;
   letter-spacing: 0.5px;
+}
+
+// COUNTDOWN TIMER
+.resend-code-div{
+  display: flex;
+  justify-content: center;
+}
+.resend-text{
+  width: auto;
+  float: left;
+  font-size: 16px;
+  color: #039be5bf;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.resend-text.disabled{
+  color: #cbcbcb;
+  text-decoration: none;
+  pointer-events: none;
+}
+.countdown-timer {
+    color: #039be5bf;
+    font-size: 16px;
+    font-family: "Proxima Nova Rg";
+    text-align: center;
 }
 
 @media only screen and ( max-width: 1400px ){

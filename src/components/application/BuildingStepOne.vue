@@ -70,7 +70,7 @@
         class="mt40"
       />
       <base-input
-        label="Telephone Number"
+        label="Telephone / Phone Number"
         v-model="basic_information.owner_telephone_number"
         :validationMessages="
           buildingStepOneErrors.basic_information.owner_telephone_number
@@ -140,7 +140,11 @@ export default {
         tin: "",
       },
       unrequired: {
-        basic_information: ["owner_middle_name"],
+        basic_information: [
+          "owner_middle_name", 
+          "owner_zip_code",
+          "tin" 
+        ],
       },
       ownership_type: [
         {

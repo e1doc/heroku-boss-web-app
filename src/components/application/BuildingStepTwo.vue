@@ -35,19 +35,59 @@
         class="mt40"
       />
     </div> -->
-
+    <base-input
+        label="TCT No."
+        v-model="building_details.tct_no"
+        :validationMessages="buildingStepTwoErrors.building_details.tct_no"
+        name="tctnumber"
+        refs="tct_number"
+        type="text"
+      />
+      <base-input
+        label="Tax Dec. No."
+        v-model="building_details.tax_dec_no"
+        :validationMessages="
+          buildingStepTwoErrors.building_details.tax_dec_no
+        "
+        name="taxdecnumber"
+        refs="tax_dec_number"
+        type="text"
+    />
     <div class="meta-form-group mb60">
       <div class="meta-group-title">Location of Construction</div>
-      <div class="meta-input-group flex-row w4">
+      <div class="meta-input-group flex-row w3">
         <base-input
+          label="Address No."
+          v-model="building_details.address_no"
+          :validationMessages="buildingStepTwoErrors.building_details.address_no"
+          name="addressnumber"
+          refs="address_number"
+          type="text"
+          class="input-w3"
+          inputClass="fw-mobile"
+        />
+         <base-input
           label="Lot No."
           v-model="building_details.lot_no"
           :validationMessages="buildingStepTwoErrors.building_details.lot_no"
           name="lotnumber"
           refs="lot_number"
           type="text"
-          class="input-w4"
+          class="input-w3"
+          inputClass="fw-mobile"
         />
+        <base-input
+          label="Lot No. count (default 1)"
+          v-model="building_details.lot_no_count"
+          :validationMessages="buildingStepTwoErrors.building_details.lot_no_count"
+          name="lotnumbercount"
+          refs="lot_number_count"
+          type="text"
+          class="input-w3"
+          inputClass="fw-mobile"
+        />
+      </div>
+      <div class="meta-input-group flex-row w3">
         <base-input
           label="Blk No."
           v-model="building_details.blk_no"
@@ -55,27 +95,28 @@
           name="blknumber"
           refs="blk_number"
           type="text"
-          class="input-w4"
+          class="input-w3"
+          inputClass="fw-mobile"
         />
         <base-input
-          label="TCT No."
-          v-model="building_details.tct_no"
-          :validationMessages="buildingStepTwoErrors.building_details.tct_no"
-          name="tctnumber"
-          refs="tct_number"
+          label="Phase No."
+          v-model="building_details.phase_no"
+          :validationMessages="buildingStepTwoErrors.building_details.phase_no"
+          name="phasenumber"
+          refs="phase_number"
           type="text"
-          class="input-w4"
+          class="input-w3"
+          inputClass="fw-mobile"
         />
         <base-input
-          label="Tax Dec. No."
-          v-model="building_details.tax_dec_no"
-          :validationMessages="
-            buildingStepTwoErrors.building_details.tax_dec_no
-          "
-          name="taxdecnumber"
-          refs="tax_dec_number"
+          label="Subdivision"
+          v-model="building_details.subdivision_name"
+          :validationMessages="buildingStepTwoErrors.building_details.subdivision_name"
+          name="nameofsubdivision"
+          refs="subdivision_name"
           type="text"
-          class="input-w4"
+          class="input-w3"
+          inputClass="fw-mobile"
         />
       </div>
       <div class="meta-input-group flex-row w3">
@@ -86,31 +127,44 @@
           name="street"
           refs="street_name"
           type="text"
-          class="input-w3"
+          class="input-w2"
           inputClass="fw-mobile"
         />
         <base-input
-          label="Barangay"
-          v-model="building_details.barangay"
-          :validationMessages="buildingStepTwoErrors.building_details.barangay"
-          name="barangay"
-          refs="barangay_name"
+          label="District"
+          v-model="building_details.district"
+          :validationMessages="buildingStepTwoErrors.building_details.district"
+          name="district"
+          refs="district_name"
           type="text"
-          class="input-w3"
+          class="input-w2 input-required"
           inputClass="fw-mobile"
-        />
-        <base-input
-          label="City / Province"
-          v-model="building_details.city"
-          :validationMessages="buildingStepTwoErrors.building_details.city"
-          name="cityprovince"
-          refs="city_province"
-          type="text"
-          class="input-w3 disabled"
-          inputClass="fw-mobile disabled-input"
-          :disabled="true"
         />
       </div>
+      <div class="meta-form-group mb20">
+        <div class="meta-group-title">Barangay <span class="asterisk">*</span></div>
+        <base-select
+          placeholder="------ Choose from the list of barangay ------"
+          v-model="building_details.barangay"
+          :validationMessages="buildingStepTwoErrors.building_details.barangay"
+          name="nameofbarangay"
+          refs="barangay_name"
+          :options="barangayname"
+          type="text"
+          inputClass="fw-mobile"
+        />
+      </div>
+      <base-input
+        label="City / Province"
+        v-model="building_details.city"
+        :validationMessages="buildingStepTwoErrors.building_details.city"
+        name="cityprovince"
+        refs="city_province"
+        type="text"
+        class="disabled"
+        inputClass="fw-mobile disabled-input"
+        :disabled="true"
+      />
     </div>
     <!-- PROPERTY TYPE -->
     <!-- <div class="meta-form-group mb60">
@@ -129,7 +183,7 @@
 
     <!-- SCOPE OF WORK -->
     <div class="meta-form-group mb60">
-      <div class="meta-group-title">Scope of Work</div>
+      <div class="meta-group-title">Scope of Work <span class="asterisk">*</span></div>
 
       <base-select
         placeholder="------ Choose scope of work ------"
@@ -157,7 +211,7 @@
 
     <!-- USER OF CHARACTER OF OCCUPANCY -->
     <div class="meta-form-group mb60">
-      <div class="meta-group-title">User or Character of Occupancy</div>
+      <div class="meta-group-title">User or Character of Occupancy <span class="asterisk">*</span></div>
 
       <base-select
         placeholder="------ Select from the options ------"
@@ -185,7 +239,7 @@
 
     <div class="meta-form-group mb60">
       <div class="meta-group-title">Other Details</div>
-      <div class="meta-input-group flex-row w2">
+      <!-- <div class="meta-input-group flex-row w2"> -->
         <!-- <base-input
           label="Occupancy Classified"
           v-model="building_other_details.occupancy_classified"
@@ -197,18 +251,19 @@
           type="text"
           class=" input-w2"
         /> -->
-        <base-input
-          label="Total Estimated Cost"
-          v-model="building_other_details.total_estimated_cost"
-          :validationMessages="
-            buildingStepTwoErrors.building_other_details.total_estimated_cost
-          "
-          name="estimatedcost"
-          refs="estimated_cost"
-          type="number"
-          
-        />
-      </div>
+      <base-input
+        label="Total Estimated Cost"
+        v-model="building_other_details.total_estimated_cost"
+        :validationMessages="
+          buildingStepTwoErrors.building_other_details.total_estimated_cost
+        "
+        name="estimatedcost"
+        refs="estimated_cost"
+        class="input-required"
+        type="number"
+        
+      />
+      <!-- </div> -->
       <div class="meta-input-group flex-row w3">
         <base-input
           label="Number of Units"
@@ -249,7 +304,7 @@
       </div>
       <div class="meta-form-group mb60">
         <div class="meta-group-title mt10 mb10">
-          Proposed Date of Construction
+          Proposed Date of Construction <span class="asterisk">*</span>
         </div>
         <base-date-picker
           v-model="building_other_details.date_of_construction"
@@ -320,8 +375,21 @@ export default {
         building_details: [
           "scope_of_work_others",
           "character_of_occupancy_others",
+          "tct_no",
+          "tax_dec_no",
+          "address_no",
+          "lot_no",
+          "lot_no_count",
+          "blk_no",
+          "phase_no",
+          "subdivision_name",
+          "street"
         ],
-        building_other_details: [],
+        building_other_details: [
+          "units",
+          "floor_area",
+          "lot_area"
+        ],
       },
       propertytype: [
         {
@@ -335,6 +403,300 @@ export default {
         {
           label: "Machinery",
           value: "Machinery",
+        },
+      ],
+      barangayname: [
+        {
+          label: "Alima",
+          value: "Alima"
+        },
+        {
+          label: "Aniban I",
+          value: "Aniban I"
+        },
+        {
+          label: "Aniban II",
+          value: "Aniban II"
+        },
+        {
+          label: "Aniban III",
+          value: "Aniban III"
+        },
+        {
+          label: "Aniban IV",
+          value: "Aniban IV"
+        },
+        {
+          label: "Aniban V",
+          value: "Aniban V"
+        },
+        {
+          label: "Banalo",
+          value: "Banalo"
+        },
+        {
+          label: "Bayanan",
+          value: "Bayanan"
+        },
+        {
+          label: "Camposanto",
+          value: "Camposanto"
+        },
+        {
+          label: "Daang-Bukid",
+          value: "Daang-Bukid"
+        },
+        {
+          label: "Digman",
+          value: "Digman"
+        },
+        {
+          label: "Dulong-Bayan",
+          value: "Dulong-Bayan"
+        },
+        {
+          label: "Habay I",
+          value: "Habay I"
+        },
+        {
+          label: "Habay II",
+          value: "Habay II"
+        },
+        {
+          label: "Kaingin",
+          value: "Kaingin"
+        },
+        {
+          label: "Ligas I",
+          value: "Ligas I"
+        },
+        {
+          label: "Ligas II",
+          value: "Ligas II"
+        },
+        {
+          label: "Ligas III",
+          value: "Ligas III"
+        },
+        {
+          label: "Mabolo I",
+          value: "Mabolo I"
+        },
+        {
+          label: "Mabolo II",
+          value: "Mabolo II"
+        },
+        {
+          label: "Mabolo III",
+          value: "Mabolo III"
+        },
+        {
+          label: "Maliksi I",
+          value: "Maliksi I"
+        },
+        {
+          label: "Maliksi II",
+          value: "Maliksi II"
+        },
+        {
+          label: "Maliksi III",
+          value: "Maliksi III"
+        },
+        {
+          label: "Mambog I",
+          value: "Mambog I"
+        },
+        {
+          label: "Mambog II",
+          value: "Mambog II"
+        },
+        {
+          label: "Mambog III",
+          value: "Mambog III"
+        },
+        {
+          label: "Mambog IV",
+          value: "Mambog IV"
+        },
+        {
+          label: "Mambog V",
+          value: "Mambog V"
+        },
+        {
+          label: "Molino I/Burol",
+          value: "Molino I/Burol"
+        },
+        {
+          label: "Molino II",
+          value: "Molino II"
+        },
+        {
+          label: "Molino III",
+          value: "Molino III"
+        },
+        {
+          label: "Molino IV",
+          value: "Molino IV"
+        },
+        {
+          label: "Molino V/Bahayang Pag-Asa",
+          value: "Molino V/Bahayang Pag-Asa"
+        },
+        {
+          label: "Molino VI",
+          value: "Molino VI"
+        },
+        {
+          label: "Molino VII/Gawaran",
+          value: "Molino VII/Gawaran"
+        },
+        {
+          label: "Niog I",
+          value: "Niog I"
+        },
+        {
+          label: "Niog II",
+          value: "Niog II"
+        },
+        {
+          label: "Niog III",
+          value: "Niog III"
+        },
+        {
+          label: "P.F. Espiritu II (Panapaan II)",
+          value: "P.F. Espiritu II (Panapaan II)"
+        },
+        {
+          label: "P.F. Espiritu III (Panapaan III)",
+          value: "P.F. Espiritu III (Panapaan III)"
+        },
+        {
+          label: "P.F. Espiritu IV (Panapaan IV)",
+          value: "P.F. Espiritu IV (Panapaan IV)"
+        },
+        {
+          label: "P.F. Espiritu V (Panapaan V)",
+          value: "P.F. Espiritu V (Panapaan V)"
+        },
+        {
+          label: "P.F. Espiritu VI (Panapaan VI)",
+          value: "P.F. Espiritu VI (Panapaan VI)"
+        },
+        {
+          label: "P.F. Espiritu VII (Panapaan VII)",
+          value: "P.F. Espiritu VII (Panapaan VII)"
+        },
+        {
+          label: "P.F. Espiritu VIII (Panapaan VIII)",
+          value: "P.F. Espiritu VIII (Panapaan VIII)"
+        },
+        {
+          label: "P.F. Espirtu I (Panapaan I)",
+          value: "P.F. Espirtu I (Panapaan I)"
+        },
+        {
+          label: "Queens Row Central",
+          value: "Queens Row Central"
+        },
+        {
+          label: "Queens Row East",
+          value: "Queens Row East"
+        },
+        {
+          label: "Queens Row West",
+          value: "Queens Row West"
+        },
+        {
+          label: "Real I",
+          value: "Real I"
+        },
+        {
+          label: "Real II",
+          value: "Real II"
+        },
+        {
+          label: "Salinas I",
+          value: "Salinas I"
+        },
+        {
+          label: "Salinas II",
+          value: "Salinas II"
+        },
+        {
+          label: "Salinas III",
+          value: "Salinas III"
+        },
+        {
+          label: "Salinas IV",
+          value: "Salinas IV"
+        },
+        {
+          label: "San Nicolas I",
+          value: "San Nicolas I"
+        },
+        {
+          label: "San Nicolas II",
+          value: "San Nicolas II"
+        },
+        {
+          label: "San Nicolas III",
+          value: "San Nicolas III"
+        },
+        {
+          label: "Sineguelasan",
+          value: "Sineguelasan"
+        },
+        {
+          label: "Tabing-Dagat (Town Proper)",
+          value: "Tabing-Dagat (Town Proper)"
+        },
+        {
+          label: "Talaba I",
+          value: "Talaba I"
+        },
+        {
+          label: "Talaba II",
+          value: "Talaba II"
+        },
+        {
+          label: "Talaba III",
+          value: "Talaba III"
+        },
+        {
+          label: "Talaba IV",
+          value: "Talaba IV"
+        },
+        {
+          label: "Talaba V",
+          value: "Talaba V"
+        },
+        {
+          label: "Talaba VI",
+          value: "Talaba VI"
+        },
+        {
+          label: "Talaba VII",
+          value: "Talaba VII"
+        },
+        {
+          label: "Zapote I",
+          value: "Zapote I"
+        },
+        {
+          label: "Zapote II",
+          value: "Zapote II"
+        },
+        {
+          label: "Zapote III",
+          value: "Zapote III"
+        },
+        {
+          label: "Zapote IV",
+          value: "Zapote IV"
+        },
+        {
+          label: "Zapote V (Longos-Zapote V)",
+          value: "Zapote V (Longos-Zapote V)"
         },
       ],
       scopeofwork: [

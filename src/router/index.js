@@ -25,6 +25,7 @@ import Inquiries from "../pages/admin/Inquiries";
 import ReplyInquiry from "../pages/admin/ReplyInquiry";
 import ApproveBusinessApplication from "../pages/admin/ApproveBusinessApplication.vue";
 import ApproveBuildingApplication from "../pages/admin/ApproveBuildingApplication.vue";
+import TestPage from "../pages/TestPage";
 import store from "../store";
 Vue.use(VueRouter);
 
@@ -122,6 +123,11 @@ const routes = [{
         path: "new-inquiry",
         name: "NewInquiry",
         component: NewInquiry,
+      },
+      {
+        path: "test-page",
+        name: "TestPage",
+        component: TestPage,
       },
     ],
     async beforeEnter(to, from, next) {
