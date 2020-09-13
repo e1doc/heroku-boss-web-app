@@ -751,6 +751,7 @@ export default {
   mounted() {
     this.preFillForm();
     this.addActivity();
+    this.changeTypeOfOrganization()
   },
   watch: {
     draftBusiness: {

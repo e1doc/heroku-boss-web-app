@@ -280,6 +280,7 @@ export default {
   mounted() {
     this.preFillForm();
     this.$store.commit("setLoading", false);
+    this.changeOrganization()
   },
   methods: {
     changeOrganization(){
