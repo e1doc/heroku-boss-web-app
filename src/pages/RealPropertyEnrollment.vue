@@ -133,7 +133,7 @@ export default {
         );
         if (!validateResponse.data.is_existing) {
           const response = await axios.post(
-            `http://122.55.20.85:8012/lguapi/`,
+            `//122.55.20.85:8012/lguapi/`,
             payload,
             config
           );

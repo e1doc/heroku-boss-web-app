@@ -259,6 +259,7 @@ export default {
           "tin",
           "has_tax_incentive",
           "owner_telephone_number",
+          "owner_email_address"
         ],
       },
     };
