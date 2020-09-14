@@ -745,13 +745,13 @@ export default {
       "stepTwoErrors",
       "applicationRequirements",
       "draftBusiness",
-      "typeOfOrganization"
+      "typeOfOrganization",
     ]),
   },
   mounted() {
     this.preFillForm();
     this.addActivity();
-    this.changeTypeOfOrganization()
+    this.changeTypeOfOrganization();
   },
   watch: {
     draftBusiness: {
@@ -764,13 +764,21 @@ export default {
     },
   },
   methods: {
-    changeTypeOfOrganization(){
-      if (this.typeOfOrganization === 'corporation'){
-        this.unrequired.business_details.push('trade_name')
-        this.unrequired.business_details = this.unrequired.business_details.filter(item => item !== 'name')
-      }else{
-        this.unrequired.business_details.push('name')
-        this.unrequired.business_details = this.unrequired.business_details.filter(item => item !== 'trade_name')
+    changeTypeOfOrganization() {
+      if (this.typeOfOrganization === "corporation") {
+        if (!this.unrequired.business_details.includes("trade_name")) {
+          this.unrequired.business_details.push("trade_name");
+        }
+        this.unrequired.business_details = this.unrequired.business_details.filter(
+          (item) => item !== "name"
+        );
+      } else {
+        if (!this.unrequired.business_details.includes("name")) {
+          this.unrequired.business_details.push("name");
+        }
+        this.unrequired.business_details = this.unrequired.business_details.filter(
+          (item) => item !== "trade_name"
+        );
       }
     },
     previousStep() {
