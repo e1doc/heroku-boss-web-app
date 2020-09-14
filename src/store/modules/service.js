@@ -116,6 +116,7 @@ const actions = {
         `${baseUrl}/auth/users/reset_password/`,
         payload
       );
+      commit('setCredentials', payload)
       commit("setLoading", false);
       commit("setForgotPasswordSuccess", true);
     } catch (err) {

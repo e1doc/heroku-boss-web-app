@@ -280,13 +280,13 @@ export default {
   mounted() {
     this.preFillForm();
     this.$store.commit("setLoading", false);
-    this.changeOrganization()
   },
   methods: {
-    changeOrganization(){
+    changeOrganization() {
+      console.log(this.basic_information.type_of_organization)
       this.$store.commit('setTypeOfOrganization', this.basic_information.type_of_organization)
       let required_fields = ['owner_first_name', 'owner_last_name', 'owner_complete_address', 'owner_mobile_number', 'owner_email_address']
-      if (this.basic_information.type_of_organization !== 'single'){
+      if (this.basic_information.type_of_organization !== 'single' ){
         required_fields.forEach(item=>{
             this.unrequired.basic_information.push(item)
         })
