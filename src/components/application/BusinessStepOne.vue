@@ -299,7 +299,6 @@ export default {
           "owner_last_name",
           "owner_complete_address",
           "owner_mobile_number",
-          "owner_email_address",
         ];
         if (this.basic_information.type_of_organization !== "single") {
           required_fields.forEach((item) => {
