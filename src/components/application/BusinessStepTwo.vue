@@ -183,7 +183,7 @@
         :validationMessages="stepTwoErrors.business_details.total_employees"
         name="total_employees"
         refs="employees"
-        type="number"
+        type="text"
         class="mt40 input-required"
       />
 
