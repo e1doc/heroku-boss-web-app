@@ -2,7 +2,6 @@
   <div class="meta-container">
     <h1 class="meta-form-title">Basic Information</h1>
     <div class="meta-form-group mb60">
-      
       <div class="meta-input-label mt10 mb10">Type of Organization</div>
       <base-select
         placeholder="--- Choose type of organization ---"
@@ -252,8 +251,15 @@ export default {
         },
       ],
       unrequired: {
-        business_application: ['account_number'],
-        basic_information: ["government_entity", "owner_middle_name", "ctc_no", "tin", "has_tax_incentive", "owner_telephone_number"],
+        business_application: ["account_number"],
+        basic_information: [
+          "government_entity",
+          "owner_middle_name",
+          "ctc_no",
+          "tin",
+          "has_tax_incentive",
+          "owner_telephone_number",
+        ],
       },
     };
   },
@@ -283,17 +289,29 @@ export default {
   },
   methods: {
     changeOrganization() {
-      console.log(this.basic_information.type_of_organization)
-      this.$store.commit('setTypeOfOrganization', this.basic_information.type_of_organization)
-      let required_fields = ['owner_first_name', 'owner_last_name', 'owner_complete_address', 'owner_mobile_number', 'owner_email_address']
-      if (this.basic_information.type_of_organization !== 'single' ){
-        required_fields.forEach(item=>{
-            this.unrequired.basic_information.push(item)
-        })
-      }else{
-          this.unrequired.basic_information.filter(item => !required_fields.includes(item))
+      if (this.basic_information.type_of_organization !== "") {
+        this.$store.commit(
+          "setTypeOfOrganization",
+          this.basic_information.type_of_organization
+        );
+        let required_fields = [
+          "owner_first_name",
+          "owner_last_name",
+          "owner_complete_address",
+          "owner_mobile_number",
+          "owner_email_address",
+        ];
+        if (this.basic_information.type_of_organization !== "single") {
+          required_fields.forEach((item) => {
+            if(!this.unrequired.basic_information.includes(item)){
+              this.unrequired.basic_information.push(item);
+            }
+          });
+        } else {
+        this.unrequired.basic_information = this.unrequired.basic_information.filter(item => !required_fields.includes(item));
+        }
+        console.log(this.basic_information.type_of_organization, this.unrequired.basic_information)
       }
-      console.log(this.unrequired.basic_information)
     },
     async nextStep() {
       this.$store.commit("setLoading", true);
@@ -358,7 +376,7 @@ export default {
       if (this.businessApplication.id) {
         this.basic_information = this.businessBasicInformation;
         this.business_application = this.businessApplication;
-        this.changeOrganization()
+        this.changeOrganization();
       }
     },
     toProfile() {
@@ -410,10 +428,10 @@ export default {
           value: {},
         });
       }
-      console.log(isApplicationClean, basic_info_errors.value)
+      console.log(isApplicationClean, basic_info_errors.value);
       if (isApplicationClean && isBasicInfoClean) {
         this.$store.commit("setCurrentApplicationStep", "2");
-        console.log('clean')
+        console.log("clean");
       } else {
         this.$swal({
           title: "Failed!",
