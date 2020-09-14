@@ -769,8 +769,8 @@ export default {
         this.unrequired.business_details.push('trade_name')
         this.unrequired.business_details = this.unrequired.business_details.filter(item => item !== 'name')
       }else{
-        this.unrequired.business_details.push('trade_name')
-        this.unrequired.business_details = this.unrequired.business_details.filter(item => item !== 'name')
+        this.unrequired.business_details.push('name')
+        this.unrequired.business_details = this.unrequired.business_details.filter(item => item !== 'trade_name')
       }
     },
     previousStep() {
