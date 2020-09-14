@@ -163,7 +163,7 @@
         "
         name="pin"
         refs="pin_number"
-        type="number"
+        type="text"
         class="mt40"
       />
 
@@ -173,7 +173,7 @@
         :validationMessages="stepTwoErrors.business_details.area"
         name="area"
         refs="business_area"
-        type="number"
+        type="text"
         class="mt40 input-required"
       />
 
@@ -436,6 +436,7 @@ export default {
           "email_address",
           "property_index_number",
           "residing_employees",
+          "complete_business_address"
         ],
       },
       barangayname: [
@@ -749,8 +750,8 @@ export default {
     ]),
   },
   mounted() {
-    this.preFillForm();
     this.addActivity();
+    this.preFillForm();
     this.changeTypeOfOrganization();
   },
   watch: {
@@ -909,6 +910,8 @@ export default {
           value: {},
         });
       }
+
+      console.log(business_details_errors.value)
 
       if (isBusinessDetailsClean) {
         this.$store.commit("setCurrentApplicationStep", "3");
