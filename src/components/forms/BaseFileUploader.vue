@@ -7,7 +7,7 @@
         <input
           type="file"
           name="file"
-          accept="image/*"
+          accept="image/*,application/pdf"
           @change="filesChange($event.target.name, $event.target.files)"
           :disabled="isUploading"
         />

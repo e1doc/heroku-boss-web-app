@@ -168,7 +168,7 @@ export default {
         }
         this.$store.commit("setLoading", false);
       } catch (err) {
-        console.log(err);
+        console.log(err.data);
         this.$store.commit("setLoading", false);
       }
     },
