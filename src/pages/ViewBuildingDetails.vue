@@ -183,6 +183,15 @@
             </div>
           </div>
           <div class="meta-text no-bb">
+            <div class="meta-label">Expected Date of Completion :</div>
+            <div class="meta-value">
+              {{
+                buildingOtherDetails.date_of_completion
+                  | moment("MMMM DD, YYYY")
+              }}
+            </div>
+          </div>
+          <div class="meta-text no-bb">
             <div class="meta-label">Total Floor Area :</div>
             <div class="meta-value">
               {{ buildingOtherDetails.floor_area }} square meters

@@ -30,7 +30,7 @@
         @change="filter"
         :selected="filterBy"
       />
-      <!-- <base-input-search /> -->
+      <base-input-search />
     </div>
   </div>
 </template>

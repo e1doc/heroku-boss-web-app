@@ -74,6 +74,16 @@ h3{
     text-align: right;
 }
 
+ul.parent-list > li {
+    list-style-type: none;
+    font-weight: 700;
+    margin-bottom: 15px;
+    margin-left: 30px;
+}
+
+.building-application ul.parent-list > li > ul {
+    padding-left: 50px !important;
+}
 
 ul.main-list{
     padding-left: 15px!important;

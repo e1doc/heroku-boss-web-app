@@ -1,52 +1,103 @@
 <template>
-  <div class="meta-container flex-center">
+  <div class="meta-container flex-center building-application">
     <h1 class="meta-form-title">Upload your Requirements</h1>
     <div class="meta-note">
       Almost Done! Please upload your file. Only allowed format - jpg, jpeg, png
       or pdf file.
     </div>
     <div class="meta-form-group mb60">
-      <div class="meta-group-title">A. Legal Documents - Only one PDF File for all legal documents.</div>
+      <div class="meta-group-title">
+        A. Legal Documents - Only one PDF File for all legal documents.
+      </div>
+
+      <ul class="parent-list">
+        <li>
+          <base-checkbox
+            label="1. Electronic copy of Transfer Certicicate of Title (TCT) (original copy)"
+          />
+          <ul class="main-list">
+            <li>
+              If the applicant is NOT the registered owner of the lot, upload:
+              <ul class="sub-list">
+                <li>Notarized Affidavit of Consent</li>
+              </ul>
+            </li>
+            <li>
+              If TCT is not in the name of the applicant, any of the following:
+              <ul class="sub-list">
+                <li>Deed of Absolute Sale</li>
+                <li>Contract to Sell</li>
+                <li>Lease Contract</li>
+                <li>Deed of Assignment / Donation or any equivalent</li>
+              </ul>
+            </li>
+            <li>
+              If TCT is in the name of a Corporation, upload:
+              <ul class="sub-list">
+                <li>
+                  Corporate Secretary's Certificate (authorizing the signatory
+                  with general information sheet)
+                </li>
+              </ul>
+            </li>
+            <li>
+              If a Representative is applying in behalf of the applicant,
+              upload:
+              <ul class="sub-list">
+                <li>
+                  Notarized Authorization Letter to transact with OBO (with
+                  valid ID of applicant and representative)
+                </li>
+              </ul>
+            </li>
+            <li>
+              If a Representative is signing in behalf of the applicant, upload:
+              <ul class="sub-list">
+                <li>
+                  Notarized Special Power of Attorney (SPA) (with valid ID of
+                  applicant and representative)
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <base-checkbox label="2. Tax Declaration of Lot" />
+        </li>
+        <li>
+          <base-checkbox
+            label="3. Tax Clearance of Real Property for Lot (updated)"
+          />
+        </li>
+        <li>
+          <base-checkbox
+            label="4. Barangay Clearance (for construction - original copy)"
+          />
+        </li>
+        <li>
+          <base-checkbox
+            label="5. Homeowner's Clearance (for construction - original copy)"
+          />
+        </li>
+        <li>
+          <base-checkbox label="6. Affidavit of Undertaking" />
+          <ul class="sub-list">
+            <li>
+              (for National Agencies Clearances, Barangay Clearance, HOA
+              Clearance and Neighbor's Consent)
+            </li>
+          </ul>
+        </li>
+      </ul>
+
       <base-file-uploader
-        label="1. Electronic copy of Transfer Certicicate of Title (TCT) (original copy)"
-        description="
-                    <ul class='main-list'>
-                        <li> If the applicant is NOT the registered owner of the lot, upload: 
-                            <ul class='sub-list'>
-                                <li> Notarized Affidavit of Consent  </li>
-                            </ul>
-                        </li>
-                        <li> If TCT is not in the name of the applicant, any of the following:  
-                            <ul class='sub-list'>
-                                <li> Deed of Absolute Sale </li>
-                                <li> Contract to Sell </li>
-                                <li> Lease Contract </li>
-                                <li> Deed of Assignment / Donation or any equivalent </li>
-                            </ul>
-                        </li>
-                        <li> If TCT is in the name of a Corporation, upload: 
-                            <ul class='sub-list'>
-                                <li> Corporate Secretary's Certificate (authorizing the signatory with general information sheet) </li>
-                            </ul>
-                        </li>
-                        <li> If a Representative is applying in behalf of the applicant, upload: 
-                            <ul class='sub-list'>
-                                <li> Notarized Authorization Letter to transact with OBO (with valid ID of applicant and representative)</li>
-                            </ul>
-                        </li>
-                        <li> If a Representative is signing in behalf of the applicant, upload:
-                            <ul class='sub-list'>
-                                <li> Notarized Special Power of Attorney (SPA) (with valid ID of applicant and representative) </li>
-                            </ul>
-                        </li>
-                    </ul>"
         name="tct"
         fileLabel="tct"
         :properties="getProperty('tct')"
         type="property"
         :hasError="uploadErrors.tct"
       />
-      <base-file-uploader
+      <!-- <base-file-uploader
         label="2. Tax Declaration of Lot"
         name="taxdeclaration"
         fileLabel="tax_declaration"
@@ -86,7 +137,7 @@
         :properties="getProperty('undertaking_affidavit')"
         type="property"
         :hasError="uploadErrors.undertaking_affidavit"
-      />
+      /> -->
     </div>
     <div class="meta-form-group mb60">
       <div class="meta-group-title">B. Technical Documents</div>
@@ -98,188 +149,148 @@
         type="property"
         :hasError="uploadErrors.unified_application_form"
       /> -->
+      <ul class="parent-list">
+        <li>
+          <base-checkbox label="1a. Ancillary Forms - Architectural Permit" />
+        </li>
+        <li>
+          <base-checkbox
+            label="1b. Ancillary Forms - Civil/Structural Permit"
+          />
+        </li>
+        <li>
+          <base-checkbox
+            label="1c. Ancillary Forms - Sanitary/Plumbing Permit"
+          />
+        </li>
+        <li>
+          <base-checkbox label="1d. Ancillary Forms - Mechanical Permit" />
+        </li>
+        <li>
+          <base-checkbox label="1e. Ancillary Forms - Sign Permit" />
+        </li>
+        <li>
+          <base-checkbox label="1f. Ancillary Forms - Electronic Permit" />
+        </li>
+        <li>
+          <base-checkbox label="2. Locational Clearance Application Form" />
+        </li>
+        <li>
+          <base-checkbox
+            label="3. Contractor's Temporary Business Permit Application Form"
+          />
+        </li>
+        <li>
+          <base-checkbox
+            label="4. Relocation Survey Report and Lot Plan with Vicinity Maps"
+          />
+          <ul class="sub-list">
+            <li>Duly signed and sealed by a licensed GE.</li>
+          </ul>
+        </li>
+        <li>
+          <base-checkbox
+            label="5. Photocopy of updated valid PRC ID's and PTR of Engrs/Arch"
+          />
+          <ul class="sub-list">
+            <li>Duly signed and sealed by a licensed GE.</li>
+          </ul>
+        </li>
+        <li>
+          <base-checkbox label="6. Project Specification" />
+          <ul class="sub-list">
+            <li>To be signed and sealed by Engr/Arch.</li>
+          </ul>
+        </li>
+        <li>
+          <base-checkbox label="7. Notarized Bill of Materials" />
+          <ul class="sub-list">
+            <li>To be signed and sealed by Engr/Arch.</li>
+          </ul>
+        </li>
+        <li>
+          <base-checkbox
+            label="8. Structural Design Analysis and Computation"
+          />
+          <ul class="sub-list">
+            <li>For structure two(2) storey and above NSCP 5th Edition.</li>
+          </ul>
+        </li>
+        <li>
+          <base-checkbox label="9. Geotech Report / Soil Boring Test Report" />
+          <ul class="sub-list">
+            <li>For building structures three(3) storey and above.</li>
+          </ul>
+        </li>
+        <li>
+          <base-checkbox label="10. Selsmic Analysis" />
+          <ul class="sub-list">
+            <li>For building exceeding 7.5 meters in height.</li>
+          </ul>
+        </li>
+        <li>
+          <base-checkbox label="11. Complete and Detailed Building Plans" />
+          <ul class="sub-list">
+            <li>
+              Scale of 1:100 duly signed and sealed by the design professionals.
+            </li>
+            <li>
+              Green Building Code (must be observed for construction of more
+              than 10,000m' floor area)
+            </li>
+            <li>Fire Protection Plan (if applicable)</li>
+          </ul>
+        </li>
+        <li>
+          <base-checkbox
+            label="12. Construction Safety and Health Program (DOLE)"
+          />
+          <ul class="sub-list">
+            <li>For Commercial Establishment.</li>
+          </ul>
+        </li>
+      </ul>
       <base-file-uploader
-        label="1a. Ancillary Forms - Architectural Permit"
         name="ancillaryarchitectural"
         fileLabel="architectural_permit"
         :properties="getProperty('architectural_permit')"
         type="property"
         :hasError="uploadErrors.architectural_permit"
       />
-      <base-file-uploader
-        label="1b. Ancillary Forms - Civil/Structural Permit"
-        name="ancillarycivil"
-        fileLabel="civil_structural_permit"
-        :properties="getProperty('civil_structural_permit')"
-        type="property"
-        :hasError="uploadErrors.civil_structural_permit"
-      />
-      <base-file-uploader
-        label="1c. Ancillary Forms - Sanitary/Plumbing Permit"
-        name="ancillarysanitary"
-        fileLabel="sanitary_plumbing_permit"
-        :properties="getProperty('sanitary_plumbing_permit')"
-        type="property"
-        :hasError="uploadErrors.sanitary_plumbing_permit"
-      />
-      <!-- <base-file-uploader
-        label="2d. Ancillary Forms - Electrical Permit"
-        description="
-                    <ul class='main-list'>
-                        <li> For 200 amperes load and above main circuit breaker: 
-                            <ul class='sub-list'>
-                                <li> Sign and seal of Electrical Contractor with scanned colored copy of PCAB License with authorized signature on permit form </li>
-                                <li> Short Circuit and Voltage Drop Calculation </li>
-                            </ul>
-                        </li>
-                    </ul>"
-        name="ancillaryelectrical"
-        fileLabel="electrical_permit"
-        :properties="getProperty('electrical_permit')"
-        type="property"
-      /> -->
-      <base-file-uploader
-        label="1d. Ancillary Forms - Mechanical Permit"
-        name="ancillarymechanical"
-        fileLabel="mechanical_permit"
-        :properties="getProperty('mechanical_permit')"
-        type="property"
-        :hasError="uploadErrors.mechanical_permit"
-      />
-      <base-file-uploader
-        label="1e. Ancillary Forms - Sign Permit"
-        name="ancillarysign"
-        fileLabel="sign_permit"
-        :properties="getProperty('sign_permit')"
-        type="property"
-        :hasError="uploadErrors.sign_permit"
-      />
-      <base-file-uploader
-        label="1f. Ancillary Forms - Electronic Permit"
-        name="ancillaryelectronic"
-        fileLabel="electronic_permit"
-        :properties="getProperty('electronic_permit')"
-        type="property"
-        :hasError="uploadErrors.electronic_permit"
-      />
-      <base-file-uploader
-        label="3. Locational Clearance Application Form"
-        name="locationalclearance"
-        fileLabel="location_clearance"
-        :properties="getProperty('location_clearance')"
-        type="property"
-        :hasError="uploadErrors.location_clearance"
-      />
-      <base-file-uploader
-        label="4. Contractor's Temporary Business Permit Application Form"
-        name="contractorbusinesspermit"
-        fileLabel="contractor_business_permit"
-        :properties="getProperty('contractor_business_permit')"
-        type="property"
-        :hasError="uploadErrors.contractor_business_permit"
-      />
-      <base-file-uploader
-        label="5. Relocation Survey Report and Lot Plan with Vicinity Map"
-        description="- Duly signed and sealed by a licensed GE."
-        name="relocationsurvey"
-        fileLabel="relocation_survey"
-        :properties="getProperty('relocation_survey')"
-        type="property"
-        :hasError="uploadErrors.relocation_survey"
-      />
-      <base-file-uploader
-        label="6. Photocopy of updated valid PRC ID's and PTR of Engrs/Arch"
-        description="- With 3 specimen signature and dry-seal."
-        name="prcid"
-        fileLabel="prc_id"
-        :properties="getProperty('prc_id')"
-        type="property"
-        :hasError="uploadErrors.prc_id"
-      />
-      <base-file-uploader
-        label="7. Project Specification"
-        description="- To be signed and sealed by Engr/Arch."
-        name="projspecification"
-        fileLabel="project_specification"
-        :properties="getProperty('project_specification')"
-        type="property"
-        :hasError="uploadErrors.project_specification"
-      />
-      <base-file-uploader
-        label="8. Notarized Bill of Materials"
-        description="- To be signed and sealed by Engr/Arch."
-        name="billofmaterials"
-        fileLabel="bill_of_materials"
-        :properties="getProperty('bill_of_materials')"
-        type="property"
-        :hasError="uploadErrors.bill_of_materials"
-      />
-      <base-file-uploader
-        label="9. Structural Design Analysis and Computation"
-        description="- For structure two(2) storey and above NSCP 5th Edition."
-        name="structuraldesign"
-        fileLabel="structural_design"
-        :properties="getProperty('structural_design')"
-        type="property"
-      />
-      <base-file-uploader
-        label="10. Geotech Report / Soil Boring Test Report"
-        description="- For building structures three(3) storey and above."
-        name="geotechreport"
-        fileLabel="geotech_report"
-        :properties="getProperty('geotech_report')"
-        type="property"
-      />
-      <base-file-uploader
-        label="11. Selsmic Analysis"
-        description="- For building exceeding 7.5 meters in height."
-        name="selsmicanalysis"
-        fileLabel="selsmic_analysis"
-        :properties="getProperty('selsmic_analysis')"
-        type="property"
-      />
-      <base-file-uploader
-        label="12. Complete and Detailed Building Plans"
-        description="
-                <ul class='sub-list'>
-                    <li> Scale of 1:100 duly signed and sealed by the design professionals. </li>
-                    <li> Green Building Code (must be observed for construction of more than 10,000m' floor area)</li>
-                    <li> Fire Protection Plan (if applicable) </li>
-                </ul>"
-        name="buildingplans"
-        fileLabel="building_plans"
-        :properties="getProperty('building_plans')"
-        type="property"
-        :hasError="uploadErrors.building_plans"
-      />
-      <base-file-uploader
-        label="13. Construction Safety and Health Program (DOLE)"
-        description="- For Commercial Establishment."
-        name="constructionsafety"
-        fileLabel="construction_safety"
-        :properties="getProperty('construction_safety')"
-        type="property"
-      />
     </div>
+
+    <!-- C. Supplementary Documents  -->
     <div class="meta-form-group mb60">
       <div class="meta-group-title">C. Supplementary Documents</div>
+      <ul class="parent-list">
+        <li>
+          <base-checkbox label="Sketch or Key Pin" />
+          <ul class="sub-list">
+            <li>
+              With clear landmarks leading to the lot with name and number of
+              contact person
+            </li>
+          </ul>
+        </li>
+        <li>
+          <base-checkbox label="Picture of site/location (colored copy)" />
+        </li>
+      </ul>
       <base-file-uploader
-        label="1. Sketch or Key Pin"
-        description="- With clear landmarks leading to the lot with name and number of contact person"
         name="sketchpin"
         fileLabel="sketch_pin"
         :properties="getProperty('sketch_pin')"
         type="property"
         :hasError="uploadErrors.sketch_pin"
       />
-      <base-file-uploader
+      <!-- <base-file-uploader
         label="2. Picture of site/location (colored copy)"
         name="pictureofsite"
         fileLabel="picture_of_site"
         :properties="getProperty('picture_of_site')"
         type="property"
         :hasError="uploadErrors.picture_of_site"
-      />
+      /> -->
     </div>
     <div class="meta-form-group button-left-right">
       <button-block
@@ -298,12 +309,14 @@
 <script>
 import ButtonBlock from "@/components/ButtonBlock";
 import BaseFileUploader from "@/components/forms/BaseFileUploader";
+import BaseCheckbox from "@/components/forms/BaseCheckbox";
 import { mapGetters } from "vuex";
 export default {
   name: "BuildingUploadStep",
   components: {
     ButtonBlock,
     BaseFileUploader,
+    BaseCheckbox,
   },
   mounted() {
     this.getRequirements();
@@ -334,7 +347,7 @@ export default {
         "sketch_pin",
         "picture_of_site",
       ],
-      uploadErrors: {}
+      uploadErrors: {},
     };
   },
   computed: {
@@ -346,7 +359,7 @@ export default {
   },
   methods: {
     validateRequiredFields() {
-      this.uploadErrors = {}
+      this.uploadErrors = {};
       let validated = [];
       if (this.buildingRequirements) {
         if (this.buildingRequirements.buildingrequirements) {
@@ -357,17 +370,17 @@ export default {
               }
             });
           }
-            this.required.forEach(element=>{
-              if(!validated.includes(element)){
-                this.uploadErrors[`${element}`] = true
-              }
-            })
+          this.required.forEach((element) => {
+            if (!validated.includes(element)) {
+              this.uploadErrors[`${element}`] = true;
+            }
+          });
           if (validated.length === this.required.length) {
             return true;
           } else {
             return false;
           }
-        }else{
+        } else {
           return false;
         }
       }

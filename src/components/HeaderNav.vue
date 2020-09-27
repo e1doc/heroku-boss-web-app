@@ -6,7 +6,7 @@
       </div>
       <div class="meta-center-box">
           <ul class="meta-nav">
-              <li class="meta-menu"><router-link to="#">Bacoor.gov.ph</router-link></li>
+              <li class="meta-menu">Bacoor.gov.ph</li>
               <li class="meta-menu has-children">
                 <router-link to="#">Transactions <font-awesome-icon icon="chevron-down" class="mr10 sub-menu-icon" /></router-link>
                 <ul class="meta-sub-menu">

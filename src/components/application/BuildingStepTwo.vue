@@ -313,6 +313,16 @@
           "
           class="mb15"
         />
+        <div class="meta-group-title mt10 mb10">
+          Expected Date of Completion <span class="asterisk">*</span>
+        </div>
+        <base-date-picker
+          v-model="building_other_details.date_of_completion"
+          :validationMessages="
+            buildingStepTwoErrors.building_other_details.date_of_completion
+          "
+          class="mb15"
+        />
       </div>
     </div>
 
@@ -370,6 +380,7 @@ export default {
         floor_area: "",
         lot_area: "",
         date_of_construction: "",
+        date_of_completion: ""
       },
       unrequired: {
         building_details: [

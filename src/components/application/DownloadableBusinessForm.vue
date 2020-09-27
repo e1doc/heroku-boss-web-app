@@ -433,7 +433,7 @@ export default {
         const img = canvas.toDataURL("image/jpeg", 1);
         doc.addImage(img, "JPEG", 0, 0, width, height);
         console.log(width, height);
-        doc.save("sample.pdf");
+        doc.save("business-application.pdf");
       });
     },
   },

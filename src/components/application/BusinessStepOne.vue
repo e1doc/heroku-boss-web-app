@@ -340,7 +340,7 @@ export default {
         }
       }
       this.$store.commit("setLoading", false);
-      // this.$store.commit("setCurrentApplicationStep", "3");
+      // this.$store.commit("setCurrentApplicationStep", "2");
     },
     preFillForm() {
       if (this.businessApplication.id) {
