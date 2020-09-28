@@ -2,6 +2,9 @@
     <div class="inquiry-box">
         <div class="inquiry-header">
              <div class="inquiry-subj">New Inquiry</div>
+             <div class="application-button">
+                 <button-block type="default" class="inquiry-application-btn" />
+             </div>
              <div class="inquiry-date">Date: June 01, 2020</div>
         </div>
         <div class="inquiry-body">
@@ -78,6 +81,7 @@ div.inquiry-box{
         padding: 20px 40px;
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
+        position: relative;
         div.inquiry-subj{
             color: #FAFAFA;
             font-size: 20px;
@@ -91,6 +95,13 @@ div.inquiry-box{
             font-size: 16px;
             line-height: 1.4;
             letter-spacing: 0.8px;
+        }
+        div.application-button{
+            width: auto;
+            float: right;
+            position: absolute;
+            right: 45px;
+            top: 25px;
         }
     }
     div.inquiry-body{
