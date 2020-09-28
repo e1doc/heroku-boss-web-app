@@ -65,7 +65,7 @@
                     </router-link>
                 </li>
                 <li class="meta-menu" @click="slidemenu = false">
-                    <router-link to="#" >
+                    <router-link to="http://bacoor.gov.ph/" target="_blank">
                         <font-awesome-icon icon="globe" class="mr10 icon" />
                         Bacoor.gov.ph
                     </router-link>
@@ -226,7 +226,7 @@ section.meta-navigation {
           display: inline;
           list-style-type: none;
           position: relative;
-          a {
+          div, a {
               text-decoration: none;
               color: #2b2b2b;
               padding: 10px 5px;

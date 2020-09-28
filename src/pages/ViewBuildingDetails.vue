@@ -14,7 +14,7 @@
           <div class="meta-text">
             <div class="meta-label">Ownership Type: </div>
             <div class="meta-value">
-              {{ buildingDetails.ownership_type }}
+              {{ buildingBasicInformation.ownership_type.charAt(0).toUpperCase() + buildingBasicInformation.ownership_type.slice(1) }}
             </div>
           </div>
         </div>
@@ -268,6 +268,7 @@ export default {
               title: this.formatLabel(item.requirements_label),
               src: this.replaceUrl(item.file),
             };
+            console.log(img)
             this.imgs.push(img);
           });
         }

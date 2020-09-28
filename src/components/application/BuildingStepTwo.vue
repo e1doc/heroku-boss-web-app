@@ -417,7 +417,8 @@ export default {
       barangayname: [
         {
           label: "Alima",
-          value: "Alima"
+          value: "Alima",
+          district: ""
         },
         {
           label: "Aniban I",
