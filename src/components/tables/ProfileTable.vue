@@ -2,9 +2,9 @@
   <section>
     <div class="thead hide-in-mobile">
       <!-- <div class="th" v-if="currentType === 'business'">ACCOUNT #</div> -->
-      <div class="th" v-if="currentType === 'building'">TD #</div>
+      <div class="th" v-if="currentType === 'building' || currentType === 'real_property'">TD #</div>
       <div class="th" v-if="currentType === 'business'">BUSINESS NAME</div>
-      <div class="th" v-if="currentType === 'building'">OWNER NAME</div>
+      <div class="th" v-if="currentType === 'building' || currentType === 'real_property'">OWNER NAME</div>
       <div class="th">ACTIONS</div>
     </div>
     <div v-if="currentType === 'business'">
@@ -71,6 +71,36 @@
         </div>
       </div>
     </div>
+       <div v-if="currentType === 'real_property'">
+      <div class="tbody" v-if="realPropertyProfiles.length > 0">
+        <div class="tr" v-for="(building, index) in realPropertyProfiles" :key="index">
+          <div class="td">
+            <span
+              class="td-label show-in-mobile"
+              >TD # :
+            </span>
+            {{building.buildingdetails.tax_dec_no}}
+          </div>
+          <div class="td" v-if="currentType === 'real_property'">
+            <span class="td-label show-in-mobile">OWNER NAME : </span>
+            <span v-if="building.is_enrolled">{{building.buildingbasicinformation.owner_first_name}}</span>
+          </div>
+          <div class="td actions">
+            <div>
+              <font-awesome-icon icon="sync-alt" class="mr5 icon" /> RENEW
+            </div>
+            <div class="bill" @click="showModal()">
+              <font-awesome-icon icon="receipt" class="mr5 icon" />BILL
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tbody" v-if="realPropertyProfiles.length < 1">
+        <div class="tr">
+          <div class="td">No data available</div>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -79,12 +109,12 @@ import { mapGetters } from "vuex";
 export default {
   name: "ProfileTable",
   computed: {
-    ...mapGetters(["currentType", "businessProfiles", "buildingProfiles"])
+    ...mapGetters(["currentType", "businessProfiles", "buildingProfiles","realPropertyProfiles"])
   },
   mounted(){
     this.$store.dispatch('getBusinessProfiles')
     this.$store.dispatch('getBuildingProfiles')
-    console.log(this.buildingProfiles)
+    this.$store.dispatch('getRealPropertyProfiles')
   },
   methods: {
     showModal() {

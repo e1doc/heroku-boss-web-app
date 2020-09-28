@@ -216,8 +216,12 @@ export default {
   mounted() {
     this.$store.dispatch("getBusinessApplications");
     this.$store.dispatch("getBuildingApplications")
+    if(this.currentType === 'real_property'){
+      this.$store.commit('setCurrentType','business')
+    }
   },
   methods:{
+   
     openBusinessApplication(type,data){
       if(data.id){
         let application = {id:data.id,created_at: data.created_at, is_draft: data.is_draft, is_approve: data.is_approve, is_disapprove: data.is_disapprove,account_number: data.account_number}

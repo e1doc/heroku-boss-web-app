@@ -1,19 +1,19 @@
 <template>
     <div class="inquiry-box">
         <div class="inquiry-header">
-             <div class="inquiry-subj">New Inquiry</div>
-             <div class="application-button">
+             <div class="inquiry-subj">New {{type === 'inquiry' ? "Inquiry" : "Remarks"}}</div>
+             <!-- <div class="application-button">
                  <button-block type="default" class="inquiry-application-btn" />
-             </div>
-             <div class="inquiry-date">Date: June 01, 2020</div>
+             </div> -->
+             <div class="inquiry-date">Date: {{new Date(Date.now()) |  moment("MMMM DD YYYY")}}</div>
         </div>
         <div class="inquiry-body">
             
             <!-- REPLY SECTION -->
             <div class="inquiry-new">
                 <div class="inquiry-new-text">SUBJECT</div>
-                <input type="text" name="subject" id="subject" class="input-subject" placeholder="Type your subject here" v-model="subject">
-                <div class="inquiry-new-text">INQUIRY</div>
+                <input type="text" name="subject" id="subject" class="input-subject" placeholder="Type your subject here" v-model="subject" :disabled="type === 'inquiry' ? false : true">
+                <div class="inquiry-new-text">{{type === 'inquiry' ? "Inquiry" : "Remarks"}}</div>
                 <textarea name="inquiry" id="inquiry" rows="6" placeholder="Type your text here" v-model="body"></textarea>
                 <div class="inquiry-button">
                     <button-block type="send" :disabled="body === '' || subject === '' ? true : false" @click.native="sendMessage">SEND</button-block>
@@ -40,7 +40,17 @@ export default {
     BaseInput
   },
   computed: {
-    ...mapGetters(["currentTable", "currentInquiry"]),
+    ...mapGetters(["currentTable", "currentInquiry", "remarks"]),
+  },
+  props:{
+      application_number: {
+          type: String,
+          default: ""
+      },
+      type: {
+          type: String,
+          default: "inquiry"
+      }
   },
   data() {
       return{
@@ -48,7 +58,20 @@ export default {
           body: ""
       }
   },
+  mounted(){
+      console.log(this.application_number)
+      if (this.application_number !== ""){
+           this.subject = `Application ${this.application_number} Remarks`
+      }
+  },
   methods: {
+      async getRemarks(){
+        let application_remarks = await this.remarks
+        console.log(this.remarks)
+        if (application_remarks){
+          this.subject = `Application ${this.remarks.application_number} Remarks`
+      }
+      },
       async sendMessage(){
           await this.$store.commit('setLoading', true)
           await this.$store.dispatch('addThread',{ subject: this.subject })

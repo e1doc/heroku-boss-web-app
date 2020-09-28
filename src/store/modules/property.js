@@ -24,6 +24,8 @@ const getDefaultPropertyState = () => {
     buildingApplicationRequirements: {},
     buildingRequirements: [],
     draftProperty: false,
+    realPropertyProfiles: [],
+    remarks: {},
   };
 };
 
@@ -46,6 +48,8 @@ const getters = {
   buildingApplicationRequirements: (state) =>
     state.buildingApplicationRequirements,
   buildingRequirements: (state) => state.buildingRequirements,
+  realPropertyProfiles: (state) => state.realPropertyProfiles,
+  remarks: (state) => state.remarks,
 };
 
 const mutations = {
@@ -77,7 +81,8 @@ const mutations = {
   },
   setBuildingApplications: (state, buildingApplications) =>
     (state.buildingApplications = buildingApplications),
-  setBuildingProfiles: (state, buildingProfiles) => (state.buildingProfiles = buildingProfiles),
+  setBuildingProfiles: (state, buildingProfiles) =>
+    (state.buildingProfiles = buildingProfiles),
   setDraftProperty: (state, draftProperty) =>
     (state.draftProperty = draftProperty),
   setBuildingApplicationRequirements: (
@@ -87,13 +92,19 @@ const mutations = {
     (state.buildingApplicationRequirements = buildingApplicationRequirements),
   setBuildingRequirements: (state, buildingRequirements) =>
     (state.buildingRequirements = buildingRequirements),
+  setRealPropertyProfiles: (state, realPropertyProfiles) =>
+    (state.realPropertyProfiles = realPropertyProfiles),
+  setRemarks: (state, remarks) => (state.remarks = remarks),
 };
 
 const actions = {
+  async setApplicationRemarks({ commit, getters }, payload) {
+   await commit("setRemarks", payload);
+  },
   async propertyEnrollment({ commit, dispatch }, payload) {
     let config = {
       headers: {
-        'OneDoc-Token': oneDocToken
+        "OneDoc-Token": oneDocToken,
       },
     };
     const response = await axios.post(
@@ -148,11 +159,21 @@ const actions = {
   },
   async getBuildingProfiles({ commit, getters, dispatch }, payload) {
     try {
+      const response = await axios.get(`${baseUrl}/api/building-profile/`, {
+        withCredentials: true,
+      });
+      commit("setBuildingProfiles", response.data);
+    } catch (err) {
+      console.log(err.response);
+    }
+  },
+  async getRealPropertyProfiles({ commit, getters, dispatch }, payload) {
+    try {
       const response = await axios.get(
-        `${baseUrl}/api/building-profile/`,
+        `${baseUrl}/api/real-property-profile/`,
         { withCredentials: true }
       );
-      commit("setBuildingProfiles", response.data);
+      commit("setRealPropertyProfiles", response.data);
     } catch (err) {
       console.log(err.response);
     }

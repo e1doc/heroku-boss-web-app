@@ -12,7 +12,7 @@
             </div>
           </div>
           <div class="meta-text">
-            <div class="meta-label">Ownership Type: </div>
+            <div class="meta-label">Ownership Type:</div>
             <div class="meta-value">
               {{ buildingDetails.ownership_type }}
             </div>
@@ -141,7 +141,7 @@
             </div>
           </div>
           <div class="meta-text">
-            <div class="meta-label">Use or Character of Occupancy : </div>
+            <div class="meta-label">Use or Character of Occupancy :</div>
             <div class="meta-value">
               {{
                 buildingDetails.character_of_occupancy_others === ""
@@ -210,7 +210,8 @@
           <div class="meta-group-title">Uploaded Requirements</div>
           <div class="gallery-box flex-wrap">
             <div
-              v-for="(requirement, index) in buildingRequirements.buildingrequirements"
+              v-for="(requirement,
+              index) in buildingRequirements.buildingrequirements"
               :key="index"
               class="gallery-image"
               @click="showSingle"
@@ -226,9 +227,21 @@
             ></vue-easy-lightbox>
           </div>
         </div>
-        <div class="meta-button-group flex-center" v-if="!buildingApplication.is_approve && !buildingApplication.is_disapprove">
-          <button-block type="approve" @click.native="approveApplication(true)"> Approve </button-block>
-          <button-block class="red-btn" type="disapprove" @click.native="approveApplication(false)">
+        <div
+          class="meta-button-group flex-center"
+          v-if="
+            !buildingApplication.is_approve &&
+              !buildingApplication.is_disapprove
+          "
+        >
+          <button-block type="approve" @click.native="approveApplication(true)">
+            Approve
+          </button-block>
+          <button-block
+            class="red-btn"
+            type="disapprove"
+            @click.native="approveApplication(false)"
+          >
             Disapprove
           </button-block>
         </div>
@@ -251,7 +264,7 @@ export default {
     this.$store.commit("resetPropertyState");
     next();
   },
-mounted() {
+  mounted() {
     this.getRequirements();
     console.log(this.buildingRequirements.buildingrequirements);
   },
@@ -274,20 +287,31 @@ mounted() {
     };
   },
   methods: {
-  approveApplication(status){
-     this.$swal({
+    approveApplication(status) {
+      this.$swal({
         text: "Are you sure with this action?",
         icon: "question",
         showCancelButton: true,
         confirmButtonText: "Yes",
         cancelButtonText: "No",
       }).then((result) => {
-        let payload = {id: this.buildingApplication.id, is_approve: status}
+        let payload = { id: this.buildingApplication.id, is_approve: status };
         if (result.value) {
-          this.$store.dispatch('approveBuildingApplication', payload)
-        } 
+          // this.$store.dispatch('approveBuildingApplication', payload)
+          this.createRemarks();
+        }
       });
-  },
+    },
+    createRemarks() {
+      // await this.$store.dispatch('setApplicationRemarks', {application_number: this.buildingBasicInformation.reference_number})
+      this.$router.push({
+        name: "NewRemarks",
+        params: {
+          application_number: this.buildingBasicInformation.reference_number,
+          type: "remarks"
+        },
+      });
+    },
     showSingle() {
       if (this.buildingRequirements) {
         if (this.buildingRequirements.buildingrequirements.length > 0) {
