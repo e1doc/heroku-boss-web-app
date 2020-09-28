@@ -181,40 +181,38 @@ div.inquiry-box {
       letter-spacing: 0.24px;
       text-align: right;
     }
-
-    div.inquiry-footer {
-      margin-top: 25px;
-      padding-top: 25px;
-      border-top: 1px solid #d0e9fa;
-      div.inquiry-footer-text {
-        color: #9fa6ab;
-        font-size: 16px;
-        font-weight: bold;
-        line-height: 29px;
-        margin-bottom: 10px;
-        .admin-icon {
-          font-size: 21px;
-          margin-right: 14px;
+    div.inquiry-footer{
+        margin-top: 25px;
+        padding-top: 25px;
+        border-top: 1px solid #D0E9FA;
+        div.inquiry-footer-text{
+            color: #9FA6AB;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 29px;
+            margin-bottom: 10px;
+            .admin-icon{
+                font-size: 21px;
+                margin-right: 14px;
+            }
         }
-      }
-      textarea {
-        color: #2b2b2b;
-        border-color: #d0e9fa;
-        font-size: 14px;
-        font-family: Raleway;
-        line-height: 28px;
-        width: calc(100% - 60px);
-        max-height: 150px;
-        padding: 25px 30px;
-        margin-bottom: 15px;
-        border-radius: 12px;
-      }
-      textarea:focus {
-        outline: 0;
-        border-color: #027ab5;
-        background-color: #f8fcff;
-      }
-
+        textarea {
+            color: #2b2b2b;
+            border-color: #D0E9FA;
+            font-size: 14px;
+            font-family: Raleway;
+            line-height: 28px;
+            width: calc( 100% - 60px );
+            max-height: 150px;
+            padding: 25px 30px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+        }
+        textarea:focus {
+            outline: 0;
+            border-color: #027ab5;
+            background-color: #f8fcff;
+        }
       .inquiry-button {
         text-align: right;
       }

@@ -2,9 +2,9 @@
   <section>
     <div class="thead hide-in-mobile">
       <!-- <div class="th" v-if="currentType === 'business'">ACCOUNT #</div> -->
-      <div class="th" v-if="currentType === 'real_property'">TD #</div>
+      <div class="th" v-if="currentType === 'building'">TD #</div>
       <div class="th" v-if="currentType === 'business'">BUSINESS NAME</div>
-      <div class="th" v-if="currentType === 'real_property'">OWNER NAME</div>
+      <div class="th" v-if="currentType === 'building'">OWNER NAME</div>
       <div class="th">ACTIONS</div>
     </div>
     <div v-if="currentType === 'business'">
@@ -21,7 +21,7 @@
             <span class="td-label show-in-mobile">BUSINESS NAME : </span>
             {{business.businessdetails.name}}
           </div>
-          <div class="td" v-if="currentType === 'real_property'">
+          <div class="td" v-if="currentType === 'building'">
             <span class="td-label show-in-mobile">OWNER NAME : </span>
             JOHN MICHAEL DOE
           </div>
@@ -41,7 +41,7 @@
         </div>
       </div>
     </div>
-    <div v-if="currentType === 'real_property'">
+    <div v-if="currentType === 'building'">
       <div class="tbody" v-if="buildingProfiles.length > 0">
         <div class="tr" v-for="(building, index) in buildingProfiles" :key="index">
           <div class="td">
@@ -51,7 +51,7 @@
             </span>
             {{building.buildingdetails.tax_dec_no}}
           </div>
-          <div class="td" v-if="currentType === 'real_property'">
+          <div class="td" v-if="currentType === 'building'">
             <span class="td-label show-in-mobile">OWNER NAME : </span>
             <span v-if="building.is_enrolled">{{building.buildingbasicinformation.owner_first_name}}</span>
           </div>

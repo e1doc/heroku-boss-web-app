@@ -184,6 +184,15 @@
             </div>
           </div>
           <div class="meta-text no-bb">
+            <div class="meta-label">Expected Date of Completion :</div>
+            <div class="meta-value">
+              {{
+                buildingOtherDetails.date_of_completion
+                  | moment("MMMM DD, YYYY")
+              }}
+            </div>
+          </div>
+          <div class="meta-text no-bb">
             <div class="meta-label">Total Floor Area :</div>
             <div class="meta-value">
               {{ buildingOtherDetails.floor_area }} square meters
@@ -242,7 +251,7 @@ export default {
         const img = canvas.toDataURL("image/jpeg", 1);
         doc.addImage(img, "JPEG", 0, 0, width, height);
         console.log(width, height);
-        doc.save("sample.pdf");
+        doc.save("building-application.pdf");
       });
     },
   },

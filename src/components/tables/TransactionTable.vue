@@ -38,7 +38,7 @@
         </div>
       </div>
     </div>
-    <div v-if="currentType === 'real_property'">
+    <div v-if="currentType === 'building'">
       <div class="thead hide-in-mobile">
         <div class="th w15">TD #</div>
         <div class="th w15">OR #</div>
@@ -81,6 +81,9 @@ export default {
   computed: {
     ...mapGetters(["currentType"]),
   },
+  mounted(){
+        console.log(this.currentType)
+  }
 };
 </script>
 

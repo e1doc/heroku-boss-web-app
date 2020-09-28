@@ -18,9 +18,15 @@
           </div>
         </div>
         <div class="menu-type">
-          <div :class="{ active: currentType === 'real_property' }" @click="changeType('real_property')">
+          <div :class="{ active: currentType === 'building' }" @click="changeType('building')">
             <font-awesome-icon icon="city" class="mr5 icon" />
             BUILDING
+          </div>
+        </div>
+         <div class="menu-type" v-if="activeTab != 'applications'">
+          <div :class="{ active: currentType === 'real_property' }" @click="changeType('real_property')">
+            <font-awesome-icon icon="city" class="mr5 icon" />
+            REAL PROPERTY
           </div>
         </div>
       </div>

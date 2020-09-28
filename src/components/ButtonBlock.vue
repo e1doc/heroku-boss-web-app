@@ -78,6 +78,11 @@ a{
   background-color: #a8a8a8;
 }
 
+.inquiry-application-btn:hover{
+  color: #fff;
+  border-color: #fff;
+}
+
 @media only screen and ( max-width: 480px ){
   .btn{
       width: 100%;

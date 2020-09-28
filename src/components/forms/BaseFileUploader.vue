@@ -7,7 +7,7 @@
         <input
           type="file"
           name="file"
-          accept="image/*,application/pdf"
+          :accept="uploadType"
           @change="filesChange($event.target.name, $event.target.files)"
           :disabled="isUploading"
         />
@@ -31,6 +31,10 @@ import { mapGetters } from "vuex";
 export default {
   name: "BaseFileUploader",
   props: {
+    uploadType:{
+      type: String,
+      default: 'image/*,application/pdf'
+    },
     hasError: {
       type: Boolean,
       default: false,

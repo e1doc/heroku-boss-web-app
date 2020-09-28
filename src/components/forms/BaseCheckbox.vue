@@ -1,8 +1,9 @@
 <template>
   <div class="meta-checkbox flex-center">
-      <input type="checkbox" id="option" v-model="inputValue">
-      <!-- Add 'checked' class to custom-checkbox -->
-      <div class="custom-checkbox flex-center"><span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span></div>
+      <input type="checkbox" id="option" value="inputValue" @change="$emit('input', label)">
+      <div class="custom-checkbox flex-center">
+          <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+      </div>
       <label for="option">{{ label }}</label>
   </div>
 </template>
@@ -52,7 +53,7 @@ div.meta-checkbox{
           display: none;
       }
   }
-  .custom-checkbox.checked{
+  input[type="checkbox"]:checked + .custom-checkbox{
       background-color:#2593F1;
       .check-icon{
           display: block;
