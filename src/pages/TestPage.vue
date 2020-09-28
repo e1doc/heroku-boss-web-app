@@ -1,7 +1,7 @@
 <template>
   <section>
-      <!-- <building-upload-step/> -->
-      <building-step-two/>
+      <building-upload-step/>
+      <!-- <building-step-two/> -->
       <!-- <div class="countdown-timer">
         {{ timerCount }}
       </div> -->

@@ -140,6 +140,7 @@ export default {
         tin: "",
       },
       unrequired: {
+        building_application: ['area_no'],
         basic_information: [
           "owner_middle_name", 
           "owner_zip_code",

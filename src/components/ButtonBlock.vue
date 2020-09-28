@@ -3,6 +3,7 @@
   :is="link ? 'router-link' : 'button'" 
   class="btn"
   :to="link"
+  :disabled="disabled"
   >
   <font-awesome-icon icon="arrow-left" class="icon-left" v-if="type==='back'"/>
   <font-awesome-icon icon="paper-plane" class="icon-left" v-if="type==='send'"/>
@@ -27,6 +28,10 @@ export default {
     type:{
       type: String,
       required: false,
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
 };

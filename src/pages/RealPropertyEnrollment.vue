@@ -5,7 +5,11 @@
         <div>
           <h2>Real Property Enrollment</h2>
         </div>
-        <enrollment-success v-if="isSuccess" type="real_property" account_no="14321" />
+        <enrollment-success
+          v-if="isSuccess"
+          type="real_property"
+          :account_no="td_no"
+        />
         <div v-if="!isSuccess" class="sc-rounded-div">
           <div class="form-group">
             <div class="title">
@@ -43,10 +47,10 @@
               />
             </div>
             <div class="datepicker">
-               <base-date-picker v-model="date"/>
+              <base-date-picker v-model="date" />
             </div>
             <div>
-              <button-block @click.native="verify()" >
+              <button-block @click.native="verify()">
                 VERIFY
               </button-block>
             </div>
@@ -60,9 +64,11 @@
 <script>
 import BaseInputIconEnd from "@/components/forms/BaseInputIconEnd";
 import ButtonBlock from "@/components/ButtonBlock";
-import BaseDatePicker from "@/components/forms/BaseDatePicker"
+import BaseDatePicker from "@/components/forms/BaseDatePicker";
 import EnrollmentSuccess from "@/components/enrollment/EnrollmentSuccess";
 import BaseSelect from "@/components/forms/BaseSelect";
+import axios from "axios";
+const oneDocToken = process.env.VUE_APP_ONE_DOC_TOKEN;
 export default {
   name: "RealPropertyEnrollment",
   components: {
@@ -70,14 +76,18 @@ export default {
     ButtonBlock,
     BaseDatePicker,
     EnrollmentSuccess,
-    BaseSelect
+    BaseSelect,
   },
-  data(){
-    return{
+  mounted(){
+     this.$store.commit('setLoading', false)
+  },
+  data() {
+    return {
       td_no: "",
       official_receipt: "",
       date: "",
       isSuccess: false,
+      property_type: "",
       propertytype: [
         {
           label: "Land",
@@ -92,109 +102,148 @@ export default {
           value: "Machinery",
         },
       ],
-    }
+    };
   },
-  methods:{
-    verify(){
+  methods: {
+    async verify() {
       let payload = {
         name: "RealPropertyTaxEnrollment",
-        
+        param: {
+          property_type: this.property_type,
+          tdno: this.td_no,
+          ordate: this.date,
+          ornumber: this.official_receipt,
+        },
+      };
+      await this.propertyEnrollment(payload);
+    },
+    async propertyEnrollment(payload) {
+      try {
+        this.$store.commit('setLoading', true)
+        let config = {
+          headers: {
+            "OneDoc-Token": oneDocToken,
+            "Content-Type": "application/json",
+          },
+        };
+        const response = await axios.post(
+          `http://122.55.20.85:8012/lguapi/`,
+          payload,
+          config
+        );
+        console.log(response.data);
+        if (response.data.Response.Result.referenceid) {
+          let building_payload = { is_draft: false, is_enrolled: true };
+          await this.$store.dispatch(
+            "addBuildingApplication",
+            building_payload
+          );
+          await this.$store.dispatch(
+            "addBuildingBasicInformation",
+            {owner_first_name: response.data.Response.Result.owner_name}
+          );
+          await this.$store.dispatch("addBuildingDetails", {
+            tax_dec_no: response.data.Response.Result.td_number,
+          });
+        }
+        this.$store.commit('setLoading', false)
+        this.isSuccess = true;
+        this.td_no = response.data.Response.Result.td_number;
+      } catch (err) {
+        console.log(err);
+        this.$store.commit('setLoading', false)
       }
-      this.isSuccess = true
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .sc-rp-enrollment {
-    display: flex;
-    flex-wrap: wrap;
-    text-align: center;
-    padding: 70px 30px 50px;
-    min-height: calc( 100vh - 285px );
-    .sc-rounded-div {
-        background: #eaf6ff !important;
-        max-width: 53%; 
-        width: 100%;
-        min-height: 500px;
-        margin: 50px auto 0;
-        box-shadow: 0px 10px 20px #0000000D;
-        .form-group {
-            text-align: center;
-            padding: 80px 80px 50px;
-            .title {
-                margin-bottom: 50px;
-                text-align: left;
-            }
-            div {
-                margin-bottom: 30px;
-            }
-        }
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  padding: 70px 30px 50px;
+  min-height: calc(100vh - 285px);
+  .sc-rounded-div {
+    background: #eaf6ff !important;
+    max-width: 53%;
+    width: 100%;
+    min-height: 500px;
+    margin: 50px auto 0;
+    box-shadow: 0px 10px 20px #0000000d;
+    .form-group {
+      text-align: center;
+      padding: 80px 80px 50px;
+      .title {
+        margin-bottom: 50px;
+        text-align: left;
+      }
+      div {
+        margin-bottom: 30px;
+      }
     }
+  }
 }
-.datepicker{
+.datepicker {
   width: 100%;
 }
-
-
 
 /*
 MOBILE RESPONSIVENESS 
 --------------------------------------------------------------*/
-@media only screen and (max-width: 1400px){
+@media only screen and (max-width: 1400px) {
   .sc-rp-enrollment {
-      .sc-rounded-div {
-          max-width: 570px;
-          min-height: auto;
-          margin-top: 30px;
-          .form-group {
-              padding: 60px 60px 30px;
-              .title{
-                  margin-bottom: 30px;
-              }
-              div{
-                  margin-bottom: 20px;
-              }
-          }
+    .sc-rounded-div {
+      max-width: 570px;
+      min-height: auto;
+      margin-top: 30px;
+      .form-group {
+        padding: 60px 60px 30px;
+        .title {
+          margin-bottom: 30px;
+        }
+        div {
+          margin-bottom: 20px;
+        }
       }
+    }
   }
 }
 
-@media only screen and (max-width: 768px){
+@media only screen and (max-width: 768px) {
   h2 {
-      font-size: 20px;
+    font-size: 20px;
   }
 
-  .sc-rp-enrollment .sc-rounded-div .form-group{
-      padding: 50px 30px 30px;
+  .sc-rp-enrollment .sc-rounded-div .form-group {
+    padding: 50px 30px 30px;
   }
 
   h3 {
-      font-size: 17px;
+    font-size: 17px;
   }
 }
 
-@media only screen and (max-width: 580px){
+@media only screen and (max-width: 580px) {
   h2 {
-      font-size: 20px;
+    font-size: 20px;
   }
 }
 
-@media only screen and ( max-width: 480px ){
-  .sc-rp-enrollment{
-      padding: 70px 0 30px;
+@media only screen and (max-width: 480px) {
+  .sc-rp-enrollment {
+    padding: 70px 0 30px;
   }
-
 }
 
-@media only screen and ( max-width: 480px ){
-  .sc-rp-enrollment .sc-rounded-div .form-group{
-      padding: 30px 15px 10px;
+@media only screen and (max-width: 480px) {
+  .sc-rp-enrollment .sc-rounded-div .form-group {
+    padding: 30px 15px 10px;
   }
 
-  h3{
-      font-size: 15px;
+  h3 {
+    font-size: 15px;
   }
 }
 </style>

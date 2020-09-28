@@ -13,6 +13,7 @@
           stepOneErrors.basic_information.type_of_organization
         "
         class="mb15"
+        @change="changeOrganization"
       />
       <div class="meta-input-label mt10 mb10">
         Mode of Payment
@@ -67,9 +68,9 @@
       />
       <base-input
         label="Telephone/Phone Number"
-        v-model="basic_information.owner_telephone_number"
+        v-model="basic_information.owner_mobile_number"
         :validationMessages="
-          stepOneErrors.basic_information.owner_telephone_number
+          stepOneErrors.basic_information.owner_mobile_number
         "
         name="telephone"
         refs="tel_number"
@@ -212,6 +213,7 @@ export default {
         owner_telephone_number: "",
         owner_mobile_number: "",
         owner_email_address: "",
+        mode_of_payment: ""
       },
       types_of_organization: [
         {
@@ -252,8 +254,8 @@ export default {
         },
       ],
       unrequired: {
-        business_application: [],
-        basic_information: ["government_entity", "owner_middle_name", "ctc_no", "tin", "has_tax_incentive", "owner_email_address"],
+        business_application: ['account_number'],
+        basic_information: ["government_entity", "owner_middle_name", "ctc_no", "tin", "has_tax_incentive"],
       },
     };
   },
@@ -282,6 +284,18 @@ export default {
     this.$store.commit("setLoading", false);
   },
   methods: {
+    changeOrganization(){
+      this.$store.commit('setTypeOfOrganization', this.basic_information.type_of_organization)
+      let required_fields = ['owner_first_name', 'owner_last_name', 'owner_complete_address', 'owner_mobile_number', 'owner_email_address']
+      if (this.basic_information.type_of_organization !== 'single'){
+        required_fields.forEach(item=>{
+            this.unrequired.basic_information.push(item)
+        })
+      }else{
+          this.unrequired.basic_information.filter(item => !required_fields.includes(item))
+      }
+      console.log(this.unrequired.basic_information)
+    },
     async nextStep() {
       this.$store.commit("setLoading", true);
       if (this.businessApplication.id) {
@@ -308,7 +322,6 @@ export default {
           this.basic_information
         );
       }
-
       if (!this.applicationHasError && !this.basicInfoHasError) {
         if (!this.draftBusiness) {
           this.validateRequiredFields();
@@ -334,7 +347,7 @@ export default {
           this.$swal({
             title: "Failed!",
             text:
-              "Please fix the validation errors before proceeding to the next step.",
+              "Please fix the validation errors bpinquefore proceeding to the next step.",
             icon: "error",
           });
         }
@@ -346,6 +359,7 @@ export default {
       if (this.businessApplication.id) {
         this.basic_information = this.businessBasicInformation;
         this.business_application = this.businessApplication;
+        this.changeOrganization()
       }
     },
     toProfile() {
@@ -397,7 +411,7 @@ export default {
           value: {},
         });
       }
-
+      console.log(isApplicationClean, basic_info_errors.value)
       if (isApplicationClean && isBasicInfoClean) {
         this.$store.commit("setCurrentApplicationStep", "2");
         console.log('clean')

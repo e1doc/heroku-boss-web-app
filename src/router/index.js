@@ -117,6 +117,7 @@ const routes = [{
         path: "user-reply-inquiry",
         name: "UserReplyInquiry",
         component: UserReplyInquiry,
+        props: true 
       },
       {
         path: "new-inquiry",
@@ -178,6 +179,7 @@ const routes = [{
         path: "reply-inquiry",
         name: "ReplyInquiry",
         component: ReplyInquiry,
+        props: true 
       },
       {
         path: "approve-building-application",

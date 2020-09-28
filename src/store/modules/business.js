@@ -1,5 +1,6 @@
 import axios from "axios";
 const baseUrl = process.env.VUE_APP_API_URL;
+const oneDocToken = process.env.VUE_APP_ONE_DOC_TOKEN;
 import router from "../../router/index.js"
 const getDefaultBusinessState = () => {
   return {
@@ -23,12 +24,15 @@ const getDefaultBusinessState = () => {
       lessor_details: []
     },
     applications: [],
+    businessProfiles: [],
     applicationRequirements: {},
     requirements: [],
     isUploading: false,
     draftBusiness: false,
     pageCount: 0,
-    filterBy: 'all'
+    filterBy: 'all',
+    isBusinessEnrollmentSuccess: false,
+    typeOfOrganization: ''
   };
 };
 
@@ -49,12 +53,15 @@ const getters = {
   stepOneErrors: (state) => state.stepOneErrors,
   stepTwoErrors: (state) => state.stepTwoErrors,
   applications: (state) => state.applications,
+  businessProfiles: (state) => state.businessProfiles,
   applicationRequirements: (state) => state.applicationRequirements,
   isUploading: (state) => state.isUploading,
   requirements: (state) => state.requirements,
   draftBusiness: (state) => state.draftBusiness,
   pageCount: (state) => state.pageCount,
-  filterBy: (state) => state.filterBy
+  filterBy: (state) => state.filterBy,
+  isBusinessEnrollmentSuccess: (state) => state.isBusinessEnrollmentSuccess,
+  typeOfOrganization: ( state ) => state.typeOfOrganization
 };
 
 const mutations = {
@@ -83,18 +90,30 @@ const mutations = {
     state.stepTwoErrors[`${stepTwoErrors.key}`] = stepTwoErrors.value
   },
   setApplications: (state, applications) => (state.applications = applications),
+  setBusinessProfiles: (state, businessProfiles) => (state.businessProfiles = businessProfiles),
   setApplicationRequirements: (state, applicationRequirements) => (state.applicationRequirements = applicationRequirements),
   setIsUploading: (state, isUploading) => (state.isUploading = isUploading),
   setRequirements: (state, requirements) => (state.requirements = requirements),
   setDraftBusiness: (state, draftBusiness) => (state.draftBusiness = draftBusiness),
   setPageCount: (state, pageCount) => (state.pageCount = pageCount),
-  setFilterBy: (state, filterBy) => (state.filterBy = filterBy)
+  setFilterBy: (state, filterBy) => (state.filterBy = filterBy),
+  setIsBusinessEnrollmentSuccess: (state, isBusinessEnrollmentSuccess) => (state.isBusinessEnrollmentSuccess = isBusinessEnrollmentSuccess),
+  setTypeOfOrganization: (state, typeOfOrganization) => (state.typeOfOrganization = typeOfOrganization)
 };
 
 const actions = {
   async businessEnrollment({commit, dispatch}, payload){
-    const response  = await axios.post(`http://122.55.20.85:8012/lguapi/api/business-permit-application/`, payload)
-    console.log(response.data)
+    let config = {
+      headers: {
+        'OneDoc-Token': oneDocToken,
+        'Content-Type': 'application/json'
+      },
+    };
+    console.log(oneDocToken, baseUrl)
+    const response  = await axios.post(`http://122.55.20.85:8012/lguapi/`, payload, config)
+    if (response.data.Response.Result.businessid){
+      commit('setIsBusinessEnrollmentSuccess', true)
+    }
   },
   async approveBusinessApplication({commit, dispatch, getters}, payload){
     try {
@@ -140,6 +159,18 @@ const actions = {
       commit('setLoading', false)
     }
   },  
+  async getBusinessProfiles({commit, dispatch, getters}){
+    try {
+      const response = await axios.get(
+        `${baseUrl}/api/business-profile/`,
+        { withCredentials: true }
+      );
+      commit("setBusinessProfiles",response.data)
+    } catch (err) {
+      console.log(err.response)
+      commit('setLoading', false)
+    }
+  }, 
   async addBusinessApplication({ commit, dispatch, getters }, payload) {
     try {
       const response = await axios.post(

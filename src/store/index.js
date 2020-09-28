@@ -5,6 +5,7 @@ import service from "./modules/service"
 import business from "./modules/business"
 import property from "./modules/property"
 import admin from "./modules/admin"
+import inquiry from "./modules/inquiry"
 import VuexPersist from 'vuex-persist';
 Vue.use(Vuex)
 const vuexLocalStorage = new VuexPersist({
@@ -15,7 +16,8 @@ const vuexLocalStorage = new VuexPersist({
     service: state.service,
     business: state.business,
     property: state.property,
-    admin: state.admin
+    admin: state.admin,
+    inquiry: state.inquiry
   })
 })
 export default new Vuex.Store({
@@ -24,7 +26,8 @@ export default new Vuex.Store({
     service,
     business,
     property,
-    admin
+    admin,
+    inquiry
   },
   plugins: [vuexLocalStorage.plugin]
 })

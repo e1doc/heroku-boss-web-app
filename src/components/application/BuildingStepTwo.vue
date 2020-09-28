@@ -77,7 +77,7 @@
           inputClass="fw-mobile"
         />
         <base-input
-          label="Lot No. count (default 1)"
+          label="Lot No. count"
           v-model="building_details.lot_no_count"
           :validationMessages="buildingStepTwoErrors.building_details.lot_no_count"
           name="lotnumbercount"
@@ -372,6 +372,11 @@ export default {
         scope_of_work_others: "",
         character_of_occupancy: "",
         character_of_occupancy_others: "",
+        address_no: "",
+        lot_no_count: "1",
+        phase_no: "",
+        subdivision_name: "",
+        district: "",
       },
       building_other_details: {
         occupancy_classified: "",
@@ -399,7 +404,8 @@ export default {
         building_other_details: [
           "units",
           "floor_area",
-          "lot_area"
+          "lot_area",
+          "occupancy_classified"
         ],
       },
       propertytype: [
