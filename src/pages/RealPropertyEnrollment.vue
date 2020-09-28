@@ -78,8 +78,8 @@ export default {
     EnrollmentSuccess,
     BaseSelect,
   },
-  mounted(){
-     this.$store.commit('setLoading', false)
+  mounted() {
+    this.$store.commit("setLoading", false);
   },
   data() {
     return {
@@ -119,39 +119,57 @@ export default {
     },
     async propertyEnrollment(payload) {
       try {
-        this.$store.commit('setLoading', true)
+        this.$store.commit("setLoading", true);
         let config = {
           headers: {
             "OneDoc-Token": oneDocToken,
             "Content-Type": "application/json",
           },
         };
-        const response = await axios.post(
-          `http://122.55.20.85:8012/lguapi/`,
-          payload,
-          config
+
+        const validateResponse = await axios.get(
+          `${process.env.VUE_APP_API_URL}/api/verify-enrollment?id=${this.td_no}&type=property`,
+          { withCredentials: true }
         );
-        console.log(response.data);
-        if (response.data.Response.Result.referenceid) {
-          let building_payload = { is_draft: false, is_enrolled: true };
-          await this.$store.dispatch(
-            "addBuildingApplication",
-            building_payload
+        if (!validateResponse.data.is_existing) {
+          const response = await axios.post(
+            `//122.55.20.85:8012/lguapi/`,
+            payload,
+            config
           );
-          await this.$store.dispatch(
-            "addBuildingBasicInformation",
-            {owner_first_name: response.data.Response.Result.owner_name}
-          );
-          await this.$store.dispatch("addBuildingDetails", {
-            tax_dec_no: response.data.Response.Result.td_number,
-          });
+          console.log(response.data);
+          if (response.data.Response.Result.referenceid) {
+            let building_payload = { is_draft: false, is_enrolled: true };
+            await this.$store.dispatch(
+              "addBuildingApplication",
+              building_payload
+            );
+            await this.$store.dispatch("addBuildingBasicInformation", {
+              owner_first_name: response.data.Response.Result.owner_name,
+            });
+            await this.$store.dispatch("addBuildingDetails", {
+              tax_dec_no: response.data.Response.Result.td_number,
+            });
+            this.isSuccess = true;
+            this.td_no = response.data.Response.Result.td_number;
+          } else {
+            this.$swal({
+              title: "Failed!",
+              text: "No record found.",
+              icon: "error",
+            });
+          }
+        }else{
+          this.$swal({
+              title: "Failed!",
+              text: "Record already enrolled.",
+              icon: "error",
+            });
         }
-        this.$store.commit('setLoading', false)
-        this.isSuccess = true;
-        this.td_no = response.data.Response.Result.td_number;
+        this.$store.commit("setLoading", false);
       } catch (err) {
-        console.log(err);
-        this.$store.commit('setLoading', false)
+        console.log(err.data);
+        this.$store.commit("setLoading", false);
       }
     },
   },

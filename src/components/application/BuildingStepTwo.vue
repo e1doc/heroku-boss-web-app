@@ -139,6 +139,7 @@
           type="text"
           class="input-w2 input-required"
           inputClass="fw-mobile"
+          :disabled="true"
         />
       </div>
       <div class="meta-form-group mb20">
@@ -152,6 +153,7 @@
           :options="barangayname"
           type="text"
           inputClass="fw-mobile"
+          @change.native="identifyDistrict"
         />
       </div>
       <base-input
@@ -399,7 +401,10 @@ export default {
           "blk_no",
           "phase_no",
           "subdivision_name",
-          "street"
+          "street",
+          "property_type",
+          "area_no",
+          "form_of_ownership"
         ],
         building_other_details: [
           "units",
@@ -425,31 +430,38 @@ export default {
       barangayname: [
         {
           label: "Alima",
-          value: "Alima"
+          value: "Alima",
+          district: "District 1"
         },
         {
           label: "Aniban I",
-          value: "Aniban I"
+          value: "Aniban I",
+          district: "District 1"
         },
         {
           label: "Aniban II",
-          value: "Aniban II"
+          value: "Aniban II",
+          district: "District 1"
         },
         {
           label: "Aniban III",
-          value: "Aniban III"
+          value: "Aniban III",
+          district: "District 1"
         },
         {
           label: "Aniban IV",
-          value: "Aniban IV"
+          value: "Aniban IV",
+          district: "District 1"
         },
         {
           label: "Aniban V",
-          value: "Aniban V"
+          value: "Aniban V",
+          district: "District 1"
         },
         {
           label: "Banalo",
-          value: "Banalo"
+          value: "Banalo",
+          district: "District 1"
         },
         {
           label: "Bayanan",
@@ -457,263 +469,328 @@ export default {
         },
         {
           label: "Camposanto",
-          value: "Camposanto"
+          value: "Camposanto",
+          district: "District 1"
         },
         {
           label: "Daang-Bukid",
-          value: "Daang-Bukid"
+          value: "Daang-Bukid",
+          district: "District 1"
         },
         {
           label: "Digman",
-          value: "Digman"
+          value: "Digman",
+          district: "District 1"
         },
         {
           label: "Dulong-Bayan",
-          value: "Dulong-Bayan"
+          value: "Dulong-Bayan",
+          district: "District 1"
         },
         {
           label: "Habay I",
-          value: "Habay I"
+          value: "Habay I",
+          district: "District 1"
         },
         {
           label: "Habay II",
-          value: "Habay II"
+          value: "Habay II",
+          district: "District 1"
         },
         {
           label: "Kaingin",
-          value: "Kaingin"
+          value: "Kaingin",
+          district: "District 1"
         },
         {
           label: "Ligas I",
-          value: "Ligas I"
+          value: "Ligas I",
+          district: "District 1"
         },
         {
           label: "Ligas II",
-          value: "Ligas II"
+          value: "Ligas II",
+          district: "District 1"
         },
         {
           label: "Ligas III",
-          value: "Ligas III"
+          value: "Ligas III",
+          district: "District 1"
         },
         {
           label: "Mabolo I",
-          value: "Mabolo I"
+          value: "Mabolo I",
+          district: "District 1"
         },
         {
           label: "Mabolo II",
-          value: "Mabolo II"
+          value: "Mabolo II",
+          district: "District 1"
         },
         {
           label: "Mabolo III",
-          value: "Mabolo III"
+          value: "Mabolo III",
+          district: "District 1"
         },
         {
           label: "Maliksi I",
-          value: "Maliksi I"
+          value: "Maliksi I",
+          district: "District 1"
         },
         {
           label: "Maliksi II",
-          value: "Maliksi II"
+          value: "Maliksi II",
+          district: "District 1"
         },
         {
           label: "Maliksi III",
-          value: "Maliksi III"
+          value: "Maliksi III",
+          district: "District 1"
         },
         {
           label: "Mambog I",
-          value: "Mambog I"
+          value: "Mambog I",
+          district: "District 2"
         },
         {
           label: "Mambog II",
-          value: "Mambog II"
+          value: "Mambog II",
+          district: "District 2"
         },
         {
           label: "Mambog III",
-          value: "Mambog III"
+          value: "Mambog III",
+          district: "District 3"
         },
         {
           label: "Mambog IV",
-          value: "Mambog IV"
+          value: "Mambog IV",
+          district: "District 2"
         },
         {
           label: "Mambog V",
-          value: "Mambog V"
+          value: "Mambog V",
+          district: "District 2"
         },
         {
           label: "Molino I/Burol",
-          value: "Molino I/Burol"
+          value: "Molino I/Burol",
+          district: "District 2"
         },
         {
           label: "Molino II",
-          value: "Molino II"
+          value: "Molino II",
+          district: "District 2"
         },
         {
           label: "Molino III",
-          value: "Molino III"
+          value: "Molino III",
+          district: "District 2"
         },
         {
           label: "Molino IV",
-          value: "Molino IV"
+          value: "Molino IV",
+          district: "District 2"
         },
         {
           label: "Molino V/Bahayang Pag-Asa",
-          value: "Molino V/Bahayang Pag-Asa"
+          value: "Molino V/Bahayang Pag-Asa",
+          district: "District 2"
         },
         {
           label: "Molino VI",
-          value: "Molino VI"
+          value: "Molino VI",
+          district: "District 2"
         },
         {
           label: "Molino VII/Gawaran",
-          value: "Molino VII/Gawaran"
+          value: "Molino VII/Gawaran",
+          district: "District 2"
         },
         {
           label: "Niog I",
-          value: "Niog I"
+          value: "Niog I",
+          district: "District 1"
         },
         {
           label: "Niog II",
-          value: "Niog II"
+          value: "Niog II",
+          district: "District 1"
         },
         {
           label: "Niog III",
-          value: "Niog III"
+          value: "Niog III",
+          district: "District 2"
         },
         {
           label: "P.F. Espiritu II (Panapaan II)",
-          value: "P.F. Espiritu II (Panapaan II)"
+          value: "P.F. Espiritu II (Panapaan II)",
+          district: "District 1"
         },
         {
           label: "P.F. Espiritu III (Panapaan III)",
-          value: "P.F. Espiritu III (Panapaan III)"
+          value: "P.F. Espiritu III (Panapaan III)",
+          district: "District 1"
         },
         {
           label: "P.F. Espiritu IV (Panapaan IV)",
-          value: "P.F. Espiritu IV (Panapaan IV)"
+          value: "P.F. Espiritu IV (Panapaan IV)",
+          district: "District 1"
         },
         {
           label: "P.F. Espiritu V (Panapaan V)",
-          value: "P.F. Espiritu V (Panapaan V)"
+          value: "P.F. Espiritu V (Panapaan V)",
+          district: "District 1"
         },
         {
           label: "P.F. Espiritu VI (Panapaan VI)",
-          value: "P.F. Espiritu VI (Panapaan VI)"
+          value: "P.F. Espiritu VI (Panapaan VI)",
+          district: "District 1"
         },
         {
           label: "P.F. Espiritu VII (Panapaan VII)",
-          value: "P.F. Espiritu VII (Panapaan VII)"
+          value: "P.F. Espiritu VII (Panapaan VII)",
+          district: "District 1"
         },
         {
           label: "P.F. Espiritu VIII (Panapaan VIII)",
-          value: "P.F. Espiritu VIII (Panapaan VIII)"
+          value: "P.F. Espiritu VIII (Panapaan VIII)",
+          district: "District 1"
         },
         {
           label: "P.F. Espirtu I (Panapaan I)",
-          value: "P.F. Espirtu I (Panapaan I)"
+          value: "P.F. Espirtu I (Panapaan I)",
+          district: "District 1"
         },
         {
           label: "Queens Row Central",
-          value: "Queens Row Central"
+          value: "Queens Row Central",
+          district: "District 2"
         },
         {
           label: "Queens Row East",
-          value: "Queens Row East"
+          value: "Queens Row East",
+          district: "District 2"
         },
         {
           label: "Queens Row West",
-          value: "Queens Row West"
+          value: "Queens Row West",
+          district: "District 2"
         },
         {
           label: "Real I",
-          value: "Real I"
+          value: "Real I",
+          district: "District 1"
         },
         {
           label: "Real II",
-          value: "Real II"
+          value: "Real II",
+          district: "District 1"
         },
         {
           label: "Salinas I",
-          value: "Salinas I"
+          value: "Salinas I",
+          district: "District 1"
         },
         {
           label: "Salinas II",
-          value: "Salinas II"
+          value: "Salinas II",
+          district: "District 1"
         },
         {
           label: "Salinas III",
-          value: "Salinas III"
+          value: "Salinas III",
+          district: "District 1"
         },
         {
           label: "Salinas IV",
-          value: "Salinas IV"
+          value: "Salinas IV",
+          district: "District 1"
         },
         {
           label: "San Nicolas I",
-          value: "San Nicolas I"
+          value: "San Nicolas I",
+          district: "District 1"
         },
         {
           label: "San Nicolas II",
-          value: "San Nicolas II"
+          value: "San Nicolas II",
+          district: "District 1"
         },
         {
           label: "San Nicolas III",
-          value: "San Nicolas III"
+          value: "San Nicolas III",
+          district: "District 1"
         },
         {
           label: "Sineguelasan",
-          value: "Sineguelasan"
+          value: "Sineguelasan",
+          district: "District 1"
         },
         {
           label: "Tabing-Dagat (Town Proper)",
-          value: "Tabing-Dagat (Town Proper)"
+          value: "Tabing-Dagat (Town Proper)",
+          district: "District 1"
         },
         {
           label: "Talaba I",
-          value: "Talaba I"
+          value: "Talaba I",
+          district: "District 1"
         },
         {
           label: "Talaba II",
-          value: "Talaba II"
+          value: "Talaba II",
+          district: "District 1"
         },
         {
           label: "Talaba III",
-          value: "Talaba III"
+          value: "Talaba III",
+          district: "District 1"
         },
         {
           label: "Talaba IV",
-          value: "Talaba IV"
+          value: "Talaba IV",
+          district: "District 1"
         },
         {
           label: "Talaba V",
-          value: "Talaba V"
+          value: "Talaba V",
+          district: "District 1"
         },
         {
           label: "Talaba VI",
-          value: "Talaba VI"
+          value: "Talaba VI",
+          district: "District 1"
         },
         {
           label: "Talaba VII",
-          value: "Talaba VII"
+          value: "Talaba VII",
+          district: "District 1"
         },
         {
           label: "Zapote I",
-          value: "Zapote I"
+          value: "Zapote I",
+          district: "District 1"
         },
         {
           label: "Zapote II",
-          value: "Zapote II"
+          value: "Zapote II",
+          district: "District 1"
         },
         {
           label: "Zapote III",
-          value: "Zapote III"
+          value: "Zapote III",
+          district: "District 1"
         },
         {
           label: "Zapote IV",
-          value: "Zapote IV"
+          value: "Zapote IV",
+          district: "District 1"
         },
         {
           label: "Zapote V (Longos-Zapote V)",
-          value: "Zapote V (Longos-Zapote V)"
+          value: "Zapote V (Longos-Zapote V)",
+          district: "District 1"
         },
       ],
       scopeofwork: [
@@ -837,6 +914,10 @@ export default {
     },
   },
   methods: {
+    identifyDistrict(){
+     let barangay = this.barangayname.find(item => item.value === this.building_details.barangay)
+     this.building_details.district = barangay.district
+    },
     previousStep() {
       console.log("clicked");
       this.$store.commit("setCurrentApplicationStep", "1");

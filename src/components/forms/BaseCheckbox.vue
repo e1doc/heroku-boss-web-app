@@ -1,6 +1,6 @@
 <template>
   <div class="meta-checkbox flex-center">
-      <input type="checkbox" id="option" v-model="inputValue">
+      <input type="checkbox" id="option" value="inputValue" @change="$emit('input', label)">
       <div class="custom-checkbox flex-center">
           <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
       </div>

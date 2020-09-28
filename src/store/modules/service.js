@@ -12,6 +12,7 @@ const getDefaultAuthState = () =>{
     resetPasswordSuccess: false,
     validationMessages: {},
     userDetails: {},
+    credentials: {},
     isAuthenticated: false,
     isAdminAuthenticated: false
   }
@@ -28,7 +29,8 @@ const getters = {
   validationMessages: (state) => state.validationMessages,
   userDetails: (state) => state.userDetails,
   isAuthenticated: (state) => state.isAuthenticated,
-  isAdminAuthenticated: (state) => state.isAdminAuthenticated
+  isAdminAuthenticated: (state) => state.isAdminAuthenticated,
+  credentials: (state) => state.credentials
 };
 
 const mutations = {
@@ -43,6 +45,7 @@ const mutations = {
   setIsAuthenticated: (state, isAuthenticated) => (state.isAuthenticated = isAuthenticated),
   setAdminIsAuthenticated: (state, isAdminAuthenticated) => (state.isAdminAuthenticated = isAdminAuthenticated),
   resetAuthState: (state) => Object.assign(state, getDefaultAuthState()),
+  setCredentials : (state, credentials) => (state.credentials = credentials) 
 };
 
 const actions = {
@@ -57,6 +60,7 @@ const actions = {
       );
       commit("setCodeToken", response.data.token);
       commit("setAuthType", "otp");
+      commit('setCredentials', payload)
       commit("setLoading", false);
     } catch (err) {
       console.log(err)
@@ -80,6 +84,7 @@ const actions = {
         payload,
         {withCredentials: true }
       );
+      commit('setCredentials', {})
       commit("setLoading", false);
       commit("setLoginSuccess", true);
       commit("setIsAuthenticated",true)
@@ -111,6 +116,7 @@ const actions = {
         `${baseUrl}/auth/users/reset_password/`,
         payload
       );
+      commit('setCredentials', payload)
       commit("setLoading", false);
       commit("setForgotPasswordSuccess", true);
     } catch (err) {

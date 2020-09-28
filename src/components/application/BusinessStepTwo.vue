@@ -163,7 +163,7 @@
         "
         name="pin"
         refs="pin_number"
-        type="number"
+        type="text"
         class="mt40"
       />
 
@@ -173,7 +173,7 @@
         :validationMessages="stepTwoErrors.business_details.area"
         name="area"
         refs="business_area"
-        type="number"
+        type="text"
         class="mt40 input-required"
       />
 
@@ -183,7 +183,7 @@
         :validationMessages="stepTwoErrors.business_details.total_employees"
         name="total_employees"
         refs="employees"
-        type="number"
+        type="text"
         class="mt40 input-required"
       />
 
@@ -436,6 +436,7 @@ export default {
           "email_address",
           "property_index_number",
           "residing_employees",
+          "complete_business_address"
         ],
       },
       barangayname: [
@@ -745,12 +746,13 @@ export default {
       "stepTwoErrors",
       "applicationRequirements",
       "draftBusiness",
-      "typeOfOrganization"
+      "typeOfOrganization",
     ]),
   },
   mounted() {
-    this.preFillForm();
     this.addActivity();
+    this.preFillForm();
+    this.changeTypeOfOrganization();
   },
   watch: {
     draftBusiness: {
@@ -763,6 +765,23 @@ export default {
     },
   },
   methods: {
+    changeTypeOfOrganization() {
+      if (this.typeOfOrganization === "corporation") {
+        if (!this.unrequired.business_details.includes("trade_name")) {
+          this.unrequired.business_details.push("trade_name");
+        }
+        this.unrequired.business_details = this.unrequired.business_details.filter(
+          (item) => item !== "name"
+        );
+      } else {
+        if (!this.unrequired.business_details.includes("name")) {
+          this.unrequired.business_details.push("name");
+        }
+        this.unrequired.business_details = this.unrequired.business_details.filter(
+          (item) => item !== "trade_name"
+        );
+      }
+    },
     previousStep() {
       this.$store.commit("setCurrentApplicationStep", "1");
     },
@@ -838,11 +857,11 @@ export default {
       this.$store.commit("setDraftBusiness", false);
     },
     preFillForm() {
-      if (this.businessDetails) {
+      if (this.businessDetails.id) {
         console.log(this.businessDetails.id);
         this.business_details = this.businessDetails;
       }
-      if (this.lessorDetails) {
+      if (this.lessorDetails.id) {
         this.lessor_details = this.lessorDetails;
       }
       if (this.businessActivities.length > 0) {
@@ -891,6 +910,8 @@ export default {
           value: {},
         });
       }
+
+      console.log(business_details_errors.value)
 
       if (isBusinessDetailsClean) {
         this.$store.commit("setCurrentApplicationStep", "3");

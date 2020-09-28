@@ -6,7 +6,7 @@
       </div>
       <div class="meta-center-box">
           <ul class="meta-nav">
-              <li class="meta-menu">Bacoor.gov.ph</li>
+              <li class="meta-menu redirect" @click="extRedirect">Bacoor.gov.ph</li>
               <li class="meta-menu has-children">
                 <router-link to="#">Transactions <font-awesome-icon icon="chevron-down" class="mr10 sub-menu-icon" /></router-link>
                 <ul class="meta-sub-menu">
@@ -51,8 +51,8 @@
                     <span class="meta-icon"><font-awesome-icon icon="user" class="mr10 user-icon" /></span>
                 </div>
                 <div class="meta-user-info">
-                    <span class="meta-name">JOHN MICHAEL DOE</span>
-                    <span class="meta-email">johnmich@gmail.com</span>
+                    <span class="meta-name">{{ userDetails.first_name }} {{ userDetails.last_name }}</span>
+                    <span class="meta-email">{{ userDetails.email }}</span>
                 </div>
             </div>
             <ul class="mobile-menu">
@@ -64,11 +64,9 @@
                         </span>
                     </router-link>
                 </li>
-                <li class="meta-menu" @click="slidemenu = false">
-                    <router-link to="#" >
-                        <font-awesome-icon icon="globe" class="mr10 icon" />
+                <li class="meta-menu" @click="slidemenu = false; extRedirect()">
+                     <font-awesome-icon icon="globe" class="mr10 icon" />
                         Bacoor.gov.ph
-                    </router-link>
                 </li>
                 <li class="meta-menu" @click="slidemenu = false; menuActive = 'business_application'" :class="{active:menuActive == 'business_application'}">
                     <router-link to="business-permit-application">
@@ -129,6 +127,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
  name : "HeaderNav",
  data() {
@@ -136,6 +135,9 @@ export default {
       slidemenu: false,
       menuActive: 'profile'
     };
+  },
+computed: {
+    ...mapGetters(["userDetails"]),
   },
  methods:{
    logout(){
@@ -147,11 +149,17 @@ export default {
          this.$store.commit('resetInquiryState')
          this.$router.push({ path: '/' })
    },
+   extRedirect(){
+       window.open('http://bacoor.gov.ph/', '_blank');
+   }
  }
 }
 </script>
 
 <style lang="scss" scoped>
+.redirect{
+    cursor: pointer;
+}
 section.meta-navigation {
     padding: 0px 30px;
     box-shadow: -2px 10px 30px rgba(127,127,127, 0.1);
@@ -226,7 +234,7 @@ section.meta-navigation {
           display: inline;
           list-style-type: none;
           position: relative;
-          a {
+          div, a {
               text-decoration: none;
               color: #2b2b2b;
               padding: 10px 5px;
@@ -343,7 +351,7 @@ div.meta-mobile-nav ul.mobile-menu li {
 }
 
 
-div.meta-mobile-nav ul.mobile-menu li a {    
+div.meta-mobile-nav ul.mobile-menu li a,  div.meta-mobile-nav ul.mobile-menu li{    
     color: #47525d;
     font-size: 14px;
     font-weight: bold;

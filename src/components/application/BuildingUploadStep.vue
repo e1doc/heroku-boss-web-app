@@ -95,6 +95,7 @@
         fileLabel="tct"
         :properties="getProperty('tct')"
         type="property"
+        uploadType="application/pdf"
         :hasError="uploadErrors.tct"
       />
       <!-- <base-file-uploader
@@ -255,6 +256,7 @@
         fileLabel="architectural_permit"
         :properties="getProperty('architectural_permit')"
         type="property"
+        uploadType="application/pdf"
         :hasError="uploadErrors.architectural_permit"
       />
     </div>
@@ -281,6 +283,7 @@
         fileLabel="sketch_pin"
         :properties="getProperty('sketch_pin')"
         type="property"
+        uploadType="application/pdf"
         :hasError="uploadErrors.sketch_pin"
       />
       <!-- <base-file-uploader

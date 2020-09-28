@@ -8,19 +8,6 @@
         <h1>VERIFY EMAIL</h1>
       </div>
 
-      <!-- COUNTDOWN TIMER -->
-      <div class="resend-code-div flex-center">
-        <span class="resend-text" 
-           v-bind:class="timerCount != 0 ? 'disabled' : '' "
-           @click="resetValue">
-           Resend Code 
-        </span>
-        <span class="countdown-timer" 
-           v-if="timerCount != 0">
-            ( {{ timerCount }} seconds )
-        </span>
-      </div>
-
       <div class="note">
         OTP has been sent to you on your email address. Please enter it below.
       </div>
@@ -39,6 +26,18 @@
           VERIFY
         </button-full>
       </div>
+            <!-- COUNTDOWN TIMER -->
+      <div class="resend-code-div flex-center">
+        <span class="resend-text" 
+           v-bind:class="timerCount != 0 ? 'disabled' : '' "
+           @click="resetValue">
+           Resend Code 
+        </span>
+        <span class="countdown-timer" 
+           v-if="timerCount != 0">
+            ( {{ timerCount }} seconds )
+        </span>
+      </div>
     </div>
   </section>
 </template>
@@ -48,7 +47,7 @@ import ButtonFull from "@/components/ButtonFull";
 import ButtonFullOutline from "@/components/ButtonFullOutline";
 import BaseInputIcon from "@/components/forms/BaseInputIcon";
 import BaseInputOtp from "@/components/forms/BaseInputOtp";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "OtpDiv",
   components: {
@@ -63,6 +62,9 @@ export default {
       timerCount: 30
     };
   },
+  computed:{
+    ...mapGetters(['credentials'])
+  },
   methods: {
     ...mapActions(["getAuthToken"]),
     updateValue() {
@@ -75,7 +77,8 @@ export default {
     verifyOtp(){
        this.getAuthToken(this.code);
     },
-    resetValue() {
+   async resetValue() {
+        await this.$store.dispatch('getCodeToken',this.credentials)
         this.timerCount = '30'
     }
   },

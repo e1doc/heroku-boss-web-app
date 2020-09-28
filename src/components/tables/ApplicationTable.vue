@@ -57,7 +57,7 @@
         </div>
       </div>
     </div>
-    <div v-if="currentType === 'real_property'">
+    <div v-if="currentType === 'building'">
       <div class="tbody" v-if="buildingApplications.length > 0">
         <div
           class="tr"

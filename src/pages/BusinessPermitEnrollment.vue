@@ -83,7 +83,7 @@ export default {
   },
   methods: {
     async verify() {
-      this.$store.commit('setLoading', true)
+      this.$store.commit("setLoading", true);
       let payload = {
         name: "BusinessPermitEnrollment",
         param: {
@@ -92,37 +92,57 @@ export default {
           ornumber: this.official_receipt,
         },
       };
-      await this.businessEnrollment(payload)
-      this.$store.commit('setLoading', false)
+      await this.businessEnrollment(payload);
+      this.$store.commit("setLoading", false);
     },
     async businessEnrollment(payload) {
       try {
-      let config = {
-        headers: {
-          "OneDoc-Token": oneDocToken,
-          "Content-Type": "application/json",
-        },
-      };
-      const response = await axios.post(
-        `http://122.55.20.85:8012/lguapi/`,
-        payload,
-        config
-      );
-      if (response.data.Response.Result.businessid) {
-         await this.$store.dispatch(
-          "addBusinessApplication",
-          {account_number: this.account_no, is_draft: false, is_enrolled: true}
+        let config = {
+          headers: {
+            "OneDoc-Token": oneDocToken,
+            "Content-Type": "application/json",
+          },
+        };
+
+        const validateResponse = await axios.get(
+          `${process.env.VUE_APP_API_URL}/api/verify-enrollment?id=${this.account_no}&type=business`,
+          { withCredentials: true }
         );
-        await this.$store.dispatch(
-          "addBusinessBasicInformation",
-          {}
-        );
-        await this.$store.dispatch('addBusinessDetails', {name: response.data.Response.Result.businessname})
-        this.isSuccess =  true
-        this.account_no = response.data.Response.Result.account_number
-      }
+
+        if (!validateResponse.data.is_existing) {
+          const response = await axios.post(
+            `http://122.55.20.85:8012/lguapi/`,
+            payload,
+            config
+          );
+          if (response.data.Response.Result.businessid) {
+            await this.$store.dispatch("addBusinessApplication", {
+              account_number: this.account_no,
+              is_draft: false,
+              is_enrolled: true,
+            });
+            await this.$store.dispatch("addBusinessBasicInformation", {});
+            await this.$store.dispatch("addBusinessDetails", {
+              name: response.data.Response.Result.businessname,
+            });
+            this.isSuccess = true;
+            this.account_no = response.data.Response.Result.account_number;
+          } else {
+            this.$swal({
+              title: "Failed!",
+              text: "No record found.",
+              icon: "error",
+            });
+          }
+        } else {
+          this.$swal({
+            title: "Failed!",
+            text: "Record already enrolled.",
+            icon: "error",
+          });
+        }
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
     },
   },

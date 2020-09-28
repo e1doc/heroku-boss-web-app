@@ -14,7 +14,7 @@
             {{ inquiry.created_at | moment("MMMM DD YYYY") }}
           </div>
           <div class="td subject">{{ inquiry.subject }}</div>
-          <div class="td sender">JOHN MICHAEL DOE</div>
+          <div class="td sender">{{inquiry.sender.first_name}} {{inquiry.sender.last_name}}</div>
           <div class="td status">{{ inquiry.status }}</div>
           <div class="td actions">
             <router-link :to="{name:'ReplyInquiry', params:{thread: inquiry.id}}">
@@ -58,6 +58,7 @@ export default {
   methods: {
     async getAllInquiries(pageNum = 1) {
       await this.$store.dispatch("getAllAdminInquiries", { pageNum: pageNum, filter_by: this.currentType });
+      console.log(this.inquiries)
     },
   },
 };

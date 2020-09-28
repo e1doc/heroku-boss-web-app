@@ -31,7 +31,7 @@
       </div>
 
       <!-- COUNTDOWN TIMER -->
-      <div class="resend-code-div flex-center">
+      <div class="resend-code-div flex-center"  v-if="forgotPasswordSuccess">
         <span class="resend-text" 
            v-bind:class="timerCount != 0 ? 'disabled' : '' "
            @click="resetValue">
@@ -72,23 +72,31 @@ export default {
     return {
       email: "",
       isSuccess: false,
-      timerCount: 30
+      timerCount: 0
     };
   },
   computed:{
-    ...mapGetters(["forgotPasswordSuccess"])
+    ...mapGetters(["forgotPasswordSuccess", "credentials"])
   },
   methods:{
     ...mapActions(["forgotPasswordUser"]),
-    forgotPassword(){
-      this.forgotPasswordUser({email:this.email})
+    async forgotPassword(){
+      await this.$store.dispatch('forgotPasswordUser', {email:this.email})
     },
-    resetValue() {
-        this.timerCount = '30'
+    async resetValue() {
+       await this.$store.dispatch('forgotPasswordUser', this.credentials)
+       this.timerCount = '30'
     }
   },
   // COUNTDOWN TIMER
   watch: {
+   forgotPasswordSuccess:{
+        handler(value) {
+          if (value){
+            this.timerCount = 30
+          }
+        }
+    }, 
     timerCount: {
       handler(value) {
         if (value > 0) {

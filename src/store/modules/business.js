@@ -113,6 +113,14 @@ const actions = {
     const response  = await axios.post(`http://122.55.20.85:8012/lguapi/`, payload, config)
     if (response.data.Response.Result.businessid){
       commit('setIsBusinessEnrollmentSuccess', true)
+    }else{
+      console.log('no record found')
+      this.$swal({
+        title: "Failed!",
+        text:
+          "No record found.",
+        icon: "error",
+      });
     }
   },
   async approveBusinessApplication({commit, dispatch, getters}, payload){
