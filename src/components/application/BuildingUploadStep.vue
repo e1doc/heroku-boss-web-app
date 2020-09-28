@@ -11,10 +11,17 @@
       </div>
 
       <ul class="parent-list">
+        
+        <!-- A. LEGAL DOCUMENTS 1 -->
         <li>
-          <base-checkbox
-            label="1. Electronic copy of Transfer Certicicate of Title (TCT) (original copy)"
-          />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="legal_docs_1">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="legal_docs_1">1. Electronic copy of Transfer Certicicate of Title (TCT) (original copy)</label>
+          </div>
+          <!-- DETAILS -->
           <ul class="main-list">
             <li>
               If the applicant is NOT the registered owner of the lot, upload:
@@ -61,26 +68,60 @@
             </li>
           </ul>
         </li>
+
+        <!-- A. LEGAL DOCUMENTS 2 -->
         <li>
-          <base-checkbox label="2. Tax Declaration of Lot" />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="legal_docs_2">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="legal_docs_2">2. Tax Declaration of Lot</label>
+          </div>
         </li>
+
+        <!-- A. LEGAL DOCUMENTS 3 -->
         <li>
-          <base-checkbox
-            label="3. Tax Clearance of Real Property for Lot (updated)"
-          />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="legal_docs_3">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="legal_docs_3">3. Tax Clearance of Real Property for Lot (updated)</label>
+          </div>
         </li>
+
+        <!-- A. LEGAL DOCUMENTS 4 -->
         <li>
-          <base-checkbox
-            label="4. Barangay Clearance (for construction - original copy)"
-          />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="legal_docs_4">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="legal_docs_4">4. Barangay Clearance (for construction - original copy)</label>
+          </div>
         </li>
+
+        <!-- A. LEGAL DOCUMENTS 5 -->
         <li>
-          <base-checkbox
-            label="5. Homeowner's Clearance (for construction - original copy)"
-          />
+           <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="legal_docs_5">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="legal_docs_5">5. Homeowner's Clearance (for construction - original copy)</label>
+          </div>
         </li>
+
+        <!-- A. LEGAL DOCUMENTS 6 -->
         <li>
-          <base-checkbox label="6. Affidavit of Undertaking" />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="legal_docs_6">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="legal_docs_6">6. Affidavit of Undertaking</label>
+          </div>
           <ul class="sub-list">
             <li>
               (for National Agencies Clearances, Barangay Clearance, HOA
@@ -151,86 +192,201 @@
         :hasError="uploadErrors.unified_application_form"
       /> -->
       <ul class="parent-list">
+        <!-- B. TECHNICAL DOCS 1a -->
         <li>
-          <base-checkbox label="1a. Ancillary Forms - Architectural Permit" />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="tech_docs_1a">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="tech_docs_1a">1a. Ancillary Forms - Architectural Permit</label>
+          </div>
         </li>
+
+        <!-- B. TECHNICAL DOCS 1b -->
         <li>
-          <base-checkbox
-            label="1b. Ancillary Forms - Civil/Structural Permit"
-          />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="tech_docs_1b">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="tech_docs_1b">1b. Ancillary Forms - Civil/Structural Permit</label>
+          </div>
         </li>
+
+        <!-- B. TECHNICAL DOCS 1c -->
         <li>
-          <base-checkbox
-            label="1c. Ancillary Forms - Sanitary/Plumbing Permit"
-          />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="tech_docs_1c">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="tech_docs_1c">1c. Ancillary Forms - Sanitary/Plumbing Permit</label>
+          </div>
         </li>
+
+        <!-- B. TECHNICAL DOCS 1d -->
         <li>
-          <base-checkbox label="1d. Ancillary Forms - Mechanical Permit" />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="tech_docs_1d">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="tech_docs_1d">1d. Ancillary Forms - Mechanical Permit</label>
+          </div>
         </li>
+
+        <!-- B. TECHNICAL DOCS 1e -->
         <li>
-          <base-checkbox label="1e. Ancillary Forms - Sign Permit" />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="tech_docs_1e">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="tech_docs_1e">1e. Ancillary Forms - Sign Permit</label>
+          </div>
         </li>
+
+        <!-- B. TECHNICAL DOCS 1f -->
         <li>
-          <base-checkbox label="1f. Ancillary Forms - Electronic Permit" />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="tech_docs_1f">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="tech_docs_1f">1f. Ancillary Forms - Electronic Permit</label>
+          </div>
         </li>
+
+        <!-- B. TECHNICAL DOCS 2 -->
         <li>
-          <base-checkbox label="2. Locational Clearance Application Form" />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="tech_docs_2">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="tech_docs_2">2. Locational Clearance Application Form</label>
+          </div>
         </li>
+
+        <!-- B. TECHNICAL DOCS 3 -->
         <li>
-          <base-checkbox
-            label="3. Contractor's Temporary Business Permit Application Form"
-          />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="tech_docs_3">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="tech_docs_3">3. Contractor's Temporary Business Permit Application Form</label>
+          </div>
         </li>
+
+        <!-- B. TECHNICAL DOCS 4 -->
         <li>
-          <base-checkbox
-            label="4. Relocation Survey Report and Lot Plan with Vicinity Maps"
-          />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="tech_docs_4">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="tech_docs_4">4. Relocation Survey Report and Lot Plan with Vicinity Maps</label>
+          </div>
           <ul class="sub-list">
             <li>Duly signed and sealed by a licensed GE.</li>
           </ul>
         </li>
+
+        <!-- B. TECHNICAL DOCS 5 -->
         <li>
-          <base-checkbox
-            label="5. Photocopy of updated valid PRC ID's and PTR of Engrs/Arch"
-          />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="tech_docs_5">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="tech_docs_5">5. Photocopy of updated valid PRC ID's and PTR of Engrs/Arch</label>
+          </div>
           <ul class="sub-list">
             <li>Duly signed and sealed by a licensed GE.</li>
           </ul>
         </li>
+
+        <!-- B. TECHNICAL DOCS 6 -->
         <li>
-          <base-checkbox label="6. Project Specification" />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="tech_docs_6">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="tech_docs_6">6. Project Specification</label>
+          </div>
           <ul class="sub-list">
             <li>To be signed and sealed by Engr/Arch.</li>
           </ul>
         </li>
+
+        <!-- B. TECHNICAL DOCS 7 -->
         <li>
-          <base-checkbox label="7. Notarized Bill of Materials" />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="tech_docs_7">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="tech_docs_7">7. Notarized Bill of Materials</label>
+          </div>
           <ul class="sub-list">
             <li>To be signed and sealed by Engr/Arch.</li>
           </ul>
         </li>
+
+        <!-- B. TECHNICAL DOCS 8 -->
         <li>
-          <base-checkbox
-            label="8. Structural Design Analysis and Computation"
-          />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="tech_docs_8">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="tech_docs_8">8. Structural Design Analysis and Computation</label>
+          </div>
           <ul class="sub-list">
             <li>For structure two(2) storey and above NSCP 5th Edition.</li>
           </ul>
         </li>
+
+        <!-- B. TECHNICAL DOCS 9 -->
         <li>
-          <base-checkbox label="9. Geotech Report / Soil Boring Test Report" />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="tech_docs_9">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="tech_docs_9">9. Geotech Report / Soil Boring Test Report</label>
+          </div>
           <ul class="sub-list">
             <li>For building structures three(3) storey and above.</li>
           </ul>
         </li>
+
+        <!-- B. TECHNICAL DOCS 10 -->
         <li>
-          <base-checkbox label="10. Selsmic Analysis" />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="tech_docs_10">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="tech_docs_10">10. Selsmic Analysis</label>
+          </div>
           <ul class="sub-list">
             <li>For building exceeding 7.5 meters in height.</li>
           </ul>
         </li>
+
+        <!-- B. TECHNICAL DOCS 11 -->
         <li>
-          <base-checkbox label="11. Complete and Detailed Building Plans" />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="tech_docs_11">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="tech_docs_11">11. Complete and Detailed Building Plans</label>
+          </div>
           <ul class="sub-list">
             <li>
               Scale of 1:100 duly signed and sealed by the design professionals.
@@ -242,10 +398,16 @@
             <li>Fire Protection Plan (if applicable)</li>
           </ul>
         </li>
+
+        <!-- B. TECHNICAL DOCS 12 -->
         <li>
-          <base-checkbox
-            label="12. Construction Safety and Health Program (DOLE)"
-          />
+          <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="tech_docs_12">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="tech_docs_12">12. Construction Safety and Health Program (DOLE)</label>
+          </div>
           <ul class="sub-list">
             <li>For Commercial Establishment.</li>
           </ul>
@@ -265,8 +427,16 @@
     <div class="meta-form-group mb60">
       <div class="meta-group-title">C. Supplementary Documents</div>
       <ul class="parent-list">
+
+        <!-- C. SUPPLEMENTARY DOCS 1 -->
         <li>
-          <base-checkbox label="Sketch or Key Pin" />
+           <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="supp_docs_1">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="supp_docs_1">1. Sketch or Key Pin</label>
+          </div>
           <ul class="sub-list">
             <li>
               With clear landmarks leading to the lot with name and number of
@@ -274,10 +444,19 @@
             </li>
           </ul>
         </li>
+
+        <!-- C. SUPPLEMENTARY DOCS 2 -->
         <li>
-          <base-checkbox label="Picture of site/location (colored copy)" />
+           <div class="meta-checkbox flex-center">
+              <input type="checkbox" id="supp_docs_2">
+              <div class="custom-checkbox flex-center">
+                  <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon" /></span>
+              </div>
+              <label for="supp_docs_2">2. Picture of site/location (colored copy)</label>
+          </div>
         </li>
       </ul>
+      
       <base-file-uploader
         name="sketchpin"
         fileLabel="sketch_pin"
@@ -536,6 +715,42 @@ div.meta-container .meta-custom-upload:hover div.meta-text {
   background-color: #2699fb !important;
   color: #fff !important;
   border-color: #2699fb !important;
+}
+
+div.meta-checkbox{
+  position: relative;
+  label{
+      font-size: 13px;
+      line-height: 1.6;
+  }
+  input[type="checkbox"]{
+      height: 17px;
+      width: 17px;
+      opacity: 0;
+      left: 0;
+      top: 3px;
+      position: absolute;
+      z-index: 2;
+      cursor: pointer;
+  }
+  .custom-checkbox{
+      height: 15px;
+      width: 15px;
+      border: 2px solid #2593F1;
+      margin-right: 12px;
+      .check-icon{
+          color: #fff;
+          font-size: 14px;
+          display: none;
+      }
+  }
+  input[type="checkbox"]:checked + .custom-checkbox{
+      background-color:#2593F1;
+      .check-icon{
+          display: block;
+      }  
+  }
+
 }
 
 /*

@@ -191,12 +191,6 @@ const routes = [{
         name: "ApproveBusinessApplication",
         component: ApproveBusinessApplication,
       },
-      {
-        path: "admin-new-remarks",
-        name: "NewRemarks",
-        props:true,
-        component: NewInquiry,
-      },
     ],
     async beforeEnter(to, from, next) {
       let hasPermission = await store.state.service.isAdminAuthenticated;
