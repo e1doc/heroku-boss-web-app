@@ -171,6 +171,7 @@ const actions = {
       );
       commit("setPageCount", response.data.total_pages);
       commit("setBuildingApplications", response.data.results);
+      console.log(response.data.results)
     } catch (err) {
       console.log(err.response);
     }

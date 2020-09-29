@@ -218,11 +218,15 @@
               <!-- A. LEGAL DOCUMENTS 1 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="legal_docs_1" v-model="legal_documents.legal_docs_1"/>
+                  <input
+                    type="checkbox"
+                    id="legal_docs_1"
+                    v-model="legal_documents.legal_docs_1"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="legal_docs_1"
@@ -284,11 +288,15 @@
               <!-- A. LEGAL DOCUMENTS 2 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="legal_docs_2" v-model="legal_documents.legal_docs_2" />
+                  <input
+                    type="checkbox"
+                    id="legal_docs_2"
+                    v-model="legal_documents.legal_docs_2"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="legal_docs_2">2. Tax Declaration of Lot</label>
@@ -298,11 +306,15 @@
               <!-- A. LEGAL DOCUMENTS 3 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="legal_docs_3" v-model="legal_documents.legal_docs_3"/>
+                  <input
+                    type="checkbox"
+                    id="legal_docs_3"
+                    v-model="legal_documents.legal_docs_3"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="legal_docs_3"
@@ -314,11 +326,15 @@
               <!-- A. LEGAL DOCUMENTS 4 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="legal_docs_4" v-model="legal_documents.legal_docs_4"/>
+                  <input
+                    type="checkbox"
+                    id="legal_docs_4"
+                    v-model="legal_documents.legal_docs_4"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="legal_docs_4"
@@ -331,11 +347,15 @@
               <!-- A. LEGAL DOCUMENTS 5 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="legal_docs_5" v-model="legal_documents.legal_docs_5" />
+                  <input
+                    type="checkbox"
+                    id="legal_docs_5"
+                    v-model="legal_documents.legal_docs_5"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="legal_docs_5"
@@ -348,11 +368,15 @@
               <!-- A. LEGAL DOCUMENTS 6 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="legal_docs_6" v-model="legal_documents.legal_docs_6"/>
+                  <input
+                    type="checkbox"
+                    id="legal_docs_6"
+                    v-model="legal_documents.legal_docs_6"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="legal_docs_6">6. Affidavit of Undertaking</label>
@@ -372,11 +396,15 @@
               <!-- B. TECHNICAL DOCS 1a -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_1a" v-model="technical_documents.tech_docs_1a"/>
+                  <input
+                    type="checkbox"
+                    id="tech_docs_1a"
+                    v-model="technical_documents.tech_docs_1a"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="tech_docs_1a"
@@ -388,11 +416,15 @@
               <!-- B. TECHNICAL DOCS 1b -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_1b" v-model="technical_documents.tech_docs_1b" />
+                  <input
+                    type="checkbox"
+                    id="tech_docs_1b"
+                    v-model="technical_documents.tech_docs_1b"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="tech_docs_1b"
@@ -404,11 +436,15 @@
               <!-- B. TECHNICAL DOCS 1c -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_1c" v-model="technical_documents.tech_docs_1c"/>
+                  <input
+                    type="checkbox"
+                    id="tech_docs_1c"
+                    v-model="technical_documents.tech_docs_1c"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="tech_docs_1c"
@@ -420,11 +456,15 @@
               <!-- B. TECHNICAL DOCS 1d -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_1d" v-model="technical_documents.tech_docs_1d"/>
+                  <input
+                    type="checkbox"
+                    id="tech_docs_1d"
+                    v-model="technical_documents.tech_docs_1d"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="tech_docs_1d"
@@ -436,11 +476,15 @@
               <!-- B. TECHNICAL DOCS 1e -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_1e" v-model="technical_documents.tech_docs_1e"/>
+                  <input
+                    type="checkbox"
+                    id="tech_docs_1e"
+                    v-model="technical_documents.tech_docs_1e"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="tech_docs_1e"
@@ -452,11 +496,15 @@
               <!-- B. TECHNICAL DOCS 1f -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_1f" v-model="technical_documents.tech_docs_1f"/>
+                  <input
+                    type="checkbox"
+                    id="tech_docs_1f"
+                    v-model="technical_documents.tech_docs_1f"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="tech_docs_1f"
@@ -468,11 +516,15 @@
               <!-- B. TECHNICAL DOCS 2 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_2" v-model="technical_documents.tech_docs_2"/>
+                  <input
+                    type="checkbox"
+                    id="tech_docs_2"
+                    v-model="technical_documents.tech_docs_2"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="tech_docs_2"
@@ -484,11 +536,15 @@
               <!-- B. TECHNICAL DOCS 3 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_3" v-model="technical_documents.tech_docs_3"/>
+                  <input
+                    type="checkbox"
+                    id="tech_docs_3"
+                    v-model="technical_documents.tech_docs_3"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="tech_docs_3"
@@ -501,11 +557,15 @@
               <!-- B. TECHNICAL DOCS 4 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_4" v-model="technical_documents.tech_docs_4"/>
+                  <input
+                    type="checkbox"
+                    id="tech_docs_4"
+                    v-model="technical_documents.tech_docs_4"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="tech_docs_4"
@@ -521,11 +581,15 @@
               <!-- B. TECHNICAL DOCS 5 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_5" v-model="technical_documents.tech_docs_5"/>
+                  <input
+                    type="checkbox"
+                    id="tech_docs_5"
+                    v-model="technical_documents.tech_docs_5"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="tech_docs_5"
@@ -541,11 +605,15 @@
               <!-- B. TECHNICAL DOCS 6 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_6" v-model="technical_documents.tech_docs_6"/>
+                  <input
+                    type="checkbox"
+                    id="tech_docs_6"
+                    v-model="technical_documents.tech_docs_6"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="tech_docs_6">6. Project Specification</label>
@@ -558,11 +626,15 @@
               <!-- B. TECHNICAL DOCS 7 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_7" v-model="technical_documents.tech_docs_7"/>
+                  <input
+                    type="checkbox"
+                    id="tech_docs_7"
+                    v-model="technical_documents.tech_docs_7"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="tech_docs_7"
@@ -577,11 +649,15 @@
               <!-- B. TECHNICAL DOCS 8 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_8" v-model="technical_documents.tech_docs_8"/>
+                  <input
+                    type="checkbox"
+                    id="tech_docs_8"
+                    v-model="technical_documents.tech_docs_8"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="tech_docs_8"
@@ -598,11 +674,15 @@
               <!-- B. TECHNICAL DOCS 9 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_9" v-model="technical_documents.tech_docs_9"/>
+                  <input
+                    type="checkbox"
+                    id="tech_docs_9"
+                    v-model="technical_documents.tech_docs_9"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="tech_docs_9"
@@ -617,11 +697,15 @@
               <!-- B. TECHNICAL DOCS 10 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_10" v-model="technical_documents.tech_docs_10" />
+                  <input
+                    type="checkbox"
+                    id="tech_docs_10"
+                    v-model="technical_documents.tech_docs_10"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="tech_docs_10">10. Selsmic Analysis</label>
@@ -634,11 +718,15 @@
               <!-- B. TECHNICAL DOCS 11 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_11" v-model="technical_documents.tech_docs_11"/>
+                  <input
+                    type="checkbox"
+                    id="tech_docs_11"
+                    v-model="technical_documents.tech_docs_11"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="tech_docs_11"
@@ -661,11 +749,15 @@
               <!-- B. TECHNICAL DOCS 12 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_12" v-model="technical_documents.tech_docs_12"/>
+                  <input
+                    type="checkbox"
+                    id="tech_docs_12"
+                    v-model="technical_documents.tech_docs_12"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="tech_docs_12"
@@ -686,11 +778,15 @@
               <!-- C. SUPPLEMENTARY DOCS 1 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="supp_docs_1" v-model="supplementary_documents.supp_docs_1"/>
+                  <input
+                    type="checkbox"
+                    id="supp_docs_1"
+                    v-model="supplementary_documents.supp_docs_1"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="supp_docs_1">1. Sketch or Key Pin</label>
@@ -706,11 +802,15 @@
               <!-- C. SUPPLEMENTARY DOCS 2 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="supp_docs_2" v-model="supplementary_documents.supp_docs_2"/>
+                  <input
+                    type="checkbox"
+                    id="supp_docs_2"
+                    v-model="supplementary_documents.supp_docs_2"
+                  />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
-                      <font-awesome-icon icon="check" class="mr5 check-icon"/>
-                      <font-awesome-icon icon="times" class="mr5 x-icon"/>
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
                   <label for="supp_docs_2"
@@ -724,14 +824,10 @@
           <div class="requirement-list">
             <div class="meta-group-title">Files Uploaded</div>
             <ol>
-              <li>
-                <app-link to="http://www.africau.edu/images/default/sample.pdf">Requirements 1</app-link>
-              </li>
-              <li>
-                <app-link to="http://www.africau.edu/images/default/sample.pdf">Requirements 2</app-link>
-              </li>
-              <li>
-                <app-link to="http://www.africau.edu/images/default/sample.pdf">Requirements 3</app-link>
+              <li v-for="(item, index) of this.buildingRequirements.buildingrequirements" :key="index" >
+                <app-link :to="replaceUrl(item.file)"
+                  >{{item.filename}}</app-link
+                >
               </li>
             </ol>
           </div>
@@ -763,16 +859,22 @@
             !buildingApplication.is_disapprove
           "
         > -->
-          <button-block type="approve" @click.native="approveApplication(true)">
-            Approve
-          </button-block>
-          <button-block
-            class="red-btn"
-            type="disapprove"
-            @click.native="approveApplication(false)"
-          >
-            Disapprove
-          </button-block>
+
+          <div class="meta-button-group flex-center">
+            <button-block
+              type="approve"
+              @click.native="approveApplication(true)"
+            >
+              Approve
+            </button-block>
+            <button-block
+              class="red-btn"
+              type="disapprove"
+              @click.native="approveApplication(false)"
+            >
+              Disapprove
+            </button-block>
+          </div>
         </div>
       </div>
     </div>
@@ -789,7 +891,7 @@ export default {
   components: {
     VueEasyLightbox,
     ButtonBlock,
-    AppLink
+    AppLink,
   },
   beforeRouteLeave(to, from, next) {
     this.$store.commit("resetPropertyState");
@@ -810,7 +912,7 @@ export default {
       "buildingRequirements",
       "legalDocuments",
       "technicalDocuments",
-      "supplementaryDocuments"
+      "supplementaryDocuments",
     ]),
   },
   data() {
@@ -872,9 +974,11 @@ export default {
     async getRequirements() {
       if (this.buildingApplicationRequirements.id) {
         await this.$store.dispatch("getBuildingApplicationRequirements");
-            this.legal_documents = JSON.parse(this.legalDocuments.value)
-    this.technical_documents = JSON.parse(this.technicalDocuments.value)
-    this.supplementary_documents = JSON.parse(this.supplementaryDocuments.value)
+        this.legal_documents = JSON.parse(this.legalDocuments.value);
+        this.technical_documents = JSON.parse(this.technicalDocuments.value);
+        this.supplementary_documents = JSON.parse(
+          this.supplementaryDocuments.value
+        );
       }
     },
     replaceUrl(url) {
@@ -920,7 +1024,7 @@ div.meta-parent-box {
         padding: 10px 0;
         margin-bottom: 18px;
       }
-      .meta-list-title{
+      .meta-list-title {
         width: 100%;
         color: #2699fb;
         font-size: 14px;
@@ -1104,7 +1208,7 @@ div.meta-checkbox {
       font-size: 14px;
       display: none;
     }
-    .x-icon{
+    .x-icon {
       display: block;
       color: #e23a36;
     }
@@ -1113,37 +1217,36 @@ div.meta-checkbox {
     .check-icon {
       display: block;
     }
-    .x-icon{
+    .x-icon {
       display: none;
     }
   }
 }
 
-ul.parent-list > li{
-    margin-left: 20px;
+ul.parent-list > li {
+  margin-left: 20px;
 }
 
 ul.main-list {
-    padding-left: 49px !important;
+  padding-left: 49px !important;
 }
 
 ul.sub-list {
-    margin-left: 50px !important;
+  margin-left: 50px !important;
 }
 
-ul.main-list  > li > ul.sub-list{
-    margin-left: 20px !important;
+ul.main-list > li > ul.sub-list {
+  margin-left: 20px !important;
 }
 
-
-.requirement-list ol li, 
+.requirement-list ol li,
 .requirement-list ol li a {
-    width: 100%;
-    color: #2699fb;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 10px 0;
-    margin-left: 30px;
+  width: 100%;
+  color: #2699fb;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px 0;
+  margin-left: 30px;
 }
 
 /*

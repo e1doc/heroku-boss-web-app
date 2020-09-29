@@ -36,7 +36,7 @@ const actions = {
     }
   },
   async getAllAdminInquiries(
-    { commit },
+    { commit,getters },
     { page = 1, filter_by = "all_inquiries" }
   ) {
     try {
