@@ -1,17 +1,19 @@
 <template>
   <section>
-      <building-upload-step/>
+      <!-- <building-upload-step/> -->
       <!-- <building-step-two/> -->
       <!-- <div class="countdown-timer">
         {{ timerCount }}
       </div> -->
       <!-- <otp-div/> -->
       <!-- <downloadable-building-form/> -->
+      <approve-building-application/>
   </section>
 </template>
 
 <script>
 import BuildingStepTwo from "@/components/application/BuildingStepTwo";
+import ApproveBuildingApplication from "@/pages/admin/ApproveBuildingApplication";
 import BuildingUploadStep from "@/components/application/BuildingUploadStep";
 import DownloadableBuildingForm from "@/components/application/DownloadableBuildingForm";
 import OtpDiv from "@/components/auth/OtpDiv";
@@ -21,7 +23,8 @@ export default {
         BuildingStepTwo,
         BuildingUploadStep,
         OtpDiv,
-        DownloadableBuildingForm
+        DownloadableBuildingForm,
+        ApproveBuildingApplication
   },
   data() {
       return {
