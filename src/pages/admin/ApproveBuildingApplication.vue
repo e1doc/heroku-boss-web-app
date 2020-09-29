@@ -1083,6 +1083,23 @@ div.meta-checkbox {
   }
 }
 
+ul.parent-list > li{
+    margin-left: 20px;
+}
+
+ul.main-list {
+    padding-left: 49px !important;
+}
+
+ul.sub-list {
+    margin-left: 50px !important;
+}
+
+ul.main-list  > li > ul.sub-list{
+    margin-left: 20px !important;
+}
+
+
 /*
 MOBILE RESPONSIVENESS 
 --------------------------------------------------------------*/
