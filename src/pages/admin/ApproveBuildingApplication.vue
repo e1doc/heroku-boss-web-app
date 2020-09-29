@@ -14,7 +14,7 @@
           <div class="meta-text">
             <div class="meta-label">Ownership Type:</div>
             <div class="meta-value">
-              {{ buildingDetails.ownership_type }}
+              {{ buildingBasicInformation.ownership_type }}
             </div>
           </div>
         </div>
@@ -218,7 +218,7 @@
               <!-- A. LEGAL DOCUMENTS 1 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="legal_docs_1" />
+                  <input type="checkbox" id="legal_docs_1" v-model="legal_documents.legal_docs_1"/>
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -284,7 +284,7 @@
               <!-- A. LEGAL DOCUMENTS 2 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="legal_docs_2" />
+                  <input type="checkbox" id="legal_docs_2" v-model="legal_documents.legal_docs_2" />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -298,7 +298,7 @@
               <!-- A. LEGAL DOCUMENTS 3 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="legal_docs_3" />
+                  <input type="checkbox" id="legal_docs_3" v-model="legal_documents.legal_docs_3"/>
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -314,7 +314,7 @@
               <!-- A. LEGAL DOCUMENTS 4 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="legal_docs_4" />
+                  <input type="checkbox" id="legal_docs_4" v-model="legal_documents.legal_docs_4"/>
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -331,7 +331,7 @@
               <!-- A. LEGAL DOCUMENTS 5 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="legal_docs_5" />
+                  <input type="checkbox" id="legal_docs_5" v-model="legal_documents.legal_docs_5" />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -348,7 +348,7 @@
               <!-- A. LEGAL DOCUMENTS 6 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="legal_docs_6" />
+                  <input type="checkbox" id="legal_docs_6" v-model="legal_documents.legal_docs_6"/>
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -372,7 +372,7 @@
               <!-- B. TECHNICAL DOCS 1a -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_1a" />
+                  <input type="checkbox" id="tech_docs_1a" v-model="technical_documents.tech_docs_1a"/>
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -388,7 +388,7 @@
               <!-- B. TECHNICAL DOCS 1b -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_1b" />
+                  <input type="checkbox" id="tech_docs_1b" v-model="technical_documents.tech_docs_1b" />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -404,7 +404,7 @@
               <!-- B. TECHNICAL DOCS 1c -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_1c" />
+                  <input type="checkbox" id="tech_docs_1c" v-model="technical_documents.tech_docs_1c"/>
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -420,7 +420,7 @@
               <!-- B. TECHNICAL DOCS 1d -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_1d" />
+                  <input type="checkbox" id="tech_docs_1d" v-model="technical_documents.tech_docs_1d"/>
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -436,7 +436,7 @@
               <!-- B. TECHNICAL DOCS 1e -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_1e" />
+                  <input type="checkbox" id="tech_docs_1e" v-model="technical_documents.tech_docs_1e"/>
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -452,7 +452,7 @@
               <!-- B. TECHNICAL DOCS 1f -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_1f" />
+                  <input type="checkbox" id="tech_docs_1f" v-model="technical_documents.tech_docs_1f"/>
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -468,7 +468,7 @@
               <!-- B. TECHNICAL DOCS 2 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_2" />
+                  <input type="checkbox" id="tech_docs_2" v-model="technical_documents.tech_docs_2"/>
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -484,7 +484,7 @@
               <!-- B. TECHNICAL DOCS 3 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_3" />
+                  <input type="checkbox" id="tech_docs_3" v-model="technical_documents.tech_docs_3"/>
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -501,7 +501,7 @@
               <!-- B. TECHNICAL DOCS 4 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_4" />
+                  <input type="checkbox" id="tech_docs_4" v-model="technical_documents.tech_docs_4"/>
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -521,7 +521,7 @@
               <!-- B. TECHNICAL DOCS 5 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_5" />
+                  <input type="checkbox" id="tech_docs_5" v-model="technical_documents.tech_docs_5"/>
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -541,7 +541,7 @@
               <!-- B. TECHNICAL DOCS 6 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_6" />
+                  <input type="checkbox" id="tech_docs_6" v-model="technical_documents.tech_docs_6"/>
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -558,7 +558,7 @@
               <!-- B. TECHNICAL DOCS 7 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_7" />
+                  <input type="checkbox" id="tech_docs_7" v-model="technical_documents.tech_docs_7"/>
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -577,7 +577,7 @@
               <!-- B. TECHNICAL DOCS 8 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_8" />
+                  <input type="checkbox" id="tech_docs_8" v-model="technical_documents.tech_docs_8"/>
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -598,7 +598,7 @@
               <!-- B. TECHNICAL DOCS 9 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_9" />
+                  <input type="checkbox" id="tech_docs_9" v-model="technical_documents.tech_docs_9"/>
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -617,7 +617,7 @@
               <!-- B. TECHNICAL DOCS 10 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_10" />
+                  <input type="checkbox" id="tech_docs_10" v-model="technical_documents.tech_docs_10" />
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -634,7 +634,7 @@
               <!-- B. TECHNICAL DOCS 11 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_11" />
+                  <input type="checkbox" id="tech_docs_11" v-model="technical_documents.tech_docs_11"/>
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -661,7 +661,7 @@
               <!-- B. TECHNICAL DOCS 12 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="tech_docs_12" />
+                  <input type="checkbox" id="tech_docs_12" v-model="technical_documents.tech_docs_12"/>
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -686,7 +686,7 @@
               <!-- C. SUPPLEMENTARY DOCS 1 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="supp_docs_1" />
+                  <input type="checkbox" id="supp_docs_1" v-model="supplementary_documents.supp_docs_1"/>
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -706,7 +706,7 @@
               <!-- C. SUPPLEMENTARY DOCS 2 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                  <input type="checkbox" id="supp_docs_2" />
+                  <input type="checkbox" id="supp_docs_2" v-model="supplementary_documents.supp_docs_2"/>
                   <div class="custom-checkbox flex-center">
                     <span class="check">
                       <font-awesome-icon icon="check" class="mr5 check-icon"/>
@@ -791,11 +791,17 @@ export default {
       "buildingOtherDetails",
       "buildingApplicationRequirements",
       "buildingRequirements",
+      "legalDocuments",
+      "technicalDocuments",
+      "supplementaryDocuments"
     ]),
   },
   data() {
     return {
       imgs: [],
+      legal_documents: {},
+      technical_documents: {},
+      supplementary_documents: {},
       visible: false,
       index: 0, // default: 0
     };
@@ -849,6 +855,9 @@ export default {
     async getRequirements() {
       if (this.buildingApplicationRequirements.id) {
         await this.$store.dispatch("getBuildingApplicationRequirements");
+            this.legal_documents = JSON.parse(this.legalDocuments.value)
+    this.technical_documents = JSON.parse(this.technicalDocuments.value)
+    this.supplementary_documents = JSON.parse(this.supplementaryDocuments.value)
       }
     },
     replaceUrl(url) {

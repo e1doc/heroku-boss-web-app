@@ -26,6 +26,9 @@ const getDefaultPropertyState = () => {
     draftProperty: false,
     realPropertyProfiles: [],
     remarks: {},
+    legalDocuments: {},
+    technicalDocuments: {},
+    supplementaryDocuments: {}
   };
 };
 
@@ -50,6 +53,9 @@ const getters = {
   buildingRequirements: (state) => state.buildingRequirements,
   realPropertyProfiles: (state) => state.realPropertyProfiles,
   remarks: (state) => state.remarks,
+  legalDocuments: (state) => state.legalDocuments,
+  technicalDocuments: (state) => state.technicalDocuments,
+  supplementaryDocuments: (state) => state.supplementaryDocuments
 };
 
 const mutations = {
@@ -95,9 +101,32 @@ const mutations = {
   setRealPropertyProfiles: (state, realPropertyProfiles) =>
     (state.realPropertyProfiles = realPropertyProfiles),
   setRemarks: (state, remarks) => (state.remarks = remarks),
+  setLegalDocuments: (state, legalDocuments) => (state.legalDocuments = legalDocuments),
+  setTechnicalDocuments: (state, technicalDocuments) => (state.technicalDocuments = technicalDocuments),
+  setSupplementaryDocuments: (state, supplementaryDocuments) => (state.supplementaryDocuments = supplementaryDocuments)
 };
 
 const actions = {
+  async setBuildingCheckList({commit, getters}, payload){
+    try {
+      console.log('post checklist ', payload.category)
+      const response = await axios.post(`${baseUrl}/api/building-checklist/`, payload,  { headers: { Authorization: `jwt ${getters.authToken}` } })
+      let value = JSON.parse(payload.value)
+    } catch (err) {
+      commit('setLoading', false)
+      console.log(err.response)
+    }
+  },
+  async updateBuildingCheckList({commit, getters}, payload){
+    try {
+      console.log('put checklist ', payload.category)
+      const response = await axios.put(`${baseUrl}/api/building-checklist/`, payload,  { headers: { Authorization: `jwt ${getters.authToken}` } })
+      console.log(response.data)
+    } catch (err) {
+      commit('setLoading', false)
+      console.log(err.response)
+    }
+  },
   async setApplicationRemarks({ commit, getters }, payload) {
     await commit("setRemarks", payload);
   },
@@ -339,6 +368,17 @@ const actions = {
         { headers: { Authorization: `jwt ${getters.authToken}` }, params: payload }
       );
       commit("setBuildingRequirements", response.data);
+      if(response.data.buildingchecklist.length > 0){
+        response.data.buildingchecklist.map(item => {
+          if (item.category === 'legal'){
+            commit('setLegalDocuments', item)
+          }else if (item.category === 'technical'){
+            commit('setTechnicalDocuments', item)
+          }else if(item.category === 'supplementary'){
+            commit('setSupplementaryDocuments',item)
+          }
+        })
+      }
       console.log(response.data);
     } catch (err) {
       console.log(err.response);

@@ -15,7 +15,7 @@
           <div class="meta-text">
             <div class="meta-label">Ownership Type: </div>
             <div class="meta-value">
-              {{ buildingDetails.ownership_type }}
+              {{ buildingBasicInformation.ownership_type }}
             </div>
           </div>
         </div>
@@ -207,7 +207,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -237,6 +236,7 @@ export default {
   },
   methods: {
     generateReport() {
+      const buildingId = this.buildingBasicInformation.reference_number
       const doc = new jsPDF("p", "mm", "a4");
       /** WITH CSS */
       var width = doc.internal.pageSize.getWidth();
@@ -251,7 +251,7 @@ export default {
         const img = canvas.toDataURL("image/jpeg", 1);
         doc.addImage(img, "JPEG", 0, 0, width, height);
         console.log(width, height);
-        doc.save("building-application.pdf");
+        doc.save(`building-application-${buildingId}`);
       });
     },
   },

@@ -167,6 +167,7 @@ const actions = {
   },
   async getUserDetails({ commit, getters }) {
     try {
+      commit('setLoading', false)
       console.log(getters.authToken)
       const response = await axios.get(`${baseUrl}/auth/users/me`,{headers: {Authorization: `jwt ${getters.authToken}`} })
       console.log(response.data)
@@ -178,7 +179,8 @@ const actions = {
   async adminLogin({ commit, dispatch, getters }, payload){
     try {
       commit("setLoading", true);
-      const response = await axios.post(`${baseUrl}/auth/admin/`,payload, {headers: {Authorization: `jwt ${getters.authToken}`} })
+      const response = await axios.post(`${baseUrl}/auth/admin/`,payload)
+      commit('setAuthToken',response.data.token)
       dispatch("checkIfAdmin")
     } catch (err) {
       console.log(err.data)
@@ -192,7 +194,7 @@ const actions = {
   },
  async checkIfAdmin({commit, dispatch, getters }){
     try {
-      const response = await axios.post(`${baseUrl}/api/get-level/`, {} ,{headers: {Authorization: `jwt ${getters.authToken}`} })
+      const response = await axios.post(`${baseUrl}/api/get-level/`, {},{headers: {Authorization: `jwt ${getters.authToken}`} })
       commit("setLoading", false);
       if(response.data.is_admin){
         console.log(response.data)
