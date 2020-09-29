@@ -1,6 +1,22 @@
 import axios from "axios";
 import router from "../../router/index.js"
 const baseUrl = process.env.VUE_APP_API_URL;
+// let config = {
+//   headers: {
+//     Authorization: `jwt ${localStorage.getItem('')}`
+//   }
+// }
+
+let config = () =>{
+  let serviceObj = localStorage.getItem('service')
+  let parseObj = JSON.parse(serviceObj)
+  return {
+  headers: {
+    Authorization: `jwt ${parseObj.authToken}`
+   }
+  }
+}
+
 // const baseUrl = "https://boss-web-api.herokuapp.com";
 const getDefaultAuthState = () =>{
   return {
@@ -49,14 +65,13 @@ const mutations = {
 };
 
 const actions = {
-  async getCodeToken({ commit, dispatch }, payload) {
+  async getCodeToken({ commit, dispatch, getters }, payload) {
     try {
       console.log(process.env.BASE_URL)
       commit("setLoading", true);
       const response = await axios.post(
         `${baseUrl}/auth/2fa-auth/get-code-token/`,
-        payload,
-        {withCredentials: true }
+        payload
       );
       commit("setCodeToken", response.data.token);
       commit("setAuthType", "otp");
@@ -81,11 +96,11 @@ const actions = {
       commit("setLoading", true);
       const response = await axios.post(
         `${baseUrl}/auth/2fa-auth/get-auth-token/`,
-        payload,
-        {withCredentials: true }
+        payload
       );
       commit('setCredentials', {})
       commit("setLoading", false);
+      commit("setAuthToken", response.data.token);
       commit("setLoginSuccess", true);
       commit("setIsAuthenticated",true)
       commit("setAuthType", "login");
@@ -98,7 +113,7 @@ const actions = {
       });
     }
   },
-  async registerUser({ commit }, payload) {
+  async registerUser({ commit, getters }, payload) {
     try {
       commit("setLoading", true);
       const response = await axios.post(`${baseUrl}/auth/users/`, payload);
@@ -109,7 +124,7 @@ const actions = {
       commit("setValidationMessages", err.response.data);
     }
   },
-  async forgotPasswordUser({ commit }, payload) {
+  async forgotPasswordUser({ commit, getters }, payload) {
     try {
       commit("setLoading", true);
       const response = await axios.post(
@@ -124,7 +139,7 @@ const actions = {
       commit("setValidationMessages", err.response.data);
     }
   },
-  async resetPasswordUser({ commit, dispatch }, payload) {
+  async resetPasswordUser({ commit, dispatch, getters }, payload) {
     try {
       commit("setLoading", true);
       const response = await axios.post(
@@ -152,17 +167,18 @@ const actions = {
   },
   async getUserDetails({ commit, getters }) {
     try {
-      const response = await axios.get(`${baseUrl}/auth/users/me`,{ withCredentials: true })
+      console.log(getters.authToken)
+      const response = await axios.get(`${baseUrl}/auth/users/me`,{headers: {Authorization: `jwt ${getters.authToken}`} })
       console.log(response.data)
       commit('setUserDetails',response.data)
     } catch (err) {
       console.log(err)
     }
   },
-  async adminLogin({ commit, dispatch }, payload){
+  async adminLogin({ commit, dispatch, getters }, payload){
     try {
       commit("setLoading", true);
-      const response = await axios.post(`${baseUrl}/auth/admin/`,payload, {withCredentials: true })
+      const response = await axios.post(`${baseUrl}/auth/admin/`,payload, {headers: {Authorization: `jwt ${getters.authToken}`} })
       dispatch("checkIfAdmin")
     } catch (err) {
       console.log(err.data)
@@ -174,9 +190,9 @@ const actions = {
       });
     }
   },
- async checkIfAdmin({commit, dispatch }){
+ async checkIfAdmin({commit, dispatch, getters }){
     try {
-      const response = await axios.post(`${baseUrl}/api/get-level/`, {} ,{ withCredentials: true })
+      const response = await axios.post(`${baseUrl}/api/get-level/`, {} ,{headers: {Authorization: `jwt ${getters.authToken}`} })
       commit("setLoading", false);
       if(response.data.is_admin){
         console.log(response.data)

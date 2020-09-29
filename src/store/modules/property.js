@@ -99,9 +99,9 @@ const mutations = {
 
 const actions = {
   async setApplicationRemarks({ commit, getters }, payload) {
-   await commit("setRemarks", payload);
+    await commit("setRemarks", payload);
   },
-  async propertyEnrollment({ commit, dispatch }, payload) {
+  async propertyEnrollment({ commit, dispatch, getters  }, payload) {
     let config = {
       headers: {
         "OneDoc-Token": oneDocToken,
@@ -119,7 +119,7 @@ const actions = {
       const response = await axios.put(
         `${baseUrl}/staff/building-permit-application/`,
         payload,
-        { withCredentials: true }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       let action = payload.is_approve ? "approved" : "disapproved";
       dispatch("createPrompt", {
@@ -138,7 +138,7 @@ const actions = {
       console.log(getters.filterBy);
       const response = await axios.get(
         `${baseUrl}/staff/building-permit-application-list/?page=${page}&filter_by=${getters.filterBy}`,
-        { withCredentials: true }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setPageCount", response.data.total_pages);
       commit("setBuildingApplications", response.data.results);
@@ -150,7 +150,7 @@ const actions = {
     try {
       const response = await axios.get(
         `${baseUrl}/api/building-permit-application/`,
-        { withCredentials: true }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setBuildingApplications", response.data);
     } catch (err) {
@@ -160,7 +160,7 @@ const actions = {
   async getBuildingProfiles({ commit, getters, dispatch }, payload) {
     try {
       const response = await axios.get(`${baseUrl}/api/building-profile/`, {
-        withCredentials: true,
+        headers: { Authorization: `jwt ${getters.authToken}` },
       });
       commit("setBuildingProfiles", response.data);
     } catch (err) {
@@ -171,7 +171,7 @@ const actions = {
     try {
       const response = await axios.get(
         `${baseUrl}/api/real-property-profile/`,
-        { withCredentials: true }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setRealPropertyProfiles", response.data);
     } catch (err) {
@@ -183,7 +183,7 @@ const actions = {
       const response = await axios.post(
         `${baseUrl}/api/building-permit-application/`,
         payload,
-        { withCredentials: true }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setBuildingApplication", response.data);
     } catch (err) {
@@ -196,7 +196,7 @@ const actions = {
       const response = await axios.put(
         `${baseUrl}/api/building-permit-application/`,
         payload,
-        { withCredentials: true }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
     } catch (err) {
       console.log(err.response);
@@ -208,7 +208,7 @@ const actions = {
       const response = await axios.post(
         `${baseUrl}/api/building-basic-information/`,
         payload,
-        { withCredentials: true }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       await commit("setBuildingBasicInformation", response.data);
       commit("setBuildingBasicInfoHasError", false);
@@ -225,7 +225,7 @@ const actions = {
       const response = await axios.put(
         `${baseUrl}/api/building-basic-information/`,
         payload,
-        { withCredentials: true }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setBuildingBasicInformation", response.data);
       commit("setBuildingBasicInfoHasError", false);
@@ -242,7 +242,7 @@ const actions = {
       const response = await axios.post(
         `${baseUrl}/api/building-details/`,
         payload,
-        { withCredentials: true }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setBuildingDetailsHasError", false);
       commit("setBuildingDetails", response.data);
@@ -259,7 +259,7 @@ const actions = {
       const response = await axios.post(
         `${baseUrl}/api/building-other-details/`,
         payload,
-        { withCredentials: true }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setBuildingOtherDetailsHasError", false);
       commit("setBuildingOtherDetails", response.data);
@@ -276,7 +276,7 @@ const actions = {
       const response = await axios.put(
         `${baseUrl}/api/building-details/`,
         payload,
-        { withCredentials: true }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setBuildingDetails", response.data);
       commit("setBuildingDetailsHasError", false);
@@ -293,7 +293,7 @@ const actions = {
       const response = await axios.put(
         `${baseUrl}/api/building-other-details/`,
         payload,
-        { withCredentials: true }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setBuildingOtherDetails", response.data);
       commit("setBuildingOtherDetailsHasError", false);
@@ -309,7 +309,7 @@ const actions = {
       const response = await axios.post(
         `${baseUrl}/api/building-application-requirements/`,
         payload,
-        { withCredentials: true }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setBuildingApplicationRequirements", response.data);
     } catch (err) {
@@ -322,7 +322,7 @@ const actions = {
       const response = await axios.post(
         `${baseUrl}/api/building-file-upload/`,
         payload,
-        { withCredentials: true }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       await dispatch("getBuildingApplicationRequirements");
       commit("setLoading", false);
@@ -336,7 +336,7 @@ const actions = {
       let payload = { id: getters.buildingApplicationRequirements.id };
       const response = await axios.get(
         `${baseUrl}/api/building-application-requirements/`,
-        { withCredentials: true, params: payload }
+        { headers: { Authorization: `jwt ${getters.authToken}` }, params: payload }
       );
       commit("setBuildingRequirements", response.data);
       console.log(response.data);
