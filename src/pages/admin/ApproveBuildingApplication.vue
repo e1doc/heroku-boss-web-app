@@ -207,10 +207,10 @@
 
         <!-- Uploaded Requirements -->
         <div class="meta-text-group flex-wrap" v-if="buildingRequirements">
-          <div class="meta-group-title">Uploaded Requirements</div>
+          <div class="meta-group-title">Uploaded Requirements Checklist</div>
 
           <div class="meta-form-group mb60">
-            <div class="meta-group-title">
+            <div class="meta-list-title">
               A. Legal Documents - Only one PDF File for all legal documents.
             </div>
 
@@ -367,7 +367,7 @@
             </ul>
           </div>
           <div class="meta-form-group mb60">
-            <div class="meta-group-title">B. Technical Documents</div>
+            <div class="meta-list-title">B. Technical Documents</div>
             <ul class="parent-list">
               <!-- B. TECHNICAL DOCS 1a -->
               <li>
@@ -681,7 +681,7 @@
 
           <!-- C. Supplementary Documents  -->
           <div class="meta-form-group mb60">
-            <div class="meta-group-title">C. Supplementary Documents</div>
+            <div class="meta-list-title">C. Supplementary Documents</div>
             <ul class="parent-list">
               <!-- C. SUPPLEMENTARY DOCS 1 -->
               <li>
@@ -721,7 +721,22 @@
             </ul>
           </div>
 
-          <!-- GALLERY SECTION -->
+          <div class="requirement-list">
+            <div class="meta-group-title">Files Uploaded</div>
+            <ol>
+              <li>
+                <app-link to="http://www.africau.edu/images/default/sample.pdf">Requirements 1</app-link>
+              </li>
+              <li>
+                <app-link to="http://www.africau.edu/images/default/sample.pdf">Requirements 2</app-link>
+              </li>
+              <li>
+                <app-link to="http://www.africau.edu/images/default/sample.pdf">Requirements 3</app-link>
+              </li>
+            </ol>
+          </div>
+
+          <!-- GALLERY SECTION
           <div class="gallery-box flex-wrap">
             <div
               v-for="(requirement,
@@ -747,7 +762,7 @@
             !buildingApplication.is_approve &&
             !buildingApplication.is_disapprove
           "
-        >
+        > -->
           <button-block type="approve" @click.native="approveApplication(true)">
             Approve
           </button-block>
@@ -767,12 +782,14 @@
 <script>
 import VueEasyLightbox from "vue-easy-lightbox";
 import ButtonBlock from "@/components/ButtonBlock";
+import AppLink from "@/components/AppLink";
 import { mapGetters } from "vuex";
 export default {
   name: "ApproveBuildingApplication",
   components: {
     VueEasyLightbox,
     ButtonBlock,
+    AppLink
   },
   beforeRouteLeave(to, from, next) {
     this.$store.commit("resetPropertyState");
@@ -898,9 +915,19 @@ div.meta-parent-box {
       div.meta-group-title {
         width: 100%;
         color: #2699fb;
+        font-size: 17px;
+        font-weight: bold;
+        padding: 10px 0;
+        margin-bottom: 18px;
+      }
+      .meta-list-title{
+        width: 100%;
+        color: #2699fb;
         font-size: 14px;
         font-weight: bold;
         padding: 10px 0;
+        margin-bottom: 18px;
+        margin-left: 10px;
       }
       .gallery-box {
         justify-content: center;
@@ -1108,6 +1135,16 @@ ul.main-list  > li > ul.sub-list{
     margin-left: 20px !important;
 }
 
+
+.requirement-list ol li, 
+.requirement-list ol li a {
+    width: 100%;
+    color: #2699fb;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 0;
+    margin-left: 30px;
+}
 
 /*
 MOBILE RESPONSIVENESS 
