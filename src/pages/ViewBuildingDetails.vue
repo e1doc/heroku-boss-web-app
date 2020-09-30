@@ -12,9 +12,14 @@
             </div>
           </div>
           <div class="meta-text">
-            <div class="meta-label">Ownership Type: </div>
+            <div class="meta-label">Ownership Type:</div>
             <div class="meta-value">
-              {{ buildingBasicInformation.ownership_type.charAt(0).toUpperCase() + buildingBasicInformation.ownership_type.slice(1) }}
+              {{
+                buildingBasicInformation.ownership_type
+                  .charAt(0)
+                  .toUpperCase() +
+                  buildingBasicInformation.ownership_type.slice(1)
+              }}
             </div>
           </div>
         </div>
@@ -141,7 +146,7 @@
             </div>
           </div>
           <div class="meta-text">
-            <div class="meta-label">Use or Character of Occupancy : </div>
+            <div class="meta-label">Use or Character of Occupancy :</div>
             <div class="meta-value">
               {{
                 buildingDetails.character_of_occupancy_others === ""
@@ -208,7 +213,7 @@
         <!-- Uploaded Requirements -->
         <div class="meta-text-group flex-wrap" v-if="buildingRequirements">
           <div class="meta-group-title">Uploaded Requirements</div>
-          <div class="gallery-box flex-wrap">
+          <!-- <div class="gallery-box flex-wrap">
             <div
               v-for="(requirement, index) in buildingRequirements.buildingrequirements"
               :key="index"
@@ -224,6 +229,20 @@
               :index="index"
               @hide="handleHide"
             ></vue-easy-lightbox>
+          </div> -->
+          <div class="requirement-list">
+            <div class="meta-group-title">Files Uploaded</div>
+            <ol>
+              <li
+                v-for="(item, index) of this.buildingRequirements
+                  .buildingrequirements"
+                :key="index"
+              >
+                <app-link :to="replaceUrl(item.file)">{{
+                  item.filename
+                }}</app-link>
+              </li>
+            </ol>
           </div>
         </div>
       </div>
@@ -235,11 +254,13 @@
 import VueEasyLightbox from "vue-easy-lightbox";
 import ButtonBlock from "@/components/ButtonBlock";
 import { mapGetters } from "vuex";
+import AppLink from "@/components/AppLink";
 export default {
   name: "ViewBuildingDetails",
   components: {
     VueEasyLightbox,
     ButtonBlock,
+    AppLink,
   },
   computed: {
     ...mapGetters([
@@ -250,11 +271,14 @@ export default {
       "buildingOtherDetails",
       "buildingApplicationRequirements",
       "buildingRequirements",
+      "legalDocuments",
+      "technicalDocuments",
+      "supplementaryDocuments",
     ]),
   },
-   beforeRouteLeave(to, from, next) {
+  beforeRouteLeave(to, from, next) {
     this.$store.commit("setCurrentApplicationStep", "1");
-    this.$store.commit("resetPropertyState")
+    this.$store.commit("resetPropertyState");
     next();
   },
   mounted() {
@@ -264,6 +288,9 @@ export default {
   data() {
     return {
       imgs: [],
+      legal_documents: {},
+      technical_documents: {},
+      supplementary_documents: {},
       visible: false,
       index: 0, // default: 0
     };
@@ -277,7 +304,7 @@ export default {
               title: this.formatLabel(item.requirements_label),
               src: this.replaceUrl(item.file),
             };
-            console.log(img)
+            console.log(img);
             this.imgs.push(img);
           });
         }
@@ -293,6 +320,11 @@ export default {
     async getRequirements() {
       if (this.buildingApplicationRequirements.id) {
         await this.$store.dispatch("getBuildingApplicationRequirements");
+        this.legal_documents = JSON.parse(this.legalDocuments.value);
+        this.technical_documents = JSON.parse(this.technicalDocuments.value);
+        this.supplementary_documents = JSON.parse(
+          this.supplementaryDocuments.value
+        );
       }
     },
     replaceUrl(url) {
@@ -485,6 +517,15 @@ div.meta-parent-box {
   border-color: #e23a36;
 }
 
+.requirement-list ol li,
+.requirement-list ol li a {
+  width: 100%;
+  color: #2699fb;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px 0;
+  margin-left: 30px;
+}
 /*
 MOBILE RESPONSIVENESS 
 --------------------------------------------------------------*/
