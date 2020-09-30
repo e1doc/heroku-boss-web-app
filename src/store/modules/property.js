@@ -109,7 +109,7 @@ const mutations = {
 const actions = {
   async setBuildingCheckList({commit, getters}, payload){
     try {
-      console.log('post checklist ', payload.category)
+      console.log('post checklist ', payload)
       const response = await axios.post(`${baseUrl}/api/building-checklist/`, payload,  { headers: { Authorization: `jwt ${getters.authToken}` } })
       let value = JSON.parse(payload.value)
     } catch (err) {

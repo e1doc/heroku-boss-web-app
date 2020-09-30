@@ -828,19 +828,19 @@ export default {
       console.log("supplementary ", this.supplementaryDocuments.id);
 
       await this.$store.dispatch("setBuildingCheckList", {
-        application_number: this.application_number,
+        application_number: this.buildingApplicationRequirements.id,
         value: parseLegalDocs,
         category: "legal",
       });
 
       await this.$store.dispatch("setBuildingCheckList", {
-        application_number: this.application_number,
+        application_number: this.buildingApplicationRequirements.id,
         value: parseTechnicalDocs,
         category: "technical",
       });
 
       await this.$store.dispatch("setBuildingCheckList", {
-        application_number: this.application_number,
+        application_number: this.buildingApplicationRequirements.id,
         value: parseSupplementaryDocs,
         category: "supplementary",
       });
