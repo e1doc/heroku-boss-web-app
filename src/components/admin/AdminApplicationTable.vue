@@ -261,6 +261,7 @@ export default {
           is_approve: data.is_approve,
           is_disapprove: data.is_disapprove,
           created_at: data.created_at,
+          user: data.user
         };
         this.$store.commit("setBuildingApplication", application);
       }

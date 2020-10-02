@@ -7,7 +7,7 @@
           @click="changeType('all_inquiries')"
         >
           <font-awesome-icon icon="inbox" class="mr5 icon" />
-          ALL INQUIRIES
+          ALL
         </div>
       </div>
       <div class="menu-type">
@@ -16,13 +16,24 @@
           @click="changeType('unread_inquiries')"
         >
           <font-awesome-icon icon="envelope" class="mr5 icon" />
-          UNRESPONDED INQUIRIES
+          UNRESPONDED
         </div>
       </div>
     </div>
-    <!-- <div class="right-div flex-wrap">
-      <base-input-search />
-    </div> -->
+    <div class="right-div flex-wrap">
+      <div class="menu-type">
+        <div :class="{ active: currentTable === 'inquiries' }" @click="changeTab('inquiries')">
+          <font-awesome-icon icon="inbox" class="mr5 icon" />
+          INQUIRIES
+        </div>
+      </div>
+       <div class="menu-type">
+        <div :class="{ active: currentTable === 'remarks' }" @click="changeTab('remarks')">
+          <font-awesome-icon icon="inbox" class="mr5 icon" />
+          REMARKS
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -75,7 +86,7 @@ export default {
   padding: 10px 20px;
   border-radius: 8px;
   box-shadow: 0px 10px 20px #0000000d;
-  .left-div {
+  .left-div, .right-div {
     width: 50%;
     .menu-type {
       color: #f09795;

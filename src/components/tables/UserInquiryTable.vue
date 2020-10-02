@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div>
+    <div v-if="currentTable === 'inquiries'">
         <div class="thead">
             <div class="th date">DATE</div>
             <div class="th subject">SUBJECT</div>
@@ -31,6 +31,37 @@
       >
       </paginate>
     </div>
+      <div v-if="currentTable === 'remarks'">
+        <div class="thead">
+            <div class="th date">DATE</div>
+            <div class="th subject">SUBJECT</div>
+            <!-- <div class="th content">INQUIRY CONTENT</div> -->
+            <div class="th status">STATUS</div>
+            <div class="th actions">ACTIONS</div>
+        </div>
+        <div class="tbody">
+            <div class="tr" v-for="(remark, index) in remarks" :key="index">
+                <div class="td date">{{ remark.created_at | moment("MMMM DD YYYY") }}</div>
+                <div class="td subject">{{remark.subject}}</div>
+                <div class="td status">{{remark.status}}</div>
+                <div class="td actions">
+                    <router-link :to="{name:'UserReplyInquiry', params:{thread: remark.id}}">
+                        <font-awesome-icon icon="envelope-open-text" class="mr5 icon" /> READ
+                    </router-link>
+                </div>
+            </div>
+        </div>
+       <paginate
+        v-if="inquiries.length > 9"
+        :page-count="pageCount"
+        :prev-text="'Prev'"
+        :next-text="'Next'"
+        :container-class="'pagination'"
+        :page-class="'page-item'"
+        :click-handler="getAllInquiries"
+      >
+      </paginate>
+    </div>
   </section>
 </template>
 
@@ -39,7 +70,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "InquiryTable",
   computed: {
-    ...mapGetters(["currentType","inquiries","pageCount"]),
+    ...mapGetters(["currentType", "currentTable","inquiries","pageCount", "remarks"]),
   },
   mounted(){
       this.getAllInquiries()
@@ -50,7 +81,8 @@ export default {
     },
       async getAllInquiries(pageNum = 1){
           await this.$store.dispatch('getAllUserInquiries')
-          console.log(this.inquiries)
+          await this.$store.dispatch('getAllUserRemarks')
+          console.log("remarks", this.remarks)
       }
   }
 };

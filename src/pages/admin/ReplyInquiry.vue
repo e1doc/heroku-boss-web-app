@@ -11,7 +11,7 @@
       <div v-for="(message, index) in messages" :key="index">
         <div class="item-row sender" v-if="!message.sender.is_staff">
           <div class="item-name">
-            {{ inquiry.sender.first_name }} {{ inquiry.sender.last_name }}
+            {{ inquiry.is_remarks ? inquiry.receiver.first_name  : inquiry.sender.first_name }} {{ inquiry.is_remarks ? inquiry.receiver.last_name : inquiry.sender.last_name }}
           </div>
           <div class="item-content">
             {{ message.body }}

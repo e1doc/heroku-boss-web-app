@@ -128,7 +128,9 @@ const actions = {
     }
   },
   async setApplicationRemarks({ commit, getters }, payload) {
+    console.log('set remarks payload', payload)
     await commit("setRemarks", payload);
+    console.log(getters.remarks)
   },
   async propertyEnrollment({ commit, dispatch, getters  }, payload) {
     let config = {

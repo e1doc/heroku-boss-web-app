@@ -900,6 +900,7 @@ export default {
   mounted() {
     this.getRequirements();
     console.log(this.buildingRequirements.buildingrequirements);
+    console.log('user', this.buildingApplication)
   },
   computed: {
     ...mapGetters([
@@ -926,28 +927,33 @@ export default {
     };
   },
   methods: {
-    approveApplication(status) {
-      this.$swal({
+   async approveApplication(status) {
+     let approve = await this.$swal({
         text: "Are you sure with this action?",
         icon: "question",
         showCancelButton: true,
         confirmButtonText: "Yes",
         cancelButtonText: "No",
-      }).then((result) => {
-        let payload = { id: this.buildingApplication.id, is_approve: status };
-        if (result.value) {
-          // this.$store.dispatch('approveBuildingApplication', payload)
-          this.createRemarks();
-        }
-      });
+      })
+      // let payload = { id: this.buildingApplication.id, is_approve: status };
+      //   if (result.value) {
+      //     // this.$store.dispatch('approveBuildingApplication', payload)
+      //   await this.createRemarks();
+      //   }
+      
+      if(approve.value){
+        this.createRemarks()
+      }
     },
-    createRemarks() {
+   async createRemarks() {
       // await this.$store.dispatch('setApplicationRemarks', {application_number: this.buildingBasicInformation.reference_number})
       this.$router.push({
         name: "NewRemarks",
         params: {
           application_number: this.buildingBasicInformation.reference_number,
           type: "remarks",
+          application_type: 'building',
+          user: this.buildingApplication.user
         },
       });
     },

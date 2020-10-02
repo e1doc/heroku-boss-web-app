@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="admin-body flex-wrap">
-      <!-- <user-inquiry-table-menu type="profile" /> -->
+      <inquiry-table-menu type="profile" />
       <div class="admin-content">
         <user-inquiry-table />
       </div>
@@ -23,11 +23,13 @@
 
 <script>
 import UserInquiryTable from "@/components/tables/UserInquiryTable";
+import InquiryTableMenu from "@/components/tables/InquiryTableMenu";
 import { mapGetters } from "vuex";
 export default {
   name: "Inquiries",
   components: {
     UserInquiryTable,
+    InquiryTableMenu 
   },
   beforeRouteLeave(to, from, next) {
     this.$store.commit("setCurrentType", 'business');

@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div>
+    <div v-if="currentTable === 'inquiries'">
       <div class="thead">
         <div class="th date">DATE</div>
         <div class="th subject">SUBJECT</div>
@@ -18,6 +18,31 @@
           <div class="td status">{{ inquiry.status }}</div>
           <div class="td actions">
             <router-link :to="{name:'ReplyInquiry', params:{thread: inquiry.id}}">
+              <font-awesome-icon icon="envelope-open-text" class="mr5 icon" />
+              READ
+            </router-link>
+          </div>
+        </div>
+      </div>
+    </div>
+        <div v-if="currentTable === 'remarks'">
+      <div class="thead">
+        <div class="th date">DATE</div>
+        <div class="th subject">SUBJECT</div>
+        <div class="th sender">SENDER</div>
+        <div class="th status">STATUS</div>
+        <div class="th actions">ACTIONS</div>
+      </div>
+      <div class="tbody">
+        <div class="tr" v-for="(remark, index) in remarks" :key="index">
+          <div class="td date">
+            {{ remark.created_at | moment("MMMM DD YYYY") }}
+          </div>
+          <div class="td subject">{{ remark.subject }}</div>
+          <div class="td sender">{{ remark.sender.first_name}} {{remark.sender.last_name}}</div>
+          <div class="td status">{{ remark.status }}</div>
+          <div class="td actions">
+            <router-link :to="{name:'ReplyInquiry', params:{thread: remark.id}}">
               <font-awesome-icon icon="envelope-open-text" class="mr5 icon" />
               READ
             </router-link>
@@ -43,7 +68,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "InquiryTable",
   computed: {
-    ...mapGetters(["currentType", "inquiries", "pageCount"]),
+    ...mapGetters(["currentType", "currentTable" ,"inquiries", "remarks","pageCount"]),
   },
   mounted() {
     this.getAllInquiries();
@@ -58,7 +83,7 @@ export default {
   methods: {
     async getAllInquiries(pageNum = 1) {
       await this.$store.dispatch("getAllAdminInquiries", { pageNum: pageNum, filter_by: this.currentType });
-      console.log(this.inquiries)
+      await this.$store.dispatch("getAllAdminRemarks", { pageNum: pageNum, filter_by: this.currentType });
     },
   },
 };

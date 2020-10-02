@@ -182,6 +182,12 @@ const routes = [{
         props: true 
       },
       {
+        path: "new-remarks",
+        name: "NewRemarks",
+        component: NewInquiry,
+        props: true 
+      },
+      {
         path: "approve-building-application",
         name: "ApproveBuildingApplication",
         component: ApproveBuildingApplication,
