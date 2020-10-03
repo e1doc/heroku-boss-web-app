@@ -2,6 +2,9 @@
   <div class="inquiry-box">
     <div class="inquiry-header">
       <div class="inquiry-subj">{{ inquiry.subject }}</div>
+      <div class="application-button">
+          <button-block type="default" class="inquiry-application-btn" />
+      </div>
       <div class="inquiry-date">
         {{ inquiry.created_at | moment("MMMM DD YYYY") }}
       </div>
@@ -137,7 +140,9 @@ div.inquiry-box {
     }
   }
   div.inquiry-body {
-    padding: 35px 48px;
+    padding: 35px 48px;       
+    max-height: 600px;
+    overflow-y: scroll;
     .item-row {
       margin-bottom: 10px;
     }
