@@ -24,12 +24,17 @@ export default {
     InquiryTable,
   },
   beforeRouteLeave(to, from, next) {
-    this.$store.commit("setCurrentType", 'business');
+    this.$store.commit("setCurrentType", 'business', "currentTable");
     next();
   },
   computed: {
     ...mapGetters(["currentTable"]),
   },
+  mounted(){
+    if(this.currentTable !== "inquiries" && this.currentTable !== "remarks"){
+      this.$store.commit('setCurrentTable', '')
+    }
+  }
 };
 </script>
 
