@@ -81,6 +81,18 @@ ul.parent-list > li {
     margin-left: 30px;
 }
 
+::-webkit-scrollbar {
+    width: 8px;   /* width of the entire scrollbar */
+  }
+::-webkit-scrollbar-track {
+    background: transparent;  /* color of the tracking area */
+  }
+::-webkit-scrollbar-thumb {
+    background-color: #1492e68f;    /* color of the scroll thumb */
+    border-radius: 20px;    /* roundness of the scroll thumb */
+    border: 1px solid #e0e0e0;  /* creates padding around scroll thumb */
+  }
+
 .building-application ul.parent-list > li > ul {
     padding-left: 50px !important;
 }
