@@ -80,7 +80,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["applicationRequirements", "requirements", "draftBusiness"]),
+    ...mapGetters(["applicationRequirements", "requirements", "draftBusiness", "businessApplication"]),
   },
   mounted() {
     this.getRequirements();
@@ -119,7 +119,7 @@ export default {
       if (!this.draftBusiness) {
         let isValidated = this.validateRequiredFields();
         if (isValidated) {
-          let payload = { is_draft: false };
+          let payload = { is_draft: false, is_disapprove: this.businessApplication.is_disapprove };
           await this.$store.dispatch("updateBusinessApplication", payload);
           this.$store.commit("setCurrentApplicationStep", "4");
         } else {

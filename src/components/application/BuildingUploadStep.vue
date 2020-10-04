@@ -799,7 +799,7 @@ export default {
       if (!this.draftProperty) {
         let isValidated = this.validateRequiredFields();
         if (isValidated) {
-          let payload = { is_draft: false };
+          let payload = { is_draft: false, is_disapprove: this.buildingApplication.is_disapprove };
           await this.$store.dispatch("updateBuildingApplication", payload);
           if (this.legalDocuments.id) {
             await this.editBuildingCheckList();

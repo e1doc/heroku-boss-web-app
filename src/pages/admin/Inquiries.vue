@@ -32,7 +32,7 @@ export default {
   },
   mounted(){
     if(this.currentTable !== "inquiries" && this.currentTable !== "remarks"){
-      this.$store.commit('setCurrentTable', '')
+      this.$store.commit('setCurrentTable', 'inquiries')
     }
   }
 };

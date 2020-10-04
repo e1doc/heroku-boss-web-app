@@ -111,7 +111,27 @@ const mutations = {
 };
 
 const actions = {
-  async businessEnrollment({ commit, dispatch, getters  }, payload) {
+  async getBusinessApplication({ commit, dispatch, getters }, payload) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/api/business-application?application_number=${payload}`,
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
+      );
+
+      let application = {id:response.data.id,created_at: response.data.created_at, is_draft: response.data.is_draft, is_approve: response.data.is_approve, is_disapprove: response.data.is_disapprove,account_number: response.data.account_number}
+      await commit('setBusinessApplication', application)
+      await commit('setBusinessBasicInformation', response.data.businessbasicinformation)
+      await commit('setBusinessDetails', response.data.businessdetails)
+      await commit('setLessorDetails', response.data.lessordetails)
+      await commit('setBusinessActivities',response.data.businessactivity)
+      await commit('setApplicationRequirements', response.data.businessapplicationrequirements[0])
+      await router.push({ name: "BusinessPermitApplication" })
+    } catch (err) {
+      console.log(err);
+      console.log(err.response);
+    }
+  },
+  async businessEnrollment({ commit, dispatch, getters }, payload) {
     let config = {
       headers: {
         "OneDoc-Token": oneDocToken,
@@ -140,7 +160,7 @@ const actions = {
       const response = await axios.put(
         `${baseUrl}/staff/business-permit-application/`,
         payload,
-        {headers: {Authorization: `jwt ${getters.authToken}`} }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       let action = payload.is_approve ? "approved" : "disapproved";
       dispatch("createPrompt", {
@@ -159,7 +179,7 @@ const actions = {
       console.log(getters.filterBy);
       const response = await axios.get(
         `${baseUrl}/staff/business-permit-application-list/?page=${page}&filter_by=${getters.filterBy}`,
-        {headers: {Authorization: `jwt ${getters.authToken}`} }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       console.log(response.data);
       commit("setPageCount", response.data.total_pages);
@@ -173,7 +193,7 @@ const actions = {
     try {
       const response = await axios.get(
         `${baseUrl}/api/business-permit-application/`,
-        {headers: {Authorization: `jwt ${getters.authToken}`} }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setApplications", response.data);
     } catch (err) {
@@ -183,7 +203,9 @@ const actions = {
   },
   async getBusinessProfiles({ commit, dispatch, getters }) {
     try {
-      const response = await axios.get(`${baseUrl}/api/business-profile/`, {headers: {Authorization: `jwt ${getters.authToken}`} });
+      const response = await axios.get(`${baseUrl}/api/business-profile/`, {
+        headers: { Authorization: `jwt ${getters.authToken}` },
+      });
       commit("setBusinessProfiles", response.data);
     } catch (err) {
       console.log(err.response);
@@ -195,7 +217,7 @@ const actions = {
       const response = await axios.post(
         `${baseUrl}/api/business-permit-application/`,
         payload,
-        {headers: {Authorization: `jwt ${getters.authToken}`} }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setApplicationHasError", false);
       commit("setBusinessApplication", response.data);
@@ -215,7 +237,7 @@ const actions = {
       const response = await axios.post(
         `${baseUrl}/api/business-basic-information/`,
         payload,
-        {headers: {Authorization: `jwt ${getters.authToken}`} }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setBasicInfoHasError", false);
       commit("setBusinessBasicInformation", response.data);
@@ -235,7 +257,7 @@ const actions = {
       const response = await axios.post(
         `${baseUrl}/api/business-details/`,
         payload,
-        {headers: {Authorization: `jwt ${getters.authToken}`} }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setDetailsHasError", false);
       commit("setBusinessDetails", response.data);
@@ -255,7 +277,7 @@ const actions = {
       const response = await axios.post(
         `${baseUrl}/api/business-lessor-details/`,
         payload,
-        {headers: {Authorization: `jwt ${getters.authToken}`} }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setLessorDetailsHasError", false);
       commit("setLessorDetails", response.data);
@@ -277,7 +299,7 @@ const actions = {
       const response = await axios.post(
         `${baseUrl}/api/business-activity/`,
         payload,
-        {headers: {Authorization: `jwt ${getters.authToken}`} }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       dispatch("getBusinessActivity");
     } catch (err) {
@@ -291,7 +313,7 @@ const actions = {
       const response = await axios.put(
         `${baseUrl}/api/business-permit-application/`,
         payload,
-        {headers: {Authorization: `jwt ${getters.authToken}`} }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setApplicationHasError", false);
       commit("setBusinessApplication", response.data);
@@ -312,7 +334,7 @@ const actions = {
       const response = await axios.put(
         `${baseUrl}/api/business-basic-information/`,
         payload,
-        {headers: {Authorization: `jwt ${getters.authToken}`} }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setBasicInfoHasError", false);
       commit("setBusinessBasicInformation", response.data);
@@ -332,7 +354,7 @@ const actions = {
       const response = await axios.put(
         `${baseUrl}/api/business-details/`,
         payload,
-        {headers: {Authorization: `jwt ${getters.authToken}`} }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setBusinessDetails", response.data);
       commit("setDetailsHasError", false);
@@ -352,7 +374,7 @@ const actions = {
       const response = await axios.put(
         `${baseUrl}/api/business-lessor-details/`,
         payload,
-        {headers: {Authorization: `jwt ${getters.authToken}`} }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setLessorDetailsHasError", false);
       commit("setLessorDetails", response.data);
@@ -378,7 +400,7 @@ const actions = {
       const response = await axios.put(
         `${baseUrl}/api/business-activity/`,
         payload,
-        {headers: {Authorization: `jwt ${getters.authToken}`} }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
     } catch (err) {
       console.log(err.response);
@@ -388,7 +410,10 @@ const actions = {
   async getBusinessActivity({ commit, getters }) {
     try {
       let payload = { application_number: getters.businessApplication.id };
-      const response = await axios.get(`${baseUrl}/api/business-activity/`, {headers: {Authorization: `jwt ${getters.authToken}`}, params: {payload} });
+      const response = await axios.get(`${baseUrl}/api/business-activity/`, {
+        headers: { Authorization: `jwt ${getters.authToken}` },
+        params: { payload },
+      });
       commit("setBusinessActivities", response.data);
     } catch (err) {
       console.log(err);
@@ -401,7 +426,7 @@ const actions = {
       const response = await axios.post(
         `${baseUrl}/api/application-requirements/`,
         payload,
-        {headers: {Authorization: `jwt ${getters.authToken}`} }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setApplicationRequirements", response.data);
     } catch (err) {
@@ -414,7 +439,7 @@ const actions = {
       const response = await axios.post(
         `${baseUrl}/api/file-upload/`,
         payload,
-        {headers: {Authorization: `jwt ${getters.authToken}`} }
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setLoading", false);
       await dispatch("getApplicationRequirements");
@@ -429,7 +454,10 @@ const actions = {
       let payload = { id: getters.applicationRequirements.id };
       const response = await axios.get(
         `${baseUrl}/api/application-requirements/`,
-        {headers: {Authorization: `jwt ${getters.authToken}`}, params: payload }
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+          params: payload,
+        }
       );
       commit("setRequirements", response.data);
     } catch (err) {

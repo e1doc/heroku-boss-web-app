@@ -2,8 +2,10 @@
   <div class="inquiry-box">
     <div class="inquiry-header">
       <div class="inquiry-subj">{{ inquiry.subject }}</div>
-      <div class="application-button">
-          <button-block type="default" class="inquiry-application-btn" />
+      <div class="application-button" v-if="inquiry.is_remarks">
+          <button-block type="default" class="inquiry-application-btn" @click.native="openApplication()">
+            UPDATE APPLICATION
+          </button-block>
       </div>
       <div class="inquiry-date">
         {{ inquiry.created_at | moment("MMMM DD YYYY") }}
@@ -100,8 +102,15 @@ export default {
     this.getInquiry();
   },
   methods: {
+    async openApplication(){
+      if(this.inquiry.building_id !== null){
+        this.$store.dispatch('getBuildingApplication', this.inquiry.building_id)
+      }
+      if(this.inquiry.business_id !== null){
+        this.$store.dispatch('getBusinessApplication', this.inquiry.business_id)
+      }
+    },
     async getInquiry() {
-      console.log(this.thread);
       let id = this.thread != "" ? this.thread : this.currentInquiry;
       await this.$store.dispatch("getInquiry", id);
       this.messages = await this.inquiry.messages

@@ -395,7 +395,6 @@
             ></vue-easy-lightbox>
           </div>
         </div>
-
         <div class="meta-button-group flex-center" v-if="!businessApplication.is_approve && !businessApplication.is_disapprove">
           <button-block type="approve" @click.native="approveApplication(true)"> Approve </button-block>
           <button-block class="red-btn" type="disapprove" @click.native="approveApplication(false)">
@@ -441,22 +440,43 @@ export default {
   },
   mounted() {
     this.getRequirements()
+    console.log(this.businessApplication)
   },
   methods: {
-  approveApplication(status){
-     this.$swal({
+ async approveApplication(status){
+     let approve = await  this.$swal({
         text: "Are you sure with this action?",
         icon: "question",
         showCancelButton: true,
         confirmButtonText: "Yes",
         cancelButtonText: "No",
-      }).then((result) => {
-        let payload = {id: this.businessApplication.id, is_approve: status}
-        if (result.value) {
-          this.$store.dispatch('approveBusinessApplication', payload)
-        } 
-      });
+      })
+      // .then((result) => {
+      //   let payload = {id: this.businessApplication.id, is_approve: status}
+      //   if (result.value) {
+      //     this.$store.dispatch('approveBusinessApplication', payload)
+      //   } 
+      // });
+  console.log(approve.value)
+    if(approve.value){
+      console.log(status)
+      if(!status){
+        this.createRemarks()
+      }
+    }
   },
+     async createRemarks() {
+      // await this.$store.dispatch('setApplicationRemarks', {application_number: this.buildingBasicInformation.reference_number})
+      this.$router.push({
+        name: "NewRemarks",
+        params: {
+          application_number: this.businessBasicInformation.reference_number,
+          type: "remarks",
+          application_type: 'business',
+          user: this.businessApplication.user
+        },
+      });
+    },
   approveSuccess(status){
    let result =  status ? 'approved' : 'disapproved'
     this.$swal({

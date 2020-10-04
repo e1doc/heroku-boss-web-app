@@ -28,7 +28,7 @@ const getDefaultPropertyState = () => {
     remarks: {},
     legalDocuments: {},
     technicalDocuments: {},
-    supplementaryDocuments: {}
+    supplementaryDocuments: {},
   };
 };
 
@@ -55,7 +55,7 @@ const getters = {
   remarks: (state) => state.remarks,
   legalDocuments: (state) => state.legalDocuments,
   technicalDocuments: (state) => state.technicalDocuments,
-  supplementaryDocuments: (state) => state.supplementaryDocuments
+  supplementaryDocuments: (state) => state.supplementaryDocuments,
 };
 
 const mutations = {
@@ -101,38 +101,82 @@ const mutations = {
   setRealPropertyProfiles: (state, realPropertyProfiles) =>
     (state.realPropertyProfiles = realPropertyProfiles),
   setRemarks: (state, remarks) => (state.remarks = remarks),
-  setLegalDocuments: (state, legalDocuments) => (state.legalDocuments = legalDocuments),
-  setTechnicalDocuments: (state, technicalDocuments) => (state.technicalDocuments = technicalDocuments),
-  setSupplementaryDocuments: (state, supplementaryDocuments) => (state.supplementaryDocuments = supplementaryDocuments)
+  setLegalDocuments: (state, legalDocuments) =>
+    (state.legalDocuments = legalDocuments),
+  setTechnicalDocuments: (state, technicalDocuments) =>
+    (state.technicalDocuments = technicalDocuments),
+  setSupplementaryDocuments: (state, supplementaryDocuments) =>
+    (state.supplementaryDocuments = supplementaryDocuments),
 };
 
 const actions = {
-  async setBuildingCheckList({commit, getters}, payload){
+  async getBuildingApplication({ commit, getters }, payload) {
     try {
-      console.log('post checklist ', payload)
-      const response = await axios.post(`${baseUrl}/api/building-checklist/`, payload,  { headers: { Authorization: `jwt ${getters.authToken}` } })
-      let value = JSON.parse(payload.value)
+      const response = await axios.get(
+        `${baseUrl}/api/building-application?application_number=${payload}`,
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
+      );
+      let application = {
+        id: response.data.id,
+        is_draft: response.data.is_draft,
+        is_approve: response.data.is_approve,
+        is_disapprove: response.data.is_disapprove,
+        created_at: response.data.created_at,
+      };
+      await commit("setBuildingApplication", application);
+      await commit(
+        "setBuildingBasicInformation",
+        response.data.buildingbasicinformation
+      );
+      await commit("setBuildingDetails", response.data.buildingdetails);
+      await commit(
+        "setBuildingOtherDetails",
+        response.data.buildingotherdetails
+      );
+      await commit(
+        "setBuildingApplicationRequirements",
+        response.data.buildingapplicationrequirements[0]
+      );
+      await router.push({ name: "BuildingPermitApplication" });
     } catch (err) {
-      commit('setLoading', false)
-      console.log(err.response)
+      commit("setLoading", false);
+      console.log(err);
     }
   },
-  async updateBuildingCheckList({commit, getters}, payload){
+  async setBuildingCheckList({ commit, getters }, payload) {
     try {
-      console.log('put checklist ', payload.category)
-      const response = await axios.put(`${baseUrl}/api/building-checklist/`, payload,  { headers: { Authorization: `jwt ${getters.authToken}` } })
-      console.log(response.data)
+      console.log("post checklist ", payload);
+      const response = await axios.post(
+        `${baseUrl}/api/building-checklist/`,
+        payload,
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
+      );
+      let value = JSON.parse(payload.value);
     } catch (err) {
-      commit('setLoading', false)
-      console.log(err.response)
+      commit("setLoading", false);
+      console.log(err.response);
+    }
+  },
+  async updateBuildingCheckList({ commit, getters }, payload) {
+    try {
+      console.log("put checklist ", payload.category);
+      const response = await axios.put(
+        `${baseUrl}/api/building-checklist/`,
+        payload,
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
+      );
+      console.log(response.data);
+    } catch (err) {
+      commit("setLoading", false);
+      console.log(err.response);
     }
   },
   async setApplicationRemarks({ commit, getters }, payload) {
-    console.log('set remarks payload', payload)
+    console.log("set remarks payload", payload);
     await commit("setRemarks", payload);
-    console.log(getters.remarks)
+    console.log(getters.remarks);
   },
-  async propertyEnrollment({ commit, dispatch, getters  }, payload) {
+  async propertyEnrollment({ commit, dispatch, getters }, payload) {
     let config = {
       headers: {
         "OneDoc-Token": oneDocToken,
@@ -173,7 +217,7 @@ const actions = {
       );
       commit("setPageCount", response.data.total_pages);
       commit("setBuildingApplications", response.data.results);
-      console.log(response.data.results)
+      console.log(response.data.results);
     } catch (err) {
       console.log(err.response);
     }
@@ -368,19 +412,22 @@ const actions = {
       let payload = { id: getters.buildingApplicationRequirements.id };
       const response = await axios.get(
         `${baseUrl}/api/building-application-requirements/`,
-        { headers: { Authorization: `jwt ${getters.authToken}` }, params: payload }
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+          params: payload,
+        }
       );
       commit("setBuildingRequirements", response.data);
-      if(response.data.buildingchecklist.length > 0){
-        response.data.buildingchecklist.map(item => {
-          if (item.category === 'legal'){
-            commit('setLegalDocuments', item)
-          }else if (item.category === 'technical'){
-            commit('setTechnicalDocuments', item)
-          }else if(item.category === 'supplementary'){
-            commit('setSupplementaryDocuments',item)
+      if (response.data.buildingchecklist.length > 0) {
+        response.data.buildingchecklist.map((item) => {
+          if (item.category === "legal") {
+            commit("setLegalDocuments", item);
+          } else if (item.category === "technical") {
+            commit("setTechnicalDocuments", item);
+          } else if (item.category === "supplementary") {
+            commit("setSupplementaryDocuments", item);
           }
-        })
+        });
       }
       console.log(response.data);
     } catch (err) {

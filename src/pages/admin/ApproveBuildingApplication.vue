@@ -860,7 +860,7 @@
           "
         > -->
 
-          <div class="meta-button-group flex-center">
+          <div class="meta-button-group flex-center" v-if="!buildingApplication.is_approve && !buildingApplication.is_disapprove">
             <button-block
               type="approve"
               @click.native="approveApplication(true)"
@@ -940,9 +940,10 @@ export default {
       //     // this.$store.dispatch('approveBuildingApplication', payload)
       //   await this.createRemarks();
       //   }
-      
       if(approve.value){
-        this.createRemarks()
+        if(!status){
+          this.createRemarks()
+        }
       }
     },
    async createRemarks() {

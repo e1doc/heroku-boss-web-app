@@ -120,9 +120,26 @@ const actions = {
         {headers: {Authorization: `jwt ${getters.authToken}`} }
       );
     } catch (err) {
-      console.log(err);
+      console.log(err.response);
     }
   },
+  async getBusinessRemarks({ commit, getters }, payload){
+    try {
+      const response = await axios.get(`${baseUrl}/api/business-remarks-thread/?id=${payload}`, {headers: {Authorization: `jwt ${getters.authToken}`} })
+      commit('setCurrentInquiry', response.data.id)
+      console.log(response.data.id)
+    } catch (err) {
+      console.log(err.response);
+    }
+  },
+  async getBuildingRemarks({ commit, getters }, payload){
+    try {
+      const response = await axios.get(`${baseUrl}/api/building-remarks-thread/?id=${payload}`, {headers: {Authorization: `jwt ${getters.authToken}`} })
+      commit('setCurrentInquiry', response.data.id)
+    } catch (err) {
+      console.log(err.response);
+    }
+  }
 };
 
 export default {

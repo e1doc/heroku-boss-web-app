@@ -4,7 +4,7 @@
       <div class="th">APPLICATION #</div>
       <div class="th">DATE</div>
       <!-- <div class="th" v-if="currentType === 'business'">Account #</div> -->
-      <div class="th" v-if="currentType === 'real_property'">TD #</div>
+      <div class="th" v-if="currentType === 'building'">TD #</div>
       <div class="th">STATUS</div>
       <div class="th">ACTIONS</div>
     </div>
@@ -45,8 +45,11 @@
             <div @click="openBusinessApplication('edit', application)" v-if="application.is_draft">
               <font-awesome-icon icon="edit" class="mr5 view-icon" />EDIT
             </div>
-          <div @click="openBusinessApplication('view',application)" v-if="!application.is_draft">
+          <div @click="openBusinessApplication('view',application)" v-if="!application.is_draft && !application.is_disapprove">
             <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
+          </div>
+          <div @click="openBusinessRemarks(application.id)" v-if="application.is_disapprove">
+            <font-awesome-icon icon="eye" class="mr5 view-icon" />REMARKS
           </div>
           </div>
         </div>
@@ -92,8 +95,11 @@
             <div @click="openBuildingApplication('edit', application)" v-if="application.is_draft">
               <font-awesome-icon icon="edit" class="mr5 view-icon" />EDIT
             </div>
-            <div @click="openBuildingApplication('view', application)" v-if="!application.is_draft">
+            <div @click="openBuildingApplication('view', application)" v-if="!application.is_draft && !application.is_disapprove">
             <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
+          </div>
+           <div @click="openBuildingRemarks(application.id)" v-if="application.is_disapprove">
+            <font-awesome-icon icon="eye" class="mr5 view-icon" />REMARKS
           </div>
           </div>
         </div>
@@ -216,12 +222,20 @@ export default {
   mounted() {
     this.$store.dispatch("getBusinessApplications");
     this.$store.dispatch("getBuildingApplications")
+    this.$store.commit('setCurrentTable','applications')
     if(this.currentType === 'real_property'){
       this.$store.commit('setCurrentType','business')
     }
   },
   methods:{
-   
+   async openBusinessRemarks(id){
+     await this.$store.dispatch('getBusinessRemarks', id)
+     await this.$router.push({name: 'UserReplyInquiry'})
+   },
+   async openBuildingRemarks(id){
+      await this.$store.dispatch('getBuildingRemarks', id)
+      await this.$router.push({name: 'UserReplyInquiry'})
+   },
     openBusinessApplication(type,data){
       if(data.id){
         let application = {id:data.id,created_at: data.created_at, is_draft: data.is_draft, is_approve: data.is_approve, is_disapprove: data.is_disapprove,account_number: data.account_number}

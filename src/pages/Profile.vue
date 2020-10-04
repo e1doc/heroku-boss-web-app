@@ -50,7 +50,7 @@ export default {
     UserProfile,
   },
   computed: {
-    ...mapGetters(["currentTable"]),
+    ...mapGetters(["currentTable"])
   },
   data() {
     return {

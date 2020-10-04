@@ -62,7 +62,12 @@ export default {
     BaseInput,
   },
   computed: {
-    ...mapGetters(["currentTable", "currentInquiry", "remarks"]),
+    ...mapGetters([
+      "currentTable",
+      "currentInquiry",
+      "remarks",
+      "buildingApplication",
+    ]),
   },
   props: {
     application_number: {
@@ -74,7 +79,7 @@ export default {
       default: "",
     },
     user: {
-      type: String,
+      type: Number,
     },
   },
   data() {
@@ -90,18 +95,23 @@ export default {
   mounted() {
     this.getRemarks();
   },
+    beforeRouteLeave(to, from, next) {
+      this.$store.dispatch("setApplicationRemarks", {});
+      next()
+  },
   methods: {
     async getRemarks() {
       if (!this.remarks.application_number) {
         if (this.application_number !== "") {
+          console.log('application number', this.application_number)
           await this.$store.dispatch("setApplicationRemarks", {
             application_number: this.application_number,
             application_type: this.application_type,
             user: this.user,
           });
           this.subject = `Application #${this.application_number} Remarks`;
-          (this.type = "remarks"),
-            (this.applicationType = this.application_type);
+          this.type = "remarks";
+          this.applicationType = this.application_type;
           this.applicationNumber = this.application_number;
           this.receiver = this.user;
         } else {
@@ -113,6 +123,7 @@ export default {
         this.applicationType = this.remarks.application_type;
         this.applicationNumber = this.remarks.application_number;
         this.receiver = this.remarks.user;
+
       }
     },
     async sendMessage() {
@@ -131,17 +142,27 @@ export default {
         body: this.body,
       });
       await this.$store.commit("setLoading", false);
-      await this.$swal({
-        title: "Success!",
-        text: "Inquiry successfully sent.",
-        icon: "success",
-      }).then((value) => {
-        if (this.type === "inquiry") {
-          this.$router.push({ name: "UserInquiries" });
-        } else if (this.type === "remarks") {
-          this.$router.push({ name: "Inquiries" });
+      if (this.type === "remarks") {
+        if (this.applicationType === "building") {
+          let payload = { id: this.applicationNumber, is_approve: false };
+          this.$store.dispatch("approveBuildingApplication", payload);
+        } else if (this.applicationType === "business") {
+          let payload = { id: this.applicationNumber, is_approve: false };
+          this.$store.dispatch("approveBusinessApplication", payload);
         }
-      });
+      } else {
+        await this.$swal({
+          title: "Success!",
+          text: "Inquiry successfully sent.",
+          icon: "success",
+        }).then((value) => {
+          if (this.type === "inquiry") {
+            this.$router.push({ name: "UserInquiries" });
+          } else if (this.type === "remarks") {
+            this.$router.push({ name: "Inquiries" });
+          }
+        });
+      }
     },
   },
 };

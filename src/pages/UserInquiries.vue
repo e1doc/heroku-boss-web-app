@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="admin-body flex-wrap">
-      <inquiry-table-menu type="profile" />
+      <!-- <inquiry-table-menu type="profile" /> -->
       <div class="admin-content">
         <user-inquiry-table />
       </div>
@@ -33,11 +33,17 @@ export default {
   },
   beforeRouteLeave(to, from, next) {
     this.$store.commit("setCurrentType", 'business');
+    this.$store.commit("setCurrentTable", 'profile');
     next();
   },
   computed: {
     ...mapGetters(["currentTable"]),
   },
+  mounted(){
+    if(this.currentTable !== "inquiries" && this.currentTable !== "remarks"){
+      this.$store.commit('setCurrentTable', 'inquiries')
+    }
+  }
 };
 </script>
 

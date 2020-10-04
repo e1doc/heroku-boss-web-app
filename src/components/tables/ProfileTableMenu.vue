@@ -23,7 +23,7 @@
             BUILDING
           </div>
         </div>
-         <div class="menu-type" v-if="activeTab != 'applications'">
+         <div class="menu-type" v-if="currentTable != 'applications'">
           <div :class="{ active: currentType === 'real_property' }" @click="changeType('real_property')">
             <font-awesome-icon icon="city" class="mr5 icon" />
             REAL PROPERTY
@@ -52,6 +52,9 @@ export default {
       activeTab: "profile",
       activeType: "business"
     }
+  },
+  mounted(){
+    console.log('acctive tab', this.activeTab)
   },
   methods:{
     changeTab(tab){

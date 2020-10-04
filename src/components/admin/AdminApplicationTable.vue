@@ -3,7 +3,7 @@
     <div class="thead">
       <div class="th">APPLICATION #</div>
       <div class="th">DATE</div>
-      <!-- <div class="th" v-if="currentType === 'business'">Account #</div> -->
+      <div class="th" v-if="currentType === 'business'">Account #</div>
       <div class="th" v-if="currentType === 'real_property'">TD #</div>
       <div class="th">STATUS</div>
       <div class="th">ACTIONS</div>
@@ -227,6 +227,7 @@ export default {
           is_approve: data.is_approve,
           is_disapprove: data.is_disapprove,
           account_number: data.account_number,
+          user: data.user
         };
         this.$store.commit("setBusinessApplication", application);
       }
