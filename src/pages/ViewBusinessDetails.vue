@@ -362,15 +362,15 @@
                 {{ activity.units }}
               </div>
               <div class="form-td sales no-bt no-br">
-                <span class="form-td-label show-in-mobile">Essential :</span>
+                <span class="form-td-label show-in-mobile">Essential/Non-essential :</span>
                 {{ activity.essential }}
               </div>
-              <div class="form-td sales no-bt">
+              <!-- <div class="form-td sales no-bt">
                 <span class="form-td-label show-in-mobile"
                   >Non-Essential :</span
                 >
                 {{ activity.non_essential }}
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -592,7 +592,7 @@ div.meta-parent-box {
         float: left;
       }
       div.form-td.sales {
-        width: calc(17.5% - 1px);
+        width: calc(50% - 1.5px);
         float: left;
       }
 
