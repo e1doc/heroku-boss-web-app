@@ -378,13 +378,13 @@
         <!-- Uploaded Requirements -->
         <div class="meta-text-group flex-wrap" v-if="requirements">
           <div class="meta-group-title">Uploaded Requirements</div>
-          <div class="gallery-box flex-wrap">
+          <!-- <div class="gallery-box flex-wrap">
             <div
               v-for="(requirement, index) in requirements.requirements" :key="index"
               class="gallery-image"
               @click="showSingle"
               :style="`background-image: url(${replaceUrl(requirement.file)});`"
-            ></div>
+            ></div> -->
             <!-- <vue-easy-lightbox
               escDisabled
               moveDisabled
@@ -393,6 +393,20 @@
               :index="index"
               @hide="handleHide"
             ></vue-easy-lightbox> -->
+          <!-- </div> -->
+          <div class="requirement-list">
+            <div class="meta-group-title">Files Uploaded</div>
+            <ol>
+              <li
+                v-for="(item, index) of this.businessRequirements
+                  .businessrequirements"
+                :key="index"
+              >
+                <app-link :to="replaceUrl(item.file)">{{
+                  item.filename
+                }}</app-link>
+              </li>
+            </ol>
           </div>
         </div>
       </div>
@@ -651,6 +665,16 @@ div.meta-parent-box {
 .red-btn:hover {
   color: #e23a36;
   border-color: #e23a36;
+}
+
+.requirement-list ol li,
+.requirement-list ol li a {
+  width: 100%;
+  color: #2699fb;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px 0;
+  margin-left: 30px;
 }
 
 /*
