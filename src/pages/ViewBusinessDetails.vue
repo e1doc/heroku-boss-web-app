@@ -361,7 +361,7 @@
                 <span class="form-td-label show-in-mobile">No. of Units :</span>
                 {{ activity.units }}
               </div>
-              <div class="form-td sales no-bt no-br">
+              <div class="form-td sales no-bt">
                 <span class="form-td-label show-in-mobile">Essential/Non-essential :</span>
                 {{ activity.essential }}
               </div>
@@ -378,21 +378,35 @@
         <!-- Uploaded Requirements -->
         <div class="meta-text-group flex-wrap" v-if="requirements">
           <div class="meta-group-title">Uploaded Requirements</div>
-          <div class="gallery-box flex-wrap">
+          <!-- <div class="gallery-box flex-wrap">
             <div
               v-for="(requirement, index) in requirements.requirements" :key="index"
               class="gallery-image"
               @click="showSingle"
               :style="`background-image: url(${replaceUrl(requirement.file)});`"
-            ></div>
-            <vue-easy-lightbox
+            ></div> -->
+            <!-- <vue-easy-lightbox
               escDisabled
               moveDisabled
               :visible="visible"
               :imgs="imgs"
               :index="index"
               @hide="handleHide"
-            ></vue-easy-lightbox>
+            ></vue-easy-lightbox> -->
+          <!-- </div> -->
+          <div class="requirement-list">
+            <div class="meta-group-title">Files Uploaded</div>
+            <ol>
+              <li
+                v-for="(item, index) of this.businessRequirements
+                  .businessrequirements"
+                :key="index"
+              >
+                <app-link :to="replaceUrl(item.file)">{{
+                  item.filename
+                }}</app-link>
+              </li>
+            </ol>
           </div>
         </div>
       </div>
@@ -401,13 +415,13 @@
 </template>
 
 <script>
-import VueEasyLightbox from "vue-easy-lightbox";
+// import VueEasyLightbox from "vue-easy-lightbox";
 import ButtonBlock from "@/components/ButtonBlock";
 import { mapGetters } from "vuex";
 export default {
   name: "BusinessApplicationDetails",
   components: {
-    VueEasyLightbox,
+    // VueEasyLightbox,
     ButtonBlock,
   },
   computed: {
@@ -651,6 +665,16 @@ div.meta-parent-box {
 .red-btn:hover {
   color: #e23a36;
   border-color: #e23a36;
+}
+
+.requirement-list ol li,
+.requirement-list ol li a {
+  width: 100%;
+  color: #2699fb;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px 0;
+  margin-left: 30px;
 }
 
 /*
