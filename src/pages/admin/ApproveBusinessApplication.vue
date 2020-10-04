@@ -641,7 +641,7 @@ div.meta-parent-box {
         float: left;
       }
       div.form-td.sales {
-        width: calc(17.5% - 1px);
+        width: calc(50% - 1.5px);
         float: left;
       }
 
