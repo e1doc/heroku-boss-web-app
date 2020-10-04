@@ -141,6 +141,8 @@ export default {
     transition: 0.4s;
     input[type="file"] {
       position: absolute;
+      left: 0;
+      top: 0;
       z-index: 2;
       height: 100%;
       width: 100%;
