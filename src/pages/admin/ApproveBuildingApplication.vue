@@ -943,6 +943,9 @@ export default {
       if(approve.value){
         if(!status){
           this.createRemarks()
+        }else{
+          let payload = { id: this.buildingApplication.id, is_approve: status };
+          this.$store.dispatch('approveBuildingApplication', payload)
         }
       }
     },

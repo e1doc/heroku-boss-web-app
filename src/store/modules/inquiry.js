@@ -67,9 +67,10 @@ const actions = {
   },
   async getAllAdminRemarks(
     { commit,getters },
-    { page = 1, filter_by = "all_inquiries" }
+    { page, filter_by = "all_inquiries" }
   ) {
     try {
+      console.log(page)
       const response = await axios.get(
         `${baseUrl}/staff/remarks-threads/?page=${page}&filter_by=${filter_by}`,
         {headers: {Authorization: `jwt ${getters.authToken}`} }

@@ -462,6 +462,9 @@ export default {
       console.log(status)
       if(!status){
         this.createRemarks()
+      }else{
+        let payload = {id: this.businessApplication.id, is_approve: status}
+        this.$store.dispatch('approveBusinessApplication', payload)
       }
     }
   },

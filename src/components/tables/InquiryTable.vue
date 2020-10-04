@@ -51,13 +51,23 @@
       </div>
     </div>
     <paginate
-      v-if="inquiries.length > 9"
+      v-if="currentTable === 'inquiries'"
       :page-count="pageCount"
       :prev-text="'Prev'"
       :next-text="'Next'"
       :container-class="'pagination'"
       :page-class="'page-item'"
       :click-handler="getAllInquiries"
+    >
+    </paginate>
+        <paginate
+      v-if="currentTable === 'remarks'"
+      :page-count="pageCount"
+      :prev-text="'Prev'"
+      :next-text="'Next'"
+      :container-class="'pagination'"
+      :page-class="'page-item'"
+      :click-handler="getAllRemarks"
     >
     </paginate>
   </section>
@@ -77,13 +87,16 @@ export default {
     currentType:{
       handler(status) {
         this.getAllInquiries();
+        this.getAllRemarks()
       }
     }
   },
   methods: {
     async getAllInquiries(pageNum = 1) {
-      await this.$store.dispatch("getAllAdminInquiries", { pageNum: pageNum, filter_by: this.currentType });
-      await this.$store.dispatch("getAllAdminRemarks", { pageNum: pageNum, filter_by: this.currentType });
+      await this.$store.dispatch("getAllAdminInquiries", { page: pageNum, filter_by: this.currentType });
+    },
+   async getAllRemarks(pageNum = 1) {
+      await this.$store.dispatch("getAllAdminRemarks", { page: pageNum, filter_by: this.currentType });
     },
   },
 };
