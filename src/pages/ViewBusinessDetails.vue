@@ -361,7 +361,7 @@
                 <span class="form-td-label show-in-mobile">No. of Units :</span>
                 {{ activity.units }}
               </div>
-              <div class="form-td sales no-bt no-br">
+              <div class="form-td sales no-bt">
                 <span class="form-td-label show-in-mobile">Essential/Non-essential :</span>
                 {{ activity.essential }}
               </div>
@@ -385,14 +385,14 @@
               @click="showSingle"
               :style="`background-image: url(${replaceUrl(requirement.file)});`"
             ></div>
-            <vue-easy-lightbox
+            <!-- <vue-easy-lightbox
               escDisabled
               moveDisabled
               :visible="visible"
               :imgs="imgs"
               :index="index"
               @hide="handleHide"
-            ></vue-easy-lightbox>
+            ></vue-easy-lightbox> -->
           </div>
         </div>
       </div>
@@ -401,13 +401,13 @@
 </template>
 
 <script>
-import VueEasyLightbox from "vue-easy-lightbox";
+// import VueEasyLightbox from "vue-easy-lightbox";
 import ButtonBlock from "@/components/ButtonBlock";
 import { mapGetters } from "vuex";
 export default {
   name: "BusinessApplicationDetails",
   components: {
-    VueEasyLightbox,
+    // VueEasyLightbox,
     ButtonBlock,
   },
   computed: {
