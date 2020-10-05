@@ -92,7 +92,7 @@ export default {
   },
   mounted() {
     this.getAllInquiries();
-    console.log(remarks.length)
+    console.log(this.remarks.length)
   },
   watch: {
     currentType:{
