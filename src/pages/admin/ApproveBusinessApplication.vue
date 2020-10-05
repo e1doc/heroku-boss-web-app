@@ -1,7 +1,7 @@
 <template>
   <div class="meta-parent-box">
     <div class="meta-container flex-wrap" ref="content">
-<div class="meta-form-body flex-wrap">
+      <div class="meta-form-body flex-wrap">
         <h1 class="meta-form-title">Business Application Details</h1>
         <!-- Application Date and Nos. -->
         <div class="meta-text-group flex-wrap">
@@ -24,10 +24,10 @@
             </div>
           </div>
           <div class="meta-text no-bb">
-              <div class="meta-label">Mode of Payment :</div>
-              <div class="meta-value">
-                {{ businessBasicInformation.mode_of_payment }}
-              </div>
+            <div class="meta-label">Mode of Payment :</div>
+            <div class="meta-value">
+              {{ businessBasicInformation.mode_of_payment }}
+            </div>
           </div>
           <div class="meta-text w6 no-br no-bb">
             <div class="meta-label">DTI/SEC/CDA Registration No. :</div>
@@ -230,7 +230,9 @@
             <div class="meta-value">{{ businessDetails.area }} sqm</div>
           </div>
           <div class="meta-text w4 no-br">
-            <div class="meta-label">Total No. of Employees (including owner):</div>
+            <div class="meta-label">
+              Total No. of Employees (including owner):
+            </div>
             <div class="meta-value">{{ businessDetails.total_employees }}</div>
           </div>
           <div class="meta-text w4">
@@ -336,7 +338,9 @@
             <div class="form-th sales">
               Gross Sales/Receipts (for Renewal)
               <div class="form-sub-th">
-                <div class="form-th no-br no-bl no-bb">Essential / Non-essential :</div>
+                <div class="form-th no-br no-bl no-bb">
+                  Essential / Non-essential :
+                </div>
                 <!-- <div class="form-th no-br no-bl no-bb">Non-Essential :</div> -->
               </div>
             </div>
@@ -362,7 +366,9 @@
                 {{ activity.units }}
               </div>
               <div class="form-td sales no-bt">
-                <span class="form-td-label show-in-mobile">Essential/Non-essential :</span>
+                <span class="form-td-label show-in-mobile"
+                  >Essential/Non-essential :</span
+                >
                 {{ activity.essential }}
               </div>
               <!-- <div class="form-td sales no-bt">
@@ -385,7 +391,7 @@
               @click="showSingle"
               :style="`background-image: url(${replaceUrl(requirement.file)});`"
             ></div> -->
-            <!-- <vue-easy-lightbox
+          <!-- <vue-easy-lightbox
               escDisabled
               moveDisabled
               :visible="visible"
@@ -395,25 +401,40 @@
             ></vue-easy-lightbox> -->
           <!-- </div>
         </div> -->
-        <div class="requirement-list">
-          <div class="meta-group-title">Files Uploaded</div>
-          <ol>
-            <li
-              v-for="(item, index) of this.businessRequirements
-                .businessrequirements"
-              :key="index"
+          <div class="requirement-list">
+            <div class="meta-group-title">Files Uploaded</div>
+            <ol>
+              <li
+                v-for="(item, index) of this.requirements.requirements"
+                :key="index"
+              >
+                <app-link :to="replaceUrl(item.file)">{{
+                  formatLabel(item.requirements_label) + " - " +item.filename
+                }}</app-link>
+              </li>
+            </ol>
+          </div>
+          <div
+            class="meta-button-group flex-center"
+            v-if="
+              !businessApplication.is_approve &&
+                !businessApplication.is_disapprove
+            "
+          >
+            <button-block
+              type="approve"
+              @click.native="approveApplication(true)"
             >
-              <app-link :to="replaceUrl(item.file)">{{
-                item.filename
-              }}</app-link>
-            </li>
-          </ol>
-        </div>
-        <div class="meta-button-group flex-center" v-if="!businessApplication.is_approve && !businessApplication.is_disapprove">
-          <button-block type="approve" @click.native="approveApplication(true)"> Approve </button-block>
-          <button-block class="red-btn" type="disapprove" @click.native="approveApplication(false)">
-            Disapprove
-          </button-block>
+              Approve
+            </button-block>
+            <button-block
+              class="red-btn"
+              type="disapprove"
+              @click.native="approveApplication(false)"
+            >
+              Disapprove
+            </button-block>
+          </div>
         </div>
       </div>
     </div>
@@ -424,11 +445,13 @@
 // import VueEasyLightbox from "vue-easy-lightbox";
 import ButtonBlock from "@/components/ButtonBlock";
 import { mapGetters } from "vuex";
+import AppLink from "@/components/AppLink";
 export default {
   name: "ApproveBusinessApplication",
   components: {
     // VueEasyLightbox,
     ButtonBlock,
+    AppLink
   },
   data() {
     return {
@@ -437,8 +460,8 @@ export default {
       index: 0, // default: 0
     };
   },
- beforeRouteLeave(to, from, next) {
-    this.$store.commit("resetBusinessState")
+  beforeRouteLeave(to, from, next) {
+    this.$store.commit("resetBusinessState");
     next();
   },
   computed: {
@@ -453,57 +476,57 @@ export default {
     ]),
   },
   mounted() {
-    this.getRequirements()
-    console.log(this.businessApplication)
+    this.getRequirements();
+    console.log(this.requirements);
   },
   methods: {
- async approveApplication(status){
-     let approve = await  this.$swal({
+    async approveApplication(status) {
+      let approve = await this.$swal({
         text: "Are you sure with this action?",
         icon: "question",
         showCancelButton: true,
         confirmButtonText: "Yes",
         cancelButtonText: "No",
-      })
+      });
       // .then((result) => {
       //   let payload = {id: this.businessApplication.id, is_approve: status}
       //   if (result.value) {
       //     this.$store.dispatch('approveBusinessApplication', payload)
-      //   } 
+      //   }
       // });
-  console.log(approve.value)
-    if(approve.value){
-      console.log(status)
-      if(!status){
-        this.createRemarks()
-      }else{
-        let payload = {id: this.businessApplication.id, is_approve: status}
-        this.$store.dispatch('approveBusinessApplication', payload)
+      console.log(approve.value);
+      if (approve.value) {
+        console.log(status);
+        if (!status) {
+          this.createRemarks();
+        } else {
+          let payload = { id: this.businessApplication.id, is_approve: status };
+          this.$store.dispatch("approveBusinessApplication", payload);
+        }
       }
-    }
-  },
-     async createRemarks() {
+    },
+    async createRemarks() {
       // await this.$store.dispatch('setApplicationRemarks', {application_number: this.buildingBasicInformation.reference_number})
       this.$router.push({
         name: "NewRemarks",
         params: {
           application_number: this.businessBasicInformation.reference_number,
           type: "remarks",
-          application_type: 'business',
-          user: this.businessApplication.user
+          application_type: "business",
+          user: this.businessApplication.user,
         },
       });
     },
-  approveSuccess(status){
-   let result =  status ? 'approved' : 'disapproved'
-    this.$swal({
-        title:"Success!",
+    approveSuccess(status) {
+      let result = status ? "approved" : "disapproved";
+      this.$swal({
+        title: "Success!",
         text: `Application was successfully ${result}!`,
         icon: "success",
         confirmButtonText: "Yes",
         cancelButtonText: "No",
-      })
-  },
+      });
+    },
     showSingle() {
       if (this.requirements) {
         if (this.requirements.requirements.length > 0) {
