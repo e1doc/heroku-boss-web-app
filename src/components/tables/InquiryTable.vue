@@ -174,6 +174,7 @@ section {
       font-family: "Proxima Nova Rg";
       text-align: center;
       padding: 17px 0px;
+      width: 100%;
     }
     .td.actions {
       color: #1792e6;
