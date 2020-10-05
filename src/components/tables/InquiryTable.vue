@@ -24,6 +24,16 @@
           </div>
         </div>
       </div>
+      <div class="tbody" v-if="inquiries.length < 1">
+        <div class="tr">
+          <div class="td">No data available</div>
+        </div>
+      </div>
+      <div class="tbody" v-if="remarks.length < 1">
+        <div class="tr">
+          <div class="td">No data available</div>
+        </div>
+      </div>
     </div>
         <div v-if="currentTable === 'remarks'">
       <div class="thead">
