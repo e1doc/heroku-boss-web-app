@@ -383,7 +383,6 @@
 
         <!-- Uploaded Requirements -->
         <div class="meta-text-group flex-wrap" v-if="requirements">
-          <div class="meta-group-title">Uploaded Requirements</div>
           <!-- <div class="gallery-box flex-wrap">
             <div
               v-for="(requirement, index) in requirements.requirements" :key="index"
@@ -402,7 +401,7 @@
           <!-- </div>
         </div> -->
           <div class="requirement-list">
-            <div class="meta-group-title">Files Uploaded</div>
+            <div class="meta-group-title">Uploaded Requirements</div>
             <ol>
               <li
                 v-for="(item, index) of this.requirements.requirements"

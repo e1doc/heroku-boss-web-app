@@ -360,6 +360,7 @@ export default {
   },
   data() {
     return {
+      district: "",
       building_details: {
         area_no: "",
         form_of_ownership: "",
@@ -914,9 +915,11 @@ export default {
     },
   },
   methods: {
-    identifyDistrict(){
-     let barangay = this.barangayname.find(item => item.value === this.building_details.barangay)
+   async identifyDistrict(){
+     let barangay = await this.barangayname.find(item => item.value === this.building_details.barangay)
      this.building_details.district = barangay.district
+    //  console.log(this.district)
+    //  element.dispatchEvent(new Event('input'))
     },
     previousStep() {
       console.log("clicked");

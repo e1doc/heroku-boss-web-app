@@ -822,7 +822,7 @@
           </div>
 
           <div class="requirement-list">
-            <div class="meta-group-title">Files Uploaded</div>
+            <div class="meta-group-title">Uploaded Requirements</div>
             <ol>
               <li v-for="(item, index) of this.buildingRequirements.buildingrequirements" :key="index" >
                 <app-link :to="replaceUrl(item.file)"

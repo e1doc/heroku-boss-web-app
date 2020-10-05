@@ -398,8 +398,8 @@
             <div class="meta-group-title">Files Uploaded</div>
             <ol>
               <li
-                v-for="(item, index) of this.businessRequirements
-                  .businessrequirements"
+                v-for="(item, index) of this.requirements
+                  .requirements"
                 :key="index"
               >
                 <app-link :to="replaceUrl(item.file)">{{

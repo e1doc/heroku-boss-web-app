@@ -1,8 +1,6 @@
 <template>
   <div class="input-holder">
-    <div class="input-wrapper" 
-      :id="name" 
-      :class="inputClass">
+    <div class="input-wrapper" :id="name" :class="inputClass">
       <input
         @focus="handleFocus"
         @blur="handleBlur"
@@ -10,7 +8,10 @@
         :placeholder="placeholder"
         :type="type === 'password' ? passType : type"
         :value="value"
-        @input="$emit('input', (inputData = $event.target.value));validateMin($event.target.value)"
+        @input="
+          $emit('input', (inputData = $event.target.value));
+          validateMin($event.target.value);
+        "
         :disabled="disabled"
       />
       <label class="label" :id="refs">{{ label }}</label>
@@ -35,7 +36,7 @@ export default {
       wrapper: "",
       inputData: "",
       passType: "password",
-      preFillDone: false
+      preFillDone: false,
     };
   },
   props: {
@@ -66,11 +67,11 @@ export default {
       type: String,
       required: true,
     },
-     value: {
+    value: {
       type: [String, Number],
       required: false,
     },
-    inputValue:{
+    inputValue: {
       type: String,
       required: false,
     },
@@ -78,37 +79,40 @@ export default {
       type: String,
       default: "",
     },
-    disabled:{
+    disabled: {
       type: Boolean,
       default: false,
-      required: false
+      required: false,
     },
   },
   mounted() {
     this.getWrapper();
-    if(this.value){
-      this.inputData = this.value
-      this.handleFocus()
-      this.handleBlur()
+    if (this.value) {
+      this.inputData = this.value;
+      this.handleFocus();
+      this.handleBlur();
     }
-   if(this.type === 'number' && this.inputData === ''){
-     this.$emit('input',(this.inputData = 0))
-     this.handleFocus()
-     this.handleBlur()
-   }
+    if (this.type === "number" && this.inputData === "") {
+      this.$emit("input", (this.inputData = 0));
+      this.handleFocus();
+      this.handleBlur();
+    }
   },
   watch: {
-    value:{
+    value: {
       deep: true,
       handler(newValue) {
-        if(!this.preFillDone){
-          this.$emit('input', (this.inputData = newValue))
-          this.preFillDone = true
-          this.handleFocus()
-          this.handleBlur()
+        console.log(newValue)
+        if (!this.preFillDone) {
+          this.$emit("input", (this.inputData = newValue));
+          this.preFillDone = true;
+          this.handleFocus();
+          this.handleBlur();
+        }else{
+          this.$emit("input", (this.inputData = newValue));
         }
       },
-    }
+    },
   },
   methods: {
     getWrapper() {
@@ -129,17 +133,16 @@ export default {
         this.wrapper.classList.add("input-wrapper-blur");
       }
     },
-    validateMin(val){
-
-      if(this.type==='number' && this.inputData === ''){
-        this.$emit('input',(this.inputData = 0))
-      }else{
-        if(val[0] === '0'){
-          val = val.substring(1)
+    validateMin(val) {
+      if (this.type === "number" && this.inputData === "") {
+        this.$emit("input", (this.inputData = 0));
+      } else {
+        if (val[0] === "0") {
+          val = val.substring(1);
         }
-        this.$emit('input',(this.inputData = val))
+        this.$emit("input", (this.inputData = val));
       }
-    }
+    },
   },
 };
 </script>
@@ -166,7 +169,7 @@ export default {
   display: flex;
   flex-direction: row;
   padding: 15px;
-  position: relative;  
+  position: relative;
   transition: 0.1s;
   // overflow: hidden;
   .label {
@@ -216,13 +219,11 @@ input:focus::placeholder {
   font-size: 12px !important;
 }
 
-.disabled-input input{
-    color: #bababa;
-    font-size: 15px;
-    font-weight: 400;
+.disabled-input input {
+  color: #bababa;
+  font-size: 15px;
+  font-weight: 400;
 }
-
-
 
 /*
 MOBILE RESPONSIVENESS 
@@ -238,20 +239,20 @@ MOBILE RESPONSIVENESS
   }
 }
 
-@media only screen and ( max-width : 768px ){
-    .input-holder{
-        margin-bottom: 8px;
-    }
+@media only screen and (max-width: 768px) {
+  .input-holder {
+    margin-bottom: 8px;
+  }
 
-    .input-wrapper.fw-mobile{
-      width: 100%;
-    }
+  .input-wrapper.fw-mobile {
+    width: 100%;
+  }
 }
 
-@media only screen and ( max-width: 480px ){
-  .input-wrapper .label{
-      font-size: 12px;
-      padding: 0;
+@media only screen and (max-width: 480px) {
+  .input-wrapper .label {
+    font-size: 12px;
+    padding: 0;
   }
 }
 </style>
