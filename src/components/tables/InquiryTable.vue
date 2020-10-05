@@ -29,11 +29,6 @@
           <div class="td">No data available</div>
         </div>
       </div>
-      <div class="tbody" v-if="remarks.length < 1 && currentTable === 'remarks'">
-        <div class="tr">
-          <div class="td">No data available</div>
-        </div>
-      </div>
     </div>
         <div v-if="currentTable === 'remarks'">
       <div class="thead">
@@ -43,7 +38,7 @@
         <div class="th status">STATUS</div>
         <div class="th actions">ACTIONS</div>
       </div>
-      <div class="tbody">
+      <div class="tbody"  v-if="remarks.length > 0">
         <div class="tr" v-for="(remark, index) in remarks" :key="index">
           <div class="td date">
             {{ remark.created_at | moment("MMMM DD YYYY") }}
@@ -57,6 +52,11 @@
               READ
             </router-link>
           </div>
+        </div>
+      </div>
+       <div class="tbody" v-if="remarks.length < 1 && currentTable === 'remarks'">
+        <div class="tr">
+          <div class="td">No data available</div>
         </div>
       </div>
     </div>
