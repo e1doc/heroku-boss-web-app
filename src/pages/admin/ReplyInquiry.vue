@@ -79,8 +79,15 @@ export default {
       messages: []
     };
   },
+  beforeRouteLeave(to, from, next) {
+    this.$store.commit("setContinueBuildingThread", false);
+    this.$store.commit("currentBuildingId", 0);
+    this.$store.commit("setContinueBusinessThread", false);
+    this.$store.commit("currentBusinessId", 0);
+    next();
+  },
   computed: {
-    ...mapGetters(["currentTable", "inquiry", "currentInquiry"]),
+    ...mapGetters(["currentTable", "inquiry", "currentInquiry", "continueBuildingThread", "currentBuildingId", "continueBusinessThread", "currentBusinessId"]),
   },
   mounted() {
     this.getInquiry();
@@ -93,6 +100,14 @@ export default {
       this.messages = await this.inquiry.messages
     },
     async sendReply() {
+      if(this.continueBuildingThread){
+        let payload = { id: this.currentBuildingId, is_approve: false };
+        this.$store.dispatch("approveBuildingApplication", payload);
+      }
+      if(this.continueBusinessThread){
+        let payload = { id: this.currentBusinessId, is_approve: false };
+        this.$store.dispatch("approveBusinessApplication", payload);
+      }
       await this.$store.dispatch("adminRespond", {
         id: this.currentInquiry,
         is_responded: true,
@@ -102,6 +117,7 @@ export default {
         body: this.body,
       });
       this.messages.push({body: this.body, sender: {is_staff: true}})
+      this.body = ""
     },
   },
 };

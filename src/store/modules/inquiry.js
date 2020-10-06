@@ -8,6 +8,8 @@ const getDefaultInquiryState = () => {
     remarks: [],
     inquiry: {},
     currentInquiry: "",
+    continueBuildingThread: false,
+    continueBusinessThread: false
   };
 };
 const state = getDefaultInquiryState();
@@ -16,6 +18,8 @@ const getters = {
   remarks: (state) => state.remarks,
   inquiry: (state) => state.inquiry,
   currentInquiry: (state) => state.currentInquiry,
+  continueBuildingThread: (state) => state.continueBuildingThread,
+  continueBusinessThread: (state) => state.continueBusinessThread
 };
 const mutations = {
   setInquiries: (state, inquiries) => (state.inquiries = inquiries),
@@ -24,6 +28,8 @@ const mutations = {
   setInquiry: (state, inquiry) => (state.inquiry = inquiry),
   setCurrentInquiry: (state, currentInquiry) =>
     (state.currentInquiry = currentInquiry),
+  setContinueBuildingThread: (state, continueBuildingThread) => (state.continueBuildingThread = continueBuildingThread),
+  setContinueBusinessThread: (state, continueBusinessThread) => (state.continueBusinessThread = continueBusinessThread)
 };
 const actions = {
   async getAllUserInquiries({ commit, dispatch, getters }, page = 1) {

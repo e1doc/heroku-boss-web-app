@@ -584,6 +584,7 @@ div.meta-parent-box {
           line-height: 1.6;
           padding: 5px 0;
           border: 1px solid;
+          min-height: 18px;
         }
       }
       div.form-th.code,

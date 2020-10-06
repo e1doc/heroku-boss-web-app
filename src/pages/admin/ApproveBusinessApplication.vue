@@ -408,7 +408,7 @@
                 :key="index"
               >
                 <app-link :to="replaceUrl(item.file)">{{
-                  formatLabel(item.requirements_label) + " - " +item.filename
+                  formatLabel(item.requirements_label) + " - " + item.filename
                 }}</app-link>
               </li>
             </ol>
@@ -450,7 +450,7 @@ export default {
   components: {
     // VueEasyLightbox,
     ButtonBlock,
-    AppLink
+    AppLink,
   },
   data() {
     return {
@@ -460,7 +460,8 @@ export default {
     };
   },
   beforeRouteLeave(to, from, next) {
-    this.$store.commit("resetBusinessState");
+    // this.$store.commit("resetBusinessState");
+    this.$store.commit("setRequirements", []);
     next();
   },
   computed: {
@@ -472,6 +473,7 @@ export default {
       "businessActivities",
       "applicationRequirements",
       "requirements",
+      "currentInquiry"
     ]),
   },
   mounted() {
@@ -506,15 +508,25 @@ export default {
     },
     async createRemarks() {
       // await this.$store.dispatch('setApplicationRemarks', {application_number: this.buildingBasicInformation.reference_number})
-      this.$router.push({
-        name: "NewRemarks",
-        params: {
-          application_number: this.businessBasicInformation.reference_number,
-          type: "remarks",
-          application_type: "business",
-          user: this.businessApplication.user,
-        },
-      });
+      await this.$store.dispatch(
+        "getBusinessRemarks",
+        this.businessApplication.id
+      );
+      if (this.currentInquiry === "") {
+        this.$router.push({
+          name: "NewRemarks",
+          params: {
+            application_number: this.businessBasicInformation.reference_number,
+            type: "remarks",
+            application_type: "business",
+            user: this.businessApplication.user,
+          },
+        });
+      }else{
+        this.$store.commit('setContinueBusinessThread', true)
+        this.$store.commit('setCurrentBusinessId', this.businessApplication.id)
+        this.$router.push({name:'ReplyInquiry', params:{thread: this.currentInquiry}})
+      }
     },
     approveSuccess(status) {
       let result = status ? "approved" : "disapproved";
@@ -658,6 +670,7 @@ div.meta-parent-box {
           line-height: 1.6;
           padding: 5px 0;
           border: 1px solid;
+          min-height: 18px;
         }
       }
       div.form-th.code,

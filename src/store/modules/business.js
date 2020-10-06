@@ -33,6 +33,7 @@ const getDefaultBusinessState = () => {
     filterBy: "all",
     isBusinessEnrollmentSuccess: false,
     typeOfOrganization: "",
+    currentBusinessId: 0
   };
 };
 
@@ -62,6 +63,7 @@ const getters = {
   filterBy: (state) => state.filterBy,
   isBusinessEnrollmentSuccess: (state) => state.isBusinessEnrollmentSuccess,
   typeOfOrganization: (state) => state.typeOfOrganization,
+  currentBusinessId: ( state ) => state.currentBusinessId
 };
 
 const mutations = {
@@ -108,6 +110,7 @@ const mutations = {
     (state.isBusinessEnrollmentSuccess = isBusinessEnrollmentSuccess),
   setTypeOfOrganization: (state, typeOfOrganization) =>
     (state.typeOfOrganization = typeOfOrganization),
+  setCurrentBusinessId: (state, currentBusinessId) => (state.currentBusinessId = currentBusinessId)
 };
 
 const actions = {

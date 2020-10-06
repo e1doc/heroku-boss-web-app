@@ -824,10 +824,14 @@
           <div class="requirement-list">
             <div class="meta-group-title">Uploaded Requirements</div>
             <ol>
-              <li v-for="(item, index) of this.buildingRequirements.buildingrequirements" :key="index" >
-                <app-link :to="replaceUrl(item.file)"
-                  >{{item.filename}}</app-link
-                >
+              <li
+                v-for="(item, index) of this.buildingRequirements
+                  .buildingrequirements"
+                :key="index"
+              >
+                <app-link :to="replaceUrl(item.file)">{{
+                  item.filename
+                }}</app-link>
               </li>
             </ol>
           </div>
@@ -860,7 +864,13 @@
           "
         > -->
 
-          <div class="meta-button-group flex-center" v-if="!buildingApplication.is_approve && !buildingApplication.is_disapprove">
+          <div
+            class="meta-button-group flex-center"
+            v-if="
+              !buildingApplication.is_approve &&
+                !buildingApplication.is_disapprove
+            "
+          >
             <button-block
               type="approve"
               @click.native="approveApplication(true)"
@@ -894,13 +904,15 @@ export default {
     AppLink,
   },
   beforeRouteLeave(to, from, next) {
-    this.$store.commit("resetPropertyState");
+    // this.$store.commit("resetPropertyState");
+    this.$store.commit("setBuildingRequirements", []);
+    this.$store.commit("setLegalDocuments", {});
+    this.$store.commit("setTechnicalDocuments", {});
+    this.$store.commit("setSupplementaryDocuments", {});
     next();
   },
   mounted() {
     this.getRequirements();
-    console.log(this.buildingRequirements.buildingrequirements);
-    console.log('user', this.buildingApplication)
   },
   computed: {
     ...mapGetters([
@@ -914,6 +926,7 @@ export default {
       "legalDocuments",
       "technicalDocuments",
       "supplementaryDocuments",
+      "currentInquiry",
     ]),
   },
   data() {
@@ -927,39 +940,49 @@ export default {
     };
   },
   methods: {
-   async approveApplication(status) {
-     let approve = await this.$swal({
+    async approveApplication(status) {
+      let approve = await this.$swal({
         text: "Are you sure with this action?",
         icon: "question",
         showCancelButton: true,
         confirmButtonText: "Yes",
         cancelButtonText: "No",
-      })
+      });
       // let payload = { id: this.buildingApplication.id, is_approve: status };
       //   if (result.value) {
       //     // this.$store.dispatch('approveBuildingApplication', payload)
       //   await this.createRemarks();
       //   }
-      if(approve.value){
-        if(!status){
-          this.createRemarks()
-        }else{
+      if (approve.value) {
+        if (!status) {
+          this.createRemarks();
+        } else {
           let payload = { id: this.buildingApplication.id, is_approve: status };
-          this.$store.dispatch('approveBuildingApplication', payload)
+          this.$store.dispatch("approveBuildingApplication", payload);
         }
       }
     },
-   async createRemarks() {
-      // await this.$store.dispatch('setApplicationRemarks', {application_number: this.buildingBasicInformation.reference_number})
-      this.$router.push({
-        name: "NewRemarks",
-        params: {
-          application_number: this.buildingBasicInformation.reference_number,
-          type: "remarks",
-          application_type: 'building',
-          user: this.buildingApplication.user
-        },
-      });
+    async createRemarks() {
+      await this.$store.dispatch(
+        "getBuildingRemarks",
+        this.buildingApplication.id
+      );
+      if (this.currentInquiry === "") {
+        this.$router.push({
+          name: "NewRemarks",
+          params: {
+            application_number: this.buildingBasicInformation.reference_number,
+            type: "remarks",
+            application_type: "building",
+            user: this.buildingApplication.user,
+          },
+        });
+      }else{
+        this.$store.commit('setContinueBuildingThread', true)
+        console.log('building id', this.buildingApplication.id)
+        this.$store.commit('setCurrentBuildingId', this.buildingApplication.id)
+        this.$router.push({name:'ReplyInquiry', params:{thread: this.currentInquiry}})
+      }
     },
     showSingle() {
       if (this.buildingRequirements) {

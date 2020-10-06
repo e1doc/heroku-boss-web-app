@@ -97,6 +97,7 @@ export default {
   },
     beforeRouteLeave(to, from, next) {
       this.$store.dispatch("setApplicationRemarks", {});
+      this.$store.commit('setCurrentInquiry', "")
       next()
   },
   methods: {
@@ -123,7 +124,6 @@ export default {
         this.applicationType = this.remarks.application_type;
         this.applicationNumber = this.remarks.application_number;
         this.receiver = this.remarks.user;
-
       }
     },
     async sendMessage() {

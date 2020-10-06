@@ -29,6 +29,7 @@ const getDefaultPropertyState = () => {
     legalDocuments: {},
     technicalDocuments: {},
     supplementaryDocuments: {},
+    currentBuildingId: 0
   };
 };
 
@@ -56,6 +57,7 @@ const getters = {
   legalDocuments: (state) => state.legalDocuments,
   technicalDocuments: (state) => state.technicalDocuments,
   supplementaryDocuments: (state) => state.supplementaryDocuments,
+  currentBuildingId: ( state ) => state.currentBuildingId
 };
 
 const mutations = {
@@ -107,6 +109,7 @@ const mutations = {
     (state.technicalDocuments = technicalDocuments),
   setSupplementaryDocuments: (state, supplementaryDocuments) =>
     (state.supplementaryDocuments = supplementaryDocuments),
+  setCurrentBuildingId: (state, currentBuildingId) => (state.currentBuildingId = currentBuildingId)
 };
 
 const actions = {
