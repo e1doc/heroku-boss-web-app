@@ -30,7 +30,7 @@
         @change="filter"
         :selected="filterBy"
       />
-      <base-input-search />
+      <base-input-search v-model="search"  @keyup.native="searchData()"/>
     </div>
   </div>
 </template>
@@ -57,6 +57,7 @@ export default {
   },
   data() {
     return {
+      search: "",
       activeTab: "profile",
       activeType: "business",
       filterlist: [
@@ -80,6 +81,16 @@ export default {
     };
   },
   methods: {
+    searchData(){
+      if(this.currentType === 'real_property'){
+        this.$store.commit('setBuildingSearch', this.search)
+        this.$store.dispatch("getAllBuildingApplications");
+      }else if(this.currentType === 'business'){
+        this.$store.commit('setBusinessSearch', this.search)
+        console.log(this.search)
+        this.$store.dispatch("getAllBusinessApplications");
+      }
+    },
     filter(val){
       this.$store.commit('setFilterBy', val)
       if(this.currentType === 'business'){

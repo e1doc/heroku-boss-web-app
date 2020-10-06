@@ -29,7 +29,8 @@ const getDefaultPropertyState = () => {
     legalDocuments: {},
     technicalDocuments: {},
     supplementaryDocuments: {},
-    currentBuildingId: 0
+    currentBuildingId: 0,
+    buildingSearch: ""
   };
 };
 
@@ -57,7 +58,8 @@ const getters = {
   legalDocuments: (state) => state.legalDocuments,
   technicalDocuments: (state) => state.technicalDocuments,
   supplementaryDocuments: (state) => state.supplementaryDocuments,
-  currentBuildingId: ( state ) => state.currentBuildingId
+  currentBuildingId: ( state ) => state.currentBuildingId,
+  buildingSearch: ( state ) => state.buildingSearch
 };
 
 const mutations = {
@@ -109,7 +111,8 @@ const mutations = {
     (state.technicalDocuments = technicalDocuments),
   setSupplementaryDocuments: (state, supplementaryDocuments) =>
     (state.supplementaryDocuments = supplementaryDocuments),
-  setCurrentBuildingId: (state, currentBuildingId) => (state.currentBuildingId = currentBuildingId)
+  setCurrentBuildingId: (state, currentBuildingId) => (state.currentBuildingId = currentBuildingId),
+  setBuildingSearch: (state, buildingSearch) => (state.buildingSearch = buildingSearch)
 };
 
 const actions = {
@@ -213,9 +216,8 @@ const actions = {
   },
   async getAllBuildingApplications({ commit, getters, dispatch }, page = 1) {
     try {
-      console.log(getters.filterBy);
       const response = await axios.get(
-        `${baseUrl}/staff/building-permit-application-list/?page=${page}&filter_by=${getters.filterBy}`,
+        `${baseUrl}/staff/building-permit-application-list/?page=${page}&filter_by=${getters.filterBy}&id=${getters.buildingSearch}`,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setPageCount", response.data.total_pages);

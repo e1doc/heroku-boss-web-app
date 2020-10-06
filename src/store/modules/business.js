@@ -33,7 +33,8 @@ const getDefaultBusinessState = () => {
     filterBy: "all",
     isBusinessEnrollmentSuccess: false,
     typeOfOrganization: "",
-    currentBusinessId: 0
+    currentBusinessId: 0,
+    businessSearch: ""
   };
 };
 
@@ -63,7 +64,8 @@ const getters = {
   filterBy: (state) => state.filterBy,
   isBusinessEnrollmentSuccess: (state) => state.isBusinessEnrollmentSuccess,
   typeOfOrganization: (state) => state.typeOfOrganization,
-  currentBusinessId: ( state ) => state.currentBusinessId
+  currentBusinessId: ( state ) => state.currentBusinessId,
+  businessSearch: ( state ) => state.businessSearch
 };
 
 const mutations = {
@@ -110,7 +112,8 @@ const mutations = {
     (state.isBusinessEnrollmentSuccess = isBusinessEnrollmentSuccess),
   setTypeOfOrganization: (state, typeOfOrganization) =>
     (state.typeOfOrganization = typeOfOrganization),
-  setCurrentBusinessId: (state, currentBusinessId) => (state.currentBusinessId = currentBusinessId)
+  setCurrentBusinessId: (state, currentBusinessId) => (state.currentBusinessId = currentBusinessId),
+  setBusinessSearch: ( state, businessSearch) => ( state.businessSearch = businessSearch )
 };
 
 const actions = {
@@ -181,7 +184,7 @@ const actions = {
     try {
       console.log(getters.filterBy);
       const response = await axios.get(
-        `${baseUrl}/staff/business-permit-application-list/?page=${page}&filter_by=${getters.filterBy}`,
+        `${baseUrl}/staff/business-permit-application-list/?page=${page}&filter_by=${getters.filterBy}&id=${getters.businessSearch}`,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       console.log(response.data);
