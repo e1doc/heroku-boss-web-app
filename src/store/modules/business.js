@@ -466,6 +466,7 @@ const actions = {
         }
       );
       commit("setRequirements", response.data);
+      console.log('requirements',  response.data)
     } catch (err) {
       console.log(err.response);
       commit("setLoading", false);

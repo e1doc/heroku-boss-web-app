@@ -418,11 +418,13 @@
 // import VueEasyLightbox from "vue-easy-lightbox";
 import ButtonBlock from "@/components/ButtonBlock";
 import { mapGetters } from "vuex";
+import AppLink from "@/components/AppLink";
 export default {
   name: "BusinessApplicationDetails",
   components: {
     // VueEasyLightbox,
     ButtonBlock,
+    AppLink,
   },
   computed: {
     ...mapGetters([

@@ -123,6 +123,7 @@ export default {
     async nextStep() {
       if (!this.draftBusiness) {
         let isValidated = this.validateRequiredFields();
+        console.log('is validated', isValidated)
         if (isValidated) {
           let payload = { is_draft: false, is_disapprove: this.businessApplication.is_disapprove };
           await this.$store.dispatch("updateBusinessApplication", payload);

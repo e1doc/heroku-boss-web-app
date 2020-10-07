@@ -478,7 +478,7 @@ export default {
   },
   mounted() {
     this.getRequirements();
-    console.log(this.requirements);
+    console.log('requirements',this.requirements);
   },
   methods: {
     async approveApplication(status) {
