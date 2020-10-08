@@ -258,7 +258,6 @@ export default {
           "ctc_no",
           "tin",
           "has_tax_incentive",
-          "owner_telephone_number",
           "owner_email_address"
         ],
       },
