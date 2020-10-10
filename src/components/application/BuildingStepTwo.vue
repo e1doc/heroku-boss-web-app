@@ -466,7 +466,8 @@ export default {
         },
         {
           label: "Bayanan",
-          value: "Bayanan"
+          value: "Bayanan",
+          district: "District 2"
         },
         {
           label: "Camposanto",
