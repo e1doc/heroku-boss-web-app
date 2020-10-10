@@ -232,12 +232,16 @@ export default {
       ],
       modeofpayment: [
         {
-          label: "Over the Counter",
-          value: "Over the Counter",
+          label: "Annually",
+          value: "Annually",
         },
         {
-          label: "Pay Online",
-          value: "Pay Online",
+          label: "Semi-annually",
+          value: "Semi-annually",
+        },
+        {
+          label: "Quarterly",
+          value: "Quarterly",
         },
       ],
       taxincentive: [
