@@ -2,7 +2,7 @@
   <div class="input-wrapper flex-center">
     <input
       type="text"
-      placeholder="Search by date, name, or keyword"
+      placeholder="Search by Application Number"
       @input="
         $emit('input', (inputData = $event.target.value));"
       v-model="inputData"
