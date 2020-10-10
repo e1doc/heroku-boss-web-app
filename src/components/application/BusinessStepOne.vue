@@ -367,7 +367,7 @@ export default {
           this.$swal({
             title: "Failed!",
             text:
-              "Please fix the validation errors bpinquefore proceeding to the next step.",
+              "Please fix the validation errors before proceeding to the next step.",
             icon: "error",
           });
         }
