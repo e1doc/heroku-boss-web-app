@@ -220,6 +220,7 @@ const actions = {
   },
   async addBusinessApplication({ commit, dispatch, getters }, payload) {
     try {
+      
       const response = await axios.post(
         `${baseUrl}/api/business-permit-application/`,
         payload,

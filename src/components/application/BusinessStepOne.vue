@@ -319,6 +319,7 @@ export default {
     async nextStep() {
       this.$store.commit("setLoading", true);
       if (this.businessApplication.id) {
+        this.business_application.is_disapprove = this.businessApplication.is_disapprove
         await this.$store.dispatch(
           "updateBusinessApplication",
           this.business_application
