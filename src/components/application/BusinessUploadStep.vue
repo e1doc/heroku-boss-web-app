@@ -28,6 +28,7 @@
       description="If required by national laws (e.g. Building Code) and local laws. Note For those without Occupancy Permit, sketch of business location including front full view picture of establishment."
       name="occupancypermit"
       :properties="getProperty('occupancy_permit')"
+      :hasError="uploadErrors.business_registration_proof"
       fileLabel="occupancy_permit"
       type="business"
       uploadType="application/pdf"
@@ -81,7 +82,10 @@ export default {
       contract_of_lease: {},
       government_id: {},
       required: ["business_registration_proof", "occupancy_permit"],
-      uploadErrors: {},
+      uploadErrors: {
+        business_registration_proof: false,
+        occupancy_permit: false
+      },
     };
   },
   computed: {
@@ -103,19 +107,26 @@ export default {
               }
               }
             });
+          }else{
+            this.required.forEach((element) => {
+              this.uploadErrors[`${element}`] = true;
+          });
           }
           this.required.forEach((element) => {
             if (!validated.includes(element)) {
               this.uploadErrors[`${element}`] = true;
             }
           });
-          console.log(validated, this.required.length)
           if (validated.length === this.required.length) {
             return true;
           } else {
+            console.log(validated, this.required)
             return false;
           }
         } else {
+         this.required.forEach((element) => {
+              this.uploadErrors[`${element}`] = true;
+          });
           return false;
         }
       }

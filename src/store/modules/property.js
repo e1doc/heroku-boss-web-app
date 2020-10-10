@@ -422,22 +422,23 @@ const actions = {
           params: payload,
         }
       );
-      response.data = response.data.buildingrequirements.filter(item => item.is_active == true)
+      console.log(response.data.buildingchecklist)
+      response.data.buildingrequirements = response.data.buildingrequirements.filter(item => item.is_active == true)
       commit("setBuildingRequirements", response.data);
-      if (response.data.buildingchecklist.length > 0) {
-        response.data.buildingchecklist.map((item) => {
-          if (item.category === "legal") {
-            commit("setLegalDocuments", item);
-          } else if (item.category === "technical") {
-            commit("setTechnicalDocuments", item);
-          } else if (item.category === "supplementary") {
-            commit("setSupplementaryDocuments", item);
-          }
-        });
-      }
+        if (response.data.buildingchecklist.length > 0) {
+          response.data.buildingchecklist.map((item) => {
+            if (item.category === "legal") {
+              commit("setLegalDocuments", item);
+            } else if (item.category === "technical") {
+              commit("setTechnicalDocuments", item);
+            } else if (item.category === "supplementary") {
+              commit("setSupplementaryDocuments", item);
+            }
+          });
+        }
       console.log(response.data);
     } catch (err) {
-      console.log(err.response);
+      console.log(err);
     }
   },
 };

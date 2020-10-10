@@ -967,6 +967,7 @@ export default {
           });
         }
       } else {
+         this.validateRequiredFields();
         if (this.draftProperty) {
           this.$swal({
             title: "Failed!",

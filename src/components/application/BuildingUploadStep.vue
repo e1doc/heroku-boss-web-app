@@ -750,7 +750,11 @@ export default {
         "sketch_pin",
         // "picture_of_site",
       ],
-      uploadErrors: {},
+      uploadErrors: {
+        tct: false,
+        architectural_permit: false,
+        sketch_pin: false
+      },
     };
   },
   computed: {
@@ -778,6 +782,10 @@ export default {
               }
               }
             });
+          }else{
+            this.required.forEach((element) => {
+              this.uploadErrors[`${element}`] = true;
+          });
           }
           this.required.forEach((element) => {
             if (!validated.includes(element)) {
@@ -787,9 +795,15 @@ export default {
           if (validated.length === this.required.length) {
             return true;
           } else {
+           
             return false;
           }
         } else {
+          this.required.forEach((element) => {
+            if (!validated.includes(element)) {
+              this.uploadErrors[`${element}`] = true;
+            }
+          });
           return false;
         }
       }

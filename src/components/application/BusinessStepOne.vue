@@ -69,7 +69,7 @@
         label="Telephone/Phone Number"
         v-model="basic_information.owner_telephone_number"
         :validationMessages="
-          stepOneErrors.basic_information.telephone_number
+          stepOneErrors.basic_information.owner_telephone_number
         "
         name="telephone"
         refs="tel_number"
@@ -262,7 +262,8 @@ export default {
           "ctc_no",
           "tin",
           "has_tax_incentive",
-          "owner_email_address"
+          "owner_email_address",
+          "owner_mobile_number"
         ],
       },
     };
@@ -357,6 +358,7 @@ export default {
           });
         }
       } else {
+        this.validateRequiredFields();
         if (this.draftBusiness) {
           this.$swal({
             title: "Failed!",

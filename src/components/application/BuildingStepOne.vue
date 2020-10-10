@@ -188,7 +188,6 @@ export default {
   methods: {
     async nextStep() {
       this.$store.commit("setLoading", true);
-
       if (!this.buildingApplication.id) {
         let payload = { basic_information: this.basic_information };
         await this.$store.dispatch("addBuildingApplication", payload);
@@ -219,6 +218,7 @@ export default {
           });
         }
       } else {
+        this.validateRequiredFields();
         if (this.draftProperty) {
           this.$swal({
             title: "Failed!",

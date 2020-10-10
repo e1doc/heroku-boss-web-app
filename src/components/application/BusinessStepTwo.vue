@@ -927,6 +927,7 @@ export default {
           });
         }
       } else {
+        this.validateRequiredFields();
         if (this.draftBusiness) {
           this.$swal({
             title: "Failed!",
