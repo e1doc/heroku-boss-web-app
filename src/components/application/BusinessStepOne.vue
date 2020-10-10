@@ -67,9 +67,9 @@
       />
       <base-input
         label="Telephone/Phone Number"
-        v-model="basic_information.owner_mobile_number"
+        v-model="basic_information.owner_telephone_number"
         :validationMessages="
-          stepOneErrors.basic_information.owner_mobile_number
+          stepOneErrors.basic_information.telephone_number
         "
         name="telephone"
         refs="tel_number"
@@ -209,7 +209,7 @@ export default {
         owner_middle_name: "",
         owner_last_name: "",
         owner_complete_address: "",
-        owner_mobile_number: "",
+        owner_telephone_number: "",
         owner_email_address: "",
       },
       types_of_organization: [
@@ -298,7 +298,7 @@ export default {
           "owner_first_name",
           "owner_last_name",
           "owner_complete_address",
-          "owner_mobile_number",
+          "owner_telephone_number",
         ];
         if (this.basic_information.type_of_organization !== "single") {
           required_fields.forEach((item) => {
@@ -383,6 +383,7 @@ export default {
       this.$store.commit("setDraftBusiness", false);
     },
     validateRequiredFields() {
+      console.log(this.basic_information.owner_telephone_number)
       let basic_info_errors = { key: "basic_information", value: {} };
       let application_errors = { key: "application", value: {} };
       let isBasicInfoClean = true;
