@@ -97,8 +97,10 @@ export default {
         if (this.requirements.requirements) {
           if (this.requirements.requirements.length > 0) {
             this.requirements.requirements.map((item) => {
-              if (this.required.includes(item.requirements_label)) {
+              if(!validated.includes(item.requirements_label)){
+                if (this.required.includes(item.requirements_label)) {
                 validated.push(item.requirements_label);
+              }
               }
             });
           }
@@ -107,6 +109,7 @@ export default {
               this.uploadErrors[`${element}`] = true;
             }
           });
+          console.log(validated, this.required.length)
           if (validated.length === this.required.length) {
             return true;
           } else {

@@ -772,8 +772,10 @@ export default {
         if (this.buildingRequirements.buildingrequirements) {
           if (this.buildingRequirements.buildingrequirements.length > 0) {
             this.buildingRequirements.buildingrequirements.map((item) => {
-              if (this.required.includes(item.requirements_label)) {
+              if(!validated.includes(item.requirements_label)){
+             if (this.required.includes(item.requirements_label)) {
                 validated.push(item.requirements_label);
+              }
               }
             });
           }

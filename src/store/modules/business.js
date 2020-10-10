@@ -465,6 +465,7 @@ const actions = {
           params: payload,
         }
       );
+      response.data.requirements = response.data.requirements.filter(item => item.is_active == true)
       commit("setRequirements", response.data);
       console.log('requirements',  response.data)
     } catch (err) {

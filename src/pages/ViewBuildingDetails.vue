@@ -231,7 +231,6 @@
             ></vue-easy-lightbox>
           </div> -->
           <div class="requirement-list">
-            <div class="meta-group-title">Files Uploaded</div>
             <ol>
               <li
                 v-for="(item, index) of this.buildingRequirements

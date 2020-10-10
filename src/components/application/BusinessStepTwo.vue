@@ -530,7 +530,6 @@ export default {
           "building_name",
           "unit_no",
           "floor_no"
-
         ],
       },
       barangayname: [

@@ -422,6 +422,7 @@ const actions = {
           params: payload,
         }
       );
+      response.data = response.data.buildingrequirements.filter(item => item.is_active == true)
       commit("setBuildingRequirements", response.data);
       if (response.data.buildingchecklist.length > 0) {
         response.data.buildingchecklist.map((item) => {
