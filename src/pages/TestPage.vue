@@ -1,30 +1,33 @@
 <template>
   <section>
       <!-- <building-upload-step/> -->
-      <!-- <building-step-two/> -->
+      <business-step-two/>
       <!-- <div class="countdown-timer">
         {{ timerCount }}
       </div> -->
       <!-- <otp-div/> -->
-      <!-- <downloadable-building-form/> -->
-      <approve-building-application/>
+      <view-business-details/>
+      <downloadable-business-form/>
+      <approve-business-application/>
   </section>
 </template>
 
 <script>
-import BuildingStepTwo from "@/components/application/BuildingStepTwo";
-import ApproveBuildingApplication from "@/pages/admin/ApproveBuildingApplication";
-import BuildingUploadStep from "@/components/application/BuildingUploadStep";
-import DownloadableBuildingForm from "@/components/application/DownloadableBuildingForm";
+import BusinessStepTwo from "@/components/application/BusinessStepTwo";
+import ViewBusinessDetails from "@/pages/ViewBusinessDetails";
+import ApproveBusinessApplication from "@/pages/admin/ApproveBusinessApplication";
+import BusinessUploadStep from "@/components/application/BusinessUploadStep";
+import DownloadableBusinessForm from "@/components/application/DownloadableBusinessForm";
 import OtpDiv from "@/components/auth/OtpDiv";
 export default {
     name: "TestPage",
     components: {
-        BuildingStepTwo,
-        BuildingUploadStep,
+        BusinessStepTwo,
+        BusinessUploadStep,
         OtpDiv,
-        DownloadableBuildingForm,
-        ApproveBuildingApplication
+        DownloadableBusinessForm,
+        ApproveBusinessApplication,
+        ViewBusinessDetails
   },
   data() {
       return {

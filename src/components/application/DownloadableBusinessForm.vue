@@ -138,16 +138,22 @@
         <!-- Business Address -->
         <div class="meta-text-group flex-wrap">
           <div class="meta-group-title">Business Address :</div>
-          <div class="meta-text w6 no-br no-bb">
-            <div class="meta-label">House No. :</div>
+          <div class="meta-text w4 no-br no-bb">
+            <div class="meta-label">Address No. :</div>
             <div class="meta-value">
-              {{ businessDetails.house_no }}
+              {{ businessDetails.address_no }}
             </div>
           </div>
-          <div class="meta-text w6 no-bb">
-            <div class="meta-label">Barangay :</div>
+          <div class="meta-text w4 no-br no-bb">
+            <div class="meta-label">Block No. :</div>
             <div class="meta-value">
-              {{ businessDetails.barangay }}
+              {{ businessDetails.block_no }}
+            </div>
+          </div>
+          <div class="meta-text w4 no-bb">
+            <div class="meta-label">Lot No. :</div>
+            <div class="meta-value">
+              {{ businessDetails.lot_no }}
             </div>
           </div>
           <div class="meta-text w6 no-br no-bb">
@@ -157,11 +163,50 @@
             </div>
           </div>
           <div class="meta-text w6 no-bb">
+            <div class="meta-label">Subdivision :</div>
+            <div class="meta-value">
+              {{ businessDetails.subdivision }}
+            </div>
+          </div>
+          <div class="meta-text w6 no-br no-bb">
+            <div class="meta-label">Building No :</div>
+            <div class="meta-value">
+              {{ businessDetails.building_no }}
+            </div>
+          </div>
+          <div class="meta-text w6 no-bb">
+            <div class="meta-label">Building Name :</div>
+            <div class="meta-value">
+              {{ businessDetails.building_name }}
+            </div>
+          </div>
+          <div class="meta-text w6 no-br no-bb">
+            <div class="meta-label">Unit No :</div>
+            <div class="meta-value">
+              {{ businessDetails.unit_no }}
+            </div>
+          </div>
+          <div class="meta-text w6 no-bb">
+            <div class="meta-label">Floor No :</div>
+            <div class="meta-value">
+              {{ businessDetails.floor_no }}
+            </div>
+          </div>
+          <div class="meta-text w6 no-br">
+            <div class="meta-label">Barangay :</div>
+            <div class="meta-value">
+              {{ businessDetails.barangay }}
+            </div>
+          </div>
+          <div class="meta-text w6">
             <div class="meta-label">City :</div>
             <div class="meta-value">
               {{ businessDetails.city }}
             </div>
           </div>
+        </div>
+        <div class="meta-text-group flex-wrap">
+          <div class="meta-group-title">Other Business Details :</div>
           <div class="meta-text no-bb">
             <div class="meta-label">Telephone / Mobile No. :</div>
             <div class="meta-value">
@@ -214,7 +259,7 @@
               }} -->
             </div>
           </div>
-          <div class="meta-text">
+          <div class="meta-text no-bb">
             <div class="meta-label">Email Address :</div>
             <div class="meta-value">
               {{ businessBasicInformation.owner_email_address }}
