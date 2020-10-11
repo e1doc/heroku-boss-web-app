@@ -9,7 +9,14 @@
       <div class="meta-group-title">
         A. Legal Documents - Only one PDF File for all legal documents.
       </div>
-
+      <div class="meta-check-group">
+        <div @click="checkRequirements(legal_documents, true)">
+          <font-awesome-icon icon="check" class="mr5 check-icon" />Check All
+        </div>
+        <div @click="checkRequirements(legal_documents, false)">
+          <font-awesome-icon icon="times" class="mr5 x-icon" /> Uncheck All
+        </div>
+      </div>
       <ul class="parent-list">
         <!-- A. LEGAL DOCUMENTS 1 -->
         <li>
@@ -228,6 +235,14 @@
     </div>
     <div class="meta-form-group mb60">
       <div class="meta-group-title">B. Technical Documents</div>
+      <div class="meta-check-group">
+        <div @click="checkRequirements(technical_documents, true)">
+          <font-awesome-icon icon="check" class="mr5 check-icon" />Check All
+        </div>
+        <div @click="checkRequirements(technical_documents, false)">
+          <font-awesome-icon icon="times" class="mr5 x-icon" /> Uncheck All
+        </div>
+      </div>
       <!-- <base-file-uploader
         label="1. Unified Application form for Building Permit and FSEC"
         name="unifiedapplicationform"
@@ -601,6 +616,14 @@
     <!-- C. Supplementary Documents  -->
     <div class="meta-form-group mb60">
       <div class="meta-group-title">C. Supplementary Documents</div>
+      <div class="meta-check-group">
+        <div @click="checkRequirements(supplementary_documents, true)">
+          <font-awesome-icon icon="check" class="mr5 check-icon" />Check All
+        </div>
+        <div @click="checkRequirements(supplementary_documents, false)">
+          <font-awesome-icon icon="times" class="mr5 x-icon" /> Uncheck All
+        </div>
+      </div>
       <ul class="parent-list">
         <!-- C. SUPPLEMENTARY DOCS 1 -->
         <li>
@@ -753,7 +776,7 @@ export default {
       uploadErrors: {
         tct: false,
         architectural_permit: false,
-        sketch_pin: false
+        sketch_pin: false,
       },
     };
   },
@@ -769,6 +792,13 @@ export default {
     ]),
   },
   methods: {
+    checkRequirements(type, action) {
+      for(let item in type){
+        type[item] = action
+        console.log(type[item])
+      }
+      console.log(type)
+    },
     validateRequiredFields() {
       this.uploadErrors = {};
       let validated = [];
@@ -776,16 +806,16 @@ export default {
         if (this.buildingRequirements.buildingrequirements) {
           if (this.buildingRequirements.buildingrequirements.length > 0) {
             this.buildingRequirements.buildingrequirements.map((item) => {
-              if(!validated.includes(item.requirements_label)){
-             if (this.required.includes(item.requirements_label)) {
-                validated.push(item.requirements_label);
-              }
+              if (!validated.includes(item.requirements_label)) {
+                if (this.required.includes(item.requirements_label)) {
+                  validated.push(item.requirements_label);
+                }
               }
             });
-          }else{
+          } else {
             this.required.forEach((element) => {
               this.uploadErrors[`${element}`] = true;
-          });
+            });
           }
           this.required.forEach((element) => {
             if (!validated.includes(element)) {
@@ -795,7 +825,6 @@ export default {
           if (validated.length === this.required.length) {
             return true;
           } else {
-           
             return false;
           }
         } else {
@@ -815,7 +844,10 @@ export default {
       if (!this.draftProperty) {
         let isValidated = this.validateRequiredFields();
         if (isValidated) {
-          let payload = { is_draft: false, is_disapprove: this.buildingApplication.is_disapprove };
+          let payload = {
+            is_draft: false,
+            is_disapprove: this.buildingApplication.is_disapprove,
+          };
           await this.$store.dispatch("updateBuildingApplication", payload);
           if (this.legalDocuments.id) {
             await this.editBuildingCheckList();
@@ -950,6 +982,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.meta-check-group {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+  div {
+    padding: 10px;
+    cursor: pointer;
+    color: #2699fb;
+    font-weight: 700;
+    .check-icon {
+      color: #81c784;
+      font-size: 14px;
+    }
+    .x-icon {
+      color: #e23a36;
+    }
+  }
+  div:hover {
+    text-decoration: underline;
+  }
+}
 div.meta-container {
   width: 100%;
   padding: 50px;
