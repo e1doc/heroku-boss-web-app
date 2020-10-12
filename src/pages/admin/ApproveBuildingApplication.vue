@@ -863,12 +863,12 @@
             !buildingApplication.is_disapprove
           "
         > -->
-
+  
           <div
             class="meta-button-group flex-center"
             v-if="
               !buildingApplication.is_approve &&
-                !buildingApplication.is_disapprove
+              !buildingApplication.is_disapprove && (groups.includes('superadmin') || groups.includes('building_application_approver'))
             "
           >
             <button-block
@@ -927,6 +927,7 @@ export default {
       "technicalDocuments",
       "supplementaryDocuments",
       "currentInquiry",
+      "groups"
     ]),
   },
   data() {

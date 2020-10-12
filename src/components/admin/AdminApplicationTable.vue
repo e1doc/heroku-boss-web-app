@@ -3,7 +3,7 @@
     <div class="thead">
       <div class="th">APPLICATION #</div>
       <div class="th">DATE</div>
-      <div class="th" v-if="currentType === 'business'">Account #</div>
+      <!-- <div class="th" v-if="currentType === 'business'">Account #</div> -->
       <div class="th" v-if="currentType === 'real_property'">TD #</div>
       <div class="th">STATUS</div>
       <div class="th">ACTIONS</div>
@@ -94,11 +94,11 @@
           <div class="td">
             {{ application.created_at | moment("MMMM DD YYYY") }}
           </div>
-          <div class="td">
+          <!-- <div class="td">
             {{
               application.account_number ? application.account_number : "N/A"
             }}
-          </div>
+          </div> -->
           <div class="td">
             {{
               application.is_draft
@@ -205,11 +205,18 @@ export default {
       "applications",
       "buildingApplications",
       "pageCount",
+      "groups"
     ]),
   },
   mounted() {
     this.$store.dispatch("getAllBusinessApplications");
     this.$store.dispatch("getAllBuildingApplications");
+    if(this.groups.includes('superadmin') || this.groups.includes('business_application_approver') || this.groups.includes('business_application_read')){
+      this.$store.commit('setCurrentType','business')
+    }else{
+      console.log('her her')
+      this.$store.commit('setCurrentType','real_property')
+    }
   },
   methods: {
     businessClickCallback(pageNum) {

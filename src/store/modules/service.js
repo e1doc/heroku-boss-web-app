@@ -61,7 +61,7 @@ const mutations = {
   setIsAuthenticated: (state, isAuthenticated) => (state.isAuthenticated = isAuthenticated),
   setAdminIsAuthenticated: (state, isAdminAuthenticated) => (state.isAdminAuthenticated = isAdminAuthenticated),
   resetAuthState: (state) => Object.assign(state, getDefaultAuthState()),
-  setCredentials : (state, credentials) => (state.credentials = credentials) 
+  setCredentials : (state, credentials) => (state.credentials = credentials)
 };
 
 const actions = {
@@ -182,6 +182,7 @@ const actions = {
       const response = await axios.post(`${baseUrl}/auth/admin/`,payload)
       commit('setAuthToken',response.data.token)
       dispatch("checkIfAdmin")
+      dispatch('checkGroups')
     } catch (err) {
       console.log(err.data)
       commit("setLoading", false);

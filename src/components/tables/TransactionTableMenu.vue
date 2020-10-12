@@ -5,6 +5,7 @@
         <div
           :class="{ active: currentType === 'business' }"
           @click="changeType('business')"
+          v-if="groups.includes('superadmin') || groups.includes('business_application_approver') || groups.includes('business_application_read')"
         >
           <font-awesome-icon icon="store" class="mr5 icon" />
           BUSINESS
@@ -14,6 +15,7 @@
         <div
           :class="{ active: currentType === 'real_property' }"
           @click="changeType('real_property')"
+          v-if="groups.includes('superadmin') || groups.includes('building_application_approver') || groups.includes('building_application_read')"
         >
           <font-awesome-icon icon="city" class="mr5 icon" />
           BUILDING
@@ -46,7 +48,10 @@ export default {
     BaseSelect,
   },
   computed: {
-    ...mapGetters(["currentType", "currentTable", "filterBy"]),
+    ...mapGetters(["currentType", "currentTable", "filterBy", "groups"]),
+  },
+  mounted(){
+    console.log(this.groups)
   },
   props: {
     type: {

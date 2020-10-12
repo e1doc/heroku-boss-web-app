@@ -463,7 +463,7 @@
             class="meta-button-group flex-center"
             v-if="
               !businessApplication.is_approve &&
-                !businessApplication.is_disapprove
+              !businessApplication.is_disapprove && (groups.includes('superadmin') || groups.includes('business_application_approver'))
             "
           >
             <button-block
@@ -519,7 +519,8 @@ export default {
       "businessActivities",
       "applicationRequirements",
       "requirements",
-      "currentInquiry"
+      "currentInquiry",
+      "groups"
     ]),
   },
   mounted() {
