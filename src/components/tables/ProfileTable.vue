@@ -118,7 +118,6 @@ export default {
   },
   methods: {
     showModal() {
-      console.log("show");
       this.$modal.show("invoiceModal");
     },
   },

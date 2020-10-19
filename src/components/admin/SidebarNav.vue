@@ -25,6 +25,12 @@
                         APPLICATIONS
                     </router-link>
                 </li>
+                <li class="admin-item" :class="{ active: currentAdminTab  === 'appointments'}" @click="changeTab('appointments')">
+                    <router-link :to="{name:'AdminAppointment'}">
+                        <font-awesome-icon icon="calendar" class="admin-icon"/>
+                        APPOINTMENTS 
+                    </router-link>
+                </li>
                 <li class="admin-item" :class="{ active: currentAdminTab  === 'inquiries'}" @click="changeTab('inquiries')">
                     <router-link :to="{name:'Inquiries'}">
                         <font-awesome-icon icon="comment-alt" class="admin-icon"/>

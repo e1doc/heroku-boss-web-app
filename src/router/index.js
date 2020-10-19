@@ -25,6 +25,8 @@ import Inquiries from "../pages/admin/Inquiries";
 import ReplyInquiry from "../pages/admin/ReplyInquiry";
 import ApproveBusinessApplication from "../pages/admin/ApproveBusinessApplication.vue";
 import ApproveBuildingApplication from "../pages/admin/ApproveBuildingApplication.vue";
+import AdminAppointment from "../pages/admin/AdminAppointment.vue";
+import Appointment from "../pages/Appointment"
 import TestPage from "../pages/TestPage";
 import store from "../store";
 Vue.use(VueRouter);
@@ -129,6 +131,11 @@ const routes = [{
         name: "TestPage",
         component: TestPage,
       },
+      {
+        path: "appointment",
+        name: "Appointment",
+        component: Appointment,
+      },
     ],
     async beforeEnter(to, from, next) {
       let hasPermission = await store.state.service.isAuthenticated;
@@ -196,6 +203,11 @@ const routes = [{
         path: "approve-business-application",
         name: "ApproveBusinessApplication",
         component: ApproveBusinessApplication,
+      },
+      {
+        path: "appointments",
+        name: "AdminAppointment",
+        component: AdminAppointment,
       },
     ],
     async beforeEnter(to, from, next) {

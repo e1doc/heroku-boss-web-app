@@ -34,7 +34,7 @@ const getters = {
   promptMessage: (state) => state.promptMessage,
   currentApplicationStep: (state) => state.currentApplicationStep,
   applicationType: (state) =>  state.applicationType,
-  currentAdminTab: (state) => state.currentAdminTab  
+  currentAdminTab: (state) => state.currentAdminTab
 };
 
 const actions = {
@@ -68,7 +68,7 @@ const mutations = {
   setCurrentApplicationStep: (state, currentApplicationStep) => (state.currentApplicationStep = currentApplicationStep),
   resetUIState: (state) => Object.assign(state, getDefaultUIState()),
   setApplicationType: (state, applicationType) => (state.applicationType = applicationType),
-  setAdminCurrentTab: (state, currentAdminTab) => (state.currentAdminTab = currentAdminTab)
+  setAdminCurrentTab: (state, currentAdminTab) => (state.currentAdminTab = currentAdminTab),
 };
 
 export default {
