@@ -7,7 +7,7 @@
           @click="changeType('pending')"
         >
           <font-awesome-icon icon="store" class="mr5 icon" />
-          PENDING
+          APPOINTMENT SLOTS
         </div>
       </div>
       <div class="menu-type">
@@ -20,6 +20,14 @@
         </div>
       </div>
     </div>
+     <div class="right-div flex-row flex-grow">
+        <div class="menu-type">
+          <div class="active" >
+            <font-awesome-icon icon="plus" class="mr5 icon" />
+            ADD
+          </div>
+        </div>
+     </div>
   </div>
 </template>
 
@@ -129,9 +137,27 @@ export default {
       }
     }
   }
-  .right-div {
-    width: 50%;
-    justify-content: flex-end;
+.right-div {
+  justify-content: flex-end;
+  .menu-type {
+    color: #f09795;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 10px 0;
+    margin-right: 15px;
+    div {
+      padding: 10px;
+      cursor: pointer;
+      border: 3px solid #ffffff;
+      transition: 0.3s;
+    }
+    .active {
+      border-color: #FADDDD;
+      border-radius: 5px;
+      color: #e23a36;
+      font-weight: bold;
+    }
   }
+}
 }
 </style>

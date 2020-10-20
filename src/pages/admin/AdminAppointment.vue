@@ -8,7 +8,8 @@
       <appointment-table-menu type="profile" />
       <div class="admin-content">
         <div v-if="appointmentStatus === 'pending'">
-          <FullCalendar :options="calendarOptions1" />
+          <!-- <FullCalendar :options="calendarOptions1" /> -->
+          <appointment-limit/>
         </div>
         <div v-if="appointmentStatus === 'approved'">
           <FullCalendar :options="calendarOptions2" />
@@ -24,11 +25,13 @@ import FullCalendar from "@fullcalendar/vue";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { mapGetters } from "vuex"
+import AppointmentLimit from "@/components/tables/AppointmentLimit"
 export default {
   name: "AdminAppointment",
   components: {
     AppointmentTableMenu,
     FullCalendar,
+    AppointmentLimit
   },
   computed: {
     ...mapGetters(["appointmentStatus"]),

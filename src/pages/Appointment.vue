@@ -72,7 +72,7 @@ export default {
         this.appointments.forEach((item) => {
           let event = {
             id: item.id,
-            title: `${item.title} \n Status: ${item.is_approve}`,
+            title: `${item.title}`,
             start: moment
               .tz(item.appointment_date, "Asia/Manila")
               .format("YYYY-MM-DD"),

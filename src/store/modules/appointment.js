@@ -5,7 +5,9 @@ const getDefaultAppointmentState =  () => {
         appointmentStatus: "pending",
         currentDate: "",
         isAppointmentSuccess: false,
-        appointments: []
+        appointments: [],
+        appointmentError: "",
+        appointmentLimits: []
     }
 }
 
@@ -15,14 +17,18 @@ const getters = {
     appointmentStatus: (state) => state.appointmentStatus,
     currentDate: (state) => state.currentDate,
     isAppointmentSuccess: (state) => state.isAppointmentSuccess,
-    appointments: (state) => state.appointments
+    appointments: (state) => state.appointments,
+    appointmentError: (state) => state.appointmentError,
+    appointmentLimits: (state) => state.appointmentLimits
 }
 
 const mutations = {
   setAppointmentStatus: (state, appointmentStatus) => ( state.appointmentStatus = appointmentStatus ),
   setCurrentDate: (state, currentDate) => (state.currentDate = currentDate),
   setIsAppointmentSuccess: (state, isAppointmentSuccess) => (state.isAppointmentSuccess = isAppointmentSuccess),
-  setAppointments: (state, appointments) => (state.appointments = appointments )
+  setAppointments: (state, appointments) => (state.appointments = appointments ),
+  setAppointmentError: (state, appointmentError) => (state.appointmentError = appointmentError),
+  setAppointmentLimits: (state, appointmentLimits) => (state.appointmentLimits = appointmentLimits)
 }
 
 const actions = {
@@ -31,11 +37,12 @@ const actions = {
             const response = await axios.post(`${baseUrl}/api/appointment/`, payload,{
                 headers: { Authorization: `jwt ${getters.authToken}` },
             });
-            commit('setIsAppointmentSuccess', true)
+            await commit('setIsAppointmentSuccess', true)
             await dispatch('getUserAppointments')
         } catch (err) {
-            console.log(err);
+            console.log(err)
             commit('setIsAppointmentSuccess', false)
+            commit('setAppointmentError',err.response.data)
         }
     },
     async getUserAppointments({ commit, getters  }){
@@ -47,6 +54,17 @@ const actions = {
         } catch (err) {
             console.log(err);
             commit('setIsAppointmentSuccess', false)
+        }
+    },
+    async appointmentLimits({commit, getters}, page = 1){
+        try {
+            const response = await axios.get(`${baseUrl}/staff/appointment-limit-list/?page=${page}`, {
+                headers: { Authorization: `jwt ${getters.authToken}` },
+            })
+            commit("setPageCount", response.data.total_pages);
+            commit('setAppointmentLimits', response.data.results)
+        } catch (err) {
+            console.log(err)
         }
     }
 }

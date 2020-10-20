@@ -187,7 +187,6 @@ const actions = {
         `${baseUrl}/staff/business-permit-application-list/?page=${page}&filter_by=${getters.filterBy}&id=${getters.businessSearch}`,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-      console.log(response.data);
       commit("setPageCount", response.data.total_pages);
       commit("setApplications", response.data.results);
     } catch (err) {
