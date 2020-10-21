@@ -94,6 +94,7 @@ export default {
   },
   mounted() {
     this.getRemarks();
+    console.log(this.buildingApplication)
   },
     beforeRouteLeave(to, from, next) {
       this.$store.dispatch("setApplicationRemarks", {});
@@ -102,6 +103,7 @@ export default {
   },
   methods: {
     async getRemarks() {
+      console.log('remarks', this.remarks)
       if (!this.remarks.application_number) {
         if (this.application_number !== "") {
           console.log('application number', this.application_number)
@@ -144,7 +146,7 @@ export default {
       await this.$store.commit("setLoading", false);
       if (this.type === "remarks") {
         if (this.applicationType === "building") {
-          let payload = { id: this.applicationNumber, is_approve: false };
+          let payload = { id: this.applicationNumber, is_approve: false, is_for_inspection: false };
           this.$store.dispatch("approveBuildingApplication", payload);
         } else if (this.applicationType === "business") {
           let payload = { id: this.applicationNumber, is_approve: false };

@@ -863,12 +863,14 @@
             !buildingApplication.is_disapprove
           "
         > -->
-  
+
           <div
             class="meta-button-group flex-center"
             v-if="
               !buildingApplication.is_approve &&
-              !buildingApplication.is_disapprove && (groups.includes('superadmin') || groups.includes('building_application_approver'))
+                !buildingApplication.is_disapprove &&
+                (groups.includes('superadmin') ||
+                  groups.includes('building_application_approver'))
             "
           >
             <button-block
@@ -927,7 +929,7 @@ export default {
       "technicalDocuments",
       "supplementaryDocuments",
       "currentInquiry",
-      "groups"
+      "groups",
     ]),
   },
   data() {
@@ -958,7 +960,23 @@ export default {
         if (!status) {
           this.createRemarks();
         } else {
-          let payload = { id: this.buildingApplication.id, is_approve: status };
+          let payload;
+          if (
+            this.buildingApplication.is_for_inspection === false &&
+            status === true
+          ) {
+            payload = {
+              id: this.buildingApplication.id,
+              is_approve: false,
+              is_for_inspection: status,
+            };
+          } else {
+             payload = {
+              id: this.buildingApplication.id,
+              is_approve: status,
+              is_for_inspection: false,
+            };
+          }
           this.$store.dispatch("approveBuildingApplication", payload);
         }
       }
@@ -978,11 +996,14 @@ export default {
             user: this.buildingApplication.user,
           },
         });
-      }else{
-        this.$store.commit('setContinueBuildingThread', true)
-        console.log('building id', this.buildingApplication.id)
-        this.$store.commit('setCurrentBuildingId', this.buildingApplication.id)
-        this.$router.push({name:'ReplyInquiry', params:{thread: this.currentInquiry}})
+      } else {
+        this.$store.commit("setContinueBuildingThread", true);
+        console.log("building id", this.buildingApplication.id);
+        this.$store.commit("setCurrentBuildingId", this.buildingApplication.id);
+        this.$router.push({
+          name: "ReplyInquiry",
+          params: { thread: this.currentInquiry },
+        });
       }
     },
     showSingle() {

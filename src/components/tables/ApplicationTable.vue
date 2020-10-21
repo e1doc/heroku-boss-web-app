@@ -87,8 +87,10 @@
                 : application.is_approve
                 ? "FOR PAYMENT"
                 : application.is_disapprove
-                ? "DISAPPROVED":
-                "FOR APPROVAL"
+                ? "DISAPPROVED"
+                : application.is_for_inspection
+                ? "FOR INSPECTION"
+                : "FOR APPROVAL"
             }}
           </div>
           <div class="td actions">

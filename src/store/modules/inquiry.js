@@ -133,8 +133,9 @@ const actions = {
   async getBusinessRemarks({ commit, getters }, payload){
     try {
       const response = await axios.get(`${baseUrl}/api/business-remarks-thread/?id=${payload}`, {headers: {Authorization: `jwt ${getters.authToken}`} })
-      commit('setCurrentInquiry', response.data.id)
-      console.log(response.data.id)
+      if(response.data.id){
+        commit('setCurrentInquiry', response.data.id)
+      }
     } catch (err) {
       console.log(err.response);
     }
@@ -142,7 +143,9 @@ const actions = {
   async getBuildingRemarks({ commit, getters }, payload){
     try {
       const response = await axios.get(`${baseUrl}/api/building-remarks-thread/?id=${payload}`, {headers: {Authorization: `jwt ${getters.authToken}`} })
-      commit('setCurrentInquiry', response.data.id)
+      if(response.data.id){
+        commit('setCurrentInquiry', response.data.id)
+      }
     } catch (err) {
       console.log(err.response);
     }

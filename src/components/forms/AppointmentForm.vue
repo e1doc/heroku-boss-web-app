@@ -2,7 +2,7 @@
   <div class="container form-section">
     <div class="flex-column">
       <div class="meta-input-label mt10 mb10">
-        Appointment Type
+        Appointment Type:
       </div>
       <base-select
         placeholder="--- Select from the options ---"
@@ -12,7 +12,7 @@
         class="mb15"
       />
       <div class="meta-input-label mt10 mb10">
-        Batch
+        Batch:
       </div>
       <base-select
         placeholder="--- Select from the options ---"

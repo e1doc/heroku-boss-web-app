@@ -79,6 +79,10 @@ export default {
           value: "disapproved",
         },
         {
+          label: "For Inspection",
+          value: "isForInspection",
+        },
+        {
           label: "For Approval",
           value: "forApproval",
         },

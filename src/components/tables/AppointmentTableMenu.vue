@@ -22,7 +22,7 @@
     </div>
      <div class="right-div flex-row flex-grow">
         <div class="menu-type">
-          <div class="active" >
+          <div class="active" @click="showForm">
             <font-awesome-icon icon="plus" class="mr5 icon" />
             ADD
           </div>
@@ -46,6 +46,7 @@ export default {
   },
   mounted(){
   },
+
   data() {
     return {
       search: "",
@@ -72,6 +73,9 @@ export default {
     };
   },
   methods: {
+    showForm(){
+      this.$modal.show("appointmentLimitModal");
+    },
     searchData(){
       if(this.currentType === 'real_property'){
         this.$store.commit('setBuildingSearch', this.search)

@@ -1,5 +1,8 @@
 <template>
   <section>
+    <modal name="appointmentLimitModal" width="50%" height="auto" :adaptive="true"
+      ><appointment-limit-form
+    /></modal>
     <div>
       <div class="thead hide-in-mobile">
         <div class="th">FROM</div>
@@ -9,10 +12,16 @@
       </div>
       <div>
         <div class="tbody">
-          <div class="tr" v-for="(item, index) in appointmentLimits" :key="index">
-            <div class="td">{{item.start_date | moment("MMMM DD, YYYY")}}</div>
-            <div class="td">{{item.end_date | moment("MMMM DD, YYYY")}}</div>
-            <div class="td">{{item.count}}</div>
+          <div
+            class="tr"
+            v-for="(item, index) in appointmentLimits"
+            :key="index"
+          >
+            <div class="td">
+              {{ item.start_date | moment("MMMM DD, YYYY") }}
+            </div>
+            <div class="td">{{ item.end_date | moment("MMMM DD, YYYY") }}</div>
+            <div class="td">{{ item.count }}</div>
             <div class="td">EDIT</div>
           </div>
         </div>
@@ -28,17 +37,19 @@
 
 <script>
 import ButtonBlock from "@/components/ButtonBlock";
-import { mapGetters } from "vuex"
+import { mapGetters } from "vuex";
+import AppointmentLimitForm from "@/components/forms/AppointmentLimitForm";
 export default {
   name: "AppointmentLimit",
   components: {
     ButtonBlock,
+    AppointmentLimitForm,
   },
-    computed: {
+  computed: {
     ...mapGetters(["appointmentLimits"]),
   },
-    created(){
-    this.$store.dispatch('appointmentLimits')
+  created() {
+    this.$store.dispatch("appointmentLimits");
   },
 };
 </script>

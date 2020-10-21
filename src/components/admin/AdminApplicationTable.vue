@@ -166,6 +166,8 @@
                 ? "FOR PAYMENT"
                 : application.is_disapprove
                 ? "DISAPPROVED"
+                :application.is_for_inspection
+                ? 'FOR INSPECTION'
                 : "FOR APPROVAL"
             }}
           </div>
@@ -267,6 +269,7 @@ export default {
           id: data.id,
           is_draft: data.is_draft,
           is_approve: data.is_approve,
+          is_for_inspection: data.is_for_inspection,
           is_disapprove: data.is_disapprove,
           created_at: data.created_at,
           user: data.user
