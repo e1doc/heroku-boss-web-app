@@ -1,22 +1,23 @@
 <template>
   <section>
       <!-- <building-upload-step/> -->
-      <business-step-two/>
+      <!-- <business-step-two/> -->
       <!-- <div class="countdown-timer">
         {{ timerCount }}
       </div> -->
       <!-- <otp-div/> -->
-      <view-business-details/>
-      <downloadable-business-form/>
-      <approve-business-application/>
+      <!-- <view-building-details/> -->
+      <!-- <downloadable-business-form/> -->
+      <approve-building-application/>
   </section>
 </template>
 
 <script>
 import BusinessStepTwo from "@/components/application/BusinessStepTwo";
-import ViewBusinessDetails from "@/pages/ViewBusinessDetails";
-import ApproveBusinessApplication from "@/pages/admin/ApproveBusinessApplication";
+import ViewBuildingDetails from "@/pages/ViewBuildingDetails";
+import ApproveBuildingApplication from "@/pages/admin/ApproveBuildingApplication";
 import BusinessUploadStep from "@/components/application/BusinessUploadStep";
+import BuildingUploadStep from "@/components/application/BuildingUploadStep";
 import DownloadableBusinessForm from "@/components/application/DownloadableBusinessForm";
 import OtpDiv from "@/components/auth/OtpDiv";
 export default {
@@ -24,10 +25,11 @@ export default {
     components: {
         BusinessStepTwo,
         BusinessUploadStep,
+        BuildingUploadStep,
         OtpDiv,
         DownloadableBusinessForm,
-        ApproveBusinessApplication,
-        ViewBusinessDetails
+        ApproveBuildingApplication,
+        ViewBuildingDetails
   },
   data() {
       return {
