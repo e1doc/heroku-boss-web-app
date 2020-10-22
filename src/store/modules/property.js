@@ -208,7 +208,7 @@ const actions = {
         payload,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-      let action = payload.is_approve ? "approved" : "disapproved";
+      let action = payload.is_for_inspection ? "approved" : payload.is_approve ? "approved" : "disapproved";
       dispatch("createPrompt", {
         type: "success",
         title: "Success!",
