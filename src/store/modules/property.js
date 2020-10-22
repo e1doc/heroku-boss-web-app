@@ -29,6 +29,8 @@ const getDefaultPropertyState = () => {
     legalDocuments: {},
     technicalDocuments: {},
     supplementaryDocuments: {},
+    designPlans: {},
+    designSpecs: {},
     currentBuildingId: 0,
     buildingSearch: ""
   };
@@ -58,6 +60,8 @@ const getters = {
   legalDocuments: (state) => state.legalDocuments,
   technicalDocuments: (state) => state.technicalDocuments,
   supplementaryDocuments: (state) => state.supplementaryDocuments,
+  designPlans: (state) => state.designPlans,
+  designSpecs: (state) => state.designSpecs,
   currentBuildingId: ( state ) => state.currentBuildingId,
   buildingSearch: ( state ) => state.buildingSearch
 };
@@ -112,7 +116,9 @@ const mutations = {
   setSupplementaryDocuments: (state, supplementaryDocuments) =>
     (state.supplementaryDocuments = supplementaryDocuments),
   setCurrentBuildingId: (state, currentBuildingId) => (state.currentBuildingId = currentBuildingId),
-  setBuildingSearch: (state, buildingSearch) => (state.buildingSearch = buildingSearch)
+  setBuildingSearch: (state, buildingSearch) => (state.buildingSearch = buildingSearch),
+  setDesignPlans: (state, designPlans) => (state.designPlans = designPlans),
+  setDesignSpecs: (state, designSpecs) => (state.designSpecs = designSpecs)
 };
 
 const actions = {
@@ -433,6 +439,10 @@ const actions = {
               commit("setTechnicalDocuments", item);
             } else if (item.category === "supplementary") {
               commit("setSupplementaryDocuments", item);
+            } else if (item.category === 'design_plans'){
+              commit("setDesignPlans", item);
+            }else if(item.category === 'design_specs'){
+              commit("setDesignSpecs", item);
             }
           });
         }

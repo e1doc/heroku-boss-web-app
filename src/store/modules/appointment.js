@@ -45,6 +45,19 @@ const actions = {
             commit('setAppointmentError',err.response.data)
         }
     },
+    async addAppointmentLimit({ commit, getters, dispatch }, payload){
+        try {
+            const response = await axios.post(`${baseUrl}/staff/appointment-limit/`, payload,{
+                headers: { Authorization: `jwt ${getters.authToken}` },
+            });
+            await commit('setIsAppointmentSuccess', true)
+            await dispatch('appointmentLimits')
+        } catch (err) {
+            console.log(err)
+            commit('setIsAppointmentSuccess', false)
+            commit('setAppointmentError',err.response.data)
+        }
+    },
     async getUserAppointments({ commit, getters  }){
         try {
             const response = await axios.get(`${baseUrl}/api/appointment/`,{

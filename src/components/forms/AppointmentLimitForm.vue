@@ -4,19 +4,20 @@
       <div class="meta-input-label mt10 mb10">
         From:
       </div>
-      <base-date-picker class="mb15" />
+      <base-date-picker class="mb15" v-model="start_date"/>
       <div class="meta-input-label mt10 mb10">
         To:
       </div>
-      <base-date-picker class="mb25" />
+      <base-date-picker class="mb25" v-model="end_date"/>
       <base-input
         label="Slots:"
         name="slots"
         refs="appointment_slot"
         type="number"
         class="mt40"
+        v-model="count"
       />
-       <button-block @click.native="setAppointment()"
+       <button-block @click.native="setAppointmentLimit()"
         >Submit</button-block
       >
     </div>
@@ -42,28 +43,29 @@ export default {
   },
   data() {
     return {
-      appointmentType: "",
-      batch: "",
+      start_date: "",
+      end_date: "",
+      count: 0
     };
   },
   methods: {
-    async setAppointment() {
+    async setAppointmentLimit() {
       let payload = {
-        title: this.appointmentType,
-        batch: this.batch,
-        appointment_date: this.currentDate,
+        start_date: this.start_date,
+        end_date: this.end_date,
+        count: this.count,
       };
-      await this.$store.dispatch("addAppointment", payload);
+      await this.$store.dispatch("addAppointmentLimit", payload);
       console.log(this.isAppointmentSuccess);
       if (this.isAppointmentSuccess) {
-        this.$modal.hide("appointmentModal");
+        this.$modal.hide("appointmentLimitModal");
         this.$swal({
           title: "Success!",
-          text: "Appointment was submitted successfully.",
+          text: "Appointment slot settings was submitted successfully..",
           icon: "success",
         });
       } else {
-        this.$modal.hide("appointmentModal");
+        this.$modal.hide("appointmentLimitModal");
         this.$swal({
           title: "Failed!",
           text: this.appointmentError,

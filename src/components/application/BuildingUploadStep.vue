@@ -2,8 +2,7 @@
   <div class="meta-container flex-center building-application">
     <h1 class="meta-form-title">Upload your Requirements</h1>
     <div class="meta-note">
-      Almost Done! Please upload your file. Only allowed format - jpg, jpeg, png
-      or pdf file.
+      Almost Done! Please upload your file. Only allowed format - PDF.
     </div>
 
 <!----------------------------- A. LEGAL DOCUMENTS ------------------------------------------>
@@ -482,7 +481,7 @@ export default {
         tct: false,
         architectural_permit: false,
         design_plans: false,
-        sketch_pin: false,
+        design_specs: false,
         sketch_pin: false,
       },
     };
@@ -496,6 +495,8 @@ export default {
       "legalDocuments",
       "technicalDocuments",
       "supplementaryDocuments",
+      "designPlans",
+      "designSpecs"
     ]),
   },
   methods: {
@@ -576,11 +577,10 @@ export default {
       let parseLegalDocs = JSON.stringify(this.legal_documents);
       let parseTechnicalDocs = JSON.stringify(this.technical_documents);
       let parseSupplementaryDocs = JSON.stringify(this.supplementary_documents);
+      let parseDesignPlans = JSON.stringify(this.design_plans)
+      let parseDesignSpecs = JSON.stringify(this.design_specs)
       this.$store.commit("setLoading", true);
 
-      console.log("legal ", this.legalDocuments.id);
-      console.log("technical ", this.technicalDocuments.id);
-      console.log("supplementary ", this.supplementaryDocuments.id);
 
       await this.$store.dispatch("setBuildingCheckList", {
         application_number: this.buildingApplicationRequirements.id,
@@ -599,12 +599,27 @@ export default {
         value: parseSupplementaryDocs,
         category: "supplementary",
       });
+
+      await this.$store.dispatch("setBuildingCheckList", {
+        application_number: this.buildingApplicationRequirements.id,
+        value: parseDesignPlans,
+        category: "design_plans",
+      });
+
+      await this.$store.dispatch("setBuildingCheckList", {
+        application_number: this.buildingApplicationRequirements.id,
+        value: parseDesignSpecs,
+        category: "design_specs",
+      });
+
       this.$store.commit("setLoading", false);
     },
     async editBuildingCheckList() {
       let parseLegalDocs = JSON.stringify(this.legal_documents);
       let parseTechnicalDocs = JSON.stringify(this.technical_documents);
       let parseSupplementaryDocs = JSON.stringify(this.supplementary_documents);
+      let parseDesignPlans = JSON.stringify(this.design_plans);
+      let parseDesignSpecs = JSON.stringify(this.design_specs);
       this.$store.commit("setLoading", true);
 
       await this.$store.dispatch("updateBuildingCheckList", {
@@ -627,6 +642,19 @@ export default {
         value: parseSupplementaryDocs,
         application_number: this.buildingApplicationRequirements.id,
       });
+      await this.$store.dispatch("updateBuildingCheckList", {
+        id: this.designPlans.id,
+        category: "design_plans",
+        value: parseDesignPlans,
+        application_number: this.buildingApplicationRequirements.id,
+      });
+      console.log('specs', this.designSpecs.id)
+      await this.$store.dispatch("updateBuildingCheckList", {
+        id: this.designSpecs.id,
+        category: "design_specs",
+        value: parseDesignSpecs,
+        application_number: this.buildingApplicationRequirements.id,
+      });
       this.$store.commit("setLoading", false);
     },
     async getRequirements() {
@@ -643,6 +671,16 @@ export default {
         if (this.supplementaryDocuments.id) {
           this.supplementary_documents = await JSON.parse(
             this.supplementaryDocuments.value
+          );
+        }
+        if (this.designPlans.id) {
+          this.design_plans = await JSON.parse(
+            this.designPlans.value
+          );
+        }
+        if (this.designSpecs.id) {
+          this.designSpecs = await JSON.parse(
+            this.designSpecs.value
           );
         }
       }

@@ -633,10 +633,13 @@ export default {
     this.$store.commit("setLegalDocuments", {});
     this.$store.commit("setTechnicalDocuments", {});
     this.$store.commit("setSupplementaryDocuments", {});
+    this.$store.commit("setDesignPlans", {});
+    this.$store.commit("setDesignSpecs", {});
     next();
   },
   mounted() {
     this.getRequirements();
+    console.log(this.designSpecs)
   },
   computed: {
     ...mapGetters([
@@ -650,6 +653,8 @@ export default {
       "legalDocuments",
       "technicalDocuments",
       "supplementaryDocuments",
+      "designPlans",
+      "designSpecs",
       "currentInquiry",
       "groups",
     ]),
@@ -758,6 +763,8 @@ export default {
         this.supplementary_documents = JSON.parse(
           this.supplementaryDocuments.value
         );
+        this.design_plans = JSON.parse(this.designPlans.value)
+        this.design_specs = JSON.parse(this.designSpecs.value)
       }
     },
     replaceUrl(url) {

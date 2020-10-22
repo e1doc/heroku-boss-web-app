@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     onInput(data) {
-      data = moment.tz(data, "Asia/Manila").format();
+      data = moment(data).local().format();
       this.$emit("input", data);
     },
   },
