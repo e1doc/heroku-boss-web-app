@@ -7,12 +7,11 @@
     <div class="admin-body flex-wrap">
       <appointment-table-menu type="profile" />
       <div class="admin-content">
-        <div v-if="appointmentStatus === 'pending'">
-          <!-- <FullCalendar :options="calendarOptions1" /> -->
+        <div v-if="appointmentStatus === 'slot'">
           <appointment-limit/>
         </div>
-        <div v-if="appointmentStatus === 'approved'">
-          <FullCalendar :options="calendarOptions2" />
+        <div v-if="appointmentStatus === 'appointment'">
+          Insert table here
         </div>
       </div>
     </div>
@@ -38,68 +37,13 @@ export default {
   },
   data() {
     return {
-      calendarOptions1: {
-        plugins: [dayGridPlugin, interactionPlugin],
-        initialView: "dayGridMonth",
-        weekends: false,
-        selectable: true,
-        events: [
-          {
-            id: 1,
-            title: "Lorem",
-            start: "2020-10-08",
-          },
-          {
-            id: 2,
-            title: "Lorem",
-            start: "2020-10-08",
-          },
-          {
-            id: 3,
-            title: "Lorem",
-            start: "2020-10-08",
-          },
-        ],
-        dateClick: this.handleDateClick,
-        dayMaxEvents: true,
-        views: {
-          dayGrid: {
-            dayMaxEvents: 2, // adjust to 6 only for timeGridWeek/timeGridDay
-          },
-        },
-      },
-      calendarOptions2: {
-        plugins: [dayGridPlugin, interactionPlugin],
-        initialView: "dayGridMonth",
-        weekends: false,
-        selectable: true,
-        events: [
-          {
-            id: 1,
-            title: "Ipsum",
-            start: "2020-10-08",
-          },
-          {
-            id: 2,
-            title: "Ipsum",
-            start: "2020-10-08",
-          },
-          {
-            id: 3,
-            title: "Ipsum",
-            start: "2020-10-08",
-          },
-        ],
-        dateClick: this.handleDateClick,
-        dayMaxEvents: true,
-        views: {
-          dayGrid: {
-            dayMaxEvents: 2, // adjust to 6 only for timeGridWeek/timeGridDay
-          },
-        },
-      },
     };
   },
+  methods:{
+    handleEventClick(info){
+      console.log(info)
+    }
+  }
 };
 </script>
 

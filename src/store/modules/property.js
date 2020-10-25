@@ -134,6 +134,7 @@ const actions = {
         is_approve: response.data.is_approve,
         is_disapprove: response.data.is_disapprove,
         created_at: response.data.created_at,
+        application_status: response.data.application_status
       };
       await commit("setBuildingApplication", application);
       await commit(

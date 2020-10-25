@@ -82,25 +82,27 @@
           <div class="td">
             <span class="td-label show-in-mobile">STATUS : </span>
             {{
-              application.is_draft
-                ? "DRAFT"
-                : application.is_approve
-                ? "FOR PAYMENT"
-                : application.is_disapprove
-                ? "DISAPPROVED"
-                : application.is_for_inspection
-                ? "FOR INSPECTION"
-                : "FOR APPROVAL"
+              application.application_status == 0
+              ? 'FOR APPROVAL'
+              : application.application_status == 1
+              ? 'DISAPPROVED'
+              : application.application_status == 2
+              ? 'FOR EVALUATION'
+              : application.application_status == 3
+              ? 'FOR INSPECTION'
+              : application.application_status == 4
+              ? 'FOR COMPLIANCE'
+              : 'FOR PAYMENT'
             }}
           </div>
           <div class="td actions">
             <div @click="openBuildingApplication('edit', application)" v-if="application.is_draft">
               <font-awesome-icon icon="edit" class="mr5 view-icon" />EDIT
             </div>
-            <div @click="openBuildingApplication('view', application)" v-if="!application.is_draft && !application.is_disapprove">
+            <div @click="openBuildingApplication('view', application)" v-if="application.application_status !== 4 && application.application_status !== 1">
             <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
           </div>
-           <div @click="openBuildingRemarks(application.id)" v-if="application.is_disapprove">
+           <div @click="openBuildingRemarks(application.id)" v-if="application.application_status == 1 || application.application_status == 4">
             <font-awesome-icon icon="eye" class="mr5 view-icon" />REMARKS
           </div>
           </div>
@@ -228,6 +230,7 @@ export default {
     if(this.currentType === 'real_property'){
       this.$store.commit('setCurrentType','business')
     }
+    console.log(this.buildingApplications)
   },
   methods:{
    async openBusinessRemarks(id){
@@ -240,7 +243,7 @@ export default {
    },
     openBusinessApplication(type,data){
       if(data.id){
-        let application = {id:data.id,created_at: data.created_at, is_draft: data.is_draft, is_approve: data.is_approve, is_disapprove: data.is_disapprove,account_number: data.account_number}
+        let application = {id:data.id,created_at: data.created_at, is_draft: data.is_draft, is_approve: data.is_approve, is_disapprove: data.is_disapprove,account_number: data.account_number, application_status: data.application_status}
         this.$store.commit('setBusinessApplication', application)
       }
       if(data.businessbasicinformation !== null){

@@ -3,25 +3,25 @@
     <div class="left-div flex-center">
       <div class="menu-type">
         <div
-          :class="{ active: appointmentStatus === 'pending' }"
-          @click="changeType('pending')"
+          :class="{ active: appointmentStatus === 'slot' }"
+          @click="changeType('slot')"
         >
-          <font-awesome-icon icon="store" class="mr5 icon" />
+          <font-awesome-icon icon="calendar" class="mr5 icon" />
           APPOINTMENT SLOTS
         </div>
       </div>
       <div class="menu-type">
         <div
-          :class="{ active: appointmentStatus === 'approved' }"
-          @click="changeType('approved')"
+          :class="{ active: appointmentStatus === 'appointment' }"
+          @click="changeType('appointment')"
         >
-          <font-awesome-icon icon="city" class="mr5 icon" />
-          APPROVED
+          <font-awesome-icon icon="calendar" class="mr5 icon" />
+          APPOINTMENTS
         </div>
       </div>
     </div>
      <div class="right-div flex-row flex-grow">
-        <div class="menu-type">
+        <div class="menu-type" v-if="appointmentStatus === 'pending'">
           <div class="active" @click="showForm">
             <font-awesome-icon icon="plus" class="mr5 icon" />
             ADD

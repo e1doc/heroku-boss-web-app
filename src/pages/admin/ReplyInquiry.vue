@@ -81,27 +81,35 @@ export default {
   },
   beforeRouteLeave(to, from, next) {
     this.$store.commit("setContinueBuildingThread", false);
-    this.$store.commit("currentBuildingId", 0);
+    this.$store.commit("setCurrentBuildingId", 0);
     this.$store.commit("setContinueBusinessThread", false);
     this.$store.commit("currentBusinessId", 0);
     next();
   },
   computed: {
-    ...mapGetters(["currentTable", "inquiry", "currentInquiry", "continueBuildingThread", "currentBuildingId", "continueBusinessThread", "currentBusinessId"]),
+    ...mapGetters(["currentTable", "inquiry", "currentInquiry", "continueBuildingThread", "currentBuildingId", "continueBusinessThread", "currentBusinessId", "buildingApplication"]),
   },
   mounted() {
     this.getInquiry();
+    console.log(this.buildingApplication.application_status)
   },
   methods: {
     async getInquiry() {
-      console.log(this.thread);
       let id = this.thread != "" ? this.thread : this.currentInquiry;
       await this.$store.dispatch("getInquiry", id);
       this.messages = await this.inquiry.messages
     },
     async sendReply() {
       if(this.continueBuildingThread){
-        let payload = { id: this.currentBuildingId, is_approve: false };
+        let application_status = 0
+
+          this.buildingApplication.application_status === 0
+            ? application_status = 1
+            : this.buildingApplication.application_status === 3
+            ? application_status = 4
+            : application_status = 0
+        console.log(application_status)
+        let payload = { id: this.currentBuildingId, status: application_status };
         this.$store.dispatch("approveBuildingApplication", payload);
       }
       if(this.continueBusinessThread){

@@ -1,17 +1,21 @@
 <template>
   <section>
-    <modal name="appointmentLimitModal" width="50%" height="auto" :adaptive="true"
+    <modal
+      name="appointmentLimitModal"
+      width="50%"
+      height="auto"
+      :adaptive="true"
       ><appointment-limit-form
     /></modal>
     <div>
-      <div class="thead hide-in-mobile">
+      <!-- <div class="thead hide-in-mobile">
         <div class="th">FROM</div>
         <div class="th">TO</div>
         <div class="th">COUNT</div>
         <div class="th">ACTIONS</div>
       </div>
       <div>
-        <div class="tbody">
+        <div class="tbody" v-if="appointmentLimits.length > 0">
           <div
             class="tr"
             v-for="(item, index) in appointmentLimits"
@@ -25,12 +29,13 @@
             <div class="td">EDIT</div>
           </div>
         </div>
-        <!-- <div class="tbody" >
+        <div class="tbody" v-if="appointmentLimits.length < 1">
           <div class="tr">
             <div class="td">No data available</div>
           </div>
-        </div> -->
-      </div>
+        </div>
+      </div> -->
+      <FullCalendar ref="fullCalendar" :options="calendarOptions1" />
     </div>
   </section>
 </template>
@@ -39,17 +44,100 @@
 import ButtonBlock from "@/components/ButtonBlock";
 import { mapGetters } from "vuex";
 import AppointmentLimitForm from "@/components/forms/AppointmentLimitForm";
+import FullCalendar from "@fullcalendar/vue";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
 export default {
   name: "AppointmentLimit",
   components: {
     ButtonBlock,
+    FullCalendar,
     AppointmentLimitForm,
+  },
+  data() {
+    return {
+      calendarOptions1: {
+        plugins: [dayGridPlugin, interactionPlugin],
+        initialView: "dayGridMonth",
+        weekends: false,
+        selectable: true,
+        events: [],
+        dateClick: this.handleDateClick,
+        dayMaxEvents: true,
+        views: {
+          dayGrid: {
+            dayMaxEvents: 2, // adjust to 6 only for timeGridWeek/timeGridDay
+          },
+        },
+        customButtons: {
+          prev: {
+            // this overrides the prev button
+            text: "PREV",
+            click: () => {
+              let calendarApi = this.$refs.fullCalendar.getApi();
+              calendarApi.prev();
+              this.getLimits();
+            },
+          },
+          next: {
+            // this overrides the next button
+            text: "NEXT",
+            click: () => {
+              let calendarApi = this.$refs.fullCalendar.getApi();
+              calendarApi.next();
+              this.getLimits();
+            },
+          },
+        },
+        headerToolbar: {
+          left: "title",
+          right: "today, prev,next",
+        },
+      },
+    };
   },
   computed: {
     ...mapGetters(["appointmentLimits"]),
   },
   created() {
     this.$store.dispatch("appointmentLimits");
+  },
+  mounted() {
+    this.getLimits();
+  },
+  methods: {
+    handleMonthChange: function(arg) {
+      console.log(arg);
+    },
+    async getLimits() {
+      let calendarApi = this.$refs.fullCalendar.getApi();
+      let currentDate = calendarApi.getDate();
+      let month = currentDate.getMonth();
+      await this.$store.dispatch("getAppointmentLimits", month);
+
+      if (this.appointmentLimits.length > 0) {
+        this.calendarOptions1.events = [];
+        this.appointmentLimits.forEach((item) => {
+          let count_event = {
+            id: item.id,
+            title: `Total Slots: ${item.count}`,
+            start: item.date,
+            allDay: true,
+          };
+          let remaining_event = {
+            id: item.id,
+            title: `Remaining Slots: ${item.remaining}`,
+            start: item.date,
+            allDay: true,
+            backgroundColor: '#2ecc71',
+            borderColor: '#2ecc71',
+            description: 'Lorem'
+          }; 
+          this.calendarOptions1.events.push(count_event);
+          this.calendarOptions1.events.push(remaining_event);
+        });
+      }
+    },
   },
 };
 </script>

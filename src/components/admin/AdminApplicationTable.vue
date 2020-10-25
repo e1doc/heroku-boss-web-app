@@ -159,16 +159,18 @@
             }}
           </div>
           <div class="td">
-            {{
-              application.is_draft
-                ? "DRAFT"
-                : application.is_approve
-                ? "FOR PAYMENT"
-                : application.is_disapprove
-                ? "DISAPPROVED"
-                :application.is_for_inspection
-                ? 'FOR INSPECTION'
-                : "FOR APPROVAL"
+           {{
+              application.application_status == 0
+              ? 'FOR APPROVAL'
+              : application.application_status == 1
+              ? 'DISAPPROVED'
+              : application.application_status == 2
+              ? 'FOR EVALUATION'
+              : application.application_status == 3
+              ? 'FOR INSPECTION'
+              : application.application_status == 4
+              ? 'FOR COMPLIANCE'
+              : 'FOR PAYMENT'
             }}
           </div>
           <div class="td actions">
@@ -269,9 +271,9 @@ export default {
           id: data.id,
           is_draft: data.is_draft,
           is_approve: data.is_approve,
-          is_for_inspection: data.is_for_inspection,
           is_disapprove: data.is_disapprove,
           created_at: data.created_at,
+          application_status: data.application_status,
           user: data.user
         };
         this.$store.commit("setBuildingApplication", application);

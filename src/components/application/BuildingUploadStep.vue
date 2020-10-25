@@ -552,9 +552,16 @@ export default {
       if (!this.draftProperty) {
         let isValidated = this.validateRequiredFields();
         if (isValidated) {
+          let application_status
+          this.buildingApplication.application_status == 1
+          ? application_status = 0
+          : this.buildingApplication.application_status == 4
+          ? application_status = 3
+          : application_status = 0
           let payload = {
             is_draft: false,
-            is_disapprove: this.buildingApplication.is_disapprove,
+            application_status: application_status,
+            is_disapprove: false
           };
           await this.$store.dispatch("updateBuildingApplication", payload);
           if (this.legalDocuments.id) {
@@ -679,7 +686,7 @@ export default {
           );
         }
         if (this.designSpecs.id) {
-          this.designSpecs = await JSON.parse(
+          this.design_specs = await JSON.parse(
             this.designSpecs.value
           );
         }

@@ -590,23 +590,36 @@
             class="meta-button-group flex-center"
             v-if="
               !buildingApplication.is_approve &&
-                !buildingApplication.is_disapprove &&
+              !buildingApplication.is_disapprove &&
                 (groups.includes('superadmin') ||
-                  groups.includes('building_application_approver'))
+                groups.includes('building_application_approver'))
+               && buildingApplication.application_status !== 4
+               && buildingApplication.application_status !== 1
+             
             "
           >
             <button-block
               type="approve"
               @click.native="approveApplication(true)"
             >
-              Approve
+              {{
+              buildingApplication.application_status === 0 
+              ? 'COMPLETE' 
+              : buildingApplication.application_status === 2
+              ? 'FOR INSPECTION'
+              : 'FOR PAYMENT' }}
             </button-block>
             <button-block
               class="red-btn"
               type="disapprove"
               @click.native="approveApplication(false)"
+              v-if="buildingApplication.application_status !== 2"
             >
-              Disapprove
+              {{
+                 buildingApplication.application_status === 0 
+                ? 'INCOMPLETE'
+                :  'FOR COMPLIANCE'
+              }}
             </button-block>
           </div>
         </div>
@@ -689,23 +702,26 @@ export default {
         if (!status) {
           this.createRemarks();
         } else {
-          let payload;
-          if (
-            this.buildingApplication.is_for_inspection === false &&
-            status === true
-          ) {
-            payload = {
-              id: this.buildingApplication.id,
-              is_approve: false,
-              is_for_inspection: status,
-            };
-          } else {
-             payload = {
-              id: this.buildingApplication.id,
-              is_approve: status,
-              is_for_inspection: false,
-            };
+          let application_status = 0
+          if(status){
+              this.buildingApplication.application_status === 0
+              ? application_status = 2
+              : this.buildingApplication.application_status === 2
+              ? application_status = 3
+              : this.buildingApplication.application_status === 3
+              ? application_status = 5
+              : application_status = 0
+          }else{
+            this.buildingApplication.application_status === 0
+            ? application_status = 1
+            : this.buildingApplication.application_status === 3
+            ? this.buildingApplication = 4
+            : this.buildingApplication = 0
           }
+            let payload = {
+              id: this.buildingApplication.id,
+              status: application_status
+            }
           this.$store.dispatch("approveBuildingApplication", payload);
         }
       }

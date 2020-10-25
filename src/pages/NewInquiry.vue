@@ -146,7 +146,13 @@ export default {
       await this.$store.commit("setLoading", false);
       if (this.type === "remarks") {
         if (this.applicationType === "building") {
-          let payload = { id: this.applicationNumber, is_approve: false, is_for_inspection: false };
+          let application_status = 0
+          this.buildingApplication.application_status === 0
+            ? application_status = 1
+            : this.buildingApplication.application_status === 3
+            ? application_status = 4
+            : application_status = 0
+          let payload = { id: this.applicationNumber, status: application_status };
           this.$store.dispatch("approveBuildingApplication", payload);
         } else if (this.applicationType === "business") {
           let payload = { id: this.applicationNumber, is_approve: false };
