@@ -85,7 +85,7 @@
               application.application_status == 0
               ? 'FOR APPROVAL'
               : application.application_status == 1
-              ? 'DISAPPROVED'
+              ? 'INCOMPLETE'
               : application.application_status == 2
               ? 'FOR EVALUATION'
               : application.application_status == 3
