@@ -269,7 +269,7 @@ export default {
     },
     openBuildingApplication(type, data){
       if(data.id){
-        let application = {id: data.id, is_draft: data.is_draft, is_approve: data.is_approve, is_disapprove: data.is_disapprove, created_at: data.created_at}
+        let application = {id: data.id, is_draft: data.is_draft, is_approve: data.is_approve, is_disapprove: data.is_disapprove, created_at: data.created_at, application_status: data.application_status}
         this.$store.commit("setBuildingApplication", application)
       }
       if(data.buildingbasicinformation !== null){

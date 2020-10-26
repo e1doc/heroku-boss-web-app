@@ -101,13 +101,17 @@
           </div> -->
           <div class="td">
             {{
-              application.is_draft
-                ? "DRAFT"
-                : application.is_approve
-                ? "FOR PAYMENT"
-                : application.is_disapprove
-                ? "DISAPPROVED"
-                : "FOR APPROVAL"
+              application.application_status == 0
+              ? 'FOR APPROVAL'
+              : application.application_status == 1
+              ? 'INCOMPLETE'
+              : application.application_status == 2
+              ? 'FOR ASSESMENT'
+              : application.application_status == 3
+              ? 'FOR COMPLIANCE'
+              : application.application_status == 4
+              ? 'FOR PAYMENT'
+              : ''
             }}
           </div>
           <div class="td actions">
@@ -238,6 +242,7 @@ export default {
           is_approve: data.is_approve,
           is_disapprove: data.is_disapprove,
           account_number: data.account_number,
+          application_status: data.application_status,
           user: data.user
         };
         this.$store.commit("setBusinessApplication", application);
