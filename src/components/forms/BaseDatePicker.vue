@@ -1,5 +1,5 @@
 <template>
-  <div class="input-holder">
+  <div class="input-holder"  :class="customclass">
     <date-picker
       valueType="format"
       placeholder="Enter Date"
@@ -45,6 +45,10 @@ export default {
         return [];
       },
     },
+    customclass: {
+      type: String,
+      default: ""
+    }
   },
   methods: {
     onInput(data) {
@@ -119,4 +123,6 @@ export default {
     font-size: 12px;
   }
 }
+
+
 </style>

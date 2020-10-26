@@ -149,6 +149,16 @@ ul.pagination li a:focus{
     width: 100%;
 }
 
+.input-holder.appointment-date-picker input {
+    width: 100%;
+    padding: 0 15px;
+    font-family: Raleway;
+    font-size: 12px;
+    background: #fadddd30;
+    border: 1px solid #e56a67;
+    border-radius: 5px;
+    min-height: 37px!important;
+}
 
 @media only screen and( max-width: 1400px ){
     .sc-rounded-div{

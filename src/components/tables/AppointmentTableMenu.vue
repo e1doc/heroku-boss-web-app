@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-holder">
+  <!-- <div class="menu-holder">
     <div class="left-div flex-center">
       <div class="menu-type">
         <div
@@ -28,11 +28,36 @@
           </div>
         </div>
      </div>
-  </div>
+  </div> -->
+  <div class="menu-holder">
+      <div class="left-div flex-grow">
+        <div class="profile-menus flex-row">
+          <div class="menu-type" :class="{ active: appointmentStatus === 'slot' }" @click="changeType('slot')" >APPOINTMENT SLOTS</div>
+          <div class="menu-type" :class="{ active: appointmentStatus === 'appointment' }" @click="changeType('appointment')">APPOINTMENTS</div>
+        </div>
+      </div>
+      <div class="right-div flex-row flex-grow" v-if="appointmentStatus === 'appointment'">
+        <div class="menu-type">
+          <div :class="{ active: activeTab === 'batch_1' }" @click="changeTab('batch_1')" >
+            <!-- <font-awesome-icon icon="store" class="mr5 icon" /> -->
+            BACTH 1
+          </div>
+        </div>
+        <div class="menu-type">
+          <div :class="{ active: activeTab === 'batch_2' }" @click="changeTab('batch_2')">
+            <!-- <font-awesome-icon icon="city" class="mr5 icon" /> -->
+            BACTH 2
+          </div>
+      </div>
+      <base-date-picker customclass="appointment-date-picker"/>
+      <base-input-search v-model="search" placeholder="Search by keyword" />
+      </div>
+    </div>
 </template>
 
 <script>
 import BaseInputSearch from "@/components/forms/BaseInputSearch";
+import BaseDatePicker from "@/components/forms/BaseDatePicker";
 import BaseSelect from "@/components/forms/BaseSelect";
 import { mapGetters } from "vuex";
 export default {
@@ -40,6 +65,7 @@ export default {
   components: {
     BaseInputSearch,
     BaseSelect,
+    BaseDatePicker
   },
   computed: {
     ...mapGetters(["appointmentStatus", "groups"]),
@@ -117,36 +143,40 @@ export default {
 .menu-holder {
   background: #ffffff;
   width: 100%;
+  min-height: 60px;
   display: flex;
   flex-direction: row;
   padding: 10px 20px;
   border-radius: 8px;
   box-shadow: 0px 10px 20px #0000000d;
   .left-div {
-    width: 50%;
-    .menu-type {
-      color: #f09795;
-      font-weight: bold;
-      font-size: 13px;
-      margin-right: 15px;
-      cursor: pointer;
-      div {
-        padding: 10px;
-        border: 3px solid #fff;
+    div{
+      .menu-type {
+        color: #f09795;
+        font-weight: bold;    
+        font-size: 14px;
+        padding: 20px;
+        margin-left: 15px;
+        cursor: pointer;
+        transition: 0.3s;
+        border-bottom: 3px solid #fff;
       }
-      div.active {
-        border-color: #fadddd;
-        border-radius: 5px;
+      .active {
+        border-color: #e23a36;
         color: #e23a36;
+        font-weight: bold;
+        margin-bottom: -11px;
       }
     }
   }
 .right-div {
   justify-content: flex-end;
+  align-items: center;
   .menu-type {
     color: #f09795;
     font-weight: bold;
-    font-size: 12px;
+    font-family: Proxima Nova Rg;
+    font-size: 14px;
     padding: 10px 0;
     margin-right: 15px;
     div {
@@ -163,5 +193,9 @@ export default {
     }
   }
 }
+}
+
+.appointment-date-picker{
+  margin-right: 10px;
 }
 </style>

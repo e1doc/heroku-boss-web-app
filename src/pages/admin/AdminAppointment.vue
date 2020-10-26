@@ -11,7 +11,7 @@
           <appointment-limit/>
         </div>
         <div v-if="appointmentStatus === 'appointment'">
-          Insert table here
+          <appointment-table />
         </div>
       </div>
     </div>
@@ -25,12 +25,14 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { mapGetters } from "vuex"
 import AppointmentLimit from "@/components/tables/AppointmentLimit"
+import AppointmentTable from "@/components/tables/AppointmentTable"
 export default {
   name: "AdminAppointment",
   components: {
     AppointmentTableMenu,
     FullCalendar,
-    AppointmentLimit
+    AppointmentLimit,
+    AppointmentTable
   },
   computed: {
     ...mapGetters(["appointmentStatus"]),
