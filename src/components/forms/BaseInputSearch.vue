@@ -1,8 +1,8 @@
 <template>
-  <div class="input-wrapper flex-center">
+  <div class="input-wrapper flex-center" >
     <input
       type="text"
-      placeholder="Search by Application Number"
+      :placeholder="placeholder"
       @input="
         $emit('input', (inputData = $event.target.value));"
       v-model="inputData"
@@ -24,6 +24,10 @@ export default {
       type: [String, Number],
       required: false,
     },
+    placeholder: {
+      type: String,
+      default: "Search by Application no."
+    }
   }
 };
 </script>
