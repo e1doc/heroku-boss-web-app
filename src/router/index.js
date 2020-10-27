@@ -136,11 +136,11 @@ const routes = [{
         name: "Appointment",
         component: Appointment,
       },
-      {
-        path: "add-appointment",
-        name: "AddAppointment",
-        component: AddAppointment,
-      },
+      // {
+      //   path: "add-appointment",
+      //   name: "AddAppointment",
+      //   component: AddAppointment,
+      // },
     ],
     async beforeEnter(to, from, next) {
       let hasPermission = await store.state.service.isAuthenticated;
