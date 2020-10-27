@@ -207,4 +207,19 @@ export default {
 .appointment-date-picker{
   margin-right: 10px;
 }
+
+@media only screen and (max-width: 1480px){
+  .menu-holder .left-div div .menu-type{
+      padding: 15px 15px 11px;
+      margin-left: 0;
+  }
+  .menu-holder .right-div .menu-type div{
+      font-size: 10px;
+  }
+
+  .menu-holder{
+     min-height: unset;
+     max-height: 45px;
+  }
+}
 </style>

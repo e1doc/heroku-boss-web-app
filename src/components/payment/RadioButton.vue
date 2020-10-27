@@ -19,7 +19,16 @@
           <div class="meta-desc">You can now pay your bills through online without any hassle. This option will redirect you to 
 Landbank's online payment page.</div>
       </div>
-
+      
+    <!-- OPTION 2 -->
+      <div class="meta-list-option">
+          <div class="meta-radio flex-center">
+              <input type="radio" class="radio-button" name="payment-options" id="option_3" @click="selectOptions('treasury')">
+              <span class="custom-radio flex-center" :class="{selected: selectedOption === 'treasury'}"><span class="circle"></span></span>
+              <label for="option_3">Pay at the Treasury Office</label>
+          </div>
+          <div class="meta-desc">You must set an appointment before paying your bills at the Treasury Office. To set an appointment, please go to navigation menu > Transactions > Appointment.</div>
+      </div>
   </div>
 </template>
 
@@ -28,8 +37,14 @@ export default {
     name: "RadioButton",
     data(){
       return{
-        selectedOption: 'counter'
+        selectedOption: 'counter',
       }
+    }, 
+    props: {
+      paymentType: {
+        type: String,
+        default: "landbank",
+      },
     },
     methods:{
       selectOptions(option){

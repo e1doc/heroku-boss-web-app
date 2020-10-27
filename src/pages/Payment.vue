@@ -14,14 +14,18 @@
             <!-- <div class="meta-label">Select Mode of Payment</div> -->
             <!-- <bank-option/> -->
             <div class="meta-list flex-wrap">
-              <div class="meta-list-item active">
-                <img class="meta-img" src="../assets/landbank-logo.png" />
+              <div class="meta-list-item" 
+                  :class="{active:selectedPayment == 'landbank'}" 
+                  @click="changePaymentType('landbank')">
+                      <img class="meta-img" src="../assets/landbank-logo.png" />
               </div>
-              <div class="meta-list-item active">
-                <img class="meta-img" src="../assets/landbank-logo.png" />
+              <div class="meta-list-item" 
+                  :class="{active:selectedPayment == 'treasury_office'}" 
+                  @click="changePaymentType('treasury_office')">
+                      <img class="meta-img" src="../assets/treasury-2.png" />
               </div>
             </div>
-            <radio-button />
+            <radio-button/>
             <div class="meta-button" @click="printInvoice()" v-if="paymentOption === 'counter'">
               <button-block>DOWNLOAD</button-block>
             </div>
@@ -56,13 +60,17 @@ export default {
   data(){
       return{
           printVisible: false,
-          isPayment:true
+          isPayment:true,
+          selectedPayment: "landbank",
       }
   },
   methods: {
     printInvoice() {
     this.$store.commit('setPrintInvoice',true)
     },
+    changePaymentType(type) {
+      this.selectedPayment = type;
+    }
   },
 };
 </script>
