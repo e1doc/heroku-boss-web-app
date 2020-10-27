@@ -139,7 +139,17 @@ export default {
         let isValidated = this.validateRequiredFields();
         console.log('is validated', isValidated)
         if (isValidated) {
-          let payload = { is_draft: false, is_disapprove: this.businessApplication.is_disapprove };
+          let application_status
+          this.businessApplication.application_status == 1
+          ? application_status = 0
+          : this.businessApplication.application_status == 3
+          ? application_status = 2
+          : application_status = 0
+          let payload = {
+            is_draft: false,
+            application_status: application_status,
+            is_disapprove: false
+          };
           await this.$store.dispatch("updateBusinessApplication", payload);
           this.$store.commit("setCurrentApplicationStep", "4");
         } else {

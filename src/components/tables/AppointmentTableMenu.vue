@@ -34,23 +34,28 @@
         <div class="profile-menus flex-row">
           <div class="menu-type" :class="{ active: appointmentStatus === 'slot' }" @click="changeType('slot')" >APPOINTMENT SLOTS</div>
           <div class="menu-type" :class="{ active: appointmentStatus === 'appointment' }" @click="changeType('appointment')">APPOINTMENTS</div>
+
         </div>
       </div>
-      <div class="right-div flex-row flex-grow" v-if="appointmentStatus === 'appointment'">
-        <div class="menu-type">
-          <div :class="{ active: activeTab === 'batch_1' }" @click="changeTab('batch_1')" >
-            <!-- <font-awesome-icon icon="store" class="mr5 icon" /> -->
-            BACTH 1
+      <div class="right-div flex-row flex-grow">
+        <div class="menu-type" v-if="appointmentStatus === 'appointment'">
+          <div :class="{ active: batchTab === 'Batch 1' }" @click="changeTab('Batch 1')" >
+            BATCH 1
           </div>
         </div>
-        <div class="menu-type">
-          <div :class="{ active: activeTab === 'batch_2' }" @click="changeTab('batch_2')">
-            <!-- <font-awesome-icon icon="city" class="mr5 icon" /> -->
-            BACTH 2
+        <div class="menu-type" v-if="appointmentStatus === 'appointment'">
+          <div :class="{ active: batchTab === 'Batch 2' }" @click="changeTab('Batch 2')">
+            BATCH 2
           </div>
       </div>
-      <base-date-picker customclass="appointment-date-picker"/>
-      <base-input-search v-model="search" placeholder="Search by keyword" />
+       <div class="menu-type" v-if="appointmentStatus === 'slot'">
+          <div class="active" @click="showForm">
+            <font-awesome-icon icon="plus" class="mr5 icon" />
+            ADD
+          </div>
+        </div>
+      <base-date-picker customclass="appointment-date-picker" v-model="date" @input="changeDate" v-if="appointmentStatus === 'appointment'"/>
+      <base-input-search v-model="search" placeholder="Search by First Name or Last Name" v-if="appointmentStatus === 'appointment'"  @keyup.native="searchData()"/>
       </div>
     </div>
 </template>
@@ -59,6 +64,7 @@
 import BaseInputSearch from "@/components/forms/BaseInputSearch";
 import BaseDatePicker from "@/components/forms/BaseDatePicker";
 import BaseSelect from "@/components/forms/BaseSelect";
+import moment from "moment-timezone";
 import { mapGetters } from "vuex";
 export default {
   name: "AppointmentTableMenu",
@@ -68,16 +74,18 @@ export default {
     BaseDatePicker
   },
   computed: {
-    ...mapGetters(["appointmentStatus", "groups"]),
+    ...mapGetters(["appointmentStatus", "groups", "batchTab"]),
   },
   mounted(){
+    this.date = moment().format()
+    this.$store.commit('setCurrentDate', this.date)
   },
-
   data() {
     return {
       search: "",
       activeTab: "profile",
       activeType: "business",
+      date: '',
       filterlist: [
         {
           label: "All",
@@ -98,19 +106,19 @@ export default {
       ],
     };
   },
-  methods: {
+  methods: {  
+    changeDate(){
+      this.date = moment(this.date).format()
+      console.log(this.date)
+      this.$store.commit('setCurrentDate', this.date)
+      this.$store.dispatch('getAdminAppointments')
+    },
     showForm(){
       this.$modal.show("appointmentLimitModal");
     },
     searchData(){
-      if(this.currentType === 'real_property'){
-        this.$store.commit('setBuildingSearch', this.search)
-        this.$store.dispatch("getAllBuildingApplications");
-      }else if(this.currentType === 'business'){
-        this.$store.commit('setBusinessSearch', this.search)
-        console.log(this.search)
-        this.$store.dispatch("getAllBusinessApplications");
-      }
+      this.$store.commit('setAppointmentSearch', this.search)
+      this.$store.dispatch('getAdminAppointments')
     },
     filter(val){
       this.$store.commit('setFilterBy', val)
@@ -122,7 +130,8 @@ export default {
     },
     changeTab(tab) {
       this.activeTab = tab;
-      this.$store.commit("setCurrentTable", tab);
+      this.$store.commit("setBatchTab", tab);
+      this.$store.dispatch('getAdminAppointments')
     },
     changeType(type) {
       this.activeType = type;

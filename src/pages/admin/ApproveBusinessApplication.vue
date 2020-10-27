@@ -470,14 +470,23 @@
               type="approve"
               @click.native="approveApplication(true)"
             >
-              Approve
+              {{
+              businessApplication.application_status === 0 
+              ? 'COMPLETE' 
+              : businessApplication.application_status === 2
+              ? 'FOR PAYMENT'
+              : '' }}
             </button-block>
             <button-block
               class="red-btn"
               type="disapprove"
               @click.native="approveApplication(false)"
             >
-              Disapprove
+               {{
+                 businessApplication.application_status === 0 
+                ? 'INCOMPLETE'
+                : 'FOR COMPLIANCE'
+              }}
             </button-block>
           </div>
         </div>
@@ -548,7 +557,16 @@ export default {
         if (!status) {
           this.createRemarks();
         } else {
-          let payload = { id: this.businessApplication.id, is_approve: status };
+          let application_status = 0
+          this.businessApplication.application_status === 0
+              ? application_status = 2
+              : this.businessApplication.application_status === 2
+              ? application_status = 4
+              : application_status = 0
+          let payload = {
+              id: this.businessApplication.id,
+              status: application_status
+            }
           this.$store.dispatch("approveBusinessApplication", payload);
         }
       }

@@ -102,7 +102,7 @@
           <div class="td">
             {{
               application.application_status == 0
-              ? 'FOR APPROVAL'
+              ? 'FOR EVALUATION'
               : application.application_status == 1
               ? 'INCOMPLETE'
               : application.application_status == 2

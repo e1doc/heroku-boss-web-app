@@ -31,24 +31,31 @@
           </div> -->
           <div class="td">
             <span class="td-label show-in-mobile">STATUS : </span>
+             {{
+              application.application_status == 0 && !application.is_draft
+              ? 'FOR EVALUATION'
+              : application.application_status == 1
+              ? 'INCOMPLETE'
+              : application.application_status == 2
+              ? 'FOR ASSESSMENT'
+              : application.application_status == 3
+              ? 'FOR COMPLIANCE'
+              : application.application_status == 4
+              ? 'FOR PAYMENT'
+              : ''
+            }}
             {{
-              application.is_draft
-                ? "DRAFT"
-                : application.is_approve
-                ? "FOR PAYMENT"
-                : application.is_disapprove
-                ? "DISAPPROVED"
-                : "FOR APPROVAL"
+              application.is_draft ? 'DRAFT' : ''
             }}
           </div>
           <div class="td actions">
             <div @click="openBusinessApplication('edit', application)" v-if="application.is_draft">
               <font-awesome-icon icon="edit" class="mr5 view-icon" />EDIT
             </div>
-          <div @click="openBusinessApplication('view',application)" v-if="!application.is_draft && !application.is_disapprove">
+          <div @click="openBusinessApplication('view',application)" v-if=" !application.is_draft && application.application_status !== 3 && application.application_status !== 1">
             <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
           </div>
-          <div @click="openBusinessRemarks(application.id)" v-if="application.is_disapprove">
+          <div @click="openBusinessRemarks(application.id)" v-if="application.application_status == 1 || application.application_status == 3">
             <font-awesome-icon icon="eye" class="mr5 view-icon" />REMARKS
           </div>
           </div>
@@ -82,7 +89,7 @@
           <div class="td">
             <span class="td-label show-in-mobile">STATUS : </span>
             {{
-              application.application_status == 0
+              application.application_status == 0 && !application.is_draft
               ? 'FOR APPROVAL'
               : application.application_status == 1
               ? 'INCOMPLETE'
@@ -92,14 +99,19 @@
               ? 'FOR INSPECTION'
               : application.application_status == 4
               ? 'FOR COMPLIANCE'
-              : 'FOR PAYMENT'
+              : application.application_status == 5
+              ? 'FOR PAYMENT'
+              : ''
+            }}
+            {{
+              application.is_draft ? 'DRAFT' : ''
             }}
           </div>
           <div class="td actions">
             <div @click="openBuildingApplication('edit', application)" v-if="application.is_draft">
               <font-awesome-icon icon="edit" class="mr5 view-icon" />EDIT
             </div>
-            <div @click="openBuildingApplication('view', application)" v-if="application.application_status !== 4 && application.application_status !== 1">
+            <div @click="openBuildingApplication('view', application)" v-if="!application.is_draft && application.application_status !== 4 && application.application_status !== 1">
             <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
           </div>
            <div @click="openBuildingRemarks(application.id)" v-if="application.application_status == 1 || application.application_status == 4">

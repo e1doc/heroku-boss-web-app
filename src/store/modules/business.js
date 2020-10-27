@@ -124,7 +124,7 @@ const actions = {
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
 
-      let application = {id:response.data.id,created_at: response.data.created_at, is_draft: response.data.is_draft, is_approve: response.data.is_approve, is_disapprove: response.data.is_disapprove,account_number: response.data.account_number}
+      let application = {id:response.data.id,created_at: response.data.created_at, is_draft: response.data.is_draft, is_approve: response.data.is_approve, is_disapprove: response.data.is_disapprove,account_number: response.data.account_number, application_status: response.data.business_application}
       await commit('setBusinessApplication', application)
       await commit('setBusinessBasicInformation', response.data.businessbasicinformation)
       await commit('setBusinessDetails', response.data.businessdetails)
@@ -168,11 +168,20 @@ const actions = {
         payload,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-      let action = payload.is_approve ? "approved" : "disapproved";
+      let action = payload.status == 1
+              ? 'incomplete'
+              : payload.status == 2
+              ? 'for assessment'
+              : payload.status == 3
+              ? 'for compliance'
+              : payload.status == 4
+              ? 'for payment' 
+              : ''
+
       dispatch("createPrompt", {
         type: "success",
         title: "Success!",
-        message: `Application was successfully ${action}!`,
+        message: `Application was successfully set to ${action}!`,
       });
       router.push({ name: "Applications" });
     } catch (err) {
@@ -182,7 +191,6 @@ const actions = {
   },
   async getAllBusinessApplications({ commit, dispatch, getters }, page = 1) {
     try {
-      console.log(getters.filterBy);
       const response = await axios.get(
         `${baseUrl}/staff/business-permit-application-list/?page=${page}&filter_by=${getters.filterBy}&id=${getters.businessSearch}`,
         { headers: { Authorization: `jwt ${getters.authToken}` } }

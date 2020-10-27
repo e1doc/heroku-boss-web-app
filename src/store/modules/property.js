@@ -32,7 +32,8 @@ const getDefaultPropertyState = () => {
     designPlans: {},
     designSpecs: {},
     currentBuildingId: 0,
-    buildingSearch: ""
+    buildingSearch: "",
+    propertyFilterBy: "all",
   };
 };
 
@@ -63,7 +64,8 @@ const getters = {
   designPlans: (state) => state.designPlans,
   designSpecs: (state) => state.designSpecs,
   currentBuildingId: ( state ) => state.currentBuildingId,
-  buildingSearch: ( state ) => state.buildingSearch
+  buildingSearch: ( state ) => state.buildingSearch,
+  propertyFilterBy: (state) => state.propertyFilterBy
 };
 
 const mutations = {
@@ -118,7 +120,8 @@ const mutations = {
   setCurrentBuildingId: (state, currentBuildingId) => (state.currentBuildingId = currentBuildingId),
   setBuildingSearch: (state, buildingSearch) => (state.buildingSearch = buildingSearch),
   setDesignPlans: (state, designPlans) => (state.designPlans = designPlans),
-  setDesignSpecs: (state, designSpecs) => (state.designSpecs = designSpecs)
+  setDesignSpecs: (state, designSpecs) => (state.designSpecs = designSpecs),
+  setPropertyFilterBy: (state, propertyFilterBy) => (state.propertyFilterBy = propertyFilterBy)
 };
 
 const actions = {
@@ -209,11 +212,22 @@ const actions = {
         payload,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-      let action = payload.is_for_inspection ? "approved" : payload.is_approve ? "approved" : "disapproved";
+      // # 0 = For approval, 1 = disapprove / incomplete, 2 = complete, 3 = for inspection, 4 = for compliance, 5 = for payment / approve
+
+      let action = payload.status == 1
+              ? 'incomplete'
+              : payload.status == 2
+              ? 'for evaluation'
+              : payload.status == 3
+              ? 'for inspection'
+              : payload.status == 4
+              ? 'for compliance'
+              : 'for payment'
+
       dispatch("createPrompt", {
         type: "success",
         title: "Success!",
-        message: `Application was successfully ${action}!`,
+        message: `Application was successfully set to ${action}!`,
       });
       router.push({ name: "Applications" });
     } catch (err) {
@@ -224,7 +238,7 @@ const actions = {
   async getAllBuildingApplications({ commit, getters, dispatch }, page = 1) {
     try {
       const response = await axios.get(
-        `${baseUrl}/staff/building-permit-application-list/?page=${page}&filter_by=${getters.filterBy}&id=${getters.buildingSearch}`,
+        `${baseUrl}/staff/building-permit-application-list/?page=${page}&filter_by=${getters.propertyFilterBy}&id=${getters.buildingSearch}`,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setPageCount", response.data.total_pages);

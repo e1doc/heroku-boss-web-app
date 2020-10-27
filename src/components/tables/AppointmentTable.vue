@@ -1,34 +1,43 @@
 <template>
   <section>
     <div class="result-count">
-        No. of Appointments: 5
+        No. of Appointments: {{appointmentCount}}
     </div>
     <div class="thead hide-in-mobile">
         <div class="th">Appointment Date</div>
         <div class="th">User Fullname</div>
         <div class="th">Appointment Type</div>
     </div>
-    <div class="appointment-table" v-for="index in 5" :key="index">
-      <div class="tbody">
-        <div class="tr">
+    <div class="appointment-table">
+      <div class="tbody" v-if="adminAppointments.length > 0">
+        <div class="tr" v-for="(item, index) in adminAppointments" :key="index">
             <div class="td">
-                September 26, 2020
+                 {{item.appointment_date | moment("MMMM DD YYYY")}}
             </div>
             <div class="td">
-                John Michael Doe
+                {{item.user.first_name}} {{item.user.last_name}} 
             </div>
             <div class="td">
-                Business Permit Application
+                {{item.title}}
             </div>
         </div>
       </div>
 
-      <!-- IF NO TABLE DATA -->
-      <!-- <div class="tbody" v-if="businessProfiles.length < 1">
+      <div class="tbody" v-if="adminAppointments.length < 1">
         <div class="tr">
             <div class="td">No data available</div>
         </div>
-      </div> -->
+      </div>
+        <paginate
+        v-if="adminAppointments.length > 9"
+        :page-count="pageCount"
+        :prev-text="'Prev'"
+        :next-text="'Next'"
+        :container-class="'pagination'"
+        :page-class="'page-item'"
+        :click-handler="appointmentClickCallBack"
+      >
+      </paginate>
     </div>
   </section>
 </template>
@@ -37,6 +46,17 @@
 import { mapGetters } from "vuex";
 export default {
   name: "AppointmentTable",
+  computed:{
+    ...mapGetters(['appointmentCount', 'adminAppointments', 'pageCount'])
+  },
+  mounted(){
+    this.$store.dispatch('getAdminAppointments')
+  },
+  methods:{
+    appointmentClickCallBack(pageNum){
+      this.$store.dispatch('getAdminAppointments', pageNum)
+    },
+  }
 };
 </script>
 

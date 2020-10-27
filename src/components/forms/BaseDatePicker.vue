@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     onInput(data) {
-      data = moment(data).local().format();
+      data = moment(data).format();
       this.$emit("input", data);
     },
   },

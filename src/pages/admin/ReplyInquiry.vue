@@ -87,7 +87,7 @@ export default {
     next();
   },
   computed: {
-    ...mapGetters(["currentTable", "inquiry", "currentInquiry", "continueBuildingThread", "currentBuildingId", "continueBusinessThread", "currentBusinessId", "buildingApplication"]),
+    ...mapGetters(["currentTable", "inquiry", "currentInquiry", "continueBuildingThread", "currentBuildingId", "continueBusinessThread", "currentBusinessId", "buildingApplication", "businessApplication"]),
   },
   mounted() {
     this.getInquiry();
@@ -108,12 +108,18 @@ export default {
             : this.buildingApplication.application_status === 3
             ? application_status = 4
             : application_status = 0
-        console.log(application_status)
         let payload = { id: this.currentBuildingId, status: application_status };
         this.$store.dispatch("approveBuildingApplication", payload);
       }
       if(this.continueBusinessThread){
-        let payload = { id: this.currentBusinessId, is_approve: false };
+         let application_status = 0
+
+          this.businessApplication.application_status === 0
+            ? application_status = 1
+            : this.businessApplication.application_status === 2
+            ? application_status = 3
+            : application_status = 0
+        let payload = { id: this.currentBusinessId, status: application_status };
         this.$store.dispatch("approveBusinessApplication", payload);
       }
       await this.$store.dispatch("adminRespond", {

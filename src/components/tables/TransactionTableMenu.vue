@@ -25,12 +25,25 @@
     <div class="right-div flex-wrap">
       <base-select
         placeholder="Filter"
-        :options="filterlist"
+        :options="filterList2"
         name="filterLists"
         class="mb15"
         customclass="filter-select"
+        ref="filter1"
         @change="filter"
-        :selected="filterBy"
+        v-if="currentType === 'business'"
+        :value="filterBy"
+      />
+        <base-select
+        placeholder="Filter"
+        :options="filterList1"
+        name="propertyFilterLists"
+        class="mb15"
+        customclass="filter-select"
+        ref="filter2"
+        @change="filter"
+        :value="propertyFilterBy"
+        v-if="currentType === 'real_property'"
       />
       <base-input-search v-model="search"  @keyup.native="searchData()"/>
     </div>
@@ -48,10 +61,10 @@ export default {
     BaseSelect,
   },
   computed: {
-    ...mapGetters(["currentType", "currentTable", "filterBy", "groups"]),
+    ...mapGetters(["currentType", "currentTable", "filterBy","propertyFilterBy", "groups"]),
   },
   mounted(){
-    console.log(this.groups)
+    console.log(this.filterBy, this.propertyFilterBy)
   },
   props: {
     type: {
@@ -65,7 +78,9 @@ export default {
       search: "",
       activeTab: "profile",
       activeType: "business",
-      filterlist: [
+      businessFilter: "",
+      propertyFilter: "",
+      filterList1: [
         {
           label: "All",
           value: "all",
@@ -87,6 +102,28 @@ export default {
           value: "forApproval",
         },
       ],
+      filterList2: [
+        {
+          label: "All",
+          value: "all",
+        },
+        {
+          label: "Approved",
+          value: "approved",
+        },
+        {
+          label: "Disapproved",
+          value: "disapproved",
+        },
+        {
+          label: "For Assessment",
+          value: "forAssessment",
+        },
+        {
+          label: "For Evaluation",
+          value: "forEvaluation",
+        },
+      ],
     };
   },
   methods: {
@@ -101,10 +138,11 @@ export default {
       }
     },
     filter(val){
-      this.$store.commit('setFilterBy', val)
       if(this.currentType === 'business'){
-        this.$store.dispatch("getAllBusinessApplications");
+         this.$store.commit('setFilterBy', val)
+         this.$store.dispatch("getAllBusinessApplications");
       }else if(this.currentType === 'real_property'){
+        this.$store.commit('setPropertyFilterBy', val)
         this.$store.dispatch("getAllBuildingApplications");
       }
     },

@@ -3,7 +3,6 @@
     <font-awesome-icon icon="filter" class="filter-icon" v-if="customclass == 'filter-select'" />
     <div :id="name" class="select-wrapper">
       <select
-        v-model="selected"
         :data-value="selected"
         @focus="handleFocus"
         @blur="handleBlur"
@@ -15,7 +14,7 @@
           v-for="(option, key) in options"
           :key="key"
           :value="option.value"
-          v-bind="{ selected: option.value === selected }"
+          v-bind="{ selected: option.value === mutableSelected }"
         >
           {{ option.label }}
         </option>
@@ -40,7 +39,7 @@ export default {
   name: "BaseSelect",
   data() {
     return {
-      selected: "",
+      mutableSelected: this.selected,
       wrapper: "",
       prefillDone: false,
     };
@@ -79,7 +78,7 @@ export default {
     customclass: {
       type: String,
       default: ""
-    }
+    },
   },
   mounted() {
     this.getWrapper();
@@ -89,8 +88,10 @@ export default {
       deep: true,
       handler(newValue) {
         if (!this.preFillDone) {
-          this.$emit("input", (this.selected = newValue));
+          this.$emit("input", (this.mutableSelected = newValue));
           this.preFillDone = true;
+        }else{
+          this.$emit("input", (this.mutableSelected = newValue));
         }
       },
     },

@@ -67,6 +67,7 @@ export default {
       "currentInquiry",
       "remarks",
       "buildingApplication",
+      "businessApplication"
     ]),
   },
   props: {
@@ -155,7 +156,13 @@ export default {
           let payload = { id: this.applicationNumber, status: application_status };
           this.$store.dispatch("approveBuildingApplication", payload);
         } else if (this.applicationType === "business") {
-          let payload = { id: this.applicationNumber, is_approve: false };
+          let application_status = 0
+          this.businessApplication.application_status === 0
+            ? application_status = 1
+            : this.businessApplication.application_status === 2
+            ? application_status = 3
+            : application_status = 0
+          let payload = { id: this.applicationNumber, status: application_status };
           this.$store.dispatch("approveBusinessApplication", payload);
         }
       } else {

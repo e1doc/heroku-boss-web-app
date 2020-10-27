@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     handleDateClick(info) {
-      let date = moment.tz(info.date, "Asia/Manila").format();
+      let date = moment(info.date).format();
       this.$store.commit("setCurrentDate", date);
       this.$modal.show("appointmentModal");
     },

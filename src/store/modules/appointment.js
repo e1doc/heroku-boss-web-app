@@ -1,4 +1,5 @@
 import axios from "axios";
+import moment from "moment-timezone";
 const baseUrl = process.env.VUE_APP_API_URL;
 const getDefaultAppointmentState =  () => {
     return {
@@ -7,7 +8,12 @@ const getDefaultAppointmentState =  () => {
         isAppointmentSuccess: false,
         appointments: [],
         appointmentError: "",
-        appointmentLimits: []
+        appointmentLimits: [],
+        adminAppointments: [],
+        appointmentCount: 0,
+        appointmentSearch: "",
+        batchTab: "Batch 1",
+        currentDate: moment().format()
     }
 }
 
@@ -19,7 +25,12 @@ const getters = {
     isAppointmentSuccess: (state) => state.isAppointmentSuccess,
     appointments: (state) => state.appointments,
     appointmentError: (state) => state.appointmentError,
-    appointmentLimits: (state) => state.appointmentLimits
+    appointmentLimits: (state) => state.appointmentLimits,
+    adminAppointments: (state) => state.adminAppointments,
+    appointmentCount: (state) => state.appointmentCount,
+    appointmentSearch: (state) => state.appointmentSearch,
+    batchTab: (state) => state.batchTab,
+    currentDate: (state) => state.currentDate
 }
 
 const mutations = {
@@ -28,7 +39,12 @@ const mutations = {
   setIsAppointmentSuccess: (state, isAppointmentSuccess) => (state.isAppointmentSuccess = isAppointmentSuccess),
   setAppointments: (state, appointments) => (state.appointments = appointments ),
   setAppointmentError: (state, appointmentError) => (state.appointmentError = appointmentError),
-  setAppointmentLimits: (state, appointmentLimits) => (state.appointmentLimits = appointmentLimits)
+  setAppointmentLimits: (state, appointmentLimits) => (state.appointmentLimits = appointmentLimits),
+  setAdminAppointments: (state, adminAppointments) => (state.adminAppointments = adminAppointments),
+  setAppointmentCount: (state, appointmentCount) => (state.appointmentCount = appointmentCount),
+  setAppointmentSearch: (state, appointmentSearch) => (state.appointmentSearch = appointmentSearch),
+  setBatchTab: (state, batchTab) => (state.batchTab = batchTab),
+  setCurrentDate: (state, currentDate) => (state.currentDate = currentDate)
 }
 
 const actions = {
@@ -88,6 +104,16 @@ const actions = {
                 headers: { Authorization: `jwt ${getters.authToken}` },
             })
             commit('setAppointmentLimits', response.data)
+        } catch (err) {
+            console.log(err)
+        }
+    },
+    async getAdminAppointments({ commit, dispatch, getters }, page = 1) {
+        try {
+            const response = await axios.get(`${baseUrl}/staff/appointment-list/?search=${getters.appointmentSearch}&batch=${getters.batchTab}&page=${page}`,{ headers: { Authorization: `jwt ${getters.authToken}` }, params: {date: getters.currentDate} })
+            commit('setAppointmentCount', response.data.count)
+            commit('setAdminAppointments', response.data.results)
+            commit("setPageCount", response.data.total_pages);
         } catch (err) {
             console.log(err)
         }
