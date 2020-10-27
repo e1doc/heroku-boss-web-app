@@ -108,6 +108,17 @@ const actions = {
             console.log(err)
         }
     },
+    async getUserAppointmentLimits({commit, getters}, payload){
+        try {
+            commit('setAppointmentLimits', [])
+            const response = await axios.get(`${baseUrl}/api/appointment-limit/?month=${payload}`,{
+                headers: { Authorization: `jwt ${getters.authToken}` },
+            })
+            commit('setAppointmentLimits', response.data)
+        } catch (err) {
+            console.log(err)
+        }
+    },
     async getAdminAppointments({ commit, dispatch, getters }, page = 1) {
         try {
             const response = await axios.get(`${baseUrl}/staff/appointment-list/?search=${getters.appointmentSearch}&batch=${getters.batchTab}&page=${page}`,{ headers: { Authorization: `jwt ${getters.authToken}` }, params: {date: getters.currentDate} })

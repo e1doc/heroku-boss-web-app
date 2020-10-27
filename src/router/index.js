@@ -27,6 +27,7 @@ import ApproveBusinessApplication from "../pages/admin/ApproveBusinessApplicatio
 import ApproveBuildingApplication from "../pages/admin/ApproveBuildingApplication.vue";
 import AdminAppointment from "../pages/admin/AdminAppointment.vue";
 import Appointment from "../pages/Appointment"
+import AddAppointment from "../pages/AddAppointment"
 import TestPage from "../pages/TestPage";
 import store from "../store";
 Vue.use(VueRouter);
@@ -135,6 +136,11 @@ const routes = [{
         path: "appointment",
         name: "Appointment",
         component: Appointment,
+      },
+      {
+        path: "add-appointment",
+        name: "AddAppointment",
+        component: AddAppointment,
       },
     ],
     async beforeEnter(to, from, next) {

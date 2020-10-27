@@ -1,11 +1,11 @@
 <template>
   <section>
-    <!-- <modal name="appointmentModal" width="50%" height="auto" :adaptive="true"
+    <modal name="appointmentModal" width="50%" height="auto" :adaptive="true"
       ><appointment-form
-    /></modal> -->
+    /></modal>
     <div class="container">
       <div class="meta-calendar-container">
-        <FullCalendar :options="calendarOptions"/>
+        <FullCalendar :options="calendarOptions" ref="appointmentCalendar"/>
       </div>
     </div>
   </section>
@@ -19,7 +19,7 @@ import AppointmentForm from "@/components/forms/AppointmentForm";
 import moment from "moment-timezone";
 import { mapGetters } from "vuex";
 export default {
-  name: "Appointment",
+  name: "AddAppointment",
   components: {
     FullCalendar,
     AppointmentForm,
@@ -59,7 +59,8 @@ export default {
     this.$store.dispatch("getUserAppointments");
   },
   mounted() {
-    this.setUpAppointments();
+    // this.setUpAppointments();
+    this.getLimits()
   },
   methods: {
     async getLimits() {
@@ -76,8 +77,8 @@ export default {
             title: `Remaining Slots: ${item.remaining}`,
             start: item.date,
             allDay: true,
-            backgroundColor: '#2ecc71',
-            borderColor: '#2ecc71',
+            backgroundColor: item.remaining < 1 ? '#e23a36' : '#2ecc71',
+            borderColor: item.remaining < 1 ? '#e23a36' : '#2ecc71',
             description: 'Lorem'
           }; 
           this.calendarOptions.events.push(remaining_event);

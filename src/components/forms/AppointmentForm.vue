@@ -80,6 +80,7 @@ export default {
             text: 'Appointment was submitted successfully.',
             icon: 'success'
         })
+        this.$router.push({name:'Appointment'})
       }else{
        this.$modal.hide("appointmentModal");
        this.$swal({

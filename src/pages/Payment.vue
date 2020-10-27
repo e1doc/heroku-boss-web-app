@@ -17,6 +17,9 @@
               <div class="meta-list-item active">
                 <img class="meta-img" src="../assets/landbank-logo.png" />
               </div>
+              <div class="meta-list-item active">
+                <img class="meta-img" src="../assets/landbank-logo.png" />
+              </div>
             </div>
             <radio-button />
             <div class="meta-button" @click="printInvoice()" v-if="paymentOption === 'counter'">
