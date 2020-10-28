@@ -63,9 +63,10 @@ export default {
         this.$modal.hide("appointmentLimitModal");
         this.$swal({
           title: "Success!",
-          text: "Appointment slot settings was submitted successfully..",
+          text: "Appointment slot settings was submitted successfully.",
           icon: "success",
         });
+        this.$store.dispatch("appointmentLimits");
       } else {
         await this.$store.commit("setLoading", false);
         this.$modal.hide("appointmentLimitModal");
