@@ -71,9 +71,11 @@ export default {
   methods:{
     async setAppointment(){
       let payload = {title: this.appointmentType, batch: this.batch, appointment_date: this.currentDate}
+      await this.$store.commit("setLoading", true);
       await this.$store.dispatch('addAppointment', payload)
       console.log(this.isAppointmentSuccess)
       if(this.isAppointmentSuccess){
+        await this.$store.commit("setLoading", false);
         this.$modal.hide("appointmentModal");
         this.$swal({
             title: 'Success!',
@@ -82,6 +84,7 @@ export default {
         })
         this.$router.push({name:'Appointment'})
       }else{
+        await this.$store.commit("setLoading", false);
        this.$modal.hide("appointmentModal");
        this.$swal({
             title: 'Failed!',

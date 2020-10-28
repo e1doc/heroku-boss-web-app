@@ -50,6 +50,7 @@ export default {
   },
   methods: {
     async setAppointmentLimit() {
+      await this.$store.commit("setLoading", true);
       let payload = {
         start_date: this.start_date,
         end_date: this.end_date,
@@ -58,6 +59,7 @@ export default {
       await this.$store.dispatch("addAppointmentLimit", payload);
       console.log(this.isAppointmentSuccess);
       if (this.isAppointmentSuccess) {
+        await this.$store.commit("setLoading", false);
         this.$modal.hide("appointmentLimitModal");
         this.$swal({
           title: "Success!",
@@ -65,6 +67,7 @@ export default {
           icon: "success",
         });
       } else {
+        await this.$store.commit("setLoading", false);
         this.$modal.hide("appointmentLimitModal");
         this.$swal({
           title: "Failed!",
