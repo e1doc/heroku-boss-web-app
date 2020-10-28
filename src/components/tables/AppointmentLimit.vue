@@ -121,6 +121,7 @@ export default {
       console.log(arg);
     },
     async getLimits() {
+      await this.$store.commit("setLoading", true);
       let calendarApi = this.$refs.fullCalendar.getApi();
       let currentDate = calendarApi.getDate();
       let month = currentDate.getMonth();
@@ -148,6 +149,7 @@ export default {
           this.calendarOptions1.events.push(remaining_event);
         });
       }
+      await this.$store.commit("setLoading", false);
     },
   },
 };
