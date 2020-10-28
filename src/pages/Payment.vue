@@ -26,10 +26,13 @@
               </div>
             </div>
             <radio-button/>
-            <div class="meta-button" @click="printInvoice()" v-if="paymentOption === 'counter'">
+            <div class="meta-button" @click="printInvoice()" v-if="paymentOption === 'counter' && currentPaymentType === 'landbank'">
               <button-block>DOWNLOAD</button-block>
             </div>
-            <div class="meta-button" v-if="paymentOption === 'online'">
+            <div class="meta-button" v-if="paymentOption === 'online' && currentPaymentType === 'landbank'">
+              <button-block>REDIRECT</button-block>
+            </div>
+            <div class="meta-button" @click="redirectAppointment()" v-if="currentPaymentType === 'treasury_office'">
               <button-block>REDIRECT</button-block>
             </div>
           </div>
@@ -55,7 +58,7 @@ export default {
     DownloadableInvoice
   },
     computed: {
-    ...mapGetters(["paymentOption"]),
+    ...mapGetters(["paymentOption", "currentPaymentType"]),
   },
   data(){
       return{
@@ -68,8 +71,13 @@ export default {
     printInvoice() {
     this.$store.commit('setPrintInvoice',true)
     },
+    redirectAppointment(){
+      this.$router.push({name: 'AddAppointment'})
+    },
     changePaymentType(type) {
       this.selectedPayment = type;
+      console.log(type)
+      this.$store.commit('setCurrentPaymentType', type)
     }
   },
 };

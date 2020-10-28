@@ -15,7 +15,8 @@ const getDefaultUIState =  () => {
     redirectLogin: false,
     currentApplicationStep: '1',
     applicationType: '',
-    currentAdminTab: 'dashboard'
+    currentAdminTab: 'dashboard',
+    currentPaymentType: 'landbank'
   };
 }
 const state = getDefaultUIState()
@@ -34,7 +35,8 @@ const getters = {
   promptMessage: (state) => state.promptMessage,
   currentApplicationStep: (state) => state.currentApplicationStep,
   applicationType: (state) =>  state.applicationType,
-  currentAdminTab: (state) => state.currentAdminTab
+  currentAdminTab: (state) => state.currentAdminTab,
+  currentPaymentType: (state) => state.currentPaymentType
 };
 
 const actions = {
@@ -69,6 +71,7 @@ const mutations = {
   resetUIState: (state) => Object.assign(state, getDefaultUIState()),
   setApplicationType: (state, applicationType) => (state.applicationType = applicationType),
   setAdminCurrentTab: (state, currentAdminTab) => (state.currentAdminTab = currentAdminTab),
+  setCurrentPaymentType: (state, currentPaymentType) => (state.currentPaymentType = currentPaymentType)
 };
 
 export default {

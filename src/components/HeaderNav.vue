@@ -16,7 +16,7 @@
                     <li class="meta-menu"><router-link to="real-property-enrollment">Real Property Enrollment</router-link></li>
                     <!-- <li class="meta-menu"><router-link to="#">Search Reference No.</router-link></li> -->
                     <li class="meta-menu"><router-link to="statement-of-accounts">Statement of Accounts</router-link></li>
-                    <!-- <li class="meta-menu"><router-link to="appointment">Appointment</router-link></li> -->
+                    <li class="meta-menu"><router-link to="appointment">Appointments</router-link></li>
                 </ul>
               </li>
               <!-- <li class="meta-menu"><router-link to="#">About</router-link></li> -->

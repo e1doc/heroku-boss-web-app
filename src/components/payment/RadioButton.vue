@@ -1,7 +1,7 @@
 <template>
   <div class="meta-list">
     <!-- OPTION 1 -->
-      <div class="meta-list-option">
+      <div class="meta-list-option" v-if="currentPaymentType === 'landbank'">
           <div class="meta-radio flex-center">
               <input type="radio" class="radio-button" name="payment-options" id="option_1" checked @click="selectOptions('counter')">
               <span class="custom-radio flex-center" :class="{selected: selectedOption === 'counter'}"><span class="circle"></span></span>
@@ -10,7 +10,7 @@
           <div class="meta-desc">Pay your bills over the counter on  any Landbank branches.  Click the 'Download' button below to download your SOA which you will present in paying on any Landbank branches.</div>
       </div>
     <!-- OPTION 2 -->
-      <div class="meta-list-option">
+      <div class="meta-list-option" v-if="currentPaymentType === 'landbank'">
           <div class="meta-radio flex-center">
               <input type="radio" class="radio-button" name="payment-options" id="option_2" @click="selectOptions('online')">
               <span class="custom-radio flex-center" :class="{selected: selectedOption === 'online'}"><span class="circle"></span></span>
@@ -21,18 +21,19 @@ Landbank's online payment page.</div>
       </div>
       
     <!-- OPTION 2 -->
-      <div class="meta-list-option">
+      <div class="meta-list-option" v-if="currentPaymentType === 'treasury_office'">
           <div class="meta-radio flex-center">
-              <input type="radio" class="radio-button" name="payment-options" id="option_3" @click="selectOptions('treasury')">
-              <span class="custom-radio flex-center" :class="{selected: selectedOption === 'treasury'}"><span class="circle"></span></span>
+              <!-- <input type="radio" class="radio-button" name="payment-options" id="option_3" @click="selectOptions('treasury')">
+              <span class="custom-radio flex-center" :class="{selected: selectedOption === 'treasury'}"><span class="circle"></span></span> -->
               <label for="option_3">Pay at the Treasury Office</label>
           </div>
-          <div class="meta-desc">You must set an appointment before paying your bills at the Treasury Office. To set an appointment, please go to navigation menu > Transactions > Appointment.</div>
+          <div class="meta-desc">You must set an appointment before paying your bills at the Treasury Office. To set an appointment, please click the button below.</div>
       </div>
   </div>
 </template>
 
 <script>
+import {mapGetters} from "vuex"
 export default {
     name: "RadioButton",
     data(){
@@ -40,11 +41,17 @@ export default {
         selectedOption: 'counter',
       }
     }, 
+    computed: {
+      ...mapGetters(['currentPaymentType'])
+    },
     props: {
       paymentType: {
         type: String,
         default: "landbank",
       },
+    },
+    mounted(){
+      console.log(this.currentPaymentType)
     },
     methods:{
       selectOptions(option){
