@@ -60,6 +60,9 @@ export default {
     computed: {
     ...mapGetters(["paymentOption", "currentPaymentType"]),
   },
+   beforeRouteLeave(to, from, next) {
+     this.$store.commit('setCurrentPaymentType','landbank')
+   },
   data(){
       return{
           printVisible: false,

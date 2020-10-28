@@ -16,8 +16,7 @@
               <span class="custom-radio flex-center" :class="{selected: selectedOption === 'online'}"><span class="circle"></span></span>
               <label for="option_2">Pay Online</label>
           </div>
-          <div class="meta-desc">You can now pay your bills through online without any hassle. This option will redirect you to 
-Landbank's online payment page.</div>
+          <div class="meta-desc">You can now pay your bills through online without any hassle.</div>
       </div>
       
     <!-- OPTION 2 -->
