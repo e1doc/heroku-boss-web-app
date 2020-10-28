@@ -100,19 +100,22 @@ export default {
     ...mapGetters(["appointmentLimits"]),
   },
   created() {
-    this.$store.dispatch("appointmentLimits");
+    this.$store.dispatch("appointmentLimits","isAppointmentSuccess");
   },
   mounted() {
     this.getLimits();
   },
-  // watch:{
-  //   appointmentLimits: {
-  //     deep: true,
-  //     handler(status) {
-  //       this.getLimits()
-  //     },
-  //   },
-  // },
+  watch:{
+    isAppointmentSuccess: {
+      deep: true,
+      handler(status) {
+        if(status){
+          this.getLimits()
+          this.$store.commit('setIsAppointmentSuccess', false)
+        }
+      },
+    },
+  },
   methods: {
     handleMonthChange: function(arg) {
       console.log(arg);

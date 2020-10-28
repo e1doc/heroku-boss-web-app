@@ -27,15 +27,6 @@ export default {
   computed: {
     ...mapGetters(["appointments", "appointmentLimits"]),
   },
-  watch:{
-    appointments: {
-      deep: true,
-      handler(status) {
-        this.calendarOptions.events = []
-        this.setUpAppointments()
-      },
-    },
-  },
   data() {
     return {
       events: [],
