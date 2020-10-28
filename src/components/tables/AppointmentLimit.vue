@@ -105,6 +105,14 @@ export default {
   mounted() {
     this.getLimits();
   },
+  watch:{
+    appointmentLimits: {
+      deep: true,
+      handler(status) {
+        this.getLimits()
+      },
+    },
+  },
   methods: {
     handleMonthChange: function(arg) {
       console.log(arg);
