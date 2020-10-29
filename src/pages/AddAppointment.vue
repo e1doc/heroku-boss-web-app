@@ -61,6 +61,7 @@ export default {
   mounted() {
     // this.setUpAppointments();
     this.getLimits()
+    this.$store.commit('setCurrentPaymentType','landbank')
   },
   methods: {
     async getLimits() {

@@ -66,7 +66,7 @@ export default {
         dayMaxEvents: true,
         views: {
           dayGrid: {
-            dayMaxEvents: 2, // adjust to 6 only for timeGridWeek/timeGridDay
+            dayMaxEvents: 4, // adjust to 6 only for timeGridWeek/timeGridDay
           },
         },
         customButtons: {
@@ -97,10 +97,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["appointmentLimits"]),
+    ...mapGetters(["appointmentLimits", "isAppointmentSuccess"]),
   },
   created() {
-    this.$store.dispatch("appointmentLimits","isAppointmentSuccess");
+    this.$store.dispatch("appointmentLimits");
   },
   mounted() {
     this.getLimits();
@@ -109,9 +109,9 @@ export default {
     isAppointmentSuccess: {
       deep: true,
       handler(status) {
+        console.log('status ', status)
         if(status){
           this.getLimits()
-          this.$store.commit('setIsAppointmentSuccess', false)
         }
       },
     },
@@ -125,6 +125,7 @@ export default {
       let calendarApi = this.$refs.fullCalendar.getApi();
       let currentDate = calendarApi.getDate();
       let month = currentDate.getMonth();
+      console.log('Month', month)
       await this.$store.dispatch("getAppointmentLimits", month);
 
       if (this.appointmentLimits.length > 0) {
@@ -132,13 +133,13 @@ export default {
         this.appointmentLimits.forEach((item) => {
           let count_event = {
             id: item.id,
-            title: `Total Slots: ${item.count}`,
+            title: item.batch === 'batch_1' ?  `B1 Total Slots: ${item.count}` : `B2 Total Slots: ${item.count}`,
             start: item.date,
             allDay: true,
           };
           let remaining_event = {
             id: item.id,
-            title: `Remaining Slots: ${item.remaining}`,
+            title: item.batch === 'batch_1' ?  `B1 Remaining Slots: ${item.remaining}` : `B2 Remaining Slots: ${item.remaining}` ,
             start: item.date,
             allDay: true,
             backgroundColor: '#2ecc71',

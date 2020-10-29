@@ -4,22 +4,28 @@
       <div class="meta-input-label mt10 mb10">
         From:
       </div>
-      <base-date-picker class="mb15" v-model="start_date"/>
+      <base-date-picker class="mb15" v-model="start_date" />
       <div class="meta-input-label mt10 mb10">
         To:
       </div>
-      <base-date-picker class="mb25" v-model="end_date"/>
+      <base-date-picker class="mb25" v-model="end_date" />
       <base-input
-        label="Slots:"
+        label="Batch 1 Slots Per Day:"
         name="slots"
-        refs="appointment_slot"
+        refs="appointment_slot1"
         type="number"
         class="mt40"
-        v-model="count"
+        v-model="batch1_count"
       />
-       <button-block @click.native="setAppointmentLimit()"
-        >Submit</button-block
-      >
+      <base-input
+        label="Batch 2 Slots Per Day:"
+        name="slots"
+        refs="appointment_slot2"
+        type="number"
+        class="mt40"
+        v-model="batch2_count"
+      />
+      <button-block @click.native="setAppointmentLimit()">Submit</button-block>
     </div>
   </div>
 </template>
@@ -45,19 +51,37 @@ export default {
     return {
       start_date: "",
       end_date: "",
-      count: 0
+      batch1_count: 0,
+      batch2_count: 0,
     };
   },
   methods: {
     async setAppointmentLimit() {
+      this.$store.commit('setIsAppointmentSuccess', false)
       await this.$store.commit("setLoading", true);
+      // let payload = {
+      //   start_date: this.start_date,
+      //   end_date: this.end_date,
+      //   count: this.count,
+      // };
       let payload = {
-        start_date: this.start_date,
-        end_date: this.end_date,
-        count: this.count,
+        limit_set: [
+          {
+            start_date: this.start_date,
+            end_date: this.end_date,
+            batch: "batch_1",
+            batch1_count: this.batch1_count,
+            count: this.batch1_count,
+          },
+          {
+            start_date: this.start_date,
+            end_date: this.end_date,
+            batch: "batch_2",
+            count: this.batch2_count,
+          },
+        ],
       };
       await this.$store.dispatch("addAppointmentLimit", payload);
-      console.log(this.isAppointmentSuccess);
       if (this.isAppointmentSuccess) {
         await this.$store.commit("setLoading", false);
         this.$modal.hide("appointmentLimitModal");

@@ -7,6 +7,7 @@ import property from "./modules/property"
 import admin from "./modules/admin"
 import inquiry from "./modules/inquiry"
 import appointment from "./modules/appointment";
+import soa from "./modules/soa";
 import VuexPersist from 'vuex-persist';
 Vue.use(Vuex)
 const vuexLocalStorage = new VuexPersist({
@@ -19,7 +20,8 @@ const vuexLocalStorage = new VuexPersist({
     property: state.property,
     admin: state.admin,
     inquiry: state.inquiry,
-    appointment: state.appointment
+    appointment: state.appointment,
+    soa: state.soa
   })
 })
 export default new Vuex.Store({
@@ -30,7 +32,8 @@ export default new Vuex.Store({
     property,
     admin,
     inquiry,
-    appointment
+    appointment,
+    soa
   },
   plugins: [vuexLocalStorage.plugin]
 })

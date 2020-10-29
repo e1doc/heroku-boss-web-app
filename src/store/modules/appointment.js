@@ -67,7 +67,6 @@ const actions = {
                 headers: { Authorization: `jwt ${getters.authToken}` },
             });
             await commit('setIsAppointmentSuccess', true)
-            await dispatch('getAppointmentLimits')
         } catch (err) {
             console.log(err)
             commit('setIsAppointmentSuccess', false)

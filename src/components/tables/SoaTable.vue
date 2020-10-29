@@ -10,26 +10,26 @@
         <div class="th w10">ACTIONS</div>
       </div>
       <div class="tbody">
-        <div class="tr" v-for="index in 5" :key="index">
+        <div class="tr" v-for="(item, index) in soaList" :key="index">
           <!-- <div class="td w10">
               <span class="td-label show-in-mobile">ACCOUNT # : </span>
               F-02248
           </div> -->
           <div class="td w10">
               <span class="td-label show-in-mobile">REFERENCE # : </span>
-              102582
+              {{item.reference_number}}
           </div>
           <div class="td w10">
               <span class="td-label show-in-mobile">DATE : </span>
-              JUN 1, 2020
+              {{item.date_issued | moment('MMMM DD YYYY')}}
           </div>
           <div class="td w35">
               <span class="td-label show-in-mobile">BUSINESS NAME : </span>
-              MAMICHELLE FOOD STATION
+              {{item.business_application.businessdetails.name}}
           </div>
           <div class="td w25">
               <span class="td-label show-in-mobile">AMOUNT : </span>
-              ₱ 28,063.00
+              ₱ {{item.amount}}
           </div>
           <div class="td w10 actions">
             <div class="bill" @click="redirect()">
@@ -73,6 +73,17 @@
         </div>
       </div>
     </div>
+
+      <paginate
+        v-if="soaList.length > 9 && currentType === 'business'"
+        :page-count="pageCount"
+        :prev-text="'Prev'"
+        :next-text="'Next'"
+        :container-class="'pagination'"
+        :page-class="'page-item'"
+        :click-handler="paginateClickCallBack"
+      >
+      </paginate>
   </section>
 </template>
 
@@ -80,13 +91,35 @@
 import { mapGetters } from "vuex";
 export default {
   name: "SoaTable",
+    computed: {
+    ...mapGetters(["currentType", "soaList", "pageCount", "currentType"]),
+  },
+  watch:{
+    currentType:{
+      deep: true,
+      handler(status){
+        this.setUpList()
+      }
+    }
+  },
   methods: {
     redirect() {
       this.$router.push({ path: "payment" });
     },
+    async setUpList(){
+      await this.$store.commit('setLoading',true)
+      await this.$store.dispatch('getSoaList')
+      console.log(this.soaList)
+      await this.$store.commit('setLoading', false)
+    },
+    async paginateClickCallBack(pageNum){
+      await this.$store.commit('setLoading',true)
+      await this.$store.dispatch('getSoaList', pageNum)
+      await this.$store.commit('setLoading', false)
+    }
   },
-  computed: {
-    ...mapGetters(["currentType"]),
+  created(){
+    this.setUpList()
   },
 };
 </script>

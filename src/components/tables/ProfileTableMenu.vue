@@ -61,9 +61,12 @@ export default {
       this.activeTab = tab
       this.$store.commit("setCurrentTable", tab);
     },
+
     changeType(type){
       this.activeType = type
       this.$store.commit("setCurrentType", type);
+      let soaFilter = type === 'real_property' ? 'rpt' : type 
+      this.$store.commit("setSoaFilter", soaFilter);
     }
   }
 };

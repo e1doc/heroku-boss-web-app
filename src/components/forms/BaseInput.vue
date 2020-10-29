@@ -102,7 +102,6 @@ export default {
     value: {
       deep: true,
       handler(newValue) {
-        console.log(newValue)
         if (!this.preFillDone) {
           this.$emit("input", (this.inputData = newValue));
           this.preFillDone = true;

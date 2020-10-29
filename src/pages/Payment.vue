@@ -60,9 +60,6 @@ export default {
     computed: {
     ...mapGetters(["paymentOption", "currentPaymentType"]),
   },
-   beforeRouteLeave(to, from, next) {
-     this.$store.commit('setCurrentPaymentType','landbank')
-   },
   data(){
       return{
           printVisible: false,
@@ -75,7 +72,7 @@ export default {
     this.$store.commit('setPrintInvoice',true)
     },
     redirectAppointment(){
-      this.$router.push({name: 'AddAppointment'})
+      this.$router.push({ name: 'AddAppointment' })
     },
     changePaymentType(type) {
       this.selectedPayment = type;
