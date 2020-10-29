@@ -22,7 +22,7 @@
               <div class="meta-list-item" 
                   :class="{active:selectedPayment == 'treasury_office'}" 
                   @click="changePaymentType('treasury_office')">
-                      <img class="meta-img" src="../assets/treasury-2.png" />
+                      <img class="meta-img" src="../assets/lgu-treasury.png" />
               </div>
             </div>
             <radio-button/>

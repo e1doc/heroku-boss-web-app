@@ -3,19 +3,20 @@
     <div v-if="currentType === 'business'">
       <div class="thead hide-in-mobile">
         <!-- <div class="th w10">ACCOUNT #</div> -->
-        <div class="th w10">REFERENCE #</div>
+        <div class="th w15">REFERENCE #</div>
         <div class="th w10">DATE</div>
-        <div class="th w35">BUSINESS NAME</div>
-        <div class="th w25">AMOUNT</div>
-        <div class="th w10">ACTIONS</div>
+        <div class="th w25">BUSINESS NAME</div>
+        <div class="th w15">AMOUNT</div>
+        <div class="th w10">STATUS</div>
+        <div class="th w15">ACTIONS</div>
       </div>
       <div class="tbody">
-        <div class="tr" v-for="(item, index) in soaList" :key="index">
+        <div class="tr" v-for="index in 5" :key="index">
           <!-- <div class="td w10">
               <span class="td-label show-in-mobile">ACCOUNT # : </span>
               F-02248
           </div> -->
-          <div class="td w10">
+          <div class="td w15">
               <span class="td-label show-in-mobile">REFERENCE # : </span>
               {{item.reference_number}}
           </div>
@@ -23,17 +24,24 @@
               <span class="td-label show-in-mobile">DATE : </span>
               {{item.date_issued | moment('MMMM DD YYYY')}}
           </div>
-          <div class="td w35">
+          <div class="td w25">
               <span class="td-label show-in-mobile">BUSINESS NAME : </span>
               {{item.business_application.businessdetails.name}}
           </div>
-          <div class="td w25">
+          <div class="td w15">
               <span class="td-label show-in-mobile">AMOUNT : </span>
               ₱ {{item.amount}}
           </div>
-          <div class="td w10 actions">
+          <div class="td w10">
+              <span class="td-label show-in-mobile">STATUS : </span>
+              PENDING
+          </div>
+          <div class="td w15 actions">
             <div class="bill" @click="redirect()">
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
+            </div>
+            <div class="bill" @click="redirect()">
+              <font-awesome-icon icon="receipt" class="mr5 icon" />RESCHEDULE
             </div>
           </div>
         </div>
@@ -44,7 +52,8 @@
         <div class="th w15">TD #</div>
         <div class="th w15">REFERENCE #</div>
         <div class="th w15">DATE</div>
-        <div class="th w25">AMOUNT</div>
+        <div class="th w15">AMOUNT</div>
+        <div class="th w10">STATUS</div>
         <div class="th w15">ACTIONS</div>
       </div>
       <div class="tbody">
@@ -61,13 +70,20 @@
               <span class="td-label show-in-mobile">DATE : </span>
               JUN 1, 2020
           </div>
-          <div class="td w25">
+          <div class="td w15">
               <span class="td-label show-in-mobile">AMOUNT : </span>
               ₱ 28,063.00
+          </div>
+          <div class="td w10">
+              <span class="td-label show-in-mobile">STATUS : </span>
+              PENDING
           </div>
           <div class="td w15 actions">
             <div class="bill" @click="redirect()">
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
+            </div>
+            <div class="bill" @click="redirect()">
+              <font-awesome-icon icon="calendar-check" class="mr5 icon" />RESCHEDULE
             </div>
           </div>
         </div>
@@ -163,6 +179,7 @@ export default {
   .tr {
     display: flex;
     flex-direction: row;
+    align-items: center;
     background: #ffffff;
     box-shadow: 0px 10px 20px rgba(127, 127, 127, 0.1);
     border-radius: 8px;
@@ -188,7 +205,7 @@ export default {
   text-align: center;
   max-width: 117px;
   padding: 8px 0px;
-  margin: 0 auto;
+  margin: 0 auto 3px;
   border: 2px #039be5 solid;
   border-radius: 5px;
   transition: 0.4s;
