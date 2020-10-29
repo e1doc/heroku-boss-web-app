@@ -11,7 +11,7 @@
                         <div class="item-icon flex-center">
                             <font-awesome-icon icon="users" class="icon"/>
                         </div>
-                        <div class="item-value">0</div>
+                        <div class="item-value">{{dashboard.users_count}}</div>
                         <div class="item-label">Registered Users</div>
                     </div>
                 </div>
@@ -82,6 +82,7 @@ export default {
         ...mapGetters(['dashboard'])
     },
     mounted(){
+        console.log(this.dashboard)
         this.$store.dispatch('getDashboardData')
     }
 }

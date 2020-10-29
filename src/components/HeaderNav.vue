@@ -148,6 +148,8 @@ computed: {
          this.$store.commit('resetBusinessState')
          this.$store.commit('resetPropertyState')
          this.$store.commit('resetInquiryState')
+         this.$store.commit('resetAppointmentState')
+         this.$store.commit('resetSoaState')
          this.$router.push({ path: '/' })
    },
    extRedirect(){

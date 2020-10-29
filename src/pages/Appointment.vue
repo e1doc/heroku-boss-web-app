@@ -50,6 +50,7 @@ export default {
     this.$store.dispatch("getUserAppointments");
   },
   mounted() {
+    console.log(this.appointments)
     this.setUpAppointments();
   },
   methods: {

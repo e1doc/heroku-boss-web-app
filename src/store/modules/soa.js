@@ -4,7 +4,8 @@ const baseUrl = process.env.VUE_APP_API_URL;
 const getDefaultSoaState = () =>{
     return {
         soaList: [],
-        soaFilter: 'business'
+        soaFilter: 'business',
+        currentSoa: {}
     }
   }
 
@@ -12,12 +13,16 @@ const state = getDefaultSoaState()
 
 const getters = {
     soaList: (state) => state.soaList,
-    soaFilter: (state) => state.soaFilter
+    soaFilter: (state) => state.soaFilter,
+    currentSoa: (state) => state.currentSoa
 }
 
 const mutations = {
     setSoaList: (state, soaList) => (state.soaList = soaList),
-    setSoaFilter: (state, soaFilter) => (state.soaFilter = soaFilter)
+    setSoaFilter: (state, soaFilter) => (state.soaFilter = soaFilter),
+    setCurrentSoa: (state, currentSoa) => (state.currentSoa = currentSoa),
+    resetSoaState: (state) =>
+    Object.assign(state, getDefaultSoaState()),
 }
 
 const actions = {

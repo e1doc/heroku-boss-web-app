@@ -9,7 +9,7 @@
         <div class="th w25">AMOUNT</div>
         <div class="th w10">ACTIONS</div>
       </div>
-      <div class="tbody">
+      <div class="tbody" v-if="soaList.length > 0">
         <div class="tr" v-for="(item, index) in soaList" :key="index">
           <!-- <div class="td w10">
               <span class="td-label show-in-mobile">ACCOUNT # : </span>
@@ -29,13 +29,18 @@
           </div>
           <div class="td w25">
               <span class="td-label show-in-mobile">AMOUNT : </span>
-              ₱ {{item.amount}}
+              ₱ {{parseFloat(item.amount).toFixed(2)}}
           </div>
           <div class="td w10 actions">
-            <div class="bill" @click="redirect()">
+            <div class="bill" @click="redirect(item.id, 'business')">
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
             </div>
           </div>
+        </div>
+      </div>
+    <div class="tbody" v-if="soaList.length < 1">
+        <div class="tr">
+            <div class="td">No data available</div>
         </div>
       </div>
     </div>
@@ -103,7 +108,8 @@ export default {
     }
   },
   methods: {
-    redirect() {
+    redirect(id, type) {
+      this.$store.commit('setCurrentSoa', {id, type})
       this.$router.push({ path: "payment" });
     },
     async setUpList(){

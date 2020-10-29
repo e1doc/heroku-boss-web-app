@@ -12,7 +12,7 @@ const getDefaultAppointmentState =  () => {
         adminAppointments: [],
         appointmentCount: 0,
         appointmentSearch: "",
-        batchTab: "Batch 1",
+        batchTab: "batch_1",
         currentDate: moment().format()
     }
 }
@@ -44,7 +44,9 @@ const mutations = {
   setAppointmentCount: (state, appointmentCount) => (state.appointmentCount = appointmentCount),
   setAppointmentSearch: (state, appointmentSearch) => (state.appointmentSearch = appointmentSearch),
   setBatchTab: (state, batchTab) => (state.batchTab = batchTab),
-  setCurrentDate: (state, currentDate) => (state.currentDate = currentDate)
+  setCurrentDate: (state, currentDate) => (state.currentDate = currentDate),
+  resetAppointmentState: (state) =>
+    Object.assign(state, getDefaultAppointmentState()),
 }
 
 const actions = {

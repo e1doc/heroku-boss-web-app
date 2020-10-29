@@ -4,13 +4,13 @@
       <div class="meta-input-label mt10 mb10">
         Appointment Type:
       </div>
-      <base-select
+      <!-- <base-select
         placeholder="--- Select from the options ---"
         :options="appointmentTypeOptions"
         v-model="appointmentType"
         name="selectOptions"
         class="mb15"
-      />
+      /> -->
       <div class="meta-input-label mt10 mb10">
         Batch:
       </div>
@@ -39,7 +39,7 @@ export default {
     ButtonBlock
   },
   computed:{
-    ...mapGetters(['currentDate', 'isAppointmentSuccess', 'appointmentError'])
+    ...mapGetters(['currentDate', 'isAppointmentSuccess', 'appointmentError', 'currentSoa'])
   },
   data() {
     return {
@@ -59,18 +59,19 @@ export default {
       batchOptions: [
         {
           label: "Batch 1 ( 8:00 AM - 1:00 PM )",
-          value: "Batch 1",
+          value: "batch_1",
         },
         {
           label: "Batch 2 ( 1:00 PM - 5:00 PM )",
-          value: "Batch 2",
+          value: "batch_2",
         },
       ],
     };
   },
   methods:{
     async setAppointment(){
-      let payload = {title: this.appointmentType, batch: this.batch, appointment_date: this.currentDate}
+      let title = this.currentSoa.type === 'business' ? 'Business Permit Payment' : this.currentSoa.type === 'building' ? 'Building Permit Payment' : 'Real Property Payment' 
+      let payload = {title: title, batch: this.batch, appointment_date: this.currentDate, soa: this.currentSoa.id}
       await this.$store.commit("setLoading", true);
       await this.$store.dispatch('addAppointment', payload)
       console.log(this.isAppointmentSuccess)

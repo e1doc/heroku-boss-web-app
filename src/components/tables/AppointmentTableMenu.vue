@@ -39,12 +39,12 @@
       </div>
       <div class="right-div flex-row flex-grow">
         <div class="menu-type" v-if="appointmentStatus === 'appointment'">
-          <div :class="{ active: batchTab === 'Batch 1' }" @click="changeTab('Batch 1')" >
+          <div :class="{ active: batchTab === 'batch_1' }" @click="changeTab('batch_1')" >
             BATCH 1
           </div>
         </div>
         <div class="menu-type" v-if="appointmentStatus === 'appointment'">
-          <div :class="{ active: batchTab === 'Batch 2' }" @click="changeTab('Batch 2')">
+          <div :class="{ active: batchTab === 'batch_2' }" @click="changeTab('batch_2')">
             BATCH 2
           </div>
       </div>
@@ -77,8 +77,9 @@ export default {
     ...mapGetters(["appointmentStatus", "groups", "batchTab"]),
   },
   mounted(){
-    this.date = moment().format()
+    this.date = moment().startOf('day').format()
     this.$store.commit('setCurrentDate', this.date)
+    this.$store.dispatch('getAdminAppointments')
   },
   data() {
     return {
@@ -109,7 +110,6 @@ export default {
   methods: {  
     changeDate(){
       this.date = moment(this.date).format()
-      console.log(this.date)
       this.$store.commit('setCurrentDate', this.date)
       this.$store.dispatch('getAdminAppointments')
     },
