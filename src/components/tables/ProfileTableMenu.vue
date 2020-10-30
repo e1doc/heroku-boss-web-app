@@ -23,7 +23,7 @@
             BUILDING
           </div>
         </div>
-         <div class="menu-type">
+         <div class="menu-type" v-if="currentTable !== 'applications'">
           <div :class="{ active: currentType === 'real_property' }" @click="changeType('real_property')">
             <font-awesome-icon icon="city" class="mr5 icon" />
             REAL PROPERTY
@@ -53,20 +53,17 @@ export default {
       activeType: "business"
     }
   },
-  mounted(){
-    console.log('acctive tab', this.activeTab)
-  },
   methods:{
     changeTab(tab){
       this.activeTab = tab
       this.$store.commit("setCurrentTable", tab);
     },
 
-    changeType(type){
+    async changeType(type){
       this.activeType = type
-      this.$store.commit("setCurrentType", type);
+      await this.$store.commit("setCurrentType", type);
       let soaFilter = type === 'real_property' ? 'rpt' : type 
-      this.$store.commit("setSoaFilter", soaFilter);
+      await this.$store.commit("setSoaFilter", soaFilter);
     }
   }
 };

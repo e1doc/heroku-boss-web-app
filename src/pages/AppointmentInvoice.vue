@@ -18,11 +18,11 @@
       </div>
       <div class="dialog-header" v-if="currentSoaObj.building_application !== null">
         <div class="store-avatar">
-          <font-awesome-icon icon="store" class="icon" />
-        </div>
-        <div class="text-bold size14">SAMPLE BUSINESS NAME HERE</div>
-        <div class="triangle">
           <font-awesome-icon icon="city" class="icon" />
+        </div>
+        <div class="text-bold size14">{{currentSoaObj.building_application.buildingdetails.tax_dec_no}}</div>
+        <div class="triangle">
+          <font-awesome-icon icon="caret-up" class="icon" />
         </div>
         <!-- <div class="times" @click="closeModal()" v-if="!isPayment">
           <font-awesome-icon icon="times" class="icon" />
@@ -74,6 +74,12 @@
           <div class="owner-details" v-if="currentSoaObj.business_application !== null">
             <div class="item-label">Business Owner</div>
             <div class="item-value">{{currentSoaObj.business_application.businessbasicinformation.owner_first_name}} {{currentSoaObj.business_application.businessbasicinformation.owner_middle_name}} {{currentSoaObj.business_application.businessbasicinformation.owner_last_name}}</div>
+          </div>
+        </div>
+        <div class="invoice-owner">
+          <div class="owner-details" v-if="currentSoaObj.building_application !== null">
+            <div class="item-label">Property Owner</div>
+            <div class="item-value">{{currentSoaObj.building_application.buildingbasicinformation.owner_first_name}} {{currentSoaObj.building_application.buildingbasicinformation.owner_middle_name}} {{currentSoaObj.building_application.buildingbasicinformation.owner_last_name}}</div>
           </div>
         </div>
         <div class="invoice-amount">

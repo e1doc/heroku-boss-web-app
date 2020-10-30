@@ -76,6 +76,7 @@ export default {
   methods:{
     async setAppointment(){
       let title = this.currentSoa.type === 'business' ? 'Business Permit Payment' : this.currentSoa.type === 'building' ? 'Building Permit Payment' : 'Real Property Payment' 
+      
       let payload = {title: title, batch: this.batch, appointment_date: this.currentDate, soa: this.currentSoa.id}
       await this.$store.commit("setLoading", true);
       await this.$store.dispatch('addAppointment', payload)
@@ -99,12 +100,14 @@ export default {
       }
     },
    async updateAppointment(){
+
       let payload = this.currentAppointment
       payload.old_appointment_date = this.currentAppointment.appointment_date
       payload.appointment_date = this.currentDate
       payload.batch = this.batch
       payload.old_batch = this.currentAppointment.batch
       payload.soa = this.currentSoaObj.id
+      console.log('payload', payload)
       await this.$store.commit("setLoading", true);
       await this.$store.dispatch('updateAppointment', payload)
       if(this.isAppointmentSuccess){

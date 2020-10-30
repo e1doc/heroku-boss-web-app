@@ -10,49 +10,57 @@
         <div class="th w10">STATUS</div>
         <div class="th w15">ACTIONS</div>
       </div>
-      <div class="tbody">
+      <div class="tbody" v-if="soaList.length > 0">
         <div class="tr" v-for="(item, index) in soaList" :key="index">
           <!-- <div class="td w10">
               <span class="td-label show-in-mobile">ACCOUNT # : </span>
               F-02248
           </div> -->
           <div class="td w15">
-              <span class="td-label show-in-mobile">REFERENCE # : </span>
-              {{item.reference_number}}
+            <span class="td-label show-in-mobile">REFERENCE # : </span>
+            {{ item.reference_number }}
           </div>
           <div class="td w10">
-              <span class="td-label show-in-mobile">DATE : </span>
-              {{item.date_issued | moment('MMMM DD YYYY')}}
+            <span class="td-label show-in-mobile">DATE : </span>
+            {{ item.date_issued | moment("MMMM DD YYYY") }}
           </div>
           <div class="td w25">
-              <span class="td-label show-in-mobile">BUSINESS NAME : </span>
-              {{item.business_application.businessdetails.name}}
+            <span class="td-label show-in-mobile">BUSINESS NAME : </span>
+            {{ item.business_application.businessdetails.name }}
           </div>
           <div class="td w15">
-              <span class="td-label show-in-mobile">AMOUNT : </span>
-              ₱ {{parseFloat(item.amount).toFixed(2)}}
+            <span class="td-label show-in-mobile">AMOUNT : </span>
+            ₱ {{ parseFloat(item.amount).toFixed(2) }}
           </div>
           <div class="td w10">
-              <span class="td-label show-in-mobile">STATUS : </span>
-              PENDING
+            <span class="td-label show-in-mobile">STATUS : </span>
+            PENDING
           </div>
           <div class="td w15 actions">
-            <div class="bill" @click="redirect(item.id, 'business', item)"  v-if="item.appointment == null">
+            <div
+              class="bill"
+              @click="redirect(item.id, 'business', item)"
+              v-if="item.appointment == null"
+            >
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
             </div>
-            <div class="bill" @click="reschedule(item.appointment, item)" v-if="item.appointment !== null">
+            <div
+              class="bill"
+              @click="reschedule(item.appointment, item)"
+              v-if="item.appointment !== null"
+            >
               <font-awesome-icon icon="receipt" class="mr5 icon" />RESCHEDULE
             </div>
           </div>
         </div>
       </div>
-    <div class="tbody" v-if="soaList.length < 1">
+      <div class="tbody" v-if="soaList.length < 1">
         <div class="tr">
-            <div class="td text-center w-100">No data available</div>
+          <div class="td text-center w-100">No data available</div>
         </div>
       </div>
     </div>
-    <div v-if="currentType === 'real_property' || currentType === 'building'">
+    <div v-if="currentType === 'building'">
       <div class="thead hide-in-mobile">
         <div class="th w15">TD #</div>
         <div class="th w15">REFERENCE #</div>
@@ -61,50 +69,121 @@
         <div class="th w10">STATUS</div>
         <div class="th w15">ACTIONS</div>
       </div>
-      <div class="tbody">
-        <div class="tr" v-for="index in 5" :key="index">
-          <div class="td w15">
-              <span class="td-label show-in-mobile">TD # : </span>
+      <div class="tbody" v-if="soaList.length > 0">
+        <div class="tr" v-for="(item, index) in soaList" :key="index">
+          <!-- <div class="td w10">
+              <span class="td-label show-in-mobile">ACCOUNT # : </span>
               F-02248
+          </div> -->
+          <div class="td w15">
+            <span class="td-label show-in-mobile">TD #: </span>
+            {{ item.building_application.buildingdetails.tax_dec_no }}
           </div>
           <div class="td w15">
-              <span class="td-label show-in-mobile">REFERENCE # : </span>
-              102582
+            <span class="td-label show-in-mobile">REFERENCE # : </span>
+            {{ item.reference_number }}
           </div>
           <div class="td w15">
-              <span class="td-label show-in-mobile">DATE : </span>
-              JUN 1, 2020
+            <span class="td-label show-in-mobile">DATE : </span>
+            {{ item.date_issued | moment("MMMM DD YYYY") }}
           </div>
           <div class="td w15">
-              <span class="td-label show-in-mobile">AMOUNT : </span>
-              ₱ 28,063.00
+            <span class="td-label show-in-mobile">AMOUNT : </span>
+            ₱ {{ parseFloat(item.amount).toFixed(2) }}
           </div>
           <div class="td w10">
-              <span class="td-label show-in-mobile">STATUS : </span>
-              PENDING
+            <span class="td-label show-in-mobile">STATUS : </span>
+            PENDING
           </div>
           <div class="td w15 actions">
-            <div class="bill" @click="redirect()">
+            <div
+              class="bill"
+              @click="redirect(item.id, 'building', item)"
+              v-if="item.appointment == null"
+            >
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
             </div>
-            <div class="bill" @click="reschedule()">
-              <font-awesome-icon icon="calendar-check" class="mr5 icon" />RESCHEDULE
+            <div
+              class="bill"
+              @click="reschedule(item.appointment, item)"
+              v-if="item.appointment !== null"
+            >
+              <font-awesome-icon icon="receipt" class="mr5 icon" />RESCHEDULE
             </div>
           </div>
         </div>
       </div>
+      <div class="tbody" v-if="soaList.length < 1">
+        <div class="tr">
+          <div class="td text-center w-100">No data available</div>
+        </div>
+      </div>
     </div>
-
-      <paginate
-        v-if="soaList.length > 9 && currentType === 'business'"
-        :page-count="pageCount"
-        :prev-text="'Prev'"
-        :next-text="'Next'"
-        :container-class="'pagination'"
-        :page-class="'page-item'"
-        :click-handler="paginateClickCallBack"
-      >
-      </paginate>
+    <div v-if="currentType === 'real_property'">
+      <div class="thead hide-in-mobile">
+        <div class="th w15">TD #</div>
+        <div class="th w15">REFERENCE #</div>
+        <div class="th w15">DATE</div>
+        <div class="th w15">AMOUNT</div>
+        <div class="th w10">STATUS</div>
+        <div class="th w15">ACTIONS</div>
+      </div>
+      <div class="tbody" v-if="soaList.length > 0">
+        <div class="tr" v-for="(item, index) in soaList" :key="index">
+          <div class="td w25">
+            <span class="td-label show-in-mobile">TD #: </span>
+            {{ item.building_application.buildingdetails.tax_dec_no }}
+          </div>
+          <div class="td w15">
+            <span class="td-label show-in-mobile">REFERENCE # : </span>
+            {{ item.reference_number }}
+          </div>
+          <div class="td w10">
+            <span class="td-label show-in-mobile">DATE : </span>
+            {{ item.date_issued | moment("MMMM DD YYYY") }}
+          </div>
+          <div class="td w15">
+            <span class="td-label show-in-mobile">AMOUNT : </span>
+            ₱ {{ parseFloat(item.amount).toFixed(2) }}
+          </div>
+          <div class="td w10">
+            <span class="td-label show-in-mobile">STATUS : </span>
+            PENDING
+          </div>
+          <div class="td w15 actions">
+            <div
+              class="bill"
+              @click="redirect(item.id, 'business', item)"
+              v-if="item.appointment == null"
+            >
+              <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
+            </div>
+            <div
+              class="bill"
+              @click="reschedule(item.appointment, item)"
+              v-if="item.appointment !== null"
+            >
+              <font-awesome-icon icon="receipt" class="mr5 icon" />RESCHEDULE
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tbody" v-if="soaList.length < 1">
+        <div class="tr">
+          <div class="td text-center w-100">No data available</div>
+        </div>
+      </div>
+    </div>
+    <paginate
+      v-if="soaList.length > 9 && currentType === 'business'"
+      :page-count="pageCount"
+      :prev-text="'Prev'"
+      :next-text="'Next'"
+      :container-class="'pagination'"
+      :page-class="'page-item'"
+      :click-handler="paginateClickCallBack"
+    >
+    </paginate>
   </section>
 </template>
 
@@ -112,45 +191,54 @@
 import { mapGetters } from "vuex";
 export default {
   name: "SoaTable",
-    computed: {
-    ...mapGetters(["currentType", "soaList", "pageCount", "currentType", "currentSoa"]),
+  computed: {
+    ...mapGetters([
+      "currentType",
+      "soaList",
+      "pageCount",
+      "currentType",
+      "currentSoa",
+    ]),
   },
-  watch:{
-    currentType:{
+  watch: {
+    currentType: {
       deep: true,
-      handler(status){
-        this.setUpList()
-      }
-    }
+      handler(status) {
+        this.setUpList();
+      },
+    },
+  },
+  mounted(){
+    console.log('soa list', this.soaList)
   },
   methods: {
     redirect(id, type, soa) {
-      this.$store.commit('setCurrentSoa', {id, type})
-      console.log('soa', soa)
-      this.$store.commit('setCurrentSoaObj', soa)
-      this.$store.commit('setAppointmentAction', 'add')
+      this.$store.commit("setCurrentSoa", { id, type });
+      console.log("soa", soa);
+      this.$store.commit("setCurrentSoaObj", soa);
+      this.$store.commit("setAppointmentAction", "add");
       this.$router.push({ path: "payment" });
     },
-    reschedule(appointment, soa){
-      this.$store.commit('setCurrentAppointment', appointment)
-      this.$store.commit('setAppointmentAction', 'update')
-      this.$store.commit('currentSoaObj', soa)
+    reschedule(appointment, soa) {
+      this.$store.commit("setCurrentAppointment", appointment);
+      this.$store.commit("setAppointmentAction", "update");
+      this.$store.commit("setCurrentSoaObj", soa);
       this.$router.push({ name: "AddAppointment" });
     },
-    async setUpList(){
-      await this.$store.commit('setLoading',true)
-      await this.$store.dispatch('getSoaList')
-      console.log(this.soaList)
-      await this.$store.commit('setLoading', false)
+    async setUpList() {
+      await this.$store.commit("setLoading", true);
+      await this.$store.dispatch("getSoaList");
+      console.log(this.soaList);
+      await this.$store.commit("setLoading", false);
     },
-    async paginateClickCallBack(pageNum){
-      await this.$store.commit('setLoading',true)
-      await this.$store.dispatch('getSoaList', pageNum)
-      await this.$store.commit('setLoading', false)
-    }
+    async paginateClickCallBack(pageNum) {
+      await this.$store.commit("setLoading", true);
+      await this.$store.dispatch("getSoaList", pageNum);
+      await this.$store.commit("setLoading", false);
+    },
   },
-  created(){
-    this.setUpList()
+  created() {
+    this.setUpList();
   },
 };
 </script>
@@ -203,7 +291,7 @@ export default {
     padding-right: 10px;
     .td {
       font-size: 14px;
-       font-family: "Proxima Nova Rg";
+      font-family: "Proxima Nova Rg";
       text-align: center;
       padding: 17px 0px;
     }
@@ -231,61 +319,60 @@ export default {
   background-color: #039be5;
 }
 
-
 /*
 MOBILE RESPONSIVENESS ------------------------------------------- */
 
 span.td-label.show-in-mobile {
-    font-size: 13px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #000c114d;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #000c114d;
 }
 
-.show-in-mobile{
+.show-in-mobile {
   display: none;
 }
 
-@media only screen and ( max-width: 860px ){
-    .show-in-mobile{
-        display: block;
-    }
+@media only screen and (max-width: 860px) {
+  .show-in-mobile {
+    display: block;
+  }
 
-    .thead{
-      display: none;
-    }
+  .thead {
+    display: none;
+  }
 
-    .tbody{
-        flex-direction: unset;
-        margin-top: 0;
-        display: flex;
-        flex-wrap: wrap;
-        width: 100%;
-    }
+  .tbody {
+    flex-direction: unset;
+    margin-top: 0;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
 
-    .tbody .tr{
-        // background: #eef8ff;  
-        flex-wrap: wrap;
-        flex-direction: unset;
-        padding: 15px 20px;
-        width: calc( 50% - 60px );
-        float: left;
-        margin: 0 10px 20px;
-    }
+  .tbody .tr {
+    // background: #eef8ff;
+    flex-wrap: wrap;
+    flex-direction: unset;
+    padding: 15px 20px;
+    width: calc(50% - 60px);
+    float: left;
+    margin: 0 10px 20px;
+  }
 
-    .tbody .tr .td{
-        flex: unset;
-        width: 100%;
-        float: left;
-        text-align: left;
-    }
+  .tbody .tr .td {
+    flex: unset;
+    width: 100%;
+    float: left;
+    text-align: left;
+  }
 }
 
-@media only screen and ( max-width: 650px ){
-  .tbody .tr{
-      width: 100%;
-      float: left;
-      margin: 0 0 20px;
+@media only screen and (max-width: 650px) {
+  .tbody .tr {
+    width: 100%;
+    float: left;
+    margin: 0 0 20px;
   }
 }
 </style>

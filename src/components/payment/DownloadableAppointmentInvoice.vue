@@ -56,11 +56,19 @@
             <div class="item-label">Business Name</div>
             <div class="item-value">{{currentSoaObj.business_application.businessdetails.name}}</div>
           </div>
+          <div class="owner-details" v-if="currentSoaObj.building_application !== null">
+            <div class="item-label">Tax Declaration Number</div>
+            <div class="item-value">{{currentSoaObj.building_application.buildingdetails.tax_dec_no}}</div>
+          </div>
         </div>
         <div class="invoice-owner">
           <div class="owner-details" v-if="currentSoaObj.business_application !== null">
             <div class="item-label">Business Owner</div>
             <div class="item-value">{{currentSoaObj.business_application.businessbasicinformation.owner_first_name}} {{currentSoaObj.business_application.businessbasicinformation.owner_middle_name}} {{currentSoaObj.business_application.businessbasicinformation.owner_last_name}}</div>
+          </div>
+          <div class="owner-details" v-if="currentSoaObj.building_application !== null">
+            <div class="item-label">Property Owner</div>
+            <div class="item-value">{{currentSoaObj.building_application.buildingbasicinformation.owner_first_name}} {{currentSoaObj.building_application.buildingbasicinformation.owner_middle_name}} {{currentSoaObj.building_application.buildingbasicinformation.owner_last_name}}</div>
           </div>
         </div>
         <div class="invoice-amount">
