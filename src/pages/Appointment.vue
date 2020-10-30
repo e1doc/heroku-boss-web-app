@@ -4,9 +4,11 @@
       ><appointment-form
     /></modal> -->
     <div class="container">
-      <div class="meta-calendar-container">
+      <div class="page-title">My Appointments</div> 
+      <!-- <div class="meta-calendar-container">
         <FullCalendar :options="calendarOptions"/>
-      </div>
+      </div> -->
+      <user-appointment-table />
     </div>
   </section>
 </template>
@@ -16,6 +18,7 @@ import FullCalendar from "@fullcalendar/vue";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import AppointmentForm from "@/components/forms/AppointmentForm";
+import UserAppointmentTable from "@/components/tables/UserAppointmentTable";
 import moment from "moment-timezone";
 import { mapGetters } from "vuex";
 export default {
@@ -23,6 +26,7 @@ export default {
   components: {
     FullCalendar,
     AppointmentForm,
+    UserAppointmentTable
   },
   computed: {
     ...mapGetters(["appointments", "appointmentLimits"]),
@@ -102,5 +106,14 @@ export default {
 <style scoped lang="scss">
 .meta-calendar-container {
   padding: 25px 15px;
+}
+.container {
+  padding-top: 100px;
+  .page-title{
+      font-size: 27px;
+      font-weight: bold;
+      font-family: Raleway;
+      text-align: center;
+  }
 }
 </style>
