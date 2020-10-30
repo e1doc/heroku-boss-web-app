@@ -11,22 +11,22 @@
         </div>
       </div>
       <div class="dialog-body-holder">
-        <div class="mb30"><h3>Stament of Account</h3></div>
+        <!-- <div class="mb30"><h3>Stament of Account</h3></div> -->
         <div class="dialog-body">
         <div class="invoice-details">
             <div class="invoice-title">APPOINTMENT DETAILS</div>
             <div class="details-body">
                 <div class="details-item">
                     <div class="item-label">Appointment Date:</div>
-                    <div class="item-value">October 30, 2020</div>
+                    <div class="item-value">{{currentAppointment.appointment_date | moment('MMMM DD, YYYY')}}</div>
                 </div>
                 <div class="details-item">
                     <div class="item-label">Appointment Type:</div>
-                    <div class="item-value">Business Permit Payment</div>
+                    <div class="item-value">{{currentAppointment.title}}</div>
                 </div>
                 <div class="details-item">
                     <div class="item-label">Appointment Batch:</div>
-                    <div class="item-value">Batch #2 - Afternoon</div>
+                    <div class="item-value">{{currentAppointment.batch === 'batch_1' ? 'Batch 1 ( 8:00 AM - 1:00 PM )' : 'Batch 2 ( 1:00 PM - 5:00 PM )'}}</div>
                 </div>
             </div>
         </div>
@@ -35,15 +35,15 @@
           <div class="details-body">
             <div class="details-item">
               <div class="item-label">Reference No:</div>
-              <div class="item-value">Invoice #00002</div>
+              <div class="item-value">Invoice #{{currentSoaObj.reference_number}}</div>
             </div>
             <div class="details-item">
               <div class="item-label">Year:</div>
-              <div class="item-value">2020</div>
+              <div class="item-value">{{currentSoaObj.date_issued | moment('YYYY')}}</div>
             </div>
             <div class="details-item">
               <div class="item-label">Issued Date:</div>
-              <div class="item-value">July 25, 2020</div>
+              <div class="item-value">{{currentSoaObj.date_issued | moment('MMMM DD, YYYY')}}</div>
             </div>
             <div class="details-item">
               <div class="item-label">Quarter:</div>
@@ -51,16 +51,22 @@
             </div>
           </div>
         </div>
+         <div class="invoice-owner">
+          <div class="owner-details" v-if="currentSoaObj.business_application !== null">
+            <div class="item-label">Business Name</div>
+            <div class="item-value">{{currentSoaObj.business_application.businessdetails.name}}</div>
+          </div>
+        </div>
         <div class="invoice-owner">
-          <div class="owner-details">
+          <div class="owner-details" v-if="currentSoaObj.business_application !== null">
             <div class="item-label">Business Owner</div>
-            <div class="item-value">John Michael Doe</div>
+            <div class="item-value">{{currentSoaObj.business_application.businessbasicinformation.owner_first_name}} {{currentSoaObj.business_application.businessbasicinformation.owner_middle_name}} {{currentSoaObj.business_application.businessbasicinformation.owner_last_name}}</div>
           </div>
         </div>
         <div class="invoice-amount">
           <div class="amount-details">
             <div class="item-label">Total Amount</div>
-            <div class="item-value">₱ 28,083.00</div>
+            <div class="item-value">₱ {{parseFloat(currentSoaObj.amount).toFixed(2)}}</div>
           </div>
         </div>
         </div>
@@ -76,7 +82,7 @@ import html2canvas from "html2canvas";
 export default {
   name: "DownloadableAppointmentInvoice",
   computed: {
-    ...mapGetters(["printInvoice"]),
+    ...mapGetters(["printInvoice", "currentSoaObj", "currentAppointment"]),
   },
   watch: {
     printInvoice: {
@@ -84,6 +90,7 @@ export default {
       handler(status) {
         if (status) {
           this.generateReport();
+          this.$store.commit('setPrintInvoice', false)
         }
       },
     },

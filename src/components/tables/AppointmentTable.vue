@@ -5,8 +5,10 @@
     </div>
     <div class="thead hide-in-mobile">
         <div class="th">Appointment Date</div>
-        <div class="th">User Fullname</div>
+        <div class="th">User</div>
+        <div class="th">Batch</div>
         <div class="th">Appointment Type</div>
+        <div class="th">Is Cancelled</div>
     </div>
     <div class="appointment-table">
       <div class="tbody" v-if="adminAppointments.length > 0">
@@ -17,8 +19,14 @@
             <div class="td">
                 {{item.user.first_name}} {{item.user.last_name}} 
             </div>
+             <div class="td">
+                {{item.batch === 'batch_1' ? 'Batch 1' : 'Batch 2'}}
+            </div>
             <div class="td">
                 {{item.title}}
+            </div>
+            <div class="td">
+                {{item.is_cancelled ? 'Yes' : 'No'}}
             </div>
         </div>
       </div>

@@ -37,10 +37,10 @@
               PENDING
           </div>
           <div class="td w15 actions">
-            <div class="bill" @click="redirect(item.id, 'business')"  v-if="item.appointment == null">
+            <div class="bill" @click="redirect(item.id, 'business', item)"  v-if="item.appointment == null">
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
             </div>
-            <div class="bill" @click="reschedule(item.appointment)" v-if="item.appointment !== null">
+            <div class="bill" @click="reschedule(item.appointment, item)" v-if="item.appointment !== null">
               <font-awesome-icon icon="receipt" class="mr5 icon" />RESCHEDULE
             </div>
           </div>
@@ -124,13 +124,17 @@ export default {
     }
   },
   methods: {
-    redirect(id, type) {
+    redirect(id, type, soa) {
       this.$store.commit('setCurrentSoa', {id, type})
+      console.log('soa', soa)
+      this.$store.commit('setCurrentSoaObj', soa)
+      this.$store.commit('setAppointmentAction', 'add')
       this.$router.push({ path: "payment" });
     },
-    reschedule(appointment){
+    reschedule(appointment, soa){
       this.$store.commit('setCurrentAppointment', appointment)
       this.$store.commit('setAppointmentAction', 'update')
+      this.$store.commit('currentSoaObj', soa)
       this.$router.push({ name: "AddAppointment" });
     },
     async setUpList(){

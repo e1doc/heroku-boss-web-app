@@ -61,6 +61,7 @@ const actions = {
             const response = await axios.post(`${baseUrl}/api/appointment/`, payload,{
                 headers: { Authorization: `jwt ${getters.authToken}` },
             });
+            await commit('setCurrentAppointment', response.data)
             await commit('setIsAppointmentSuccess', true)
             await dispatch('getUserAppointments')
         } catch (err) {

@@ -5,7 +5,8 @@ const getDefaultSoaState = () =>{
     return {
         soaList: [],
         soaFilter: 'business',
-        currentSoa: {}
+        currentSoa: {},
+        currentSoaObj: {}
     }
   }
 
@@ -14,13 +15,15 @@ const state = getDefaultSoaState()
 const getters = {
     soaList: (state) => state.soaList,
     soaFilter: (state) => state.soaFilter,
-    currentSoa: (state) => state.currentSoa
+    currentSoa: (state) => state.currentSoa,
+    currentSoaObj: (state) => state.currentSoaObj
 }
 
 const mutations = {
     setSoaList: (state, soaList) => (state.soaList = soaList),
     setSoaFilter: (state, soaFilter) => (state.soaFilter = soaFilter),
     setCurrentSoa: (state, currentSoa) => (state.currentSoa = currentSoa),
+    setCurrentSoaObj: (state, currentSoaObj) => (state.currentSoaObj = currentSoaObj),
     resetSoaState: (state) =>
     Object.assign(state, getDefaultSoaState()),
 }

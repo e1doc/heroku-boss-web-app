@@ -44,7 +44,7 @@ export default {
     ButtonBlock
   },
   computed:{
-    ...mapGetters(['currentDate', 'isAppointmentSuccess', 'appointmentError', 'currentSoa', 'currentAppointment', 'appointmentAction'])
+    ...mapGetters(['currentDate', 'isAppointmentSuccess', 'appointmentError', 'currentSoa', 'currentAppointment', 'appointmentAction', 'currentSoaObj'])
   },
   data() {
     return {
@@ -87,7 +87,7 @@ export default {
             text: 'Appointment was submitted successfully.',
             icon: 'success'
         })
-        this.$router.push({name:'Appointment'})
+        this.$router.push({name:'AppointmentSlip'})
       }else{
         await this.$store.commit("setLoading", false);
        this.$modal.hide("appointmentModal");
@@ -104,6 +104,7 @@ export default {
       payload.appointment_date = this.currentDate
       payload.batch = this.batch
       payload.old_batch = this.currentAppointment.batch
+      payload.soa = this.currentSoaObj.id
       await this.$store.commit("setLoading", true);
       await this.$store.dispatch('updateAppointment', payload)
       if(this.isAppointmentSuccess){
@@ -114,7 +115,7 @@ export default {
             text: 'Appointment was rescheduled successfully.',
             icon: 'success'
         })
-        this.$router.push({name:'Appointment'})
+        this.$router.push({name:'AppointmentSlip'})
       }else{
         await this.$store.commit("setLoading", false);
        this.$modal.hide("appointmentModal");

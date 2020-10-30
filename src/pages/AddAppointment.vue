@@ -72,7 +72,7 @@ export default {
         this.appointmentLimits.forEach((item) => {
           let remaining_event = {
             id: item.id,
-            title: item.batch === 'batch_1' ?  `B1 Remaining Slots: ${item.remaining}` : `B2 Remaining Slots: ${item.remaining}`,
+            title: item.batch === 'batch_1' ?  `Batch 1: ${item.remaining} slots` : `Batch 2: ${item.remaining} slots`,
             start: item.date,
             allDay: true,
             backgroundColor: item.remaining < 1 ? '#e23a36' : '#2ecc71',

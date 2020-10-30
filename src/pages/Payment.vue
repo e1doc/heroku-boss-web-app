@@ -72,7 +72,6 @@ export default {
     this.$store.commit('setPrintInvoice',true)
     },
     redirectAppointment(){
-      this.$store.commit('setAppointmentAction', 'add')
       this.$router.push({ name: 'AddAppointment' })
     },
     changePaymentType(type) {

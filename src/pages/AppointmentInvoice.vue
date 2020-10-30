@@ -1,13 +1,28 @@
 <template>
   <section>
+   <div class="meta-invoice-holder">
+          <downloadable-appointment-invoice />
+    </div>
     <div class="dialog-holder">
-      <div class="dialog-header">
+      <div class="dialog-header" v-if="currentSoaObj.business_application !== null">
+        <div class="store-avatar">
+          <font-awesome-icon icon="store" class="icon" />
+        </div>
+        <div class="text-bold size14">{{currentSoaObj.business_application.businessdetails.name}}</div>
+        <div class="triangle">
+          <font-awesome-icon icon="caret-up" class="icon" />
+        </div>
+        <!-- <div class="times" @click="closeModal()" v-if="!isPayment">
+          <font-awesome-icon icon="times" class="icon" />
+        </div> -->
+      </div>
+      <div class="dialog-header" v-if="currentSoaObj.building_application !== null">
         <div class="store-avatar">
           <font-awesome-icon icon="store" class="icon" />
         </div>
         <div class="text-bold size14">SAMPLE BUSINESS NAME HERE</div>
         <div class="triangle">
-          <font-awesome-icon icon="caret-up" class="icon" />
+          <font-awesome-icon icon="city" class="icon" />
         </div>
         <!-- <div class="times" @click="closeModal()" v-if="!isPayment">
           <font-awesome-icon icon="times" class="icon" />
@@ -19,18 +34,18 @@
             <div class="details-body">
                 <div class="details-item">
                     <div class="item-label">Appointment Date:</div>
-                    <div class="item-value">October 30, 2020</div>
+                    <div class="item-value">{{currentAppointment.appointment_date | moment('MMMM DD, YYYY')}}</div>
                 </div>
                 <div class="details-item">
                     <div class="item-label">Appointment Type:</div>
-                    <div class="item-value">Business Permit Payment</div>
+                    <div class="item-value">{{currentAppointment.title}}</div>
                 </div>
                 <div class="details-item">
                     <div class="item-label">Appointment Batch:</div>
-                    <div class="item-value">Batch #2 - Afternoon</div>
+                    <div class="item-value">{{currentAppointment.batch === 'batch_1' ? 'Batch 1 ( 8:00 AM - 1:00 PM )' : 'Batch 2 ( 1:00 PM - 5:00 PM )'}}</div>
                 </div>
                 <div class="dialog-btn mt30">
-                    <button-full-outline class="btn-reg" @click="printInvoice()">DOWNLOAD</button-full-outline>
+                    <button-full-outline class="btn-reg" @click.native="actionPrintInvoice()">DOWNLOAD</button-full-outline>
                 </div>
             </div>
         </div>
@@ -39,15 +54,15 @@
           <div class="details-body">
             <div class="details-item">
               <div class="item-label">Reference No:</div>
-              <div class="item-value">Invoice #00002</div>
+              <div class="item-value">Invoice #{{currentSoaObj.reference_number}}</div>
             </div>
             <div class="details-item">
               <div class="item-label">Year:</div>
-              <div class="item-value">2020</div>
+              <div class="item-value">{{currentSoaObj.date_issued | moment('YYYY')}}</div>
             </div>
             <div class="details-item">
               <div class="item-label">Issued Date:</div>
-              <div class="item-value">July 25, 2020</div>
+              <div class="item-value">{{currentSoaObj.date_issued | moment('MMMM DD, YYYY')}}</div>
             </div>
             <div class="details-item">
               <div class="item-label">Quarter:</div>
@@ -56,15 +71,15 @@
           </div>
         </div>
         <div class="invoice-owner">
-          <div class="owner-details">
+          <div class="owner-details" v-if="currentSoaObj.business_application !== null">
             <div class="item-label">Business Owner</div>
-            <div class="item-value">John Michael Doe</div>
+            <div class="item-value">{{currentSoaObj.business_application.businessbasicinformation.owner_first_name}} {{currentSoaObj.business_application.businessbasicinformation.owner_middle_name}} {{currentSoaObj.business_application.businessbasicinformation.owner_last_name}}</div>
           </div>
         </div>
         <div class="invoice-amount">
           <div class="amount-details">
             <div class="item-label">Total Amount</div>
-            <div class="item-value">₱ 28,083.00</div>
+            <div class="item-value">₱ {{parseFloat(currentSoaObj.amount).toFixed(2)}}</div>
           </div>
         </div>
       </div>
@@ -74,10 +89,16 @@
 
 <script>
 import ButtonFullOutline from "@/components/ButtonFullOutline";
+import DownloadableAppointmentInvoice from "@/components/payment/DownloadableAppointmentInvoice"
+import {mapGetters} from "vuex"
 export default {
   name: "AppoinmentInvoice",
   components: {
     ButtonFullOutline,
+    DownloadableAppointmentInvoice
+  },
+  computed:{
+    ...mapGetters(['currentSoaObj', 'currentAppointment', 'printInvoice'])
   },
   props: {
     isPayment: {
@@ -87,20 +108,35 @@ export default {
     },
   },
   methods: {
-    printInvoice() {
-    this.$store.commit('setPrintInvoice',true)
+    actionPrintInvoice() {
+    console.log('print')
+    this.$store.commit('setPrintInvoice', true)
     },
   },
+  mounted(){
+    console.log('current soa', this.currentSoaObj)
+    console.log('current appointment',this.currentAppointment)
+    this.$store.commit('setPrintInvoice', false)
+  }
 };
 </script>
 
 <style lang="scss" scoped>
+
+.meta-invoice-holder{
+  position: absolute;
+  opacity: 0.0;
+  top:-5000px;
+  left:-10000px;
+  z-index: -1;
+}
 .dialog-holder {
   display: flex;
   flex-direction: column;
   border-radius: 8px;
   width: 100%;
   max-width: 700px;
+   min-height: calc(100vh - 81px);
   margin: 30px auto;
   .dialog-header {
     background: #2699fb;

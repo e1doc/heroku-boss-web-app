@@ -28,6 +28,7 @@ import ApproveBuildingApplication from "../pages/admin/ApproveBuildingApplicatio
 import AdminAppointment from "../pages/admin/AdminAppointment.vue";
 import Appointment from "../pages/Appointment"
 import AddAppointment from "../pages/AddAppointment"
+import AppointmentInvoice from "../pages/AppointmentInvoice"
 import TestPage from "../pages/TestPage";
 import store from "../store";
 Vue.use(VueRouter);
@@ -141,6 +142,11 @@ const routes = [{
         path: "add-appointment",
         name: "AddAppointment",
         component: AddAppointment,
+      },
+      {
+        path: "appointment-slip",
+        name: "AppointmentSlip",
+        component: AppointmentInvoice,
       },
     ],
     async beforeEnter(to, from, next) {
