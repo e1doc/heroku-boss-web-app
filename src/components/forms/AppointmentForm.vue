@@ -1,9 +1,9 @@
 <template>
   <div class="container form-section">
     <div class="flex-column">
-      <div class="meta-input-label mt10 mb10">
+      <!-- <div class="meta-input-label mt10 mb10">
         Appointment Type:
-      </div>
+      </div> -->
       <!-- <base-select
         placeholder="--- Select from the options ---"
         :options="appointmentTypeOptions"
@@ -22,6 +22,11 @@
         class="mb15"
       />
        <button-block @click.native="setAppointment()"
+       v-if="appointmentAction === 'add'"
+        >Submit</button-block
+      >
+      <button-block @click.native="updateAppointment()"
+       v-if="appointmentAction === 'update'"
         >Submit</button-block
       >
     </div>
@@ -39,7 +44,7 @@ export default {
     ButtonBlock
   },
   computed:{
-    ...mapGetters(['currentDate', 'isAppointmentSuccess', 'appointmentError', 'currentSoa'])
+    ...mapGetters(['currentDate', 'isAppointmentSuccess', 'appointmentError', 'currentSoa', 'currentAppointment', 'appointmentAction'])
   },
   data() {
     return {
@@ -74,13 +79,39 @@ export default {
       let payload = {title: title, batch: this.batch, appointment_date: this.currentDate, soa: this.currentSoa.id}
       await this.$store.commit("setLoading", true);
       await this.$store.dispatch('addAppointment', payload)
-      console.log(this.isAppointmentSuccess)
       if(this.isAppointmentSuccess){
         await this.$store.commit("setLoading", false);
         this.$modal.hide("appointmentModal");
         this.$swal({
             title: 'Success!',
             text: 'Appointment was submitted successfully.',
+            icon: 'success'
+        })
+        this.$router.push({name:'Appointment'})
+      }else{
+        await this.$store.commit("setLoading", false);
+       this.$modal.hide("appointmentModal");
+       this.$swal({
+            title: 'Failed!',
+            text: this.appointmentError,
+            icon: 'error'
+        })
+      }
+    },
+   async updateAppointment(){
+      let payload = this.currentAppointment
+      payload.old_appointment_date = this.currentAppointment.appointment_date
+      payload.appointment_date = this.currentDate
+      payload.batch = this.batch
+      payload.old_batch = this.currentAppointment.batch
+      await this.$store.commit("setLoading", true);
+      await this.$store.dispatch('updateAppointment', payload)
+      if(this.isAppointmentSuccess){
+        await this.$store.commit("setLoading", false);
+        this.$modal.hide("appointmentModal");
+        this.$swal({
+            title: 'Success!',
+            text: 'Appointment was rescheduled successfully.',
             icon: 'success'
         })
         this.$router.push({name:'Appointment'})

@@ -55,9 +55,6 @@ export default {
       },
     };
   },
-  created() {
-    this.$store.dispatch("getUserAppointments");
-  },
   mounted() {
     // this.setUpAppointments();
     this.getLimits()
@@ -75,7 +72,7 @@ export default {
         this.appointmentLimits.forEach((item) => {
           let remaining_event = {
             id: item.id,
-            title: `Remaining Slots: ${item.remaining}`,
+            title: item.batch === 'batch_1' ?  `B1 Remaining Slots: ${item.remaining}` : `B2 Remaining Slots: ${item.remaining}`,
             start: item.date,
             allDay: true,
             backgroundColor: item.remaining < 1 ? '#e23a36' : '#2ecc71',

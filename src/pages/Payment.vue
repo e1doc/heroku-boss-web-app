@@ -22,7 +22,7 @@
               <div class="meta-list-item" 
                   :class="{active:selectedPayment == 'treasury_office'}" 
                   @click="changePaymentType('treasury_office')">
-                      <img class="meta-img" src="../assets/treasury-2.png" />
+                      <img class="meta-img" src="../assets/lgu-treasury.png" />
               </div>
             </div>
             <radio-button/>
@@ -72,6 +72,7 @@ export default {
     this.$store.commit('setPrintInvoice',true)
     },
     redirectAppointment(){
+      this.$store.commit('setAppointmentAction', 'add')
       this.$router.push({ name: 'AddAppointment' })
     },
     changePaymentType(type) {

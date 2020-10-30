@@ -13,7 +13,9 @@ const getDefaultAppointmentState =  () => {
         appointmentCount: 0,
         appointmentSearch: "",
         batchTab: "batch_1",
-        currentDate: moment().format()
+        currentDate: moment().format(),
+        appointmentAction: "add",
+        currentAppointment: {}
     }
 }
 
@@ -30,7 +32,9 @@ const getters = {
     appointmentCount: (state) => state.appointmentCount,
     appointmentSearch: (state) => state.appointmentSearch,
     batchTab: (state) => state.batchTab,
-    currentDate: (state) => state.currentDate
+    currentDate: (state) => state.currentDate,
+    appointmentAction: (state) => state.appointmentAction,
+    currentAppointment: (state) => state.currentAppointment
 }
 
 const mutations = {
@@ -47,12 +51,27 @@ const mutations = {
   setCurrentDate: (state, currentDate) => (state.currentDate = currentDate),
   resetAppointmentState: (state) =>
     Object.assign(state, getDefaultAppointmentState()),
+  setAppointmentAction: (state, appointmentAction) => (state.appointmentAction = appointmentAction),
+  setCurrentAppointment: (state, currentAppointment) => (state.currentAppointment = currentAppointment)
 }
 
 const actions = {
     async addAppointment({ commit, getters, dispatch }, payload){
         try {
             const response = await axios.post(`${baseUrl}/api/appointment/`, payload,{
+                headers: { Authorization: `jwt ${getters.authToken}` },
+            });
+            await commit('setIsAppointmentSuccess', true)
+            await dispatch('getUserAppointments')
+        } catch (err) {
+            console.log(err)
+            commit('setIsAppointmentSuccess', false)
+            commit('setAppointmentError',err.response.data)
+        }
+    },
+    async updateAppointment({ commit, getters, dispatch }, payload){
+        try {
+            const response = await axios.put(`${baseUrl}/api/appointment/`, payload,{
                 headers: { Authorization: `jwt ${getters.authToken}` },
             });
             await commit('setIsAppointmentSuccess', true)
