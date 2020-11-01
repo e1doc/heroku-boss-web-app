@@ -5,7 +5,7 @@
     /></modal>
     <div class="container">
       <div class="meta-calendar-container">
-        <FullCalendar :options="calendarOptions" ref="appointmentCalendar"/>
+        <FullCalendar :options="calendarOptions" ref="appointmentCalendar" />
       </div>
     </div>
   </section>
@@ -27,12 +27,12 @@ export default {
   computed: {
     ...mapGetters(["appointments", "appointmentLimits"]),
   },
-  watch:{
+  watch: {
     appointments: {
       deep: true,
       handler(status) {
-        this.calendarOptions.events = []
-        this.setUpAppointments()
+        this.calendarOptions.events = [];
+        this.setUpAppointments();
       },
     },
   },
@@ -52,33 +52,60 @@ export default {
             dayMaxEvents: 2, // adjust to 6 only for timeGridWeek/timeGridDay
           },
         },
+        customButtons: {
+          prev: {
+            // this overrides the prev button
+            text: "PREV",
+            click: () => {
+              let calendarApi = this.$refs.appointmentCalendar.getApi();
+              calendarApi.prev();
+              this.getLimits();
+            },
+          },
+          next: {
+            // this overrides the next button
+            text: "NEXT",
+            click: () => {
+              let calendarApi = this.$refs.appointmentCalendar.getApi();
+              calendarApi.next();
+              this.getLimits();
+            },
+          },
+        },
+        headerToolbar: {
+          left: "title",
+          right: "today, prev,next",
+        },
       },
     };
   },
   mounted() {
     // this.setUpAppointments();
-    this.getLimits()
-    this.$store.commit('setCurrentPaymentType','landbank')
+    this.getLimits();
+    this.$store.commit("setCurrentPaymentType", "landbank");
   },
   methods: {
     async getLimits() {
+      this.$store.commit('setLoading', true)
       let calendarApi = this.$refs.appointmentCalendar.getApi();
       let currentDate = calendarApi.getDate();
       let month = currentDate.getMonth();
       await this.$store.dispatch("getUserAppointmentLimits", month);
-
+      this.$store.commit('setLoading', false)
       if (this.appointmentLimits.length > 0) {
         this.calendarOptions.events = [];
         this.appointmentLimits.forEach((item) => {
           let remaining_event = {
             id: item.id,
-            title: item.batch === 'batch_1' ?  `Batch 1: ${item.remaining} slots` : `Batch 2: ${item.remaining} slots`,
+            title:
+              item.batch === "batch_1"
+                ? `Batch 1: ${item.remaining} slots`
+                : `Batch 2: ${item.remaining} slots`,
             start: item.date,
             allDay: true,
-            backgroundColor: item.remaining < 1 ? '#e23a36' : '#2ecc71',
-            borderColor: item.remaining < 1 ? '#e23a36' : '#2ecc71',
-            description: 'Lorem'
-          }; 
+            backgroundColor: item.remaining < 1 ? "#e23a36" : "#2ecc71",
+            borderColor: item.remaining < 1 ? "#e23a36" : "#2ecc71",
+          };
           this.calendarOptions.events.push(remaining_event);
         });
       }

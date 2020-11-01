@@ -4,40 +4,39 @@
         <div class="th">Appointment Date</div>
         <div class="th">Appointment Type</div>
         <div class="th">Batch</div>
-        <div class="th">Status</div>
+        <div class="th">Is Cancelled</div>
         <div class="th">Action</div>
     </div>
     <div class="appointment-table">
         <!-- v-if="adminAppointments.length > 0" -->
       <div class="tbody">
-        <div class="tr" v-for="index of 5" :key="index">
+        <div class="tr" v-for="(item, index) in appointments" :key="index">
             <div class="td">
-                October 10, 2020
-                <!-- {{item.appointment_date | moment("MMMM DD YYYY")}} -->
+                {{item.appointment_date | moment('MMMM DD, YYYY')}}
             </div>
             <div class="td">
-                Business Permit Application
-                <!-- {{item.title}} -->
+                {{item.title}}
             </div>
             <div class="td">
-                Batch #2 - Afternoon
+                {{item.batch === 'batch_1' ? 'Batch 1 (8:00 AM - 1:00 PM)' : 'Batch 2 (1:00 PM - 5:00 PM)'}}
             </div>
             <div class="td">
-                For Payment
+                {{item.is_cancelled ? 'Yes' : 'No'}}
             </div>
             <div class="td">
-                <button-full-outline class="btn-reg" @click="printInvoice()">Print Appointment Slip</button-full-outline>
+                <button-full-outline :disabled="item.is_cancelled" class="btn-reg mb10" :class="{disabled: item.is_cancelled}" @click.native="printInvoice(item, item.soa)">Print Appointment Slip</button-full-outline>
+                <button-full-outline :disabled="item.is_cancelled" class="btn-reg" :class="{disabled: item.is_cancelled}" @click.native="reschedule(item, item.soa)">Reschedule</button-full-outline>
             </div>
         </div>
       </div>
 
-      <!-- <div class="tbody" v-if="adminAppointments.length < 1">
+  <div class="tbody" v-if="appointments.length < 1">
         <div class="tr">
             <div class="td">No data available</div>
         </div>
-      </div> -->
-        <!-- <paginate
-        v-if="adminAppointments.length > 9"
+      </div> 
+  <paginate
+        v-if="appointments.length > 9"
         :page-count="pageCount"
         :prev-text="'Prev'"
         :next-text="'Next'"
@@ -45,35 +44,52 @@
         :page-class="'page-item'"
         :click-handler="appointmentClickCallBack"
       >
-      </paginate> -->
+      </paginate>
     </div>
   </section>
 </template>
 
 <script>
 import ButtonFullOutline from "@/components/ButtonFullOutline";
+
 import { mapGetters } from "vuex";
 export default {
   name: "UserAppointmentTable",
   components: {
-    ButtonFullOutline,
+    ButtonFullOutline
+  },
+  computed:{
+     ...mapGetters(["appointments", "pageCount"]),
+  },
+  created() {
+    this.$store.dispatch("getUserAppointments");
+  },
+  mounted(){
+    this.$store.commit('setPrintInvoice', false)
+    console.log(this.appointments)
+  },
+  methods:{
+    appointmentClickCallBack(pageNum){
+      this.$store.dispatch('getAdminAppointments', pageNum)
+    },
+    async printInvoice(appointment, soa){
+      await this.$store.commit('setCurrentSoaObj', soa)
+      await this.$store.commit('setCurrentAppointment', appointment)
+      await this.$store.commit('setPrintInvoice', true)
+    },
+    async reschedule(appointment, soa) {
+      await this.$store.commit("setCurrentAppointment", appointment);
+      await this.$store.commit("setAppointmentAction", "update");
+      await this.$store.commit("setCurrentSoaObj", soa);
+      await this.$router.push({ name: "AddAppointment" });
+    },
   }
-//   computed:{
-//     ...mapGetters(['appointmentCount', 'adminAppointments', 'pageCount'])
-//   },
-//   mounted(){
-//     this.$store.dispatch('getAdminAppointments')
-//   },
-//   methods:{
-//     appointmentClickCallBack(pageNum){
-//       this.$store.dispatch('getAdminAppointments', pageNum)
-//     },
-//   }
 
 };
 </script>
 
 <style lang="scss" scoped>
+
 .thead {
   border-radius: 8px 8px 0px 0px;
   display: flex;
@@ -142,6 +158,15 @@ export default {
     text-transform: uppercase;
 }
 
+.disabled{
+  border-color: gray !important;
+  color: gray !important;
+}
+.disabled:hover{
+  border-color: gray !important;
+  color: gray !important;
+  background: none !important;
+}
 
 .result-count {
     width: 100%;

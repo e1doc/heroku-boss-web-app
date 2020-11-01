@@ -40,16 +40,9 @@
             <div
               class="bill"
               @click="redirect(item.id, 'business', item)"
-              v-if="item.appointment == null"
+              :class="{disabled: item.appointment !== null }"
             >
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
-            </div>
-            <div
-              class="bill"
-              @click="reschedule(item.appointment, item)"
-              v-if="item.appointment !== null"
-            >
-              <font-awesome-icon icon="receipt" class="mr5 icon" />RESCHEDULE
             </div>
           </div>
         </div>
@@ -99,16 +92,9 @@
             <div
               class="bill"
               @click="redirect(item.id, 'building', item)"
-              v-if="item.appointment == null"
+              :class="{disabled: item.appointment !== null }"
             >
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
-            </div>
-            <div
-              class="bill"
-              @click="reschedule(item.appointment, item)"
-              v-if="item.appointment !== null"
-            >
-              <font-awesome-icon icon="receipt" class="mr5 icon" />RESCHEDULE
             </div>
           </div>
         </div>
@@ -153,17 +139,10 @@
           <div class="td w15 actions">
             <div
               class="bill"
-              @click="redirect(item.id, 'business', item)"
-              v-if="item.appointment == null"
+              @click="redirect(item.id, 'rpt', item)"
+              :class="{disabled: item.appointment !== null }"
             >
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
-            </div>
-            <div
-              class="bill"
-              @click="reschedule(item.appointment, item)"
-              v-if="item.appointment !== null"
-            >
-              <font-awesome-icon icon="receipt" class="mr5 icon" />RESCHEDULE
             </div>
           </div>
         </div>
@@ -213,11 +192,13 @@ export default {
   },
   methods: {
     redirect(id, type, soa) {
+      if(soa.appointment === null){
       this.$store.commit("setCurrentSoa", { id, type });
       console.log("soa", soa);
       this.$store.commit("setCurrentSoaObj", soa);
       this.$store.commit("setAppointmentAction", "add");
       this.$router.push({ path: "payment" });
+      }
     },
     reschedule(appointment, soa) {
       this.$store.commit("setCurrentAppointment", appointment);
@@ -261,6 +242,15 @@ export default {
 }
 .w45 {
   width: 45%;
+}
+.disabled{
+  border-color: gray !important;
+  color: gray !important;
+}
+.disabled:hover{
+  border-color: gray !important;
+  color: gray !important;
+  background: none !important;
 }
 .thead {
   display: flex;
@@ -315,7 +305,7 @@ export default {
   cursor: pointer;
 }
 .bill:hover {
-  color: #ffffff !important;
+  color: #ffffff;
   background-color: #039be5;
 }
 
