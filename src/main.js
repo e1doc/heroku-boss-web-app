@@ -62,6 +62,8 @@ import {
   faFilter,
   faPlus,
   faCalendarCheck,
+  faNetworkWired,
+  faSort,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add([
@@ -110,7 +112,9 @@ library.add([
   faFilter,
   faPlus,
   faCheck,
-  faCalendarCheck
+  faCalendarCheck,
+  faNetworkWired,
+  faSort
 ]);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.component('paginate', Paginate)

@@ -9,6 +9,8 @@
       <!-- <view-building-details/> -->
       <!-- <downloadable-business-form/> -->
       <!-- <approve-building-application/> -->
+      <!-- <appointment-invoice/> -->
+      <!-- <downloadable-appointment-invoice/> -->
   </section>
 </template>
 
@@ -19,6 +21,8 @@ import ApproveBuildingApplication from "@/pages/admin/ApproveBuildingApplication
 import BusinessUploadStep from "@/components/application/BusinessUploadStep";
 import BuildingUploadStep from "@/components/application/BuildingUploadStep";
 import DownloadableBusinessForm from "@/components/application/DownloadableBusinessForm";
+import DownloadableAppointmentInvoice from "@/components/payment/DownloadableAppointmentInvoice";
+import AppointmentInvoice from "@/pages/AppointmentInvoice";
 import OtpDiv from "@/components/auth/OtpDiv";
 export default {
     name: "TestPage",
@@ -30,6 +34,8 @@ export default {
         DownloadableBusinessForm,
         ApproveBuildingApplication,
         ViewBuildingDetails,
+        DownloadableAppointmentInvoice,
+        AppointmentInvoice
   },
   data() {
       return {

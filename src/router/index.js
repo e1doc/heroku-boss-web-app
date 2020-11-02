@@ -23,6 +23,7 @@ import Transactions from "../pages/admin/Transactions";
 import Dashboard from "../pages/admin/Dashboard";
 import Inquiries from "../pages/admin/Inquiries";
 import ReplyInquiry from "../pages/admin/ReplyInquiry";
+import Departments from "../pages/admin/Departments";
 import ApproveBusinessApplication from "../pages/admin/ApproveBusinessApplication.vue";
 import ApproveBuildingApplication from "../pages/admin/ApproveBuildingApplication.vue";
 import AdminAppointment from "../pages/admin/AdminAppointment.vue";
@@ -220,6 +221,11 @@ const routes = [{
         path: "appointments",
         name: "AdminAppointment",
         component: AdminAppointment,
+      },
+      {
+        path: "departments",
+        name: "Departments",
+        component: Departments,
       },
     ],
     async beforeEnter(to, from, next) {
