@@ -1,5 +1,13 @@
 <template>
   <div class="admin-container">
+      <modal
+      name="departmentModal"
+      width="50%"
+      height="auto"
+      :adaptive="true"
+      ><department-form
+    /></modal>
+    <div>
     <div class="admin-page-title flex-center">
       <font-awesome-icon icon="network-wired" class="admin-icon" />
       Departments
@@ -7,14 +15,9 @@
     <div class="admin-body flex-wrap">
       <dept-table-menu />
       <div class="admin-content">
-        <div v-if="deptCategory === 'business'">
-          <!-- <appointment-limit/> -->
-        </div>
-        <div v-if="deptCategory === 'building'">
-          <!-- <appointment-table /> -->
-        </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -26,16 +29,18 @@ import interactionPlugin from "@fullcalendar/interaction";
 import { mapGetters } from "vuex"
 import AppointmentLimit from "@/components/tables/AppointmentLimit"
 import AppointmentTable from "@/components/tables/AppointmentTable"
+import DepartmentForm from "@/components/forms/DepartmentForm"
 export default {
   name: "AdminAppointment",
   components: {
     DeptTableMenu,
     FullCalendar,
     AppointmentLimit,
-    AppointmentTable
+    AppointmentTable,
+    DepartmentForm
   },
   computed: {
-    ...mapGetters(["deptCategory"]),
+    ...mapGetters([]),
   },
   data() {
     return {

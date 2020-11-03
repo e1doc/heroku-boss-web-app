@@ -1,34 +1,4 @@
 <template>
-  <!-- <div class="menu-holder">
-    <div class="left-div flex-center">
-      <div class="menu-type">
-        <div
-          :class="{ active: deptCategory === 'business' }"
-          @click="changeType('business')"
-        >
-          <font-awesome-icon icon="calendar" class="mr5 icon" />
-          building businessS
-        </div>
-      </div>
-      <div class="menu-type">
-        <div
-          :class="{ active: deptCategory === 'building' }"
-          @click="changeType('building')"
-        >
-          <font-awesome-icon icon="calendar" class="mr5 icon" />
-          buildingS
-        </div>
-      </div>
-    </div>
-     <div class="right-div flex-row flex-grow">
-        <div class="menu-type" v-if="deptCategory === 'pending'">
-          <div class="active" @click="showForm">
-            <font-awesome-icon icon="plus" class="mr5 icon" />
-            ADD
-          </div>
-        </div>
-     </div>
-  </div> -->
   <div class="menu-holder">
       <div class="left-div flex-grow">
         <div class="profile-menus flex-row">
@@ -38,7 +8,7 @@
       </div>
       <div class="right-div flex-row flex-grow">
         <div class="menu-type">
-           <div class="active">
+           <div class="active" @click="showForm()">
                 <font-awesome-icon icon="plus" class="mr5 icon" />
                 ADD
           </div>
@@ -67,12 +37,11 @@ export default {
     BaseDatePicker
   },
   computed: {
-    ...mapGetters(["deptCategory", "groups", "batchTab"]),
+    ...mapGetters(["groups", "batchTab"]),
   },
   mounted(){
     this.date = moment().startOf('day').format()
     this.$store.commit('setCurrentDate', this.date)
-    this.$store.dispatch('getAdminbuildings')
   },
   data() {
     return {
@@ -101,34 +70,17 @@ export default {
     };
   },
   methods: {  
-    changeDate(){
-      this.date = moment(this.date).format()
-      this.$store.commit('setCurrentDate', this.date)
-      this.$store.dispatch('getAdminbuildings')
-    },
     showForm(){
-      this.$modal.show("buildingLimitModal");
-    },
-    searchData(){
-      this.$store.commit('setbuildingSearch', this.search)
-      this.$store.dispatch('getAdminbuildings')
-    },
-    filter(val){
-      this.$store.commit('setFilterBy', val)
-      if(this.currentType === 'business'){
-        this.$store.dispatch("getAllBusinessApplications");
-      }else if(this.currentType === 'real_property'){
-        this.$store.dispatch("getAllBuildingApplications");
-      }
+      console.log('clicked')
+      this.$modal.show("departmentModal");
     },
     changeTab(tab) {
       this.activeTab = tab;
-      this.$store.commit("setBatchTab", tab);
-      this.$store.dispatch('getAdminbuildings')
+      this.$store.commit("setCurrentTab", tab);
     },
     changeType(type) {
       this.activeType = type;
-      this.$store.commit("setdeptCategory", type);
+      this.$store.commit("setCurrentType", type);
     },
   },
 };
