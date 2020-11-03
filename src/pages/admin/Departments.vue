@@ -15,6 +15,7 @@
     <div class="admin-body flex-wrap">
       <dept-table-menu />
       <div class="admin-content">
+        <dept-table />
       </div>
     </div>
   </div>
@@ -23,6 +24,7 @@
 
 <script>
 import DeptTableMenu from "@/components/tables/DeptTableMenu";
+import DeptTable from "@/components/tables/DeptTable";
 import FullCalendar from "@fullcalendar/vue";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -34,6 +36,7 @@ export default {
   name: "AdminAppointment",
   components: {
     DeptTableMenu,
+    DeptTable,
     FullCalendar,
     AppointmentLimit,
     AppointmentTable,
