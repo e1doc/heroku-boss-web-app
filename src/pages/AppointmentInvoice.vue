@@ -208,7 +208,7 @@ export default {
         margin-bottom: 25px;
         color: rgba($color: #2699fb, $alpha: 0.73);
         font-weight: bold;
-        font-size: 15px;
+        font-size: 20px;
       }
       .details-body {
         padding-left: 20px;
@@ -220,7 +220,7 @@ export default {
           .item-label {
             font-weight: bold;
             margin-bottom: 8px;
-            font-size: 13px;
+            font-size: 16px;
           }
           .item-value {
             font-size: 16px;
@@ -236,7 +236,7 @@ export default {
         .item-label {
           font-weight: bold;
           margin-bottom: 8px;
-          font-size: 13px;
+          font-size: 16px;
         }
         .item-value {
           font-size: 16px;
@@ -253,7 +253,7 @@ export default {
             margin: auto 0;
             color: rgba($color: #2699fb, $alpha: 0.73);
             font-weight: bold;
-            font-size: 14px;
+            font-size: 16px;
             font-family: "Proxima Nova Rg";
             text-transform: uppercase;
         }
