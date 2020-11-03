@@ -7,6 +7,13 @@
       :adaptive="true"
       ><department-form
     /></modal>
+          <modal
+      name="departmentOrderModal"
+      width="50%"
+      height="auto"
+      :adaptive="true"
+      ><department-order-form
+    /></modal>
     <div>
     <div class="admin-page-title flex-center">
       <font-awesome-icon icon="network-wired" class="admin-icon" />
@@ -30,6 +37,7 @@ import { mapGetters } from "vuex"
 import AppointmentLimit from "@/components/tables/AppointmentLimit"
 import AppointmentTable from "@/components/tables/AppointmentTable"
 import DepartmentForm from "@/components/forms/DepartmentForm"
+import DepartmentOrderForm from "@/components/forms/DepartmentOrderForm"
 export default {
   name: "AdminAppointment",
   components: {
@@ -37,7 +45,8 @@ export default {
     FullCalendar,
     AppointmentLimit,
     AppointmentTable,
-    DepartmentForm
+    DepartmentForm,
+    DepartmentOrderForm
   },
   computed: {
     ...mapGetters([]),
@@ -45,6 +54,9 @@ export default {
   data() {
     return {
     };
+  },
+    mounted(){
+    this.$store.commit('setLoading', false)
   },
   methods:{
     handleEventClick(info){

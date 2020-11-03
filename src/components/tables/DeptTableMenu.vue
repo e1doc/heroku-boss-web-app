@@ -14,7 +14,7 @@
           </div>
         </div>
         <div class="menu-type">
-           <div class="active">
+           <div class="active" @click="showOrder()">
                 <font-awesome-icon icon="sort" class="mr5 icon" />
                 RE-ORDER
           </div>
@@ -40,8 +40,7 @@ export default {
     ...mapGetters(["groups", "batchTab"]),
   },
   mounted(){
-    this.date = moment().startOf('day').format()
-    this.$store.commit('setCurrentDate', this.date)
+    this.$store.commit('setCurrentType','business')
   },
   data() {
     return {
@@ -71,8 +70,10 @@ export default {
   },
   methods: {  
     showForm(){
-      console.log('clicked')
       this.$modal.show("departmentModal");
+    },
+    showOrder(){
+      this.$modal.show("departmentOrderModal");
     },
     changeTab(tab) {
       this.activeTab = tab;

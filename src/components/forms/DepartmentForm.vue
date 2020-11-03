@@ -23,7 +23,7 @@
         class="input-w3"
         inputClass="fw-mobile"
       />
-      <button-block>Submit</button-block>
+      <button-block @click.native="addDepartment">Submit</button-block>
     </div>
   </div>
 </template>
@@ -32,6 +32,7 @@
 import ButtonBlock from "@/components/ButtonBlock";
 import BaseInput from "@/components/forms/BaseInput";
 import BaseSelect from "@/components/forms/BaseSelect";
+import {mapGetters} from "vuex"
 export default {
   name: "DepartmentForm",
   components: {
@@ -39,9 +40,13 @@ export default {
     BaseInput,
     BaseSelect,
   },
+  computed: {
+    ...mapGetters(['addDepartmentSuccess'])
+  },
   data() {
     return {
       department_name: "",
+      application_type: "",
       typeOptions: [
         {
           label: "Business Application",
@@ -54,6 +59,26 @@ export default {
       ],
     };
   },
+
+  methods:{
+    async addDepartment(){
+      await this.$store.commit('setLoading', true)
+      let payload = {name: this.department_name, application_type: this.application_type}
+      await this.$store.dispatch('addDepartment', payload)
+      if(this.addDepartmentSuccess){
+          this.$swal({
+            title: 'Success!',
+            text: 'Department was submitted successfully.',
+            icon: 'success'
+        })
+        this.$modal.hide("departmentModal");
+        this.$store.commit('setAddDepartmentSuccess', false)
+      }else{
+        this.$modal.hide("departmentModal");
+      }
+       await this.$store.commit('setLoading', false)
+    }
+  }
 };
 </script>
 

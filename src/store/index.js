@@ -8,6 +8,7 @@ import admin from "./modules/admin"
 import inquiry from "./modules/inquiry"
 import appointment from "./modules/appointment";
 import soa from "./modules/soa";
+import department from "./modules/department"
 import VuexPersist from 'vuex-persist';
 Vue.use(Vuex)
 const vuexLocalStorage = new VuexPersist({
@@ -21,7 +22,8 @@ const vuexLocalStorage = new VuexPersist({
     admin: state.admin,
     inquiry: state.inquiry,
     appointment: state.appointment,
-    soa: state.soa
+    soa: state.soa,
+    department: state.department
   })
 })
 export default new Vuex.Store({
@@ -33,7 +35,8 @@ export default new Vuex.Store({
     admin,
     inquiry,
     appointment,
-    soa
+    soa,
+    department
   },
   plugins: [vuexLocalStorage.plugin]
 })
