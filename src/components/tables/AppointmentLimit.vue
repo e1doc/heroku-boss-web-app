@@ -135,6 +135,8 @@ export default {
             id: item.id,
             title: item.batch === 'batch_1' ?  `B1 Total Slots: ${item.count}` : `B2 Total Slots: ${item.count}`,
             start: item.date,
+            backgroundColor: item.batch === 'batch_1' ? '#2ecc71' : '',
+            borderColor: item.batch === 'batch_1' ? '#2ecc71' : '',
             allDay: true,
           };
           let remaining_event = {
@@ -142,8 +144,8 @@ export default {
             title: item.batch === 'batch_1' ?  `B1 Remaining Slots: ${item.remaining}` : `B2 Remaining Slots: ${item.remaining}` ,
             start: item.date,
             allDay: true,
-            backgroundColor: '#2ecc71',
-            borderColor: '#2ecc71',
+            backgroundColor: item.batch === 'batch_1' ? '#2ecc71' : '',
+            borderColor: item.batch === 'batch_1' ? '#2ecc71' : '',
             description: 'Lorem'
           }; 
           this.calendarOptions1.events.push(count_event);

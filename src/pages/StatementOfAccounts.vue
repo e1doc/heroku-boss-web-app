@@ -20,6 +20,9 @@ export default {
     ProfileTableMenu,
     SoaTable
   },
+  mounted(){
+    this.$store.commit('setCurrentTab','soa')
+  }
 };
 </script>
 
