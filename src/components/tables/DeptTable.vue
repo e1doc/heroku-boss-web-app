@@ -5,15 +5,20 @@
       <div class="th dept-name">DEPARTMENT NAME</div>
     </div>
     <div>
-      <div class="tbody">
-        <div class="tr" v-for="index of 5" :key="index">
+      <div class="tbody" v-if="departments.length > 0">
+        <div class="tr" v-for="(item, index) in departments" :key="index">
             <div class="td order-no">
-                {{ index }}
+                {{ item.index }}
             </div>
             <div class="td dept-name">
                 <span class="td-label show-in-mobile">DEPARTMENT NAME : </span>
-                JOHN MICHAEL DOE
+                {{ item.name }}
             </div>
+        </div>
+      </div>
+      <div class="tbody" v-if="departments.length < 1">
+        <div class="tr">
+          <div class="td ml-auto mr-auto">No data available</div>
         </div>
       </div>
     </div>
@@ -24,6 +29,12 @@
 import { mapGetters } from "vuex";
 export default {
   name: "DeptTable",
+  computed: {
+    ...mapGetters(['departments'])
+  },
+  mounted(){
+    this.$store.dispatch("getDepartments")
+  }
 };
 </script>
 

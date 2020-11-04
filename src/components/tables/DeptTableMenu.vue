@@ -82,6 +82,7 @@ export default {
     changeType(type) {
       this.activeType = type;
       this.$store.commit("setCurrentType", type);
+      this.$store.dispatch("getDepartments")
     },
   },
 };

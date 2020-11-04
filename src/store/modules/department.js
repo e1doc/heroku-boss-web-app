@@ -35,13 +35,25 @@ const actions = {
     },
     async getDepartments({commit, dispatch, getters}){
         try {
-            console.log(getters.currentType)
             let filter = getters.currentType === 'business' ? 'Business' : 'Building'
             const response = await axios.get(`${baseUrl}/staff/department-list?filter=${filter}`, {headers: {Authorization: `jwt ${getters.authToken}`}})
             console.log(response.data)
             commit('setDepartments', response.data)
         } catch (err) {
             console.log(err)
+            if(err.response){
+                console.log(err.response)
+            }
+        }
+    },
+    async updateDepartments({commit, dispatch, getters}, payload){
+        try {
+            const response = await axios.put(`${baseUrl}/staff/viewsets/department/${payload.id}/`,payload, {headers: {Authorization: `jwt ${getters.authToken}`} })
+        } catch (err) {
+            console.log(err)
+            if(err.response){
+                console.log(err.response)
+            }          
         }
     }
 }

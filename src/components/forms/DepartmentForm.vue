@@ -73,6 +73,7 @@ export default {
         })
         this.$modal.hide("departmentModal");
         this.$store.commit('setAddDepartmentSuccess', false)
+        this.$store.dispatch("getDepartments");
       }else{
         this.$modal.hide("departmentModal");
       }

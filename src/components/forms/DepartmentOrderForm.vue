@@ -1,50 +1,84 @@
 <template>
   <div class="container form-section">
     <div class="flex-column">
-      <draggable
-        v-model="myArray"
-        group="people"
-        :sort="true"
-        @change="inputChanged"
-      >
-        <div class="meta-items" v-for="element in myArray" :key="element.id">
-          {{ element.name }} {{ element.order }}
-        </div>
-      </draggable>
+      <div class="mb15">
+        <h3 class="mb5">
+          Re Order List
+        </h3>
+        <p>Drag and drop items to reorder.</p>
+      </div>
+      <div v-if="list.length > 0">
+        <draggable
+          class="mb20"
+          v-model="list"
+          group="people"
+          :sort="true"
+          @change="inputChanged"
+        >
+          <div class="meta-items" v-for="element in list" :key="element.id">
+            {{ element.name }} {{ element.index }}
+          </div>
+        </draggable>
+      </div>
+      <button-block @click.native="reOrderList" v-if="list.length > 0">Update</button-block>
+      <div v-if="list.length < 1">
+        <p class="text-center">No items to re-order</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import ButtonBlock from "@/components/ButtonBlock";
 import draggable from "vuedraggable";
+import { mapGetters } from "vuex";
 export default {
   name: "DepartmentOrderForm",
   components: {
     draggable,
+    ButtonBlock,
+  },
+  computed: {
+    ...mapGetters(["departments"]),
   },
   data() {
     return {
-      myArray: [
-        {
-          id: 1,
-          order: 0,
-          name: "Lorem",
-        },
-        { id: 2, order: 1, name: "Ipsum" },
-      ],
+      list: [],
     };
+  },
+  created() {
+    this.$store.dispatch("getDepartments");
+  },
+  mounted() {
+    if (this.departments.length > 0) {
+      this.departments.forEach((item) => {
+        this.list.push(item);
+      });
+    }
+    console.log(this.list);
   },
   methods: {
     async inputChanged(value) {
-      this.myArray.forEach(function (item, index){
-          console.log(item, index)
-          item.order = index
-      })
+      this.list.forEach(function(item, index) {
+        console.log(item, index);
+        item.index = index + 1;
+      });
+    },
+    async reOrderList() {
+      await this.$store.commit("setLoading", true);
+      await this.list.forEach((item) => {
+        this.$store.dispatch("updateDepartments", item);
+      });
+      await this.$store.commit("setLoading", false);
+      this.$swal({
+        title: "Success!",
+        text: "Departments order was updated successfully.",
+        icon: "success",
+      });
+      this.$modal.hide("departmentOrderModal");
+      this.$store.dispatch("getDepartments");
     },
   },
-  mounted(){
-      this.$store.dispatch('getDepartments')
-  }
 };
 </script>
 
