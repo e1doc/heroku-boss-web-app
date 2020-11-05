@@ -37,12 +37,12 @@
                         INQUIRIES 
                     </router-link>
                 </li>
-                <!-- <li class="admin-item" :class="{ active: currentAdminTab  === 'departments'}" @click="changeTab('departments')">
+                <li class="admin-item" :class="{ active: currentAdminTab  === 'departments'}" @click="changeTab('departments')">
                     <router-link :to="{name:'Departments'}">
                         <font-awesome-icon icon="network-wired" class="admin-icon"/>
                         DEPARTMENTS 
                     </router-link>
-                </li> -->
+                </li>
             </ul>
         </div>
     </div>

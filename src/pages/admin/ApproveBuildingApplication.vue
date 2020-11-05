@@ -205,12 +205,12 @@
           </div>
         </div>
 
-      <!-- Uploaded Requirements -->
-      <div class="meta-text-group flex-wrap" v-if="buildingRequirements">
-        <div class="meta-group-title">Uploaded Requirements Checklist</div>
+        <!-- Uploaded Requirements -->
+        <div class="meta-text-group flex-wrap" v-if="buildingRequirements">
+          <div class="meta-group-title">Uploaded Requirements Checklist</div>
 
-        <!----------------------------- A. LEGAL DOCUMENTS ------------------------------------------>
-        <div class="meta-form-group mb60">
+          <!----------------------------- A. LEGAL DOCUMENTS ------------------------------------------>
+          <div class="meta-form-group mb60">
             <div class="meta-group-title">
               A. Legal Documents - Only one PDF File for all legal documents.
             </div>
@@ -218,118 +218,142 @@
               <!-- A. LEGAL DOCUMENTS 1 -->
               <li>
                 <div class="meta-checkbox flex-center">
-                    <input
-                      type="checkbox"
-                      id="legal_docs_1"
-                      v-model="legal_documents.legal_docs_1"
-                    />
-                    <div class="custom-checkbox flex-center">
-                      <span class="check">
-                        <font-awesome-icon icon="check" class="mr5 check-icon" />
-                        <font-awesome-icon icon="times" class="mr5 x-icon" />
-                      </span>
-                    </div>
-                    <label for="legal_docs_1">1. Certified true copy of Transfer Certificate of Title (TCT)(original copy)</label>
+                  <input
+                    type="checkbox"
+                    id="legal_docs_1"
+                    v-model="legal_documents.legal_docs_1"
+                  />
+                  <div class="custom-checkbox flex-center">
+                    <span class="check">
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
+                    </span>
+                  </div>
+                  <label for="legal_docs_1"
+                    >1. Certified true copy of Transfer Certificate of Title
+                    (TCT)(original copy)</label
+                  >
                 </div>
                 <!-- DETAILS -->
                 <ul class="main-list">
                   <li>
-                      If TCT is NOT YET in the name of the applicant, any of the following:
-                      <ul class="sub-list">
-                          <li>Deed of Absolute Sale</li>
-                          <li>Contract to Sell</li>
-                          <li>Deed of Assignment / Donation or any equivalent</li>
-                      </ul>
+                    If TCT is NOT YET in the name of the applicant, any of the
+                    following:
+                    <ul class="sub-list">
+                      <li>Deed of Absolute Sale</li>
+                      <li>Contract to Sell</li>
+                      <li>Deed of Assignment / Donation or any equivalent</li>
+                    </ul>
                   </li>
                   <li>
-                      If the applicant is a LESSEE or TCT is in the name of a Corporation, upload:
-                      <ul class="sub-list">
-                          <li>Lease Contract</li>
-                          <li>Corporate Secretary's Certificate (authorizing the signatory
-                              with general information sheet)
-                          </li>
-                      </ul>
+                    If the applicant is a LESSEE or TCT is in the name of a
+                    Corporation, upload:
+                    <ul class="sub-list">
+                      <li>Lease Contract</li>
+                      <li>
+                        Corporate Secretary's Certificate (authorizing the
+                        signatory with general information sheet)
+                      </li>
+                    </ul>
                   </li>
                   <li>
-                      If the applicant is NOT the registered owner or with co-owner of the land, upload:
-                      <ul class="sub-list">
-                          <li>Affidavit of Consent</li>
-                          <li>Extrajudicial Settlement</li>
-                      </ul>
+                    If the applicant is NOT the registered owner or with
+                    co-owner of the land, upload:
+                    <ul class="sub-list">
+                      <li>Affidavit of Consent</li>
+                      <li>Extrajudicial Settlement</li>
+                    </ul>
                   </li>
                   <li>
-                      If the applicant has a Representative
-                      <ul class="sub-list">
-                          <li>Authorization Letter to APPLY in behalf of the applicant (with valid ID of applicant and representative)</li>
-                          <li>Special Power of Attorney (SPA) to SIGN in behalf of the applicant (with valid ID of applicant and representative)</li>
-                      </ul>
+                    If the applicant has a Representative
+                    <ul class="sub-list">
+                      <li>
+                        Authorization Letter to APPLY in behalf of the applicant
+                        (with valid ID of applicant and representative)
+                      </li>
+                      <li>
+                        Special Power of Attorney (SPA) to SIGN in behalf of the
+                        applicant (with valid ID of applicant and
+                        representative)
+                      </li>
+                    </ul>
                   </li>
                 </ul>
               </li>
 
               <!-- A. LEGAL DOCUMENTS 2 -->
               <li>
-                  <div class="meta-checkbox flex-center">
-                      <input
-                        type="checkbox"
-                        id="legal_docs_2"
-                        v-model="legal_documents.legal_docs_2"
-                      />
-                      <div class="custom-checkbox flex-center">
-                          <span class="check"><font-awesome-icon icon="check" class="mr5 check-icon"/></span>
-                      </div>
-                      <label for="legal_docs_2">2. Tax Declaration of Real Property</label>
+                <div class="meta-checkbox flex-center">
+                  <input
+                    type="checkbox"
+                    id="legal_docs_2"
+                    v-model="legal_documents.legal_docs_2"
+                  />
+                  <div class="custom-checkbox flex-center">
+                    <span class="check"
+                      ><font-awesome-icon icon="check" class="mr5 check-icon"
+                    /></span>
                   </div>
+                  <label for="legal_docs_2"
+                    >2. Tax Declaration of Real Property</label
+                  >
+                </div>
               </li>
 
               <!-- A. LEGAL DOCUMENTS 3 -->
               <li>
-                  <div class="meta-checkbox flex-center">
-                      <input
-                        type="checkbox"
-                        id="legal_docs_3"
-                        v-model="legal_documents.legal_docs_3"
-                      />
-                      <div class="custom-checkbox flex-center">
-                          <span class="check">
-                          <font-awesome-icon icon="check" class="mr5 check-icon"/></span>
-                      </div>
-                      <label for="legal_docs_3">3. Tax Clearance of Real Property for Lot (current tax year)</label>
+                <div class="meta-checkbox flex-center">
+                  <input
+                    type="checkbox"
+                    id="legal_docs_3"
+                    v-model="legal_documents.legal_docs_3"
+                  />
+                  <div class="custom-checkbox flex-center">
+                    <span class="check">
+                      <font-awesome-icon icon="check" class="mr5 check-icon"
+                    /></span>
                   </div>
+                  <label for="legal_docs_3"
+                    >3. Tax Clearance of Real Property for Lot (current tax
+                    year)</label
+                  >
+                </div>
               </li>
 
               <!-- A. LEGAL DOCUMENTS 4 -->
               <li>
-                  <div class="meta-checkbox flex-center">
-                      <input
-                        type="checkbox"
-                        id="legal_docs_4"
-                        v-model="legal_documents.legal_docs_4"
-                      />
-                      <div class="custom-checkbox flex-center">
-                        <span class="check">
-                          <font-awesome-icon icon="check" class="mr5 check-icon" />
-                          <font-awesome-icon icon="times" class="mr5 x-icon" />
-                        </span>
-                      </div>
-                      <label for="legal_docs_4">4. Local and National Agencies Clearances</label>
+                <div class="meta-checkbox flex-center">
+                  <input
+                    type="checkbox"
+                    id="legal_docs_4"
+                    v-model="legal_documents.legal_docs_4"
+                  />
+                  <div class="custom-checkbox flex-center">
+                    <span class="check">
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
+                    </span>
                   </div>
-                  <ul class="sub-list">
-                      <li>Barangay Clearance (for construction)</li>
-                      <li>Homeowner's Clearance (for construction)</li>
-                      <li>National Agencies Clearance</li>
-                      <li>Affidavit of Undertaking (notarized)</li>
-                  </ul>
+                  <label for="legal_docs_4"
+                    >4. Local and National Agencies Clearances</label
+                  >
+                </div>
+                <ul class="sub-list">
+                  <li>Barangay Clearance (for construction)</li>
+                  <li>Homeowner's Clearance (for construction)</li>
+                  <li>National Agencies Clearance</li>
+                  <li>Affidavit of Undertaking (notarized)</li>
+                </ul>
               </li>
             </ul>
-        </div>
+          </div>
 
-        <!----------------------------- B. TECHNICAL DOCUMENTS --------------------------------------> 
-        <div class="meta-form-group mb60">
-          <div class="meta-group-title">B. Technical Documents</div>
-          <ul class="parent-list">
-            <li>
-              <div class="meta-checkbox flex-center">
+          <!----------------------------- B. TECHNICAL DOCUMENTS -------------------------------------->
+          <div class="meta-form-group mb60">
+            <div class="meta-group-title">B. Technical Documents</div>
+            <ul class="parent-list">
+              <li>
+                <div class="meta-checkbox flex-center">
                   <input
                     type="checkbox"
                     id="tech_docs_1"
@@ -342,82 +366,86 @@
                     </span>
                   </div>
                   <label for="tech_docs_1">1. Application Forms</label>
-              </div>
-              <ul class="main-list">
+                </div>
+                <ul class="main-list">
                   <li>United Application Form for Building Permit and FSEC</li>
                   <li>
                     Ancillary Application Forms
                     <ul class="sub-list">
-                        <li>Architectural Permit</li>
-                        <li>Civil/Structural Permit</li>
-                        <li>Sanitary/Plumbing Permit</li>
-                        <li>Mechanical Permit</li>
-                        <li>Sign Permit</li>
-                        <li>Mechanical Permit</li>
-                        <li>Electronic Permit</li>
+                      <li>Architectural Permit</li>
+                      <li>Civil/Structural Permit</li>
+                      <li>Sanitary/Plumbing Permit</li>
+                      <li>Mechanical Permit</li>
+                      <li>Sign Permit</li>
+                      <li>Mechanical Permit</li>
+                      <li>Electronic Permit</li>
                     </ul>
                   </li>
                   <li>Locational Clearance Application Form</li>
-                  <li>Contractor's Temporary Business Permit Application Form</li>
-              </ul>
-            </li>
-          </ul>
-        </div>
+                  <li>
+                    Contractor's Temporary Business Permit Application Form
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
 
-        <!----------------------------- C. DESIGN PLANS --------------------------------------> 
-        <div class="meta-form-group mb60">
-          <div class="meta-group-title">C. Design Plans</div>
-          <ul class="parent-list">
-            <li>
+          <!----------------------------- C. DESIGN PLANS -------------------------------------->
+          <div class="meta-form-group mb60">
+            <div class="meta-group-title">C. Design Plans</div>
+            <ul class="parent-list">
+              <li>
                 <div class="meta-checkbox flex-center">
-                    <input
-                      type="checkbox"
-                      id="design_1"
-                      v-model="design_plans.design_1"
-                    />
-                    <div class="custom-checkbox flex-center">
-                      <span class="check">
-                        <font-awesome-icon icon="check" class="mr5 check-icon" />
-                        <font-awesome-icon icon="times" class="mr5 x-icon" />
-                      </span>
-                    </div>
-                    <label for="design_1">1. Survey Plans</label>
+                  <input
+                    type="checkbox"
+                    id="design_1"
+                    v-model="design_plans.design_1"
+                  />
+                  <div class="custom-checkbox flex-center">
+                    <span class="check">
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
+                    </span>
+                  </div>
+                  <label for="design_1">1. Survey Plans</label>
                 </div>
                 <ul class="sub-list">
-                    <li>Relocation Survey Report and Certification</li>
-                    <li>Lot Plan with Vicinity Map</li>
+                  <li>Relocation Survey Report and Certification</li>
+                  <li>Lot Plan with Vicinity Map</li>
                 </ul>
-            </li>
+              </li>
 
-            <li>
+              <li>
                 <div class="meta-checkbox flex-center">
-                    <input
-                      type="checkbox"
-                      id="design_2"
-                      v-model="design_plans.design_2"
-                    />
-                    <div class="custom-checkbox flex-center">
-                      <span class="check">
-                        <font-awesome-icon icon="check" class="mr5 check-icon" />
-                        <font-awesome-icon icon="times" class="mr5 x-icon" />
-                      </span>
-                    </div>
-                    <label for="design_2">2. Building Plans</label>
+                  <input
+                    type="checkbox"
+                    id="design_2"
+                    v-model="design_plans.design_2"
+                  />
+                  <div class="custom-checkbox flex-center">
+                    <span class="check">
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
+                    </span>
+                  </div>
+                  <label for="design_2">2. Building Plans</label>
                 </div>
                 <ul class="sub-list">
-                    <li>Short Circuit Analysis and Voltage Drop Calculation</li>
-                    <li>Green Building Code</li>
-                    <li>Fire Protection Plan</li>
+                  <li>Short Circuit Analysis and Voltage Drop Calculation</li>
+                  <li>Green Building Code</li>
+                  <li>Fire Protection Plan</li>
                 </ul>
-            </li>
-          </ul>
-        </div>
-        <!----------------------------- D. DESIGN SPECIFICATIONS AND DOCUMENTS --------------------------------------> 
-        <div class="meta-form-group mb60">
-          <div class="meta-group-title">D. Design Specifications and Documents</div>
-          <ul class="parent-list">
-            <li>
-              <div class="meta-checkbox flex-center">
+              </li>
+            </ul>
+          </div>
+          <!----------------------------- D. DESIGN SPECIFICATIONS AND DOCUMENTS -------------------------------------->
+          <div class="meta-form-group mb60">
+            <div class="meta-group-title">
+              D. Design Specifications and Documents
+            </div>
+            <ul class="parent-list">
+              <li>
+                <div class="meta-checkbox flex-center">
                   <input
                     type="checkbox"
                     id="specs_1"
@@ -429,19 +457,21 @@
                       <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
-                  <label for="specs_1">1. Design Specifications and Documents</label>
-              </div>
-              <ul class="sub-list">
+                  <label for="specs_1"
+                    >1. Design Specifications and Documents</label
+                  >
+                </div>
+                <ul class="sub-list">
                   <li>Project Specification</li>
                   <li>Bill of Materials</li>
                   <li>Structural Design Analysis and Computation</li>
                   <li>Geotech Report/Soil Boring Test Report</li>
                   <li>Seismic Analysis</li>
-              </ul>
-            </li>
+                </ul>
+              </li>
 
-            <li>
-              <div class="meta-checkbox flex-center">
+              <li>
+                <div class="meta-checkbox flex-center">
                   <input
                     type="checkbox"
                     id="specs_2"
@@ -453,12 +483,14 @@
                       <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
-                  <label for="specs_2">2. PRC ID's and PTR of Engineer's and Architect</label>
-              </div>
-            </li>
+                  <label for="specs_2"
+                    >2. PRC ID's and PTR of Engineer's and Architect</label
+                  >
+                </div>
+              </li>
 
-            <li>
-              <div class="meta-checkbox flex-center">
+              <li>
+                <div class="meta-checkbox flex-center">
                   <input
                     type="checkbox"
                     id="specs_3"
@@ -470,78 +502,83 @@
                       <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
-                  <label for="specs_3">3. PCAB License of Electrical Contractor for Electrical Works</label>
-              </div>
-            </li>
-
-            <li>
-              <div class="meta-checkbox flex-center">
-                    <input
-                      type="checkbox"
-                      id="specs_4"
-                      v-model="design_specs.specs_4"
-                    />
-                    <div class="custom-checkbox flex-center">
-                      <span class="check">
-                        <font-awesome-icon icon="check" class="mr5 check-icon" />
-                        <font-awesome-icon icon="times" class="mr5 x-icon" />
-                      </span>
-                    </div>
-                    <label for="specs_4">4. Construction Safety and Health Program (DOLE)</label>
+                  <label for="specs_3"
+                    >3. PCAB License of Electrical Contractor for Electrical
+                    Works</label
+                  >
                 </div>
-            </li>
-          </ul>
-        </div>
+              </li>
 
-        <!----------------------------- E. SUPPLEMENTARY DOCUMENTS ---------------------------------->
-        <div class="meta-form-group mb60">
-          <div class="meta-group-title">E. Supplementary Documents</div>
-          <ul class="parent-list">
-            <!-- C. SUPPLEMENTARY DOCS 1 -->
-            <li>
-              <div class="meta-checkbox flex-center">
-                <input
-                  type="checkbox"
-                  id="supp_docs_1"
-                  v-model="supplementary_documents.supp_docs_1"
-                />
-                <div class="custom-checkbox flex-center">
-                  <span class="check">
-                    <font-awesome-icon icon="check" class="mr5 check-icon" />
-                    <font-awesome-icon icon="times" class="mr5 x-icon" />
-                  </span>
+              <li>
+                <div class="meta-checkbox flex-center">
+                  <input
+                    type="checkbox"
+                    id="specs_4"
+                    v-model="design_specs.specs_4"
+                  />
+                  <div class="custom-checkbox flex-center">
+                    <span class="check">
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
+                    </span>
+                  </div>
+                  <label for="specs_4"
+                    >4. Construction Safety and Health Program (DOLE)</label
+                  >
                 </div>
-                <label for="supp_docs_1">1. Sketch or Key Pin</label>
-              </div>
-              <ul class="sub-list">
-                <li>
-                  With clear landmarks leading to the lot with name and number of
-                  contact person
-                </li>
-              </ul>
-            </li>
+              </li>
+            </ul>
+          </div>
 
-            <!-- C. SUPPLEMENTARY DOCS 2 -->
-            <li>
-              <div class="meta-checkbox flex-center">
-                <input
-                  type="checkbox"
-                  id="supp_docs_2"
-                  v-model="supplementary_documents.supp_docs_2"
-                />
-                <div class="custom-checkbox flex-center">
-                  <span class="check">
-                    <font-awesome-icon icon="check" class="mr5 check-icon" />
-                    <font-awesome-icon icon="times" class="mr5 x-icon" />
-                  </span>
+          <!----------------------------- E. SUPPLEMENTARY DOCUMENTS ---------------------------------->
+          <div class="meta-form-group mb60">
+            <div class="meta-group-title">E. Supplementary Documents</div>
+            <ul class="parent-list">
+              <!-- C. SUPPLEMENTARY DOCS 1 -->
+              <li>
+                <div class="meta-checkbox flex-center">
+                  <input
+                    type="checkbox"
+                    id="supp_docs_1"
+                    v-model="supplementary_documents.supp_docs_1"
+                  />
+                  <div class="custom-checkbox flex-center">
+                    <span class="check">
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
+                    </span>
+                  </div>
+                  <label for="supp_docs_1">1. Sketch or Key Pin</label>
                 </div>
-                <label for="supp_docs_2"
-                  >2. Picture of site/location (colored copy)</label
-                >
-              </div>
-            </li>
-          </ul>
-        </div>
+                <ul class="sub-list">
+                  <li>
+                    With clear landmarks leading to the lot with name and number
+                    of contact person
+                  </li>
+                </ul>
+              </li>
+
+              <!-- C. SUPPLEMENTARY DOCS 2 -->
+              <li>
+                <div class="meta-checkbox flex-center">
+                  <input
+                    type="checkbox"
+                    id="supp_docs_2"
+                    v-model="supplementary_documents.supp_docs_2"
+                  />
+                  <div class="custom-checkbox flex-center">
+                    <span class="check">
+                      <font-awesome-icon icon="check" class="mr5 check-icon" />
+                      <font-awesome-icon icon="times" class="mr5 x-icon" />
+                    </span>
+                  </div>
+                  <label for="supp_docs_2"
+                    >2. Picture of site/location (colored copy)</label
+                  >
+                </div>
+              </li>
+            </ul>
+          </div>
 
           <div class="requirement-list">
             <div class="meta-group-title">Uploaded Requirements</div>
@@ -554,6 +591,24 @@
                 <app-link :to="replaceUrl(item.file)">{{
                   item.filename
                 }}</app-link>
+              </li>
+            </ol>
+          </div>
+
+          <div
+            class="assessment-result-list mt30"
+            v-if="
+              buildingApplication.application_status == 3 ||
+                buildingApplication.application_status == 5
+            "
+          >
+            <div class="meta-group-title">Assessment Result</div>
+            <ol>
+              <li
+                v-for="(item, index) of this.buildingAssessmentResult"
+                :key="index"
+              >
+                <div>{{ item.department }}: {{ item.status }}</div>
               </li>
             </ol>
           </div>
@@ -590,12 +645,12 @@
             class="meta-button-group flex-center"
             v-if="
               !buildingApplication.is_approve &&
-              !buildingApplication.is_disapprove &&
+                !buildingApplication.is_disapprove &&
                 (groups.includes('superadmin') ||
-                groups.includes('building_application_approver'))
-               && buildingApplication.application_status !== 4
-               && buildingApplication.application_status !== 1
-             
+                  groups.includes('building_application_approver')) &&
+                buildingApplication.application_status !== 4 &&
+                buildingApplication.application_status !== 1 &&
+                buildingApplication.application_status !== 3
             "
           >
             <button-block
@@ -603,11 +658,12 @@
               @click.native="approveApplication(true)"
             >
               {{
-              buildingApplication.application_status === 0 
-              ? 'COMPLETE' 
-              : buildingApplication.application_status === 2
-              ? 'FOR INSPECTION'
-              : 'FOR PAYMENT' }}
+                buildingApplication.application_status === 0
+                  ? "COMPLETE"
+                  : buildingApplication.application_status === 2
+                  ? "FOR INSPECTION"
+                  : "FOR PAYMENT"
+              }}
             </button-block>
             <button-block
               class="red-btn"
@@ -616,10 +672,31 @@
               v-if="buildingApplication.application_status !== 2"
             >
               {{
-                 buildingApplication.application_status === 0 
-                ? 'INCOMPLETE'
-                :  'FOR COMPLIANCE'
+                buildingApplication.application_status === 0
+                  ? "INCOMPLETE"
+                  : "FOR COMPLIANCE"
               }}
+            </button-block>
+          </div>
+          <div
+            v-if="
+              buildingDeptCanAssess &&
+                buildingApplication.application_status == 3
+            "
+            class="meta-button-group flex-center"
+          >
+            <button-block
+              type="approve"
+              @click.native="assessApplication(true)"
+            >
+              {{ isLastBuildingDept ? "FOR PAYMENT" : "APPROVE" }}
+            </button-block>
+            <button-block
+              type="disapprove"
+              class="red-btn"
+              @click.native="assessApplication(false)"
+            >
+              {{ isLastBuildingDept ? "FOR COMPLIANCE" : "DISAPPROVE" }}
             </button-block>
           </div>
         </div>
@@ -652,7 +729,10 @@ export default {
   },
   mounted() {
     this.getRequirements();
-    console.log(this.designSpecs)
+  },
+  created() {
+    this.checkIfCanAssess();
+    this.setupAssessmentResult();
   },
   computed: {
     ...mapGetters([
@@ -670,6 +750,9 @@ export default {
       "designSpecs",
       "currentInquiry",
       "groups",
+      "buildingAssessmentResult",
+      "buildingDeptCanAssess",
+      "isLastBuildingDept",
     ]),
   },
   data() {
@@ -702,28 +785,68 @@ export default {
         if (!status) {
           this.createRemarks();
         } else {
-          let application_status = 0
-          if(status){
-              this.buildingApplication.application_status === 0
-              ? application_status = 2
-              : this.buildingApplication.application_status === 2
-              ? application_status = 3
-              : this.buildingApplication.application_status === 3
-              ? application_status = 5
-              : application_status = 0
-          }else{
+          let application_status = 0;
+          if (status) {
             this.buildingApplication.application_status === 0
-            ? application_status = 1
-            : this.buildingApplication.application_status === 3
-            ? this.buildingApplication = 4
-            : this.buildingApplication = 0
+              ? (application_status = 2)
+              : this.buildingApplication.application_status === 2
+              ? (application_status = 3)
+              : this.buildingApplication.application_status === 3
+              ? (application_status = 5)
+              : (application_status = 0);
+          } else {
+            this.buildingApplication.application_status === 0
+              ? (application_status = 1)
+              : this.buildingApplication.application_status === 3
+              ? (this.buildingApplication = 4)
+              : (this.buildingApplication = 0);
           }
-            let payload = {
-              id: this.buildingApplication.id,
-              status: application_status
-            }
+          let payload = {
+            id: this.buildingApplication.id,
+            status: application_status,
+          };
           this.$store.dispatch("approveBuildingApplication", payload);
         }
+      }
+    },
+    async assessApplication(status) {
+      let approve = await this.$swal({
+        text: "Are you sure with this action?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      });
+      if (approve.value) {
+        let application_status = 0;
+        this.buildingApplication.application_status === 0
+          ? (application_status = 2)
+          : this.buildingApplication.application_status === 2
+          ? (application_status = 3)
+          : this.buildingApplication.application_status === 3
+          ? (application_status = 5)
+          : (application_status = 0);
+
+        let payload = {
+          building_application: this.buildingApplication.id,
+          is_approve: status ? true : false,
+        };
+        await this.$store.dispatch("assessBuildingApplication", payload);
+        if (this.isLastBuildingDept) {
+          if (status) {
+            let changeApplicationStatusPayload = {
+              id: this.buildingApplication.id,
+              status: application_status,
+            };
+            await this.$store.dispatch(
+              "approveBuildingApplication",
+              changeApplicationStatusPayload
+            );
+          }else{
+            this.createRemarks()
+          }
+        }
+        this.$router.push({ name: "Applications" });
       }
     },
     async createRemarks() {
@@ -779,8 +902,8 @@ export default {
         this.supplementary_documents = JSON.parse(
           this.supplementaryDocuments.value
         );
-        this.design_plans = JSON.parse(this.designPlans.value)
-        this.design_specs = JSON.parse(this.designSpecs.value)
+        this.design_plans = JSON.parse(this.designPlans.value);
+        this.design_specs = JSON.parse(this.designSpecs.value);
       }
     },
     replaceUrl(url) {
@@ -788,6 +911,20 @@ export default {
     },
     formatLabel(string) {
       return string.replace(/_/g, " ").toUpperCase();
+    },
+    async setupAssessmentResult() {
+      if (
+        this.buildingApplication.application_status == 3 ||
+        this.buildingApplication.application_status == 5
+      ) {
+        let payload = { building_application: this.buildingApplication.id };
+        await this.$store.dispatch("getBuildingAssessmentResult", payload);
+        console.log("results", this.buildingAssessmentResult);
+      }
+    },
+    async checkIfCanAssess() {
+      let payload = { building_application: this.buildingApplication.id };
+      await this.$store.dispatch("checkBuildingDeptCanAssess", payload);
     },
   },
 };
@@ -1048,6 +1185,16 @@ ul.main-list > li > ul.sub-list {
   font-size: 14px;
   font-weight: bold;
   padding: 10px 0;
+  margin-left: 30px;
+}
+
+.assessment-result-list ol li,
+.assessment-result-list ol li div {
+  width: 100%;
+  color: #2699fb;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px 0;
   margin-left: 30px;
 }
 
