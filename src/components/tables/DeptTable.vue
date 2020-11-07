@@ -8,7 +8,7 @@
       <div class="tbody" v-if="departments.length > 0">
         <div class="tr" v-for="(item, index) in departments" :key="index">
             <div class="td order-no">
-                {{ item.index }}
+                {{ currentType == 'business' ? item.business_index : item.building_index }}
             </div>
             <div class="td dept-name">
                 <span class="td-label show-in-mobile">DEPARTMENT NAME : </span>
@@ -30,7 +30,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "DeptTable",
   computed: {
-    ...mapGetters(['departments'])
+    ...mapGetters(['departments', 'currentType'])
   },
   mounted(){
     this.$store.dispatch("getDepartments")

@@ -56,6 +56,10 @@ export default {
           label: "Building Application",
           value: "Building",
         },
+        {
+          label: "Both",
+          value: "Both",
+        },
       ],
     };
   },

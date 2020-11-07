@@ -16,7 +16,7 @@
           @change="inputChanged"
         >
           <div class="meta-items" v-for="element in list" :key="element.id">
-            {{ element.name }} {{ element.index }}
+            {{ element.name }} {{ currentType == 'business' ? element.business_index : element.building_index }}
           </div>
         </draggable>
       </div>
@@ -39,7 +39,7 @@ export default {
     ButtonBlock,
   },
   computed: {
-    ...mapGetters(["departments"]),
+    ...mapGetters(["departments", "currentType"]),
   },
   data() {
     return {
@@ -59,9 +59,13 @@ export default {
   },
   methods: {
     async inputChanged(value) {
+      let currentActivity = this.currentType
       this.list.forEach(function(item, index) {
-        console.log(item, index);
-        item.index = index + 1;
+        if(currentActivity == 'business'){
+          item.business_index = index + 1;
+        }else{
+          item.building_index = index + 1;
+        }
       });
     },
     async reOrderList() {

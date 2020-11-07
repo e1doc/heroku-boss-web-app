@@ -486,6 +486,7 @@
                   groups.includes('business_application_approver')) &&
                 businessApplication.application_status != 2 &&
                 businessApplication.application_status != 4
+                && businessApplication.application_status != 3
             "
           >
             <button-block

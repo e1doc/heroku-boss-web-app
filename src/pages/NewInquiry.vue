@@ -98,7 +98,7 @@ export default {
     console.log(this.buildingApplication)
   },
     beforeRouteLeave(to, from, next) {
-      this.$store.dispatch("setApplicationRemarks", {});
+      this.$store.dispatch("setApplicationStateRemarks", {});
       this.$store.commit('setCurrentInquiry', "")
       next()
   },
@@ -108,7 +108,7 @@ export default {
       if (!this.remarks.application_number) {
         if (this.application_number !== "") {
           console.log('application number', this.application_number)
-          await this.$store.dispatch("setApplicationRemarks", {
+          await this.$store.dispatch("setApplicationStateRemarks", {
             application_number: this.application_number,
             application_type: this.application_type,
             user: this.user,

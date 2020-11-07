@@ -38,7 +38,9 @@ const getDefaultBusinessState = () => {
     businessAssessmentMessage: "",
     businessAssessmentResult: [],
     businessDeptCanAssess: false,
-    isLastBusinessDept: false
+    isLastBusinessDept: false,
+    forBusinessAssessmentList: [],
+    assessedBusinessList: [],
   };
 };
 
@@ -73,7 +75,9 @@ const getters = {
   businessAssessmentMessage: (state) => state.businessAssessmentMessage,
   businessAssessmentResult: (state) => state.businessAssessmentResult,
   businessDeptCanAssess: (state) => state.businessDeptCanAssess,
-  isLastBusinessDept: (state) => state.isLastBusinessDept
+  isLastBusinessDept: (state) => state.isLastBusinessDept,
+  forBusinessAssessmentList: (state) => state.forBusinessAssessmentList,
+  assessedBusinessList: (state) => state.assessedBusinessList,
 };
 
 const mutations = {
@@ -130,7 +134,12 @@ const mutations = {
     (state.businessAssessmentResult = businessAssessmentResult),
   setBusinessDeptCanAssess: (state, businessDeptCanAssess) =>
     (state.businessDeptCanAssess = businessDeptCanAssess),
-  setIsLastBusinessDept: (state, isLastBusinessDept) => (state.isLastBusinessDept = isLastBusinessDept)
+  setIsLastBusinessDept: (state, isLastBusinessDept) =>
+    (state.isLastBusinessDept = isLastBusinessDept),
+  setForBusinessAssessmentList: (state, forBusinessAssessmentList) =>
+    (state.forBusinessAssessmentList = forBusinessAssessmentList),
+  setAssessedBusinessList: (state, assessedBusinessList) =>
+    (state.assessedBusinessList = assessedBusinessList),
 };
 
 const actions = {
@@ -505,7 +514,7 @@ const actions = {
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setBusinessAssessmentMessage", response.data.message);
-      if(!getters.isLastBusinessDept){
+      if (!getters.isLastBusinessDept) {
         dispatch("createPrompt", {
           type: "success",
           title: "Success!",
@@ -552,7 +561,7 @@ const actions = {
         }
       );
       commit("setBusinessDeptCanAssess", response.data.can_assess);
-      commit("setIsLastBusinessDept", response.data.last_department)
+      commit("setIsLastBusinessDept", response.data.last_department);
     } catch (err) {
       console.log(err);
       if (err.response) {
@@ -560,6 +569,52 @@ const actions = {
       }
     }
   },
+  async getForBusinessAssessmentList({ commit, getters }, page = 1) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/staff/for-business-assessment-list?page=${page}`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+        }
+      );
+      commit("setForBusinessAssessmentList", response.data.results);
+      commit("setPageCount", response.data.total_pages);
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response.data);
+      }
+    }
+  },
+  async getAssessedBusinessList({ commit, getters }, page = 1) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/staff/assessed-business-application-list?page=${page}`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+        }
+      );
+      commit("setAssessedBusinessList", response.data.results);
+      commit("setPageCount", response.data.total_pages);
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response.data);
+      }
+    }
+  },
+  async resetBusinessAssessment({commit, getters}, payload){
+    try {
+      const response = await axios.put(`${baseUrl}/staff/reset-business-assessment`,payload,{
+        headers: { Authorization: `jwt ${getters.authToken}` },
+      })
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response.data);
+      }
+    }
+  }
 };
 
 export default {

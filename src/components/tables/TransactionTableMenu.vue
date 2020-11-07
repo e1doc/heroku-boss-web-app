@@ -101,10 +101,6 @@ export default {
           label: "For Approval",
           value: "forApproval",
         },
-        {
-          label: "Assessed Applications",
-          value: "assessed",
-        },
       ],
       filterList2: [
         {
@@ -126,10 +122,6 @@ export default {
         {
           label: "For Evaluation",
           value: "forEvaluation",
-        },
-        {
-          label: "Assessed Applications",
-          value: "assessed",
         },
       ],
     };

@@ -25,7 +25,7 @@ const getDefaultPropertyState = () => {
     buildingRequirements: [],
     draftProperty: false,
     realPropertyProfiles: [],
-    remarks: {},
+    applicationRemarks: {},
     legalDocuments: {},
     technicalDocuments: {},
     supplementaryDocuments: {},
@@ -37,7 +37,9 @@ const getDefaultPropertyState = () => {
     buildingAssessmentMessage: "",
     buildingAssessmentResult: [],
     buildingDeptCanAssess: false,
-    isLastBuildingDept: false
+    isLastBuildingDept: false,
+    forBuildingAssessmentList: [],
+    assessedBuildingList: []
   };
 };
 
@@ -61,7 +63,7 @@ const getters = {
     state.buildingApplicationRequirements,
   buildingRequirements: (state) => state.buildingRequirements,
   realPropertyProfiles: (state) => state.realPropertyProfiles,
-  remarks: (state) => state.remarks,
+  applicationRemarks: (state) => state.applicationRemarks,
   legalDocuments: (state) => state.legalDocuments,
   technicalDocuments: (state) => state.technicalDocuments,
   supplementaryDocuments: (state) => state.supplementaryDocuments,
@@ -73,7 +75,9 @@ const getters = {
   buildingAssessmentMessage: (state) => state.buildingAssessmentMessage,
   buildingAssessmentResult: (state) => state.buildingAssessmentResult,
   buildingDeptCanAssess: (state) => state.buildingDeptCanAssess,
-  isLastBuildingDept: (state) => state.isLastBuildingDept
+  isLastBuildingDept: (state) => state.isLastBuildingDept,
+  forBuildingAssessmentList: (state) => state.forBuildingAssessmentList,
+  assessedBuildingList: (state) => state.assessedBuildingList
 };
 
 const mutations = {
@@ -118,7 +122,7 @@ const mutations = {
     (state.buildingRequirements = buildingRequirements),
   setRealPropertyProfiles: (state, realPropertyProfiles) =>
     (state.realPropertyProfiles = realPropertyProfiles),
-  setRemarks: (state, remarks) => (state.remarks = remarks),
+  setApplicationRemarks: (state, applicationRemarks) => (state.applicationRemarks = applicationRemarks),
   setLegalDocuments: (state, legalDocuments) =>
     (state.legalDocuments = legalDocuments),
   setTechnicalDocuments: (state, technicalDocuments) =>
@@ -139,7 +143,9 @@ const mutations = {
     (state.buildingAssessmentResult = buildingAssessmentResult),
   setBuildingDeptCanAssess: (state, buildingDeptCanAssess) =>
     (state.buildingDeptCanAssess = buildingDeptCanAssess),
-  setIsLastBuildingDept: (state, isLastBuildingDept) => (state.isLastBuildingDept = isLastBuildingDept)
+  setIsLastBuildingDept: (state, isLastBuildingDept) => (state.isLastBuildingDept = isLastBuildingDept),
+  setForBuildingAssessmentList: (state, forBuildingAssessmentList) => (state.forBuildingAssessmentList = forBuildingAssessmentList),
+  setAssessedBuildingList: (state, assessedBuildingList) => (state.assessedBuildingList = assessedBuildingList)
 };
 
 const actions = {
@@ -205,10 +211,8 @@ const actions = {
       console.log(err.response);
     }
   },
-  async setApplicationRemarks({ commit, getters }, payload) {
-    console.log("set remarks payload", payload);
-    await commit("setRemarks", payload);
-    console.log(getters.remarks);
+  async setApplicationStateRemarks({ commit, getters }, payload) {
+    await commit("setApplicationRemarks", payload);
   },
   async propertyEnrollment({ commit, dispatch, getters }, payload) {
     let config = {
@@ -549,6 +553,52 @@ const actions = {
       }
     }
   },
+  async getForBuildingAssessmentList({commit, getters}, page = 1){
+    try {
+      const response = await axios.get(
+        `${baseUrl}/staff/for-building-assessment-list?page=${page}`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+        }
+      );
+      commit('setForBuildingAssessmentList', response.data.results)
+      commit("setPageCount", response.data.total_pages);
+    } catch (err) {
+      console.log(err)
+      if(err.response){
+        console.log(err.response.data)
+      }
+    }
+  },
+  async getAssessedBuildingList({ commit, getters }, page = 1) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/staff/assessed-building-application-list?page=${page}`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+        }
+      );
+      commit("setAssessedBuildingList", response.data.results);
+      commit("setPageCount", response.data.total_pages);
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response.data);
+      }
+    }
+  },
+  async resetBuildingAssessment({commit, getters}, payload){
+    try {
+      const response = await axios.put(`${baseUrl}/staff/reset-building-assessment`,payload,{
+        headers: { Authorization: `jwt ${getters.authToken}` },
+      })
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response.data);
+      }
+    }
+  }
 };
 
 export default {
