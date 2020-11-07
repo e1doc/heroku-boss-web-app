@@ -110,6 +110,10 @@ export default {
             : application_status = 0
         let payload = { id: this.currentBuildingId, status: application_status };
         this.$store.dispatch("approveBuildingApplication", payload);
+        if(this.buildingApplication.application_status === 3){
+            let resetAssessmentPayload = {building_application: this.buildingApplication.id}
+            this.$store.dispatch('resetBuildingAssessment', resetAssessmentPayload)
+          }
       }
       if(this.continueBusinessThread){
          let application_status = 0
@@ -121,6 +125,10 @@ export default {
             : application_status = 0
         let payload = { id: this.currentBusinessId, status: application_status };
         this.$store.dispatch("approveBusinessApplication", payload);
+        if(this.businessApplication.application_status === 2){
+            let resetAssessmentPayload = {business_application: this.businessApplication.id}
+            this.$store.dispatch('resetBusinessAssessment', resetAssessmentPayload)
+          }
       }
       await this.$store.dispatch("adminRespond", {
         id: this.currentInquiry,

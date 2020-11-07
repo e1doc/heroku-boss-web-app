@@ -617,23 +617,6 @@ export default {
             status: application_status,
           };
           await this.$store.dispatch("approveBusinessApplication", payload);
-          let action =
-            payload.status == 1
-              ? "incomplete"
-              : payload.status == 2
-              ? "for assessment"
-              : payload.status == 3
-              ? "for compliance"
-              : payload.status == 4
-              ? "for payment"
-              : "";
-
-          this.$store.dispatch("createPrompt", {
-            type: "success",
-            title: "Success!",
-            message: `Application was successfully set to ${action}!`,
-          });
-          this.$router.push({ name: "Applications" });
         }
       }
     },
