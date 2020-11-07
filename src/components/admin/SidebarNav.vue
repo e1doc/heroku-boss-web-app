@@ -84,6 +84,7 @@ div.admin-sidebar{
     position : fixed;
     left : 0;
     top : 0;
+    overflow-y: scroll;
     div.admin-container{
         width : 100%;
         display : flex;
