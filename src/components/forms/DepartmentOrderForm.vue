@@ -72,6 +72,7 @@ export default {
       await this.$store.commit("setLoading", true);
       await this.list.forEach((item) => {
         this.$store.dispatch("updateDepartments", item);
+        this.$store.dispatch("getDepartments");
       });
       await this.$store.commit("setLoading", false);
       this.$swal({
@@ -80,7 +81,6 @@ export default {
         icon: "success",
       });
       this.$modal.hide("departmentOrderModal");
-      this.$store.dispatch("getDepartments");
     },
   },
 };
