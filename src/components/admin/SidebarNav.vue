@@ -49,7 +49,7 @@
                         <font-awesome-icon icon="network-wired" class="admin-icon"/>
                         DEPARTMENTS 
                     </router-link>
-                </li> -->
+                </li>
             </ul>
         </div>
     </div>
