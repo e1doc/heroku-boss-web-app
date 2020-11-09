@@ -13,13 +13,14 @@
                         DASHBOARD 
                     </router-link>
                 </li>
-                <li class="admin-item" :class="{ active: currentAdminTab === 'transactions'}" @click="changeTab('transactions')">
+                <li class="admin-item" :class="{ active: currentAdminTab === 'transactions'}" @click="changeTab('transactions')"
+                v-if="groups.includes('superadmin') || groups.includes('business_application_approver') || groups.includes('building_application_approver')">
                     <router-link :to="{name:'Transactions'}">
                         <font-awesome-icon icon="coins" class="admin-icon"/>
                         TRANSACTIONS 
                     </router-link>
                 </li>
-                <li class="admin-item" :class="{ active: currentAdminTab === 'applications'}" @click="changeTab('applications')">
+                <li class="admin-item" :class="{ active: currentAdminTab === 'applications'}" @click="changeTab('applications')"  v-if="groups.includes('superadmin') || groups.includes('business_application_approver') || groups.includes('building_application_approver') || groups.includes('application_approver')">
                     <router-link :to="{name:'Applications'}">
                         <font-awesome-icon icon="users" class="admin-icon"/>
                         APPLICATIONS
@@ -31,19 +32,19 @@
                         ASSESSMENTS
                     </router-link>
                 </li>
-                <li class="admin-item" :class="{ active: currentAdminTab  === 'appointments'}" @click="changeTab('appointments')">
+                <li class="admin-item" :class="{ active: currentAdminTab  === 'appointments'}" @click="changeTab('appointments')" v-if="groups.includes('superadmin') || groups.includes('business_application_approver') || groups.includes('building_application_approver')">
                     <router-link :to="{name:'AdminAppointment'}">
                         <font-awesome-icon icon="calendar" class="admin-icon"/>
                         APPOINTMENTS 
                     </router-link>
                 </li>
-                <li class="admin-item" :class="{ active: currentAdminTab  === 'inquiries'}" @click="changeTab('inquiries')">
+                <li class="admin-item" :class="{ active: currentAdminTab  === 'inquiries'}" @click="changeTab('inquiries')" v-if="groups.includes('superadmin') || groups.includes('business_application_approver') || groups.includes('building_application_approver')">
                     <router-link :to="{name:'Inquiries'}">
                         <font-awesome-icon icon="comment-alt" class="admin-icon"/>
                         INQUIRIES 
                     </router-link>
                 </li>
-                <li class="admin-item" :class="{ active: currentAdminTab  === 'departments'}" @click="changeTab('departments')">
+                <li class="admin-item" :class="{ active: currentAdminTab  === 'departments'}" @click="changeTab('departments')" v-if="groups.includes('superadmin')">
                     <router-link :to="{name:'Departments'}">
                         <font-awesome-icon icon="network-wired" class="admin-icon"/>
                         DEPARTMENTS 
@@ -64,7 +65,10 @@ export default {
         }
     },
   computed:{
-      ...mapGetters(['currentAdminTab'])
+      ...mapGetters(['currentAdminTab', "groups"])
+  },
+  mounted(){
+      console.log('groups',this.groups)
   },
   methods:{
     changeTab(tab){

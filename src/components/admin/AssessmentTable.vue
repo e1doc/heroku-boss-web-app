@@ -4,95 +4,26 @@
       <div class="th">APPLICATION #</div>
       <div class="th">DATE</div>
       <!-- <div class="th" v-if="currentType === 'business'">Account #</div> -->
-      <div class="th" v-if="currentType === 'real_property'">TD #</div>
+      <div class="th" v-if="currentType === 'building'">TD #</div>
       <div class="th">STATUS</div>
       <div class="th">ACTIONS</div>
     </div>
-    <!-- <div v-if="currentType === 'business'">
-      <div class="tbody" v-if="applications.length > 0">
+    <div v-if="currentType === 'business' && currentTable === 'assessed'">
+      <div class="tbody" v-if="assessedBusinessList.length > 0">
         <div
           class="tr"
-          v-for="(application, index) in applications"
-          :key="index"
-        >
-          <div class="td">
-            {{ application.businessbasicinformation.reference_number }}
-          </div>
-          <div class="td">
-            {{ application.created_at | moment("MMMM DD YYYY") }}
-          </div>
-          <div class="td">
-            {{
-              application.account_number ? application.account_number : "N/A"
-            }}
-          </div>
-          <div class="td">
-            {{
-              application.is_draft
-                ? "DRAFT"
-                : application.is_approve
-                ? "FOR PAYMENT"
-                : "DISAPPROVED"
-            }}
-          </div>
-          <div class="td actions">
-            //Just change the icon to 'eye' and text to 'VIEW' pag di na draft ung status
-            <router-link to="business-permit-application">
-                <font-awesome-icon icon="edit" class="mr5 view-icon" />EDIT
-            </router-link>
-          </div>
-        </div>
-      </div>
-      <div class="tbody" v-if="applications.length < 1">
-        <div class="tr">
-          <div class="td">No data available</div>
-        </div>
-      </div>
-    </div>
-    <div v-if="currentType === 'real_property'">
-      <div class="tbody" v-if="buildingApplications.length > 0">
-        <div class="tr" v-for="(application, index) in buildingApplications" :key="index">
-        <div class="td">{{application.buildingbasicinformation.reference_number}}</div>
-        <div class="td">{{application.created_at |  moment("MMMM DD YYYY")}}</div>
-        <div class="td">{{application.buildingdetails.tax_dec_no}}</div>
-        <div class="td">{{
-              application.is_draft
-                ? "DRAFT"
-                : application.is_approve
-                ? "FOR PAYMENT"
-                : "DISAPPROVED"
-            }}</div>
-        <div class="td actions">
-          //Just change the icon to 'eye' and text to 'VIEW' pag di na draft ung status
-          <router-link to="business-permit-application">
-              <font-awesome-icon icon="edit" class="mr5 view-icon" />EDIT
-          </router-link>
-        </div>
-      </div>
-      </div>
-            <div class="tbody" v-if="buildingApplications.length < 1">
-        <div class="tr">
-          <div class="td">No data available</div>
-        </div>
-      </div>
-    </div> -->
-
-    <div v-if="currentType === 'business'">
-      <div class="tbody" v-if="applications.length > 0">
-        <div
-          class="tr"
-          v-for="(application, index) in applications"
+          v-for="(item, index) in assessedBusinessList"
           :key="index"
         >
           <div class="td">
             {{
-              application.businessbasicinformation !== null
-                ? application.businessbasicinformation.reference_number
+              item.business_application.businessbasicinformation !== null
+                ? item.business_application.businessbasicinformation.reference_number
                 : "N/A"
             }}
           </div>
           <div class="td">
-            {{ application.created_at | moment("MMMM DD YYYY") }}
+            {{ item.business_application.created_at | moment("MMMM DD YYYY") }}
           </div>
           <!-- <div class="td">
             {{
@@ -101,102 +32,179 @@
           </div> -->
           <div class="td">
             {{
-              application.application_status == 0
-              ? 'FOR EVALUATION'
-              : application.application_status == 1
-              ? 'INCOMPLETE'
-              : application.application_status == 2
-              ? 'FOR ASSESMENT'
-              : application.application_status == 3
-              ? 'FOR COMPLIANCE'
-              : application.application_status == 4
-              ? 'FOR PAYMENT'
-              : ''
+              item.is_approve ? "APPROVED" : "DISAPPROVED"
             }}
           </div>
           <div class="td actions">
-            <div @click="openBusinessApplication(application)">
+            <div @click="openBusinessApplication(item.business_application)">
               <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
             </div>
           </div>
         </div>
       </div>
-      <div class="tbody" v-if="applications.length < 1">
+      <div class="tbody" v-if="assessedBusinessList.length < 1">
         <div class="tr">
           <div class="td">No data available</div>
         </div>
       </div>
       <paginate
-        v-if="applications.length > 9"
+        v-if="assessedBusinessList.length > 9"
         :page-count="pageCount"
         :prev-text="'Prev'"
         :next-text="'Next'"
         :container-class="'pagination'"
         :page-class="'page-item'"
-        :click-handler="businessClickCallback"
+        :click-handler="businessAssessedClick"
       >
       </paginate>
     </div>
-
-    <div v-if="currentType === 'real_property'">
-      <div class="tbody" v-if="buildingApplications.length > 0">
+    <div v-if="currentType === 'business' && currentTable === 'for_assessment'">
+       <div class="tbody" v-if="forBusinessAssessmentList.length > 0">
         <div
           class="tr"
-          v-for="(application, index) in buildingApplications"
+          v-for="(item, index) in forBusinessAssessmentList"
           :key="index"
         >
           <div class="td">
             {{
-              application.buildingbasicinformation !== null
-                ? application.buildingbasicinformation.reference_number
+              item.businessbasicinformation !== null
+                ? item.businessbasicinformation.reference_number
                 : "N/A"
             }}
           </div>
           <div class="td">
-            {{ application.created_at | moment("MMMM DD YYYY") }}
+            {{ item.created_at | moment("MMMM DD YYYY") }}
+          </div>
+          <!-- <div class="td">
+            {{
+              application.account_number ? application.account_number : "N/A"
+            }}
+          </div> -->
+          <div class="td">
+            FOR ASSESSMENT
+          </div>
+          <div class="td actions">
+            <div @click="openBusinessApplication(item)">
+              <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tbody" v-if="forBusinessAssessmentList.length < 1">
+        <div class="tr">
+          <div class="td">No data available</div>
+        </div>
+      </div>
+      <paginate
+        v-if="forBusinessAssessmentList.length > 9"
+        :page-count="pageCount"
+        :prev-text="'Prev'"
+        :next-text="'Next'"
+        :container-class="'pagination'"
+        :page-class="'page-item'"
+        :click-handler="businessAssessmentClick"
+      >
+       </paginate>
+    </div>
+    <div v-if="currentType === 'building' && currentTable === 'for_assessment'">
+      <div class="tbody" v-if="forBuildingAssessmentList.length > 0">
+        <div
+          class="tr"
+          v-for="(item, index) in forBuildingAssessmentList"
+          :key="index"
+        >
+          <div class="td">
+            {{
+              item.buildingbasicinformation !== null
+                ? item.buildingbasicinformation.reference_number
+                : "N/A"
+            }}
+          </div>
+          <div class="td">
+            {{ item.created_at | moment("MMMM DD YYYY") }}
           </div>
           <div class="td">
             {{
-              application.buildingdetails !== null
-                ? application.buildingdetails.tax_dec_no
+              item.buildingdetails !== null
+                ? item.buildingdetails.tax_dec_no
+                : "N/A"
+            }}
+          </div>
+          <div class="td">
+           FOR ASSESSMENT
+          </div>
+          <div class="td actions">
+            <div @click="openBuildingApplication('view', item)">
+              <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tbody" v-if="forBuildingAssessmentList.length < 1">
+        <div class="tr">
+          <div class="td">No data available</div>
+        </div>
+      </div>
+      <paginate
+        v-if="forBuildingAssessmentList.length > 9"
+        :page-count="pageCount"
+        :prev-text="'Prev'"
+        :next-text="'Next'"
+        :container-class="'pagination'"
+        :page-class="'page-item'"
+        :click-handler="buildingAssessmentClick"
+      >
+      </paginate>
+    </div>
+    <div v-if="currentType === 'building' && currentTable === 'assessed'">
+      <div class="tbody" v-if="assessedBuildingList.length > 0">
+        <div
+          class="tr"
+          v-for="(item, index) in assessedBuildingList"
+          :key="index"
+        >
+          <div class="td">
+            {{
+              item.building_application.buildingbasicinformation !== null
+                ? item.building_application.buildingbasicinformation.reference_number
+                : "N/A"
+            }}
+          </div>
+          <div class="td">
+            {{ item.created_at | moment("MMMM DD YYYY") }}
+          </div>
+          <div class="td">
+            {{
+              item.building_application.buildingdetails !== null
+                ? item.building_application.buildingdetails.tax_dec_no
                 : "N/A"
             }}
           </div>
           <div class="td">
            {{
-              application.application_status == 0
-              ? 'FOR APPROVAL'
-              : application.application_status == 1
-              ? 'INCOMPLETE'
-              : application.application_status == 2
-              ? 'FOR EVALUATION'
-              : application.application_status == 3
-              ? 'FOR INSPECTION'
-              : application.application_status == 4
-              ? 'FOR COMPLIANCE'
-              : 'FOR PAYMENT'
-            }}
+             item.is_approve ? 'APPROVED' : 'DISAPPROVED'
+           }}
           </div>
           <div class="td actions">
-            <div @click="openBuildingApplication('view', application)">
+            <div @click="openBuildingApplication('view', item.building_application)">
               <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
             </div>
           </div>
         </div>
       </div>
-      <div class="tbody" v-if="buildingApplications.length < 1">
+      <div class="tbody" v-if="assessedBuildingList.length < 1">
         <div class="tr">
           <div class="td">No data available</div>
         </div>
       </div>
       <paginate
-        v-if="buildingApplications.length > 9"
+        v-if="assessedBuildingList.length > 9"
         :page-count="pageCount"
         :prev-text="'Prev'"
         :next-text="'Next'"
         :container-class="'pagination'"
         :page-class="'page-item'"
-        :click-handler="buildingClickCallBack"
+        :click-handler="buildingAssessedClick"
       >
       </paginate>
     </div>
@@ -210,30 +218,39 @@ export default {
   computed: {
     ...mapGetters([
       "currentType",
+      "currentTable",
       "applications",
       "buildingApplications",
       "pageCount",
-      "groups"
+      "groups",
+      "forBusinessAssessmentList",
+      "assessedBusinessList",
+      "forBuildingAssessmentList",
+      "assessedBuildingList"
     ]),
   },
   mounted() {
-    this.$store.dispatch("getAllBusinessApplications");
-    this.$store.dispatch("getAllBuildingApplications");
-    if(this.groups.includes('superadmin') || this.groups.includes('business_application_approver') || this.groups.includes('business_application_read')){
-      this.$store.commit('setCurrentType','business')
-    }else{
-      console.log('her her')
-      this.$store.commit('setCurrentType','real_property')
-    }
+    this.$store.dispatch("getForBusinessAssessmentList");
+    this.$store.dispatch("getAssessedBusinessList");
+    this.$store.dispatch("getForBuildingAssessmentList");
+    this.$store.dispatch("getAssessedBuildingList");
+    console.log('for assessment', this.assessedBuildingList )
   },
   methods: {
-    businessClickCallback(pageNum) {
-      this.$store.dispatch("getAllBusinessApplications", pageNum);
+    businessAssessmentClick(pageNum) {
+      this.$store.dispatch("getForBusinessAssessmentList", pageNum);
     },
-    buildingClickCallBack(pageNum){
-      this.$store.dispatch("getAllBuildingApplications", pageNum);
+    businessAssessedClick(pageNum){
+      this.$store.dispatch("getAssessedBusinessList", pageNum);
+    },
+    buildingAssessmentClick(pageNum){
+      this.$store.dispatch("getForBuildingAssessmentList", pageNum);
+    },
+    buildingAssessedClick(pageNum){
+      this.$store.dispatch("getAssessedBuildingList", pageNum);
     },
     openBusinessApplication(data) {
+      console.log('applicaiton', data)
       if (data.id) {
         let application = {
           id: data.id,

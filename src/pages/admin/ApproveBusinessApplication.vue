@@ -517,6 +517,7 @@
             v-if="
               businessDeptCanAssess &&
                 businessApplication.application_status == 2
+                && isAssessmentActive
             "
             class="meta-button-group flex-center"
           >
@@ -578,6 +579,7 @@ export default {
       "businessAssessmentResult",
       "businessDeptCanAssess",
       "isLastBusinessDept",
+      "isAssessmentActive"
     ]),
   },
   mounted() {
@@ -655,7 +657,7 @@ export default {
             this.createRemarks();
           }
         }
-        this.$router.push({ name: "Applications" });
+        this.$router.push({ name: "Assessments" });
       }
     },
     async createRemarks() {

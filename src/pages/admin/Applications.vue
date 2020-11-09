@@ -20,6 +20,9 @@ export default {
         AdminApplicationTable,
         TransactionTableMenu
     },
+    created(){
+          this.$store.commit('setIsAssessmentActive', false)
+    }
 }
 </script>
 

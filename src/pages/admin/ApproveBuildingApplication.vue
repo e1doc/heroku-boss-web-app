@@ -682,6 +682,7 @@
             v-if="
               buildingDeptCanAssess &&
                 buildingApplication.application_status == 3
+                && isAssessmentActive
             "
             class="meta-button-group flex-center"
           >
@@ -753,6 +754,7 @@ export default {
       "buildingAssessmentResult",
       "buildingDeptCanAssess",
       "isLastBuildingDept",
+      "isAssessmentActive"
     ]),
   },
   data() {
@@ -846,7 +848,7 @@ export default {
             this.createRemarks()
           }
         }
-        this.$router.push({ name: "Applications" });
+        this.$router.push({ name: "Assessments" });
       }
     },
     async createRemarks() {

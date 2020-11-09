@@ -20,6 +20,11 @@ export default {
         AssessmentTable,
         AssessmentTableMenu
     },
+    created(){
+        this.$store.commit('setCurrentType', 'business')
+        this.$store.commit('setCurrentTable', 'for_assessment')
+        this.$store.commit('setIsAssessmentActive', true)
+    },
 }
 </script>
 

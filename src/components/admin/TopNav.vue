@@ -1,7 +1,15 @@
 <template>
   <div class="admin-header">
     <div class="admin-container">
-      <div class="admin-text">ADMINISTRATOR</div>
+      
+      <div class="admin-text flex-column">
+        <div>
+          ADMINISTRATOR
+        </div>
+        <div>
+          Department: <span class="department-text">{{userDepartment}}</span>
+        </div>
+      </div>
       <div class="admin-icon" @click="logout">
         <font-awesome-icon icon="power-off" class="icon" />
       </div>
@@ -10,8 +18,12 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex"
 export default {
   name: "TopNav",
+  computed:{
+    ...mapGetters(["userDepartment"])
+  },
   methods: {
     logout() {
       this.$swal({
@@ -32,10 +44,16 @@ export default {
       });
     },
   },
+  created(){
+    this.$store.dispatch('getUserDepartment')
+  }
 };
 </script>
 
 <style lang="scss" scoped>
+.department-text{
+  color: #1492E6;
+}
 div.admin-header {
   background-color: #fcfcfc;
   float: right;
