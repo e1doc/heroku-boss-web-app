@@ -255,7 +255,7 @@ export default {
    },
     openBusinessApplication(type,data){
       if(data.id){
-        let application = {id:data.id,created_at: data.created_at, is_draft: data.is_draft, is_approve: data.is_approve, is_disapprove: data.is_disapprove,account_number: data.account_number, application_status: data.application_status}
+        let application = {id:data.id,created_at: data.created_at, is_draft: data.is_draft, is_approve: data.is_approve, is_disapprove: data.is_disapprove,account_number: data.account_number, application_status: data.application_status, last_submitted: data.last_submitted}
         this.$store.commit('setBusinessApplication', application)
       }
       if(data.businessbasicinformation !== null){
@@ -281,7 +281,7 @@ export default {
     },
     openBuildingApplication(type, data){
       if(data.id){
-        let application = {id: data.id, is_draft: data.is_draft, is_approve: data.is_approve, is_disapprove: data.is_disapprove, created_at: data.created_at, application_status: data.application_status}
+        let application = {id: data.id, is_draft: data.is_draft, is_approve: data.is_approve, is_disapprove: data.is_disapprove, created_at: data.created_at, application_status: data.application_status, last_submitted: data.last_submitted}
         this.$store.commit("setBuildingApplication", application)
       }
       if(data.buildingbasicinformation !== null){

@@ -598,7 +598,24 @@ const actions = {
         console.log(err.response.data);
       }
     }
-  }
+  },
+  async getUserBuildingAssessmentResult({ commit, getters }, payload) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/api/building-assessment-result/`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+          params: payload,
+        }
+      );
+      commit("setBuildingAssessmentResult", response.data);
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response);
+      }
+    }
+  },
 };
 
 export default {

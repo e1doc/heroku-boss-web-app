@@ -594,52 +594,29 @@
               </li>
             </ol>
           </div>
-
-          <div
-            class="assessment-result-list mt30"
-            v-if="
-              buildingApplication.application_status == 3 ||
-                buildingApplication.application_status == 5
-            "
-          >
-            <div class="meta-group-title">Assessment Result</div>
-            <ol>
-              <li
-                v-for="(item, index) of this.buildingAssessmentResult"
-                :key="index"
-              >
-                <div>{{ item.department }}: {{ item.status }}</div>
-              </li>
-            </ol>
-          </div>
-
-          <!-- GALLERY SECTION
-          <div class="gallery-box flex-wrap">
+          <div class="flex-column">
+            <div class="submission-text">
+              Submission Date:
+              {{ buildingApplication.last_submitted | moment("MMMM DD, YYYY") }}
+            </div>
             <div
-              v-for="(requirement,
-              index) in buildingRequirements.buildingrequirements"
-              :key="index"
-              class="gallery-image"
-              @click="showSingle"
-              :style="`background-image: url(${replaceUrl(requirement.file)});`"
-            ></div>
-            <vue-easy-lightbox
-              escDisabled
-              moveDisabled
-              :visible="visible"
-              :imgs="imgs"
-              :index="index"
-              @hide="handleHide"
-            ></vue-easy-lightbox>
+              class="assessment-result-list mt30"
+              v-if="
+                buildingApplication.application_status == 3 ||
+                  buildingApplication.application_status == 5
+              "
+            >
+              <div class="meta-group-title">Assessment Result</div>
+              <ol>
+                <li
+                  v-for="(item, index) of this.buildingAssessmentResult"
+                  :key="index"
+                >
+                  <div>{{ item.department }}: {{ item.status }}</div>
+                </li>
+              </ol>
+            </div>
           </div>
-        </div>
-        <div
-          class="meta-button-group flex-center"
-          v-if="
-            !buildingApplication.is_approve &&
-            !buildingApplication.is_disapprove
-          "
-        > -->
 
           <div
             class="meta-button-group flex-center"
@@ -681,8 +658,8 @@
           <div
             v-if="
               buildingDeptCanAssess &&
-                buildingApplication.application_status == 3
-                && isAssessmentActive
+                buildingApplication.application_status == 3 &&
+                isAssessmentActive
             "
             class="meta-button-group flex-center"
           >
@@ -754,7 +731,7 @@ export default {
       "buildingAssessmentResult",
       "buildingDeptCanAssess",
       "isLastBuildingDept",
-      "isAssessmentActive"
+      "isAssessmentActive",
     ]),
   },
   data() {
@@ -844,8 +821,8 @@ export default {
               "approveBuildingApplication",
               changeApplicationStatusPayload
             );
-          }else{
-            this.createRemarks()
+          } else {
+            this.createRemarks();
           }
         }
         this.$router.push({ name: "Assessments" });
@@ -921,7 +898,6 @@ export default {
       ) {
         let payload = { building_application: this.buildingApplication.id };
         await this.$store.dispatch("getBuildingAssessmentResult", payload);
-        console.log("results", this.buildingAssessmentResult);
       }
     },
     async checkIfCanAssess() {
@@ -933,6 +909,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.submission-text {
+  color: #2699fb;
+  margin-top: 30px;
+  font-weight: bold;
+}
+.meta-group-title {
+  color: #2699fb;
+  font-weight: bold;
+}
 div.meta-parent-box {
   width: 100%;
   margin-top: 50px;

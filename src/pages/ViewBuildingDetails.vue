@@ -244,6 +244,29 @@
             </ol>
           </div>
         </div>
+        <div class="flex-column">
+          <div class="submission-text">
+            Submission Date:
+            {{ buildingApplication.last_submitted | moment("MMMM DD, YYYY") }}
+          </div>
+          <div
+            class="assessment-result-list mt30"
+            v-if="
+              buildingApplication.application_status == 3 ||
+                buildingApplication.application_status == 5
+            "
+          >
+            <div class="meta-group-title">Assessment Result</div>
+            <ol>
+              <li
+                v-for="(item, index) of this.buildingAssessmentResult"
+                :key="index"
+              >
+                <div>{{ item.department }}: {{ item.status }}</div>
+              </li>
+            </ol>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -273,6 +296,7 @@ export default {
       "legalDocuments",
       "technicalDocuments",
       "supplementaryDocuments",
+      "buildingAssessmentResult",
     ]),
   },
   beforeRouteLeave(to, from, next) {
@@ -280,9 +304,9 @@ export default {
     this.$store.commit("resetPropertyState");
     next();
   },
-  mounted() {
+  created() {
     this.getRequirements();
-    console.log(this.buildingRequirements.buildingrequirements);
+    this.setupAssessmentResult();
   },
   data() {
     return {
@@ -295,6 +319,15 @@ export default {
     };
   },
   methods: {
+    async setupAssessmentResult() {
+      if (
+        this.buildingApplication.application_status == 3 ||
+        this.buildingApplication.application_status == 5
+      ) {
+        let payload = { building_application: this.buildingApplication.id };
+        await this.$store.dispatch("getUserBuildingAssessmentResult", payload);
+      }
+    },
     showSingle() {
       if (this.buildingRequirements) {
         if (this.buildingRequirements.buildingrequirements.length > 0) {
@@ -337,6 +370,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.submission-text {
+  color: #2699fb;
+  margin: 10px 0px;
+  font-weight: bold;
+}
+.meta-group-title {
+  color: #2699fb;
+  font-weight: bold;
+}
+.assessment-result-list ol li,
+.assessment-result-list ol li div {
+  width: 100%;
+  color: #2699fb;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px 0;
+  margin-left: 30px;
+}
 div.meta-parent-box {
   width: 100%;
   margin-top: 50px;

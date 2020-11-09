@@ -429,23 +429,6 @@
 
         <!-- Uploaded Requirements -->
         <div class="meta-text-group flex-wrap" v-if="requirements">
-          <!-- <div class="gallery-box flex-wrap">
-            <div
-              v-for="(requirement, index) in requirements.requirements" :key="index"
-              class="gallery-image"
-              @click="showSingle"
-              :style="`background-image: url(${replaceUrl(requirement.file)});`"
-            ></div> -->
-          <!-- <vue-easy-lightbox
-              escDisabled
-              moveDisabled
-              :visible="visible"
-              :imgs="imgs"
-              :index="index"
-              @hide="handleHide"
-            ></vue-easy-lightbox> -->
-          <!-- </div>
-        </div> -->
           <div class="requirement-list">
             <div class="meta-group-title">Uploaded Requirements</div>
             <ol>
@@ -459,7 +442,14 @@
               </li>
             </ol>
           </div>
-
+        </div>
+        <div class="flex-column">
+          <div>
+            <div class="submission-text">
+              Submission Date:
+              {{ businessApplication.last_submitted | moment("MMMM DD, YYYY") }}
+            </div>
+          </div>
           <div
             class="assessment-result-list mt30"
             v-if="
@@ -477,64 +467,58 @@
               </li>
             </ol>
           </div>
-          <div
-            class="meta-button-group flex-center"
-            v-if="
-              !businessApplication.is_approve &&
-                !businessApplication.is_disapprove &&
-                (groups.includes('superadmin') ||
-                  groups.includes('business_application_approver')) &&
-                businessApplication.application_status != 2 &&
-                businessApplication.application_status != 4
-                && businessApplication.application_status != 3
-            "
+        </div>
+        <div
+          class="meta-button-group flex-center"
+          v-if="
+            !businessApplication.is_approve &&
+              !businessApplication.is_disapprove &&
+              (groups.includes('superadmin') ||
+                groups.includes('business_application_approver')) &&
+              businessApplication.application_status != 2 &&
+              businessApplication.application_status != 4 &&
+              businessApplication.application_status != 3
+          "
+        >
+          <button-block type="approve" @click.native="approveApplication(true)">
+            {{
+              businessApplication.application_status === 0
+                ? "COMPLETE"
+                : businessApplication.application_status === 2
+                ? "FOR PAYMENT"
+                : ""
+            }}
+          </button-block>
+          <button-block
+            class="red-btn"
+            type="disapprove"
+            @click.native="approveApplication(false)"
           >
-            <button-block
-              type="approve"
-              @click.native="approveApplication(true)"
-            >
-              {{
-                businessApplication.application_status === 0
-                  ? "COMPLETE"
-                  : businessApplication.application_status === 2
-                  ? "FOR PAYMENT"
-                  : ""
-              }}
-            </button-block>
-            <button-block
-              class="red-btn"
-              type="disapprove"
-              @click.native="approveApplication(false)"
-            >
-              {{
-                businessApplication.application_status === 0
-                  ? "INCOMPLETE"
-                  : "FOR COMPLIANCE"
-              }}
-            </button-block>
-          </div>
-          <div
-            v-if="
-              businessDeptCanAssess &&
-                businessApplication.application_status == 2
-                && isAssessmentActive
-            "
-            class="meta-button-group flex-center"
+            {{
+              businessApplication.application_status === 0
+                ? "INCOMPLETE"
+                : "FOR COMPLIANCE"
+            }}
+          </button-block>
+        </div>
+        <div
+          v-if="
+            businessDeptCanAssess &&
+              businessApplication.application_status == 2 &&
+              isAssessmentActive
+          "
+          class="meta-button-group flex-center"
+        >
+          <button-block type="approve" @click.native="assessApplication(true)">
+            {{ isLastBusinessDept ? "FOR PAYMENT" : "APPROVE" }}
+          </button-block>
+          <button-block
+            type="disapprove"
+            class="red-btn"
+            @click.native="assessApplication(false)"
           >
-            <button-block
-              type="approve"
-              @click.native="assessApplication(true)"
-            >
-              {{ isLastBusinessDept ? "FOR PAYMENT" : "APPROVE" }}
-            </button-block>
-            <button-block
-              type="disapprove"
-              class="red-btn"
-              @click.native="assessApplication(false)"
-            >
-              {{ isLastBusinessDept ? "FOR COMPLIANCE" : "DISAPPROVE" }}
-            </button-block>
-          </div>
+            {{ isLastBusinessDept ? "FOR COMPLIANCE" : "DISAPPROVE" }}
+          </button-block>
         </div>
       </div>
     </div>
@@ -579,7 +563,7 @@ export default {
       "businessAssessmentResult",
       "businessDeptCanAssess",
       "isLastBusinessDept",
-      "isAssessmentActive"
+      "isAssessmentActive",
     ]),
   },
   mounted() {
@@ -653,7 +637,7 @@ export default {
               "approveBusinessApplication",
               changeApplicationStatusPayload
             );
-          }else{
+          } else {
             this.createRemarks();
           }
         }
@@ -745,6 +729,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.meta-group-title {
+  color: #2699fb;
+  font-weight: bold;
+}
+.submission-text {
+  color: #2699fb;
+  margin: 10px 0px;
+  font-weight: bold;
+}
 div.meta-parent-box {
   width: 100%;
   margin-top: 50px;
