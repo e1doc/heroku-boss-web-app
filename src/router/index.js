@@ -185,15 +185,6 @@ const routes = [{
         path: "applications",
         name: "Applications",
         component: Applications,
-        // async beforeEnter(to, from, next) {
-        //   let hasPermission = await store.state.service.isAdminAuthenticated;
-        //   if(store.state.admin.groups.includes('business_application_approver') || store.state.admin.groups.includes('building_application_approver')){
-        //     next()
-        //   }else{
-        //     console.log()
-        //     console.log('INVALID ACCESS')
-        //   }
-        // },
       },
       {
         path: "assessments",

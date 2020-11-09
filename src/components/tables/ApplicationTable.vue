@@ -6,6 +6,7 @@
       <!-- <div class="th" v-if="currentType === 'business'">Account #</div> -->
       <div class="th" v-if="currentType === 'building'">TD #</div>
       <div class="th">STATUS</div>
+      <div class="th">LATEST APPROVER</div>
       <div class="th">ACTIONS</div>
     </div>
     <div v-if="currentType === 'business'">
@@ -47,6 +48,10 @@
             {{
               application.is_draft ? 'DRAFT' : ''
             }}
+          </div>
+          <div class="td">
+              <span class="td-label show-in-mobile">LATEST APPROVER : </span>
+              Zoning
           </div>
           <div class="td actions">
             <div @click="openBusinessApplication('edit', application)" v-if="application.is_draft">
@@ -106,6 +111,10 @@
             {{
               application.is_draft ? 'DRAFT' : ''
             }}
+          </div>
+          <div class="td">
+              <span class="td-label show-in-mobile">LATEST APPROVER : </span>
+              Zoning
           </div>
           <div class="td actions">
             <div @click="openBuildingApplication('edit', application)" v-if="application.is_draft">
