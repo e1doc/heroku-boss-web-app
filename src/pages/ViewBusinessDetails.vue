@@ -24,10 +24,10 @@
             </div>
           </div>
           <div class="meta-text no-bb">
-              <div class="meta-label">Mode of Payment :</div>
-              <div class="meta-value">
-                {{ businessBasicInformation.mode_of_payment }}
-              </div>
+            <div class="meta-label">Mode of Payment :</div>
+            <div class="meta-value">
+              {{ businessBasicInformation.mode_of_payment }}
+            </div>
           </div>
           <div class="meta-text w6 no-br no-bb">
             <div class="meta-label">DTI/SEC/CDA Registration No. :</div>
@@ -229,7 +229,7 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Owner Details -->
         <div class="meta-text-group flex-wrap">
           <div class="meta-group-title">Owner's Address :</div>
@@ -276,7 +276,9 @@
             <div class="meta-value">{{ businessDetails.area }} sqm</div>
           </div>
           <div class="meta-text w4 no-br">
-            <div class="meta-label">Total No. of Employees (including owner):</div>
+            <div class="meta-label">
+              Total No. of Employees (including owner):
+            </div>
             <div class="meta-value">{{ businessDetails.total_employees }}</div>
           </div>
           <div class="meta-text w4">
@@ -382,7 +384,9 @@
             <div class="form-th sales">
               Gross Sales/Receipts (for Renewal)
               <div class="form-sub-th">
-                <div class="form-th no-br no-bl no-bb">Essential / Non-essential :</div>
+                <div class="form-th no-br no-bl no-bb">
+                  Essential / Non-essential :
+                </div>
                 <!-- <div class="form-th no-br no-bl no-bb">Non-Essential :</div> -->
               </div>
             </div>
@@ -408,7 +412,9 @@
                 {{ activity.units }}
               </div>
               <div class="form-td sales no-bt">
-                <span class="form-td-label show-in-mobile">Essential/Non-essential :</span>
+                <span class="form-td-label show-in-mobile"
+                  >Essential/Non-essential :</span
+                >
                 {{ activity.essential }}
               </div>
               <!-- <div class="form-td sales no-bt">
@@ -424,34 +430,39 @@
         <!-- Uploaded Requirements -->
         <div class="meta-text-group flex-wrap" v-if="requirements">
           <div class="meta-group-title">Uploaded Requirements</div>
-          <!-- <div class="gallery-box flex-wrap">
-            <div
-              v-for="(requirement, index) in requirements.requirements" :key="index"
-              class="gallery-image"
-              @click="showSingle"
-              :style="`background-image: url(${replaceUrl(requirement.file)});`"
-            ></div> -->
-            <!-- <vue-easy-lightbox
-              escDisabled
-              moveDisabled
-              :visible="visible"
-              :imgs="imgs"
-              :index="index"
-              @hide="handleHide"
-            ></vue-easy-lightbox> -->
-          <!-- </div> -->
           <div class="requirement-list">
             <ol>
               <li
-                v-for="(item, index) of this.requirements
-                  .requirements"
+                v-for="(item, index) of this.requirements.requirements"
                 :key="index"
               >
                 <app-link :to="replaceUrl(item.file)">
-                  {{formatLabel(item.requirements_label) }} - 
-                  {{
-                  item.filename
-                }}</app-link>
+                  {{ formatLabel(item.requirements_label) }} -
+                  {{ item.filename }}</app-link
+                >
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div class="flex-column">
+          <div class="submission-text">
+            Submission Date:
+            {{ businessApplication.last_submitted | moment("MMMM DD, YYYY") }}
+          </div>
+          <div
+            class="assessment-result-list mt30"
+            v-if="
+              businessApplication.application_status == 2 ||
+                businessApplication.application_status == 4
+            "
+          >
+            <div class="meta-group-title">Assessment Result</div>
+            <ol>
+              <li
+                v-for="(item, index) of this.businessAssessmentResult"
+                :key="index"
+              >
+                <div>{{ item.department }}: {{ item.status }}</div>
               </li>
             </ol>
           </div>
@@ -481,16 +492,19 @@ export default {
       "lessorDetails",
       "businessActivities",
       "applicationRequirements",
-      "requirements"
+      "requirements",
+      "businessAssessmentResult",
     ]),
   },
-  mounted() {
-    this.getRequirements()
-    console.log(this.requirements.requirements)
+  created() {
+    this.getRequirements();
+    this.$store.dispatch("getUserBusinessAssessmentResult", {
+      business_application: this.businessApplication.id,
+    });
   },
-   beforeRouteLeave(to, from, next) {
+  beforeRouteLeave(to, from, next) {
     this.$store.commit("setCurrentApplicationStep", "1");
-    this.$store.commit("resetBusinessState")
+    this.$store.commit("resetBusinessState");
     next();
   },
   data() {
@@ -502,15 +516,15 @@ export default {
   },
   methods: {
     showSingle() {
-      if(this.requirements){
-        if(this.requirements.requirements.length > 0){
-          this.requirements.requirements.map(item=>{
+      if (this.requirements) {
+        if (this.requirements.requirements.length > 0) {
+          this.requirements.requirements.map((item) => {
             let img = {
               title: this.formatLabel(item.requirements_label),
-              src: this.replaceUrl(item.file)
-            }
-            this.imgs.push(img)
-          })
+              src: this.replaceUrl(item.file),
+            };
+            this.imgs.push(img);
+          });
         }
       }
       this.show();
@@ -526,17 +540,35 @@ export default {
         await this.$store.dispatch("getApplicationRequirements");
       }
     },
-    replaceUrl(url){
-      return url.replace("/bacoor/","/")
+    replaceUrl(url) {
+      return url.replace("/bacoor/", "/");
     },
-    formatLabel(string){
-      return string.replace(/_/g," ").toUpperCase()
-    }
+    formatLabel(string) {
+      return string.replace(/_/g, " ").toUpperCase();
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.meta-group-title {
+  color: #2699fb;
+  font-weight: bold;
+}
+.submission-text {
+  color: #2699fb;
+  margin: 10px 0px;
+  font-weight: bold;
+}
+.assessment-result-list ol li,
+.assessment-result-list ol li div {
+  width: 100%;
+  color: #2699fb;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px 0;
+  margin-left: 30px;
+}
 div.meta-parent-box {
   width: 100%;
   margin-top: 50px;

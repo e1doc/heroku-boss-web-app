@@ -561,7 +561,8 @@ export default {
           let payload = {
             is_draft: false,
             application_status: application_status,
-            is_disapprove: false
+            is_disapprove: false,
+            last_submitted: new Date(Date.now()),
           };
           await this.$store.dispatch("updateBuildingApplication", payload);
           if (this.legalDocuments.id) {

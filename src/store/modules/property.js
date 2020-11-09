@@ -25,7 +25,7 @@ const getDefaultPropertyState = () => {
     buildingRequirements: [],
     draftProperty: false,
     realPropertyProfiles: [],
-    remarks: {},
+    applicationRemarks: {},
     legalDocuments: {},
     technicalDocuments: {},
     supplementaryDocuments: {},
@@ -34,6 +34,12 @@ const getDefaultPropertyState = () => {
     currentBuildingId: 0,
     buildingSearch: "",
     propertyFilterBy: "all",
+    buildingAssessmentMessage: "",
+    buildingAssessmentResult: [],
+    buildingDeptCanAssess: false,
+    isLastBuildingDept: false,
+    forBuildingAssessmentList: [],
+    assessedBuildingList: []
   };
 };
 
@@ -57,15 +63,21 @@ const getters = {
     state.buildingApplicationRequirements,
   buildingRequirements: (state) => state.buildingRequirements,
   realPropertyProfiles: (state) => state.realPropertyProfiles,
-  remarks: (state) => state.remarks,
+  applicationRemarks: (state) => state.applicationRemarks,
   legalDocuments: (state) => state.legalDocuments,
   technicalDocuments: (state) => state.technicalDocuments,
   supplementaryDocuments: (state) => state.supplementaryDocuments,
   designPlans: (state) => state.designPlans,
   designSpecs: (state) => state.designSpecs,
-  currentBuildingId: ( state ) => state.currentBuildingId,
-  buildingSearch: ( state ) => state.buildingSearch,
-  propertyFilterBy: (state) => state.propertyFilterBy
+  currentBuildingId: (state) => state.currentBuildingId,
+  buildingSearch: (state) => state.buildingSearch,
+  propertyFilterBy: (state) => state.propertyFilterBy,
+  buildingAssessmentMessage: (state) => state.buildingAssessmentMessage,
+  buildingAssessmentResult: (state) => state.buildingAssessmentResult,
+  buildingDeptCanAssess: (state) => state.buildingDeptCanAssess,
+  isLastBuildingDept: (state) => state.isLastBuildingDept,
+  forBuildingAssessmentList: (state) => state.forBuildingAssessmentList,
+  assessedBuildingList: (state) => state.assessedBuildingList
 };
 
 const mutations = {
@@ -110,18 +122,30 @@ const mutations = {
     (state.buildingRequirements = buildingRequirements),
   setRealPropertyProfiles: (state, realPropertyProfiles) =>
     (state.realPropertyProfiles = realPropertyProfiles),
-  setRemarks: (state, remarks) => (state.remarks = remarks),
+  setApplicationRemarks: (state, applicationRemarks) => (state.applicationRemarks = applicationRemarks),
   setLegalDocuments: (state, legalDocuments) =>
     (state.legalDocuments = legalDocuments),
   setTechnicalDocuments: (state, technicalDocuments) =>
     (state.technicalDocuments = technicalDocuments),
   setSupplementaryDocuments: (state, supplementaryDocuments) =>
     (state.supplementaryDocuments = supplementaryDocuments),
-  setCurrentBuildingId: (state, currentBuildingId) => (state.currentBuildingId = currentBuildingId),
-  setBuildingSearch: (state, buildingSearch) => (state.buildingSearch = buildingSearch),
+  setCurrentBuildingId: (state, currentBuildingId) =>
+    (state.currentBuildingId = currentBuildingId),
+  setBuildingSearch: (state, buildingSearch) =>
+    (state.buildingSearch = buildingSearch),
   setDesignPlans: (state, designPlans) => (state.designPlans = designPlans),
   setDesignSpecs: (state, designSpecs) => (state.designSpecs = designSpecs),
-  setPropertyFilterBy: (state, propertyFilterBy) => (state.propertyFilterBy = propertyFilterBy)
+  setPropertyFilterBy: (state, propertyFilterBy) =>
+    (state.propertyFilterBy = propertyFilterBy),
+  setBuildingAssessmentMessage: (state, buildingAssessmentMessage) =>
+    (state.buildingAssessmentMessage = buildingAssessmentMessage),
+  setBuildingAssessmentResult: (state, buildingAssessmentResult) =>
+    (state.buildingAssessmentResult = buildingAssessmentResult),
+  setBuildingDeptCanAssess: (state, buildingDeptCanAssess) =>
+    (state.buildingDeptCanAssess = buildingDeptCanAssess),
+  setIsLastBuildingDept: (state, isLastBuildingDept) => (state.isLastBuildingDept = isLastBuildingDept),
+  setForBuildingAssessmentList: (state, forBuildingAssessmentList) => (state.forBuildingAssessmentList = forBuildingAssessmentList),
+  setAssessedBuildingList: (state, assessedBuildingList) => (state.assessedBuildingList = assessedBuildingList)
 };
 
 const actions = {
@@ -137,7 +161,7 @@ const actions = {
         is_approve: response.data.is_approve,
         is_disapprove: response.data.is_disapprove,
         created_at: response.data.created_at,
-        application_status: response.data.application_status
+        application_status: response.data.application_status,
       };
       await commit("setBuildingApplication", application);
       await commit(
@@ -187,10 +211,8 @@ const actions = {
       console.log(err.response);
     }
   },
-  async setApplicationRemarks({ commit, getters }, payload) {
-    console.log("set remarks payload", payload);
-    await commit("setRemarks", payload);
-    console.log(getters.remarks);
+  async setApplicationStateRemarks({ commit, getters }, payload) {
+    await commit("setApplicationRemarks", payload);
   },
   async propertyEnrollment({ commit, dispatch, getters }, payload) {
     let config = {
@@ -214,15 +236,16 @@ const actions = {
       );
       // # 0 = For approval, 1 = disapprove / incomplete, 2 = complete, 3 = for inspection, 4 = for compliance, 5 = for payment / approve
 
-      let action = payload.status == 1
-              ? 'incomplete'
-              : payload.status == 2
-              ? 'for evaluation'
-              : payload.status == 3
-              ? 'for inspection'
-              : payload.status == 4
-              ? 'for compliance'
-              : 'for payment'
+      let action =
+        payload.status == 1
+          ? "incomplete"
+          : payload.status == 2
+          ? "for evaluation"
+          : payload.status == 3
+          ? "for inspection"
+          : payload.status == 4
+          ? "for compliance"
+          : "for payment";
 
       dispatch("createPrompt", {
         type: "success",
@@ -443,27 +466,154 @@ const actions = {
           params: payload,
         }
       );
-      console.log(response.data.buildingchecklist)
-      response.data.buildingrequirements = response.data.buildingrequirements.filter(item => item.is_active == true)
+      console.log(response.data.buildingchecklist);
+      response.data.buildingrequirements = response.data.buildingrequirements.filter(
+        (item) => item.is_active == true
+      );
       commit("setBuildingRequirements", response.data);
-        if (response.data.buildingchecklist.length > 0) {
-          response.data.buildingchecklist.map((item) => {
-            if (item.category === "legal") {
-              commit("setLegalDocuments", item);
-            } else if (item.category === "technical") {
-              commit("setTechnicalDocuments", item);
-            } else if (item.category === "supplementary") {
-              commit("setSupplementaryDocuments", item);
-            } else if (item.category === 'design_plans'){
-              commit("setDesignPlans", item);
-            }else if(item.category === 'design_specs'){
-              commit("setDesignSpecs", item);
-            }
-          });
-        }
+      if (response.data.buildingchecklist.length > 0) {
+        response.data.buildingchecklist.map((item) => {
+          if (item.category === "legal") {
+            commit("setLegalDocuments", item);
+          } else if (item.category === "technical") {
+            commit("setTechnicalDocuments", item);
+          } else if (item.category === "supplementary") {
+            commit("setSupplementaryDocuments", item);
+          } else if (item.category === "design_plans") {
+            commit("setDesignPlans", item);
+          } else if (item.category === "design_specs") {
+            commit("setDesignSpecs", item);
+          }
+        });
+      }
       console.log(response.data);
     } catch (err) {
       console.log(err);
+    }
+  },
+  async assessBuildingApplication({ commit, getters, dispatch }, payload) {
+    try {
+      const response = await axios.post(
+        `${baseUrl}/staff/building-dept-assessment`,
+        payload,
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
+      );
+      commit("setBuildingAssessmentMessage", response.data.message);
+      if(!getters.isLastBuildingDept){
+        dispatch("createPrompt", {
+          type: "success",
+          title: "Success!",
+          message: response.data.detail,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response);
+        dispatch("createPrompt", {
+          type: "error",
+          title: "Failed!",
+          message: err.response.data.detail,
+        });
+      }
+    }
+  },
+  async getBuildingAssessmentResult({ commit, getters }, payload) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/staff/building-dept-assessment`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+          params: payload,
+        }
+      );
+      commit("setBuildingAssessmentResult", response.data);
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response);
+      }
+    }
+  },
+  async checkBuildingDeptCanAssess({ commit, getters }, payload) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/staff/check-building-dept-if-can-assess`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+          params: payload,
+        }
+      );
+      commit("setBuildingDeptCanAssess", response.data.can_assess);
+      commit("setIsLastBuildingDept", response.data.last_department)
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response);
+      }
+    }
+  },
+  async getForBuildingAssessmentList({commit, getters}, page = 1){
+    try {
+      const response = await axios.get(
+        `${baseUrl}/staff/for-building-assessment-list?page=${page}`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+        }
+      );
+      commit('setForBuildingAssessmentList', response.data.results)
+      commit("setPageCount", response.data.total_pages);
+    } catch (err) {
+      console.log(err)
+      if(err.response){
+        console.log(err.response.data)
+      }
+    }
+  },
+  async getAssessedBuildingList({ commit, getters }, page = 1) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/staff/assessed-building-application-list?page=${page}`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+        }
+      );
+      commit("setAssessedBuildingList", response.data.results);
+      commit("setPageCount", response.data.total_pages);
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response.data);
+      }
+    }
+  },
+  async resetBuildingAssessment({commit, getters}, payload){
+    try {
+      const response = await axios.put(`${baseUrl}/staff/reset-building-assessment`,payload,{
+        headers: { Authorization: `jwt ${getters.authToken}` },
+      })
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response.data);
+      }
+    }
+  },
+  async getUserBuildingAssessmentResult({ commit, getters }, payload) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/api/building-assessment-result/`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+          params: payload,
+        }
+      );
+      commit("setBuildingAssessmentResult", response.data);
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response);
+      }
     }
   },
 };

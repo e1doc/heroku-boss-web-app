@@ -2,27 +2,29 @@
     <div class="admin-container">
         <div class="admin-page-title flex-center">
             <font-awesome-icon icon="users" class="admin-icon"/>
-            Applications
+            Assessments
         </div>
         <div class="admin-body">
-            <div class="admin-search"><transaction-table-menu type='adminApplications'/></div>
-            <div class="admin-content"><admin-application-table /></div>
+            <div class="admin-search"><assessment-table-menu type='adminApplications'/></div>
+            <div class="admin-content"><assessment-table /></div>
         </div>
     </div>
 </template>
 
 <script>
-import TransactionTableMenu from "@/components/tables/TransactionTableMenu";
-import AdminApplicationTable from "@/components/admin/AdminApplicationTable"
+import AssessmentTableMenu from "@/components/tables/AssessmentTableMenu";
+import AssessmentTable from "@/components/admin/AssessmentTable"
 export default {
-    name : "Applications",
+    name : "Assessments",
     components : {
-        AdminApplicationTable,
-        TransactionTableMenu
+        AssessmentTable,
+        AssessmentTableMenu
     },
     created(){
-          this.$store.commit('setIsAssessmentActive', false)
-    }
+        this.$store.commit('setCurrentType', 'business')
+        this.$store.commit('setCurrentTable', 'for_assessment')
+        this.$store.commit('setIsAssessmentActive', true)
+    },
 }
 </script>
 

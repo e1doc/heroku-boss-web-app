@@ -229,7 +229,7 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Owner Details -->
         <div class="meta-text-group flex-wrap">
           <div class="meta-group-title">Owner's Address :</div>
@@ -429,23 +429,6 @@
 
         <!-- Uploaded Requirements -->
         <div class="meta-text-group flex-wrap" v-if="requirements">
-          <!-- <div class="gallery-box flex-wrap">
-            <div
-              v-for="(requirement, index) in requirements.requirements" :key="index"
-              class="gallery-image"
-              @click="showSingle"
-              :style="`background-image: url(${replaceUrl(requirement.file)});`"
-            ></div> -->
-          <!-- <vue-easy-lightbox
-              escDisabled
-              moveDisabled
-              :visible="visible"
-              :imgs="imgs"
-              :index="index"
-              @hide="handleHide"
-            ></vue-easy-lightbox> -->
-          <!-- </div>
-        </div> -->
           <div class="requirement-list">
             <div class="meta-group-title">Uploaded Requirements</div>
             <ol>
@@ -459,36 +442,83 @@
               </li>
             </ol>
           </div>
+        </div>
+        <div class="flex-column">
+          <div>
+            <div class="submission-text">
+              Submission Date:
+              {{ businessApplication.last_submitted | moment("MMMM DD, YYYY") }}
+            </div>
+          </div>
           <div
-            class="meta-button-group flex-center"
+            class="assessment-result-list mt30"
             v-if="
-              !businessApplication.is_approve &&
-              !businessApplication.is_disapprove && (groups.includes('superadmin') || groups.includes('business_application_approver'))
+              businessApplication.application_status == 2 ||
+                businessApplication.application_status == 4
             "
           >
-            <button-block
-              type="approve"
-              @click.native="approveApplication(true)"
-            >
-              {{
-              businessApplication.application_status === 0 
-              ? 'COMPLETE' 
-              : businessApplication.application_status === 2
-              ? 'FOR PAYMENT'
-              : '' }}
-            </button-block>
-            <button-block
-              class="red-btn"
-              type="disapprove"
-              @click.native="approveApplication(false)"
-            >
-               {{
-                 businessApplication.application_status === 0 
-                ? 'INCOMPLETE'
-                : 'FOR COMPLIANCE'
-              }}
-            </button-block>
+            <div class="meta-group-title">Assessment Result</div>
+            <ol>
+              <li
+                v-for="(item, index) of this.businessAssessmentResult"
+                :key="index"
+              >
+                <div>{{ item.department }}: {{ item.status }}</div>
+              </li>
+            </ol>
           </div>
+        </div>
+        <div
+          class="meta-button-group flex-center"
+          v-if="
+            !businessApplication.is_approve &&
+              !businessApplication.is_disapprove &&
+              (groups.includes('superadmin') ||
+                groups.includes('business_application_approver')) &&
+              businessApplication.application_status != 2 &&
+              businessApplication.application_status != 4 &&
+              businessApplication.application_status != 3
+          "
+        >
+          <button-block type="approve" @click.native="approveApplication(true)">
+            {{
+              businessApplication.application_status === 0
+                ? "COMPLETE"
+                : businessApplication.application_status === 2
+                ? "FOR PAYMENT"
+                : ""
+            }}
+          </button-block>
+          <button-block
+            class="red-btn"
+            type="disapprove"
+            @click.native="approveApplication(false)"
+          >
+            {{
+              businessApplication.application_status === 0
+                ? "INCOMPLETE"
+                : "FOR COMPLIANCE"
+            }}
+          </button-block>
+        </div>
+        <div
+          v-if="
+            businessDeptCanAssess &&
+              businessApplication.application_status == 2 &&
+              isAssessmentActive
+          "
+          class="meta-button-group flex-center"
+        >
+          <button-block type="approve" @click.native="assessApplication(true)">
+            {{ isLastBusinessDept ? "FOR PAYMENT" : "APPROVE" }}
+          </button-block>
+          <button-block
+            type="disapprove"
+            class="red-btn"
+            @click.native="assessApplication(false)"
+          >
+            {{ isLastBusinessDept ? "FOR COMPLIANCE" : "DISAPPROVE" }}
+          </button-block>
         </div>
       </div>
     </div>
@@ -529,12 +559,19 @@ export default {
       "applicationRequirements",
       "requirements",
       "currentInquiry",
-      "groups"
+      "groups",
+      "businessAssessmentResult",
+      "businessDeptCanAssess",
+      "isLastBusinessDept",
+      "isAssessmentActive",
     ]),
   },
   mounted() {
     this.getRequirements();
-    console.log('requirements',this.requirements);
+  },
+  created() {
+    this.checkIfCanAssess();
+    this.setupAssessmentResult();
   },
   methods: {
     async approveApplication(status) {
@@ -551,24 +588,60 @@ export default {
       //     this.$store.dispatch('approveBusinessApplication', payload)
       //   }
       // });
-      console.log(approve.value);
       if (approve.value) {
-        console.log(status);
         if (!status) {
           this.createRemarks();
         } else {
-          let application_status = 0
+          let application_status = 0;
           this.businessApplication.application_status === 0
-              ? application_status = 2
-              : this.businessApplication.application_status === 2
-              ? application_status = 4
-              : application_status = 0
+            ? (application_status = 2)
+            : this.businessApplication.application_status === 2
+            ? (application_status = 4)
+            : (application_status = 0);
           let payload = {
-              id: this.businessApplication.id,
-              status: application_status
-            }
-          this.$store.dispatch("approveBusinessApplication", payload);
+            id: this.businessApplication.id,
+            status: application_status,
+          };
+          await this.$store.dispatch("approveBusinessApplication", payload);
         }
+      }
+    },
+    async assessApplication(status) {
+      let approve = await this.$swal({
+        text: "Are you sure with this action?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      });
+      if (approve.value) {
+        let application_status = 0;
+        this.businessApplication.application_status === 0
+          ? (application_status = 2)
+          : this.businessApplication.application_status === 2
+          ? (application_status = 4)
+          : (application_status = 0);
+
+        let payload = {
+          business_application: this.businessApplication.id,
+          is_approve: status ? true : false,
+        };
+        await this.$store.dispatch("assessBusinessApplication", payload);
+        if (this.isLastBusinessDept) {
+          if (status) {
+            let changeApplicationStatusPayload = {
+              id: this.businessApplication.id,
+              status: application_status,
+            };
+            await this.$store.dispatch(
+              "approveBusinessApplication",
+              changeApplicationStatusPayload
+            );
+          } else {
+            this.createRemarks();
+          }
+        }
+        this.$router.push({ name: "Assessments" });
       }
     },
     async createRemarks() {
@@ -587,10 +660,13 @@ export default {
             user: this.businessApplication.user,
           },
         });
-      }else{
-        this.$store.commit('setContinueBusinessThread', true)
-        this.$store.commit('setCurrentBusinessId', this.businessApplication.id)
-        this.$router.push({name:'ReplyInquiry', params:{thread: this.currentInquiry}})
+      } else {
+        this.$store.commit("setContinueBusinessThread", true);
+        this.$store.commit("setCurrentBusinessId", this.businessApplication.id);
+        this.$router.push({
+          name: "ReplyInquiry",
+          params: { thread: this.currentInquiry },
+        });
       }
     },
     approveSuccess(status) {
@@ -634,11 +710,34 @@ export default {
     formatLabel(string) {
       return string.replace(/_/g, " ").toUpperCase();
     },
+    async setupAssessmentResult() {
+      if (
+        this.businessApplication.application_status == 2 ||
+        this.businessApplication.application_status == 4
+      ) {
+        let payload = { business_application: this.businessApplication.id };
+        await this.$store.dispatch("getBusinessAssessmentResult", payload);
+      }
+    },
+    async checkIfCanAssess() {
+      let payload = { business_application: this.businessApplication.id };
+      await this.$store.dispatch("checkBusinessDeptCanAssess", payload);
+      console.log("can assess", this.businessDeptCanAssess);
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.meta-group-title {
+  color: #2699fb;
+  font-weight: bold;
+}
+.submission-text {
+  color: #2699fb;
+  margin: 10px 0px;
+  font-weight: bold;
+}
 div.meta-parent-box {
   width: 100%;
   margin-top: 50px;
@@ -826,6 +925,16 @@ div.meta-parent-box {
   font-size: 14px;
   font-weight: bold;
   padding: 10px 0;
+  margin-left: 30px;
+}
+
+.assessment-result-list ol li,
+.assessment-result-list ol li div {
+  width: 100%;
+  color: #2699fb;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px 0;
   margin-left: 30px;
 }
 

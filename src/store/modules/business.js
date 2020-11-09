@@ -34,7 +34,13 @@ const getDefaultBusinessState = () => {
     isBusinessEnrollmentSuccess: false,
     typeOfOrganization: "",
     currentBusinessId: 0,
-    businessSearch: ""
+    businessSearch: "",
+    businessAssessmentMessage: "",
+    businessAssessmentResult: [],
+    businessDeptCanAssess: false,
+    isLastBusinessDept: false,
+    forBusinessAssessmentList: [],
+    assessedBusinessList: [],
   };
 };
 
@@ -64,8 +70,14 @@ const getters = {
   filterBy: (state) => state.filterBy,
   isBusinessEnrollmentSuccess: (state) => state.isBusinessEnrollmentSuccess,
   typeOfOrganization: (state) => state.typeOfOrganization,
-  currentBusinessId: ( state ) => state.currentBusinessId,
-  businessSearch: ( state ) => state.businessSearch
+  currentBusinessId: (state) => state.currentBusinessId,
+  businessSearch: (state) => state.businessSearch,
+  businessAssessmentMessage: (state) => state.businessAssessmentMessage,
+  businessAssessmentResult: (state) => state.businessAssessmentResult,
+  businessDeptCanAssess: (state) => state.businessDeptCanAssess,
+  isLastBusinessDept: (state) => state.isLastBusinessDept,
+  forBusinessAssessmentList: (state) => state.forBusinessAssessmentList,
+  assessedBusinessList: (state) => state.assessedBusinessList,
 };
 
 const mutations = {
@@ -112,8 +124,22 @@ const mutations = {
     (state.isBusinessEnrollmentSuccess = isBusinessEnrollmentSuccess),
   setTypeOfOrganization: (state, typeOfOrganization) =>
     (state.typeOfOrganization = typeOfOrganization),
-  setCurrentBusinessId: (state, currentBusinessId) => (state.currentBusinessId = currentBusinessId),
-  setBusinessSearch: ( state, businessSearch) => ( state.businessSearch = businessSearch )
+  setCurrentBusinessId: (state, currentBusinessId) =>
+    (state.currentBusinessId = currentBusinessId),
+  setBusinessSearch: (state, businessSearch) =>
+    (state.businessSearch = businessSearch),
+  setBusinessAssessmentMessage: (state, businessAssessmentMessage) =>
+    (state.businessAssessmentMessage = businessAssessmentMessage),
+  setBusinessAssessmentResult: (state, businessAssessmentResult) =>
+    (state.businessAssessmentResult = businessAssessmentResult),
+  setBusinessDeptCanAssess: (state, businessDeptCanAssess) =>
+    (state.businessDeptCanAssess = businessDeptCanAssess),
+  setIsLastBusinessDept: (state, isLastBusinessDept) =>
+    (state.isLastBusinessDept = isLastBusinessDept),
+  setForBusinessAssessmentList: (state, forBusinessAssessmentList) =>
+    (state.forBusinessAssessmentList = forBusinessAssessmentList),
+  setAssessedBusinessList: (state, assessedBusinessList) =>
+    (state.assessedBusinessList = assessedBusinessList),
 };
 
 const actions = {
@@ -124,14 +150,28 @@ const actions = {
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
 
-      let application = {id:response.data.id,created_at: response.data.created_at, is_draft: response.data.is_draft, is_approve: response.data.is_approve, is_disapprove: response.data.is_disapprove,account_number: response.data.account_number, application_status: response.data.business_application}
-      await commit('setBusinessApplication', application)
-      await commit('setBusinessBasicInformation', response.data.businessbasicinformation)
-      await commit('setBusinessDetails', response.data.businessdetails)
-      await commit('setLessorDetails', response.data.lessordetails)
-      await commit('setBusinessActivities',response.data.businessactivity)
-      await commit('setApplicationRequirements', response.data.businessapplicationrequirements[0])
-      await router.push({ name: "BusinessPermitApplication" })
+      let application = {
+        id: response.data.id,
+        created_at: response.data.created_at,
+        is_draft: response.data.is_draft,
+        is_approve: response.data.is_approve,
+        is_disapprove: response.data.is_disapprove,
+        account_number: response.data.account_number,
+        application_status: response.data.business_application,
+      };
+      await commit("setBusinessApplication", application);
+      await commit(
+        "setBusinessBasicInformation",
+        response.data.businessbasicinformation
+      );
+      await commit("setBusinessDetails", response.data.businessdetails);
+      await commit("setLessorDetails", response.data.lessordetails);
+      await commit("setBusinessActivities", response.data.businessactivity);
+      await commit(
+        "setApplicationRequirements",
+        response.data.businessapplicationrequirements[0]
+      );
+      await router.push({ name: "BusinessPermitApplication" });
     } catch (err) {
       console.log(err);
       console.log(err.response);
@@ -168,22 +208,23 @@ const actions = {
         payload,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-      let action = payload.status == 1
-              ? 'incomplete'
-              : payload.status == 2
-              ? 'for assessment'
-              : payload.status == 3
-              ? 'for compliance'
-              : payload.status == 4
-              ? 'for payment' 
-              : ''
+      let action =
+      payload.status == 1
+        ? "incomplete"
+        : payload.status == 2
+        ? "for assessment"
+        : payload.status == 3
+        ? "for compliance"
+        : payload.status == 4
+        ? "for payment"
+        : "";
 
-      dispatch("createPrompt", {
-        type: "success",
-        title: "Success!",
-        message: `Application was successfully set to ${action}!`,
-      });
-      router.push({ name: "Applications" });
+    dispatch("createPrompt", {
+      type: "success",
+      title: "Success!",
+      message: `Application was successfully set to ${action}!`,
+    });
+    router.push({ name: "Applications" });
     } catch (err) {
       console.log(err);
       commit("setLoading", false);
@@ -227,7 +268,6 @@ const actions = {
   },
   async addBusinessApplication({ commit, dispatch, getters }, payload) {
     try {
-      
       const response = await axios.post(
         `${baseUrl}/api/business-permit-application/`,
         payload,
@@ -473,12 +513,140 @@ const actions = {
           params: payload,
         }
       );
-      response.data.requirements = response.data.requirements.filter(item => item.is_active == true)
+      response.data.requirements = response.data.requirements.filter(
+        (item) => item.is_active == true
+      );
       commit("setRequirements", response.data);
-      console.log('requirements',  response.data)
+      console.log("requirements", response.data);
     } catch (err) {
       console.log(err.response);
       commit("setLoading", false);
+    }
+  },
+  async assessBusinessApplication({ commit, getters, dispatch }, payload) {
+    try {
+      const response = await axios.post(
+        `${baseUrl}/staff/business-dept-assessment`,
+        payload,
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
+      );
+      commit("setBusinessAssessmentMessage", response.data.message);
+      if (!getters.isLastBusinessDept) {
+        dispatch("createPrompt", {
+          type: "success",
+          title: "Success!",
+          message: response.data.detail,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response);
+        dispatch("createPrompt", {
+          type: "error",
+          title: "Failed!",
+          message: err.response.data.detail,
+        });
+        router.push({ name: "Applications" });
+      }
+    }
+  },
+  async getBusinessAssessmentResult({ commit, getters }, payload) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/staff/business-dept-assessment`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+          params: payload,
+        }
+      );
+      commit("setBusinessAssessmentResult", response.data);
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response);
+      }
+    }
+  },
+  async checkBusinessDeptCanAssess({ commit, getters }, payload) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/staff/check-business-dept-if-can-assess`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+          params: payload,
+        }
+      );
+      commit("setBusinessDeptCanAssess", response.data.can_assess);
+      commit("setIsLastBusinessDept", response.data.last_department);
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response);
+      }
+    }
+  },
+  async getForBusinessAssessmentList({ commit, getters }, page = 1) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/staff/for-business-assessment-list?page=${page}`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+        }
+      );
+      commit("setForBusinessAssessmentList", response.data.results);
+      commit("setPageCount", response.data.total_pages);
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response.data);
+      }
+    }
+  },
+  async getAssessedBusinessList({ commit, getters }, page = 1) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/staff/assessed-business-application-list?page=${page}`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+        }
+      );
+      commit("setAssessedBusinessList", response.data.results);
+      commit("setPageCount", response.data.total_pages);
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response.data);
+      }
+    }
+  },
+  async resetBusinessAssessment({commit, getters}, payload){
+    try {
+      const response = await axios.put(`${baseUrl}/staff/reset-business-assessment`,payload,{
+        headers: { Authorization: `jwt ${getters.authToken}` },
+      })
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response.data);
+      }
+    }
+  },
+  async getUserBusinessAssessmentResult({ commit, getters }, payload) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/api/business-assessment-result/`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+          params: payload,
+        }
+      );
+      commit("setBusinessAssessmentResult", response.data);
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response);
+      }
     }
   },
 };

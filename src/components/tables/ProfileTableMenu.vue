@@ -64,6 +64,7 @@ export default {
       await this.$store.commit("setCurrentType", type);
       let soaFilter = type === 'real_property' ? 'rpt' : type 
       await this.$store.commit("setSoaFilter", soaFilter);
+      await this.$store.dispatch("getDepartments")
     }
   }
 };

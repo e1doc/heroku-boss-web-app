@@ -98,7 +98,7 @@ export default {
     console.log(this.buildingApplication)
   },
     beforeRouteLeave(to, from, next) {
-      this.$store.dispatch("setApplicationRemarks", {});
+      this.$store.dispatch("setApplicationStateRemarks", {});
       this.$store.commit('setCurrentInquiry', "")
       next()
   },
@@ -108,7 +108,7 @@ export default {
       if (!this.remarks.application_number) {
         if (this.application_number !== "") {
           console.log('application number', this.application_number)
-          await this.$store.dispatch("setApplicationRemarks", {
+          await this.$store.dispatch("setApplicationStateRemarks", {
             application_number: this.application_number,
             application_type: this.application_type,
             user: this.user,
@@ -155,6 +155,10 @@ export default {
             : application_status = 0
           let payload = { id: this.applicationNumber, status: application_status };
           this.$store.dispatch("approveBuildingApplication", payload);
+          if(this.buildingApplication.application_status === 3){
+            let resetAssessmentPayload = {building_application: this.buildingApplication.id}
+            this.$store.dispatch('resetBuildingAssessment', resetAssessmentPayload)
+          }
         } else if (this.applicationType === "business") {
           let application_status = 0
           this.businessApplication.application_status === 0
@@ -164,6 +168,10 @@ export default {
             : application_status = 0
           let payload = { id: this.applicationNumber, status: application_status };
           this.$store.dispatch("approveBusinessApplication", payload);
+          if(this.businessApplication.application_status === 2){
+            let resetAssessmentPayload = {business_application: this.businessApplication.id}
+            this.$store.dispatch('resetBusinessAssessment', resetAssessmentPayload)
+          }
         }
       } else {
         await this.$swal({

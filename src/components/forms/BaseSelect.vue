@@ -3,7 +3,7 @@
     <font-awesome-icon icon="filter" class="filter-icon" v-if="customclass == 'filter-select'" />
     <div :id="name" class="select-wrapper">
       <select
-        :data-value="selected"
+        :data-value="mutableSelected"
         @focus="handleFocus"
         @blur="handleBlur"
         @change="$emit('change', $event.target.value)"
@@ -39,7 +39,7 @@ export default {
   name: "BaseSelect",
   data() {
     return {
-      mutableSelected: this.selected,
+      mutableSelected: "",
       wrapper: "",
       prefillDone: false,
     };

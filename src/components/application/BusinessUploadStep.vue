@@ -148,6 +148,7 @@ export default {
           let payload = {
             is_draft: false,
             application_status: application_status,
+            last_submitted: new Date(Date.now()),
             is_disapprove: false
           };
           await this.$store.dispatch("updateBusinessApplication", payload);

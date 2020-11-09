@@ -1,5 +1,20 @@
 <template>
   <div class="admin-container">
+      <modal
+      name="departmentModal"
+      width="50%"
+      height="auto"
+      :adaptive="true"
+      ><department-form
+    /></modal>
+          <modal
+      name="departmentOrderModal"
+      width="50%"
+      height="auto"
+      :adaptive="true"
+      ><department-order-form
+    /></modal>
+    <div>
     <div class="admin-page-title flex-center">
       <font-awesome-icon icon="network-wired" class="admin-icon" />
       Departments
@@ -7,39 +22,44 @@
     <div class="admin-body flex-wrap">
       <dept-table-menu />
       <div class="admin-content">
-        <div v-if="deptCategory === 'business'">
-          <!-- <appointment-limit/> -->
-        </div>
-        <div v-if="deptCategory === 'building'">
-          <!-- <appointment-table /> -->
-        </div>
+        <dept-table />
       </div>
     </div>
+  </div>
   </div>
 </template>
 
 <script>
 import DeptTableMenu from "@/components/tables/DeptTableMenu";
+import DeptTable from "@/components/tables/DeptTable";
 import FullCalendar from "@fullcalendar/vue";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { mapGetters } from "vuex"
 import AppointmentLimit from "@/components/tables/AppointmentLimit"
 import AppointmentTable from "@/components/tables/AppointmentTable"
+import DepartmentForm from "@/components/forms/DepartmentForm"
+import DepartmentOrderForm from "@/components/forms/DepartmentOrderForm"
 export default {
   name: "AdminAppointment",
   components: {
     DeptTableMenu,
+    DeptTable,
     FullCalendar,
     AppointmentLimit,
-    AppointmentTable
+    AppointmentTable,
+    DepartmentForm,
+    DepartmentOrderForm
   },
   computed: {
-    ...mapGetters(["deptCategory"]),
+    ...mapGetters([]),
   },
   data() {
     return {
     };
+  },
+    mounted(){
+    this.$store.commit('setLoading', false)
   },
   methods:{
     handleEventClick(info){

@@ -12,6 +12,7 @@
         </div>
         <div class="meta-right-box">
           <profile-table-menu type="profile" />
+          <approver-steps v-if="currentTable === 'applications'"/>
           <div class="meta-table-box mt50">
             <profile-table v-if="currentTable === 'profile'"/>
             <transaction-table v-if="currentTable === 'transactions'"/>
@@ -34,6 +35,7 @@ import ApplicationTable from "@/components/tables/ApplicationTable";
 import InvoiceDialog from "@/components/payment/InvoiceDialog";
 import HeaderNav from "@/components/HeaderNav";
 import UserProfile from "@/components/UserProfile";
+import ApproverSteps from "@/components/ApproverSteps"
 import { mapGetters } from "vuex";
 export default {
   name: "Profile",
@@ -48,6 +50,7 @@ export default {
     InvoiceDialog,
     HeaderNav,
     UserProfile,
+    ApproverSteps
   },
   computed: {
     ...mapGetters(["currentTable"])

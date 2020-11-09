@@ -16,7 +16,8 @@ const getDefaultUIState =  () => {
     currentApplicationStep: '1',
     applicationType: '',
     currentAdminTab: 'dashboard',
-    currentPaymentType: 'landbank'
+    currentPaymentType: 'landbank',
+    isAssessmentActive: false
   };
 }
 const state = getDefaultUIState()
@@ -36,7 +37,8 @@ const getters = {
   currentApplicationStep: (state) => state.currentApplicationStep,
   applicationType: (state) =>  state.applicationType,
   currentAdminTab: (state) => state.currentAdminTab,
-  currentPaymentType: (state) => state.currentPaymentType
+  currentPaymentType: (state) => state.currentPaymentType,
+  isAssessmentActive: (state) => state.isAssessmentActive
 };
 
 const actions = {
@@ -71,7 +73,8 @@ const mutations = {
   resetUIState: (state) => Object.assign(state, getDefaultUIState()),
   setApplicationType: (state, applicationType) => (state.applicationType = applicationType),
   setAdminCurrentTab: (state, currentAdminTab) => (state.currentAdminTab = currentAdminTab),
-  setCurrentPaymentType: (state, currentPaymentType) => (state.currentPaymentType = currentPaymentType)
+  setCurrentPaymentType: (state, currentPaymentType) => (state.currentPaymentType = currentPaymentType),
+  setIsAssessmentActive: (state, isAssessmentActive) => (state.isAssessmentActive = isAssessmentActive)
 };
 
 export default {

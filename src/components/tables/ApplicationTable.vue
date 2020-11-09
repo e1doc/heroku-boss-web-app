@@ -6,6 +6,7 @@
       <!-- <div class="th" v-if="currentType === 'business'">Account #</div> -->
       <div class="th" v-if="currentType === 'building'">TD #</div>
       <div class="th">STATUS</div>
+      <div class="th">LATEST APPROVER</div>
       <div class="th">ACTIONS</div>
     </div>
     <div v-if="currentType === 'business'">
@@ -47,6 +48,10 @@
             {{
               application.is_draft ? 'DRAFT' : ''
             }}
+          </div>
+          <div class="td">
+              <span class="td-label show-in-mobile">LATEST APPROVER : </span>
+              Zoning
           </div>
           <div class="td actions">
             <div @click="openBusinessApplication('edit', application)" v-if="application.is_draft">
@@ -106,6 +111,10 @@
             {{
               application.is_draft ? 'DRAFT' : ''
             }}
+          </div>
+          <div class="td">
+              <span class="td-label show-in-mobile">LATEST APPROVER : </span>
+              Zoning
           </div>
           <div class="td actions">
             <div @click="openBuildingApplication('edit', application)" v-if="application.is_draft">
@@ -255,7 +264,7 @@ export default {
    },
     openBusinessApplication(type,data){
       if(data.id){
-        let application = {id:data.id,created_at: data.created_at, is_draft: data.is_draft, is_approve: data.is_approve, is_disapprove: data.is_disapprove,account_number: data.account_number, application_status: data.application_status}
+        let application = {id:data.id,created_at: data.created_at, is_draft: data.is_draft, is_approve: data.is_approve, is_disapprove: data.is_disapprove,account_number: data.account_number, application_status: data.application_status, last_submitted: data.last_submitted}
         this.$store.commit('setBusinessApplication', application)
       }
       if(data.businessbasicinformation !== null){
@@ -281,7 +290,7 @@ export default {
     },
     openBuildingApplication(type, data){
       if(data.id){
-        let application = {id: data.id, is_draft: data.is_draft, is_approve: data.is_approve, is_disapprove: data.is_disapprove, created_at: data.created_at, application_status: data.application_status}
+        let application = {id: data.id, is_draft: data.is_draft, is_approve: data.is_approve, is_disapprove: data.is_disapprove, created_at: data.created_at, application_status: data.application_status, last_submitted: data.last_submitted}
         this.$store.commit("setBuildingApplication", application)
       }
       if(data.buildingbasicinformation !== null){

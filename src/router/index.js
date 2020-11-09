@@ -24,6 +24,7 @@ import Dashboard from "../pages/admin/Dashboard";
 import Inquiries from "../pages/admin/Inquiries";
 import ReplyInquiry from "../pages/admin/ReplyInquiry";
 import Departments from "../pages/admin/Departments";
+import Assessments from "../pages/admin/Assessments";
 import ApproveBusinessApplication from "../pages/admin/ApproveBusinessApplication.vue";
 import ApproveBuildingApplication from "../pages/admin/ApproveBuildingApplication.vue";
 import AdminAppointment from "../pages/admin/AdminAppointment.vue";
@@ -184,6 +185,11 @@ const routes = [{
         path: "applications",
         name: "Applications",
         component: Applications,
+      },
+      {
+        path: "assessments",
+        name: "Assessments",
+        component: Assessments,
       },
       {
         path: "transactions",
