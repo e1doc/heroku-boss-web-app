@@ -20,7 +20,7 @@
                         TRANSACTIONS 
                     </router-link>
                 </li>
-                <li class="admin-item" :class="{ active: currentAdminTab === 'applications'}" @click="changeTab('applications')"  v-if="groups.includes('superadmin') || groups.includes('business_application_approver') || groups.includes('building_application_approver') || groups.includes('application_approver')">
+                <li class="admin-item" :class="{ active: currentAdminTab === 'applications'}" @click="changeTab('applications')"  v-if="groups.includes('superadmin') || groups.includes('business_application_approver') || groups.includes('building_application_approver') || groups.includes('assessment_approver')">
                     <router-link :to="{name:'Applications'}">
                         <font-awesome-icon icon="users" class="admin-icon"/>
                         APPLICATIONS

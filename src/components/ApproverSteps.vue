@@ -4,7 +4,7 @@
   <label for="show_process">View Application Process</label>
 
   <!-- CONDITION FOR BUSINESS -->
-  <div class="meta-application-steps">
+  <div class="meta-application-steps" v-if="currentType === 'business'">
     <div class="meta-parent">
         <div class="meta-title">STEP <span>1:</span> APPLICATION PROCESS</div>
         <ol class="meta-steps flex-center">
@@ -17,17 +17,13 @@
     <div class="meta-parent">
         <div class="meta-title">STEP <span>2:</span> ASSESSMENT PROCESS</div>
         <ol class="meta-steps flex-center">
-            <li class="meta-step">Zoning</li>
-            <li class="meta-step">Office of the Building</li>
-            <li class="meta-step">Fire Department</li>
-            <li class="meta-step">Sanitary</li>
-            <li class="meta-step">BPLO</li>
+            <li class="meta-step" v-for="(item, index) in departments" :key="index">{{item.name}}</li> 
         </ol>
     </div>
   </div>
 
    <!-- CONDITION FOR BUILDING -->
-  <div class="meta-application-steps">
+  <div class="meta-application-steps" v-if="currentType === 'building'">
     <div class="meta-parent">
         <div class="meta-title">STEP <span>1:</span> APPLICATION PROCESS</div>
         <ol class="meta-steps flex-center">
@@ -41,10 +37,7 @@
     <div class="meta-parent">
         <div class="meta-title">STEP <span>4:</span> INSPECTION PROCESS</div>
         <ol class="meta-steps flex-center">
-            <li class="meta-step">Zoning</li>
-            <li class="meta-step">Office of the Building</li>
-            <li class="meta-step">Fire Department</li>
-            <li class="meta-step">BPLO</li>
+            <li class="meta-step" v-for="(item, index) in departments" :key="index">{{item.name}}</li> 
         </ol>
     </div>
    </div>
@@ -52,8 +45,13 @@
 </template>
 
 <script>
+import { now } from 'moment-timezone'
+import {mapGetters} from "vuex"
 export default {
     name: "ApproverSteps",
+    computed:{
+        ...mapGetters(["currentType", "departments"])
+    }
 }
 </script>
 
