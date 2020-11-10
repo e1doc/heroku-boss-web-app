@@ -260,7 +260,8 @@ export default {
           is_disapprove: data.is_disapprove,
           account_number: data.account_number,
           application_status: data.application_status,
-          user: data.user
+          user: data.user,
+          last_submitted: data.last_submitted
         };
         this.$store.commit("setBusinessApplication", application);
       }
@@ -296,7 +297,8 @@ export default {
           is_disapprove: data.is_disapprove,
           created_at: data.created_at,
           application_status: data.application_status,
-          user: data.user
+          user: data.user,
+          last_submitted: data.last_submitted
         };
         this.$store.commit("setBuildingApplication", application);
       }
