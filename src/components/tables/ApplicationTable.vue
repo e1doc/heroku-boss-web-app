@@ -108,7 +108,7 @@
               ? 'FOR PAYMENT'
               : ''
             }}
-            {{
+            {{  
               application.is_draft ? 'DRAFT' : ''
             }}
           </div>
