@@ -250,6 +250,7 @@ const actions = {
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setApplications", response.data);
+      console.log('applications', response.data)
     } catch (err) {
       console.log(err.response);
       commit("setLoading", false);

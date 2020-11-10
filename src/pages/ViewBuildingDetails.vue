@@ -247,7 +247,7 @@
         <div class="flex-column">
           <div class="submission-text">
             Submission Date:
-            {{ buildingApplication.last_submitted | moment("MMMM DD, YYYY") }}
+            {{ buildingApplication.last_submitted | moment("MMMM DD, YYYY hh:mm A") }}
           </div>
           <div
             class="assessment-result-list mt30"
@@ -262,7 +262,7 @@
                 v-for="(item, index) of this.buildingAssessmentResult"
                 :key="index"
               >
-                <div>{{ item.department }}: {{ item.status }}</div>
+                <div>{{ item.department }}: {{ item.status }}<span v-if="item.created_at"> -  {{item.created_at | moment('MMMM DD, YYYY hh:mm A')}}</span></div>
               </li>
             </ol>
           </div>
