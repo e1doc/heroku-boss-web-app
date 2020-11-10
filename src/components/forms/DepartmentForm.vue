@@ -50,15 +50,15 @@ export default {
       typeOptions: [
         {
           label: "Business Application",
-          value: "Business",
+          value: "business",
         },
         {
           label: "Building Application",
-          value: "Building",
+          value: "building",
         },
         {
           label: "Both",
-          value: "Both",
+          value: "both",
         },
       ],
     };
