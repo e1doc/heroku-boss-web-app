@@ -243,14 +243,14 @@ const actions = {
       commit("setLoading", false);
     }
   },
-  async getBusinessApplications({ commit, dispatch, getters }) {
+  async getBusinessApplications({ commit, dispatch, getters }, page=1) {
     try {
       const response = await axios.get(
-        `${baseUrl}/api/business-permit-application/`,
+        `${baseUrl}/api/user-business-application-list/?page=${page}`,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-      commit("setApplications", response.data);
-      console.log('applications', response.data)
+      commit("setApplications", response.data.results);
+      commit("setPageCount", response.data.count)
     } catch (err) {
       console.log(err.response);
       commit("setLoading", false);

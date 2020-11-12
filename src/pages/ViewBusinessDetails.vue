@@ -20,7 +20,8 @@
           <div class="meta-text no-bb">
             <div class="meta-label">Type of Organization :</div>
             <div class="meta-value">
-              {{ businessBasicInformation.type_of_organization }}
+              {{ businessBasicInformation.type_of_organization.charAt(0)
+                  .toUpperCase() + businessBasicInformation.type_of_organization.slice(1)}}
             </div>
           </div>
           <div class="meta-text no-bb">

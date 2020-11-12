@@ -70,7 +70,7 @@ export default {
   },
   methods:{
     appointmentClickCallBack(pageNum){
-      this.$store.dispatch('getAdminAppointments', pageNum)
+      this.$store.dispatch('getUserAppointments', pageNum)
     },
     async printInvoice(appointment, soa){
       await this.$store.commit('setCurrentSoaObj', soa)

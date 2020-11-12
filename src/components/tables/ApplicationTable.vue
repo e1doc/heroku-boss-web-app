@@ -136,6 +136,28 @@
       </div>
     </div>
 
+    <paginate
+        v-if="applications.length > 9 && currentType === 'business'"
+        :page-count="pageCount"
+        :prev-text="'Prev'"
+        :next-text="'Next'"
+        :container-class="'pagination'"
+        :page-class="'page-item'"
+        :click-handler="businessClickCallBack"
+      >
+      </paginate>
+
+      <paginate
+        v-if="buildingApplications.length > 9 && currentType === 'building'"
+        :page-count="pageCount"
+        :prev-text="'Prev'"
+        :next-text="'Next'"
+        :container-class="'pagination'"
+        :page-class="'page-item'"
+        :click-handler="buildingClickCallBack"
+      >
+      </paginate>
+
     <!-- <div class="tbody">
       <div class="tr">
         <div class="td">
@@ -254,6 +276,12 @@ export default {
     console.log(this.buildingApplications)
   },
   methods:{
+  async businessClickCallBack(pageNum){
+      this.$store.dispatch('getBusinessApplications', pageNum)
+  },
+  async buildingClickCallBack(pageNum){
+      this.$store.dispatch('getBuildingApplications', pageNum)
+  },
    async openBusinessRemarks(id){
      await this.$store.dispatch('getBusinessRemarks', id)
      await this.$router.push({name: 'UserReplyInquiry'})

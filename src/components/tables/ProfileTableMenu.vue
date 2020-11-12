@@ -47,6 +47,9 @@ export default {
       default: "profile"
     }
   },
+  mounted(){
+    this.$store.dispatch("getDepartments")
+  },
   data(){
     return{
       activeTab: "profile",

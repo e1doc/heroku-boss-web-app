@@ -95,13 +95,14 @@ const actions = {
             commit('setAppointmentError',err.response.data.detail)
         }
     },
-    async getUserAppointments({ commit, getters  }){
+    async getUserAppointments({ commit, getters  }, page = 1){
         try {
-            const response = await axios.get(`${baseUrl}/api/appointment/`,{
+            const response = await axios.get(`${baseUrl}/api/user-appointment-list/?page=${page}`,{
                 headers: { Authorization: `jwt ${getters.authToken}` },
             });
             console.log(response.data)
-            commit('setAppointments', response.data)
+            commit('setAppointments', response.data.results)
+            commit('setPageCount', response.data.count)
         } catch (err) {
             console.log(err);
             commit('setIsAppointmentSuccess', false)

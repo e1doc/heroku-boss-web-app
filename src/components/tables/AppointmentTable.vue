@@ -61,8 +61,8 @@ export default {
     this.$store.dispatch('getAdminAppointments')
   },
   methods:{
-    appointmentClickCallBack(pageNum){
-      this.$store.dispatch('getAdminAppointments', pageNum)
+    async appointmentClickCallBack(pageNum){
+      await this.$store.dispatch('getAdminAppointments', pageNum)
     },
   }
 };

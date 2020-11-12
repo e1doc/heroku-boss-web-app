@@ -271,13 +271,14 @@ const actions = {
       console.log(err.response);
     }
   },
-  async getBuildingApplications({ commit, getters, dispatch }, payload) {
+  async getBuildingApplications({ commit, getters, dispatch }, page = 1) {
     try {
       const response = await axios.get(
-        `${baseUrl}/api/building-permit-application/`,
+        `${baseUrl}/api/user-building-application-list/?page=${page}`,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-      commit("setBuildingApplications", response.data);
+      commit("setBuildingApplications", response.data.results);
+      commit("setPageCount", response.data.count);
     } catch (err) {
       console.log(err.response);
     }
