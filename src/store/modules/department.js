@@ -35,7 +35,7 @@ const actions = {
     },
     async getDepartments({commit, dispatch, getters}){
         try {
-            let filter = getters.currentType === 'business' ? 'Business' : 'Building'
+            let filter = getters.currentType === 'business' ? 'business' : 'building'
             const response = await axios.get(`${baseUrl}/staff/department-list?filter=${filter}`, {headers: {Authorization: `jwt ${getters.authToken}`}})
             console.log(response.data)
             commit('setDepartments', response.data)
