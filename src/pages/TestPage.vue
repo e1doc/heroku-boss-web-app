@@ -11,6 +11,7 @@
       <!-- <approve-building-application/> -->
       <!-- <appointment-invoice/> -->
       <!-- <downloadable-appointment-invoice/> -->
+      <agreement-modal />
   </section>
 </template>
 
@@ -24,6 +25,7 @@ import DownloadableBusinessForm from "@/components/application/DownloadableBusin
 import DownloadableAppointmentInvoice from "@/components/payment/DownloadableAppointmentInvoice";
 import AppointmentInvoice from "@/pages/AppointmentInvoice";
 import OtpDiv from "@/components/auth/OtpDiv";
+import AgreementModal from "@/components/application/AgreementModal";
 export default {
     name: "TestPage",
     components: {
@@ -35,7 +37,8 @@ export default {
         ApproveBuildingApplication,
         ViewBuildingDetails,
         DownloadableAppointmentInvoice,
-        AppointmentInvoice
+        AppointmentInvoice,
+        AgreementModal
   },
   data() {
       return {

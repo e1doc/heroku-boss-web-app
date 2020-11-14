@@ -45,7 +45,8 @@ export default {
 }
 
 .main-content{
-    min-height: calc( 100vh - 195px );
+    min-height: calc( 100vh - 139px);
+    padding: 0 30px;
 }
 
 #nav {
