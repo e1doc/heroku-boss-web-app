@@ -1,5 +1,11 @@
 <template>
   <div class="meta-container">
+        <modal name="agreementModal"
+         height="auto"
+         :adaptive="true"
+         :classes="['vue-modal']"
+         :clickToClose="false"
+         ><agreement-modal/></modal>
     <h1 class="meta-form-title">Basic Information</h1>
     <div class="meta-form-group mb60">
       <div class="meta-input-label mt10 mb10">Type of Organization</div>
@@ -181,6 +187,7 @@ import BaseTelNumber from "@/components/forms/BaseTelNumber";
 import BaseSelect from "@/components/forms/BaseSelect";
 import BaseDatePicker from "@/components/forms/BaseDatePicker";
 import { mapGetters } from "vuex";
+import AgreementModal from "@/components/application/AgreementModal"
 export default {
   name: "BusinessStepOne",
   components: {
@@ -190,6 +197,7 @@ export default {
     BaseTelNumber,
     BaseSelect,
     BaseDatePicker,
+    AgreementModal
   },
   data() {
     return {
@@ -291,6 +299,7 @@ export default {
   mounted() {
     this.preFillForm();
     this.$store.commit("setLoading", false);
+    this.$modal.show("agreementModal");
   },
   methods: {
     changeOrganization() {

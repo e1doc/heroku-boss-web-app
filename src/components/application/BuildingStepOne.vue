@@ -1,5 +1,11 @@
 <template>
   <div class="meta-container">
+       <modal name="agreementModal"
+         height="auto"
+         :adaptive="true"
+         :classes="['vue-modal']"
+         :clickToClose="false"
+         ><agreement-modal type="building permit application"/></modal>
     <h1 class="meta-form-title">Basic Information</h1>
     <div class="meta-form-group mb60">
       <div class="meta-input-label mt10 mb10">Ownership Type</div>
@@ -103,6 +109,7 @@ import BaseInput from "@/components/forms/BaseInput";
 import BaseCheckbox from "@/components/forms/BaseCheckbox";
 import ButtonBlock from "@/components/ButtonBlock";
 import BaseSelect from "@/components/forms/BaseSelect";
+import AgreementModal from "@/components/application/AgreementModal"
 import { mapGetters } from "vuex";
 export default {
   name: "BuildingStepOne",
@@ -110,7 +117,8 @@ export default {
     BaseInput,
     BaseCheckbox,
     ButtonBlock,
-    BaseSelect
+    BaseSelect,
+    AgreementModal
   },
   computed: {
     ...mapGetters([
@@ -123,6 +131,7 @@ export default {
   },
   mounted() {
     this.preFillForm();
+    this.$modal.show("agreementModal");
   },
   data() {
     return {
