@@ -24,8 +24,11 @@
           <div class="item-name">
             Administrator
           </div>
-          <div class="item-content">
+          <div class="item-content flex-wrap">
             {{ message.body }}
+            <div class="item-attachment">
+                <font-awesome-icon icon="paperclip" class="admin-icon" /> See Attachment
+            </div>
           </div>
           <div class="item-date">
             {{ message.created_at | moment("MMMM DD, YYYY HH:mm A") }}
@@ -44,6 +47,13 @@
           placeholder="Type your text here"
           v-model="body"
         ></textarea>
+        <!-- ATTACH FILE -->
+        <base-file-uploader
+          name="inquiryattachment"
+          fileLabel="inquiry_attachment"
+          uploadType="application/pdf"
+          class="upload-attachment"
+        />
         <div class="inquiry-button">
           <button-block :disabled="body === '' ? true : false" type="send" @click.native="sendReply"
             >SEND</button-block
@@ -58,6 +68,7 @@
 import InquiryTableMenu from "@/components/tables/InquiryTableMenu";
 import InquiryTable from "@/components/tables/InquiryTable";
 import ButtonBlock from "@/components/ButtonBlock";
+import BaseFileUploader from "@/components/forms/BaseFileUploader";
 import { mapGetters } from "vuex";
 export default {
   name: "ReplyInquiry",
@@ -65,6 +76,7 @@ export default {
     InquiryTableMenu,
     InquiryTable,
     ButtonBlock,
+    BaseFileUploader
   },
   props: {
     thread: {
@@ -184,7 +196,7 @@ div.inquiry-box {
 
     .item-row.sender {
       .item-content {
-        background-color: #eaf6ff50;
+        background-color: #e6e6e650;
       }
     }
 
@@ -255,8 +267,25 @@ div.inquiry-box {
         }
       .inquiry-button {
         text-align: right;
+        width: 100%;
+        justify-content: flex-end;
       }
     }
+    .inquiry-button {
+      text-align: right;
+      width: 100%;
+      justify-content: flex-end;
+    }
   }
+}
+
+.item-attachment{
+  font-size: 13px;
+  width: 100%;
+  float: left;
+  padding: 5px 0;
+  color: #1492e6;
+  text-decoration: underline;
+  cursor: pointer;
 }
 </style>
