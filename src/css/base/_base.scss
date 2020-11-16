@@ -165,6 +165,17 @@ ul.pagination li a:focus{
 .w-100{
     width: 100%;
 }
+
+
+// UPLOAD ATTACHMENT
+.meta-upload-box.upload-attachment .meta-desc {
+    display: none;
+}
+
+.meta-upload-box.upload-attachment .meta-custom-upload {
+    margin-left: 0;
+}
+
 @media only screen and( max-width: 1400px ){
     .sc-rounded-div{
         max-width: 830px;

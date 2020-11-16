@@ -34,14 +34,23 @@
           placeholder="Type your text here"
           v-model="body"
         ></textarea>
-        <div class="inquiry-button">
+        
+        <!-- ATTACH FILE -->
+        <base-file-uploader
+          name="inquiryattachment"
+          fileLabel="inquiry_attachment"
+          uploadType="application/pdf"
+          class="upload-attachment"
+        />
+
+        </div>
+        <div class="inquiry-button flex-wrap">
           <button-block
             type="send"
             :disabled="body === '' || subject === '' ? true : false"
             @click.native="sendMessage"
             >SEND</button-block
           >
-        </div>
       </div>
     </div>
   </div>
@@ -52,6 +61,7 @@ import InquiryTableMenu from "@/components/tables/InquiryTableMenu";
 import InquiryTable from "@/components/tables/InquiryTable";
 import ButtonBlock from "@/components/ButtonBlock";
 import BaseInput from "@/components/forms/BaseInput";
+import BaseFileUploader from "@/components/forms/BaseFileUploader";
 import { mapGetters } from "vuex";
 export default {
   name: "ReplyInquiry",
@@ -60,6 +70,7 @@ export default {
     InquiryTable,
     ButtonBlock,
     BaseInput,
+    BaseFileUploader
   },
   computed: {
     ...mapGetters([
@@ -322,7 +333,14 @@ div.inquiry-box {
 
       .inquiry-button {
         text-align: right;
+        width: 100%;
+        justify-content: flex-end;
       }
+    }
+    .inquiry-button {
+      text-align: right;
+      width: 100%;
+      justify-content: flex-end;
     }
   }
 }
