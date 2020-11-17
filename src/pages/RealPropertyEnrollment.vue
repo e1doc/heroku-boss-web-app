@@ -36,7 +36,7 @@
             </div>
             <div>
               <base-input-icon-end
-                label="Latest Official Receipt Number"
+                label="Official Receipt Number"
                 placeholder="Enter official receipt number"
                 v-model="official_receipt"
                 name="official_receipt"
@@ -47,7 +47,7 @@
               />
             </div>
             <div class="datepicker">
-              <base-date-picker placeholder="Latest Official Receipt Date" v-model="date" />
+              <base-date-picker v-model="date" />
             </div>
             <div>
               <button-block @click.native="verify()">
@@ -68,6 +68,7 @@ import BaseDatePicker from "@/components/forms/BaseDatePicker";
 import EnrollmentSuccess from "@/components/enrollment/EnrollmentSuccess";
 import BaseSelect from "@/components/forms/BaseSelect";
 import axios from "axios";
+import {mapGetters} from "vuex"
 const oneDocToken = process.env.VUE_APP_ONE_DOC_TOKEN;
 export default {
   name: "RealPropertyEnrollment",
@@ -77,6 +78,9 @@ export default {
     BaseDatePicker,
     EnrollmentSuccess,
     BaseSelect,
+  },
+  computed:{
+    ...mapGetters(["authToken"])
   },
   mounted() {
     this.$store.commit("setLoading", false);
@@ -129,11 +133,11 @@ export default {
 
         const validateResponse = await axios.get(
           `${process.env.VUE_APP_API_URL}/api/verify-enrollment?id=${this.td_no}&type=property`,
-          { withCredentials: true }
+          { headers: { Authorization: `jwt ${this.authToken}` } }
         );
         if (!validateResponse.data.is_existing) {
           const response = await axios.post(
-            `https://api.bacoor.gov.ph/lguapi/`,
+            `//122.55.20.85:8012/lguapi/`,
             payload,
             config
           );

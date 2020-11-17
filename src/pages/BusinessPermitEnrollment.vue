@@ -79,7 +79,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["isBusinessEnrollmentSuccess"]),
+    ...mapGetters(["isBusinessEnrollmentSuccess", "authToken"]),
   },
   methods: {
     async verify() {
@@ -106,7 +106,7 @@ export default {
 
         const validateResponse = await axios.get(
           `${process.env.VUE_APP_API_URL}/api/verify-enrollment?id=${this.account_no}&type=business`,
-          { withCredentials: true }
+          { headers: { Authorization: `jwt ${this.authToken}` } }
         );
 
         if (!validateResponse.data.is_existing) {
