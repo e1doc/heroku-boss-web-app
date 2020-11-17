@@ -11,7 +11,16 @@
       <div v-for="(message, index) in messages" :key="index">
         <div class="item-row sender" v-if="!message.sender.is_staff">
           <div class="item-name">
-            {{ inquiry.is_remarks ? inquiry.receiver.first_name  : inquiry.sender.first_name }} {{ inquiry.is_remarks ? inquiry.receiver.last_name : inquiry.sender.last_name }}
+            {{
+              inquiry.is_remarks
+                ? inquiry.receiver.first_name
+                : inquiry.sender.first_name
+            }}
+            {{
+              inquiry.is_remarks
+                ? inquiry.receiver.last_name
+                : inquiry.sender.last_name
+            }}
           </div>
           <div class="item-content">
             {{ message.body }}
@@ -22,7 +31,7 @@
         </div>
         <div class="item-row me" v-if="message.sender.is_staff">
           <div class="item-name">
-            {{message.sender.department.name}} Administrator
+            {{ message.sender.department ? message.sender.department.name : userDepartment }} Administrator
           </div>
           <div class="item-content flex-wrap">
             {{ message.body }}
@@ -48,14 +57,17 @@
           v-model="body"
         ></textarea>
         <!-- ATTACH FILE -->
-        <base-file-uploader
+        <!-- <base-file-uploader
           name="inquiryattachment"
           fileLabel="inquiry_attachment"
           uploadType="application/pdf"
           class="upload-attachment"
-        />
+        /> -->
         <div class="inquiry-button">
-          <button-block :disabled="body === '' ? true : false" type="send" @click.native="sendReply"
+          <button-block
+            :disabled="body === '' ? true : false"
+            type="send"
+            @click.native="sendReply"
             >SEND</button-block
           >
         </div>
@@ -76,7 +88,7 @@ export default {
     InquiryTableMenu,
     InquiryTable,
     ButtonBlock,
-    BaseFileUploader
+    BaseFileUploader,
   },
   props: {
     thread: {
@@ -88,7 +100,7 @@ export default {
   data() {
     return {
       body: "",
-      messages: []
+      messages: [],
     };
   },
   beforeRouteLeave(to, from, next) {
@@ -99,7 +111,20 @@ export default {
     next();
   },
   computed: {
-    ...mapGetters(["currentTable", "inquiry", "currentInquiry", "continueBuildingThread", "currentBuildingId", "continueBusinessThread", "currentBusinessId", "buildingApplication", "businessApplication"]),
+    ...mapGetters([
+      "currentTable",
+      "inquiry",
+      "currentInquiry",
+      "continueBuildingThread",
+      "currentBuildingId",
+      "continueBusinessThread",
+      "currentBusinessId",
+      "buildingApplication",
+      "businessApplication",
+      "isBuildingAssessment",
+      "isLastBuildingDept",
+      "userDepartment"
+    ]),
   },
   mounted() {
     this.getInquiry();
@@ -108,38 +133,59 @@ export default {
     async getInquiry() {
       let id = this.thread != "" ? this.thread : this.currentInquiry;
       await this.$store.dispatch("getInquiry", id);
-      this.messages = await this.inquiry.messages
+      this.messages = await this.inquiry.messages;
     },
     async sendReply() {
-      if(this.continueBuildingThread){
-        let application_status = 0
-
+      if (this.continueBuildingThread) {
+        let application_status = 0;
+        if (this.isBuildingAssessment) {
+          application_status = this.buildingApplication.application_status;
+        } else {
           this.buildingApplication.application_status === 0
-            ? application_status = 1
+            ? (application_status = 1)
             : this.buildingApplication.application_status === 3
-            ? application_status = 4
-            : application_status = 0
-        let payload = { id: this.currentBuildingId, status: application_status };
-        this.$store.dispatch("approveBuildingApplication", payload);
-        if(this.buildingApplication.application_status === 3){
-            let resetAssessmentPayload = {building_application: this.buildingApplication.id}
-            this.$store.dispatch('resetBuildingAssessment', resetAssessmentPayload)
+            ? (application_status = 4)
+            : (application_status = 0);
+          let payload = {
+            id: this.currentBuildingId,
+            status: application_status,
+          };
+          this.$store.dispatch("approveBuildingApplication", payload);
+        }
+        if (!this.isBuildingAssessment) {
+          if (this.buildingApplication.application_status === 3) {
+            let resetAssessmentPayload = {
+              building_application: this.buildingApplication.id,
+            };
+            this.$store.dispatch(
+              "resetBuildingAssessment",
+              resetAssessmentPayload
+            );
           }
+        }
       }
-      if(this.continueBusinessThread){
-         let application_status = 0
+      if (this.continueBusinessThread) {
+        let application_status = 0;
 
-          this.businessApplication.application_status === 0
-            ? application_status = 1
-            : this.businessApplication.application_status === 2
-            ? application_status = 3
-            : application_status = 0
-        let payload = { id: this.currentBusinessId, status: application_status };
+        this.businessApplication.application_status === 0
+          ? (application_status = 1)
+          : this.businessApplication.application_status === 2
+          ? (application_status = 3)
+          : (application_status = 0);
+        let payload = {
+          id: this.currentBusinessId,
+          status: application_status,
+        };
         this.$store.dispatch("approveBusinessApplication", payload);
-        if(this.businessApplication.application_status === 2){
-            let resetAssessmentPayload = {business_application: this.businessApplication.id}
-            this.$store.dispatch('resetBusinessAssessment', resetAssessmentPayload)
-          }
+        if (this.businessApplication.application_status === 2) {
+          let resetAssessmentPayload = {
+            business_application: this.businessApplication.id,
+          };
+          this.$store.dispatch(
+            "resetBusinessAssessment",
+            resetAssessmentPayload
+          );
+        }
       }
       await this.$store.dispatch("adminRespond", {
         id: this.currentInquiry,
@@ -149,8 +195,17 @@ export default {
         thread: this.currentInquiry,
         body: this.body,
       });
-      this.messages.push({body: this.body, sender: {is_staff: true}})
-      this.body = ""
+      this.messages.push({ body: this.body, sender: { is_staff: true } });
+      this.body = "";
+
+      if (!this.isLastBuildingDept) {
+        this.$store.dispatch("createPrompt", {
+          type: "success",
+          title: "Success!",
+          message: "Application was successfully assessed!",
+        });
+        this.$router.push({ name: "Assessments" });
+      }
     },
   },
 };
@@ -186,7 +241,7 @@ div.inquiry-box {
     }
   }
   div.inquiry-body {
-    padding: 35px 48px;       
+    padding: 35px 48px;
     max-height: 600px;
     overflow-y: scroll;
     .item-row {
@@ -232,38 +287,38 @@ div.inquiry-box {
       letter-spacing: 0.24px;
       text-align: right;
     }
-    div.inquiry-footer{
-        margin-top: 25px;
-        padding-top: 25px;
-        border-top: 1px solid #D0E9FA;
-        div.inquiry-footer-text{
-            color: #9FA6AB;
-            font-size: 16px;
-            font-weight: bold;
-            line-height: 29px;
-            margin-bottom: 10px;
-            .admin-icon{
-                font-size: 21px;
-                margin-right: 14px;
-            }
+    div.inquiry-footer {
+      margin-top: 25px;
+      padding-top: 25px;
+      border-top: 1px solid #d0e9fa;
+      div.inquiry-footer-text {
+        color: #9fa6ab;
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 29px;
+        margin-bottom: 10px;
+        .admin-icon {
+          font-size: 21px;
+          margin-right: 14px;
         }
-        textarea {
-            color: #2b2b2b;
-            border-color: #D0E9FA;
-            font-size: 14px;
-            font-family: Raleway;
-            line-height: 28px;
-            width: calc( 100% - 60px );
-            max-height: 150px;
-            padding: 25px 30px;
-            margin-bottom: 15px;
-            border-radius: 12px;
-        }
-        textarea:focus {
-            outline: 0;
-            border-color: #027ab5;
-            background-color: #f8fcff;
-        }
+      }
+      textarea {
+        color: #2b2b2b;
+        border-color: #d0e9fa;
+        font-size: 14px;
+        font-family: Raleway;
+        line-height: 28px;
+        width: calc(100% - 60px);
+        max-height: 150px;
+        padding: 25px 30px;
+        margin-bottom: 15px;
+        border-radius: 12px;
+      }
+      textarea:focus {
+        outline: 0;
+        border-color: #027ab5;
+        background-color: #f8fcff;
+      }
       .inquiry-button {
         text-align: right;
         width: 100%;
@@ -278,7 +333,7 @@ div.inquiry-box {
   }
 }
 
-.item-attachment{
+.item-attachment {
   font-size: 13px;
   width: 100%;
   float: left;

@@ -2,7 +2,7 @@
   <div class="input-holder"  :class="customclass">
     <date-picker
       valueType="format"
-      placeholder="Enter Date"
+      :placeholder="placeholder"
       v-model="inputData"
       @input="onInput"
       :value="value"
@@ -48,6 +48,10 @@ export default {
     customclass: {
       type: String,
       default: ""
+    },
+    placeholder: {
+      type: String,
+      default: "Enter Date"
     }
   },
   methods: {

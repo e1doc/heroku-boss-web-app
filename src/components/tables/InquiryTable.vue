@@ -26,7 +26,7 @@
       </div>
       <div class="tbody" v-if="inquiries.length < 1 && currentTable === 'inquiries'">
         <div class="tr">
-          <div class="td">No data available</div>
+          <div class="td meta-no-data">No data available</div>
         </div>
       </div>
     </div>
@@ -56,7 +56,7 @@
       </div>
        <div class="tbody" v-if="remarks.length < 1 && currentTable === 'remarks'">
         <div class="tr">
-          <div class="td">No data available</div>
+          <div class="td meta-no-data">No data available</div>
         </div>
       </div>
     </div>
@@ -174,6 +174,7 @@ section {
       font-family: "Proxima Nova Rg";
       text-align: center;
       padding: 17px 0px;
+      width: 100%;
     }
     .td.actions {
       color: #1792e6;
@@ -194,5 +195,8 @@ section {
       text-decoration: underline;
     }
   }
+}
+.meta-no-data{
+    width: 100% !important;
 }
 </style>

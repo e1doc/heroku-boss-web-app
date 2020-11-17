@@ -39,7 +39,9 @@ const getDefaultPropertyState = () => {
     buildingDeptCanAssess: false,
     isLastBuildingDept: false,
     forBuildingAssessmentList: [],
-    assessedBuildingList: []
+    assessedBuildingList: [],
+    isBuildingAssessment: false,
+    isAssessmentHasError: false
   };
 };
 
@@ -77,7 +79,9 @@ const getters = {
   buildingDeptCanAssess: (state) => state.buildingDeptCanAssess,
   isLastBuildingDept: (state) => state.isLastBuildingDept,
   forBuildingAssessmentList: (state) => state.forBuildingAssessmentList,
-  assessedBuildingList: (state) => state.assessedBuildingList
+  assessedBuildingList: (state) => state.assessedBuildingList,
+  isBuildingAssessment: (state) => state.isBuildingAssessment,
+  isAssessmentHasError: (state) => state.isAssessmentHasError
 };
 
 const mutations = {
@@ -145,7 +149,9 @@ const mutations = {
     (state.buildingDeptCanAssess = buildingDeptCanAssess),
   setIsLastBuildingDept: (state, isLastBuildingDept) => (state.isLastBuildingDept = isLastBuildingDept),
   setForBuildingAssessmentList: (state, forBuildingAssessmentList) => (state.forBuildingAssessmentList = forBuildingAssessmentList),
-  setAssessedBuildingList: (state, assessedBuildingList) => (state.assessedBuildingList = assessedBuildingList)
+  setAssessedBuildingList: (state, assessedBuildingList) => (state.assessedBuildingList = assessedBuildingList),
+  setIsBuildingAssessment: (state, isBuildingAssessment) => (state.isBuildingAssessment = isBuildingAssessment),
+  setIsAssessmentHasError: (state, isAssessmentHasError) => (state.isAssessmentHasError = isAssessmentHasError)
 };
 
 const actions = {
@@ -500,17 +506,12 @@ const actions = {
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setBuildingAssessmentMessage", response.data.message);
-      if(!getters.isLastBuildingDept){
-        dispatch("createPrompt", {
-          type: "success",
-          title: "Success!",
-          message: response.data.detail,
-        });
-      }
+      commit('setIsAssessmentHasError', false)
     } catch (err) {
       console.log(err);
       if (err.response) {
         console.log(err.response);
+        commit('setIsAssessmentHasError', true)
         dispatch("createPrompt", {
           type: "error",
           title: "Failed!",

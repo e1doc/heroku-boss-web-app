@@ -29,7 +29,7 @@
             </div>
             <div>
               <base-input-icon-end
-                label="Official Receipt Number"
+                label="Latest Official Receipt Number"
                 placeholder="Enter official receipt number"
                 v-model="official_receipt"
                 name="official_receipt"
@@ -40,7 +40,7 @@
               />
             </div>
             <div>
-              <base-date-picker v-model="date" />
+              <base-date-picker v-model="date" placeholder="Latest Official Receipt Date"/>
             </div>
             <div>
               <button-block @click.native="verify()">
@@ -111,7 +111,7 @@ export default {
 
         if (!validateResponse.data.is_existing) {
           const response = await axios.post(
-            `http://122.55.20.85:8012/lguapi/`,
+            `https://api.bacoor.gov.ph/lguapi/`,
             payload,
             config
           );

@@ -23,7 +23,7 @@
           </div>
           <div class="td" v-if="currentType === 'building'">
             <span class="td-label show-in-mobile">OWNER NAME : </span>
-            JOHN MICHAEL DOE
+            {{business.businessbasicinformation.owner_first_name}} {{business.businessbasicinformation.owner_last_name}}
           </div>
           <div class="td actions">
             <div>
@@ -53,7 +53,7 @@
           </div>
           <div class="td" v-if="currentType === 'building'">
             <span class="td-label show-in-mobile">OWNER NAME : </span>
-            <span v-if="building.is_enrolled">{{building.buildingbasicinformation.owner_first_name}}</span>
+            <span >{{building.buildingbasicinformation.owner_first_name}} {{building.buildingbasicinformation.owner_last_name}}</span>
           </div>
           <div class="td actions">
             <div>
@@ -83,7 +83,7 @@
           </div>
           <div class="td" v-if="currentType === 'real_property'">
             <span class="td-label show-in-mobile">OWNER NAME : </span>
-            <span v-if="building.is_enrolled">{{building.buildingbasicinformation.owner_first_name}}</span>
+            <span>{{building.buildingbasicinformation.owner_first_name}}</span>
           </div>
           <div class="td actions">
             <div>

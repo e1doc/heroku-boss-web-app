@@ -597,7 +597,10 @@
           <div class="flex-column">
             <div class="submission-text">
               Submission Date:
-              {{ buildingApplication.last_submitted | moment("MMMM DD, YYYY hh:mm A") }}
+              {{
+                buildingApplication.last_submitted
+                  | moment("MMMM DD, YYYY hh:mm A")
+              }}
             </div>
             <div
               class="assessment-result-list mt30"
@@ -612,7 +615,23 @@
                   v-for="(item, index) of this.buildingAssessmentResult"
                   :key="index"
                 >
-                  <div>{{ item.department }}: {{ item.status }}<span v-if="item.created_at"> -  {{item.created_at | moment('MMMM DD, YYYY hh:mm A')}}</span></div>
+                  <div class="meta-result-holder">
+                    <div>
+                      {{ item.department }}: {{ item.status
+                      }}<span v-if="item.created_at">
+                        -
+                        {{
+                          item.created_at | moment("MMMM DD, YYYY hh:mm A")
+                        }}</span
+                      >
+                    </div>
+                    <span
+                      v-if="item.status === 'Disapproved'"
+                      class="mt5 ml10 mb2 meta-view-remarks"
+                      @click="openBuildingRemarks(buildingApplication.id)"
+                      >View Remarks</span
+                    >
+                  </div>
                 </li>
               </ol>
             </div>
@@ -732,6 +751,7 @@ export default {
       "buildingDeptCanAssess",
       "isLastBuildingDept",
       "isAssessmentActive",
+      "isAssessmentHasError",
     ]),
   },
   data() {
@@ -747,6 +767,10 @@ export default {
     };
   },
   methods: {
+    async openBuildingRemarks(id) {
+      await this.$store.dispatch("getBuildingRemarks", id);
+      await this.$router.push({ name: "ReplyInquiry" });
+    },
     async approveApplication(status) {
       let approve = await this.$swal({
         text: "Are you sure with this action?",
@@ -789,6 +813,7 @@ export default {
       }
     },
     async assessApplication(status) {
+      this.$store.commit("setIsBuildingAssessment", true);
       let approve = await this.$swal({
         text: "Are you sure with this action?",
         icon: "question",
@@ -811,21 +836,35 @@ export default {
           is_approve: status ? true : false,
         };
         await this.$store.dispatch("assessBuildingApplication", payload);
-        if (this.isLastBuildingDept) {
-          if (status) {
-            let changeApplicationStatusPayload = {
-              id: this.buildingApplication.id,
-              status: application_status,
-            };
-            await this.$store.dispatch(
-              "approveBuildingApplication",
-              changeApplicationStatusPayload
-            );
-          } else {
-            this.createRemarks();
-          }
+        if (this.isLastBuildingDept && status) {
+          let changeApplicationStatusPayload = {
+            id: this.buildingApplication.id,
+            status: application_status,
+          };
+          await this.$store.dispatch(
+            "approveBuildingApplication",
+            changeApplicationStatusPayload
+          );
         }
-        this.$router.push({ name: "Assessments" });
+        if (!status) {
+          if (this.isLastBuildingDept) {
+            this.$store.commit("setIsBuildingAssessment", false);
+          }
+          if (!this.isAssessmentHasError) {
+            this.createRemarks();
+          } else {
+            this.$router.push({ name: "Assessments" });
+          }
+        } else {
+          if (!this.isLastBuildingDept && !this.isAssessmentHasError) {
+            await this.$store.dispatch("createPrompt", {
+              type: "success",
+              title: "Success!",
+              message: "Application was successfully assessed!",
+            });
+          }
+          this.$router.push({ name: "Assessments" });
+        }
       }
     },
     async createRemarks() {
@@ -845,7 +884,6 @@ export default {
         });
       } else {
         this.$store.commit("setContinueBuildingThread", true);
-        console.log("building id", this.buildingApplication.id);
         this.$store.commit("setCurrentBuildingId", this.buildingApplication.id);
         this.$router.push({
           name: "ReplyInquiry",
@@ -909,6 +947,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.meta-view-remarks {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.meta-result-holder {
+  display: flex;
+  flex-direction: column;
+}
 .submission-text {
   color: #2699fb;
   margin-top: 30px;
@@ -1182,7 +1228,7 @@ ul.main-list > li > ul.sub-list {
   font-size: 14px;
   font-weight: bold;
   padding: 5px 0;
-  margin-left: 30px;
+  margin-left: 10px;
 }
 
 /*

@@ -247,7 +247,10 @@
         <div class="flex-column">
           <div class="submission-text">
             Submission Date:
-            {{ buildingApplication.last_submitted | moment("MMMM DD, YYYY hh:mm A") }}
+            {{
+              buildingApplication.last_submitted
+                | moment("MMMM DD, YYYY hh:mm A")
+            }}
           </div>
           <div
             class="assessment-result-list mt30"
@@ -262,7 +265,23 @@
                 v-for="(item, index) of this.buildingAssessmentResult"
                 :key="index"
               >
-                <div>{{ item.department }}: {{ item.status }}<span v-if="item.created_at"> -  {{item.created_at | moment('MMMM DD, YYYY hh:mm A')}}</span></div>
+                <div class="meta-result-holder">
+                  <div>
+                    {{ item.department }}: {{ item.status
+                    }}<span v-if="item.created_at">
+                      -
+                      {{
+                        item.created_at | moment("MMMM DD, YYYY hh:mm A")
+                      }}</span
+                    >
+                  </div>
+                  <span
+                    v-if="item.status === 'Disapproved'"
+                    class="mt5 ml10 mb2 meta-view-remarks"
+                    @click="openBuildingRemarks(buildingApplication.id)"
+                    >View Remarks</span
+                  >
+                </div>
               </li>
             </ol>
           </div>
@@ -319,6 +338,10 @@ export default {
     };
   },
   methods: {
+    async openBuildingRemarks(id) {
+      await this.$store.dispatch("getBuildingRemarks", id);
+      await this.$router.push({ name: "UserReplyInquiry" });
+    },
     async setupAssessmentResult() {
       if (
         this.buildingApplication.application_status == 3 ||
@@ -370,6 +393,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.meta-view-remarks {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.meta-result-holder {
+  display: flex;
+  flex-direction: column;
+}
 .submission-text {
   color: #2699fb;
   margin: 10px 0px;
@@ -386,7 +417,7 @@ export default {
   font-size: 14px;
   font-weight: bold;
   padding: 5px 0;
-  margin-left: 30px;
+  margin-left: 10px;
 }
 div.meta-parent-box {
   width: 100%;

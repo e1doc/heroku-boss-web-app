@@ -24,7 +24,7 @@
           </div>
         </div>
         <div class="item-row sender" v-if="message.sender.is_staff">
-          <div class="item-name">Administrator</div>
+          <div class="item-name">{{message.sender.department.name}} Administrator</div>
           <div class="item-content">
             {{ message.body }}
           </div>

@@ -34,23 +34,22 @@
           placeholder="Type your text here"
           v-model="body"
         ></textarea>
-        
+
         <!-- ATTACH FILE -->
-        <base-file-uploader
+        <!-- <base-file-uploader
           name="inquiryattachment"
           fileLabel="inquiry_attachment"
           uploadType="application/pdf"
           class="upload-attachment"
-        />
-
-        </div>
-        <div class="inquiry-button flex-wrap">
-          <button-block
-            type="send"
-            :disabled="body === '' || subject === '' ? true : false"
-            @click.native="sendMessage"
-            >SEND</button-block
-          >
+        /> -->
+      </div>
+      <div class="inquiry-button flex-wrap">
+        <button-block
+          type="send"
+          :disabled="body === '' || subject === '' ? true : false"
+          @click.native="sendMessage"
+          >SEND</button-block
+        >
       </div>
     </div>
   </div>
@@ -70,7 +69,7 @@ export default {
     InquiryTable,
     ButtonBlock,
     BaseInput,
-    BaseFileUploader
+    BaseFileUploader,
   },
   computed: {
     ...mapGetters([
@@ -78,7 +77,10 @@ export default {
       "currentInquiry",
       "remarks",
       "buildingApplication",
-      "businessApplication"
+      "businessApplication",
+      "isBuildingAssessment",
+      "isLastBuildingDept",
+      "userDepartment",
     ]),
   },
   props: {
@@ -106,19 +108,17 @@ export default {
   },
   mounted() {
     this.getRemarks();
-    console.log(this.buildingApplication)
   },
-    beforeRouteLeave(to, from, next) {
-      this.$store.dispatch("setApplicationStateRemarks", {});
-      this.$store.commit('setCurrentInquiry', "")
-      next()
+  beforeRouteLeave(to, from, next) {
+    this.$store.dispatch("setApplicationStateRemarks", {});
+    this.$store.commit("setCurrentInquiry", "");
+    next();
   },
   methods: {
     async getRemarks() {
-      console.log('remarks', this.remarks)
       if (!this.remarks.application_number) {
         if (this.application_number !== "") {
-          console.log('application number', this.application_number)
+          console.log("application number", this.application_number);
           await this.$store.dispatch("setApplicationStateRemarks", {
             application_number: this.application_number,
             application_type: this.application_type,
@@ -158,30 +158,60 @@ export default {
       await this.$store.commit("setLoading", false);
       if (this.type === "remarks") {
         if (this.applicationType === "building") {
-          let application_status = 0
-          this.buildingApplication.application_status === 0
-            ? application_status = 1
-            : this.buildingApplication.application_status === 3
-            ? application_status = 4
-            : application_status = 0
-          let payload = { id: this.applicationNumber, status: application_status };
-          this.$store.dispatch("approveBuildingApplication", payload);
-          if(this.buildingApplication.application_status === 3){
-            let resetAssessmentPayload = {building_application: this.buildingApplication.id}
-            this.$store.dispatch('resetBuildingAssessment', resetAssessmentPayload)
+          let application_status = 0;
+          if (this.isBuildingAssessment) {
+            application_status = this.buildingApplication.application_status;
+            if (!this.isLastBuildingDept) {
+              this.$store.dispatch("createPrompt", {
+                type: "success",
+                title: "Success!",
+                message: "Application was successfully assessed!",
+              });
+              this.$router.push({ name: "Assessments" });
+            }
+          } else {
+            this.buildingApplication.application_status === 0
+              ? (application_status = 1)
+              : this.buildingApplication.application_status === 3
+              ? (application_status = 4)
+              : (application_status = 0);
+            let payload = {
+              id: this.applicationNumber,
+              status: application_status,
+            };
+            this.$store.dispatch("approveBuildingApplication", payload);
+          }
+          if (!this.isBuildingAssessment) {
+            if (this.buildingApplication.application_status === 3) {
+              let resetAssessmentPayload = {
+                building_application: this.buildingApplication.id,
+              };
+              this.$store.dispatch(
+                "resetBuildingAssessment",
+                resetAssessmentPayload
+              );
+            }
           }
         } else if (this.applicationType === "business") {
-          let application_status = 0
+          let application_status = 0;
           this.businessApplication.application_status === 0
-            ? application_status = 1
+            ? (application_status = 1)
             : this.businessApplication.application_status === 2
-            ? application_status = 3
-            : application_status = 0
-          let payload = { id: this.applicationNumber, status: application_status };
+            ? (application_status = 3)
+            : (application_status = 0);
+          let payload = {
+            id: this.applicationNumber,
+            status: application_status,
+          };
           this.$store.dispatch("approveBusinessApplication", payload);
-          if(this.businessApplication.application_status === 2){
-            let resetAssessmentPayload = {business_application: this.businessApplication.id}
-            this.$store.dispatch('resetBusinessAssessment', resetAssessmentPayload)
+          if (this.businessApplication.application_status === 2) {
+            let resetAssessmentPayload = {
+              business_application: this.businessApplication.id,
+            };
+            this.$store.dispatch(
+              "resetBusinessAssessment",
+              resetAssessmentPayload
+            );
           }
         }
       } else {
