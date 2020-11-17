@@ -26,9 +26,9 @@
           </div>
           <div class="item-content flex-wrap">
             {{ message.body }}
-            <div class="item-attachment">
+            <!-- <div class="item-attachment">
                 <font-awesome-icon icon="paperclip" class="admin-icon" /> See Attachment
-            </div>
+            </div> -->
           </div>
           <div class="item-date">
             {{ message.created_at | moment("MMMM DD, YYYY HH:mm A") }}
