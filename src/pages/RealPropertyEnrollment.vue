@@ -137,7 +137,7 @@ export default {
         );
         if (!validateResponse.data.is_existing) {
           const response = await axios.post(
-            `//122.55.20.85:8012/lguapi/`,
+            `https://api.bacoor.gov.ph/lguapi/`,
             payload,
             config
           );
