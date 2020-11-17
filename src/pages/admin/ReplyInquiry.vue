@@ -22,7 +22,7 @@
         </div>
         <div class="item-row me" v-if="message.sender.is_staff">
           <div class="item-name">
-            Administrator
+            {{message.sender.department.name}} Administrator
           </div>
           <div class="item-content flex-wrap">
             {{ message.body }}
@@ -103,7 +103,6 @@ export default {
   },
   mounted() {
     this.getInquiry();
-    console.log(this.buildingApplication.application_status)
   },
   methods: {
     async getInquiry() {

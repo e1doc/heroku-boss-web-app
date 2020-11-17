@@ -90,7 +90,7 @@ const actions = {
   async getInquiry({ commit, getters  }, id) {
     try {
       const response = await axios.get(`${baseUrl}/api/inquiry/?id=${id}`, {headers: {Authorization: `jwt ${getters.authToken}`} });
-      console.log("Inquiry details", response.data);
+      console.log(response.data)
       commit("setInquiry", response.data);
       commit("setCurrentInquiry", response.data.id);
     } catch (err) {

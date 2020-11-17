@@ -67,9 +67,6 @@ export default {
   computed:{
       ...mapGetters(['currentAdminTab', "groups"])
   },
-  mounted(){
-      console.log('groups',this.groups)
-  },
   methods:{
     changeTab(tab){
       this.activeTab = tab
