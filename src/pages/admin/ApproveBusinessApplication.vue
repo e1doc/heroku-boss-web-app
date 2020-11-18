@@ -12,7 +12,7 @@
           />
         </div>
         <div>
-          <button-full @click.native="onAccountNumberSubmit">SUBMIT</button-full>
+          <button-full @click.native="onAccountNumberSubmit" :disabled="account_number == ''">SUBMIT</button-full>
         </div>
       </div>
     </modal>
