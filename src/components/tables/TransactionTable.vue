@@ -9,12 +9,12 @@
         <div class="th w25">PAID BY</div>
         <div class="th w10">AMOUNT</div>
       </div>
-      <div class="tbody">
+      <!-- <div class="tbody">
         <div class="tr" v-for="index in 5" :key="index">
-          <!-- <div class="td w10">
+          <div class="td w10">
               <span class="td-label show-in-mobile">ACCOUNT # : </span>
               F-02248
-          </div> -->
+          </div>
           <div class="td w10">
               <span class="td-label show-in-mobile">OR # : </span>
               102582
@@ -36,6 +36,13 @@
               ₱ 28,063.00
           </div>
         </div>
+      </div> -->
+      <div
+        class="tbody"
+      >
+        <div class="tr">
+          <div class="td meta-no-data">No data available</div>
+        </div>
       </div>
     </div>
     <div v-if="currentType === 'building'">
@@ -46,7 +53,7 @@
         <div class="th w25">PAID BY</div>
         <div class="th w30">AMOUNT</div>
       </div>
-      <div class="tbody">
+      <!-- <div class="tbody">
         <div class="tr" v-for="index in 5" :key="index">
           <div class="td w15">
               <span class="td-label show-in-mobile">TD # : </span>
@@ -69,6 +76,53 @@
               ₱ 28,063.00
           </div>
         </div>
+      </div> -->
+      <div
+        class="tbody"
+      >
+        <div class="tr">
+          <div class="td meta-no-data">No data available</div>
+        </div>
+      </div>
+    </div>
+      <div v-if="currentType === 'real_property'">
+      <div class="thead hide-in-mobile">
+        <div class="th w15">TD #</div>
+        <div class="th w15">OR #</div>
+        <div class="th w15">OR DATE</div>
+        <div class="th w25">PAID BY</div>
+        <div class="th w30">AMOUNT</div>
+      </div>
+      <!-- <div class="tbody">
+        <div class="tr" v-for="index in 5" :key="index">
+          <div class="td w15">
+              <span class="td-label show-in-mobile">TD # : </span>
+              F-02248
+          </div>
+          <div class="td w15">
+              <span class="td-label show-in-mobile">OR # : </span>
+              102582
+          </div>
+          <div class="td w15">
+              <span class="td-label show-in-mobile">OR DATE : </span>
+              JUN 1, 2020
+          </div>
+          <div class="td w25">
+              <span class="td-label show-in-mobile">PAID BY : </span>
+              JOHN MICHAEL DOE
+          </div>
+          <div class="td w30">
+              <span class="td-label show-in-mobile">AMOUNT : </span>
+              ₱ 28,063.00
+          </div>
+        </div>
+      </div> -->
+      <div
+        class="tbody"
+      >
+        <div class="tr">
+          <div class="td meta-no-data">No data available</div>
+        </div>
       </div>
     </div>
   </section>
@@ -81,14 +135,17 @@ export default {
   computed: {
     ...mapGetters(["currentType"]),
   },
-  mounted(){
-        console.log(this.currentType)
-  }
+  mounted() {
+    console.log(this.currentType);
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-section{
+.meta-no-data{
+    width: 100% !important;
+}
+section {
   width: 100%;
 }
 .w10 {
@@ -148,56 +205,56 @@ section{
 MOBILE RESPONSIVENESS ------------------------------------------- */
 
 span.td-label.show-in-mobile {
-    font-size: 13px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #000c114d;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #000c114d;
 }
 
-.show-in-mobile{
+.show-in-mobile {
   display: none;
 }
 
-@media only screen and ( max-width: 860px ){
-    .show-in-mobile{
-        display: block;
-    }
+@media only screen and (max-width: 860px) {
+  .show-in-mobile {
+    display: block;
+  }
 
-    .thead{
-      display: none;
-    }
+  .thead {
+    display: none;
+  }
 
-    .tbody{
-        flex-direction: unset;
-        margin-top: 0;
-        display: flex;
-        flex-wrap: wrap;
-        width: 100%;
-    }
+  .tbody {
+    flex-direction: unset;
+    margin-top: 0;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
 
-    .tbody .tr{
-        // background: #eef8ff;  
-        flex-wrap: wrap;
-        flex-direction: unset;
-        padding: 15px 20px;
-        width: calc( 50% - 60px );
-        float: left;
-        margin: 0 10px 20px;
-    }
+  .tbody .tr {
+    // background: #eef8ff;
+    flex-wrap: wrap;
+    flex-direction: unset;
+    padding: 15px 20px;
+    width: calc(50% - 60px);
+    float: left;
+    margin: 0 10px 20px;
+  }
 
-    .tbody .tr .td{
-        flex: unset;
-        width: 100%;
-        float: left;
-        text-align: left;
-    }
+  .tbody .tr .td {
+    flex: unset;
+    width: 100%;
+    float: left;
+    text-align: left;
+  }
 }
 
-@media only screen and ( max-width: 650px ){
-  .tbody .tr{
-      width: 100%;
-      float: left;
-      margin: 0 0 20px;
+@media only screen and (max-width: 650px) {
+  .tbody .tr {
+    width: 100%;
+    float: left;
+    margin: 0 0 20px;
   }
 }
 </style>
