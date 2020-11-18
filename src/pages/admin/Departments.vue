@@ -1,13 +1,9 @@
 <template>
   <div class="admin-container">
-      <modal
-      name="departmentModal"
-      width="50%"
-      height="auto"
-      :adaptive="true"
+    <modal name="departmentModal" width="50%" height="auto" :adaptive="true"
       ><department-form
     /></modal>
-          <modal
+    <modal
       name="departmentOrderModal"
       width="50%"
       height="auto"
@@ -15,17 +11,17 @@
       ><department-order-form
     /></modal>
     <div>
-    <div class="admin-page-title flex-center">
-      <font-awesome-icon icon="network-wired" class="admin-icon" />
-      Departments
-    </div>
-    <div class="admin-body flex-wrap">
-      <dept-table-menu />
-      <div class="admin-content">
-        <dept-table />
+      <div class="admin-page-title flex-center">
+        <font-awesome-icon icon="network-wired" class="admin-icon" />
+        Departments
+      </div>
+      <div class="admin-body flex-wrap">
+        <dept-table-menu />
+        <div class="admin-content">
+          <dept-table />
+        </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -35,11 +31,11 @@ import DeptTable from "@/components/tables/DeptTable";
 import FullCalendar from "@fullcalendar/vue";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { mapGetters } from "vuex"
-import AppointmentLimit from "@/components/tables/AppointmentLimit"
-import AppointmentTable from "@/components/tables/AppointmentTable"
-import DepartmentForm from "@/components/forms/DepartmentForm"
-import DepartmentOrderForm from "@/components/forms/DepartmentOrderForm"
+import { mapGetters } from "vuex";
+import AppointmentLimit from "@/components/tables/AppointmentLimit";
+import AppointmentTable from "@/components/tables/AppointmentTable";
+import DepartmentForm from "@/components/forms/DepartmentForm";
+import DepartmentOrderForm from "@/components/forms/DepartmentOrderForm";
 export default {
   name: "AdminAppointment",
   components: {
@@ -49,23 +45,22 @@ export default {
     AppointmentLimit,
     AppointmentTable,
     DepartmentForm,
-    DepartmentOrderForm
+    DepartmentOrderForm,
   },
   computed: {
     ...mapGetters([]),
   },
   data() {
-    return {
-    };
+    return {};
   },
-    mounted(){
-    this.$store.commit('setLoading', false)
+  mounted() {
+    this.$store.commit("setLoading", false);
   },
-  methods:{
-    handleEventClick(info){
-      console.log(info)
-    }
-  }
+  methods: {
+    handleEventClick(info) {
+      console.log(info);
+    },
+  },
 };
 </script>
 

@@ -222,7 +222,6 @@ export default {
     if(this.groups.includes('superadmin') || this.groups.includes('business_application_approver') || this.groups.includes('business_application_read')){
       this.$store.commit('setCurrentType','business')
     }else{
-      console.log('her her')
       this.$store.commit('setCurrentType','real_property')
     }
   },

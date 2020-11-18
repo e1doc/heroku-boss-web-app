@@ -1,5 +1,21 @@
 <template>
   <div class="meta-parent-box">
+    <modal name="accountNumberModal" width="50%" height="auto" :adaptive="true">
+      <div class="accountNumberModal">
+        <div>
+          <base-input
+            label="Enter Account Number"
+            v-model="account_number"
+            name="accountnumber"
+            refs="account_number"
+            type="text"
+          />
+        </div>
+        <div>
+          <button-full @click.native="onAccountNumberSubmit">SUBMIT</button-full>
+        </div>
+      </div>
+    </modal>
     <div class="meta-container flex-wrap" ref="content">
       <div class="meta-form-body flex-wrap">
         <h1 class="meta-form-title">Business Application Details</h1>
@@ -20,8 +36,12 @@
           <div class="meta-text no-bb">
             <div class="meta-label">Type of Organization :</div>
             <div class="meta-value">
-              {{ businessBasicInformation.type_of_organization.charAt(0)
-                  .toUpperCase() + businessBasicInformation.type_of_organization.slice(1)}}
+              {{
+                businessBasicInformation.type_of_organization
+                  .charAt(0)
+                  .toUpperCase() +
+                  businessBasicInformation.type_of_organization.slice(1)
+              }}
             </div>
           </div>
           <div class="meta-text no-bb">
@@ -448,7 +468,10 @@
           <div>
             <div class="submission-text">
               Submission Date:
-              {{ businessApplication.last_submitted | moment("MMMM DD, YYYY hh:mm A") }}
+              {{
+                businessApplication.last_submitted
+                  | moment("MMMM DD, YYYY hh:mm A")
+              }}
             </div>
           </div>
           <div
@@ -464,7 +487,15 @@
                 v-for="(item, index) of this.businessAssessmentResult"
                 :key="index"
               >
-                <div>{{ item.department }}: {{ item.status }}<span v-if="item.created_at">- {{item.created_at | moment('MMMM DD, YYYY hh:mm A')}}</span></div>
+                <div>
+                  {{ item.department }}: {{ item.status
+                  }}<span v-if="item.created_at"
+                    >-
+                    {{
+                      item.created_at | moment("MMMM DD, YYYY hh:mm A")
+                    }}</span
+                  >
+                </div>
               </li>
             </ol>
           </div>
@@ -529,6 +560,8 @@
 <script>
 // import VueEasyLightbox from "vue-easy-lightbox";
 import ButtonBlock from "@/components/ButtonBlock";
+import BaseInput from "@/components/forms/BaseInput";
+import ButtonFull from "@/components/ButtonFull";
 import { mapGetters } from "vuex";
 import AppLink from "@/components/AppLink";
 export default {
@@ -536,13 +569,17 @@ export default {
   components: {
     // VueEasyLightbox,
     ButtonBlock,
+    BaseInput,
     AppLink,
+    ButtonFull,
   },
   data() {
     return {
       imgs: [], // Img Url , string or Array of string
       visible: false,
-      index: 0, // default: 0
+      index: 0,
+      account_number: "",
+      applicationStatus: 0, // default: 0
     };
   },
   beforeRouteLeave(to, from, next) {
@@ -575,6 +612,18 @@ export default {
     this.setupAssessmentResult();
   },
   methods: {
+    async onAccountNumberSubmit() {
+      let changeApplicationStatusPayload = {
+        id: this.businessApplication.id,
+        status: this.applicationStatus,
+        account_number: this.account_number
+      };
+      await this.$store.dispatch(
+        "approveBusinessApplication",
+        changeApplicationStatusPayload
+      );
+      await this.$modal.hide("accountNumberModal");
+    },
     async approveApplication(status) {
       let approve = await this.$swal({
         text: "Are you sure with this action?",
@@ -622,7 +671,7 @@ export default {
           : this.businessApplication.application_status === 2
           ? (application_status = 4)
           : (application_status = 0);
-
+        this.applicationStatus = application_status
         let payload = {
           business_application: this.businessApplication.id,
           is_approve: status ? true : false,
@@ -630,19 +679,13 @@ export default {
         await this.$store.dispatch("assessBusinessApplication", payload);
         if (this.isLastBusinessDept) {
           if (status) {
-            let changeApplicationStatusPayload = {
-              id: this.businessApplication.id,
-              status: application_status,
-            };
-            await this.$store.dispatch(
-              "approveBusinessApplication",
-              changeApplicationStatusPayload
-            );
+            this.$modal.show("accountNumberModal");
           } else {
             this.createRemarks();
           }
+        }else{
+                  this.$router.push({ name: "Assessments" });
         }
-        this.$router.push({ name: "Assessments" });
       }
     },
     async createRemarks() {
@@ -730,6 +773,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.accountNumberModal {
+  padding: 20px;
+}
 .meta-group-title {
   color: #2699fb;
   font-weight: bold;
