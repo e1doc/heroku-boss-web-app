@@ -29,7 +29,7 @@
             <div>
               <font-awesome-icon icon="sync-alt" class="mr5 icon" /> RENEW
             </div>
-            <div class="bill" @click="showModal(business)">
+            <div class="bill" @click="showModal('business',business)">
               <font-awesome-icon icon="receipt" class="mr5 icon" />BILL
             </div>
           </div>
@@ -118,9 +118,11 @@ export default {
     console.log(this.businessProfiles)
   },
   methods: {
-    showModal(item) {
+    showModal(type, item) {
+      if(type === 'business'){
       this.$store.commit('setCurrentSelectedBusiness', item)
       this.$modal.show("soaModal");
+      }
     },
 
   },
