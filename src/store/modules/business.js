@@ -41,6 +41,7 @@ const getDefaultBusinessState = () => {
     isLastBusinessDept: false,
     forBusinessAssessmentList: [],
     assessedBusinessList: [],
+    currentSelectedBusiness: {}
   };
 };
 
@@ -78,6 +79,7 @@ const getters = {
   isLastBusinessDept: (state) => state.isLastBusinessDept,
   forBusinessAssessmentList: (state) => state.forBusinessAssessmentList,
   assessedBusinessList: (state) => state.assessedBusinessList,
+  currentSelectedBusiness: (state) => state.currentSelectedBusiness 
 };
 
 const mutations = {
@@ -140,6 +142,7 @@ const mutations = {
     (state.forBusinessAssessmentList = forBusinessAssessmentList),
   setAssessedBusinessList: (state, assessedBusinessList) =>
     (state.assessedBusinessList = assessedBusinessList),
+  setCurrentSelectedBusiness: (state, currentSelectedBusiness) => (state.currentSelectedBusiness = currentSelectedBusiness)
 };
 
 const actions = {

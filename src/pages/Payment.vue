@@ -67,6 +67,9 @@ export default {
           selectedPayment: "landbank",
       }
   },
+  mounted(){
+    this.$store.commit('setPrintInvoice',false)
+  },
   methods: {
     printInvoice() {
     this.$store.commit('setPrintInvoice',true)

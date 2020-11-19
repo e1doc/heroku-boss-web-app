@@ -18,7 +18,7 @@
             <div class="details-body">
               <div class="details-item">
                 <div class="item-label">Reference No:</div>
-                <div class="item-value">Invoice #00002</div>
+                <div class="item-value">BPL-00096788</div>
               </div>
               <div class="details-item">
                 <div class="item-label">Year:</div>
@@ -26,11 +26,11 @@
               </div>
               <div class="details-item">
                 <div class="item-label">Issued Date:</div>
-                <div class="item-value">July 25, 2020</div>
+                <div class="item-value">November 18, 2020</div>
               </div>
               <div class="details-item">
                 <div class="item-label">Quarter:</div>
-                <div class="item-value">1st Quarter - 2nd Quarter</div>
+                <div class="item-value">4th Quarter</div>
               </div>
             </div>
           </div>
@@ -39,21 +39,51 @@
             <div class="details-body">
               <div class="details-item">
                 <div class="item-label">Account Number:</div>
-                <div class="item-value">F-02248</div>
+                <div class="item-value">G-03283</div>
               </div>
             </div>
             <div class="details-body"></div>
             <div class="details-body mt25">
               <div class="details-item">
                 <div class="item-label">Business Owner:</div>
-                <div class="item-value">John Michael Doe</div>
+                <div class="item-value">
+                  {{
+                    currentSelectedBusiness.businessbasicinformation
+                      .owner_first_name
+                  }}
+                  {{
+                    currentSelectedBusiness.businessbasicinformation
+                      .owner_middle_name
+                  }}
+                  {{
+                    currentSelectedBusiness.businessbasicinformation
+                      .owner_last_name
+                  }}
+                </div>
+              </div>
+            </div>
+            <div class="meta-fees">
+              <div class="meta-fees-title">FEES</div>
+              <div
+                class="meta-fees-details"
+                v-for="(item, index) of fees"
+                :key="index"
+              >
+                <div class="meta-label-holder">
+                  <div class="meta-label">{{ item.label }}</div>
+                </div>
+                <div class="meta-value-holder">
+                  <div class="meta-value">
+                    <div>{{ item.value }}</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           <div class="invoice-amount">
             <div class="amount-details">
               <div class="item-label">Total Amount</div>
-              <div class="item-value amount">₱ 28,083.00</div>
+              <div class="item-value amount">₱ 4,428.00</div>
             </div>
           </div>
         </div>
@@ -73,7 +103,7 @@ import html2canvas from "html2canvas";
 export default {
   name: "DownloadableInvoice",
   computed: {
-    ...mapGetters(["printInvoice"]),
+    ...mapGetters(["printInvoice", "currentSelectedBusiness"]),
   },
   watch: {
     printInvoice: {
@@ -81,14 +111,73 @@ export default {
       handler(status) {
         if (status) {
           this.generateReport();
+          this.$store.commit('setPrintInvoice', false)
         }
       },
     },
   },
+  data() {
+    return {
+      fees: [
+        {
+          label: "Mayor's Permit",
+          value: "₱ 500.00",
+        },
+        {
+          label: "Environmental Fee",
+          value: "₱ 1200.00",
+        },
+        {
+          label: "Business Plate Fee",
+          value: "₱ 250.00",
+        },
+        {
+          label: "Medical Fee",
+          value: "₱ 1.00",
+        },
+        {
+          label: "Business Processing Fee",
+          value: "₱ 50.00",
+        },
+        {
+          label: "Security Seal Fee",
+          value: "₱ 50.00",
+        },
+        {
+          label: "Sanitary Fee",
+          value: "₱ 200.00",
+        },
+        {
+          label: "Zoning Fee",
+          value: "₱ 1285.00",
+        },
+        {
+          label: "Building Permit Fee",
+          value: "₱ 120.00",
+        },
+        {
+          label: "Electrical Fee",
+          value: "₱ 300.00",
+        },
+        {
+          label: "Plumbing Permit Fee",
+          value: "₱ 60.00",
+        },
+        {
+          label: "Sign Board Fee",
+          value: "₱ 192.00",
+        },
+        {
+          label: "Business Tax",
+          value: "₱ 220.00",
+        },
+      ],
+    };
+  },
   methods: {
     generateReport() {
-      console.log('generate report')
-      const doc = new jsPDF("p", "mm", "a4");
+      console.log("generate report");
+      const doc = new jsPDF("p", "mm", "a6");
       /** WITH CSS */
       var width = doc.internal.pageSize.getWidth();
       var height = doc.internal.pageSize.getHeight();
@@ -96,20 +185,43 @@ export default {
       html2canvas(this.$refs.content, {
         canvas: canvasElement,
         width: 794,
-        height: 1124,
       }).then(function(canvas) {
-        console.log(canvas)
+        console.log(canvas);
         const img = canvas.toDataURL("image/jpeg", 1);
         doc.addImage(img, "JPEG", 0, 0, width, height);
         console.log(width, height);
         doc.save("invoice.pdf");
       });
     },
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+.meta-fees {
+  display: flex;
+  flex-direction: column;
+  .meta-fees-title {
+    margin: 25px 0px;
+    color: rgba($color: #2699fb, $alpha: 0.73);
+    font-weight: bold;
+    font-size: 15px;
+  }
+  .meta-fees-details {
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+    .meta-label-holder {
+      text-align: left;
+      flex: 1;
+    }
+    .meta-value-holder {
+      text-align: right;
+      flex: 1;
+      font-weight: bold;
+    }
+  }
+}
 .sc-invoice {
   width: 210mm;
   height: 297mm;
@@ -120,6 +232,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: auto;
   .dialog-header {
     background: #2699fb;
     position: relative;

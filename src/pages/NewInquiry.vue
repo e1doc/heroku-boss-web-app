@@ -202,6 +202,7 @@ export default {
           let payload = {
             id: this.applicationNumber,
             status: application_status,
+            account_number: ""
           };
           this.$store.dispatch("approveBusinessApplication", payload);
           if (this.businessApplication.application_status === 2) {

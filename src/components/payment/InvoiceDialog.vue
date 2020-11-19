@@ -5,7 +5,9 @@
         <div class="store-avatar">
           <font-awesome-icon icon="store" class="icon" />
         </div>
-        <div class="text-bold size14">SAMPLE BUSINESS NAME HERE</div>
+        <div class="text-bold size14">
+          {{ currentSelectedBusiness.businessdetails.trade_name }}
+        </div>
         <div class="triangle">
           <font-awesome-icon icon="caret-up" class="icon" />
         </div>
@@ -28,7 +30,7 @@
           <div class="details-body">
             <div class="details-item">
               <div class="item-label">Reference No:</div>
-              <div class="item-value">Invoice #00002</div>
+              <div class="item-value">BPL-00096788</div>
             </div>
             <div class="details-item">
               <div class="item-label">Year:</div>
@@ -36,24 +38,53 @@
             </div>
             <div class="details-item">
               <div class="item-label">Issued Date:</div>
-              <div class="item-value">July 25, 2020</div>
+              <div class="item-value">November 18, 2020</div>
             </div>
             <div class="details-item">
               <div class="item-label">Quarter:</div>
-              <div class="item-value">1st Quarter - 2nd Quarter</div>
+              <div class="item-value">4th Quarter</div>
             </div>
           </div>
         </div>
         <div class="invoice-owner">
           <div class="owner-details">
             <div class="item-label">Business Owner</div>
-            <div class="item-value">John Michael Doe</div>
+            <div class="item-value">
+              {{
+                currentSelectedBusiness.businessbasicinformation
+                  .owner_first_name
+              }}
+              {{
+                currentSelectedBusiness.businessbasicinformation
+                  .owner_middle_name
+              }}
+              {{
+                currentSelectedBusiness.businessbasicinformation.owner_last_name
+              }}
+            </div>
+          </div>
+        </div>
+        <div class="meta-fees">
+          <div class="meta-fees-title">FEES</div>
+          <div
+            class="meta-fees-details"
+            v-for="(item, index) of fees"
+            :key="index"
+          >
+            <div class="meta-label-holder">
+              <div class="meta-label">{{ item.label }}</div>
+            </div>
+            <div class="meta-value-holder">
+              <div class="meta-value">
+                <div>{{ item.value }}</div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="invoice-amount">
           <div class="amount-details">
             <div class="item-label">Total Amount</div>
-            <div class="item-value">₱ 28,083.00</div>
+            <div class="item-value">₱ 4,428.00</div>
           </div>
         </div>
       </div>
@@ -63,10 +94,84 @@
 
 <script>
 import ButtonFullOutline from "@/components/ButtonFullOutline";
+import { mapGetters } from "vuex";
 export default {
   name: "InvoiceDialog",
   components: {
     ButtonFullOutline,
+  },
+  computed: {
+    ...mapGetters(["currentSelectedBusiness"]),
+  },
+  data() {
+    return {
+      fees: [
+        {
+          label: "Mayor's Permit",
+          value: "₱ 500.00",
+        },
+        {
+          label: "Environmental Fee",
+          value: "₱ 1200.00",
+        },
+        {
+          label: "Business Plate Fee",
+          value: "₱ 250.00",
+        },
+        {
+          label: "Medical Fee",
+          value: "₱ 1.00",
+        },
+        {
+          label: "Business Processing Fee",
+          value: "₱ 50.00",
+        },
+        {
+          label: "Security Seal Fee",
+          value: "₱ 50.00",
+        },
+        {
+          label: "Sanitary Fee",
+          value: "₱ 200.00",
+        },
+        {
+          label: "Zoning Fee",
+          value: "₱ 1285.00",
+        },
+        {
+          label: "Building Permit Fee",
+          value: "₱ 120.00",
+        },
+        {
+          label: "Electrical Fee",
+          value: "₱ 300.00",
+        },
+        {
+          label: "Plumbing Permit Fee",
+          value: "₱ 60.00",
+        },
+        {
+          label: "Sign Board Fee",
+          value: "₱ 192.00",
+        },
+        {
+          label: "Business Tax",
+          value: "₱ 220.00",
+        },
+      ],
+    };
+  },
+  mounted(){
+    console.log(this.currentSelectedBusiness)
+  },
+  methods: {
+    // async payInvoice() {
+    //   this.$store.commit("setCurrentSoa", { id: this.currentSelectedBusiness.id, type: 'business' });
+    //   console.log("soa", soa);
+    //   this.$store.commit("setCurrentSoaObj", soa);
+    //   this.$store.commit("setAppointmentAction", "add");
+    //   this.$router.push({ path: "payment" });
+    // },
   },
   props: {
     isPayment: {
@@ -84,6 +189,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.meta-fees {
+  display: flex;
+  flex-direction: column;
+  .meta-fees-title {
+    margin: 25px 0px;
+    color: rgba($color: #2699fb, $alpha: 0.73);
+    font-weight: bold;
+    font-size: 15px;
+  }
+  .meta-fees-details {
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+    .meta-label-holder {
+      text-align: left;
+      flex: 1;
+    }
+    .meta-value-holder {
+      text-align: right;
+      flex: 1;
+      font-weight: bold;
+    }
+  }
+}
 .dialog-holder {
   display: flex;
   flex-direction: column;
@@ -195,22 +324,22 @@ export default {
       .amount-details {
         display: flex;
         flex-wrap: wrap;
-        .item-label{
-            width: 50%;
-            margin: auto 0;
-            color: rgba($color: #2699fb, $alpha: 0.73);
-            font-weight: bold;
-            font-size: 14px;
-            font-family: "Proxima Nova Rg";
-            text-transform: uppercase;
+        .item-label {
+          width: 50%;
+          margin: auto 0;
+          color: rgba($color: #2699fb, $alpha: 0.73);
+          font-weight: bold;
+          font-size: 14px;
+          font-family: "Proxima Nova Rg";
+          text-transform: uppercase;
         }
-        .item-value{
-            width: 50%;
-            color: #2699FB;
-            font-weight: bold;
-            font-size: 20px;
-            font-family: "Proxima Nova Rg";
-            text-align: right;
+        .item-value {
+          width: 50%;
+          color: #2699fb;
+          font-weight: bold;
+          font-size: 20px;
+          font-family: "Proxima Nova Rg";
+          text-align: right;
         }
       }
     }
@@ -224,44 +353,48 @@ export default {
   font-size: 14px;
 }
 
-@media only screen and ( max-width: 860px ){
-    .dialog-holder{
-        max-width: 90%;
-    }
+@media only screen and (max-width: 860px) {
+  .dialog-holder {
+    max-width: 90%;
+  }
 }
 
-@media only screen and ( max-width: 480px ){
-
-  .dialog-holder{
-      max-width: 100%;
-      margin: 0;  
+@media only screen and (max-width: 480px) {
+  .dialog-holder {
+    max-width: 100%;
+    margin: 0;
   }
 
-  .dialog-holder .dialog-body .invoice-details{
+  .dialog-holder .dialog-body .invoice-details {
     padding-top: 0;
   }
 
-  .dialog-holder .dialog-body .invoice-details .details-body{
-      padding-left: 0;
+  .dialog-holder .dialog-body .invoice-details .details-body {
+    padding-left: 0;
   }
-  .dialog-holder .dialog-body .invoice-details .details-body .details-item{
-      width: 100%;
-  }
-
-  .details-item:nth-last-child(-n + 2){
-      margin-bottom: 25px!important;
+  .dialog-holder .dialog-body .invoice-details .details-body .details-item {
+    width: 100%;
   }
 
-  .dialog-holder .dialog-body .invoice-amount .amount-details .item-value{
-      font-size: 18px;
-      text-align: left;
-      width: 100%;
-      margin-top: 15px;
+  .details-item:nth-last-child(-n + 2) {
+    margin-bottom: 25px !important;
   }
 
-  .dialog-holder .dialog-body .invoice-details .details-body .details-item .item-value,
-  .dialog-holder .dialog-body .invoice-owner .owner-details .item-value{
-      font-size: 14px;
+  .dialog-holder .dialog-body .invoice-amount .amount-details .item-value {
+    font-size: 18px;
+    text-align: left;
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .dialog-holder
+    .dialog-body
+    .invoice-details
+    .details-body
+    .details-item
+    .item-value,
+  .dialog-holder .dialog-body .invoice-owner .owner-details .item-value {
+    font-size: 14px;
   }
 }
 </style>

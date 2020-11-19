@@ -194,7 +194,6 @@ export default {
     redirect(id, type, soa) {
       if(soa.appointment === null){
       this.$store.commit("setCurrentSoa", { id, type });
-      console.log("soa", soa);
       this.$store.commit("setCurrentSoaObj", soa);
       this.$store.commit("setAppointmentAction", "add");
       this.$router.push({ path: "payment" });

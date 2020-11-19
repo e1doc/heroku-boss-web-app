@@ -1,10 +1,11 @@
 <template>
   <section>
-    <modal name="invoiceModal"
-         width="50%"
-         height="auto"
-         :adaptive="true"
-         ><invoice-dialog/></modal>
+    <modal name="invoiceModal" width="50%" height="auto" :adaptive="true" :classes="['vue-modal-2']"
+      ><invoice-dialog
+    /></modal>
+    <modal name="soaModal" width="50%" height="auto" :adaptive="true"
+      ><soa-form
+    /></modal>
     <div class="sc-home">
       <div class="container flex-wrap">
         <div class="meta-left-box">
@@ -12,11 +13,11 @@
         </div>
         <div class="meta-right-box">
           <profile-table-menu type="profile" />
-          <approver-steps v-if="currentTable === 'applications'"/>
+          <approver-steps v-if="currentTable === 'applications'" />
           <div class="meta-table-box mt50">
-            <profile-table v-if="currentTable === 'profile'"/>
-            <transaction-table v-if="currentTable === 'transactions'"/>
-            <application-table v-if="currentTable === 'applications'"/>
+            <profile-table v-if="currentTable === 'profile'" />
+            <transaction-table v-if="currentTable === 'transactions'" />
+            <application-table v-if="currentTable === 'applications'" />
           </div>
         </div>
       </div>
@@ -35,7 +36,8 @@ import ApplicationTable from "@/components/tables/ApplicationTable";
 import InvoiceDialog from "@/components/payment/InvoiceDialog";
 import HeaderNav from "@/components/HeaderNav";
 import UserProfile from "@/components/UserProfile";
-import ApproverSteps from "@/components/ApproverSteps"
+import ApproverSteps from "@/components/ApproverSteps";
+import SoaForm from "@/components/forms/SoaForm";
 import { mapGetters } from "vuex";
 export default {
   name: "Profile",
@@ -50,30 +52,24 @@ export default {
     InvoiceDialog,
     HeaderNav,
     UserProfile,
-    ApproverSteps
+    ApproverSteps,
+    SoaForm,
   },
   computed: {
-    ...mapGetters(["currentTable"])
+    ...mapGetters(["currentTable"]),
   },
   data() {
     return {
       text1: "",
       text2: "",
     };
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-/deep/ .vm--modal{
-    overflow: auto;
-    width: 100%!important;
-    left: 0!important;
-    right: 0!important;
-    height: 100%!important;
-    margin: 0 auto!important;
-    box-shadow: none;
-    background: transparent;
+/deep/ .vm--modal {
+  overflow: auto;
 }
 /deep/ .vm--modal::-webkit-scrollbar {
   display: none;
@@ -104,14 +100,13 @@ export default {
   }
 }
 
-
 /*
 MOBILE RESPONSIVENESS ------------------------------------------- */
 
-@media only screen and (max-width: 1400px){
-  .sc-home .meta-left-box{
-      max-width: 25%;
-      max-height: 480px;
+@media only screen and (max-width: 1400px) {
+  .sc-home .meta-left-box {
+    max-width: 25%;
+    max-height: 480px;
   }
 
   .sc-home .meta-right-box {
@@ -119,23 +114,23 @@ MOBILE RESPONSIVENESS ------------------------------------------- */
   }
 }
 
-@media only screen and ( max-width: 1180px ){
-  .sc-home .meta-left-box{
-      display: none;
+@media only screen and (max-width: 1180px) {
+  .sc-home .meta-left-box {
+    display: none;
   }
 
   .sc-home .meta-right-box {
-     max-width: 100%;
+    max-width: 100%;
   }
 }
 
-@media only screen and ( max-width: 768px ){
+@media only screen and (max-width: 768px) {
   .meta-table-box {
-      margin-top: 20px;
+    margin-top: 20px;
   }
 
-  .sc-home{
-      padding-top: 30px;
+  .sc-home {
+    padding-top: 30px;
   }
 }
 </style>
