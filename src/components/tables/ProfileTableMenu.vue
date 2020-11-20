@@ -9,6 +9,9 @@
         <div class="soa-menus flex-row" v-if="type === 'soa'">
           <div class="menu-type active">STATEMENT OF ACCOUNTS</div>
         </div>
+        <div class="soa-menus flex-row" v-if="type === 'bills'">
+          <div class="menu-type active">BILLS</div>
+        </div>
       </div>
       <div class="right-div flex-row flex-grow">
         <div class="menu-type">

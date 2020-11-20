@@ -5,18 +5,18 @@
         <div class="store-avatar">
           <font-awesome-icon icon="store" class="icon" />
         </div>
-        <div class="text-bold size14">
+        <div class="text-bold size14 main-title">
           {{ currentSelectedBusiness.businessdetails.trade_name }}
         </div>
         <div class="triangle">
-          <font-awesome-icon icon="caret-up" class="icon" />
+          <font-awesome-icon icon="caret-down" class="icon" />
         </div>
         <div class="times" @click="closeModal()" v-if="!isPayment">
           <font-awesome-icon icon="times" class="icon" />
         </div>
       </div>
       <div class="dialog-body">
-        <div class="invoice-action" v-if="!isPayment">
+        <!-- <div class="invoice-action" v-if="!isPayment">
           <div class="title mb20">New Invoice</div>
           <div class="mb5">
             <button-full-outline class="btn-reg" :link="{ path: 'payment' }"
@@ -24,7 +24,7 @@
             >
           </div>
           <div class="text-later" @click="closeModal()">Pay Later</div>
-        </div>
+        </div> -->
         <div class="invoice-details">
           <div class="invoice-title">INVOICE DETAILS</div>
           <div class="details-body">
@@ -47,6 +47,7 @@
           </div>
         </div>
         <div class="invoice-owner">
+          <div class="invoice-title">BUSINESS DETAILS</div>
           <div class="owner-details">
             <div class="item-label">Business Owner</div>
             <div class="item-value">
@@ -201,10 +202,13 @@ export default {
   .meta-fees-details {
     display: flex;
     flex-direction: row;
-    margin-top: 15px;
+    padding: 10px 5px;
     .meta-label-holder {
       text-align: left;
       flex: 1;
+      .meta-label{
+        font-size: 14px;
+      }
     }
     .meta-value-holder {
       text-align: right;
@@ -218,31 +222,39 @@ export default {
   flex-direction: column;
   border-radius: 8px;
   width: 100%;
-  max-width: 520px;
+  max-width: 650px;
   margin: 30px auto;
   .dialog-header {
     background: #2699fb;
     position: relative;
     border-radius: 15px 15px 0px 0px;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
     color: #ffffff;
-    padding: 30px 15px;
+    padding: 20px 15px;
     .store-avatar {
       border: 2px #ffffff solid;
-      border-radius: 13px;
-      padding: 15px 10px;
-      margin-bottom: 20px;
+      border-radius: 5px;
+      padding: 10px 10px;
+      margin-bottom: 0;
+      margin-right: 15px;
       .icon {
-        font-size: 38px;
+        font-size: 20px;
       }
+    }
+    .main-title{
+      font-size: 24px;
     }
     .triangle {
       position: absolute;
-      bottom: -18px;
+      bottom: -27px;
+      left: 0;
+      width: 100%;
+      text-align: center;
       .icon {
         font-size: 48px;
+        color: #2699fb;
       }
     }
     .times {
@@ -277,15 +289,16 @@ export default {
         cursor: pointer;
       }
     }
+    
+    .invoice-title {
+      margin-bottom: 25px;
+      color: rgba($color: #2699fb, $alpha: 0.73);
+      font-weight: bold;
+      font-size: 15px;
+    }
     .invoice-details {
-      padding: 30px 0px;
+      padding: 0 0 30px 0px;
       border-bottom: 2px #eaf6ff solid;
-      .invoice-title {
-        margin-bottom: 25px;
-        color: rgba($color: #2699fb, $alpha: 0.73);
-        font-weight: bold;
-        font-size: 15px;
-      }
       .details-body {
         padding-left: 20px;
         display: flex;
@@ -320,7 +333,8 @@ export default {
       }
     }
     .invoice-amount {
-      padding: 20px 0px;
+      padding: 15px;
+      background-color: #f1f9ff;
       .amount-details {
         display: flex;
         flex-wrap: wrap;
