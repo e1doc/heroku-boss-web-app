@@ -1,9 +1,9 @@
 <template>
   <section>
-    <modal name="invoiceModal" width="50%" height="auto" :adaptive="true" :classes="['vue-modal-2']"
+    <modal name="invoiceModal"  height="auto" :adaptive="true" :classes="['vue-modal-2']"
       ><invoice-dialog
     /></modal>
-    <modal name="soaModal" width="50%" height="auto" :adaptive="true"
+    <modal name="soaModal"  height="auto" :adaptive="true"
       ><soa-form
     /></modal>
     <div class="sc-home">
@@ -70,6 +70,7 @@ export default {
 <style lang="scss" scoped>
 /deep/ .vm--modal {
   overflow: auto;
+  width: 100%;
 }
 /deep/ .vm--modal::-webkit-scrollbar {
   display: none;

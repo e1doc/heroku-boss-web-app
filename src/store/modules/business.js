@@ -504,7 +504,11 @@ const actions = {
     } catch (err) {
       commit("setLoading", false);
       console.log(err.response);
-      commit("setLoading", false);
+      dispatch("createPrompt", {
+        type: "error",
+        title: "Failed!",
+        message: 'Something went wrong! Please try again later.',
+      });
     }
   },
   async getApplicationRequirements({ commit, getters }) {

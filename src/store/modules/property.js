@@ -461,6 +461,11 @@ const actions = {
     } catch (err) {
       console.log(err.response);
       commit("setLoading", false);
+      dispatch("createPrompt", {
+        type: "error",
+        title: "Failed!",
+        message: 'Something went wrong! Please try again later.',
+      });
     }
   },
   async getBuildingApplicationRequirements({ commit, getters }) {
