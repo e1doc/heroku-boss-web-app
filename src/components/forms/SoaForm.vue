@@ -111,9 +111,10 @@ export default {
         );
         this.$store.commit('setLoading', false)
         console.log(result.data)
-        if (result.data.Response.Result.length > 0) {
+        if (result.data.Response.Result) {
           await this.$modal.hide("soaModal");
-          await this.$modal.show("invoiceModal");
+          await this.$store.dispatch('storeGeneratedBill', result.data.Response.Result)
+          await this.$router.push({name: 'Bills'})
         } else {
           this.$swal({
             title: "Failed!",

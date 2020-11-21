@@ -69,15 +69,15 @@
           <div class="meta-fees-title">FEES</div>
           <div
             class="meta-fees-details"
-            v-for="(item, index) of fees"
+            v-for="(item, index) of currentSelectedBill.fees"
             :key="index"
           >
             <div class="meta-label-holder">
-              <div class="meta-label">{{ item.label }}</div>
+              <div class="meta-label">{{ item.fee_description }}</div>
             </div>
             <div class="meta-value-holder">
               <div class="meta-value">
-                <div>{{ item.value }}</div>
+                <div>₱ {{ parseFloat(item.amount).toFixed(2) }}</div>
               </div>
             </div>
           </div>
@@ -102,7 +102,7 @@ export default {
     ButtonFullOutline,
   },
   computed: {
-    ...mapGetters(["currentSelectedBusiness"]),
+    ...mapGetters(["currentSelectedBusiness", "currentSelectedBill"]),
   },
   data() {
     return {
@@ -163,7 +163,7 @@ export default {
     };
   },
   mounted(){
-    console.log(this.currentSelectedBusiness)
+    console.log(this.currentSelectedBill)
   },
   methods: {
     // async payInvoice() {

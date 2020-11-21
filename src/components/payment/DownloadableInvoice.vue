@@ -110,8 +110,8 @@ export default {
       deep: true,
       handler(status) {
         if (status) {
-          this.generateReport();
-          this.$store.commit('setPrintInvoice', false)
+          this.generateReport2();
+          this.$store.commit("setPrintInvoice", false);
         }
       },
     },
@@ -177,7 +177,7 @@ export default {
   methods: {
     generateReport() {
       console.log("generate report");
-      const doc = new jsPDF("p", "mm", "a6");
+      const doc = new jsPDF("p", "mm", "a4");
       /** WITH CSS */
       var width = doc.internal.pageSize.getWidth();
       var height = doc.internal.pageSize.getHeight();
@@ -185,11 +185,37 @@ export default {
       html2canvas(this.$refs.content, {
         canvas: canvasElement,
         width: 794,
+        height: 1124,
       }).then(function(canvas) {
         console.log(canvas);
         const img = canvas.toDataURL("image/jpeg", 1);
         doc.addImage(img, "JPEG", 0, 0, width, height);
         console.log(width, height);
+        doc.save("invoice.pdf");
+      });
+    },
+    generateReport2() {
+      const doc = new jsPDF("p", "mm", "a4");
+      var position = 0;
+      var canvasElement = document.createElement("canvas");
+      html2canvas(this.$refs.content, {
+        canvas: canvasElement,
+        width: 794,
+        height: 1724,
+      }).then(function(canvas) {
+        var imgWidth = 210;
+        var pageHeight = 295;
+        var imgHeight = (canvas.height * imgWidth) / canvas.width;
+        var heightLeft = imgHeight;
+        const img = canvas.toDataURL("image/jpeg", 1);
+        doc.addImage(img, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+        while (heightLeft >= 0) {
+          position = heightLeft - imgHeight;
+          doc.addPage();
+          doc.addImage(img, "PNG", 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
         doc.save("invoice.pdf");
       });
     },

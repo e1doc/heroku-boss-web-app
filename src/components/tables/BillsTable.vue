@@ -5,24 +5,33 @@
         <div class="th w15">REFERENCE #</div>
         <div class="th w15">QUARTER</div>
         <div class="th w15">AMOUNT</div>
+        <div class="th w15">DUE DATE</div>
         <div class="th w15">ACTIONS</div>
       </div>
       <div class="tbody">
-        <div class="tr">
+        <div
+          class="tr"
+          v-for="(item, index) of generatedBill.invoices"
+          :key="index"
+        >
           <div class="td w15">
-            <span class="td-label show-in-mobile">TD #: </span>
-            test
+            <span class="td-label show-in-mobile">REFERENCE #: </span>
+            {{ item.referenceno }}
           </div>
           <div class="td w15">
-            <span class="td-label show-in-mobile">DATE : </span>
-            test
+            <span class="td-label show-in-mobile">QUARTER : </span>
+            {{ item.quarter }}
           </div>
           <div class="td w15">
             <span class="td-label show-in-mobile">AMOUNT : </span>
-            ₱ 4,428.00
+            ₱ {{ parseFloat(item.amount).toFixed(2) }}
           </div>
-           <div class="td w15 actions">
-            <div class="bill">
+          <div class="td w15">
+            <span class="td-label show-in-mobile">DUE DATE : </span>
+            {{ item.duedate | moment("MMMM DD, YYYY") }}
+          </div>
+          <div class="td w15 actions">
+            <div class="bill" @click="showModal(item)">
               <font-awesome-icon icon="eye" class="mr5 icon" />VIEW DETAILS
             </div>
           </div>
@@ -48,48 +57,14 @@ export default {
       "pageCount",
       "currentType",
       "currentSoa",
+      "generatedBill",
     ]),
   },
-  watch: {
-    currentType: {
-      deep: true,
-      handler(status) {
-        this.setUpList();
-      },
-    },
-  },
-  mounted(){
-    console.log('soa list', this.soaList)
-  },
   methods: {
-    redirect(id, type, soa) {
-      if(soa.appointment === null){
-      this.$store.commit("setCurrentSoa", { id, type });
-      this.$store.commit("setCurrentSoaObj", soa);
-      this.$store.commit("setAppointmentAction", "add");
-      this.$router.push({ path: "payment" });
-      }
+    showModal(item) {
+      this.$store.commit("setCurrentSelectedBill", item);
+      this.$modal.show("invoiceModal");
     },
-    reschedule(appointment, soa) {
-      this.$store.commit("setCurrentAppointment", appointment);
-      this.$store.commit("setAppointmentAction", "update");
-      this.$store.commit("setCurrentSoaObj", soa);
-      this.$router.push({ name: "AddAppointment" });
-    },
-    async setUpList() {
-      await this.$store.commit("setLoading", true);
-      await this.$store.dispatch("getSoaList");
-      console.log(this.soaList);
-      await this.$store.commit("setLoading", false);
-    },
-    async paginateClickCallBack(pageNum) {
-      await this.$store.commit("setLoading", true);
-      await this.$store.dispatch("getSoaList", pageNum);
-      await this.$store.commit("setLoading", false);
-    },
-  },
-  created() {
-    this.setUpList();
   },
 };
 </script>
@@ -113,11 +88,11 @@ export default {
 .w45 {
   width: 45%;
 }
-.disabled{
+.disabled {
   border-color: gray !important;
   color: gray !important;
 }
-.disabled:hover{
+.disabled:hover {
   border-color: gray !important;
   color: gray !important;
   background: none !important;

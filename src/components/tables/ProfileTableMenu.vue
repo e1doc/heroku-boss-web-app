@@ -13,7 +13,7 @@
           <div class="menu-type active">BILLS</div>
         </div>
       </div>
-      <div class="right-div flex-row flex-grow">
+      <div class="right-div flex-row flex-grow" v-if="type !== 'bills'">
         <div class="menu-type">
           <div :class="{ active: currentType === 'business' }" @click="changeType('business')" >
             <font-awesome-icon icon="store" class="mr5 icon" />

@@ -22,7 +22,7 @@
           </div>
           <div class="td w10">
             <span class="td-label show-in-mobile">DATE : </span>
-            {{ item.date_issued | moment("MMMM DD YYYY") }}
+            {{ item.created_at | moment("MMMM DD YYYY") }}
           </div>
           <div class="td w25">
             <span class="td-label show-in-mobile">BUSINESS NAME : </span>

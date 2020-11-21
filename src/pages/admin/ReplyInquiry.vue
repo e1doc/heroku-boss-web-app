@@ -57,12 +57,13 @@
           v-model="body"
         ></textarea>
         <!-- ATTACH FILE -->
-        <!-- <base-file-uploader
+        <base-file-uploader
           name="inquiryattachment"
           fileLabel="inquiry_attachment"
           uploadType="application/pdf"
           class="upload-attachment"
-        /> -->
+          v-if="isLastBuildingDept"
+        />
         <div class="inquiry-button">
           <button-block
             :disabled="body === '' ? true : false"
