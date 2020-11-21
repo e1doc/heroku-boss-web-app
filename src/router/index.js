@@ -33,6 +33,7 @@ import Appointment from "../pages/Appointment"
 import AddAppointment from "../pages/AddAppointment"
 import AppointmentInvoice from "../pages/AppointmentInvoice"
 import TestPage from "../pages/TestPage";
+import ComingSoon from "../pages/ComingSoon";
 import store from "../store";
 import swal from "sweetalert2"
 Vue.use(VueRouter);
