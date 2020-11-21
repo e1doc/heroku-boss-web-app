@@ -41,7 +41,7 @@ Vue.use(VueRouter);
 const routes = [{
     path: "/",
     name: "Login",
-    component: Login,
+    component: ComingSoon,
     async beforeEnter(to, from, next) {
       let isAdmin = await store.state.service.isAdminAuthenticated;
       let isUser = await store.state.service.isAuthenticated;
@@ -178,7 +178,7 @@ const routes = [{
   {
     path: "/admin",
     name: "Admin",
-    component: Admin,
+    component: ComingSoon,
     children: [{
         path: "",
         name: "AdminLanding",
@@ -281,16 +281,16 @@ const routes = [{
         },
       },
     ],
-    async beforeEnter(to, from, next) {
-      let hasPermission = await store.state.service.isAdminAuthenticated;
-      if (hasPermission) {
-        next();
-      } else {
-        next({
-          name: "AdminLogin",
-        });
-      }
-    },
+    // async beforeEnter(to, from, next) {
+    //   let hasPermission = await store.state.service.isAdminAuthenticated;
+    //   if (hasPermission) {
+    //     next();
+    //   } else {
+    //     next({
+    //       name: "AdminLogin",
+    //     });
+    //   }
+    // },
   },
   // {
   // path: '/about',
