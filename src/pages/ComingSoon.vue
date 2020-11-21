@@ -22,7 +22,7 @@ export default {
     background: transparent;
     position: relative;
     z-index: 1;
-    min-height: calc( 100vh - 80px);
+    min-height: 100vh;
     text-align: center;
     display: flex;
     flex-wrap: wrap;
