@@ -17,7 +17,9 @@ const getDefaultUIState =  () => {
     applicationType: '',
     currentAdminTab: 'dashboard',
     currentPaymentType: 'landbank',
-    isAssessmentActive: false
+    isAssessmentActive: false,
+    isPrivacyAgree: false,
+    isMaintenanceMode: false
   };
 }
 const state = getDefaultUIState()
@@ -38,7 +40,9 @@ const getters = {
   applicationType: (state) =>  state.applicationType,
   currentAdminTab: (state) => state.currentAdminTab,
   currentPaymentType: (state) => state.currentPaymentType,
-  isAssessmentActive: (state) => state.isAssessmentActive
+  isAssessmentActive: (state) => state.isAssessmentActive,
+  isPrivacyAgree: (state) => state.isPrivacyAgree,
+  isMaintenanceMode: (state) => state.isMaintenanceMode
 };
 
 const actions = {
@@ -74,7 +78,8 @@ const mutations = {
   setApplicationType: (state, applicationType) => (state.applicationType = applicationType),
   setAdminCurrentTab: (state, currentAdminTab) => (state.currentAdminTab = currentAdminTab),
   setCurrentPaymentType: (state, currentPaymentType) => (state.currentPaymentType = currentPaymentType),
-  setIsAssessmentActive: (state, isAssessmentActive) => (state.isAssessmentActive = isAssessmentActive)
+  setIsAssessmentActive: (state, isAssessmentActive) => (state.isAssessmentActive = isAssessmentActive),
+  setIsPrivacyAgree: (state, isPrivacyAgree) => (state.isPrivacyAgree = isPrivacyAgree)
 };
 
 export default {

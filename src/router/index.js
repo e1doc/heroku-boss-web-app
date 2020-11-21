@@ -34,6 +34,7 @@ import AddAppointment from "../pages/AddAppointment"
 import AppointmentInvoice from "../pages/AppointmentInvoice"
 import TestPage from "../pages/TestPage";
 import store from "../store";
+import swal from "sweetalert2"
 Vue.use(VueRouter);
 
 const routes = [{
@@ -191,6 +192,19 @@ const routes = [{
         path: "applications",
         name: "Applications",
         component: Applications,
+        async beforeEnter(to, from, next) {
+          let groups = await store.state.admin.groups;
+          if(groups.includes('superadmin') || groups.includes('business_application_approver') || groups.includes('building_application_approver') || groups.includes('assessment_approver')){
+            next()
+          }else{
+            swal.fire({
+              title: "Failed!",
+              text: "You have no access for this module.",
+              icon: "error",
+            });
+            next(from)
+          }
+        },
       },
       {
         path: "assessments",
@@ -233,11 +247,37 @@ const routes = [{
         path: "appointments",
         name: "AdminAppointment",
         component: AdminAppointment,
+        async beforeEnter(to, from, next) {
+          let groups = await store.state.admin.groups;
+          if(groups.includes('superadmin') || groups.includes('business_application_approver') || groups.includes('building_application_approver') || groups.includes('assessment_approver')){
+            next()
+          }else{
+            swal.fire({
+              title: "Failed!",
+              text: "You have no access for this module.",
+              icon: "error",
+            });
+            next(from)
+          }
+        },
       },
       {
         path: "departments",
         name: "Departments",
         component: Departments,
+        async beforeEnter(to, from, next) {
+          let groups = await store.state.admin.groups;
+          if(groups.includes('superadmin')){
+            next()
+          }else{
+            swal.fire({
+              title: "Failed!",
+              text: "You have no access for this module.",
+              icon: "error",
+            });
+            next(from)
+          }
+        },
       },
     ],
     async beforeEnter(to, from, next) {

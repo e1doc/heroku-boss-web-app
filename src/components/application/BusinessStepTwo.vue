@@ -952,7 +952,6 @@ export default {
     },
     preFillForm() {
       if (this.businessDetails.id) {
-        console.log(this.businessDetails.id);
         this.business_details = this.businessDetails;
       }
       if (this.lessorDetails.id) {
@@ -1005,7 +1004,6 @@ export default {
         });
       }
 
-      console.log(business_details_errors.value)
 
       if (isBusinessDetailsClean) {
         this.$store.commit("setCurrentApplicationStep", "3");

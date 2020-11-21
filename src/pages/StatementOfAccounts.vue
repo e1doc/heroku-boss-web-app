@@ -21,7 +21,7 @@ export default {
     SoaTable
   },
   mounted(){
-    this.$store.commit('setCurrentTab','soa')
+    this.$store.commit('setCurrentTable','soa')
   }
 };
 </script>

@@ -31,13 +31,23 @@
         </div>
         <div class="item-row me" v-if="message.sender.is_staff">
           <div class="item-name">
-            {{ message.sender.department ? message.sender.department.name : userDepartment }} Administrator
+            {{
+              message.sender.department
+                ? message.sender.department.name
+                : userDepartment
+            }}
+            Administrator
           </div>
           <div class="item-content flex-wrap">
             {{ message.body }}
-            <!-- <div class="item-attachment">
-                <font-awesome-icon icon="paperclip" class="admin-icon" /> See Attachment
-            </div> -->
+            <div
+              class="item-attachment"
+              v-if="message.buildingevaluationfiles.length > 0"
+              @click="linkProps(message.buildingevaluationfiles[0].file)"
+            >
+              <font-awesome-icon icon="paperclip" class="admin-icon" /> See
+              Attachment
+            </div>
           </div>
           <div class="item-date">
             {{ message.created_at | moment("MMMM DD, YYYY HH:mm A") }}
@@ -63,6 +73,7 @@
           uploadType="application/pdf"
           class="upload-attachment"
           v-if="isLastBuildingDept"
+          :isEvaluation="true"
         />
         <div class="inquiry-button">
           <button-block
@@ -124,13 +135,17 @@ export default {
       "businessApplication",
       "isBuildingAssessment",
       "isLastBuildingDept",
-      "userDepartment"
+      "userDepartment",
     ]),
   },
   mounted() {
     this.getInquiry();
   },
   methods: {
+    linkProps(url) {
+      url = url.replace("/bacoor/", "/");
+      window.open(url, "_blank");
+    },
     async getInquiry() {
       let id = this.thread != "" ? this.thread : this.currentInquiry;
       await this.$store.dispatch("getInquiry", id);
@@ -176,7 +191,7 @@ export default {
         let payload = {
           id: this.currentBusinessId,
           status: application_status,
-          account_number: ""
+          account_number: "",
         };
         this.$store.dispatch("approveBusinessApplication", payload);
         if (this.businessApplication.application_status === 2) {

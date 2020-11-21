@@ -36,12 +36,14 @@
         ></textarea>
 
         <!-- ATTACH FILE -->
-        <!-- <base-file-uploader
+        <base-file-uploader
           name="inquiryattachment"
           fileLabel="inquiry_attachment"
           uploadType="application/pdf"
           class="upload-attachment"
-        /> -->
+          v-if="isLastBuildingDept"
+          :isEvaluation="true"
+        />
       </div>
       <div class="inquiry-button flex-wrap">
         <button-block
@@ -118,7 +120,6 @@ export default {
     async getRemarks() {
       if (!this.remarks.application_number) {
         if (this.application_number !== "") {
-          console.log("application number", this.application_number);
           await this.$store.dispatch("setApplicationStateRemarks", {
             application_number: this.application_number,
             application_type: this.application_type,

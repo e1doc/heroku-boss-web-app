@@ -136,7 +136,6 @@ export default {
     ...mapGetters(["currentType"]),
   },
   mounted() {
-    console.log(this.currentType);
   },
 };
 </script>

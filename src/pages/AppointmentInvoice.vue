@@ -115,13 +115,10 @@ export default {
   },
   methods: {
     actionPrintInvoice() {
-    console.log('print')
     this.$store.commit('setPrintInvoice', true)
     },
   },
   mounted(){
-    console.log('current soa', this.currentSoaObj)
-    console.log('current appointment',this.currentAppointment)
     this.$store.commit('setPrintInvoice', false)
   }
 };

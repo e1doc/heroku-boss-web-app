@@ -78,7 +78,7 @@ export default {
     },
     changeTab(tab) {
       this.activeTab = tab;
-      this.$store.commit("setCurrentTab", tab);
+      this.$store.commit("setCurrentTable", tab);
     },
     changeType(type) {
       this.activeType = type;

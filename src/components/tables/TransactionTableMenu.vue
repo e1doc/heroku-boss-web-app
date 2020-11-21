@@ -64,7 +64,7 @@ export default {
     ...mapGetters(["currentType", "currentTable", "filterBy","propertyFilterBy", "groups"]),
   },
   mounted(){
-    console.log(this.filterBy, this.propertyFilterBy)
+
   },
   props: {
     type: {
@@ -133,7 +133,6 @@ export default {
         this.$store.dispatch("getAllBuildingApplications");
       }else if(this.currentType === 'business'){
         this.$store.commit('setBusinessSearch', this.search)
-        console.log(this.search)
         this.$store.dispatch("getAllBusinessApplications");
       }
     },

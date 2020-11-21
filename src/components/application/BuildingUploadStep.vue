@@ -503,9 +503,7 @@ export default {
     checkRequirements(type, action) {
       for(let item in type){
         type[item] = action
-        console.log(type[item])
       }
-      console.log(type)
     },
     validateRequiredFields() {
       this.uploadErrors = {};
@@ -656,7 +654,6 @@ export default {
         value: parseDesignPlans,
         application_number: this.buildingApplicationRequirements.id,
       });
-      console.log('specs', this.designSpecs.id)
       await this.$store.dispatch("updateBuildingCheckList", {
         id: this.designSpecs.id,
         category: "design_specs",

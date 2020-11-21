@@ -163,7 +163,6 @@ export default {
     };
   },
   mounted(){
-    console.log(this.currentSelectedBill)
   },
   methods: {
     // async payInvoice() {

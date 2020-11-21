@@ -120,7 +120,6 @@ export default {
           if (validated.length === this.required.length) {
             return true;
           } else {
-            console.log(validated, this.required)
             return false;
           }
         } else {
@@ -137,7 +136,6 @@ export default {
     async nextStep() {
       if (!this.draftBusiness) {
         let isValidated = this.validateRequiredFields();
-        console.log('is validated', isValidated)
         if (isValidated) {
           let application_status
           this.businessApplication.application_status == 1

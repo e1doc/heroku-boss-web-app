@@ -75,7 +75,6 @@ export default {
         new_password: this.new_password,
         re_new_password: this.re_new_password
       }
-      console.log(payload)
       this.resetPasswordUser(payload);
     },
   },

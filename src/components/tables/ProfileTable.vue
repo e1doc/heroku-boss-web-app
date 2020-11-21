@@ -26,7 +26,7 @@
             {{business.businessbasicinformation.owner_first_name}} {{business.businessbasicinformation.owner_last_name}}
           </div>
           <div class="td actions">
-            <div>
+            <div v-if="isFeatureImplemented">
               <font-awesome-icon icon="sync-alt" class="mr5 icon" /> RENEW
             </div>
             <div class="bill" @click="showModal('business',business)">
@@ -56,7 +56,7 @@
             <span >{{building.buildingbasicinformation.owner_first_name}} {{building.buildingbasicinformation.owner_last_name}}</span>
           </div>
           <div class="td actions">
-            <div>
+            <div v-if="isFeatureImplemented">
               <font-awesome-icon icon="sync-alt" class="mr5 icon" /> RENEW
             </div>
             <div class="bill" @click="showModal()">
@@ -86,7 +86,7 @@
             <span>{{building.buildingbasicinformation.owner_first_name}}</span>
           </div>
           <div class="td actions">
-            <div>
+            <div v-if="isFeatureImplemented">
               <font-awesome-icon icon="sync-alt" class="mr5 icon" /> RENEW
             </div>
             <div class="bill" @click="showModal()">
@@ -111,11 +111,15 @@ export default {
   computed: {
     ...mapGetters(["currentType", "businessProfiles", "buildingProfiles","realPropertyProfiles"])
   },
+  data(){
+    return{
+      isFeatureImplemented: false
+    }
+  },
   mounted(){
     this.$store.dispatch('getBusinessProfiles')
     this.$store.dispatch('getBuildingProfiles')
     this.$store.dispatch('getRealPropertyProfiles')
-    console.log(this.businessProfiles)
   },
   methods: {
     showModal(type, item) {

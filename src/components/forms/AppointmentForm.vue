@@ -107,7 +107,6 @@ export default {
       payload.batch = this.batch
       payload.old_batch = this.currentAppointment.batch
       payload.soa = this.currentSoaObj.id
-      console.log('payload', payload)
       await this.$store.commit("setLoading", true);
       await this.$store.dispatch('updateAppointment', payload)
       if(this.isAppointmentSuccess){

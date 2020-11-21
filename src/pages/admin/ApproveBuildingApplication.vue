@@ -837,6 +837,7 @@ export default {
         };
         await this.$store.dispatch("assessBuildingApplication", payload);
         if (this.isLastBuildingDept && status) {
+          this.$store.commit("setIsEvaluation", false)
           let changeApplicationStatusPayload = {
             id: this.buildingApplication.id,
             status: application_status,
@@ -849,6 +850,9 @@ export default {
         if (!status) {
           if (this.isLastBuildingDept) {
             this.$store.commit("setIsBuildingAssessment", false);
+            this.$store.commit("setIsEvaluation", true)
+          }else{
+            this.$store.commit("setIsEvaluation", true)
           }
           if (!this.isAssessmentHasError) {
             this.createRemarks();

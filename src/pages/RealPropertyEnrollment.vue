@@ -141,7 +141,6 @@ export default {
             payload,
             config
           );
-          console.log(response.data);
           if (response.data.Response.Result.referenceid) {
             let building_payload = { is_draft: false, is_enrolled: true };
             await this.$store.dispatch(

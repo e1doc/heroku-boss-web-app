@@ -41,7 +41,8 @@ const getDefaultPropertyState = () => {
     forBuildingAssessmentList: [],
     assessedBuildingList: [],
     isBuildingAssessment: false,
-    isAssessmentHasError: false
+    isAssessmentHasError: false,
+    isEvaluation: false
   };
 };
 
@@ -81,7 +82,8 @@ const getters = {
   forBuildingAssessmentList: (state) => state.forBuildingAssessmentList,
   assessedBuildingList: (state) => state.assessedBuildingList,
   isBuildingAssessment: (state) => state.isBuildingAssessment,
-  isAssessmentHasError: (state) => state.isAssessmentHasError
+  isAssessmentHasError: (state) => state.isAssessmentHasError,
+  isEvaluation: (state) => state.isEvaluation
 };
 
 const mutations = {
@@ -151,7 +153,8 @@ const mutations = {
   setForBuildingAssessmentList: (state, forBuildingAssessmentList) => (state.forBuildingAssessmentList = forBuildingAssessmentList),
   setAssessedBuildingList: (state, assessedBuildingList) => (state.assessedBuildingList = assessedBuildingList),
   setIsBuildingAssessment: (state, isBuildingAssessment) => (state.isBuildingAssessment = isBuildingAssessment),
-  setIsAssessmentHasError: (state, isAssessmentHasError) => (state.isAssessmentHasError = isAssessmentHasError)
+  setIsAssessmentHasError: (state, isAssessmentHasError) => (state.isAssessmentHasError = isAssessmentHasError),
+  setIsEvaluation: (state, isEvaluation) => (state.isEvaluation = isEvaluation)
 };
 
 const actions = {
@@ -191,7 +194,6 @@ const actions = {
   },
   async setBuildingCheckList({ commit, getters }, payload) {
     try {
-      console.log("post checklist ", payload);
       const response = await axios.post(
         `${baseUrl}/api/building-checklist/`,
         payload,
@@ -205,7 +207,6 @@ const actions = {
   },
   async updateBuildingCheckList({ commit, getters }, payload) {
     try {
-      console.log("put checklist ", payload.category);
       const response = await axios.put(
         `${baseUrl}/api/building-checklist/`,
         payload,
@@ -272,7 +273,6 @@ const actions = {
       );
       commit("setPageCount", response.data.total_pages);
       commit("setBuildingApplications", response.data.results);
-      console.log(response.data.results);
     } catch (err) {
       console.log(err.response);
     }
@@ -478,7 +478,6 @@ const actions = {
           params: payload,
         }
       );
-      console.log(response.data.buildingchecklist);
       response.data.buildingrequirements = response.data.buildingrequirements.filter(
         (item) => item.is_active == true
       );
@@ -498,7 +497,6 @@ const actions = {
           }
         });
       }
-      console.log(response.data);
     } catch (err) {
       console.log(err);
     }

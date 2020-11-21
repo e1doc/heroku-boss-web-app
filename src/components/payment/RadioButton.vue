@@ -10,7 +10,7 @@
           <div class="meta-desc">Pay your bills over the counter on  any Landbank branches.  Click the 'Download' button below to download your SOA which you will present in paying on any Landbank branches.</div>
       </div>
     <!-- OPTION 2 -->
-      <div class="meta-list-option" v-if="currentPaymentType === 'landbank'">
+      <div class="meta-list-option" v-if="currentPaymentType === 'landbank' && isFeatureImplemented">
           <div class="meta-radio flex-center">
               <input type="radio" class="radio-button" name="payment-options" id="option_2" @click="selectOptions('online')">
               <span class="custom-radio flex-center" :class="{selected: selectedOption === 'online'}"><span class="circle"></span></span>
@@ -38,6 +38,7 @@ export default {
     data(){
       return{
         selectedOption: 'counter',
+        isFeatureImplemented: false
       }
     }, 
     computed: {
@@ -50,7 +51,6 @@ export default {
       },
     },
     mounted(){
-      console.log(this.currentPaymentType)
     },
     methods:{
       selectOptions(option){

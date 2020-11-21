@@ -84,6 +84,10 @@ export default {
       default: false,
       required: false,
     },
+    isAmount: {
+      type: Boolean,
+      default: false,
+    }
   },
   mounted() {
     this.getWrapper();
@@ -93,7 +97,6 @@ export default {
       this.handleBlur();
     }
     if (this.type === "number" && this.inputData === "") {
-      this.$emit("input", (this.inputData = 0));
       this.handleFocus();
       this.handleBlur();
     }
@@ -109,6 +112,9 @@ export default {
           this.handleBlur();
         }else{
           this.$emit("input", (this.inputData = newValue));
+        }
+        if(this.isAmount){
+            this.$emit("input", (this.inputData = parseFloat(newValue).toFixed(2)));
         }
       },
     },

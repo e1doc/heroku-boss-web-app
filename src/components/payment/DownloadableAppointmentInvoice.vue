@@ -105,7 +105,6 @@ export default {
   },
   methods: {
     generateReport() {
-      console.log('generate report')
       const doc = new jsPDF("p", "mm", "a4");
       /** WITH CSS */
       var width = doc.internal.pageSize.getWidth();
@@ -116,10 +115,8 @@ export default {
         width: 794,
         height: 1124,
       }).then(function(canvas) {
-        console.log(canvas)
         const img = canvas.toDataURL("image/jpeg", 1);
         doc.addImage(img, "JPEG", 0, 0, width, height);
-        console.log(width, height);
         doc.save("appointment-invoice.pdf");
       });
     },

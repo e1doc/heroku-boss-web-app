@@ -55,7 +55,6 @@ export default {
         this.list.push(item);
       });
     }
-    console.log(this.list);
   },
   methods: {
     async inputChanged(value) {

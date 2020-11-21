@@ -127,11 +127,14 @@ export default {
       "buildingBasicInfoHasError",
       "buildingStepOneErrors",
       "draftProperty",
+      "isPrivacyAgree"
     ]),
   },
   mounted() {
     this.preFillForm();
-    this.$modal.show("agreementModal");
+    if(!this.isPrivacyAgree){
+      this.$modal.show("agreementModal");
+    }
   },
   data() {
     return {

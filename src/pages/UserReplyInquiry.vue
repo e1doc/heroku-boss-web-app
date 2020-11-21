@@ -3,9 +3,13 @@
     <div class="inquiry-header">
       <div class="inquiry-subj">{{ inquiry.subject }}</div>
       <div class="application-button" v-if="inquiry.is_remarks">
-          <button-block type="default" class="inquiry-application-btn" @click.native="openApplication()">
-            UPDATE APPLICATION
-          </button-block>
+        <button-block
+          type="default"
+          class="inquiry-application-btn"
+          @click.native="openApplication()"
+        >
+          UPDATE APPLICATION
+        </button-block>
       </div>
       <div class="inquiry-date">
         {{ inquiry.created_at | moment("MMMM DD YYYY") }}
@@ -24,16 +28,32 @@
           </div>
         </div>
         <div class="item-row sender" v-if="message.sender.is_staff">
-          <div class="item-name">{{message.sender.department.name}} Administrator</div>
+          <div class="item-name">
+            {{ message.sender.department.name }} Administrator
+          </div>
           <div class="item-content">
             {{ message.body }}
+            <div
+              v-if="message.buildingevaluationfiles.length > 0"
+            >
+              <div
+                class="item-attachment"
+                @click="linkProps(message)"
+              >
+                <font-awesome-icon icon="paperclip" class="admin-icon" /> See
+                Attachment
+              </div>
+            </div>
           </div>
           <div class="item-date">
             {{ message.created_at | moment("MMMM DD, YYYY HH:mm A") }}
           </div>
         </div>
       </div>
-      <div class="resolve-column flex-wrap" v-if="inquiry.is_responded && !inquiry.is_resolved">
+      <div
+        class="resolve-column flex-wrap"
+        v-if="inquiry.is_responded && !inquiry.is_resolved"
+      >
         <div class="resolve-button">
           <button type="send" class="btn-resolve" @click="resolveInquiry">
             <font-awesome-icon icon="check" class="admin-icon" />
@@ -61,7 +81,10 @@
           v-model="body"
         ></textarea>
         <div class="inquiry-button">
-          <button-block type="send" :disabled="body === '' ? true : false" @click.native="sendReply"
+          <button-block
+            type="send"
+            :disabled="body === '' ? true : false"
+            @click.native="sendReply"
             >SEND</button-block
           >
         </div>
@@ -92,7 +115,7 @@ export default {
   data() {
     return {
       body: "",
-      messages: []
+      messages: [],
     };
   },
   computed: {
@@ -102,163 +125,173 @@ export default {
     this.getInquiry();
   },
   methods: {
-    async openApplication(){
-      if(this.inquiry.building_id !== null){
-        this.$store.dispatch('getBuildingApplication', this.inquiry.building_id)
+    linkProps(item) {
+      let url = item.buildingevaluationfiles[0].file.replace("/bacoor/", "/");
+      window.open(url, "_blank");
+    },
+    async openApplication() {
+      if (this.inquiry.building_id !== null) {
+        this.$store.dispatch(
+          "getBuildingApplication",
+          this.inquiry.building_id
+        );
       }
-      if(this.inquiry.business_id !== null){
-        this.$store.dispatch('getBusinessApplication', this.inquiry.business_id)
+      if (this.inquiry.business_id !== null) {
+        this.$store.dispatch(
+          "getBusinessApplication",
+          this.inquiry.business_id
+        );
       }
     },
     async getInquiry() {
       let id = this.thread != "" ? this.thread : this.currentInquiry;
       await this.$store.dispatch("getInquiry", id);
-      this.messages = await this.inquiry.messages
+      this.messages = await this.inquiry.messages;
     },
     async sendReply() {
       await this.$store.dispatch("addMessage", {
         thread: this.currentInquiry,
         body: this.body,
       });
-      this.messages.push({body: this.body, sender: {is_staff: false}})
+      this.messages.push({ body: this.body, sender: { is_staff: false } });
     },
-    async resolveInquiry(){
-        await this.$store.dispatch('resolveInquiry', {id:this.currentInquiry, is_resolved: true})
-        await this.$swal({
-                title: "Success!",
-                text: "Inquiry successfully resolved.",
-                icon: "success",
-            }).then((value) => {
-                this.$router.push({ name: 'UserInquiries' });
-            });
-    }
+    async resolveInquiry() {
+      await this.$store.dispatch("resolveInquiry", {
+        id: this.currentInquiry,
+        is_resolved: true,
+      });
+      await this.$swal({
+        title: "Success!",
+        text: "Inquiry successfully resolved.",
+        icon: "success",
+      }).then((value) => {
+        this.$router.push({ name: "UserInquiries" });
+      });
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-div.inquiry-box{
-    width: 100%;
-    max-width: 1050px;
-    margin: 0 auto;
-    background-color: #fff;
-    box-shadow: 0px 10px 20px #0000000D;
-    border-radius: 20px;
-    margin-top: 30px;
-    margin-bottom: 50px;
-    div.inquiry-header{
-        background-color: #1492E6;
-        padding: 20px 40px;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-        position: relative;
-        div.inquiry-subj{
-            color: #FAFAFA;
-            font-size: 20px;
-            font-weight: bold;
-            line-height: 1.6;
-            letter-spacing: 1.06px;
-            margin-bottom: 5px;
-        }
-        div.inquiry-date{
-            color: #E6E6E6;
-            font-size: 16px;
-            line-height: 1.4;
-            letter-spacing: 0.8px;
-        }
-        div.application-button{
-            width: auto;
-            float: right;
-            position: absolute;
-            right: 45px;
-            top: 25px;
-        }
-
-    }
-
-    .item-row.sender {
-      .item-content {
-        background-color: #eaf6ff50;
-      }
-    }
-
-    .item-row.me {
-      .item-name {
-        text-align: right;
-      }
-      .item-content {
-        background-color: #eaf6ff90;
-      }
-    }
-
-    .item-name {
-      color: #1792e6;
-      font-size: 16px;
+div.inquiry-box {
+  width: 100%;
+  max-width: 1050px;
+  margin: 0 auto;
+  background-color: #fff;
+  box-shadow: 0px 10px 20px #0000000d;
+  border-radius: 20px;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  div.inquiry-header {
+    background-color: #1492e6;
+    padding: 20px 40px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    position: relative;
+    div.inquiry-subj {
+      color: #fafafa;
+      font-size: 20px;
       font-weight: bold;
-      line-height: 29px;
-      letter-spacing: 0.32px;
-      margin-bottom: 6px;
-    }
-
-    .item-content {
-      color: #000000c1;
-      font-size: 14px;
-      line-height: 28px;
-      padding: 35px 32px;
-      border-radius: 12px;
-    }
-
-    .item-date {
-      color: #b3d7fe;
-      font-size: 12px;
       line-height: 1.6;
-      letter-spacing: 0.24px;
-      text-align: right;
+      letter-spacing: 1.06px;
+      margin-bottom: 5px;
     }
-    div.inquiry-footer{
-        margin-top: 25px;
-        padding-top: 25px;
-        border-top: 1px solid #D0E9FA;
-        div.inquiry-footer-text{
-            color: #9FA6AB;
-            font-size: 16px;
-            font-weight: bold;
-            line-height: 29px;
-            margin-bottom: 10px;
-            .admin-icon{
-                font-size: 21px;
-                margin-right: 14px;
-            }
-        }
-        textarea {
-            color: #2b2b2b;
-            border-color: #D0E9FA;
-            font-size: 14px;
-            font-family: Raleway;
-            line-height: 28px;
-            width: calc( 100% - 60px );
-            max-height: 150px;
-            padding: 25px 30px;
-            margin-bottom: 15px;
-            border-radius: 12px;
-        }
-        textarea:focus {
-            outline: 0;
-            border-color: #027ab5;
-            background-color: #f8fcff;
-        }
-      .inquiry-button {
-        text-align: right;
-      }
+    div.inquiry-date {
+      color: #e6e6e6;
+      font-size: 16px;
+      line-height: 1.4;
+      letter-spacing: 0.8px;
+    }
+    div.application-button {
+      width: auto;
+      float: right;
+      position: absolute;
+      right: 45px;
+      top: 25px;
     }
   }
 
+  .item-row.sender {
+    .item-content {
+      background-color: #eaf6ff50;
+    }
+  }
 
+  .item-row.me {
+    .item-name {
+      text-align: right;
+    }
+    .item-content {
+      background-color: #eaf6ff90;
+    }
+  }
 
-div.resolve-column{
-    width: 100%;
-    justify-content: center;
-    padding: 15px 0;
+  .item-name {
+    color: #1792e6;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 29px;
+    letter-spacing: 0.32px;
+    margin-bottom: 6px;
+  }
+
+  .item-content {
+    color: #000000c1;
+    font-size: 14px;
+    line-height: 28px;
+    padding: 35px 32px;
+    border-radius: 12px;
+  }
+
+  .item-date {
+    color: #b3d7fe;
+    font-size: 12px;
+    line-height: 1.6;
+    letter-spacing: 0.24px;
+    text-align: right;
+  }
+  div.inquiry-footer {
+    margin-top: 25px;
+    padding-top: 25px;
+    border-top: 1px solid #d0e9fa;
+    div.inquiry-footer-text {
+      color: #9fa6ab;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 29px;
+      margin-bottom: 10px;
+      .admin-icon {
+        font-size: 21px;
+        margin-right: 14px;
+      }
+    }
+    textarea {
+      color: #2b2b2b;
+      border-color: #d0e9fa;
+      font-size: 14px;
+      font-family: Raleway;
+      line-height: 28px;
+      width: calc(100% - 60px);
+      max-height: 150px;
+      padding: 25px 30px;
+      margin-bottom: 15px;
+      border-radius: 12px;
+    }
+    textarea:focus {
+      outline: 0;
+      border-color: #027ab5;
+      background-color: #f8fcff;
+    }
+    .inquiry-button {
+      text-align: right;
+    }
+  }
+}
+
+div.resolve-column {
+  width: 100%;
+  justify-content: center;
+  padding: 15px 0;
 
   div.resolve-button {
     width: 100%;
@@ -293,103 +326,112 @@ div.resolve-column{
       font-weight: bold;
     }
   }
-}    
-div.inquiry-body{
-        padding: 35px 48px;
-        max-height: 600px;
-        overflow-y: scroll;
-        .item-row{
-            margin-bottom: 10px;
-        }
+}
+div.inquiry-body {
+  padding: 35px 48px;
+  max-height: 600px;
+  overflow-y: scroll;
+  .item-row {
+    margin-bottom: 10px;
+  }
 
-        .item-row.sender{
-            .item-content{
-                background-color: #EAF6FF50;
-            }
-        }
-
-        .item-row.me{
-           .item-name{
-               text-align: right;
-           }
-           .item-content{
-               background-color: #EAF6FF90;
-            }
-        }
-
-        .item-name{
-            color: #1792E6;
-            font-size: 16px;
-            font-weight: bold;
-            line-height: 29px;
-            letter-spacing: 0.32px;
-            margin-bottom: 6px;
-        }
-        
-        .item-content{
-            color: #000000C1;
-            font-size: 14px;
-            line-height: 28px;
-            padding: 35px 32px;
-            border-radius: 12px;
-        }
-
-        .item-date{
-            color: #B3D7FE;
-            font-size: 12px;
-            line-height: 1.6;
-            letter-spacing: 0.24px;
-            text-align: right;
-        }
-
-        div.inquiry-new{
-            div.inquiry-new-text{
-                color: #9FA6AB;
-                font-size: 16px;
-                font-weight: bold;
-                line-height: 29px;
-                margin-bottom: 10px;
-                .admin-icon{
-                    font-size: 21px;
-                    margin-right: 14px;
-                }
-            }
-            .input-subject{
-                color: #2b2b2b;
-                border: 1px solid #D0E9FA;
-                font-size: 14px;
-                font-family: Raleway;
-                line-height: 28px;
-                width: calc( 100% - 60px );
-                padding: 13px 30px;
-                margin-bottom: 30px;
-                border-radius: 12px;
-                outline: 0;
-                transition: 0.4s;
-            }
-            textarea {
-                color: #2b2b2b;
-                border-color: #D0E9FA;
-                font-size: 14px;
-                font-family: Raleway;
-                line-height: 28px;
-                width: calc( 100% - 60px );
-                max-height: 150px;
-                padding: 25px 30px;
-                margin-bottom: 15px;
-                border-radius: 12px;
-                transition: 0.4s;
-            }
-            textarea:focus,
-            input:focus{
-                outline: 0;
-                border-color: #027ab5!important;
-                background-color: #f8fcff!important;
-            }
-
-            .inquiry-button {
-                text-align: right;
-            }
-        }
+  .item-row.sender {
+    .item-content {
+      background-color: #eaf6ff50;
     }
+  }
+
+  .item-row.me {
+    .item-name {
+      text-align: right;
+    }
+    .item-content {
+      background-color: #eaf6ff90;
+    }
+  }
+
+  .item-name {
+    color: #1792e6;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 29px;
+    letter-spacing: 0.32px;
+    margin-bottom: 6px;
+  }
+
+  .item-content {
+    color: #000000c1;
+    font-size: 14px;
+    line-height: 28px;
+    padding: 35px 32px;
+    border-radius: 12px;
+  }
+
+  .item-date {
+    color: #b3d7fe;
+    font-size: 12px;
+    line-height: 1.6;
+    letter-spacing: 0.24px;
+    text-align: right;
+  }
+
+  div.inquiry-new {
+    div.inquiry-new-text {
+      color: #9fa6ab;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 29px;
+      margin-bottom: 10px;
+      .admin-icon {
+        font-size: 21px;
+        margin-right: 14px;
+      }
+    }
+    .input-subject {
+      color: #2b2b2b;
+      border: 1px solid #d0e9fa;
+      font-size: 14px;
+      font-family: Raleway;
+      line-height: 28px;
+      width: calc(100% - 60px);
+      padding: 13px 30px;
+      margin-bottom: 30px;
+      border-radius: 12px;
+      outline: 0;
+      transition: 0.4s;
+    }
+    textarea {
+      color: #2b2b2b;
+      border-color: #d0e9fa;
+      font-size: 14px;
+      font-family: Raleway;
+      line-height: 28px;
+      width: calc(100% - 60px);
+      max-height: 150px;
+      padding: 25px 30px;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      transition: 0.4s;
+    }
+    textarea:focus,
+    input:focus {
+      outline: 0;
+      border-color: #027ab5 !important;
+      background-color: #f8fcff !important;
+    }
+
+    .inquiry-button {
+      text-align: right;
+    }
+  }
+}
+.item-attachment {
+  font-size: 13px;
+  width: 100%;
+  float: left;
+  padding: 5px 0;
+  color: #1492e6;
+  text-decoration: underline;
+  cursor: pointer;
+}
 </style>

@@ -60,6 +60,7 @@ export default {
   beforeRouteLeave(to, from, next) {
     this.$store.commit("setCurrentApplicationStep", "1");
     this.$store.commit("resetBusinessState")
+    this.$store.commit('setIsPrivacyAgree', false)
     next();
   },
   mounted() {

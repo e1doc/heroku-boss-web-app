@@ -2,7 +2,7 @@
   <div class="meta-upload-box flex-wrap">
     <div class="meta-label">{{ label }}</div>
     <div class="meta-desc" v-html="description">{{ description }}</div>
-    <div class="meta-custom-upload" :class="{'has-error': hasError}">
+    <div class="meta-custom-upload" :class="{ 'has-error': hasError }">
       <form enctype="multipart/form-data" novalidate>
         <input
           type="file"
@@ -14,7 +14,11 @@
         <!-- <div class="meta-text big">DRAG/CLICK TO UPLOAD YOUR FILE HERE</div> -->
         <div class="meta-text small">
           {{
-            filename ? filename  : properties.filename ? properties.filename : "DRAG/CLICK TO UPLOAD YOUR FILE HERE" 
+            filename
+              ? filename
+              : properties.filename
+              ? properties.filename
+              : "DRAG/CLICK TO UPLOAD YOUR FILE HERE"
           }}
         </div>
       </form>
@@ -31,14 +35,14 @@ import { mapGetters } from "vuex";
 export default {
   name: "BaseFileUploader",
   props: {
-    uploadType:{
+    uploadType: {
       type: String,
-      default: 'image/*,application/pdf'
+      default: "image/*,application/pdf",
     },
     hasError: {
       type: Boolean,
       default: false,
-      required: false
+      required: false,
     },
     label: {
       type: String,
@@ -48,20 +52,24 @@ export default {
       type: String,
       default: "",
     },
-    properties:{
-        type: Object,
-        default() {
-            return {}
-        }
+    properties: {
+      type: Object,
+      default() {
+        return {};
+      },
     },
-    type:{
-        type: String,
-        default: ""
-    },
-    fileLabel:{
+    type: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
+    fileLabel: {
+      type: String,
+      default: "",
+    },
+    isEvaluation: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -69,8 +77,15 @@ export default {
       filename: "",
     };
   },
+  mounted() {
+  },
   computed: {
-    ...mapGetters(['applicationRequirements','isUploading','buildingApplicationRequirements']),
+    ...mapGetters([
+      "applicationRequirements",
+      "isUploading",
+      "buildingApplicationRequirements",
+      "currentEvaluationFile",
+    ]),
     isInitial() {
       return this.currentStatus === STATUS_INITIAL;
     },
@@ -86,11 +101,14 @@ export default {
   },
   methods: {
     save(formData) {
-      console.log(formData);
-      if(this.type === 'business'){
-        this.$store.dispatch("uploadRequirements", formData)
-      }else if(this.type === 'property'){
-        this.$store.dispatch("uploadBuildingRequirements", formData)
+      if (!this.isEvaluation) {
+        if (this.type === "business") {
+          this.$store.dispatch("uploadRequirements", formData);
+        } else if (this.type === "property") {
+          this.$store.dispatch("uploadBuildingRequirements", formData);
+        }
+      } else {
+        this.$store.commit("setCurrentEvaluationFile", formData);
       }
     },
     filesChange(fieldName, fileList) {
@@ -99,15 +117,31 @@ export default {
       if (!fileList.length) return;
 
       // append the files to FormData
-      Array.from(Array(fileList.length).keys()).map((x) => {
-        this.filename = fileList[x].name;
-        formData.append(fieldName, fileList[x])
-        let requirement_id = this.type === 'business' ? this.applicationRequirements.id : this.buildingApplicationRequirements.id
-        formData.append('requirement_id', requirement_id)
-        formData.append('requirements_label', this.fileLabel)
-        formData.append('filename',fileList[x].name)
-      });
+      if (!this.isEvaluation) {
+        Array.from(Array(fileList.length).keys()).map((x) => {
+          this.filename = fileList[x].name;
+          formData.append(fieldName, fileList[x]);
+          let requirement_id =
+            this.type === "business"
+              ? this.applicationRequirements.id
+              : this.buildingApplicationRequirements.id;
+          formData.append("requirement_id", requirement_id);
+          formData.append("requirements_label", this.fileLabel);
+          formData.append("filename", fileList[x].name);
+        });
+      } else {
+        Array.from(Array(fileList.length).keys()).map((x) => {
+          this.filename = fileList[x].name;
+          formData.append(fieldName, fileList[x]);
+          let requirement_id =
+            this.type === "business"
+              ? this.applicationRequirements.id
+              : this.buildingApplicationRequirements.id;
+          formData.append("filename", fileList[x].name);
+        });
+      }
       // save it
+
       this.save(formData);
     },
   },
@@ -178,38 +212,37 @@ div.meta-container .meta-custom-upload:hover div.meta-text {
 }
 
 .meta-custom-upload.has-error,
-.meta-custom-upload.has-error .meta-text{
-    border-color: #e23a36;
-    color: #e23a36!important;
+.meta-custom-upload.has-error .meta-text {
+  border-color: #e23a36;
+  color: #e23a36 !important;
 }
-
 
 /*
 MOBILE RESPONSIVENESS 
 --------------------------------------------------------------*/
 
-@media only screen and ( max-width : 768px ){
-    .meta-upload-box .meta-label{
-        font-size: 15px;
-    }
+@media only screen and (max-width: 768px) {
+  .meta-upload-box .meta-label {
+    font-size: 15px;
+  }
 
-    .meta-upload-box .meta-custom-upload .meta-text.small{
-        font-size: 13px;
-    }
+  .meta-upload-box .meta-custom-upload .meta-text.small {
+    font-size: 13px;
+  }
 }
 
-@media only screen and ( max-width: 480px ){
-    .meta-upload-box .meta-label{
-        font-size: 13px;
-    }
+@media only screen and (max-width: 480px) {
+  .meta-upload-box .meta-label {
+    font-size: 13px;
+  }
 
-    .meta-upload-box .meta-desc{
-        font-size: 12px;
-        margin-bottom: 15px;
-    }
-    .meta-upload-box .meta-custom-upload .meta-text.small{
-        font-size: 12px;
-        text-align: center;
-    }
+  .meta-upload-box .meta-desc {
+    font-size: 12px;
+    margin-bottom: 15px;
+  }
+  .meta-upload-box .meta-custom-upload .meta-text.small {
+    font-size: 12px;
+    text-align: center;
+  }
 }
 </style>

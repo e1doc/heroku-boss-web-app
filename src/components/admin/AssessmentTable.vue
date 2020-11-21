@@ -234,7 +234,6 @@ export default {
     this.$store.dispatch("getAssessedBusinessList");
     this.$store.dispatch("getForBuildingAssessmentList");
     this.$store.dispatch("getAssessedBuildingList");
-    console.log('for assessment', this.assessedBuildingList )
   },
   methods: {
     businessAssessmentClick(pageNum) {
@@ -250,7 +249,6 @@ export default {
       this.$store.dispatch("getAssessedBuildingList", pageNum);
     },
     openBusinessApplication(data) {
-      console.log('applicaiton', data)
       if (data.id) {
         let application = {
           id: data.id,

@@ -766,7 +766,6 @@ export default {
     async checkIfCanAssess() {
       let payload = { business_application: this.businessApplication.id };
       await this.$store.dispatch("checkBusinessDeptCanAssess", payload);
-      console.log("can assess", this.businessDeptCanAssess);
     },
   },
 };

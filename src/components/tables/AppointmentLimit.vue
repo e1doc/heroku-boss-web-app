@@ -109,7 +109,6 @@ export default {
     isAppointmentSuccess: {
       deep: true,
       handler(status) {
-        console.log('status ', status)
         if(status){
           this.getLimits()
         }
@@ -118,14 +117,13 @@ export default {
   },
   methods: {
     handleMonthChange: function(arg) {
-      console.log(arg);
+
     },
     async getLimits() {
       await this.$store.commit("setLoading", true);
       let calendarApi = this.$refs.fullCalendar.getApi();
       let currentDate = calendarApi.getDate();
       let month = currentDate.getMonth();
-      console.log('Month', month)
       await this.$store.dispatch("getAppointmentLimits", month);
 
       if (this.appointmentLimits.length > 0) {

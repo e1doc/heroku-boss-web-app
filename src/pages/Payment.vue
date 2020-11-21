@@ -79,7 +79,6 @@ export default {
     },
     changePaymentType(type) {
       this.selectedPayment = type;
-      console.log(type)
       this.$store.commit('setCurrentPaymentType', type)
     }
   },

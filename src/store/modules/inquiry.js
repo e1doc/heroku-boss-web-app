@@ -9,7 +9,8 @@ const getDefaultInquiryState = () => {
     inquiry: {},
     currentInquiry: "",
     continueBuildingThread: false,
-    continueBusinessThread: false
+    continueBusinessThread: false,
+    currentEvaluationFile: new FormData()
   };
 };
 const state = getDefaultInquiryState();
@@ -19,7 +20,8 @@ const getters = {
   inquiry: (state) => state.inquiry,
   currentInquiry: (state) => state.currentInquiry,
   continueBuildingThread: (state) => state.continueBuildingThread,
-  continueBusinessThread: (state) => state.continueBusinessThread
+  continueBusinessThread: (state) => state.continueBusinessThread,
+  currentEvaluationFile: (state) => state.currentEvaluationFile
 };
 const mutations = {
   setInquiries: (state, inquiries) => (state.inquiries = inquiries),
@@ -29,7 +31,8 @@ const mutations = {
   setCurrentInquiry: (state, currentInquiry) =>
     (state.currentInquiry = currentInquiry),
   setContinueBuildingThread: (state, continueBuildingThread) => (state.continueBuildingThread = continueBuildingThread),
-  setContinueBusinessThread: (state, continueBusinessThread) => (state.continueBusinessThread = continueBusinessThread)
+  setContinueBusinessThread: (state, continueBusinessThread) => (state.continueBusinessThread = continueBusinessThread),
+  setCurrentEvaluationFile: (state, currentEvaluationFile) => (state.currentEvaluationFile = currentEvaluationFile)
 };
 const actions = {
   async getAllUserInquiries({ commit, dispatch, getters }, page = 1) {
@@ -76,7 +79,6 @@ const actions = {
     { page, filter_by = "all_inquiries" }
   ) {
     try {
-      console.log(page)
       const response = await axios.get(
         `${baseUrl}/staff/remarks-threads/?page=${page}&filter_by=${filter_by}`,
         {headers: {Authorization: `jwt ${getters.authToken}`} }
@@ -90,7 +92,6 @@ const actions = {
   async getInquiry({ commit, getters  }, id) {
     try {
       const response = await axios.get(`${baseUrl}/api/inquiry/?id=${id}`, {headers: {Authorization: `jwt ${getters.authToken}`} });
-      console.log(response.data)
       commit("setInquiry", response.data);
       commit("setCurrentInquiry", response.data.id);
     } catch (err) {
@@ -105,9 +106,15 @@ const actions = {
       console.log(err);
     }
   },
-  async addMessage({ commit, getters  }, payload) {
+  async addMessage({ commit, getters, dispatch  }, payload) {
     try {
       const response = await axios.post(`${baseUrl}/api/messages/`, payload, {headers: {Authorization: `jwt ${getters.authToken}`} });
+      if( getters.isEvaluation ){
+          let newFormData = getters.currentEvaluationFile
+          newFormData.append("message", response.data.id)
+          await dispatch('uploadBuildingEvaluation', newFormData)
+          this.$store.commit("setIsEvaluation", false)
+      }
     } catch (err) {
       console.log(err);
     }
@@ -148,6 +155,13 @@ const actions = {
       }
     } catch (err) {
       console.log(err.response);
+    }
+  },
+  async uploadBuildingEvaluation({ commit, getters}, payload){
+    try {
+      const response = await axios.post(`${baseUrl}/api/building-evaluation-upload/`, payload, {headers: {Authorization: `jwt ${getters.authToken}`} })
+    } catch (err) {
+      err.response ? console.log(err.response) : console.log(err)
     }
   }
 };

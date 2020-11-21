@@ -187,7 +187,6 @@ const actions = {
         "Content-Type": "application/json",
       },
     };
-    console.log(oneDocToken, baseUrl);
     const response = await axios.post(
       `http://122.55.20.85:8012/lguapi/`,
       payload,
@@ -196,7 +195,6 @@ const actions = {
     if (response.data.Response.Result.businessid) {
       commit("setIsBusinessEnrollmentSuccess", true);
     } else {
-      console.log("no record found");
       this.$swal({
         title: "Failed!",
         text: "No record found.",
@@ -525,7 +523,6 @@ const actions = {
         (item) => item.is_active == true
       );
       commit("setRequirements", response.data);
-      console.log("requirements", response.data);
     } catch (err) {
       console.log(err.response);
       commit("setLoading", false);

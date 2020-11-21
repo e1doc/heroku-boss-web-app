@@ -79,7 +79,7 @@
         "
         name="telephone"
         refs="tel_number"
-        type="tel"
+        type="text"
         class="mt40"
       />
       <!-- <base-tel-number
@@ -284,6 +284,7 @@ export default {
       "applicationHasError",
       "stepOneErrors",
       "draftBusiness",
+      "isPrivacyAgree"
     ]),
   },
   watch: {
@@ -299,7 +300,9 @@ export default {
   mounted() {
     this.preFillForm();
     this.$store.commit("setLoading", false);
-    this.$modal.show("agreementModal");
+    if(!this.isPrivacyAgree){
+        this.$modal.show("agreementModal");
+    }
   },
   methods: {
     changeOrganization() {
@@ -323,7 +326,6 @@ export default {
         } else {
         this.unrequired.basic_information = this.unrequired.basic_information.filter(item => !required_fields.includes(item));
         }
-        console.log(this.basic_information.type_of_organization, this.unrequired.basic_information)
       }
     },
     async nextStep() {
@@ -399,7 +401,6 @@ export default {
       this.$store.commit("setDraftBusiness", false);
     },
     validateRequiredFields() {
-      console.log(this.basic_information.owner_telephone_number)
       let basic_info_errors = { key: "basic_information", value: {} };
       let application_errors = { key: "application", value: {} };
       let isBasicInfoClean = true;
@@ -444,10 +445,8 @@ export default {
           value: {},
         });
       }
-      console.log(isApplicationClean, basic_info_errors.value);
       if (isApplicationClean && isBasicInfoClean) {
         this.$store.commit("setCurrentApplicationStep", "2");
-        console.log("clean");
       } else {
         this.$swal({
           title: "Failed!",

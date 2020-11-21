@@ -58,7 +58,6 @@ export default {
   },
   methods: {
     handleEventClick(info) {
-      console.log(info);
     },
   },
 };

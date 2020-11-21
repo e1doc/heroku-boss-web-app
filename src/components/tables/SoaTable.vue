@@ -188,7 +188,6 @@ export default {
     },
   },
   mounted(){
-    console.log('soa list', this.soaList)
   },
   methods: {
     redirect(id, type, soa) {
@@ -196,6 +195,7 @@ export default {
       this.$store.commit("setCurrentSoa", { id, type });
       this.$store.commit("setCurrentSoaObj", soa);
       this.$store.commit("setAppointmentAction", "add");
+      this.$store.commit('setCurrentSelectedBusiness', soa.business_application)
       this.$router.push({ path: "payment" });
       }
     },
@@ -208,7 +208,6 @@ export default {
     async setUpList() {
       await this.$store.commit("setLoading", true);
       await this.$store.dispatch("getSoaList");
-      console.log(this.soaList);
       await this.$store.commit("setLoading", false);
     },
     async paginateClickCallBack(pageNum) {

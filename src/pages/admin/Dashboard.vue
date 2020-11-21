@@ -82,7 +82,6 @@ export default {
         ...mapGetters(['dashboard'])
     },
     mounted(){
-        console.log(this.dashboard)
         this.$store.dispatch('getDashboardData')
     }
 }

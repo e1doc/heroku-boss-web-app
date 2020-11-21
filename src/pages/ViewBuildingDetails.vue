@@ -359,7 +359,6 @@ export default {
               title: this.formatLabel(item.requirements_label),
               src: this.replaceUrl(item.file),
             };
-            console.log(img);
             this.imgs.push(img);
           });
         }

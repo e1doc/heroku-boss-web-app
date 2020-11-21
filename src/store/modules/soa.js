@@ -8,7 +8,8 @@ const getDefaultSoaState = () =>{
         currentSoa: {},
         currentSoaObj: {},
         generatedBill: {},
-        currentSelectedBill: {}
+        currentSelectedBill: {},
+        soaSearch: ""
     }
   }
 
@@ -20,7 +21,8 @@ const getters = {
     currentSoa: (state) => state.currentSoa,
     currentSoaObj: (state) => state.currentSoaObj,
     generatedBill: (state) => state.generatedBill,
-    currentSelectedBill: (state) => state.currentSelectedBill
+    currentSelectedBill: (state) => state.currentSelectedBill,
+    soaSearch: (state) => state.soaSearch
 }
 
 const mutations = {
@@ -31,8 +33,8 @@ const mutations = {
     resetSoaState: (state) =>
     Object.assign(state, getDefaultSoaState()),
     setGeneratedBill: (state, generatedBill) => (state.generatedBill = generatedBill),
-    setCurrentSelectedBill: (state, currentSelectedBill) => (state.currentSelectedBill = currentSelectedBill)
-
+    setCurrentSelectedBill: (state, currentSelectedBill) => (state.currentSelectedBill = currentSelectedBill),
+    setSoaSearch: (state) => state.soaSearch
 }
 
 const actions = {
@@ -41,7 +43,6 @@ const actions = {
     },
     async getSoaList({commit, getters}, page = 1){
         try {
-            console.log(getters.soaFilter)
             const response = await axios.get(`${baseUrl}/api/soa-list/?filter=${getters.soaFilter}&page=${page}`,{
                 headers: { Authorization: `jwt ${getters.authToken}` },
             });
@@ -51,21 +52,32 @@ const actions = {
             console.log(error);
         }
     },
-    async createSoa({commit, getters}, payload){
+    async createSoa({commit, getters, dispatch}, payload){
         try {
-            commit('setIsLoading', true)
+            commit('setLoading', true)
             const response = await axios.post(`${baseUrl}/api/user-soa/`, payload, {
                 headers: { Authorization: `jwt ${getters.authToken}` },
             })
             await router.push({ name: "StatementOfAccounts" });
-            commit('setIsLoading', false)
+            await commit("setCurrentSoa", { id: response.data.data.id, type: 'business' });
+            await commit("setCurrentSoaObj", response.data.data);
+            await commit("setAppointmentAction", "add");
+            await commit('setLoading', false)
+            await router.push({ path: "payment" });
         } catch (err) {
-            commit('setIsLoading', false)
+            commit('setLoading', false)
             dispatch("createPrompt", {
                 type: "error",
                 title: "Failed",
                 message: "Something went wrong!",
-              });
+            });
+            err.response ? console.log(err.response) : console.log(err)
+        }
+    },
+    async getAdminSoa({commit, getters}, page = 1){
+        try {
+            const response = await axios.get(`${baseUrl}/staff/soa-list?page=${page}&search=${getters.soaSearch}`)
+        } catch (err) {
             err.response ? console.log(err.response) : console.log(err)
         }
     }

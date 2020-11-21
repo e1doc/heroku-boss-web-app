@@ -66,7 +66,6 @@ export default {
   },
   mounted(){
     this.$store.commit('setPrintInvoice', false)
-    console.log(this.appointments)
   },
   methods:{
     appointmentClickCallBack(pageNum){

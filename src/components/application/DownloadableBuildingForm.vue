@@ -227,7 +227,6 @@ export default {
       deep: true,
       handler(status) {
         if (status) {
-        console.log(status)
           this.generateReport();
           this.$store.commit("setPrintProperty", false);
         }
@@ -247,10 +246,8 @@ export default {
         width: 794,
         height: 1124,
       }).then(function(canvas) {
-        console.log(canvas);
         const img = canvas.toDataURL("image/jpeg", 1);
         doc.addImage(img, "JPEG", 0, 0, width, height);
-        console.log(width, height);
         doc.save(`building-application-${buildingId}`);
       });
     },

@@ -26,6 +26,7 @@ export default {
   methods:{
       onClickCallback(status){
           if (status){
+              this.$store.commit('setIsPrivacyAgree', true)
               this.$modal.hide("agreementModal");
           }else{
               this.$router.push({name: 'Profile'})

@@ -67,7 +67,6 @@ const mutations = {
 const actions = {
   async getCodeToken({ commit, dispatch, getters }, payload) {
     try {
-      console.log(process.env.BASE_URL)
       commit("setLoading", true);
       const response = await axios.post(
         `${baseUrl}/auth/2fa-auth/get-code-token/`,
@@ -196,7 +195,6 @@ const actions = {
       const response = await axios.post(`${baseUrl}/api/get-level/`, {},{headers: {Authorization: `jwt ${getters.authToken}`} })
       commit("setLoading", false);
       if(response.data.is_admin){
-        console.log(response.data)
         commit("setAdminIsAuthenticated",true)
         router.push({name:'Dashboard'})
       }else{

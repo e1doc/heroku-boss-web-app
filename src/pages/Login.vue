@@ -84,7 +84,6 @@ export default {
       deep: true,
       handler(isSuccess) {
         if (isSuccess) {
-          console.log(isSuccess)
           this.$store.commit('setLoginSuccess',false)
           this.$router.push({ name: "Profile" });
         }

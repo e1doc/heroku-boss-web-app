@@ -110,8 +110,7 @@ export default {
           config
         );
         this.$store.commit('setLoading', false)
-        console.log(result.data)
-        if (result.data.Response.Result) {
+        if (result.data.Response.Result.message !== "No record found.") {
           await this.$modal.hide("soaModal");
           await this.$store.dispatch('storeGeneratedBill', result.data.Response.Result)
           await this.$router.push({name: 'Bills'})
