@@ -75,9 +75,11 @@ export default {
     return {
       currentStatus: null,
       filename: "",
+      connection: null,
     };
   },
   mounted() {
+    this.$store.commit('setLoading', false)
   },
   computed: {
     ...mapGetters([
@@ -86,7 +88,7 @@ export default {
       "buildingApplicationRequirements",
       "currentEvaluationFile",
       "isUploadSuccess",
-      "isFileUploadFailed"
+      "isFileUploadFailed",
     ]),
     isInitial() {
       return this.currentStatus === STATUS_INITIAL;
@@ -109,18 +111,54 @@ export default {
         } else if (this.type === "property") {
           await this.$store.dispatch("uploadBuildingRequirements", formData);
         }
-        if(this.isFileUploadFailed){
-          this.filename = "DRAG/CLICK TO UPLOAD YOUR FILE HERE"
+        if (this.isFileUploadFailed) {
+          this.filename = "DRAG/CLICK TO UPLOAD YOUR FILE HERE";
         }
       } else {
         this.$store.commit("setCurrentEvaluationFile", formData);
+      }
+    },
+    async initiateWebSocket() {
+      console.log("Starting connection to WebSocket Server");
+      this.connection = new WebSocket(
+        "ws://localhost:8000/ws/building-file-upload/"
+      );
+    },
+    async closeConnection() {
+      this.connection.close();
+    },
+    async sendData(data){
+      this.connection.send(data)
+    },
+    async save2(formData) {
+      try {
+        this.initiateWebSocket();
+        this.connection.onmessage = (event) => {
+          console.log(event);
+          console.log(formData)
+          this.sendData(formData)
+          this.closeConnection();
+        };
+
+        this.connection.onopen = function(event) {
+          console.log(event);
+          console.log("Successfully connected to the api websocket server...");
+        };
+
+        this.connection.onclose = (event) => {
+          console.log(event);
+          console.log("successfull closed.");
+        };
+
+      } catch (err) {
+        console.log(err)
       }
     },
     filesChange(fieldName, fileList) {
       // handle file changes
       var formData = new FormData();
       if (!fileList.length) return;
-
+      let payload = {}
       // append the files to FormData
       if (!this.isEvaluation) {
         Array.from(Array(fileList.length).keys()).map((x) => {
@@ -133,6 +171,11 @@ export default {
           formData.append("requirement_id", requirement_id);
           formData.append("requirements_label", this.fileLabel);
           formData.append("filename", fileList[x].name);
+          payload.requirement_id = requirement_id
+          payload.requirements_label = this.fileLabel
+          payload.filename = fileList[x].name
+          payload.file = fileList[x].file
+          console.log(fileList[x])
         });
       } else {
         Array.from(Array(fileList.length).keys()).map((x) => {
@@ -146,7 +189,7 @@ export default {
         });
       }
       // save it
-
+      console.log(this.filename)
       this.save(formData);
     },
   },

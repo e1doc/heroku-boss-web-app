@@ -8,10 +8,7 @@
         :placeholder="placeholder"
         :type="type === 'password' ? passType : type"
         :value="value"
-        @input="
-          $emit('input', (inputData = $event.target.value));
-          validateMin($event.target.value);
-        "
+        @input="$emit('input', (inputData = $event.target.value))"
         :disabled="disabled"
       />
       <label class="label" :id="refs">{{ label }}</label>
@@ -87,7 +84,7 @@ export default {
     isAmount: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   mounted() {
     this.getWrapper();
@@ -110,11 +107,8 @@ export default {
           this.preFillDone = true;
           this.handleFocus();
           this.handleBlur();
-        }else{
+        } else {
           this.$emit("input", (this.inputData = newValue));
-        }
-        if(this.isAmount){
-            this.$emit("input", (this.inputData = parseFloat(newValue).toFixed(2)));
         }
       },
     },
@@ -127,6 +121,9 @@ export default {
       this.wrapper.classList.remove("input-wrapper-blur");
       this.wrapper.classList.add("input-wrapper-focus");
       document.querySelector(`#${this.refs}`).classList.add("label-focus");
+      if (this.isAmount && this.inputData == "") {
+        this.inputData = "0.00";
+      }
     },
     handleBlur() {
       if (this.inputData === "") {
@@ -136,6 +133,9 @@ export default {
       } else {
         this.wrapper.classList.remove("input-wrapper-focus-danger");
         this.wrapper.classList.add("input-wrapper-blur");
+      }
+      if (this.isAmount && this.inputData !== "") {
+        this.inputData = this.formatCurrency(this.inputData);
       }
     },
     validateMin(val) {
@@ -147,6 +147,15 @@ export default {
         }
         this.$emit("input", (this.inputData = val));
       }
+    },
+    formatCurrency(str) {
+      var parts = str.toString().split(".");
+      console.log(parts);
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      if (parts.length < 2) {
+        parts.push("00");
+      }
+      return parts.join(".");
     },
   },
 };

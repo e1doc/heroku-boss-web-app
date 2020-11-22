@@ -170,7 +170,7 @@
             <div class="meta-value">
               ₱
               {{
-                parseFloat(buildingOtherDetails.total_estimated_cost).toFixed(2)
+                formatCurrency(buildingOtherDetails.total_estimated_cost)
               }}
             </div>
           </div>
@@ -338,6 +338,15 @@ export default {
     };
   },
   methods: {
+    formatCurrency(str) {
+      var parts = str.toString().split(".");
+      console.log(parts);
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      if (parts.length < 2) {
+        parts.push("00");
+      }
+      return parts.join(".");
+    },
     async openBuildingRemarks(id) {
       await this.$store.dispatch("getBuildingRemarks", id);
       await this.$router.push({ name: "UserReplyInquiry" });

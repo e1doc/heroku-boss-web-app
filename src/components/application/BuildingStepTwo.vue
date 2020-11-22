@@ -262,7 +262,7 @@
         name="estimatedcost"
         refs="estimated_cost"
         class="input-required"
-        type="number"
+        type="text"
         :isAmount="true"
       />
       <!-- </div> -->
@@ -926,6 +926,7 @@ export default {
       this.$store.commit("setCurrentApplicationStep", "1");
     },
     async nextStep() {
+
       this.$store.commit("setLoading", true);
       if (this.buildingDetails.id) {
         await this.$store.dispatch(
@@ -934,6 +935,10 @@ export default {
         );
       } else {
         await this.$store.dispatch("addBuildingDetails", this.building_details);
+      }
+      if(this.building_other_details.total_estimated_cost != '' && this.building_other_details.total_estimated_cost !== 0){
+        this.building_other_details.total_estimated_cost = this.building_other_details.total_estimated_cost.toString()
+        this.building_other_details.total_estimated_cost  = parseFloat(this.building_other_details.total_estimated_cost.replace(/,/g, ''))
       }
       if (this.buildingOtherDetails.id) {
         await this.$store.dispatch(

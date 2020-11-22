@@ -325,7 +325,8 @@
         "
         name="monthlyrental"
         refs="monthly_rental"
-        type="number"
+        type="text"
+        :isAmount="true"
         class="mt40"
       />
 
@@ -402,12 +403,13 @@
           :name="`capitalization${index}`"
           :refs="`business_capitalization${index}`"
           type="text"
+          :isAmount="true"
           class="mt40 mb30"
         />
 
-        <div class="meta-group-title">
+        <!-- <div class="meta-group-title">
           Gross Sales / Receipts (For Renewal)
-        </div>
+        </div> -->
         <!-- <div class="meta-input-group flex-row w2">
           <base-input
             label="Essential"
@@ -426,14 +428,14 @@
             class="mt40 input-w2"
           />
         </div> -->
-        <base-input
+        <!-- <base-input
           label="Essential/Non-essential"
           v-model="activity.essential"
           :name="`essential${index}`"
           :refs="`renew_essential${index}`"
           type="text"
           class="mt40"
-        />
+        /> -->
       </div>
     </div>
     <div class="meta-form-group button-left-right">
@@ -480,9 +482,9 @@ export default {
         telephone_number: "",
         email_address: "",
         property_index_number: "",
-        area: "",
-        total_employees: "",
-        residing_employees: "",
+        area: 0,
+        total_employees: 0,
+        residing_employees: 0,
         street: "",
         address_no: "",
         block_no: "",
@@ -501,7 +503,7 @@ export default {
         telephone_number: "",
         mobile_number: "",
         email_address: "",
-        gross_monthly_rental: "",
+        gross_monthly_rental: "0",
       },
       activities: [],
       activity: {
@@ -888,6 +890,11 @@ export default {
         );
       } else {
         await this.$store.dispatch("addBusinessDetails", this.business_details);
+      }
+      if(this.lessor_details.gross_monthly_rental !== 0 && this.lessor_details.gross_monthly_rental !== ""){
+        this.lessor_details.gross_monthly_rental = parseFloat(this.lessor_details.gross_monthly_rental.replace(/,/g, ''))
+      }else{
+        this.lessor_details.gross_monthly_rental = 0
       }
       if (this.lessorDetails.id) {
         await this.$store.dispatch("updateLessorDetails", this.lessor_details);

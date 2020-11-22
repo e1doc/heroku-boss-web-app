@@ -101,7 +101,7 @@
             </div>
           </div>
           <div class="meta-text w6 no-br">
-            <div class="meta-label">Business Name :</div>
+            <div class="meta-label">Corporate Name :</div>
             <div class="meta-value">{{ businessDetails.name }}</div>
           </div>
           <div class="meta-text w6">
