@@ -102,7 +102,7 @@ export default {
     },
   },
   methods: {
-    save(formData) {
+    async save(formData) {
       if (!this.isEvaluation) {
         if (this.type === "business") {
           await this.$store.dispatch("uploadRequirements", formData);
