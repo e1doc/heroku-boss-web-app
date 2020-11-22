@@ -110,7 +110,7 @@ export default {
       deep: true,
       handler(status) {
         if (status) {
-          this.generateReport3();
+          this.generateReport2();
           this.$store.commit("setPrintInvoice", false);
         }
       },
@@ -176,6 +176,7 @@ export default {
   },
   methods: {
     generateReport() {
+      console.log("generate report");
       const doc = new jsPDF("p", "mm", "a4");
       /** WITH CSS */
       var width = doc.internal.pageSize.getWidth();
@@ -186,8 +187,10 @@ export default {
         width: 794,
         height: 1124,
       }).then(function(canvas) {
+        console.log(canvas);
         const img = canvas.toDataURL("image/jpeg", 1);
         doc.addImage(img, "JPEG", 0, 0, width, height);
+        console.log(width, height);
         doc.save("invoice.pdf");
       });
     },
@@ -215,31 +218,6 @@ export default {
         }
         doc.save("invoice.pdf");
       });
-    },
-    generateReport3() {
-      var doc = new jsPDF("p", "pt", "letter"),
-        source = this.$refs.content,
-        margins = {
-          top: 40,
-          bottom: 60,
-          left: 40,
-          width: 522,
-        };
-      doc.fromHTML(
-        source, // HTML string or DOM elem ref.
-        margins.left, // x coord
-        margins.top,
-        {
-          // y coord
-          width: margins.width, // max width of content on PDF
-        },
-        function(dispose) {
-          // dispose: object with X, Y of the last line add to the PDF
-          //          this allow the insertion of new lines after html
-          doc.save("Test.pdf");
-        },
-        margins
-      );
     },
   },
 };

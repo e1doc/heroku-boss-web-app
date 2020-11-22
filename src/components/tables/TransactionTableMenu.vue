@@ -64,7 +64,7 @@ export default {
     ...mapGetters(["currentType", "currentTable", "filterBy","propertyFilterBy", "groups"]),
   },
   mounted(){
-
+    print()
   },
   props: {
     type: {
