@@ -42,7 +42,8 @@ const getDefaultPropertyState = () => {
     assessedBuildingList: [],
     isBuildingAssessment: false,
     isAssessmentHasError: false,
-    isEvaluation: false
+    isEvaluation: false,
+    isFileUploadFailed: false
   };
 };
 
@@ -83,7 +84,8 @@ const getters = {
   assessedBuildingList: (state) => state.assessedBuildingList,
   isBuildingAssessment: (state) => state.isBuildingAssessment,
   isAssessmentHasError: (state) => state.isAssessmentHasError,
-  isEvaluation: (state) => state.isEvaluation
+  isEvaluation: (state) => state.isEvaluation,
+  isFileUploadFailed: (state) => state.isFileUploadFailed
 };
 
 const mutations = {
@@ -154,7 +156,8 @@ const mutations = {
   setAssessedBuildingList: (state, assessedBuildingList) => (state.assessedBuildingList = assessedBuildingList),
   setIsBuildingAssessment: (state, isBuildingAssessment) => (state.isBuildingAssessment = isBuildingAssessment),
   setIsAssessmentHasError: (state, isAssessmentHasError) => (state.isAssessmentHasError = isAssessmentHasError),
-  setIsEvaluation: (state, isEvaluation) => (state.isEvaluation = isEvaluation)
+  setIsEvaluation: (state, isEvaluation) => (state.isEvaluation = isEvaluation),
+  setIsFileUploadFailed: (state, isFileUploadFailed) => (state.isFileUploadFailed = isFileUploadFailed)
 };
 
 const actions = {
@@ -457,10 +460,12 @@ const actions = {
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       await dispatch("getBuildingApplicationRequirements");
+      commit("setIsFileUploadFailed", false)
       commit("setLoading", false);
     } catch (err) {
       console.log(err.response);
       commit("setLoading", false);
+      commit("setIsFileUploadFailed", true)
       dispatch("createPrompt", {
         type: "error",
         title: "Failed!",
