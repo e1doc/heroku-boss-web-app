@@ -6,10 +6,10 @@
         {{ timerCount }}
       </div> -->
       <!-- <otp-div/> -->
-      <!-- <view-building-details/> -->
+      <view-business-details/>
       <!-- <downloadable-business-form/> -->
-      <!-- <approve-building-application/> -->
-      <appointment-invoice/>
+      <!-- <approve-business-application/> -->
+      <!-- <appointment-invoice/> -->
       <!-- <downloadable-appointment-invoice/> -->
       <!-- <agreement-modal /> -->
       <!-- <invoice-dialog/> -->
@@ -19,8 +19,8 @@
 
 <script>
 import BusinessStepTwo from "@/components/application/BusinessStepTwo";
-import ViewBuildingDetails from "@/pages/ViewBuildingDetails";
-import ApproveBuildingApplication from "@/pages/admin/ApproveBuildingApplication";
+import ViewBusinessDetails from "@/pages/ViewBusinessDetails";
+import ApproveBusinessApplication from "@/pages/admin/ApproveBusinessApplication";
 import BusinessUploadStep from "@/components/application/BusinessUploadStep";
 import BuildingUploadStep from "@/components/application/BuildingUploadStep";
 import DownloadableBusinessForm from "@/components/application/DownloadableBusinessForm";
@@ -38,8 +38,8 @@ export default {
         BuildingUploadStep,
         OtpDiv,
         DownloadableBusinessForm,
-        ApproveBuildingApplication,
-        ViewBuildingDetails,
+        ApproveBusinessApplication,
+        ViewBusinessDetails,
         DownloadableAppointmentInvoice,
         AppointmentInvoice,
         AgreementModal,

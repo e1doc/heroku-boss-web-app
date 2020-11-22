@@ -383,12 +383,14 @@
             <!-- <div class="form-th code no-br">Code :</div> -->
             <div class="form-th line no-br">Line of Business</div>
             <div class="form-th units no-br">No. of Units</div>
-            <div class="form-th sales">
+            <!-- <div class="form-th sales">
               Gross Sales/Receipts (for Renewal)
               <div class="form-sub-th">
                 <div class="form-th no-br no-bl no-bb">Essential / Non-essential :</div>
-                <!-- <div class="form-th no-br no-bl no-bb">Non-Essential :</div> -->
               </div>
+            </div> -->
+            <div class="form-th sales">
+                Capitalization
             </div>
           </div>
           <div class="meta-table-row" v-if="businessActivities.length > 0">
