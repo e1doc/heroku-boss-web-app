@@ -20,8 +20,12 @@
           <div class="meta-text no-bb">
             <div class="meta-label">Type of Organization :</div>
             <div class="meta-value">
-              {{ businessBasicInformation.type_of_organization.charAt(0)
-                  .toUpperCase() + businessBasicInformation.type_of_organization.slice(1)}}
+              {{
+                businessBasicInformation.type_of_organization
+                  .charAt(0)
+                  .toUpperCase() +
+                  businessBasicInformation.type_of_organization.slice(1)
+              }}
             </div>
           </div>
           <div class="meta-text no-bb">
@@ -389,7 +393,7 @@
               </div>
             </div> -->
             <div class="form-th sales">
-                Capitalization
+              Capitalization
             </div>
           </div>
           <div class="meta-table-row" v-if="businessActivities.length > 0">
@@ -414,9 +418,12 @@
               </div>
               <div class="form-td sales no-bt">
                 <span class="form-td-label show-in-mobile"
-                  >Essential/Non-essential :</span
+                  >Capitalization :</span
                 >
-                {{ activity.essential }}
+                ₱
+                {{
+                  formatCurrency(parseFloat(activity.capitalization).toFixed(2))
+                }}
               </div>
               <!-- <div class="form-td sales no-bt">
                 <span class="form-td-label show-in-mobile"
@@ -448,7 +455,10 @@
         <div class="flex-column">
           <div class="submission-text">
             Submission Date:
-            {{ businessApplication.last_submitted | moment("MMMM DD, YYYY hh:mm A") }}
+            {{
+              businessApplication.last_submitted
+                | moment("MMMM DD, YYYY hh:mm A")
+            }}
           </div>
           <div
             class="assessment-result-list mt30"
@@ -463,7 +473,15 @@
                 v-for="(item, index) of this.businessAssessmentResult"
                 :key="index"
               >
-                <div>{{ item.department }}: {{ item.status }}<span v-if="item.created_at"> -  {{item.created_at | moment('MMMM DD, YYYY hh:mm A')}}</span></div>
+                <div>
+                  {{ item.department }}: {{ item.status
+                  }}<span v-if="item.created_at">
+                    -
+                    {{
+                      item.created_at | moment("MMMM DD, YYYY hh:mm A")
+                    }}</span
+                  >
+                </div>
               </li>
             </ol>
           </div>
@@ -516,6 +534,14 @@ export default {
     };
   },
   methods: {
+    formatCurrency(str) {
+      var parts = str.toString().split(".");
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      if (parts.length < 2) {
+        parts.push("00");
+      }
+      return parts.join(".");
+    },
     showSingle() {
       if (this.requirements) {
         if (this.requirements.requirements.length > 0) {

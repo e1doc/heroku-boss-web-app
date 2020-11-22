@@ -38,12 +38,12 @@
                         APPOINTMENTS 
                     </router-link>
                 </li>
-                <li class="admin-item" :class="{ active: currentAdminTab  === 'adminsoa'}" @click="changeTab('adminsoa')" v-if="groups.includes('superadmin') || groups.includes('business_application_approver') || groups.includes('building_application_approver')">
+                <!-- <li class="admin-item" :class="{ active: currentAdminTab  === 'adminsoa'}" @click="changeTab('adminsoa')" v-if="groups.includes('superadmin') || groups.includes('business_application_approver') || groups.includes('building_application_approver')">
                     <router-link :to="{name:'AdminSoa'}">
                         <font-awesome-icon icon="calendar" class="admin-icon"/>
                         STATEMENT OF ACCOUNTS 
                     </router-link>
-                </li>
+                </li> -->
                 <li class="admin-item" :class="{ active: currentAdminTab  === 'inquiries'}" @click="changeTab('inquiries')" v-if="groups.includes('superadmin') || groups.includes('business_application_approver') || groups.includes('building_application_approver')">
                     <router-link :to="{name:'Inquiries'}">
                         <font-awesome-icon icon="comment-alt" class="admin-icon"/>
