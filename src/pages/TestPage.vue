@@ -9,10 +9,11 @@
       <!-- <view-building-details/> -->
       <!-- <downloadable-business-form/> -->
       <!-- <approve-building-application/> -->
-      <!-- <appointment-invoice/> -->
+      <appointment-invoice/>
       <!-- <downloadable-appointment-invoice/> -->
       <!-- <agreement-modal /> -->
-      <invoice-dialog/>
+      <!-- <invoice-dialog/> -->
+      <!-- <downloadable-invoice/> -->
   </section>
 </template>
 
@@ -24,6 +25,7 @@ import BusinessUploadStep from "@/components/application/BusinessUploadStep";
 import BuildingUploadStep from "@/components/application/BuildingUploadStep";
 import DownloadableBusinessForm from "@/components/application/DownloadableBusinessForm";
 import DownloadableAppointmentInvoice from "@/components/payment/DownloadableAppointmentInvoice";
+import DownloadableInvoice from "@/components/payment/DownloadableInvoice";
 import AppointmentInvoice from "@/pages/AppointmentInvoice";
 import OtpDiv from "@/components/auth/OtpDiv";
 import AgreementModal from "@/components/application/AgreementModal";
@@ -41,7 +43,8 @@ export default {
         DownloadableAppointmentInvoice,
         AppointmentInvoice,
         AgreementModal,
-        InvoiceDialog
+        InvoiceDialog,
+        DownloadableInvoice
   },
   data() {
       return {

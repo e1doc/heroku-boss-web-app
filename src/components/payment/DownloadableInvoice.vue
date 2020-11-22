@@ -1,9 +1,9 @@
 <template>
   <section class="sc-invoice">
-    <div class="dialog-holder" ref="content">
+    <!-- <div class="dialog-holder" ref="content">
       <div class="dialog-header">
         <div class="store-avatar">
-          <img src="@/assets/bacoor-cavite-logo.png" alt="" />
+          <img src="@/assets/bacoor-cavite-logo.png" alt="" id="logoImage"/>
         </div>
         <div class="text-bold size18">Bacoor One Stop Shop System</div>
         <div class="triangle">
@@ -46,8 +46,8 @@
             <div class="details-body mt25">
               <div class="details-item">
                 <div class="item-label">Business Owner:</div>
-                <div class="item-value">
-                  {{
+                <div class="item-value"> -->
+                  <!-- {{
                     currentSelectedBusiness.businessbasicinformation
                       .owner_first_name
                   }}
@@ -58,8 +58,8 @@
                   {{
                     currentSelectedBusiness.businessbasicinformation
                       .owner_last_name
-                  }}
-                </div>
+                  }} -->
+                <!-- </div>
               </div>
             </div>
             <div class="meta-fees">
@@ -92,6 +92,79 @@
           counter of LGU office in Bacoor, Cavite.
         </div>
       </div>
+    </div> -->
+    
+    <div class="new-invoice-container">
+       <img src="@/assets/bacoor-cavite-logo.png" alt="" id="logoImage"/>
+        <table id="invoice-details-table" >
+          <thead>
+            <tr>
+              <th>Reference No.</th>
+              <th>Year</th>
+              <th>Issued Date</th>
+              <th>Quarter</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>BPL-00096788</td>
+              <td>2020</td>
+              <td>November 18, 2020</td>
+              <td>4th Quarter</td>
+            </tr>
+          </tbody>
+        </table>
+        <table id="business-details-table" >
+          <thead>
+            <tr>
+              <th>Account Number</th>
+              <th>Business Name</th>
+              <th>Business Owner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>G-03283</td>
+              <td> Lorem Ipsum Business</td>
+              <td>
+                {{
+                    currentSelectedBusiness.businessbasicinformation
+                      .owner_first_name
+                  }}
+                  {{
+                    currentSelectedBusiness.businessbasicinformation
+                      .owner_middle_name
+                  }}
+                  {{
+                    currentSelectedBusiness.businessbasicinformation
+                      .owner_last_name
+                  }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table id="fees-table" >
+          <thead>
+            <tr>
+              <th>FEES</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr  v-for="(item, index) of fees" :key="index">
+              <td>{{ item.label }}</td>
+              <td>{{ item.value }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <table id="amount-table" >
+          <thead>
+            <tr>
+              <th align="center">TOTAL AMOUNT</th>
+              <th align="center">P 10,000.00</th>
+            </tr>
+          </thead>
+        </table>
     </div>
   </section>
 </template>
@@ -99,6 +172,7 @@
 <script>
 import { mapGetters } from "vuex";
 import jsPDF from "jspdf";
+import 'jspdf-autotable'
 import html2canvas from "html2canvas";
 export default {
   name: "DownloadableInvoice",
@@ -110,7 +184,7 @@ export default {
       deep: true,
       handler(status) {
         if (status) {
-          this.generateReport2();
+          this.generateInvoice();
           this.$store.commit("setPrintInvoice", false);
         }
       },
@@ -175,6 +249,18 @@ export default {
     };
   },
   methods: {
+    getDataUrl(img) {
+    // Create canvas
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    // Set width and height
+    canvas.width = img.width;
+    canvas.height = img.height;
+    // Draw the image
+    ctx.drawImage(img, 0, 0);
+    return canvas.toDataURL('image/jpeg');
+    },
+
     generateReport() {
       console.log("generate report");
       const doc = new jsPDF("p", "mm", "a4");
@@ -219,6 +305,56 @@ export default {
         doc.save("invoice.pdf");
       });
     },
+    generateInvoice() {
+      var doc = new jsPDF('p', 'pt');
+
+      // Select the image
+      const img = document.querySelector('#logoImage');
+      img.addEventListener('load', function (event) {
+        const dataUrl = this.getDataUrl(event.currentTarget);
+      });
+
+      var header = function(data) {
+        doc.setFontSize(12);
+        doc.setTextColor(40);
+        doc.setFontStyle('normal');
+        doc.addImage(img, 'png', 280, 25 , 50, 50);
+        doc.text("Bacoor One Stop Shop", 242, 95);
+        
+        doc.setFontSize(12);
+        doc.setFontStyle('bold');
+        doc.text("STATEMENT OF ACCOUNT", 225, 115);
+      };
+
+      var options = {
+        beforePageContent: header,
+        margin: {
+          top: 80
+        },
+      };
+      
+      var invoiceTable = doc.autoTableHtmlToJson(document.getElementById("invoice-details-table"));
+      doc.autoTable(invoiceTable.columns, invoiceTable.data, {margin: {top: 140}});
+      
+      var businessTable = doc.autoTableHtmlToJson(document.getElementById("business-details-table"));
+      doc.autoTable(businessTable.columns, businessTable.data, options);
+      
+      var feesTable = doc.autoTableHtmlToJson(document.getElementById("fees-table"));
+      doc.autoTable(feesTable.columns, feesTable.data, options);
+
+      var amountTable = doc.autoTableHtmlToJson(document.getElementById("amount-table"));
+      doc.autoTable(amountTable.columns, amountTable.data, {
+          margin:{
+            top:80
+          }, 
+          headStyles:{
+            fontSize: 12,
+            cellPadding: {top: 10, right: 15, bottom: 10, left: 15},
+          },
+      });
+
+      doc.save("Invoice.pdf");
+    }
   },
 };
 </script>

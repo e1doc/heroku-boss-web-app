@@ -6,25 +6,13 @@
           <font-awesome-icon icon="store" class="icon" />
         </div>
         <div class="text-bold size14 main-title">
-          <!-- {{ currentSelectedBusiness.businessdetails.trade_name }} -->
+          {{ currentSelectedBusiness.businessdetails.trade_name }}
         </div>
         <div class="triangle">
           <font-awesome-icon icon="caret-down" class="icon" />
         </div>
-        <div class="times" @click="closeModal()" v-if="!isPayment">
-          <font-awesome-icon icon="times" class="icon" />
-        </div>
       </div>
       <div class="dialog-body">
-        <!-- <div class="invoice-action" v-if="!isPayment">
-          <div class="title mb20">New Invoice</div>
-          <div class="mb5">
-            <button-full-outline class="btn-reg" :link="{ path: 'payment' }"
-              >PAY INVOICE</button-full-outline
-            >
-          </div>
-          <div class="text-later" @click="closeModal()">Pay Later</div>
-        </div> -->
         <div class="invoice-details">
           <div class="invoice-title">INVOICE DETAILS</div>
           <div class="details-body">
@@ -51,7 +39,7 @@
           <div class="owner-details">
             <div class="item-label">Business Owner</div>
             <div class="item-value">
-              <!-- {{
+              {{
                 currentSelectedBusiness.businessbasicinformation
                   .owner_first_name
               }}
@@ -61,7 +49,7 @@
               }}
               {{
                 currentSelectedBusiness.businessbasicinformation.owner_last_name
-              }} -->
+              }}
             </div>
           </div>
         </div>
@@ -83,9 +71,21 @@
           </div>          
         </div>
         <div class="invoice-amount">
+          <div class="invoice-summary">
+              <div class="summary-tr">
+                  <div class="summary-td">Quarter 1</div>
+                  <div class="summary-td amount">₱ 5,000.00</div>
+              </div>
+              <div class="summary-tr">
+                  <div class="summary-td">Quarter 2</div>
+                  <div class="summary-td amount">₱ 6,000.00</div>
+              </div>
+          </div>
           <div class="amount-details">
             <div class="item-label">Total Amount</div>
-            <div class="item-value">₱ 4,428.00</div>
+            <div class="item-value">₱ 
+              {{parseFloat(currentSoaObj.amount).toFixed(2)}}
+            </div>
           </div>
         </div>
       </div>
@@ -367,6 +367,48 @@ export default {
   font-size: 14px;
 }
 
+.invoice-amount{
+  background: transparent!important;
+  .invoice-summary{
+    padding: 0 30px;
+    .summary-tr {
+        display: flex;
+        flex-wrap: wrap;
+        .summary-td{
+            font-size: 14px;
+            width: 50%;
+            float: left;
+            margin-bottom: 15px;
+        }
+        .summary-td.amount{
+          text-align: right;
+        }
+    }
+  }
+  .amount-details{
+    padding: 15px 30px;
+    background: #f2f9ff;
+    display: flex;
+    flex-wrap: wrap;
+    .item-label{
+        width: 50%;
+        margin: auto 0;
+        color: rgba($color: #2699fb, $alpha: 0.73);
+        font-weight: bold;
+        font-size: 16px;
+        font-family: "Proxima Nova Rg";
+        text-transform: uppercase;
+    }
+    .item-value{
+        width: 50%;
+        color: #2699FB;
+        font-weight: bold;
+        font-size: 20px;
+        font-family: "Proxima Nova Rg";
+        text-align: right;
+    }
+  }
+}
 .invoice-title{
     margin-bottom: 25px;
     color: rgba($color: #2699fb, $alpha: 0.73);

@@ -41,21 +41,21 @@ const routes = [{
     path: "/",
     name: "Login",
     component: Login,
-    async beforeEnter(to, from, next) {
-      let isAdmin = await store.state.service.isAdminAuthenticated;
-      let isUser = await store.state.service.isAuthenticated;
-      if (isAdmin) {
-        next({
-          name: "Dashboard",
-        });
-      } else if (isUser) {
-        next({
-          name: "Profile",
-        });
-      } else {
-        next();
-      }
-    },
+    // async beforeEnter(to, from, next) {
+    //   let isAdmin = await store.state.service.isAdminAuthenticated;
+    //   let isUser = await store.state.service.isAuthenticated;
+    //   if (isAdmin) {
+    //     next({
+    //       name: "Dashboard",
+    //     });
+    //   } else if (isUser) {
+    //     next({
+    //       name: "Profile",
+    //     });
+    //   } else {
+    //     next();
+    //   }
+    // },
   },
   {
     path: "/reset-password/:uid/:token",
@@ -158,16 +158,16 @@ const routes = [{
         component: Bills,
       },
     ],
-    async beforeEnter(to, from, next) {
-      let hasPermission = await store.state.service.isAuthenticated;
-      if (hasPermission) {
-        next();
-      } else {
-        next({
-          name: "Login",
-        });
-      }
-    },
+    // async beforeEnter(to, from, next) {
+    //   let hasPermission = await store.state.service.isAuthenticated;
+    //   if (hasPermission) {
+    //     next();
+    //   } else {
+    //     next({
+    //       name: "Login",
+    //     });
+    //   }
+    // },
   },
   {
     path: "/admin-login",
@@ -241,16 +241,16 @@ const routes = [{
         component: Departments,
       },
     ],
-    async beforeEnter(to, from, next) {
-      let hasPermission = await store.state.service.isAdminAuthenticated;
-      if (hasPermission) {
-        next();
-      } else {
-        next({
-          name: "AdminLogin",
-        });
-      }
-    },
+    // async beforeEnter(to, from, next) {
+    //   let hasPermission = await store.state.service.isAdminAuthenticated;
+    //   if (hasPermission) {
+    //     next();
+    //   } else {
+    //     next({
+    //       name: "AdminLogin",
+    //     });
+    //   }
+    // },
   },
   // {
   // path: '/about',

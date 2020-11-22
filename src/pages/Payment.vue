@@ -6,7 +6,7 @@
     <div class="meta-parent-box">
       <div class="container flex-wrap">
         <div class="meta-left-box">
-          <invoice-dialog :isPayment="true"/>
+          <payment-invoice-summary />
         </div>
         <div class="meta-right-box">
           <div class="meta-form-box">
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import InvoiceDialog from "@/components/payment/InvoiceDialog";
+import PaymentInvoiceSummary from "@/components/payment/PaymentInvoiceSummary";
 import BankOption from "@/components/payment/BankOption";
 import RadioButton from "@/components/payment/RadioButton";
 import ButtonBlock from "@/components/ButtonBlock";
@@ -51,7 +51,7 @@ import DownloadableInvoice from "@/components/payment/DownloadableInvoice";
 import { mapGetters } from "vuex";
 export default {
   components: {
-    InvoiceDialog,
+    PaymentInvoiceSummary,
     BankOption,
     RadioButton,
     ButtonBlock,
