@@ -159,12 +159,8 @@
           <tr v-for="(item, index) of compiledFees" :key="index">
             <td>{{ item.fee_description }}</td>
             <td>
-              ₱
-              {{
-                formatCurrency(
-                  parseFloat(item.amount).toFixed(2)
-                )
-              }}
+              PHP
+              {{ formatCurrency(parseFloat(item.amount).toFixed(2)) }}
             </td>
           </tr>
         </tbody>
@@ -174,7 +170,7 @@
           <tr>
             <th align="center">TOTAL AMOUNT</th>
             <th align="center">
-              ₱
+              PHP
               {{
                 formatCurrency(
                   parseFloat(generatedBill.total_amount).toFixed(2)
@@ -331,27 +327,30 @@ export default {
     };
   },
   mounted() {
-    let feesHolder = [];
-    let groupHolder = [];
-    this.currentSoaObj.bills.forEach((item) => {
-      this.allFees2.push(item.billfees);
-    });
-    this.allFees2.forEach((item) => {
-      item.forEach((element) => {
-        feesHolder.push(element);
-      });
-    });
-    const grouped = this.groupBy(feesHolder, (item) => item.label);
-    grouped.forEach((item) => {
-      groupHolder.push(item);
-    });
-    groupHolder.forEach((item) => {
-      item.forEach((element) => {
-        this.compiledFees.push(element);
-      });
-    });
+    this.setupFees();
   },
   methods: {
+    setupFees() {
+      let feesHolder = [];
+      let groupHolder = [];
+      this.currentSoaObj.bills.forEach((item) => {
+        this.allFees2.push(item.billfees);
+      });
+      this.allFees2.forEach((item) => {
+        item.forEach((element) => {
+          feesHolder.push(element);
+        });
+      });
+      const grouped = this.groupBy(feesHolder, (item) => item.label);
+      grouped.forEach((item) => {
+        groupHolder.push(item);
+      });
+      groupHolder.forEach((item) => {
+        item.forEach((element) => {
+          this.compiledFees.push(element);
+        });
+      });
+    },
     groupBy(list, keyGetter) {
       const map = new Map();
       list.forEach((item) => {
@@ -367,7 +366,6 @@ export default {
     },
     formatCurrency(str) {
       var parts = str.toString().split(".");
-      console.log(parts);
       parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       if (parts.length < 2) {
         parts.push("00");

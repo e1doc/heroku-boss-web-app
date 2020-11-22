@@ -12,7 +12,7 @@
       </div>
       <div class="dialog-body-holder">
         <!-- <div class="mb30"><h3>Stament of Account</h3></div> -->
-        <!-- <div class="dialog-body">
+  <!-- <div class="dialog-body">
         <div class="invoice-details">
             <div class="invoice-title">APPOINTMENT DETAILS</div>
             <div class="details-body">
@@ -81,92 +81,124 @@
       </div>
     </div>
   </section> -->
-      <div class="new-invoice-container">
-        <img src="@/assets/bacoor-cavite-logo.png" alt="" id="logoImage"/>
-         <table id="appointment-details-table" >
-          <thead>
-            <tr>
-              <th>Appointment Date</th>
-              <th>Appointment Type</th>
-              <th>Appointment Batch</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>">{{currentAppointment.appointment_date | moment('MMMM DD, YYYY')}}</td>
-              <td>{{currentAppointment.title}}</td>
-              <td>{{currentAppointment.batch === 'batch_1' ? 'Batch 1 ( 8:00 AM - 1:00 PM )' : 'Batch 2 ( 1:00 PM - 5:00 PM )'}}</td>
-            </tr>
-          </tbody>
-        </table>
-        <table id="invoice-details-table" >
-          <thead>
-            <tr>
-              <th>Reference No.</th>
-              <th>Year</th>
-              <th>Issued Date</th>
-              <th>Quarter</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>>Invoice #{{currentSoaObj.reference_number}}</td>
-              <td>{{currentSoaObj.date_issued | moment('YYYY')}}</td>
-              <td>{{currentSoaObj.date_issued | moment('MMMM DD, YYYY')}}</td>
-              <td>4th Quarter</td>
-            </tr>
-          </tbody>
-        </table>
-        <table id="business-details-table" >
-          <thead>
-            <tr>
-              <th>Account Number</th>
-              <th>Business Name</th>
-              <th>Business Owner</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>G-03283</td>
-              <td>Lorem Ipsum Business</td>
-              <td>John Michael Doe</td>
-            </tr>
-          </tbody>
-        </table>
-        <table id="fees-table" >
-          <thead>
-            <tr>
-              <th>FEES</th>
-              <th>Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr  v-for="(item, index) of fees" :key="index">
-              <td>{{ item.label }}</td>
-              <td>{{ item.value }}</td>
-            </tr>
-          </tbody>
-        </table>
-        <table id="amount-table" >
-          <thead>
-            <tr>
-              <th align="center">TOTAL AMOUNT</th>
-              <th align="center">₱ {{parseFloat(currentSoaObj.amount).toFixed(2)}}</th>
-            </tr>
-          </thead>
-        </table>
-    </div>
+  <div class="new-invoice-container">
+    <img src="@/assets/bacoor-cavite-logo.png" alt="" id="logoImage" />
+    <table id="appointment-details-table">
+      <thead>
+        <tr>
+          <th>Appointment Date</th>
+          <th>Appointment Type</th>
+          <th>Appointment Batch</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            {{ currentAppointment.appointment_date | moment("MMMM DD, YYYY") }}
+          </td>
+          <td>{{ currentAppointment.title }}</td>
+          <td>
+            {{
+              currentAppointment.batch === "batch_1"
+                ? "Batch 1 ( 8:00 AM - 1:00 PM )"
+                : "Batch 2 ( 1:00 PM - 5:00 PM )"
+            }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table id="invoice-details-table">
+      <thead>
+        <tr>
+          <th>Reference No.</th>
+          <th>Year</th>
+          <th>Issued Date</th>
+          <th>Quarter</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ currentSoaObj.reference_number }}</td>
+          <td>{{ currentSoaObj.year }}</td>
+          <td>{{ currentSoaObj.created_at | moment("MMMM DD, YYYY") }}</td>
+          <td>{{ currentSoaObj.quarter }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table id="business-details-table">
+      <thead>
+        <tr>
+          <th>Account Number</th>
+          <th>Business Name</th>
+          <th>Business Owner</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ currentSelectedBusiness.account_number }}</td>
+          <td>
+            {{
+              currentSelectedBusiness.businessdetails.name != ""
+                ? currentSelectedBusiness.businessdetails.name
+                : currentSelectedBusiness.businessdetails.trade_name
+            }}
+          </td>
+          <td>
+            {{
+              currentSelectedBusiness.businessbasicinformation.owner_first_name
+            }}
+            {{
+              currentSelectedBusiness.businessbasicinformation.owner_middle_name
+            }}
+            {{
+              currentSelectedBusiness.businessbasicinformation.owner_last_name
+            }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table id="fees-table">
+      <thead>
+        <tr>
+          <th>FEES</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, index) of compiledFees" :key="index">
+          <td>{{ item.fee_description }}</td>
+          <td>PHP {{ formatCurrency(parseFloat(item.amount).toFixed(2)) }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table id="amount-table">
+      <thead>
+        <tr>
+          <th align="center">TOTAL AMOUNT</th>
+          <th align="center">
+         PHP {{ formatCurrency(parseFloat(currentSoaObj.amount).toFixed(2)) }}
+          </th>
+        </tr>
+      </thead>
+    </table>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import jsPDF from "jspdf";
-import 'jspdf-autotable'
+import "jspdf-autotable";
 import html2canvas from "html2canvas";
 export default {
   name: "DownloadableAppointmentInvoice",
   computed: {
-    ...mapGetters(["printInvoice", "currentSoaObj", "currentAppointment"]),
+    ...mapGetters([
+      "printInvoice",
+      "currentSoaObj",
+      "currentAppointment",
+      "currentSelectedBusiness",
+      "generatedBill",
+    ]),
   },
   data() {
     return {
@@ -224,6 +256,8 @@ export default {
           value: "₱ 220.00",
         },
       ],
+      allFees2: [],
+      compiledFees: [],
     };
   },
   watch: {
@@ -232,22 +266,68 @@ export default {
       handler(status) {
         if (status) {
           this.generateAppointmentInvoice();
-          this.$store.commit('setPrintInvoice', false)
+          this.$store.commit("setPrintInvoice", false);
         }
       },
     },
   },
+  mounted() {
+    console.log("current soa", this.currentSelectedBusiness);
+    this.setupFees();
+  },
   methods: {
+    formatCurrency(str) {
+      var parts = str.toString().split(".");
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      if (parts.length < 2) {
+        parts.push("00");
+      }
+      return parts.join(".");
+    },
+    groupBy(list, keyGetter) {
+      const map = new Map();
+      list.forEach((item) => {
+        const key = keyGetter(item);
+        const collection = map.get(key);
+        if (!collection) {
+          map.set(key, [item]);
+        } else {
+          collection.push(item);
+        }
+      });
+      return map;
+    },
+    setupFees() {
+      let feesHolder = [];
+      let groupHolder = [];
+      this.currentSoaObj.bills.forEach((item) => {
+        this.allFees2.push(item.billfees);
+      });
+      this.allFees2.forEach((item) => {
+        item.forEach((element) => {
+          feesHolder.push(element);
+        });
+      });
+      const grouped = this.groupBy(feesHolder, (item) => item.label);
+      grouped.forEach((item) => {
+        groupHolder.push(item);
+      });
+      groupHolder.forEach((item) => {
+        item.forEach((element) => {
+          this.compiledFees.push(element);
+        });
+      });
+    },
     getDataUrl(img) {
       // Create canvas
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
       // Set width and height
       canvas.width = img.width;
       canvas.height = img.height;
       // Draw the image
       ctx.drawImage(img, 0, 0);
-      return canvas.toDataURL('image/jpeg');
+      return canvas.toDataURL("image/jpeg");
     },
     generateReport() {
       const doc = new jsPDF("p", "mm", "a4");
@@ -267,59 +347,76 @@ export default {
     },
 
     generateAppointmentInvoice() {
-      var doc = new jsPDF('p', 'pt');
+      var doc = new jsPDF("p", "pt");
 
       // Select the image
-      const img = document.querySelector('#logoImage');
-      img.addEventListener('load', function (event) {
+      const img = document.querySelector("#logoImage");
+      img.addEventListener("load", function(event) {
         const dataUrl = this.getDataUrl(event.currentTarget);
       });
 
       var header = function(data) {
         doc.setFontSize(12);
         doc.setTextColor(40);
-        doc.setFontStyle('normal');
-        doc.addImage(img, 'png', 280, 25 , 50, 50);
+        doc.setFontStyle("normal");
+        doc.addImage(img, "png", 280, 25, 50, 50);
         doc.text("Bacoor One Stop Shop", 242, 95);
-        
+
         doc.setFontSize(12);
-        doc.setFontStyle('bold');
+        doc.setFontStyle("bold");
         doc.text("APPOINTMENT DETAILS", 225, 115);
       };
 
       var options = {
         beforePageContent: header,
         margin: {
-          top: 80
+          top: 80,
         },
       };
-      
-      var appointmentTable = doc.autoTableHtmlToJson(document.getElementById("appointment-details-table"));
-      doc.autoTable(appointmentTable.columns, appointmentTable.data, {margin: {top: 140}});
 
-      var invoiceTable = doc.autoTableHtmlToJson(document.getElementById("invoice-details-table"));
-      doc.autoTable(invoiceTable.columns, invoiceTable.data, {margin: {top: 140}});
-      
-      var businessTable = doc.autoTableHtmlToJson(document.getElementById("business-details-table"));
+      var appointmentTable = doc.autoTableHtmlToJson(
+        document.getElementById("appointment-details-table")
+      );
+      doc.autoTable(appointmentTable.columns, appointmentTable.data, {
+        margin: { top: 140 },
+      });
+
+      var invoiceTable = doc.autoTableHtmlToJson(
+        document.getElementById("invoice-details-table")
+      );
+      doc.autoTable(invoiceTable.columns, invoiceTable.data, {
+        margin: { top: 140 },
+      });
+
+      var businessTable = doc.autoTableHtmlToJson(
+        document.getElementById("business-details-table")
+      );
       doc.autoTable(businessTable.columns, businessTable.data, options);
-      
-      var feesTable = doc.autoTableHtmlToJson(document.getElementById("fees-table"));
+
+      var feesTable = doc.autoTableHtmlToJson(
+        document.getElementById("fees-table")
+      );
       doc.autoTable(feesTable.columns, feesTable.data, options);
 
-      var amountTable = doc.autoTableHtmlToJson(document.getElementById("amount-table"));
+
+      // const img2 = document.querySelector("#test");
+      // doc.addImage(img2, "png", 280, 25, 50, 50);
+      var amountTable = doc.autoTableHtmlToJson(
+        document.getElementById("amount-table")
+      );
       doc.autoTable(amountTable.columns, amountTable.data, {
-          margin:{
-            top:80
-          }, 
-          headStyles:{
-            fontSize: 12,
-            cellPadding: {top: 10, right: 15, bottom: 10, left: 15},
-          },
+        margin: {
+          top: 80,
+        },
+        headStyles: {
+          fontSize: 12,
+          cellPadding: { top: 10, right: 15, bottom: 10, left: 15 },
+        },
       });
 
       doc.save("Appointment-Details.pdf");
-    }
-  }
+    },
+  },
 };
 </script>
 

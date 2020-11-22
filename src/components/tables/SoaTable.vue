@@ -26,7 +26,7 @@
           </div>
           <div class="td w25">
             <span class="td-label show-in-mobile">BUSINESS NAME : </span>
-            {{ item.business_application.businessdetails.name }}
+            {{ item.business_application.businessdetails.name !== "" ?  item.business_application.businessdetails.name : item.business_application.businessdetails.trade_name }}
           </div>
           <div class="td w15">
             <span class="td-label show-in-mobile">AMOUNT : </span>

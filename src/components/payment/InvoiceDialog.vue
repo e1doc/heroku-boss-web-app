@@ -184,7 +184,6 @@ export default {
     },
     formatCurrency(str) {
       var parts = str.toString().split(".");
-      console.log(parts);
       parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       if (parts.length < 2) {
         parts.push("00");

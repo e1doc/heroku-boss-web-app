@@ -13,6 +13,7 @@
         v-model="paymode"
         name="selectOptions"
         class="mb15"
+        @change.native="onModeSelect"
       />
       <div class="meta-input-label mt10 mb10">
         Payment Quarter
@@ -22,6 +23,7 @@
         :options="quarters"
         v-model="quarter"
         name="selectOptions"
+        :disabled="isQuarterDisabled"
         class="mb15"
       />
       <button-block @click.native="generateSoa">Submit</button-block>
@@ -48,6 +50,7 @@ export default {
   },
   data() {
     return {
+      isQuarterDisabled: false,
       quarter: "",
       paymode: "",
       paymentOptions: [
@@ -86,6 +89,14 @@ export default {
   },
 
   methods: {
+    onModeSelect(){
+      if(this.paymode == 'A'){
+        this.quarter = "4"
+        this.isQuarterDisabled = true
+      }else{
+        this.isQuarterDisabled = false
+      }
+    },
     async generateSoa() {
       try {
         this.$store.commit('setLoading', true)

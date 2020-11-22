@@ -73,6 +73,7 @@ export default {
     },
     async printInvoice(appointment, soa){
       await this.$store.commit('setCurrentSoaObj', soa)
+      await this.$store.commit('setCurrentSelectedBusiness', soa.business_application)
       await this.$store.commit('setCurrentAppointment', appointment)
       await this.$store.commit('setPrintInvoice', true)
     },

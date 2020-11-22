@@ -6,7 +6,11 @@
           <font-awesome-icon icon="store" class="icon" />
         </div>
         <div class="text-bold size14 main-title">
-          {{ currentSelectedBusiness.businessdetails.trade_name }}
+          {{
+            currentSelectedBusiness.businessdetails.name != ""
+              ? currentSelectedBusiness.businessdetails.name
+              : currentSelectedBusiness.businessdetails.trade_name
+          }}
         </div>
         <div class="triangle">
           <font-awesome-icon icon="caret-down" class="icon" />
@@ -18,19 +22,21 @@
           <div class="details-body">
             <div class="details-item">
               <div class="item-label">Reference No:</div>
-              <div class="item-value">BPL-00096788</div>
+              <div class="item-value">{{ currentSoaObj.reference_number }}</div>
             </div>
             <div class="details-item">
               <div class="item-label">Year:</div>
-              <div class="item-value">2020</div>
+              <div class="item-value">{{ currentSoaObj.year }}</div>
             </div>
             <div class="details-item">
               <div class="item-label">Issued Date:</div>
-              <div class="item-value">November 18, 2020</div>
+              <div class="item-value">
+                {{ currentSoaObj.created_at | moment("MMMM DD, YYYY") }}
+              </div>
             </div>
             <div class="details-item">
               <div class="item-label">Quarter:</div>
-              <div class="item-value">4th Quarter</div>
+              <div class="item-value">{{ currentSoaObj.quarter }}</div>
             </div>
           </div>
         </div>
@@ -55,7 +61,7 @@
         </div>
         <div class="meta-fees">
           <div class="meta-fees-title">FEES</div>
-          <div
+          <!-- <div
             class="meta-fees-details"
             v-for="(item, index) of currentSelectedBill.fees"
             :key="index"
@@ -68,23 +74,26 @@
                 <div>₱ {{ parseFloat(item.amount).toFixed(2) }}</div>
               </div>
             </div>
-          </div>          
+          </div>           -->
         </div>
         <div class="invoice-amount">
           <div class="invoice-summary">
-              <div class="summary-tr">
-                  <div class="summary-td">Quarter 1</div>
-                  <div class="summary-td amount">₱ 5,000.00</div>
+            <div
+              class="summary-tr"
+              v-for="(item, index) of currentSoaObj.bills"
+              :key="index"
+            >
+              <div class="summary-td">Quarter {{ item.quarter }}</div>
+              <div class="summary-td amount">
+                ₱ {{ formatCurrency(parseFloat(item.amount).toFixed(2)) }}
               </div>
-              <div class="summary-tr">
-                  <div class="summary-td">Quarter 2</div>
-                  <div class="summary-td amount">₱ 6,000.00</div>
-              </div>
+            </div>
           </div>
           <div class="amount-details">
             <div class="item-label">Total Amount</div>
-            <div class="item-value">₱ 
-              {{parseFloat(currentSoaObj.amount).toFixed(2)}}
+            <div class="item-value">
+              ₱
+              {{ formatCurrency(parseFloat(currentSoaObj.amount).toFixed(2)) }}
             </div>
           </div>
         </div>
@@ -102,7 +111,11 @@ export default {
     ButtonFullOutline,
   },
   computed: {
-    ...mapGetters(["currentSelectedBusiness", "currentSelectedBill"]),
+    ...mapGetters([
+      "currentSelectedBusiness",
+      "currentSelectedBill",
+      "currentSoaObj",
+    ]),
   },
   data() {
     return {
@@ -162,8 +175,8 @@ export default {
       ],
     };
   },
-  mounted(){
-    console.log(this.currentSelectedBill)
+  mounted() {
+    console.log(this.currentSelectedBill);
   },
   methods: {
     // async payInvoice() {
@@ -173,17 +186,23 @@ export default {
     //   this.$store.commit("setAppointmentAction", "add");
     //   this.$router.push({ path: "payment" });
     // },
+    formatCurrency(str) {
+      var parts = str.toString().split(".");
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      if (parts.length < 2) {
+        parts.push("00");
+      }
+      return parts.join(".");
+    },
+    closeModal() {
+      this.$modal.hide("invoiceModal");
+    },
   },
   props: {
     isPayment: {
       type: Boolean,
       default: false,
       required: false,
-    },
-  },
-  methods: {
-    closeModal() {
-      this.$modal.hide("invoiceModal");
     },
   },
 };
@@ -206,7 +225,7 @@ export default {
     .meta-label-holder {
       text-align: left;
       flex: 1;
-      .meta-label{
+      .meta-label {
         font-size: 14px;
       }
     }
@@ -243,7 +262,7 @@ export default {
         font-size: 20px;
       }
     }
-    .main-title{
+    .main-title {
       font-size: 24px;
     }
     .triangle {
@@ -289,7 +308,7 @@ export default {
         cursor: pointer;
       }
     }
-    
+
     .invoice-title {
       margin-bottom: 25px;
       color: rgba($color: #2699fb, $alpha: 0.73);
@@ -367,53 +386,53 @@ export default {
   font-size: 14px;
 }
 
-.invoice-amount{
-  background: transparent!important;
-  .invoice-summary{
+.invoice-amount {
+  background: transparent !important;
+  .invoice-summary {
     padding: 0 30px;
     .summary-tr {
-        display: flex;
-        flex-wrap: wrap;
-        .summary-td{
-            font-size: 14px;
-            width: 50%;
-            float: left;
-            margin-bottom: 15px;
-        }
-        .summary-td.amount{
-          text-align: right;
-        }
+      display: flex;
+      flex-wrap: wrap;
+      .summary-td {
+        font-size: 14px;
+        width: 50%;
+        float: left;
+        margin-bottom: 15px;
+      }
+      .summary-td.amount {
+        text-align: right;
+      }
     }
   }
-  .amount-details{
+  .amount-details {
     padding: 15px 30px;
     background: #f2f9ff;
     display: flex;
     flex-wrap: wrap;
-    .item-label{
-        width: 50%;
-        margin: auto 0;
-        color: rgba($color: #2699fb, $alpha: 0.73);
-        font-weight: bold;
-        font-size: 16px;
-        font-family: "Proxima Nova Rg";
-        text-transform: uppercase;
+    .item-label {
+      width: 50%;
+      margin: auto 0;
+      color: rgba($color: #2699fb, $alpha: 0.73);
+      font-weight: bold;
+      font-size: 16px;
+      font-family: "Proxima Nova Rg";
+      text-transform: uppercase;
     }
-    .item-value{
-        width: 50%;
-        color: #2699FB;
-        font-weight: bold;
-        font-size: 20px;
-        font-family: "Proxima Nova Rg";
-        text-align: right;
+    .item-value {
+      width: 50%;
+      color: #2699fb;
+      font-weight: bold;
+      font-size: 20px;
+      font-family: "Proxima Nova Rg";
+      text-align: right;
     }
   }
 }
-.invoice-title{
-    margin-bottom: 25px;
-    color: rgba($color: #2699fb, $alpha: 0.73);
-    font-weight: bold;
-    font-size: 18px;
+.invoice-title {
+  margin-bottom: 25px;
+  color: rgba($color: #2699fb, $alpha: 0.73);
+  font-weight: bold;
+  font-size: 18px;
 }
 
 @media only screen and (max-width: 860px) {

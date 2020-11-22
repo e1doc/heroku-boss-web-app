@@ -4,6 +4,7 @@
     <div :id="name" class="select-wrapper">
       <select
         :data-value="mutableSelected"
+        :disabled="disabled"
         @focus="handleFocus"
         @blur="handleBlur"
         @change="$emit('change', $event.target.value)"
@@ -79,6 +80,10 @@ export default {
       type: String,
       default: ""
     },
+    disabled: {
+      type: Boolean,
+      default: false
+    }
   },
   mounted() {
     this.getWrapper();
