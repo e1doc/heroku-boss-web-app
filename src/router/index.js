@@ -29,6 +29,7 @@ import Assessments from "../pages/admin/Assessments";
 import ApproveBusinessApplication from "../pages/admin/ApproveBusinessApplication.vue";
 import ApproveBuildingApplication from "../pages/admin/ApproveBuildingApplication.vue";
 import AdminAppointment from "../pages/admin/AdminAppointment.vue";
+import AdminSoa from "../pages/admin/AdminSoa.vue";
 import Appointment from "../pages/Appointment"
 import AddAppointment from "../pages/AddAppointment"
 import AppointmentInvoice from "../pages/AppointmentInvoice"
@@ -279,6 +280,11 @@ const routes = [{
             next(from)
           }
         },
+      },
+      {
+        path: "admin-soa",
+        name: "AdminSoa",
+        component: AdminSoa,
       },
     ],
     // async beforeEnter(to, from, next) {
