@@ -61,7 +61,7 @@
                     </div>
                 </div>
             </div>
-            <div class="admin-table">
+            <div class="admin-table" v-if="isFeatureImplemented">
                 <div class="admin-section-title">RECENT TRANSACTIONS</div>
                 <transaction-table />
             </div>
@@ -77,6 +77,11 @@ export default {
     name: "Dashboard",
     components: {
         TransactionTable,
+    },
+    data(){
+        return{
+            isFeatureImplemented: false
+        }
     },
     computed:{
         ...mapGetters(['dashboard'])
