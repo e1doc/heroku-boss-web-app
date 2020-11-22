@@ -160,16 +160,16 @@ const routes = [{
         component: Bills,
       },
     ],
-    // async beforeEnter(to, from, next) {
-    //   let hasPermission = await store.state.service.isAuthenticated;
-    //   if (hasPermission) {
-    //     next();
-    //   } else {
-    //     next({
-    //       name: "Login",
-    //     });
-    //   }
-    // },
+    async beforeEnter(to, from, next) {
+      let hasPermission = await store.state.service.isAuthenticated;
+      if (hasPermission) {
+        next();
+      } else {
+        next({
+          name: "Login",
+        });
+      }
+    },
   },
   {
     path: "/admin-login",
@@ -287,16 +287,16 @@ const routes = [{
         component: AdminSoa,
       },
     ],
-    // async beforeEnter(to, from, next) {
-    //   let hasPermission = await store.state.service.isAdminAuthenticated;
-    //   if (hasPermission) {
-    //     next();
-    //   } else {
-    //     next({
-    //       name: "AdminLogin",
-    //     });
-    //   }
-    // },
+    async beforeEnter(to, from, next) {
+      let hasPermission = await store.state.service.isAdminAuthenticated;
+      if (hasPermission) {
+        next();
+      } else {
+        next({
+          name: "AdminLogin",
+        });
+      }
+    },
   },
   // {
   // path: '/about',
