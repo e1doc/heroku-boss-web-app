@@ -8,7 +8,7 @@
           type="file"
           name="file"
           :accept="uploadType"
-          @change="filesChange($event.target.name, $event.target.files)"
+          @input="filesChange($event.target.name, $event.target.files)"
           :disabled="isUploading"
         />
         <!-- <div class="meta-text big">DRAG/CLICK TO UPLOAD YOUR FILE HERE</div> -->
