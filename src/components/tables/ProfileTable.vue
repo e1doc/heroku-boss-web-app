@@ -19,7 +19,7 @@
           </div> -->
           <div class="td" v-if="currentType === 'business'">
             <span class="td-label show-in-mobile">BUSINESS NAME : </span>
-            {{business.businessdetails.name}}
+            {{business.businessdetails.name != "" ? business.businessdetails.name : business.businessdetails.trade_name}}
           </div>
           <div class="td" v-if="currentType === 'building'">
             <span class="td-label show-in-mobile">OWNER NAME : </span>

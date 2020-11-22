@@ -651,6 +651,7 @@ export default {
           let payload = {
             id: this.businessApplication.id,
             status: application_status,
+            account_number: ""
           };
           await this.$store.dispatch("approveBusinessApplication", payload);
         }
@@ -675,6 +676,7 @@ export default {
         let payload = {
           business_application: this.businessApplication.id,
           is_approve: status ? true : false,
+          account_number: ""
         };
         await this.$store.dispatch("assessBusinessApplication", payload);
         if (this.isLastBusinessDept) {
@@ -684,7 +686,7 @@ export default {
             this.createRemarks();
           }
         }else{
-                  this.$router.push({ name: "Assessments" });
+            this.$router.push({ name: "Assessments" });
         }
       }
     },

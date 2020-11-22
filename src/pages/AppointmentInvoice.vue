@@ -8,7 +8,9 @@
         <div class="store-avatar">
           <font-awesome-icon icon="store" class="icon" />
         </div>
-        <div class="text-bold size14">{{currentSoaObj.business_application.businessdetails.name}}</div>
+        <div class="text-bold size14">
+           {{currentSoaObj.business_application.businessdetails.name}}
+        </div>
         <div class="triangle">
           <font-awesome-icon icon="caret-up" class="icon" />
         </div>
@@ -20,7 +22,9 @@
         <div class="store-avatar">
           <font-awesome-icon icon="city" class="icon" />
         </div>
-        <div class="text-bold size14">{{currentSoaObj.building_application.buildingdetails.tax_dec_no}}</div>
+        <div class="text-bold size14">
+           {{currentSoaObj.building_application.buildingdetails.tax_dec_no}}
+        </div>
         <div class="triangle">
           <font-awesome-icon icon="caret-up" class="icon" />
         </div>
@@ -34,15 +38,21 @@
             <div class="details-body">
                 <div class="details-item">
                     <div class="item-label">Appointment Date:</div>
-                    <div class="item-value">{{currentAppointment.appointment_date | moment('MMMM DD, YYYY')}}</div>
+                    <div class="item-value">
+                      {{currentAppointment.appointment_date | moment('MMMM DD, YYYY')}}
+                    </div>
                 </div>
                 <div class="details-item">
                     <div class="item-label">Appointment Type:</div>
-                    <div class="item-value">{{currentAppointment.title}}</div>
+                    <div class="item-value">
+                      {{currentAppointment.title}}
+                    </div> 
                 </div>
                 <div class="details-item">
                     <div class="item-label">Appointment Batch:</div>
-                    <div class="item-value">{{currentAppointment.batch === 'batch_1' ? 'Batch 1 ( 8:00 AM - 1:00 PM )' : 'Batch 2 ( 1:00 PM - 5:00 PM )'}}</div>
+                    <div class="item-value">
+                      {{currentAppointment.batch === 'batch_1' ? 'Batch 1 ( 8:00 AM - 1:00 PM )' : 'Batch 2 ( 1:00 PM - 5:00 PM )'}}
+                    </div>
                 </div>
                 <div class="dialog-btn mt30">
                     <button-full-outline class="btn-reg" @click.native="actionPrintInvoice()">DOWNLOAD</button-full-outline>
@@ -54,15 +64,21 @@
           <div class="details-body">
             <div class="details-item">
               <div class="item-label">Reference No:</div>
-              <div class="item-value">Invoice #{{currentSoaObj.reference_number}}</div>
+              <div class="item-value">Invoice #
+                {{currentSoaObj.reference_number}}
+              </div>
             </div>
             <div class="details-item">
               <div class="item-label">Year:</div>
-              <div class="item-value">{{currentSoaObj.date_issued | moment('YYYY')}}</div>
+              <div class="item-value">
+                {{currentSoaObj.date_issued | moment('YYYY')}}
+              </div>
             </div>
             <div class="details-item">
               <div class="item-label">Issued Date:</div>
-              <div class="item-value">{{currentSoaObj.date_issued | moment('MMMM DD, YYYY')}}</div>
+              <div class="item-value">
+                {{currentSoaObj.date_issued | moment('MMMM DD, YYYY')}}
+              </div>
             </div>
             <div class="details-item">
               <div class="item-label">Quarter:</div>
@@ -70,22 +86,41 @@
             </div>
           </div>
         </div>
-        <div class="invoice-owner">
-          <div class="owner-details" v-if="currentSoaObj.business_application !== null">
+        <div class="invoice-owner" v-if="currentSoaObj.business_application !== null">
+          <div class="invoice-title">OTHER DETAILS </div>
+          <div class="owner-details">
             <div class="item-label">Business Owner</div>
-            <div class="item-value">{{currentSoaObj.business_application.businessbasicinformation.owner_first_name}} {{currentSoaObj.business_application.businessbasicinformation.owner_middle_name}} {{currentSoaObj.business_application.businessbasicinformation.owner_last_name}}</div>
+            <div class="item-value">
+              {{currentSoaObj.business_application.businessbasicinformation.owner_first_name}} {{currentSoaObj.business_application.businessbasicinformation.owner_middle_name}} {{currentSoaObj.business_application.businessbasicinformation.owner_last_name}}
+            </div>
           </div>
         </div>
-        <div class="invoice-owner">
-          <div class="owner-details" v-if="currentSoaObj.building_application !== null">
+        <div class="invoice-owner" v-if="currentSoaObj.building_application !== null">
+          <div class="invoice-title">OTHER DETAILS </div>
+          <div class="owner-details" >
             <div class="item-label">Property Owner</div>
-            <div class="item-value">{{currentSoaObj.building_application.buildingbasicinformation.owner_first_name}} {{currentSoaObj.building_application.buildingbasicinformation.owner_middle_name}} {{currentSoaObj.building_application.buildingbasicinformation.owner_last_name}}</div>
+            <div class="item-value">
+              {{currentSoaObj.building_application.buildingbasicinformation.owner_first_name}} {{currentSoaObj.building_application.buildingbasicinformation.owner_middle_name}} {{currentSoaObj.building_application.buildingbasicinformation.owner_last_name}}
+            </div>
           </div>
         </div>
         <div class="invoice-amount">
+          <div class="invoice-title">FEES</div>
+          <div class="invoice-summary">
+              <div class="summary-tr">
+                  <div class="summary-td">Quarter 1</div>
+                  <div class="summary-td amount">₱ 5,000.00</div>
+              </div>
+              <div class="summary-tr">
+                  <div class="summary-td">Quarter 2</div>
+                  <div class="summary-td amount">₱ 6,000.00</div>
+              </div>
+          </div>
           <div class="amount-details">
             <div class="item-label">Total Amount</div>
-            <div class="item-value">₱ {{parseFloat(currentSoaObj.amount).toFixed(2)}}</div>
+            <div class="item-value">₱ 
+              {{parseFloat(currentSoaObj.amount).toFixed(2)}}
+            </div>
           </div>
         </div>
       </div>
@@ -139,7 +174,7 @@ export default {
   border-radius: 8px;
   width: 100%;
   max-width: 700px;
-   min-height: calc(100vh - 81px);
+  min-height: calc(100vh - 81px);
   margin: 30px auto;
   .dialog-header {
     background: #2699fb;
@@ -180,7 +215,7 @@ export default {
   .dialog-body {
     background: #ffffff;
     border-radius: 0px 0px 15px 15px;
-    padding: 40px 30px 30px;
+    padding: 10px 30px 30px;
     .invoice-action {
       display: flex;
       flex-direction: column;
@@ -201,14 +236,8 @@ export default {
     .invoice-details {
       padding: 30px 0px;
       border-bottom: 2px #eaf6ff solid;
-      .invoice-title {
-        margin-bottom: 25px;
-        color: rgba($color: #2699fb, $alpha: 0.73);
-        font-weight: bold;
-        font-size: 20px;
-      }
       .details-body {
-        padding-left: 20px;
+        padding: 0 20px;
         display: flex;
         flex-wrap: wrap;
         .details-item {
@@ -220,8 +249,7 @@ export default {
             font-size: 16px;
           }
           .item-value {
-            font-size: 16px;
-            font-family: "Proxima Nova Rg";
+            font-size: 15px;
           }
         }
       }
@@ -230,38 +258,15 @@ export default {
       border-bottom: 2px #eaf6ff solid;
       padding: 30px 0px;
       .owner-details {
-        .item-label {
-          font-weight: bold;
-          margin-bottom: 8px;
-          font-size: 16px;
-        }
-        .item-value {
-          font-size: 16px;
-        }
-      }
-    }
-    .invoice-amount {
-      padding: 20px 0px;
-      .amount-details {
-        display: flex;
-        flex-wrap: wrap;
-        .item-label{
-            width: 50%;
-            margin: auto 0;
-            color: rgba($color: #2699fb, $alpha: 0.73);
+          padding: 0 30px;
+          .item-label {
             font-weight: bold;
+            margin-bottom: 8px;
             font-size: 16px;
-            font-family: "Proxima Nova Rg";
-            text-transform: uppercase;
-        }
-        .item-value{
-            width: 50%;
-            color: #2699FB;
-            font-weight: bold;
-            font-size: 20px;
-            font-family: "Proxima Nova Rg";
-            text-align: right;
-        }
+          }
+          .item-value {
+            font-size: 16px;
+          }
       }
     }
   }
@@ -283,6 +288,54 @@ export default {
   font-size: 14px;
 }
 
+.invoice-amount{
+  padding: 30px 0px;
+  .invoice-summary{
+    padding: 0 30px;
+    .summary-tr {
+        display: flex;
+        flex-wrap: wrap;
+        .summary-td{
+            font-size: 14px;
+            width: 50%;
+            float: left;
+            margin-bottom: 15px;
+        }
+        .summary-td.amount{
+          text-align: right;
+        }
+    }
+  }
+  .amount-details{
+    padding: 15px 30px;
+    background: #f2f9ff;
+    display: flex;
+    flex-wrap: wrap;
+    .item-label{
+        width: 50%;
+        margin: auto 0;
+        color: rgba($color: #2699fb, $alpha: 0.73);
+        font-weight: bold;
+        font-size: 16px;
+        font-family: "Proxima Nova Rg";
+        text-transform: uppercase;
+    }
+    .item-value{
+        width: 50%;
+        color: #2699FB;
+        font-weight: bold;
+        font-size: 20px;
+        font-family: "Proxima Nova Rg";
+        text-align: right;
+    }
+  }
+}
+.invoice-title{
+    margin-bottom: 25px;
+    color: rgba($color: #2699fb, $alpha: 0.73);
+    font-weight: bold;
+    font-size: 18px;
+}
 @media only screen and ( max-width: 860px ){
     .dialog-holder{
         max-width: 90%;

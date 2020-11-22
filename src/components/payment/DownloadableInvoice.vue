@@ -1,9 +1,9 @@
 <template>
   <section class="sc-invoice">
-    <div class="dialog-holder" ref="content">
+    <!-- <div class="dialog-holder" ref="content">
       <div class="dialog-header">
         <div class="store-avatar">
-          <img src="@/assets/bacoor-cavite-logo.png" alt="" />
+          <img src="@/assets/bacoor-cavite-logo.png" alt="" id="logoImage"/>
         </div>
         <div class="text-bold size18">Bacoor One Stop Shop System</div>
         <div class="triangle">
@@ -46,8 +46,8 @@
             <div class="details-body mt25">
               <div class="details-item">
                 <div class="item-label">Business Owner:</div>
-                <div class="item-value">
-                  {{
+                <div class="item-value"> -->
+    <!-- {{
                     currentSelectedBusiness.businessbasicinformation
                       .owner_first_name
                   }}
@@ -58,8 +58,8 @@
                   {{
                     currentSelectedBusiness.businessbasicinformation
                       .owner_last_name
-                  }}
-                </div>
+                  }} -->
+    <!-- </div>
               </div>
             </div>
             <div class="meta-fees">
@@ -92,6 +92,98 @@
           counter of LGU office in Bacoor, Cavite.
         </div>
       </div>
+    </div> -->
+
+    <div class="new-invoice-container">
+      <img src="@/assets/bacoor-cavite-logo.png" alt="" id="logoImage" />
+      <table id="invoice-details-table">
+        <thead>
+          <tr>
+            <th>Reference No.</th>
+            <th>Year</th>
+            <th>Issued Date</th>
+            <th>Quarter</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ currentSoaObj.reference_number }}</td>
+            <td>{{ currentSoaObj.year }}</td>
+            <td>{{ currentSoaObj.created_at | moment("MMMM DD, YYYY") }}</td>
+            <td>{{ currentSoaObj.quarter }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <table id="business-details-table">
+        <thead>
+          <tr>
+            <th>Account Number</th>
+            <th>Business Name</th>
+            <th>Business Owner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ generatedBill.accountno }}</td>
+            <td>
+              {{
+                currentSelectedBusiness.businessdetails.name != ""
+                  ? currentSelectedBusiness.businessdetails.name
+                  : currentSelectedBusiness.businessdetails.trade_name
+              }}
+            </td>
+            <td>
+              {{
+                currentSelectedBusiness.businessbasicinformation
+                  .owner_first_name
+              }}
+              {{
+                currentSelectedBusiness.businessbasicinformation
+                  .owner_middle_name
+              }}
+              {{
+                currentSelectedBusiness.businessbasicinformation.owner_last_name
+              }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table id="fees-table">
+        <thead>
+          <tr>
+            <th>FEES</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) of compiledFees" :key="index">
+            <td>{{ item.fee_description }}</td>
+            <td>
+              ₱
+              {{
+                formatCurrency(
+                  parseFloat(item.amount).toFixed(2)
+                )
+              }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table id="amount-table">
+        <thead>
+          <tr>
+            <th align="center">TOTAL AMOUNT</th>
+            <th align="center">
+              ₱
+              {{
+                formatCurrency(
+                  parseFloat(generatedBill.total_amount).toFixed(2)
+                )
+              }}
+            </th>
+          </tr>
+        </thead>
+      </table>
     </div>
   </section>
 </template>
@@ -99,18 +191,24 @@
 <script>
 import { mapGetters } from "vuex";
 import jsPDF from "jspdf";
+import "jspdf-autotable";
 import html2canvas from "html2canvas";
 export default {
   name: "DownloadableInvoice",
   computed: {
-    ...mapGetters(["printInvoice", "currentSelectedBusiness"]),
+    ...mapGetters([
+      "printInvoice",
+      "currentSelectedBusiness",
+      "generatedBill",
+      "currentSoaObj",
+    ]),
   },
   watch: {
     printInvoice: {
       deep: true,
       handler(status) {
         if (status) {
-          this.generateReport2();
+          this.generateInvoice();
           this.$store.commit("setPrintInvoice", false);
         }
       },
@@ -118,63 +216,176 @@ export default {
   },
   data() {
     return {
-      fees: [
-        {
-          label: "Mayor's Permit",
-          value: "₱ 500.00",
-        },
-        {
-          label: "Environmental Fee",
-          value: "₱ 1200.00",
-        },
-        {
-          label: "Business Plate Fee",
-          value: "₱ 250.00",
-        },
-        {
-          label: "Medical Fee",
-          value: "₱ 1.00",
-        },
-        {
-          label: "Business Processing Fee",
-          value: "₱ 50.00",
-        },
-        {
-          label: "Security Seal Fee",
-          value: "₱ 50.00",
-        },
-        {
-          label: "Sanitary Fee",
-          value: "₱ 200.00",
-        },
-        {
-          label: "Zoning Fee",
-          value: "₱ 1285.00",
-        },
-        {
-          label: "Building Permit Fee",
-          value: "₱ 120.00",
-        },
-        {
-          label: "Electrical Fee",
-          value: "₱ 300.00",
-        },
-        {
-          label: "Plumbing Permit Fee",
-          value: "₱ 60.00",
-        },
-        {
-          label: "Sign Board Fee",
-          value: "₱ 192.00",
-        },
-        {
-          label: "Business Tax",
-          value: "₱ 220.00",
-        },
+      allFees: [
+        [
+          {
+            label: "Mayor's Permit",
+            value: "₱ 500.00",
+          },
+          {
+            label: "Environmental Fee",
+            value: "₱ 1200.00",
+          },
+          {
+            label: "Business Plate Fee",
+            value: "₱ 250.00",
+          },
+          {
+            label: "Medical Fee",
+            value: "₱ 1.00",
+          },
+          {
+            label: "Business Processing Fee",
+            value: "₱ 50.00",
+          },
+          {
+            label: "Security Seal Fee",
+            value: "₱ 50.00",
+          },
+          {
+            label: "Sanitary Fee",
+            value: "₱ 200.00",
+          },
+          {
+            label: "Zoning Fee",
+            value: "₱ 1285.00",
+          },
+          {
+            label: "Building Permit Fee",
+            value: "₱ 120.00",
+          },
+          {
+            label: "Electrical Fee",
+            value: "₱ 300.00",
+          },
+          {
+            label: "Plumbing Permit Fee",
+            value: "₱ 60.00",
+          },
+          {
+            label: "Sign Board Fee",
+            value: "₱ 192.00",
+          },
+          {
+            label: "Business Tax",
+            value: "₱ 220.00",
+          },
+        ],
+        [
+          {
+            label: "Mayor's Permit",
+            value: "₱ 500.00",
+          },
+          {
+            label: "Environmental Fee",
+            value: "₱ 1200.00",
+          },
+          {
+            label: "Business Plate Fee",
+            value: "₱ 250.00",
+          },
+          {
+            label: "Medical Fee",
+            value: "₱ 1.00",
+          },
+          {
+            label: "Business Processing Fee",
+            value: "₱ 50.00",
+          },
+          {
+            label: "Security Seal Fee",
+            value: "₱ 50.00",
+          },
+          {
+            label: "Sanitary Fee",
+            value: "₱ 200.00",
+          },
+          {
+            label: "Zoning Fee",
+            value: "₱ 1285.00",
+          },
+          {
+            label: "Building Permit Fee",
+            value: "₱ 120.00",
+          },
+          {
+            label: "Electrical Fee",
+            value: "₱ 300.00",
+          },
+          {
+            label: "Plumbing Permit Fee",
+            value: "₱ 60.00",
+          },
+          {
+            label: "Sign Board Fee",
+            value: "₱ 192.00",
+          },
+          {
+            label: "Business Tax",
+            value: "₱ 220.00",
+          },
+        ],
       ],
+      allFees2: [],
+      compiledFees: [],
     };
   },
+  mounted() {
+    let feesHolder = [];
+    let groupHolder = [];
+    this.currentSoaObj.bills.forEach((item) => {
+      this.allFees2.push(item.billfees);
+    });
+    this.allFees2.forEach((item) => {
+      item.forEach((element) => {
+        feesHolder.push(element);
+      });
+    });
+    const grouped = this.groupBy(feesHolder, (item) => item.label);
+    grouped.forEach((item) => {
+      groupHolder.push(item);
+    });
+    groupHolder.forEach((item) => {
+      item.forEach((element) => {
+        this.compiledFees.push(element);
+      });
+    });
+  },
   methods: {
+    groupBy(list, keyGetter) {
+      const map = new Map();
+      list.forEach((item) => {
+        const key = keyGetter(item);
+        const collection = map.get(key);
+        if (!collection) {
+          map.set(key, [item]);
+        } else {
+          collection.push(item);
+        }
+      });
+      return map;
+    },
+    formatCurrency(str) {
+      var parts = str.toString().split(".");
+      console.log(parts);
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      if (parts.length < 2) {
+        parts.push("00");
+      }
+      return parts.join(".");
+    },
+    getDataUrl(img) {
+      // Create canvas
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      // Set width and height
+      canvas.width = img.width;
+      canvas.height = img.height;
+      // Draw the image
+      ctx.drawImage(img, 0, 0);
+      return canvas.toDataURL("image/jpeg");
+    },
+
     generateReport() {
       console.log("generate report");
       const doc = new jsPDF("p", "mm", "a4");
@@ -218,6 +429,71 @@ export default {
         }
         doc.save("invoice.pdf");
       });
+    },
+    generateInvoice() {
+      var doc = new jsPDF("p", "pt");
+
+      // Select the image
+      const img = document.querySelector("#logoImage");
+      img.addEventListener("load", function(event) {
+        const dataUrl = this.getDataUrl(event.currentTarget);
+      });
+
+      var header = function(data) {
+        doc.setFontSize(12);
+        doc.setTextColor(40);
+        doc.setFontStyle("normal");
+        doc.addImage(img, "png", 280, 25, 50, 50);
+        doc.text("Bacoor One Stop Shop", 242, 95);
+
+        doc.setFontSize(12);
+        doc.setFontStyle("bold");
+        doc.text("STATEMENT OF ACCOUNT", 225, 115);
+      };
+
+      var options = {
+        beforePageContent: header,
+        margin: {
+          top: 80,
+        },
+      };
+
+      var invoiceTable = doc.autoTableHtmlToJson(
+        document.getElementById("invoice-details-table")
+      );
+      doc.autoTable(invoiceTable.columns, invoiceTable.data, {
+        margin: { top: 140 },
+      });
+
+      var businessTable = doc.autoTableHtmlToJson(
+        document.getElementById("business-details-table")
+      );
+      doc.autoTable(businessTable.columns, businessTable.data, options);
+
+      var feesTable = doc.autoTableHtmlToJson(
+        document.getElementById("fees-table")
+      );
+      doc.autoTable(feesTable.columns, feesTable.data, {
+        beforePageContent: header,
+        margin: {
+          top: 140,
+        },
+      });
+
+      var amountTable = doc.autoTableHtmlToJson(
+        document.getElementById("amount-table")
+      );
+      doc.autoTable(amountTable.columns, amountTable.data, {
+        margin: {
+          top: 80,
+        },
+        headStyles: {
+          fontSize: 12,
+          cellPadding: { top: 10, right: 15, bottom: 10, left: 15 },
+        },
+      });
+
+      doc.save("Invoice.pdf");
     },
   },
 };
