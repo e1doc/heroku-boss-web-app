@@ -43,21 +43,21 @@ const routes = [{
     path: "/",
     name: "Login",
     component: Login,
-    // async beforeEnter(to, from, next) {
-    //   let isAdmin = await store.state.service.isAdminAuthenticated;
-    //   let isUser = await store.state.service.isAuthenticated;
-    //   if (isAdmin) {
-    //     next({
-    //       name: "Dashboard",
-    //     });
-    //   } else if (isUser) {
-    //     next({
-    //       name: "Profile",
-    //     });
-    //   } else {
-    //     next();
-    //   }
-    // },
+    async beforeEnter(to, from, next) {
+      let isAdmin = await store.state.service.isAdminAuthenticated;
+      let isUser = await store.state.service.isAuthenticated;
+      if (isAdmin) {
+        next({
+          name: "Dashboard",
+        });
+      } else if (isUser) {
+        next({
+          name: "Profile",
+        });
+      } else {
+        next();
+      }
+    },
   },
   {
     path: "/reset-password/:uid/:token",
