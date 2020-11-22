@@ -85,6 +85,8 @@ export default {
       "isUploading",
       "buildingApplicationRequirements",
       "currentEvaluationFile",
+      "isUploadSuccess",
+      "isFileUploadFailed"
     ]),
     isInitial() {
       return this.currentStatus === STATUS_INITIAL;
@@ -103,9 +105,12 @@ export default {
     save(formData) {
       if (!this.isEvaluation) {
         if (this.type === "business") {
-          this.$store.dispatch("uploadRequirements", formData);
+          await this.$store.dispatch("uploadRequirements", formData);
         } else if (this.type === "property") {
-          this.$store.dispatch("uploadBuildingRequirements", formData);
+          await this.$store.dispatch("uploadBuildingRequirements", formData);
+        }
+        if(this.isFileUploadFailed){
+          this.filename = "DRAG/CLICK TO UPLOAD YOUR FILE HERE"
         }
       } else {
         this.$store.commit("setCurrentEvaluationFile", formData);
