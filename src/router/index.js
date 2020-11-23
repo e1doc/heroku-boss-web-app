@@ -39,7 +39,8 @@ import store from "../store";
 import swal from "sweetalert2"
 Vue.use(VueRouter);
 
-const routes = [{
+const routes = [
+  {
     path: "/",
     name: "Login",
     component: Login,
