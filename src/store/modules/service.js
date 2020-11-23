@@ -183,8 +183,7 @@ const actions = {
     } catch (err) {
       err.response ? console.log(err.response) : console.log(err.code)
       commit("setLoading", false);
-      if(err.response){
-        if(err.response.status == 500 || err.code == 'ECONNABORTED'){
+      if(err.response.status == 500 || err.code == 'ECONNABORTED'){
           dispatch("createPrompt", {
             type: "error",
             title: "Failed",
@@ -197,7 +196,6 @@ const actions = {
           message: "Incorrect authentication credentials.",
         });
        }
-      }
     }
   },
  async checkIfAdmin({commit, dispatch, getters }){
