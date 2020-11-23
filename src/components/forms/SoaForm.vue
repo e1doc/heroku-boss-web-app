@@ -128,7 +128,7 @@ export default {
         } else {
           this.$swal({
             title: "Failed!",
-            text: "No Record Found",
+            text: result.data.Response.Result,
             icon: "error",
           });
         }
