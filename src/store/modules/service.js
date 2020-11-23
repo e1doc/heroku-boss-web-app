@@ -183,11 +183,21 @@ const actions = {
     } catch (err) {
       console.log(err.data)
       commit("setLoading", false);
-      dispatch("createPrompt", {
-        type: "error",
-        title: "Forbidden",
-        message: "Incorrect authentication credentials.",
-      });
+      if(err.response){
+        if(err.response.status == 500){
+          dispatch("createPrompt", {
+            type: "error",
+            title: "Failed",
+            message: "Something went wrong! Please try again later.",
+          });
+       }else{
+        dispatch("createPrompt", {
+          type: "error",
+          title: "Forbidden",
+          message: "Incorrect authentication credentials.",
+        });
+       }
+      }
     }
   },
  async checkIfAdmin({commit, dispatch, getters }){
