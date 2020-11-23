@@ -181,7 +181,7 @@ const actions = {
       dispatch("checkIfAdmin")
       dispatch('checkGroups')
     } catch (err) {
-      err.response ? console.log(err.response) : console.log(err)
+      err.response ? console.log(err.response) : console.log(err.code)
       commit("setLoading", false);
       if(err.response){
         if(err.response.status == 500){
