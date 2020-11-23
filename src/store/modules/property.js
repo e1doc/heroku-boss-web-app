@@ -453,6 +453,7 @@ const actions = {
   async uploadBuildingRequirements({ commit, getters, dispatch }, payload) {
     try {
       commit("setLoading", true);
+      axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
       const response = await axios.post(
         `${baseUrl}/api/building-file-upload/`,
         payload,
