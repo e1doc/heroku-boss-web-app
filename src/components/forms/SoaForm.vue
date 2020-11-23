@@ -128,7 +128,7 @@ export default {
         } else {
           this.$swal({
             title: "Failed!",
-            text: result.data.Response.Result,
+            text: result.data.Response.Result.message,
             icon: "error",
           });
         }

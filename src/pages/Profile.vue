@@ -13,6 +13,8 @@
         </div>
         <div class="meta-right-box">
           <profile-table-menu type="profile" />
+          <div class="note" v-if="currentTable == 'profile' && currentType == 'real_property'"><strong>*Note:</strong> The online system currently supports Current and Advanced Payments for now. For delinquet accounts, you can send an inquiry and the LGU will review your account and send you an SOA.
+          </div>
           <approver-steps v-if="currentTable === 'applications'" />
           <div class="meta-table-box mt50">
             <profile-table v-if="currentTable === 'profile'" />
@@ -56,7 +58,7 @@ export default {
     SoaForm,
   },
   computed: {
-    ...mapGetters(["currentTable"]),
+    ...mapGetters(["currentTable", "currentType"]),
   },
   data() {
     return {
@@ -99,6 +101,18 @@ export default {
     width: 100%;
     max-width: calc(70% - 30px);
   }
+}
+
+.note{
+  padding: 50px 15px 0;
+  font-size: 13px;
+  text-align: center;
+  line-height: 1.6;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  opacity: 0.7;
+
 }
 
 /*
