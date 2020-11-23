@@ -215,7 +215,6 @@ const actions = {
         payload,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-      console.log(response.data);
     } catch (err) {
       commit("setLoading", false);
       console.log(err.response);
@@ -463,7 +462,7 @@ const actions = {
       commit("setIsFileUploadFailed", false)
       commit("setLoading", false);
     } catch (err) {
-      console.log(err.response);
+      err.response ? console.log(err.response) : console.log(err)
       commit("setLoading", false);
       commit("setIsFileUploadFailed", true)
       dispatch("createPrompt", {
