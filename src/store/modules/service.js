@@ -183,7 +183,7 @@ const actions = {
     } catch (err) {
       err.response ? console.log(err.response) : console.log(err.code)
       commit("setLoading", false);
-      if(err.response.status == 500 || err.code == 'ECONNABORTED'){
+      if(err.code == 'ECONNABORTED'){
           dispatch("createPrompt", {
             type: "error",
             title: "Failed",
