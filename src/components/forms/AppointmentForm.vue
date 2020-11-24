@@ -75,9 +75,9 @@ export default {
   },
   methods:{
     async setAppointment(){
-      let title = this.currentSoa.type === 'business' ? 'Business Permit Payment' : this.currentSoa.type === 'building' ? 'Building Permit Payment' : 'Real Property Payment' 
-      
-      let payload = {title: title, batch: this.batch, appointment_date: this.currentDate, soa: this.currentSoa.id}
+      console.log('current soa type', this.currentSoaObj)
+      let title = this.currentSoaObj.application_type === 'business' ? 'Business Permit Payment' : this.currentSoaObj.application_type === 'building' ? 'Building Permit Payment' : 'Real Property Payment' 
+      let payload = {title: title, batch: this.batch, appointment_date: this.currentDate, soa: this.currentSoaObj.id}
       await this.$store.commit("setLoading", true);
       await this.$store.dispatch('addAppointment', payload)
       if(this.isAppointmentSuccess){

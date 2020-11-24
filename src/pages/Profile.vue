@@ -85,13 +85,6 @@ export default {
     };
   },
   mounted() {
-    if (this.currentTable == "profile" && this.currentType == "real_property") {
-      this.$swal({
-        title: "Announcement",
-        text: "RPT Statement of Account will be available by tomorrow.",
-        icon: "info",
-      }).then((value) => {});
-    }
   },
 };
 </script>

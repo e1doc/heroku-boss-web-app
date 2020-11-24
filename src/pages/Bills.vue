@@ -40,7 +40,7 @@ export default {
     InvoiceDialog,
   },
   computed:{
-    ...mapGetters(['currentSelectedBusiness','generatedBill'])
+    ...mapGetters(['currentSelectedBusiness','generatedBill', 'currentSoaType', 'currentSelectedProperty'])
   },
   methods:{
     onPayClick(status){
@@ -78,9 +78,10 @@ export default {
           quarter: this.generatedBill.quarter,
           paymode: this.generatedBill.paymode,
           amount: this.generatedBill.total_amount,
-          business_application: this.currentSelectedBusiness.id,
-          application_type: 'business',
-          bills: bills
+          business_application: this.currentSoaType === 'business' ? this.currentSelectedBusiness.id : null,
+          building_application: this.currentSoaType === 'real_property' ? this.currentSelectedProperty.id : null,
+          bills: bills,
+          application_type: this.currentSoaType
         }
       }
       await this.$store.dispatch('createSoa', payload)

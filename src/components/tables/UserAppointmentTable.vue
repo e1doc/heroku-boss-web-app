@@ -66,12 +66,14 @@ export default {
   },
   mounted(){
     this.$store.commit('setPrintInvoice', false)
+    console.log(this.appointments)
   },
   methods:{
     appointmentClickCallBack(pageNum){
       this.$store.dispatch('getUserAppointments', pageNum)
     },
     async printInvoice(appointment, soa){
+      this.$store.commit('setCurrentSoaType', soa.application_type)
       await this.$store.commit('setCurrentSoaObj', soa)
       await this.$store.commit('setCurrentSelectedBusiness', soa.business_application)
       await this.$store.commit('setCurrentAppointment', appointment)

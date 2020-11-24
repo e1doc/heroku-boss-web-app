@@ -9,7 +9,8 @@ const getDefaultSoaState = () =>{
         currentSoaObj: {},
         generatedBill: {},
         currentSelectedBill: {},
-        soaSearch: ""
+        soaSearch: "",
+        currentSoaType: "",
     }
   }
 
@@ -22,7 +23,8 @@ const getters = {
     currentSoaObj: (state) => state.currentSoaObj,
     generatedBill: (state) => state.generatedBill,
     currentSelectedBill: (state) => state.currentSelectedBill,
-    soaSearch: (state) => state.soaSearch
+    soaSearch: (state) => state.soaSearch,
+    currentSoaType: (state) => state.currentSoaType
 }
 
 const mutations = {
@@ -34,7 +36,8 @@ const mutations = {
     Object.assign(state, getDefaultSoaState()),
     setGeneratedBill: (state, generatedBill) => (state.generatedBill = generatedBill),
     setCurrentSelectedBill: (state, currentSelectedBill) => (state.currentSelectedBill = currentSelectedBill),
-    setSoaSearch: (state) => state.soaSearch
+    setSoaSearch: (state, soaSearch) => (state.soaSearch = soaSearch),
+    setCurrentSoaType: (state, currentSoaType) => (state.currentSoaType = currentSoaType)
 }
 
 const actions = {
@@ -59,7 +62,7 @@ const actions = {
                 headers: { Authorization: `jwt ${getters.authToken}` },
             })
             await router.push({ name: "StatementOfAccounts" });
-            await commit("setCurrentSoa", { id: response.data.data.id, type: 'business' });
+            await commit("setCurrentSoa", { id: response.data.data.id, type: response.data.data.application_type });
             await commit("setCurrentSoaObj", response.data.data);
             await commit("setAppointmentAction", "add");
             await commit('setLoading', false)

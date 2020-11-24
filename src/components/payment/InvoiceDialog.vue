@@ -3,10 +3,14 @@
     <div class="dialog-holder">
       <div class="dialog-header">
         <div class="store-avatar">
-          <font-awesome-icon icon="store" class="icon" />
+          <font-awesome-icon icon="store" class="icon" v-if="currentSoaType === 'business'"/>
+          <font-awesome-icon icon="city" class="icon" v-if="currentSoaType === 'real_property'"/>
         </div>
-        <div class="text-bold size14 main-title">
+        <div class="text-bold size14 main-title" v-if="currentSoaType === 'business'">
           {{ currentSelectedBusiness.businessdetails.name !='' ? currentSelectedBusiness.businessdetails.name : currentSelectedBusiness.businessdetails.trade_name}}
+        </div>
+        <div class="text-bold size14 main-title" v-if="currentSoaType === 'real_property'">
+          {{currentSelectedProperty.buildingdetails.tax_dec_no}}
         </div>
         <div class="triangle">
           <font-awesome-icon icon="caret-down" class="icon" />
@@ -28,7 +32,7 @@
         <div class="invoice-details">
           <div class="invoice-title">INVOICE DETAILS</div>
           <div class="details-body">
-            <div class="details-item">
+            <div class="details-item" v-if="currentSoaType === 'business'">
               <div class="item-label">Reference No:</div>
               <div class="item-value">{{currentSelectedBill.referenceno}}</div>
             </div>
@@ -47,10 +51,10 @@
           </div>
         </div>
         <div class="invoice-owner">
-          <div class="invoice-title">BUSINESS DETAILS</div>
+          <div class="invoice-title">{{currentSoaType === 'business' ? 'BUSINESS DETAILS' : 'Real Property Details'}}</div>
           <div class="owner-details">
-            <div class="item-label">Business Owner</div>
-            <div class="item-value">
+            <div class="item-label">{{currentSoaType === 'business' ? 'Business Owner' : 'Real Property Owner Name'}}</div>
+            <div class="item-value" v-if="currentSoaType === 'business'">
               {{
                 currentSelectedBusiness.businessbasicinformation
                   .owner_first_name
@@ -62,6 +66,9 @@
               {{
                 currentSelectedBusiness.businessbasicinformation.owner_last_name
               }}
+            </div>
+            <div class="item-value" v-if="currentSoaType === 'real_property'">
+              {{currentSelectedProperty.buildingbasicinformation.owner_first_name}}
             </div>
           </div>
         </div>
@@ -108,6 +115,8 @@ export default {
       "currentSelectedBusiness",
       "currentSelectedBill",
       "generatedBill",
+      "currentSoaType",
+      "currentSelectedProperty"
     ]),
   },
   data() {

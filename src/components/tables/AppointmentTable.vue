@@ -59,6 +59,7 @@ export default {
   },
   mounted(){
     this.$store.dispatch('getAdminAppointments')
+    
   },
   methods:{
     async appointmentClickCallBack(pageNum){

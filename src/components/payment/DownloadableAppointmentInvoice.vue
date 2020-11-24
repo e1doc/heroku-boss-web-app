@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="dialog-body-holder">
-        <!-- <div class="mb30"><h3>Stament of Account</h3></div> -->
+   <div class="mb30"><h3>Stament of Account</h3></div> -->
   <!-- <div class="dialog-body">
         <div class="invoice-details">
             <div class="invoice-title">APPOINTMENT DETAILS</div>
@@ -128,22 +128,23 @@
     <table id="business-details-table">
       <thead>
         <tr>
-          <th>Account Number</th>
-          <th>Business Name</th>
-          <th>Business Owner</th>
+          <th>{{currentSoaType === 'business' ? 'Account Number' : 'Tax Dec No.'}}</th>
+          <th v-if="currentSoaType === 'business'">Business Name</th>
+          <th>{{currentSoaType === 'business' ? 'Business Owner' : 'Real Property Owner Name'}}</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>{{ currentSelectedBusiness.account_number }}</td>
-          <td>
+          <td v-if="currentSoaType === 'business'">{{ currentSelectedBusiness.account_number }}</td>
+          <td v-if="currentSoaType === 'real_property'">{{ currentSelectedProperty.buildingdetails.tax_dec_no }}</td>
+          <td v-if="currentSoaType === 'business'">
             {{
               currentSelectedBusiness.businessdetails.name != ""
                 ? currentSelectedBusiness.businessdetails.name
                 : currentSelectedBusiness.businessdetails.trade_name
             }}
           </td>
-          <td>
+          <td v-if="currentSoaType === 'business'">
             {{
               currentSelectedBusiness.businessbasicinformation.owner_first_name
             }}
@@ -153,6 +154,9 @@
             {{
               currentSelectedBusiness.businessbasicinformation.owner_last_name
             }}
+          </td>
+          <td v-if="currentSoaType === 'real_property'">
+            {{currentSelectedProperty.buildingbasicinformation.owner_first_name}}
           </td>
         </tr>
       </tbody>
@@ -198,6 +202,8 @@ export default {
       "currentAppointment",
       "currentSelectedBusiness",
       "generatedBill",
+      "currentSelectedProperty",
+      "currentSoaType"
     ]),
   },
   data() {
@@ -272,7 +278,6 @@ export default {
     },
   },
   mounted() {
-    console.log("current soa", this.currentSelectedBusiness);
     this.setupFees();
   },
   methods: {
@@ -308,7 +313,7 @@ export default {
           feesHolder.push(element);
         });
       });
-      const grouped = this.groupBy(feesHolder, (item) => item.label);
+      const grouped = this.groupBy(feesHolder, (item) => item.fee_description);
       grouped.forEach((item) => {
         groupHolder.push(item);
       });

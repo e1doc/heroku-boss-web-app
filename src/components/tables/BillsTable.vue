@@ -2,7 +2,7 @@
   <section>
     <div>
       <div class="thead hide-in-mobile">
-        <div class="th w15">REFERENCE #</div>
+        <div class="th w15" v-if="currentSoaType == 'business'">REFERENCE #</div>
         <div class="th w15">QUARTER</div>
         <div class="th w15">AMOUNT</div>
         <div class="th w15">DUE DATE</div>
@@ -14,7 +14,7 @@
           v-for="(item, index) of generatedBill.invoices"
           :key="index"
         >
-          <div class="td w15">
+          <div class="td w15" v-if="currentSoaType == 'business'">
             <span class="td-label show-in-mobile">REFERENCE #: </span>
             {{ item.referenceno }}
           </div>
@@ -58,6 +58,7 @@ export default {
       "currentType",
       "currentSoa",
       "generatedBill",
+      "currentSoaType"
     ]),
   },
   methods: {

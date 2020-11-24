@@ -142,7 +142,7 @@ export default {
             config
           );
           if (response.data.Response.Result.referenceid) {
-            let building_payload = { is_draft: false, is_enrolled: true };
+            let building_payload = { is_draft: false, is_enrolled: true, reference_id: response.data.Response.Result.referenceid };
             await this.$store.dispatch(
               "addBuildingApplication",
               building_payload
@@ -152,6 +152,7 @@ export default {
             });
             await this.$store.dispatch("addBuildingDetails", {
               tax_dec_no: response.data.Response.Result.td_number,
+              property_type: this.property_type,
             });
             this.isSuccess = true;
             this.td_no = response.data.Response.Result.td_number;

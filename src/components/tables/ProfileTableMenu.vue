@@ -79,6 +79,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getDepartments");
+    this.$store.commit('setCurrentTable', 'profile')
   },
   data() {
     return {
@@ -90,7 +91,7 @@ export default {
     changeTab(tab) {
       this.activeTab = tab;
       this.$store.commit("setCurrentTable", tab);
-      this.showNote()
+      // this.showNote()
     },
 
     async changeType(type) {
@@ -99,7 +100,7 @@ export default {
       let soaFilter = type === "real_property" ? "rpt" : type;
       await this.$store.commit("setSoaFilter", soaFilter);
       await this.$store.dispatch("getDepartments");
-      this.showNote()
+      // this.showNote()
     },
     showNote() {
       if (
