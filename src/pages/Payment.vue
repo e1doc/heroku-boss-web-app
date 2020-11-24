@@ -15,11 +15,12 @@
             <!-- <bank-option/> -->
             <div class="meta-list flex-wrap">
               <div class="meta-list-item" 
+                  v-if="isFeatureImplemented"
                   :class="{active:selectedPayment == 'landbank'}" 
                   @click="changePaymentType('landbank')">
                       <img class="meta-img" src="../assets/landbank-logo.png" />
               </div>
-              <div class="meta-list-item" 
+              <div class="meta-list-item active" 
                   :class="{active:selectedPayment == 'treasury_office'}" 
                   @click="changePaymentType('treasury_office')">
                       <img class="meta-img" src="../assets/lgu-treasury.png" />
@@ -65,6 +66,7 @@ export default {
           printVisible: false,
           isPayment:true,
           selectedPayment: "landbank",
+          isFeatureImplemented: false
       }
   },
   mounted(){

@@ -1,7 +1,7 @@
 <template>
   <div class="meta-list">
     <!-- OPTION 1 -->
-      <div class="meta-list-option" v-if="currentPaymentType === 'landbank'">
+      <div class="meta-list-option" v-if="currentPaymentType === 'landbank' && isFeatureImplemented">
           <div class="meta-radio flex-center">
               <input type="radio" class="radio-button" name="payment-options" id="option_1" checked @click="selectOptions('counter')">
               <span class="custom-radio flex-center" :class="{selected: selectedOption === 'counter'}"><span class="circle"></span></span>
@@ -51,6 +51,7 @@ export default {
       },
     },
     mounted(){
+      this.$store.commit('setCurrentPaymentType', 'treasury_office')
     },
     methods:{
       selectOptions(option){
