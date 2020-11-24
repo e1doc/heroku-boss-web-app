@@ -108,7 +108,7 @@ export default {
       ) {
         this.$swal({
           title: "Announcement",
-          text: "RPT SOA will be available by tomorrow.",
+          text: "RPT Statement of Account will be available by tomorrow.",
           icon: "info",
         }).then((value) => {});
       }
