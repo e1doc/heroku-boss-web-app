@@ -892,6 +892,7 @@ export default {
         await this.$store.dispatch("addBusinessDetails", this.business_details);
       }
       if(this.lessor_details.gross_monthly_rental !== 0 && this.lessor_details.gross_monthly_rental !== ""){
+        this.lessor_details.gross_monthly_rental = this.lessor_details.gross_monthly_rental.toString()
         this.lessor_details.gross_monthly_rental = parseFloat(this.lessor_details.gross_monthly_rental.replace(/,/g, ''))
       }else{
         this.lessor_details.gross_monthly_rental = 0
