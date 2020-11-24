@@ -434,9 +434,9 @@
               </div>
               <div class="form-td sales no-bt">
                 <span class="form-td-label show-in-mobile"
-                  >Essential/Non-essential :</span
+                  >Capitalization :</span
                 >
-                {{ activity.essential }}
+                {{ activity.capitalization }}
               </div>
               <!-- <div class="form-td sales no-bt">
                 <span class="form-td-label show-in-mobile"
