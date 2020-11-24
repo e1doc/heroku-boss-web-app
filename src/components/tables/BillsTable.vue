@@ -3,6 +3,7 @@
     <div>
       <div class="thead hide-in-mobile">
         <div class="th w15" v-if="currentSoaType == 'business'">REFERENCE #</div>
+        <div class="th w15" v-if="currentSoaType == 'real_property'">YEAR</div>
         <div class="th w15">QUARTER</div>
         <div class="th w15">AMOUNT</div>
         <div class="th w15">DUE DATE</div>
@@ -17,6 +18,10 @@
           <div class="td w15" v-if="currentSoaType == 'business'">
             <span class="td-label show-in-mobile">REFERENCE #: </span>
             {{ item.referenceno }}
+          </div>
+          <div class="td w15" v-if="currentSoaType == 'real_property'">
+            <span class="td-label show-in-mobile">YEAR: </span>
+            {{ item.year }}
           </div>
           <div class="td w15">
             <span class="td-label show-in-mobile">QUARTER : </span>

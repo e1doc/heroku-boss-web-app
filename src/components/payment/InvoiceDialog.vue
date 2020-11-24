@@ -38,7 +38,7 @@
             </div>
             <div class="details-item">
               <div class="item-label">Year:</div>
-              <div class="item-value">{{generatedBill.year}}</div>
+              <div class="item-value">{{currentSoaType === 'business' ?  generatedBill.year : currentSelectedBill.year}}</div>
             </div>
             <div class="details-item">
               <div class="item-label">Due Date:</div>
@@ -93,7 +93,7 @@
           <div class="amount-details">
             <div class="item-label">Total Amount</div>
             <div class="item-value">
-              ₱ {{ formatCurrency(parseFloat(generatedBill.total_amount).toFixed(2)) }}
+              ₱ {{ formatCurrency(parseFloat(currentSelectedBill.amount).toFixed(2)) }}
             </div>
           </div>
         </div>
@@ -178,7 +178,7 @@ export default {
     };
   },
   mounted() {
-    console.log(this.currentSelectedBill);
+    console.log(this.generatedBill);
   },
   methods: {
     async payInvoice() {
