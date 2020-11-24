@@ -47,7 +47,7 @@
               ><font-awesome-icon icon="check" class="mr5 check-icon"
             /></span>
           </div>
-          <label for="legal_docs_1">Advance Payment</label>
+          <label for="legal_docs_1">Include Advance Payment</label>
         </div>
       </div>
       <div class="mb10">
