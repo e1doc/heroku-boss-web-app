@@ -21,12 +21,14 @@
         name="selectOptions"
         class="mb15"
       />
-       <button-block @click.native="setAppointment()"
-       v-if="appointmentAction === 'add'"
+      <button-block
+        @click.native="setAppointment()"
+        v-if="appointmentAction === 'add'"
         >Submit</button-block
       >
-      <button-block @click.native="updateAppointment()"
-       v-if="appointmentAction === 'update'"
+      <button-block
+        @click.native="updateAppointment()"
+        v-if="appointmentAction === 'update'"
         >Submit</button-block
       >
     </div>
@@ -36,15 +38,23 @@
 <script>
 import ButtonBlock from "@/components/ButtonBlock";
 import BaseSelect from "@/components/forms/BaseSelect";
-import { mapGetters } from "vuex"
+import { mapGetters } from "vuex";
 export default {
   name: "AppointmentForm",
   components: {
     BaseSelect,
-    ButtonBlock
+    ButtonBlock,
   },
-  computed:{
-    ...mapGetters(['currentDate', 'isAppointmentSuccess', 'appointmentError', 'currentSoa', 'currentAppointment', 'appointmentAction', 'currentSoaObj'])
+  computed: {
+    ...mapGetters([
+      "currentDate",
+      "isAppointmentSuccess",
+      "appointmentError",
+      "currentSoa",
+      "currentAppointment",
+      "appointmentAction",
+      "currentSoaObj",
+    ]),
   },
   data() {
     return {
@@ -73,67 +83,76 @@ export default {
       ],
     };
   },
-  methods:{
-    async setAppointment(){
-      console.log('current soa type', this.currentSoaObj)
-      let title = this.currentSoaObj.application_type === 'business' ? 'Business Permit Payment' : this.currentSoaObj.application_type === 'building' ? 'Building Permit Payment' : 'Real Property Payment' 
-      let payload = {title: title, batch: this.batch, appointment_date: this.currentDate, soa: this.currentSoaObj.id}
+  methods: {
+    async setAppointment() {
+      console.log("current soa type", this.currentSoaObj);
+      let title =
+        this.currentSoaObj.application_type === "business"
+          ? "Business Permit Payment"
+          : this.currentSoaObj.application_type === "building"
+          ? "Building Permit Payment"
+          : "Real Property Payment";
+      let payload = {
+        title: title,
+        batch: this.batch,
+        appointment_date: this.currentDate,
+        soa: this.currentSoaObj.id,
+      };
       await this.$store.commit("setLoading", true);
-      await this.$store.dispatch('addAppointment', payload)
-      if(this.isAppointmentSuccess){
+      await this.$store.dispatch("addAppointment", payload);
+      if (this.isAppointmentSuccess) {
         await this.$store.commit("setLoading", false);
         this.$modal.hide("appointmentModal");
         this.$swal({
-            title: 'Success!',
-            text: 'Appointment was submitted successfully.',
-            icon: 'success'
-        })
-        this.$router.push({name:'AppointmentSlip'})
-      }else{
+          title: "Success!",
+          text: "Appointment was submitted successfully.",
+          icon: "success",
+        });
+        this.$router.push({ name: "AppointmentSlip" });
+      } else {
         await this.$store.commit("setLoading", false);
-       this.$modal.hide("appointmentModal");
-       this.$swal({
-            title: 'Failed!',
-            text: this.appointmentError,
-            icon: 'error'
-        })
+        this.$modal.hide("appointmentModal");
+        this.$swal({
+          title: "Failed!",
+          text: this.appointmentError,
+          icon: "error",
+        });
       }
     },
-   async updateAppointment(){
-
-      let payload = this.currentAppointment
-      payload.old_appointment_date = this.currentAppointment.appointment_date
-      payload.appointment_date = this.currentDate
-      payload.batch = this.batch
-      payload.old_batch = this.currentAppointment.batch
-      payload.soa = this.currentSoaObj.id
+    async updateAppointment() {
+      let payload = this.currentAppointment;
+      payload.old_appointment_date = this.currentAppointment.appointment_date;
+      payload.appointment_date = this.currentDate;
+      payload.batch = this.batch;
+      payload.old_batch = this.currentAppointment.batch;
+      payload.soa = this.currentSoaObj.id;
       await this.$store.commit("setLoading", true);
-      await this.$store.dispatch('updateAppointment', payload)
-      if(this.isAppointmentSuccess){
+      await this.$store.dispatch("updateAppointment", payload);
+      if (this.isAppointmentSuccess) {
         await this.$store.commit("setLoading", false);
         this.$modal.hide("appointmentModal");
         this.$swal({
-            title: 'Success!',
-            text: 'Appointment was rescheduled successfully.',
-            icon: 'success'
-        })
-        this.$router.push({name:'AppointmentSlip'})
-      }else{
+          title: "Success!",
+          text: "Appointment was rescheduled successfully.",
+          icon: "success",
+        });
+        this.$router.push({ name: "AppointmentSlip" });
+      } else {
         await this.$store.commit("setLoading", false);
-       this.$modal.hide("appointmentModal");
-       this.$swal({
-            title: 'Failed!',
-            text: this.appointmentError,
-            icon: 'error'
-        })
+        this.$modal.hide("appointmentModal");
+        this.$swal({
+          title: "Failed!",
+          text: this.appointmentError,
+          icon: "error",
+        });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
-.form-section{
+.form-section {
   padding: 15px;
 }
 </style>
