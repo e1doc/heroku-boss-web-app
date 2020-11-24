@@ -436,6 +436,7 @@
                 <span class="form-td-label show-in-mobile"
                   >Capitalization :</span
                 >
+                ₱
                 {{ activity.capitalization }}
               </div>
               <!-- <div class="form-td sales no-bt">
