@@ -1,11 +1,13 @@
 <template>
   <section>
-    <modal name="invoiceModal"  height="auto" :adaptive="true" :classes="['vue-modal-2']"
+    <modal
+      name="invoiceModal"
+      height="auto"
+      :adaptive="true"
+      :classes="['vue-modal-2']"
       ><invoice-dialog
     /></modal>
-    <modal name="soaModal"  height="auto" :adaptive="true"
-      ><soa-form
-    /></modal>
+    <modal name="soaModal" height="auto" :adaptive="true"><soa-form /></modal>
     <div class="sc-home">
       <div class="container flex-wrap">
         <div class="meta-left-box">
@@ -13,7 +15,23 @@
         </div>
         <div class="meta-right-box">
           <profile-table-menu type="profile" />
-          <div class="note" v-if="currentTable == 'profile' && currentType == 'real_property'"><strong>*Note:</strong> The online system currently supports Current and Advanced Payments for now. For delinquet accounts, you can send an inquiry and the LGU will review your account and send you an SOA.
+          <div
+            class="note"
+            v-if="currentTable == 'profile' && currentType == 'real_property'"
+          >
+            <strong>*Note:</strong>
+            <br />
+            1. For year 2021 payment, All Real Property Tax Payment must be
+            using our NEW Tax Declaration number (ex. 19-238-0001-0xxxx). To get
+            your new tax declaration number, simply send an inquiry here, with
+            subject "REQUEST COPY OF NEW TAX DECLARATION". Indicate your
+            previous TaxDec. We will respond with your new number that you will
+            use to enroll so you can view your SOA. Thanks.
+            <br />
+            <br />
+            2. The online system currently supports Current and Advanced
+            Payments for now. For delinquet accounts, you can send an inquiry
+            and the LGU will review your account and send you an SOA.
           </div>
           <approver-steps v-if="currentTable === 'applications'" />
           <div class="meta-table-box mt50">
@@ -66,6 +84,15 @@ export default {
       text2: "",
     };
   },
+  mounted() {
+    if (this.currentTable == "profile" && this.currentType == "real_property") {
+      this.$swal({
+        title: "Announcement",
+        text: "RPT SOA will be available by tomorrow.",
+        icon: "info",
+      }).then((value) => {});
+    }
+  },
 };
 </script>
 
@@ -103,16 +130,15 @@ export default {
   }
 }
 
-.note{
+.note {
   padding: 50px 15px 0;
   font-size: 13px;
-  text-align: center;
+  text-align: left;
   line-height: 1.6;
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
   opacity: 0.7;
-
 }
 
 /*
