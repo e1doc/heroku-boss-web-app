@@ -68,7 +68,7 @@ import BaseDatePicker from "@/components/forms/BaseDatePicker";
 import EnrollmentSuccess from "@/components/enrollment/EnrollmentSuccess";
 import BaseSelect from "@/components/forms/BaseSelect";
 import axios from "axios";
-import {mapGetters} from "vuex"
+import { mapGetters } from "vuex";
 const oneDocToken = process.env.VUE_APP_ONE_DOC_TOKEN;
 export default {
   name: "RealPropertyEnrollment",
@@ -79,8 +79,8 @@ export default {
     EnrollmentSuccess,
     BaseSelect,
   },
-  computed:{
-    ...mapGetters(["authToken"])
+  computed: {
+    ...mapGetters(["authToken"]),
   },
   mounted() {
     this.$store.commit("setLoading", false);
@@ -92,6 +92,7 @@ export default {
       date: "",
       isSuccess: false,
       property_type: "",
+      required_fields: ["property_type", "td_no", "official_receipt", "date"],
       propertytype: [
         {
           label: "Land",
@@ -142,7 +143,11 @@ export default {
             config
           );
           if (response.data.Response.Result.referenceid) {
-            let building_payload = { is_draft: false, is_enrolled: true, reference_id: response.data.Response.Result.referenceid };
+            let building_payload = {
+              is_draft: false,
+              is_enrolled: true,
+              reference_id: response.data.Response.Result.referenceid,
+            };
             await this.$store.dispatch(
               "addBuildingApplication",
               building_payload
@@ -163,12 +168,12 @@ export default {
               icon: "error",
             });
           }
-        }else{
+        } else {
           this.$swal({
-              title: "Failed!",
-              text: "Record already enrolled.",
-              icon: "error",
-            });
+            title: "Failed!",
+            text: "Record already enrolled.",
+            icon: "error",
+          });
         }
         this.$store.commit("setLoading", false);
       } catch (err) {
