@@ -20,7 +20,7 @@
                 </ul>
               </li>
               <!-- <li class="meta-menu"><router-link to="#">About</router-link></li> -->
-              <li class="meta-menu"><router-link to="#">FAQ's</router-link></li>
+              <li class="meta-menu"><router-link to="faq">FAQ's</router-link></li>
           </ul>
       </div>
       <div class="meta-right-box">
@@ -105,7 +105,7 @@
                         About
                     </router-link></li> -->
                 <li class="meta-menu" @click="slidemenu = false; menuActive = 'faqs'" :class="{active:menuActive == 'faqs'}">
-                    <router-link to="#">
+                    <router-link to="faq">
                         <font-awesome-icon icon="question" class="mr10 icon" />
                         FAQ's
                     </router-link></li>

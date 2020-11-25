@@ -61,4 +61,10 @@ export default {
     }
   }
 }
+
+@media only screen and (max-width: 480px){
+  .main-content{
+    padding: 0 15px;
+  }
+}
 </style>

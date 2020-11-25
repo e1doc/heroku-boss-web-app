@@ -6,7 +6,7 @@
         {{ timerCount }}
       </div> -->
       <!-- <otp-div/> -->
-      <view-business-details/>
+      <!-- <view-business-details/> -->
       <!-- <downloadable-business-form/> -->
       <!-- <approve-business-application/> -->
       <!-- <appointment-invoice/> -->
@@ -14,6 +14,7 @@
       <!-- <agreement-modal /> -->
       <!-- <invoice-dialog/> -->
       <!-- <downloadable-invoice/> -->
+      <faq />
   </section>
 </template>
 
@@ -30,6 +31,7 @@ import AppointmentInvoice from "@/pages/AppointmentInvoice";
 import OtpDiv from "@/components/auth/OtpDiv";
 import AgreementModal from "@/components/application/AgreementModal";
 import InvoiceDialog from "@/components/payment/InvoiceDialog";
+import Faq from "@/pages/Faq";
 export default {
     name: "TestPage",
     components: {
@@ -44,7 +46,8 @@ export default {
         AppointmentInvoice,
         AgreementModal,
         InvoiceDialog,
-        DownloadableInvoice
+        DownloadableInvoice,
+        Faq
   },
   data() {
       return {

@@ -17,6 +17,7 @@ import UserInquiries from "../pages/UserInquiries";
 import UserReplyInquiry from "../pages/UserReplyInquiry";
 import NewInquiry from "../pages/NewInquiry";
 import Bills from "../pages/Bills";
+import Faq from "../pages/Faq";
 import Admin from "../Admin.vue";
 import AdminLogin from "../pages/AdminLogin";
 import Applications from "../pages/admin/Applications";
@@ -159,6 +160,11 @@ const routes = [
         path: "bills",
         name: "Bills",
         component: Bills,
+      },
+      {
+        path: "faq",
+        name: "Faq",
+        component: Faq,
       },
     ],
     async beforeEnter(to, from, next) {
