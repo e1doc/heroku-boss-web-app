@@ -106,17 +106,21 @@ const actions = {
       console.log(err);
     }
   },
+
+  // TODO: 
   async addMessage({ commit, getters, dispatch  }, payload) {
     try {
       const response = await axios.post(`${baseUrl}/api/messages/`, payload, {headers: {Authorization: `jwt ${getters.authToken}`} });
       if( getters.isEvaluation ){
           let newFormData = getters.currentEvaluationFile
-          newFormData.append("message", response.data.id)
-          await dispatch('uploadBuildingEvaluation', newFormData)
+          if(Object.keys(newFormData).length > 0){
+            newFormData.append("message", response.data.id)
+            await dispatch('uploadMessageAttachment', newFormData)
+          }
           this.$store.commit("setIsEvaluation", false)
       }
     } catch (err) {
-      console.log(err);
+      err.response ? console.log(err.response) : console.log(err)
     }
   },
   async adminRespond({ commit, getters  }, payload) {
@@ -157,9 +161,9 @@ const actions = {
       console.log(err.response);
     }
   },
-  async uploadBuildingEvaluation({ commit, getters}, payload){
+  async uploadMessageAttachment({ commit, getters}, payload){
     try {
-      const response = await axios.post(`${baseUrl}/api/building-evaluation-upload/`, payload, {headers: {Authorization: `jwt ${getters.authToken}`} })
+      const response = await axios.post(`${baseUrl}/api/message-attachment-upload/`, payload, {headers: {Authorization: `jwt ${getters.authToken}`} })
     } catch (err) {
       err.response ? console.log(err.response) : console.log(err)
     }

@@ -42,8 +42,8 @@
             {{ message.body }}
             <div
               class="item-attachment"
-              v-if="message.buildingevaluationfiles.length > 0"
-              @click="linkProps(message.buildingevaluationfiles[0].file)"
+              v-if="message.messageattachments.length > 0"
+              @click="linkProps(message.messageattachments[0].file)"
             >
               <font-awesome-icon icon="paperclip" class="admin-icon" /> See
               Attachment

@@ -34,7 +34,7 @@
           <div class="item-content">
             {{ message.body }}
             <div
-              v-if="message.buildingevaluationfiles.length > 0"
+              v-if="message.messageattachments.length > 0"
             >
               <div
                 class="item-attachment"
@@ -126,7 +126,7 @@ export default {
   },
   methods: {
     linkProps(item) {
-      let url = item.buildingevaluationfiles[0].file.replace("/bacoor/", "/");
+      let url = item.messageattachments[0].file.replace("/bacoor/", "/");
       window.open(url, "_blank");
     },
     async openApplication() {
