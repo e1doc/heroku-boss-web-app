@@ -130,4 +130,35 @@ export default {
         }
     }
 }
+
+@media only screen and (max-width: 768px){
+    .meta-container {
+        margin-bottom: 0;
+        padding-left: 15px;
+    }
+}
+@media only screen and (max-width: 480px){
+    .meta-container {
+        padding-left: 0px;
+    }
+    .meta-container .meta-parent ol.meta-steps li{
+        word-break: break-word;
+        width: 100%;
+        padding-right: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .meta-container .meta-parent ol.meta-steps li::after {
+        font-size: 16px;
+        left: 0;
+        top: 22px;
+        text-align: center;
+        transform: rotate(90deg);
+    }
+    .meta-container .meta-parent ol.meta-steps li:before{
+        padding: 6px 5px;
+        margin-left: -10px;
+    }
+}
 </style>
