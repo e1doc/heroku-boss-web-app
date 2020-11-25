@@ -2,7 +2,10 @@
   <div class="inquiry-box">
     <div class="inquiry-header">
       <div class="inquiry-subj">{{ inquiry.subject }}</div>
-      <div class="application-button" v-if="inquiry.is_remarks">
+      <div
+        class="application-button"
+        v-if="inquiry.is_remarks && showUpdateButton()"
+      >
         <button-block
           type="default"
           class="inquiry-application-btn"
@@ -33,13 +36,8 @@
           </div>
           <div class="item-content">
             {{ message.body }}
-            <div
-              v-if="message.messageattachments.length > 0"
-            >
-              <div
-                class="item-attachment"
-                @click="linkProps(message)"
-              >
+            <div v-if="message.messageattachments.length > 0">
+              <div class="item-attachment" @click="linkProps(message)">
                 <font-awesome-icon icon="paperclip" class="admin-icon" /> See
                 Attachment
               </div>
@@ -125,6 +123,19 @@ export default {
     this.getInquiry();
   },
   methods: {
+    showUpdateButton() {
+      if (this.inquiry.business_id) {
+        if (this.inquiry.business_id.is_disapprove) {
+          return true;
+        }
+      }else if (this.inquiry.building_id) {
+        if (this.inquiry.building_id.is_disapprove) {
+          return true;
+        }
+      }else{
+        return false
+      }
+    },
     linkProps(item) {
       let url = item.messageattachments[0].file.replace("/bacoor/", "/");
       window.open(url, "_blank");

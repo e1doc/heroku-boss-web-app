@@ -12,7 +12,11 @@
           />
         </div>
         <div>
-          <button-full @click.native="onAccountNumberSubmit" :disabled="account_number == ''">SUBMIT</button-full>
+          <button-full
+            @click.native="onAccountNumberSubmit"
+            :disabled="account_number == ''"
+            >SUBMIT</button-full
+          >
         </div>
       </div>
     </modal>
@@ -409,7 +413,7 @@
               </div>
             </div> -->
             <div class="form-th sales">
-                Capitalization
+              Capitalization
             </div>
           </div>
           <div class="meta-table-row" v-if="businessActivities.length > 0">
@@ -495,6 +499,12 @@
                     {{
                       item.created_at | moment("MMMM DD, YYYY hh:mm A")
                     }}</span
+                  >
+                  <span
+                    v-if="item.status === 'Disapproved'"
+                    class="mt5 ml10 mb2 meta-view-remarks"
+                    @click="openBusinessRemarks(businessApplication.id)"
+                    >View Remarks</span
                   >
                 </div>
               </li>
@@ -603,6 +613,7 @@ export default {
       "businessDeptCanAssess",
       "isLastBusinessDept",
       "isAssessmentActive",
+      "isAssessmentHasError",
     ]),
   },
   mounted() {
@@ -613,11 +624,15 @@ export default {
     this.setupAssessmentResult();
   },
   methods: {
+    async openBusinessRemarks(id) {
+      await this.$store.dispatch("getBusinessRemarks", id);
+      await this.$router.push({ name: "ReplyInquiry" });
+    },
     async onAccountNumberSubmit() {
       let changeApplicationStatusPayload = {
         id: this.businessApplication.id,
         status: this.applicationStatus,
-        account_number: this.account_number
+        account_number: this.account_number,
       };
       await this.$store.dispatch(
         "approveBusinessApplication",
@@ -652,13 +667,14 @@ export default {
           let payload = {
             id: this.businessApplication.id,
             status: application_status,
-            account_number: ""
+            account_number: "",
           };
           await this.$store.dispatch("approveBusinessApplication", payload);
         }
       }
     },
     async assessApplication(status) {
+      this.$store.commit("setIsBusinessAssessment", true);
       let approve = await this.$swal({
         text: "Are you sure with this action?",
         icon: "question",
@@ -673,30 +689,48 @@ export default {
           : this.businessApplication.application_status === 2
           ? (application_status = 4)
           : (application_status = 0);
-        this.applicationStatus = application_status
+        this.applicationStatus = application_status;
+
         let payload = {
           business_application: this.businessApplication.id,
           is_approve: status ? true : false,
-          account_number: ""
+          account_number: "",
         };
+
         await this.$store.dispatch("assessBusinessApplication", payload);
-        if (this.isLastBusinessDept) {
-          if (status) {
-            this.$modal.show("accountNumberModal");
+        if (!status) {
+          if (this.isLastBusinessDept) {
+            this.$store.commit("setIsBusinessAssessment", false);
+            this.$store.commit("setIsEvaluation", true);
           } else {
-            this.createRemarks();
+            this.$store.commit("setIsEvaluation", true);
           }
-        }else{
+          if (!this.isAssessmentHasError) {
+            this.createRemarks();
+          } else {
             this.$router.push({ name: "Assessments" });
+          }
+        } else {
+          if (!this.isLastBuildingDept && !this.isAssessmentHasError) {
+            this.$modal.show("accountNumberModal");
+            await this.$store.dispatch("createPrompt", {
+              type: "success",
+              title: "Success!",
+              message: "Application was successfully assessed!",
+            });
+          }
+          this.$router.push({ name: "Assessments" });
         }
       }
     },
     async createRemarks() {
       // await this.$store.dispatch('setApplicationRemarks', {application_number: this.buildingBasicInformation.reference_number})
+      this.$store.commit("setIsEvaluation", false);
       await this.$store.dispatch(
         "getBusinessRemarks",
         this.businessApplication.id
       );
+      console.log(this.currentInquiry);
       if (this.currentInquiry === "") {
         this.$router.push({
           name: "NewRemarks",

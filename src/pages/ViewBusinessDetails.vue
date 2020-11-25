@@ -481,6 +481,13 @@
                       item.created_at | moment("MMMM DD, YYYY hh:mm A")
                     }}</span
                   >
+                  <span
+
+                    class="mt5 ml10 mb2 meta-view-remarks"
+                    v-if="item.status === 'Disapproved'"
+                    @click="openBusinessRemarks(businessApplication.id)"
+                    >View Remarks</span
+                  >
                 </div>
               </li>
             </ol>
@@ -520,6 +527,7 @@ export default {
     this.$store.dispatch("getUserBusinessAssessmentResult", {
       business_application: this.businessApplication.id,
     });
+    console.log(this.businessAssessmentResult)
   },
   beforeRouteLeave(to, from, next) {
     this.$store.commit("setCurrentApplicationStep", "1");
@@ -534,6 +542,10 @@ export default {
     };
   },
   methods: {
+    async openBusinessRemarks(id) {
+      await this.$store.dispatch("getBusinessRemarks", id);
+      await this.$router.push({ name: "UserReplyInquiry" });
+    },
     formatCurrency(str) {
       var parts = str.toString().split(".");
       parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -578,6 +590,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.meta-view-remarks {
+  text-decoration: underline;
+  cursor: pointer;
+}
 .meta-group-title {
   color: #2699fb;
   font-weight: bold;

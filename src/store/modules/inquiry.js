@@ -113,11 +113,9 @@ const actions = {
       const response = await axios.post(`${baseUrl}/api/messages/`, payload, {headers: {Authorization: `jwt ${getters.authToken}`} });
       if( getters.isEvaluation ){
           let newFormData = getters.currentEvaluationFile
-          if(Object.keys(newFormData).length > 0){
             newFormData.append("message", response.data.id)
             await dispatch('uploadMessageAttachment', newFormData)
-          }
-          this.$store.commit("setIsEvaluation", false)
+            commit("setIsEvaluation", false)
       }
     } catch (err) {
       err.response ? console.log(err.response) : console.log(err)
@@ -146,7 +144,10 @@ const actions = {
       const response = await axios.get(`${baseUrl}/api/business-remarks-thread/?id=${payload}`, {headers: {Authorization: `jwt ${getters.authToken}`} })
       if(response.data.id){
         commit('setCurrentInquiry', response.data.id)
+      }else{
+        commit('setCurrentInquiry', "")
       }
+      console.log(response.data)
     } catch (err) {
       console.log(err.response);
     }
@@ -156,6 +157,8 @@ const actions = {
       const response = await axios.get(`${baseUrl}/api/building-remarks-thread/?id=${payload}`, {headers: {Authorization: `jwt ${getters.authToken}`} })
       if(response.data.id){
         commit('setCurrentInquiry', response.data.id)
+      }else{
+        commit('setCurrentInquiry', "")
       }
     } catch (err) {
       console.log(err.response);

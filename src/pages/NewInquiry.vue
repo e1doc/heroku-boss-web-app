@@ -83,6 +83,9 @@ export default {
       "isBuildingAssessment",
       "isLastBuildingDept",
       "userDepartment",
+      "applicationRemarks",
+      "isBusinessAssessment",
+      "isLastBusinessDept",
     ]),
   },
   props: {
@@ -110,6 +113,7 @@ export default {
   },
   mounted() {
     this.getRemarks();
+    console.log(this.applicationRemarks);
   },
   beforeRouteLeave(to, from, next) {
     this.$store.dispatch("setApplicationStateRemarks", {});
@@ -118,7 +122,7 @@ export default {
   },
   methods: {
     async getRemarks() {
-      if (!this.remarks.application_number) {
+      if (!this.applicationRemarks.application_number) {
         if (this.application_number !== "") {
           await this.$store.dispatch("setApplicationStateRemarks", {
             application_number: this.application_number,
@@ -134,11 +138,13 @@ export default {
           this.type = "inquiry";
         }
       } else {
-        this.subject = `Application #${this.remarks.application_number} Remarks`;
-        this.type = "remarks";
-        this.applicationType = this.remarks.application_type;
-        this.applicationNumber = this.remarks.application_number;
-        this.receiver = this.remarks.user;
+        if (this.applicationRemarks.application_number) {
+          this.subject = `Application #${this.applicationRemarks.application_number} Remarks`;
+          this.type = "remarks";
+          this.applicationType = this.remarks.application_type;
+          this.applicationNumber = this.remarks.application_number;
+          this.receiver = this.remarks.user;
+        }
       }
     },
     async sendMessage() {
@@ -195,25 +201,39 @@ export default {
           }
         } else if (this.applicationType === "business") {
           let application_status = 0;
-          this.businessApplication.application_status === 0
-            ? (application_status = 1)
-            : this.businessApplication.application_status === 2
-            ? (application_status = 3)
-            : (application_status = 0);
-          let payload = {
-            id: this.applicationNumber,
-            status: application_status,
-            account_number: ""
-          };
-          this.$store.dispatch("approveBusinessApplication", payload);
-          if (this.businessApplication.application_status === 2) {
-            let resetAssessmentPayload = {
-              business_application: this.businessApplication.id,
+          if (this.isBusinessAssessment) {
+            application_status = this.businessApplication.application_status;
+            if (!this.isLastBusinessDept) {
+              this.$store.dispatch("createPrompt", {
+                type: "success",
+                title: "Success!",
+                message: "Application was successfully assessed!",
+              });
+              this.$router.push({ name: "Assessments" });
+            }
+          } else {
+            this.businessApplication.application_status === 0
+              ? (application_status = 1)
+              : this.businessApplication.application_status === 2
+              ? (application_status = 3)
+              : (application_status = 0);
+            let payload = {
+              id: this.applicationNumber,
+              status: application_status,
+              account_number: "",
             };
-            this.$store.dispatch(
-              "resetBusinessAssessment",
-              resetAssessmentPayload
-            );
+            this.$store.dispatch("approveBusinessApplication", payload);
+          }
+          if (!this.isBusinessAssessment) {
+            if (this.businessApplication.application_status === 2) {
+              let resetAssessmentPayload = {
+                business_application: this.businessApplication.id,
+              };
+              this.$store.dispatch(
+                "resetBusinessAssessment",
+                resetAssessmentPayload
+              );
+            }
           }
         }
       } else {

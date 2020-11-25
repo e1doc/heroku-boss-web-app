@@ -41,7 +41,8 @@ const getDefaultBusinessState = () => {
     isLastBusinessDept: false,
     forBusinessAssessmentList: [],
     assessedBusinessList: [],
-    currentSelectedBusiness: {}
+    currentSelectedBusiness: {},
+    isBusinessAssessment: false,
   };
 };
 
@@ -79,7 +80,8 @@ const getters = {
   isLastBusinessDept: (state) => state.isLastBusinessDept,
   forBusinessAssessmentList: (state) => state.forBusinessAssessmentList,
   assessedBusinessList: (state) => state.assessedBusinessList,
-  currentSelectedBusiness: (state) => state.currentSelectedBusiness 
+  currentSelectedBusiness: (state) => state.currentSelectedBusiness,
+  isBusinessAssessment: (state) => state.isBusinessAssessment,
 };
 
 const mutations = {
@@ -142,7 +144,9 @@ const mutations = {
     (state.forBusinessAssessmentList = forBusinessAssessmentList),
   setAssessedBusinessList: (state, assessedBusinessList) =>
     (state.assessedBusinessList = assessedBusinessList),
-  setCurrentSelectedBusiness: (state, currentSelectedBusiness) => (state.currentSelectedBusiness = currentSelectedBusiness)
+  setCurrentSelectedBusiness: (state, currentSelectedBusiness) =>
+    (state.currentSelectedBusiness = currentSelectedBusiness),
+  setIsBusinessAssessment: (state, isBusinessAssessment) => (state.isBusinessAssessment = isBusinessAssessment)
 };
 
 const actions = {
@@ -210,22 +214,22 @@ const actions = {
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       let action =
-      payload.status == 1
-        ? "incomplete"
-        : payload.status == 2
-        ? "for assessment"
-        : payload.status == 3
-        ? "for compliance"
-        : payload.status == 4
-        ? "for payment"
-        : "";
+        payload.status == 1
+          ? "incomplete"
+          : payload.status == 2
+          ? "for assessment"
+          : payload.status == 3
+          ? "for compliance"
+          : payload.status == 4
+          ? "for payment"
+          : "";
 
-    dispatch("createPrompt", {
-      type: "success",
-      title: "Success!",
-      message: `Application was successfully set to ${action}!`,
-    });
-    router.push({ name: "Applications" });
+      dispatch("createPrompt", {
+        type: "success",
+        title: "Success!",
+        message: `Application was successfully set to ${action}!`,
+      });
+      router.push({ name: "Applications" });
     } catch (err) {
       console.log(err);
       commit("setLoading", false);
@@ -244,14 +248,14 @@ const actions = {
       commit("setLoading", false);
     }
   },
-  async getBusinessApplications({ commit, dispatch, getters }, page=1) {
+  async getBusinessApplications({ commit, dispatch, getters }, page = 1) {
     try {
       const response = await axios.get(
         `${baseUrl}/api/user-business-application-list/?page=${page}`,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setApplications", response.data.results);
-      commit("setPageCount", response.data.count)
+      commit("setPageCount", response.data.count);
     } catch (err) {
       console.log(err.response);
       commit("setLoading", false);
@@ -505,7 +509,7 @@ const actions = {
       dispatch("createPrompt", {
         type: "error",
         title: "Failed!",
-        message: 'Something went wrong! Please try again later.',
+        message: "Something went wrong! Please try again later.",
       });
     }
   },
@@ -536,14 +540,9 @@ const actions = {
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setBusinessAssessmentMessage", response.data.message);
-      if (!getters.isLastBusinessDept) {
-        dispatch("createPrompt", {
-          type: "success",
-          title: "Success!",
-          message: response.data.detail,
-        });
-      }
+      commit("setIsAssessmentHasError", false);
     } catch (err) {
+      commit("setIsAssessmentHasError", true);
       console.log(err);
       if (err.response) {
         console.log(err.response);
@@ -552,7 +551,7 @@ const actions = {
           title: "Failed!",
           message: err.response.data.detail,
         });
-        router.push({ name: "Applications" });
+        router.push({ name: "Assessments" });
       }
     }
   },
@@ -625,11 +624,15 @@ const actions = {
       }
     }
   },
-  async resetBusinessAssessment({commit, getters}, payload){
+  async resetBusinessAssessment({ commit, getters }, payload) {
     try {
-      const response = await axios.put(`${baseUrl}/staff/reset-business-assessment`,payload,{
-        headers: { Authorization: `jwt ${getters.authToken}` },
-      })
+      const response = await axios.put(
+        `${baseUrl}/staff/reset-business-assessment`,
+        payload,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+        }
+      );
     } catch (err) {
       console.log(err);
       if (err.response) {
@@ -646,6 +649,7 @@ const actions = {
           params: payload,
         }
       );
+      console.log('assessment result', response.data)
       commit("setBusinessAssessmentResult", response.data);
     } catch (err) {
       console.log(err);

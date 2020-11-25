@@ -72,7 +72,7 @@
           fileLabel="inquiry_attachment"
           uploadType="application/pdf"
           class="upload-attachment"
-          v-if="isLastBuildingDept"
+          v-if="isLastBuildingDept && isEvaluation"
           :isEvaluation="true"
         />
         <div class="inquiry-button">
@@ -119,7 +119,7 @@ export default {
     this.$store.commit("setContinueBuildingThread", false);
     this.$store.commit("setCurrentBuildingId", 0);
     this.$store.commit("setContinueBusinessThread", false);
-    this.$store.commit("currentBusinessId", 0);
+    this.$store.commit("setCurrentBusinessId", 0);
     next();
   },
   computed: {
@@ -136,6 +136,9 @@ export default {
       "isBuildingAssessment",
       "isLastBuildingDept",
       "userDepartment",
+      "isEvaluation",
+      "isLastBusinessDept",
+      "isBusinessAssessment",
     ]),
   },
   mounted() {
@@ -148,8 +151,10 @@ export default {
     },
     async getInquiry() {
       let id = this.thread != "" ? this.thread : this.currentInquiry;
+      console.log("thread id", id);
       await this.$store.dispatch("getInquiry", id);
       this.messages = await this.inquiry.messages;
+      console.log("messages", this.messages);
     },
     async sendReply() {
       if (this.continueBuildingThread) {
@@ -182,26 +187,31 @@ export default {
       }
       if (this.continueBusinessThread) {
         let application_status = 0;
-
-        this.businessApplication.application_status === 0
-          ? (application_status = 1)
-          : this.businessApplication.application_status === 2
-          ? (application_status = 3)
-          : (application_status = 0);
-        let payload = {
-          id: this.currentBusinessId,
-          status: application_status,
-          account_number: "",
-        };
-        this.$store.dispatch("approveBusinessApplication", payload);
-        if (this.businessApplication.application_status === 2) {
-          let resetAssessmentPayload = {
-            business_application: this.businessApplication.id,
+        if (this.isBusinessAssessment) {
+          application_status = this.businessApplication.application_status;
+        } else {
+          this.businessApplication.application_status === 0
+            ? (application_status = 1)
+            : this.businessApplication.application_status === 2
+            ? (application_status = 3)
+            : (application_status = 0);
+          let payload = {
+            id: this.currentBusinessId,
+            status: application_status,
+            account_number: "",
           };
-          this.$store.dispatch(
-            "resetBusinessAssessment",
-            resetAssessmentPayload
-          );
+          this.$store.dispatch("approveBusinessApplication", payload);
+        }
+        if (!this.isBusinessAssessment) {
+          if (this.businessApplication.application_status === 2) {
+            let resetAssessmentPayload = {
+              business_application: this.businessApplication.id,
+            };
+            this.$store.dispatch(
+              "resetBusinessAssessment",
+              resetAssessmentPayload
+            );
+          }
         }
       }
       await this.$store.dispatch("adminRespond", {
@@ -215,7 +225,16 @@ export default {
       this.messages.push({ body: this.body, sender: { is_staff: true } });
       this.body = "";
 
-      if (!this.isLastBuildingDept) {
+      if (!this.isLastBuildingDept && this.isBuildingAssessment) {
+        this.$store.dispatch("createPrompt", {
+          type: "success",
+          title: "Success!",
+          message: "Application was successfully assessed!",
+        });
+        this.$router.push({ name: "Assessments" });
+      }
+
+      if (!this.isBusinessDept && this.isBusinessAssessment) {
         this.$store.dispatch("createPrompt", {
           type: "success",
           title: "Success!",
