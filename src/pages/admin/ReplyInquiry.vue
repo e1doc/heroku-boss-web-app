@@ -40,13 +40,15 @@
           </div>
           <div class="item-content flex-wrap">
             {{ message.body }}
-            <div
-              class="item-attachment"
-              v-if="message.messageattachments.length > 0"
-              @click="linkProps(message.messageattachments[0].file)"
-            >
-              <font-awesome-icon icon="paperclip" class="admin-icon" /> See
-              Attachment
+            <div v-if="message.messageattachments">
+              <div
+                class="item-attachment"
+                v-if="message.messageattachments.length > 0"
+                @click="linkProps(message.messageattachments[0].file)"
+              >
+                <font-awesome-icon icon="paperclip" class="admin-icon" /> See
+                Attachment
+              </div>
             </div>
           </div>
           <div class="item-date">
