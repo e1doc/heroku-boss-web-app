@@ -33,7 +33,7 @@
     <div class="flex-column" v-if="currentSoaType === 'real_property'">
       <h4>For Tax Year - {{new Date(Date.now()) | moment('YYYY')}}</h4>
       <h3 class="meta-input-label mt10 mb10 text-bold mb20">
-        Tax Dec No. {{ currentSelectedProperty.reference_id }}
+        Tax Dec No. {{ currentSelectedProperty.buildingdetails.tax_dec_no }}
       </h3>
       <div class="mb30 mt10">
         <div class="meta-checkbox flex-center">
