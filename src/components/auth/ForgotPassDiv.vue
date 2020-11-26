@@ -12,34 +12,37 @@
           Enter your registered email address to receive the password reset
           link.
         </div>
-        <div>
-          <base-input-icon
-            label="Email"
-            placeholder="Enter email"
-            v-model="email"
-            name="email"
-            refs="user_email"
-            type="email"
-            class="mt40"
-          />
-        </div>
-        <div>
-          <button-full class="mt10" @click.native="forgotPassword()">
-            SUBMIT
-          </button-full>
-        </div>
+        <form @submit.prevent="forgotPassword">
+          <div>
+            <base-input-icon
+              label="Email"
+              placeholder="Enter email"
+              v-model="email"
+              name="email"
+              refs="user_email"
+              type="email"
+              class="mt40"
+            />
+          </div>
+          <div>
+            <button-full class="mt10" @click.native="forgotPassword()">
+              SUBMIT
+            </button-full>
+          </div>
+        </form>
       </div>
 
       <!-- COUNTDOWN TIMER -->
-      <div class="resend-code-div flex-center"  v-if="forgotPasswordSuccess">
-        <span class="resend-text" 
-           v-bind:class="timerCount != 0 ? 'disabled' : '' "
-           @click="resetValue">
-           Resend Code 
+      <div class="resend-code-div flex-center" v-if="forgotPasswordSuccess">
+        <span
+          class="resend-text"
+          v-bind:class="timerCount != 0 ? 'disabled' : ''"
+          @click="resetValue"
+        >
+          Resend Code
         </span>
-        <span class="countdown-timer" 
-           v-if="timerCount != 0">
-            ( {{ timerCount }} seconds )
+        <span class="countdown-timer" v-if="timerCount != 0">
+          ( {{ timerCount }} seconds )
         </span>
       </div>
 
@@ -60,7 +63,7 @@
 import ButtonFull from "@/components/ButtonFull";
 import ButtonFullOutline from "@/components/ButtonFullOutline";
 import BaseInputIcon from "@/components/forms/BaseInputIcon";
-import {mapGetters, mapActions} from "vuex"
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "ForgotPassDiv",
   components: {
@@ -72,42 +75,42 @@ export default {
     return {
       email: "",
       isSuccess: false,
-      timerCount: 0
+      timerCount: 0,
     };
   },
-  computed:{
-    ...mapGetters(["forgotPasswordSuccess", "credentials"])
+  computed: {
+    ...mapGetters(["forgotPasswordSuccess", "credentials"]),
   },
-  methods:{
+  methods: {
     ...mapActions(["forgotPasswordUser"]),
-    async forgotPassword(){
-      await this.$store.dispatch('forgotPasswordUser', {email:this.email})
+    async forgotPassword() {
+      await this.$store.dispatch("forgotPasswordUser", { email: this.email });
     },
     async resetValue() {
-       await this.$store.dispatch('forgotPasswordUser', this.credentials)
-       this.timerCount = '30'
-    }
+      await this.$store.dispatch("forgotPasswordUser", this.credentials);
+      this.timerCount = "30";
+    },
   },
   // COUNTDOWN TIMER
   watch: {
-   forgotPasswordSuccess:{
-        handler(value) {
-          if (value){
-            this.timerCount = 30
-          }
+    forgotPasswordSuccess: {
+      handler(value) {
+        if (value) {
+          this.timerCount = 30;
         }
-    }, 
+      },
+    },
     timerCount: {
       handler(value) {
         if (value > 0) {
           setTimeout(() => {
-              this.timerCount--;
+            this.timerCount--;
           }, 1000);
         }
       },
-      immediate: true // This ensures the watcher is triggered upon creation
-    }
-  }
+      immediate: true, // This ensures the watcher is triggered upon creation
+    },
+  },
 };
 </script>
 
@@ -131,11 +134,11 @@ export default {
 }
 
 // COUNTDOWN TIMER
-.resend-code-div{
+.resend-code-div {
   display: flex;
   justify-content: center;
 }
-.resend-text{
+.resend-text {
   width: auto;
   float: left;
   font-size: 16px;
@@ -144,34 +147,33 @@ export default {
   cursor: pointer;
   margin-right: 5px;
 }
-.resend-text.disabled{
+.resend-text.disabled {
   color: #cbcbcb;
   text-decoration: none;
   pointer-events: none;
 }
 .countdown-timer {
-    color: #039be5bf;
-    font-size: 16px;
-    font-family: "Proxima Nova Rg";
-    text-align: center;
+  color: #039be5bf;
+  font-size: 16px;
+  font-family: "Proxima Nova Rg";
+  text-align: center;
 }
 
-@media only screen and ( max-width: 1400px ){
+@media only screen and (max-width: 1400px) {
   .form-group {
-      margin-top: 0;
-      div {
-          margin-bottom: 30px;
-      }
-      .icon{
-          font-size: 60px;
-          margin-right: 0;
-      }
+    margin-top: 0;
+    div {
+      margin-bottom: 30px;
+    }
+    .icon {
+      font-size: 60px;
+      margin-right: 0;
+    }
   }
 }
 
-@media only screen and ( max-width: 860px ){
-    
-  .icon{
+@media only screen and (max-width: 860px) {
+  .icon {
     font-size: 50px;
   }
 
@@ -179,15 +181,14 @@ export default {
     font-size: 22px;
   }
 
-  .form-group{
-      margin-top: 0;
+  .form-group {
+    margin-top: 0;
   }
-
 }
 
-@media only screen and ( max-width: 350px ){
-  h1{
-      font-size: 20px;
+@media only screen and (max-width: 350px) {
+  h1 {
+    font-size: 20px;
   }
 }
 </style>

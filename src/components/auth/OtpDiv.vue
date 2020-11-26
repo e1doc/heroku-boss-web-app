@@ -11,31 +11,34 @@
       <div class="note">
         OTP has been sent to you on your email address. Please enter it below.
       </div>
-      <div>
-        <base-input-otp
-          v-model="code"
-          name="code"
-          refs="otpcode"
-          type="number"
-          class="mt40"
-          @input="updateValue"
-        />
-      </div>
-      <div>
-        <button-full @click.native="verifyOtp" class="mt10">
-          VERIFY
-        </button-full>
-      </div>
-            <!-- COUNTDOWN TIMER -->
+      <form @submit.prevent="verifyOtp">
+        <div>
+          <base-input-otp
+            v-model="code"
+            name="code"
+            refs="otpcode"
+            type="number"
+            class="mt40"
+            @input="updateValue"
+          />
+        </div>
+        <div>
+          <button-full @click.native="verifyOtp" class="mt10">
+            VERIFY
+          </button-full>
+        </div>
+      </form>
+      <!-- COUNTDOWN TIMER -->
       <div class="resend-code-div flex-center">
-        <span class="resend-text" 
-           v-bind:class="timerCount != 0 ? 'disabled' : '' "
-           @click="resetValue">
-           Resend Code 
+        <span
+          class="resend-text"
+          v-bind:class="timerCount != 0 ? 'disabled' : ''"
+          @click="resetValue"
+        >
+          Resend Code
         </span>
-        <span class="countdown-timer" 
-           v-if="timerCount != 0">
-            ( {{ timerCount }} seconds )
+        <span class="countdown-timer" v-if="timerCount != 0">
+          ( {{ timerCount }} seconds )
         </span>
       </div>
     </div>
@@ -59,28 +62,28 @@ export default {
   data() {
     return {
       code: "",
-      timerCount: 30
+      timerCount: 30,
     };
   },
-  computed:{
-    ...mapGetters(['credentials'])
+  computed: {
+    ...mapGetters(["credentials"]),
   },
   methods: {
     ...mapActions(["getAuthToken"]),
     updateValue() {
       var max_chars = 7;
       if (this.code.length > max_chars) {
-        this.code= this.code.substr(0, max_chars);
+        this.code = this.code.substr(0, max_chars);
       }
       this.$forceUpdate();
     },
-    verifyOtp(){
-       this.getAuthToken(this.code);
+    verifyOtp() {
+      this.getAuthToken(this.code);
     },
-   async resetValue() {
-        await this.$store.dispatch('getCodeToken',this.credentials)
-        this.timerCount = '30'
-    }
+    async resetValue() {
+      await this.$store.dispatch("getCodeToken", this.credentials);
+      this.timerCount = "30";
+    },
   },
   // COUNTDOWN TIMER
   watch: {
@@ -88,13 +91,13 @@ export default {
       handler(value) {
         if (value > 0) {
           setTimeout(() => {
-              this.timerCount--;
+            this.timerCount--;
           }, 1000);
         }
       },
-      immediate: true // This ensures the watcher is triggered upon creation
-    }
-  }
+      immediate: true, // This ensures the watcher is triggered upon creation
+    },
+  },
 };
 </script>
 
@@ -117,11 +120,11 @@ export default {
 }
 
 // COUNTDOWN TIMER
-.resend-code-div{
+.resend-code-div {
   display: flex;
   justify-content: center;
 }
-.resend-text{
+.resend-text {
   width: auto;
   float: left;
   font-size: 16px;
@@ -130,46 +133,46 @@ export default {
   cursor: pointer;
   margin-right: 5px;
 }
-.resend-text.disabled{
+.resend-text.disabled {
   color: #cbcbcb;
   text-decoration: none;
   pointer-events: none;
 }
 .countdown-timer {
-    color: #039be5bf;
-    font-size: 16px;
-    font-family: "Proxima Nova Rg";
-    text-align: center;
+  color: #039be5bf;
+  font-size: 16px;
+  font-family: "Proxima Nova Rg";
+  text-align: center;
 }
 
-@media only screen and ( max-width: 1400px ){
+@media only screen and (max-width: 1400px) {
   .form-group {
-      margin-top: 0;
-      div {
-          margin-bottom: 30px;
-      }
-      .icon{
-          font-size: 60px;
-          margin-right: 0;
-      }
+    margin-top: 0;
+    div {
+      margin-bottom: 30px;
+    }
+    .icon {
+      font-size: 60px;
+      margin-right: 0;
+    }
   }
 }
 
-@media only screen and ( max-width: 860px ){
-  .icon{
+@media only screen and (max-width: 860px) {
+  .icon {
     font-size: 50px;
   }
   h1 {
     font-size: 22px;
   }
-  .form-group{
-      margin-top: 0;
+  .form-group {
+    margin-top: 0;
   }
 }
 
-@media only screen and ( max-width: 350px ){
-  h1{
-      font-size: 20px;
-  } 
+@media only screen and (max-width: 350px) {
+  h1 {
+    font-size: 20px;
+  }
 }
 </style>
