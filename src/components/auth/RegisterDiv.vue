@@ -86,7 +86,7 @@
             />
           </div>
           <div>
-            <button-full class="mt10" @click.native="register()">
+            <button-full class="mt10" type="submit">
               REGISTER
             </button-full>
           </div>

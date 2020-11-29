@@ -25,7 +25,7 @@
             />
           </div>
           <div>
-            <button-full class="mt10" @click.native="forgotPassword()">
+            <button-full class="mt10" type="submit">
               SUBMIT
             </button-full>
           </div>

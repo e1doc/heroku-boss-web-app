@@ -165,6 +165,7 @@ export default {
         body: this.body,
       });
       this.messages.push({ body: this.body, sender: { is_staff: false } });
+      this.body = ""
     },
     async resolveInquiry() {
       await this.$store.dispatch("resolveInquiry", {

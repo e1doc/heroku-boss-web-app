@@ -30,7 +30,7 @@
           />
         </div>
         <div>
-          <button-full class="mt10" @click.native="login">
+          <button-full class="mt10" type="submit">
             LOGIN
           </button-full>
         </div>

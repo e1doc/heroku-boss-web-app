@@ -123,7 +123,7 @@ const actions = {
       commit("setValidationMessages", err.response.data);
     }
   },
-  async forgotPasswordUser({ commit, getters }, payload) {
+  async forgotPasswordUser({ commit, getters, dispatch }, payload) {
     try {
       commit("setLoading", true);
       const response = await axios.post(
@@ -136,6 +136,11 @@ const actions = {
     } catch (err) {
       commit("setLoading", false);
       commit("setValidationMessages", err.response.data);
+      dispatch("createPrompt", {
+        type: "error",
+        title: err.response.statusText,
+        message: err.response.data.detail,
+      });
     }
   },
   async resetPasswordUser({ commit, dispatch, getters }, payload) {
