@@ -2,8 +2,8 @@
   <section>
     <div class="thead">
       <div class="th">APPLICATION #</div>
+      <div class="th" v-if="currentType === 'business'">Trade Name</div>
       <div class="th">DATE</div>
-      <!-- <div class="th" v-if="currentType === 'business'">Account #</div> -->
       <div class="th" v-if="currentType === 'building'">TD #</div>
       <div class="th">STATUS</div>
       <div class="th">ACTIONS</div>
@@ -18,7 +18,15 @@
           <div class="td">
             {{
               item.business_application.businessbasicinformation !== null
-                ? item.business_application.businessbasicinformation.reference_number
+                ? item.business_application.businessbasicinformation
+                    .reference_number
+                : "N/A"
+            }}
+          </div>
+          <div class="td">
+            {{
+              item.business_application.businessdetails !== null
+                ? item.business_application.businessdetails.trade_name
                 : "N/A"
             }}
           </div>
@@ -31,9 +39,7 @@
             }}
           </div> -->
           <div class="td">
-            {{
-              item.is_approve ? "APPROVED" : "DISAPPROVED"
-            }}
+            {{ item.is_approve ? "APPROVED" : "DISAPPROVED" }}
           </div>
           <div class="td actions">
             <div @click="openBusinessApplication(item.business_application)">
@@ -59,7 +65,7 @@
       </paginate>
     </div>
     <div v-if="currentType === 'business' && currentTable === 'for_assessment'">
-       <div class="tbody" v-if="forBusinessAssessmentList.length > 0">
+      <div class="tbody" v-if="forBusinessAssessmentList.length > 0">
         <div
           class="tr"
           v-for="(item, index) in forBusinessAssessmentList"
@@ -69,6 +75,13 @@
             {{
               item.businessbasicinformation !== null
                 ? item.businessbasicinformation.reference_number
+                : "N/A"
+            }}
+          </div>
+          <div class="td">
+            {{
+              item.businessdetails !== null
+                ? item.businessdetails.trade_name
                 : "N/A"
             }}
           </div>
@@ -104,7 +117,7 @@
         :page-class="'page-item'"
         :click-handler="businessAssessmentClick"
       >
-       </paginate>
+      </paginate>
     </div>
     <div v-if="currentType === 'building' && currentTable === 'for_assessment'">
       <div class="tbody" v-if="forBuildingAssessmentList.length > 0">
@@ -131,7 +144,7 @@
             }}
           </div>
           <div class="td">
-           FOR ASSESSMENT
+            FOR ASSESSMENT
           </div>
           <div class="td actions">
             <div @click="openBuildingApplication('view', item)">
@@ -166,7 +179,8 @@
           <div class="td">
             {{
               item.building_application.buildingbasicinformation !== null
-                ? item.building_application.buildingbasicinformation.reference_number
+                ? item.building_application.buildingbasicinformation
+                    .reference_number
                 : "N/A"
             }}
           </div>
@@ -181,12 +195,14 @@
             }}
           </div>
           <div class="td">
-           {{
-             item.is_approve ? 'APPROVED' : 'DISAPPROVED'
-           }}
+            {{ item.is_approve ? "APPROVED" : "DISAPPROVED" }}
           </div>
           <div class="td actions">
-            <div @click="openBuildingApplication('view', item.building_application)">
+            <div
+              @click="
+                openBuildingApplication('view', item.building_application)
+              "
+            >
               <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
             </div>
           </div>
@@ -226,7 +242,7 @@ export default {
       "forBusinessAssessmentList",
       "assessedBusinessList",
       "forBuildingAssessmentList",
-      "assessedBuildingList"
+      "assessedBuildingList",
     ]),
   },
   mounted() {
@@ -239,13 +255,13 @@ export default {
     businessAssessmentClick(pageNum) {
       this.$store.dispatch("getForBusinessAssessmentList", pageNum);
     },
-    businessAssessedClick(pageNum){
+    businessAssessedClick(pageNum) {
       this.$store.dispatch("getAssessedBusinessList", pageNum);
     },
-    buildingAssessmentClick(pageNum){
+    buildingAssessmentClick(pageNum) {
       this.$store.dispatch("getForBuildingAssessmentList", pageNum);
     },
-    buildingAssessedClick(pageNum){
+    buildingAssessedClick(pageNum) {
       this.$store.dispatch("getAssessedBuildingList", pageNum);
     },
     openBusinessApplication(data) {
@@ -259,7 +275,7 @@ export default {
           account_number: data.account_number,
           application_status: data.application_status,
           user: data.user,
-          last_submitted: data.last_submitted
+          last_submitted: data.last_submitted,
         };
         this.$store.commit("setBusinessApplication", application);
       }
@@ -296,7 +312,7 @@ export default {
           created_at: data.created_at,
           application_status: data.application_status,
           user: data.user,
-          last_submitted: data.last_submitted
+          last_submitted: data.last_submitted,
         };
         this.$store.commit("setBuildingApplication", application);
       }

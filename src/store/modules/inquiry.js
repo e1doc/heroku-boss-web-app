@@ -65,7 +65,7 @@ const actions = {
   ) {
     try {
       const response = await axios.get(
-        `${baseUrl}/staff/threads/?page=${page}&filter_by=${filter_by}`,
+        `${baseUrl}/staff/threads/?page=${page}&filter_by=${filter_by}&search=`,
         {headers: {Authorization: `jwt ${getters.authToken}`} }
       );
       commit("setPageCount", response.data.total_pages);

@@ -23,7 +23,7 @@
           />
         </div>
         <div>
-          <button-full @click.native="verifyOtp" class="mt10">
+          <button-full type="submit" class="mt10">
             VERIFY
           </button-full>
         </div>
