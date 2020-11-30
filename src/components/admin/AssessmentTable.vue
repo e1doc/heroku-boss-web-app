@@ -48,7 +48,7 @@
         </div>
       </div>
       <paginate
-        v-if="assessedBusinessList.length > 9"
+        v-if="assessedBusinessList.length > 0"
         :page-count="pageCount"
         :prev-text="'Prev'"
         :next-text="'Next'"
@@ -96,7 +96,7 @@
         </div>
       </div>
       <paginate
-        v-if="forBusinessAssessmentList.length > 9"
+        v-if="forBusinessAssessmentList.length > 0"
         :page-count="pageCount"
         :prev-text="'Prev'"
         :next-text="'Next'"
@@ -146,7 +146,7 @@
         </div>
       </div>
       <paginate
-        v-if="forBuildingAssessmentList.length > 9"
+        v-if="forBuildingAssessmentList.length > 0"
         :page-count="pageCount"
         :prev-text="'Prev'"
         :next-text="'Next'"
@@ -198,7 +198,7 @@
         </div>
       </div>
       <paginate
-        v-if="assessedBuildingList.length > 9"
+        v-if="assessedBuildingList.length > 0"
         :page-count="pageCount"
         :prev-text="'Prev'"
         :next-text="'Next'"

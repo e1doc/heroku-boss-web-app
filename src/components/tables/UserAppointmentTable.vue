@@ -36,7 +36,7 @@
         </div>
       </div> 
   <paginate
-        v-if="appointments.length > 9"
+        v-if="appointments.length > 0"
         :page-count="pageCount"
         :prev-text="'Prev'"
         :next-text="'Next'"

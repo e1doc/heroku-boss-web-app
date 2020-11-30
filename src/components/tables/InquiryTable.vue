@@ -61,7 +61,7 @@
       </div>
     </div>
     <paginate
-      v-if="currentTable === 'inquiries' && inquiries.length > 9"
+      v-if="currentTable === 'inquiries' && inquiries.length > 0"
       :page-count="pageCount"
       :prev-text="'Prev'"
       :next-text="'Next'"
@@ -71,7 +71,7 @@
     >
     </paginate>
         <paginate
-      v-if="currentTable === 'remarks' && remarks.length > 9"
+      v-if="currentTable === 'remarks' && remarks.length > 0"
       :page-count="pageCount"
       :prev-text="'Prev'"
       :next-text="'Next'"

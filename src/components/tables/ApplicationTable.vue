@@ -137,7 +137,7 @@
     </div>
 
     <paginate
-        v-if="applications.length > 9 && currentType === 'business'"
+        v-if="applications.length > 0 && currentType === 'business'"
         :page-count="pageCount"
         :prev-text="'Prev'"
         :next-text="'Next'"
@@ -148,7 +148,7 @@
       </paginate>
 
       <paginate
-        v-if="buildingApplications.length > 9 && currentType === 'building'"
+        v-if="buildingApplications.length > 0 && currentType === 'building'"
         :page-count="pageCount"
         :prev-text="'Prev'"
         :next-text="'Next'"

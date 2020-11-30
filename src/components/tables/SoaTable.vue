@@ -154,7 +154,7 @@
       </div>
     </div>
     <paginate
-      v-if="soaList.length > 9 && currentType === 'business'"
+      v-if="soaList.length > 0 && currentType === 'business'"
       :page-count="pageCount"
       :prev-text="'Prev'"
       :next-text="'Next'"

@@ -31,7 +31,7 @@
         </div>
       </div>
       <paginate
-        v-if="inquiries.length > 9"
+        v-if="inquiries.length > 0"
         :page-count="pageCount"
         :prev-text="'Prev'"
         :next-text="'Next'"
@@ -67,7 +67,7 @@
         </div>
       </div>
       <paginate
-        v-if="inquiries.length > 9"
+        v-if="inquiries.length > 0"
         :page-count="pageCount"
         :prev-text="'Prev'"
         :next-text="'Next'"
