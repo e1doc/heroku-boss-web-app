@@ -33,6 +33,8 @@
           REMARKS
         </div>
       </div>
+      
+      <base-input-search v-model="search" @keyup.native="searchData()" />
     </div>
   </div>
 </template>

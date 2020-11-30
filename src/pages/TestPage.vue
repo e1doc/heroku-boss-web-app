@@ -14,7 +14,10 @@
       <!-- <agreement-modal /> -->
       <!-- <invoice-dialog/> -->
       <!-- <downloadable-invoice/> -->
-      <faq />
+      <new-inquiry />
+      <user-reply-inquiry/>
+      <reply-inquiry/>
+      <!-- <faq /> -->
   </section>
 </template>
 
@@ -31,6 +34,9 @@ import AppointmentInvoice from "@/pages/AppointmentInvoice";
 import OtpDiv from "@/components/auth/OtpDiv";
 import AgreementModal from "@/components/application/AgreementModal";
 import InvoiceDialog from "@/components/payment/InvoiceDialog";
+import ReplyInquiry from "@/pages/admin/ReplyInquiry";
+import UserReplyInquiry from "@/pages/UserReplyInquiry";
+import NewInquiry from "@/pages/NewInquiry";
 import Faq from "@/pages/Faq";
 export default {
     name: "TestPage",
@@ -47,7 +53,10 @@ export default {
         AgreementModal,
         InvoiceDialog,
         DownloadableInvoice,
-        Faq
+        Faq,
+        NewInquiry,
+        ReplyInquiry,
+        UserReplyInquiry,
   },
   data() {
       return {

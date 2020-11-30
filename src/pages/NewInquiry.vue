@@ -24,6 +24,14 @@
           v-model="subject"
           :disabled="type === 'inquiry' ? false : true"
         />
+        
+        <div class="inquiry-new-text mb15">Department Concern</div>
+        <base-select
+          placeholder="------ Choose Department ------"
+          :options="departments"
+          name="selectDepartment"
+          class="select-input mb15"
+        />
         <div class="inquiry-new-text">
           {{ type === "inquiry" ? "Inquiry" : "Remarks" }}
         </div>
@@ -63,6 +71,7 @@ import InquiryTable from "@/components/tables/InquiryTable";
 import ButtonBlock from "@/components/ButtonBlock";
 import BaseInput from "@/components/forms/BaseInput";
 import BaseFileUploader from "@/components/forms/BaseFileUploader";
+import BaseSelect from "@/components/forms/BaseSelect";
 import { mapGetters } from "vuex";
 export default {
   name: "ReplyInquiry",
@@ -72,6 +81,7 @@ export default {
     ButtonBlock,
     BaseInput,
     BaseFileUploader,
+    BaseSelect
   },
   computed: {
     ...mapGetters([
@@ -109,6 +119,20 @@ export default {
       applicationType: "",
       applicationNumber: "",
       receiver: "",
+      departments: [
+        {
+          label: "Department 1",
+          value: "Department 1",
+        },
+        {
+          label: "Department 2",
+          value: "Department 2",
+        },
+        {
+          label: "Department 3",
+          value: "Department 3",
+        },
+      ],
     };
   },
   mounted() {

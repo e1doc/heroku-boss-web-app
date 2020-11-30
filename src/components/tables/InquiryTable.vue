@@ -1,10 +1,13 @@
 <template>
   <section>
+
+    <!-- INQUIRY TABLE -->
     <div v-if="currentTable === 'inquiries'">
       <div class="thead">
         <div class="th date">DATE</div>
         <div class="th subject">SUBJECT</div>
         <div class="th sender">SENDER</div>
+        <div class="th dept">DEPARTMENT</div>
         <div class="th status">STATUS</div>
         <div class="th actions">ACTIONS</div>
       </div>
@@ -13,9 +16,18 @@
           <div class="td date">
             {{ inquiry.created_at | moment("MMMM DD YYYY") }}
           </div>
-          <div class="td subject">{{ inquiry.subject }}</div>
-          <div class="td sender">{{inquiry.sender.first_name}} {{inquiry.sender.last_name}}</div>
-          <div class="td status">{{ inquiry.status }}</div>
+          <div class="td subject">
+            {{ inquiry.subject }}
+          </div>
+          <div class="td sender">
+            {{inquiry.sender.first_name}} {{inquiry.sender.last_name}}
+          </div>
+          <div class="td dept">
+            DEPARTMENT NAME
+          </div>
+          <div class="td status">
+            {{ inquiry.status }}
+          </div>
           <div class="td actions">
             <router-link :to="{name:'ReplyInquiry', params:{thread: inquiry.id}}">
               <font-awesome-icon icon="envelope-open-text" class="mr5 icon" />
@@ -30,11 +42,15 @@
         </div>
       </div>
     </div>
-        <div v-if="currentTable === 'remarks'">
+
+
+    <!-- REMARKS TABLE -->
+    <div v-if="currentTable === 'remarks'">
       <div class="thead">
         <div class="th date">DATE</div>
         <div class="th subject">SUBJECT</div>
         <div class="th sender">SENDER</div>
+        <div class="th dept">DEPARTMENT</div>
         <div class="th status">STATUS</div>
         <div class="th actions">ACTIONS</div>
       </div>
@@ -43,9 +59,18 @@
           <div class="td date">
             {{ remark.created_at | moment("MMMM DD YYYY") }}
           </div>
-          <div class="td subject">{{ remark.subject }}</div>
-          <div class="td sender">{{ remark.sender.first_name}} {{remark.sender.last_name}}</div>
-          <div class="td status">{{ remark.status }}</div>
+          <div class="td subject">
+            {{ remark.subject }}
+          </div>
+          <div class="td sender">
+            {{ remark.sender.first_name}} {{remark.sender.last_name}}
+          </div>
+          <div class="td dept">
+            DEPARTMENT NAME
+          </div>
+          <div class="td status">
+            {{ remark.status }}
+          </div>
           <div class="td actions">
             <router-link :to="{name:'ReplyInquiry', params:{thread: remark.id}}">
               <font-awesome-icon icon="envelope-open-text" class="mr5 icon" />
@@ -122,9 +147,12 @@ section {
     text-transform: uppercase;
 }
 
-.subject,
-.sender{
+.subject{
     width: 30%;
+    text-transform: uppercase;
+}
+.sender{
+    width: 25%;
     text-transform: uppercase;
 }
 
@@ -138,6 +166,11 @@ section {
 }
 .actions {
   width: 13%;
+  text-transform: uppercase;
+}
+
+.dept{
+  width: 18%;
   text-transform: uppercase;
 }
 
