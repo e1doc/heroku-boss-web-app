@@ -35,6 +35,9 @@ import Appointment from "../pages/Appointment"
 import AddAppointment from "../pages/AddAppointment"
 import AppointmentInvoice from "../pages/AppointmentInvoice"
 import TestPage from "../pages/TestPage";
+import LandBankPayment from "../pages/LandbankPayment";
+import PaymentSuccess from "../pages/PaymentSuccess";
+import PaymentError from "../pages/PaymentError";
 import ComingSoon from "../pages/ComingSoon";
 import store from "../store";
 import swal from "sweetalert2"
@@ -165,6 +168,21 @@ const routes = [
         path: "faq",
         name: "Faq",
         component: Faq,
+      },
+      {
+        path: "landbank-payment",
+        name: "LandBankPayment",
+        component: LandBankPayment,
+      },
+      {
+        path: "payment-success",
+        name: "PaymentSuccess",
+        component: PaymentSuccess,
+      },
+      {
+        path: "payment-error",
+        name: "PaymentError",
+        component: PaymentError,
       },
     ],
     async beforeEnter(to, from, next) {
