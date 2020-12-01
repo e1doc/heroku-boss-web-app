@@ -18,7 +18,7 @@
         {{ inquiry.created_at | moment("MMMM DD YYYY") }}
       </div>
       <div class="item-department">
-        <span>Dept. Concern:</span> Department 1
+        <span>Dept. Concern:</span> {{inquiry.department ? inquiry.department : 'N/A'}}
       </div>
     </div>
     <div class="inquiry-body">
