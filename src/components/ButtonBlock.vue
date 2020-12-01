@@ -78,7 +78,11 @@ a{
   border-color: #a8a8a8;
   background-color: #a8a8a8;
 }
-
+.btn-disabled:hover{
+    border-color: gray !important;
+    color: gray !important;
+    background: none !important;
+}
 .inquiry-application-btn:hover{
   color: #fff;
   border-color: #fff;

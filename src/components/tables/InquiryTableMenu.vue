@@ -34,7 +34,7 @@
         </div>
       </div>
       
-      <!-- <base-input-search v-model="search" @keyup.native="searchData()" placeholder="Search by sender and department" /> -->
+      <base-input-search v-model="search" @keyup.native="searchData()" placeholder="Search by sender and department" />
     </div>
   </div>
 </template>
@@ -78,7 +78,11 @@ export default {
     },
     async searchData(){
       this.$store.commit('setInquirySearch', this.search)
-      await this.$store.dispatch("getAllAdminInquiries", { page: 1, filter_by: this.currentType });
+      if(this.currentTable === 'inquiries'){
+              await this.$store.dispatch("getAllAdminInquiries", { page: 1, filter_by: this.currentType });
+      }else{
+        await this.$store.dispatch("getAllAdminRemarks", { page: 1, filter_by: this.currentType });
+      }
     }
   },
 };

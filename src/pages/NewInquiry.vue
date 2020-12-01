@@ -31,6 +31,7 @@
           :options="departments"
           name="selectDepartment"
           class="select-input mb15"
+          :validationMessages="field_errors.department"
           v-model="department"
         />
         <div class="inquiry-new-text">
@@ -57,8 +58,9 @@
       <div class="inquiry-button flex-wrap">
         <button-block
           type="send"
-          :disabled="body === '' || subject === '' ? true : false"
-          @click.native="sendMessage"
+          :disabled="body === '' || subject === '' || department === '' ? true : false"
+          @click.native="sendMessageProcess"
+          :class="{'btn-disabled': body === '' || subject === '' || department === '' }"
           >SEND</button-block
         >
       </div>
@@ -123,13 +125,16 @@ export default {
       applicationNumber: "",
       receiver: "",
       departments: [],
-      department: ""
+      department: "",
+      required_fields: ["department", "subject", "body"],
+      field_errors: {department: [], subject: [], body: []}
     };
   },
   created(){
     this.getDepartments()
   },
   mounted() {
+    console.log(this['department'])
     this.getRemarks();
     console.log(this.applicationRemarks);
   },
@@ -139,6 +144,18 @@ export default {
     next();
   },
   methods: {
+    async validateFields(){
+       this.required_fields.forEach(item=>{
+        if (this[item] === "" ){
+          this.field_errors[`${item}`].push("This field may not be blank.")
+        }
+      })
+      if(Object.keys(this.field_errors).length > 0){
+        return false
+      }else{
+        true
+      }
+    },
     async getRemarks() {
       if (!this.applicationRemarks.application_number) {
         if (this.application_number !== "") {
@@ -163,6 +180,13 @@ export default {
           this.applicationNumber = this.remarks.application_number;
           this.receiver = this.remarks.user;
         }
+      }
+    },
+    async sendMessageProcess(){
+      let isClean = await this.validateFields()
+      console.log(this.field_errors)
+      if(isClean){
+        await this.sendMessage()
       }
     },
     async sendMessage() {
