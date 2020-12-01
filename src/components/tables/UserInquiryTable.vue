@@ -102,7 +102,7 @@ export default {
     },
     async getAllInquiries(pageNum = 1) {
       await this.$store.dispatch("getAllUserInquiries");
-      await this.$store.dispatch("getAllUserRemarks");
+      // await this.$store.dispatch("getAllUserRemarks");
     },
   },
 };

@@ -33,6 +33,8 @@
           REMARKS
         </div>
       </div>
+      
+      <!-- <base-input-search v-model="search" @keyup.native="searchData()" placeholder="Search by sender and department" /> -->
     </div>
   </div>
 </template>
@@ -62,6 +64,7 @@ export default {
     return {
       activeTab: "profile",
       activeType: "all_inquiries",
+      search: ""
     };
   },
   methods: {
@@ -73,6 +76,10 @@ export default {
       this.activeType = type;
       this.$store.commit("setCurrentType", type);
     },
+    async searchData(){
+      this.$store.commit('setInquirySearch', this.search)
+      await this.$store.dispatch("getAllAdminInquiries", { page: 1, filter_by: this.currentType });
+    }
   },
 };
 </script>

@@ -10,7 +10,8 @@ const getDefaultInquiryState = () => {
     currentInquiry: "",
     continueBuildingThread: false,
     continueBusinessThread: false,
-    currentEvaluationFile: new FormData()
+    currentEvaluationFile: new FormData(),
+    inquirySearch: ""
   };
 };
 const state = getDefaultInquiryState();
@@ -21,7 +22,8 @@ const getters = {
   currentInquiry: (state) => state.currentInquiry,
   continueBuildingThread: (state) => state.continueBuildingThread,
   continueBusinessThread: (state) => state.continueBusinessThread,
-  currentEvaluationFile: (state) => state.currentEvaluationFile
+  currentEvaluationFile: (state) => state.currentEvaluationFile,
+  inquirySearch: (state) => state.inquirySearch
 };
 const mutations = {
   setInquiries: (state, inquiries) => (state.inquiries = inquiries),
@@ -32,7 +34,8 @@ const mutations = {
     (state.currentInquiry = currentInquiry),
   setContinueBuildingThread: (state, continueBuildingThread) => (state.continueBuildingThread = continueBuildingThread),
   setContinueBusinessThread: (state, continueBusinessThread) => (state.continueBusinessThread = continueBusinessThread),
-  setCurrentEvaluationFile: (state, currentEvaluationFile) => (state.currentEvaluationFile = currentEvaluationFile)
+  setCurrentEvaluationFile: (state, currentEvaluationFile) => (state.currentEvaluationFile = currentEvaluationFile),
+  setInquirySearch: (state, inquirySearch) => (state.inquirySearch = inquirySearch)
 };
 const actions = {
   async getAllUserInquiries({ commit, dispatch, getters }, page = 1) {
@@ -65,7 +68,7 @@ const actions = {
   ) {
     try {
       const response = await axios.get(
-        `${baseUrl}/staff/threads/?page=${page}&filter_by=${filter_by}&search=`,
+        `${baseUrl}/staff/threads/?page=${page}&filter_by=${filter_by}&search=${getters.inquirySearch}`,
         {headers: {Authorization: `jwt ${getters.authToken}`} }
       );
       commit("setPageCount", response.data.total_pages);

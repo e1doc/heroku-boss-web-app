@@ -17,6 +17,9 @@
       <div class="inquiry-date">
         {{ inquiry.created_at | moment("MMMM DD YYYY") }}
       </div>
+      <div class="item-department">
+        <span>Dept. Concern:</span> Department 1
+      </div>
     </div>
     <div class="inquiry-body">
       <!-- START OF THREAD -->
@@ -445,5 +448,15 @@ div.inquiry-body {
   color: #1492e6;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.item-department{
+  color: #fff;
+  font-family: 'Proxima Nova Rg';
+  font-size: 16px;
+  margin-top: 5px;
+  span{
+    font-weight: bold;
+  }
 }
 </style>

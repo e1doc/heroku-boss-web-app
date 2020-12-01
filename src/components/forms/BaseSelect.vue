@@ -224,6 +224,22 @@ select:not([data-value=""]):valid ~ label {
   border-color: #bce0fd;
 }
 
+.select-input select:focus {
+  outline: 0;
+  border-color: #027ab5 !important;
+  background-color: #f8fcff !important;
+}
+
+ .select-input select {
+    padding: 20px 30px;
+    color: #2b2b2b;
+    border-color: #d0e9fa;
+    font-size: 14px;
+    font-family: Raleway;
+    border-radius: 12px;
+    transition: 0.4s;
+  }
+
 @media only screen and (max-width: 1400px) {
   .select-wrapper select,
   .select-wrapper select option {

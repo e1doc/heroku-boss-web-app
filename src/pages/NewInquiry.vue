@@ -24,6 +24,15 @@
           v-model="subject"
           :disabled="type === 'inquiry' ? false : true"
         />
+        
+        <div class="inquiry-new-text mb15">Department Concern</div>
+        <base-select
+          placeholder="------ Choose Department ------"
+          :options="departments"
+          name="selectDepartment"
+          class="select-input mb15"
+          v-model="department"
+        />
         <div class="inquiry-new-text">
           {{ type === "inquiry" ? "Inquiry" : "Remarks" }}
         </div>
@@ -63,7 +72,9 @@ import InquiryTable from "@/components/tables/InquiryTable";
 import ButtonBlock from "@/components/ButtonBlock";
 import BaseInput from "@/components/forms/BaseInput";
 import BaseFileUploader from "@/components/forms/BaseFileUploader";
+import BaseSelect from "@/components/forms/BaseSelect";
 import { mapGetters } from "vuex";
+import axios from "axios"
 export default {
   name: "ReplyInquiry",
   components: {
@@ -72,6 +83,7 @@ export default {
     ButtonBlock,
     BaseInput,
     BaseFileUploader,
+    BaseSelect
   },
   computed: {
     ...mapGetters([
@@ -86,6 +98,7 @@ export default {
       "applicationRemarks",
       "isBusinessAssessment",
       "isLastBusinessDept",
+      "authToken"
     ]),
   },
   props: {
@@ -109,7 +122,12 @@ export default {
       applicationType: "",
       applicationNumber: "",
       receiver: "",
+      departments: [],
+      department: ""
     };
+  },
+  created(){
+    this.getDepartments()
   },
   mounted() {
     this.getRemarks();
@@ -157,10 +175,11 @@ export default {
         building_id:
           this.applicationType === "building" ? this.applicationNumber : null,
         receiver: this.type === "remarks" ? this.receiver : null,
+        department: this.department
       });
       await this.$store.dispatch("addMessage", {
         thread: this.currentInquiry,
-        body: this.body,
+        body: this.body
       });
       await this.$store.commit("setLoading", false);
       if (this.type === "remarks") {
@@ -250,6 +269,21 @@ export default {
         });
       }
     },
+    async getDepartments(){
+      const result = await axios.get(
+        `${process.env.VUE_APP_API_URL}/api/department-list/`,
+        {headers: {Authorization: `jwt ${this.authToken}`} }
+      );
+      if(result.data.length > 0){
+        result.data.forEach(item=>{
+          let option = {
+            label: item.name,
+            value: item.name
+          }
+          this.departments.push(option)
+        })
+      }
+    }
   },
 };
 </script>

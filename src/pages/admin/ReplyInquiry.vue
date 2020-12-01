@@ -1,9 +1,14 @@
 <template>
   <div class="inquiry-box">
     <div class="inquiry-header">
-      <div class="inquiry-subj">{{ inquiry.subject }}</div>
+      <div class="inquiry-subj">
+        {{ inquiry.subject }}
+      </div>
       <div class="inquiry-date">
         {{ inquiry.created_at | moment("MMMM DD YYYY") }}
+      </div>
+      <div class="item-department">
+        <span>Dept. Concern:</span> {{inquiry.department ? inquiry.department : 'N/A'}}
       </div>
     </div>
     <div class="inquiry-body">
@@ -379,5 +384,15 @@ div.inquiry-box {
   color: #1492e6;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.item-department{
+  color: #fff;
+  font-family: 'Proxima Nova Rg';
+  font-size: 16px;
+  margin-top: 5px;
+  span{
+    font-weight: bold;
+  }
 }
 </style>
