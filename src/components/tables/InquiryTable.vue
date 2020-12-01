@@ -138,6 +138,15 @@ export default {
         }
       },
     },
+    currentTable: {
+      handler(status) {
+        if (this.currentTable === "inquiries") {
+          this.getAllInquiries();
+        } else {
+          this.getAllRemarks();
+        }
+      },
+    },
   },
   methods: {
     async getAllInquiries(pageNum = 1) {
