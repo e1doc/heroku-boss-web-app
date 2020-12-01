@@ -101,7 +101,7 @@ export default {
       await this.$store.dispatch("getAllUserInquiries", pageNum);
     },
     async getAllInquiries(pageNum = 1) {
-      await this.$store.dispatch("getAllUserInquiries");
+      await this.$store.dispatch("getAllUserInquiries", pageNum);
       // await this.$store.dispatch("getAllUserRemarks");
     },
   },
