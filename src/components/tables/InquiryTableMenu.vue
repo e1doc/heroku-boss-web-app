@@ -34,7 +34,7 @@
         </div>
       </div>
       
-      <base-input-search v-model="search" @keyup.native="searchData()" placeholder="Search by sender and department" />
+      <base-input-search v-model="search" @keyup.native="searchData()" placeholder="Search by sender" />
     </div>
   </div>
 </template>
