@@ -24,16 +24,16 @@
           v-model="subject"
           :disabled="type === 'inquiry' ? false : true"
         />
-        
-        <div class="inquiry-new-text mb15">Department Concern</div>
-        <base-select
-          placeholder="------ Choose Department ------"
-          :options="departments"
-          name="selectDepartment"
-          class="select-input mb15"
-          :validationMessages="field_errors.department"
-          v-model="department"
-        />
+        <div v-if="type === 'inquiry'">
+          <div class="inquiry-new-text mb15">Department Concern</div>
+          <base-select
+            placeholder="------ Choose Department ------"
+            :options="departments"
+            name="selectDepartment"
+            class="select-input mb15"
+            v-model="department"
+          />
+        </div>
         <div class="inquiry-new-text">
           {{ type === "inquiry" ? "Inquiry" : "Remarks" }}
         </div>
@@ -58,9 +58,13 @@
       <div class="inquiry-button flex-wrap">
         <button-block
           type="send"
-          :disabled="body === '' || subject === '' || department === '' ? true : false"
-          @click.native="sendMessageProcess"
-          :class="{'btn-disabled': body === '' || subject === '' || department === '' }"
+          :disabled="
+            !isButtonDisabled()
+          "
+          @click.native="sendMessage"
+          :class="{
+            'btn-disabled': !isButtonDisabled(),
+          }"
           >SEND</button-block
         >
       </div>
@@ -76,7 +80,7 @@ import BaseInput from "@/components/forms/BaseInput";
 import BaseFileUploader from "@/components/forms/BaseFileUploader";
 import BaseSelect from "@/components/forms/BaseSelect";
 import { mapGetters } from "vuex";
-import axios from "axios"
+import axios from "axios";
 export default {
   name: "ReplyInquiry",
   components: {
@@ -85,7 +89,7 @@ export default {
     ButtonBlock,
     BaseInput,
     BaseFileUploader,
-    BaseSelect
+    BaseSelect,
   },
   computed: {
     ...mapGetters([
@@ -100,7 +104,7 @@ export default {
       "applicationRemarks",
       "isBusinessAssessment",
       "isLastBusinessDept",
-      "authToken"
+      "authToken",
     ]),
   },
   props: {
@@ -127,16 +131,15 @@ export default {
       departments: [],
       department: "",
       required_fields: ["department", "subject", "body"],
-      field_errors: {department: [], subject: [], body: []}
+      field_errors: { department: [], subject: [], body: [] },
     };
   },
-  created(){
-    this.getDepartments()
+  created() {
+    this.getDepartments();
   },
   mounted() {
-    console.log(this['department'])
+    console.log(this.type);
     this.getRemarks();
-    console.log(this.applicationRemarks);
   },
   beforeRouteLeave(to, from, next) {
     this.$store.dispatch("setApplicationStateRemarks", {});
@@ -144,16 +147,16 @@ export default {
     next();
   },
   methods: {
-    async validateFields(){
-       this.required_fields.forEach(item=>{
-        if (this[item] === "" ){
-          this.field_errors[`${item}`].push("This field may not be blank.")
+    async validateFields() {
+      this.required_fields.forEach((item) => {
+        if (this[item] === "") {
+          this.field_errors[`${item}`].push("This field may not be blank.");
         }
-      })
-      if(Object.keys(this.field_errors).length > 0){
-        return false
-      }else{
-        true
+      });
+      if (Object.keys(this.field_errors).length > 0) {
+        return false;
+      } else {
+        true;
       }
     },
     async getRemarks() {
@@ -182,11 +185,26 @@ export default {
         }
       }
     },
-    async sendMessageProcess(){
-      let isClean = await this.validateFields()
-      console.log(this.field_errors)
-      if(isClean){
-        await this.sendMessage()
+    isButtonDisabled(){
+      if(this.type !== 'remarks'){
+        if(this.body === '' || this.subject === '' || this.department === ''){
+          return false
+        }else{
+          return true
+        }
+      }else{
+        if(this.body === '' || this.subject === ''){
+          return false
+        }else{
+          return true
+        }
+      }
+    },
+    async sendMessageProcess() {
+      let isClean = await this.validateFields();
+      console.log(this.field_errors);
+      if (isClean) {
+        await this.sendMessage();
       }
     },
     async sendMessage() {
@@ -199,11 +217,11 @@ export default {
         building_id:
           this.applicationType === "building" ? this.applicationNumber : null,
         receiver: this.type === "remarks" ? this.receiver : null,
-        department: this.department
+        department: this.department,
       });
       await this.$store.dispatch("addMessage", {
         thread: this.currentInquiry,
-        body: this.body
+        body: this.body,
       });
       await this.$store.commit("setLoading", false);
       if (this.type === "remarks") {
@@ -293,21 +311,21 @@ export default {
         });
       }
     },
-    async getDepartments(){
+    async getDepartments() {
       const result = await axios.get(
         `${process.env.VUE_APP_API_URL}/api/department-list/`,
-        {headers: {Authorization: `jwt ${this.authToken}`} }
+        { headers: { Authorization: `jwt ${this.authToken}` } }
       );
-      if(result.data.length > 0){
-        result.data.forEach(item=>{
+      if (result.data.length > 0) {
+        result.data.forEach((item) => {
           let option = {
             label: item.name,
-            value: item.name
-          }
-          this.departments.push(option)
-        })
+            value: item.name,
+          };
+          this.departments.push(option);
+        });
       }
-    }
+    },
   },
 };
 </script>
