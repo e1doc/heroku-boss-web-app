@@ -696,9 +696,7 @@ export default {
           is_approve: status ? true : false,
           account_number: "",
         };
-
-        await this.$store.dispatch("assessBusinessApplication", payload);
-        this.$store.commit('setAssessmentPayload', payload)
+        this.$store.commit("setAssessmentPayload", payload);
         if (!status) {
           if (this.isLastBusinessDept) {
             this.$store.commit("setIsBusinessAssessment", false);
@@ -712,15 +710,17 @@ export default {
             this.$router.push({ name: "Assessments" });
           }
         } else {
-          if (!this.isLastBuildingDept && !this.isAssessmentHasError) {
+          await this.$store.dispatch("assessBusinessApplication", payload);
+          if (this.isLastBusinessDept && !this.isAssessmentHasError) {
             this.$modal.show("accountNumberModal");
+          } else {
             await this.$store.dispatch("createPrompt", {
               type: "success",
               title: "Success!",
               message: "Application was successfully assessed!",
             });
+            this.$router.push({ name: "Assessments" });
           }
-          this.$router.push({ name: "Assessments" });
         }
       }
     },

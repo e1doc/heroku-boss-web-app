@@ -44,7 +44,8 @@ const getDefaultPropertyState = () => {
     isAssessmentHasError: false,
     isEvaluation: false,
     isFileUploadFailed: false,
-    currentSelectedProperty: {}
+    currentSelectedProperty: {},
+    buildingAssessmentPayload: {}
   };
 };
 
@@ -87,7 +88,8 @@ const getters = {
   isAssessmentHasError: (state) => state.isAssessmentHasError,
   isEvaluation: (state) => state.isEvaluation,
   isFileUploadFailed: (state) => state.isFileUploadFailed,
-  currentSelectedProperty: (state) => state.currentSelectedProperty
+  currentSelectedProperty: (state) => state.currentSelectedProperty,
+  buildingAssessmentPayload: (state) => state.buildingAssessmentPayload
 };
 
 const mutations = {
@@ -160,7 +162,8 @@ const mutations = {
   setIsAssessmentHasError: (state, isAssessmentHasError) => (state.isAssessmentHasError = isAssessmentHasError),
   setIsEvaluation: (state, isEvaluation) => (state.isEvaluation = isEvaluation),
   setIsFileUploadFailed: (state, isFileUploadFailed) => (state.isFileUploadFailed = isFileUploadFailed),
-  setCurrentSelectedProperty: (state, currentSelectedProperty) => (state.currentSelectedProperty = currentSelectedProperty)
+  setCurrentSelectedProperty: (state, currentSelectedProperty) => (state.currentSelectedProperty = currentSelectedProperty),
+  setBuildingAssessmentPayload: (state, buildingAssessmentPayload) => (state.buildingAssessmentPayload = buildingAssessmentPayload)
 };
 
 const actions = {
