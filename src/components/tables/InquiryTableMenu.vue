@@ -144,7 +144,7 @@ export default {
         result.data.forEach((item) => {
           let option = {
             label: item.name,
-            value: item.name.toLowerCase(),
+            value: item.name,
           };
           this.departments.push(option);
         });
