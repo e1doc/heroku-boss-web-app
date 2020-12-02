@@ -594,7 +594,7 @@ export default {
     };
   },
   beforeRouteLeave(to, from, next) {
-    this.$store.commit("resetBusinessState");
+    // this.$store.commit("resetBusinessState");
     this.$store.commit("setRequirements", []);
     next();
   },
