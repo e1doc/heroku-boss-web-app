@@ -241,7 +241,7 @@ export default {
         this.$router.push({ name: "Assessments" });
       }
 
-      if (!this.isBusinessDept && this.isBusinessAssessment) {
+      if (!this.isLastBusinessDept && this.isBusinessAssessment) {
         this.$store.dispatch("createPrompt", {
           type: "success",
           title: "Success!",
