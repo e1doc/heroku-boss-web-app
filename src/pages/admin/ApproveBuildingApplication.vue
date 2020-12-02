@@ -715,7 +715,7 @@ export default {
     AppLink,
   },
   beforeRouteLeave(to, from, next) {
-    this.$store.commit("resetPropertyState");
+    // this.$store.commit("resetPropertyState");
     this.$store.commit("setBuildingRequirements", []);
     this.$store.commit("setLegalDocuments", {});
     this.$store.commit("setTechnicalDocuments", {});
