@@ -1,4 +1,5 @@
 <template>
+<div class="menu-container">
   <div class="menu-holder">
     <div class="left-div flex-center">
       <div class="menu-type">
@@ -33,19 +34,33 @@
           REMARKS
         </div>
       </div>
-      
-      <base-input-search v-model="search" @keyup.native="searchData()" placeholder="Search by sender and department" />
     </div>
   </div>
+  <div class="bottom-div flex-wrap">
+      <base-select
+        placeholder="Filter By Department"
+        :options="departments"
+        name="selectDepartment"
+        class="select-dept-input"
+        v-model="department"
+      />
+      <base-date-picker customclass="inquiry-date-picker" v-model="date" @input="changeDate" />
+      <base-input-search v-model="search" @keyup.native="searchData()" placeholder="Search by sender and department" />
+  </div>
+</div>
 </template>
 
 <script>
 import BaseInputSearch from "@/components/forms/BaseInputSearch";
+import BaseDatePicker from "@/components/forms/BaseDatePicker";
+import BaseSelect from "@/components/forms/BaseSelect";
 import { mapGetters } from "vuex";
 export default {
   name: "InquiryTableMenu",
   components: {
     BaseInputSearch,
+    BaseDatePicker,
+    BaseSelect
   },
   computed: {
     ...mapGetters(["currentType", "currentTable"]),
@@ -64,7 +79,21 @@ export default {
     return {
       activeTab: "profile",
       activeType: "all_inquiries",
-      search: ""
+      search: "",
+      departments: [
+        {
+          label: 'Dept 1',
+          value: 'Dept 1',
+        },
+        {
+          label: 'Dept 2',
+          value: 'Dept 2',
+        },
+        {
+          label: 'Dept 3',
+          value: 'Dept 3',
+        }
+      ],
     };
   },
   methods: {
@@ -89,36 +118,58 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.menu-holder {
-  background: #ffffff;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  padding: 10px 20px;
-  border-radius: 8px;
-  box-shadow: 0px 10px 20px #0000000d;
-  .left-div, .right-div {
-    width: 50%;
-    .menu-type {
-      color: #f09795;
-      font-weight: bold;
-      font-size: 13px;
-      margin-right: 15px;
-      cursor: pointer;
-      div {
-        padding: 10px;
-        border: 3px solid #fff;
+.menu-container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    .menu-holder {
+      background: #ffffff;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      padding: 10px 20px;
+      border-radius: 8px;
+      box-shadow: 0px 10px 20px #0000000d;
+      margin-bottom: 30px;
+      .left-div, .right-div {
+        width: 50%;
+        .menu-type {
+          color: #f09795;
+          font-weight: bold;
+          font-size: 13px;
+          margin-right: 15px;
+          cursor: pointer;
+          div {
+            padding: 10px;
+            border: 3px solid #fff;
+          }
+          div.active {
+            border-color: #fadddd;
+            border-radius: 5px;
+            color: #e23a36;
+          }
+        }
       }
-      div.active {
-        border-color: #fadddd;
-        border-radius: 5px;
-        color: #e23a36;
+      .right-div {
+        width: 50%;
+        justify-content: flex-end;
       }
     }
-  }
-  .right-div {
-    width: 50%;
-    justify-content: flex-end;
-  }
+    .bottom-div{
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      align-items: center;
+      .inquiry-date-picker{
+          margin-right: 15px;
+      }
+      .select-dept-input{
+          margin-right: 15px;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+      }
+    }
 }
 </style>
