@@ -698,6 +698,7 @@ export default {
         };
 
         await this.$store.dispatch("assessBusinessApplication", payload);
+        this.$store.commit('setAssessmentPayload', payload)
         if (!status) {
           if (this.isLastBusinessDept) {
             this.$store.commit("setIsBusinessAssessment", false);
@@ -809,6 +810,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.meta-view-remarks {
+  text-decoration: underline;
+  cursor: pointer;
+}
 .accountNumberModal {
   padding: 20px;
 }

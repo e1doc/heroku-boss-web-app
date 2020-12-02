@@ -217,6 +217,7 @@ export default {
     ]),
   },
   mounted() {
+    console.log(this.applications)
     this.$store.dispatch("getAllBusinessApplications");
     this.$store.dispatch("getAllBuildingApplications");
     this.$store.commit("setBusinessActivities", []);
