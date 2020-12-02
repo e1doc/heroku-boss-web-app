@@ -270,6 +270,8 @@ export default {
     this.$store.dispatch("getBusinessApplications");
     this.$store.dispatch("getBuildingApplications")
     this.$store.commit('setCurrentTable','applications')
+    this.$store.commit('setBusinessActivities', [])
+    this.$store.commit('setApplicationRequirements', {})
     if(this.currentType === 'real_property'){
       this.$store.commit('setCurrentType','business')
     }
