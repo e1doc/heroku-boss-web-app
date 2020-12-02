@@ -544,6 +544,7 @@ const actions = {
       );
       commit("setBusinessAssessmentMessage", response.data.message);
       commit("setIsAssessmentHasError", false);
+      commit('setAssessmentPayload', {})
     } catch (err) {
       commit("setIsAssessmentHasError", true);
       console.log(err);

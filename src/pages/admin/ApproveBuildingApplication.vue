@@ -835,8 +835,9 @@ export default {
           building_application: this.buildingApplication.id,
           is_approve: status ? true : false,
         };
-        await this.$store.dispatch("assessBuildingApplication", payload);
+        this.$store.commit('setBuildingAssessmentPayload', payload)
         if (this.isLastBuildingDept && status) {
+          await this.$store.dispatch("assessBuildingApplication", payload);
           this.$store.commit("setIsEvaluation", false)
           let changeApplicationStatusPayload = {
             id: this.buildingApplication.id,
@@ -861,7 +862,8 @@ export default {
           }
         } else {
           if (!this.isLastBuildingDept && !this.isAssessmentHasError) {
-            await this.$store.dispatch("createPrompt", {
+             await this.$store.dispatch("assessBuildingApplication", payload);
+             await this.$store.dispatch("createPrompt", {
               type: "success",
               title: "Success!",
               message: "Application was successfully assessed!",
