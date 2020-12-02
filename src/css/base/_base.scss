@@ -149,7 +149,8 @@ ul.pagination li a:focus{
     width: 100%;
 }
 
-.input-holder.appointment-date-picker input {
+.input-holder.appointment-date-picker input,
+.input-holder.inquiry-date-picker input {
     width: 100%;
     padding: 0 15px;
     font-family: Raleway;
@@ -158,7 +159,41 @@ ul.pagination li a:focus{
     border: 1px solid #e56a67;
     border-radius: 5px;
     min-height: 37px!important;
+    transition: 0.4s;
 }
+
+body .select-dept-input select {
+    width: 100%!important;
+    padding: 0 15px!important;
+    font-family: Raleway!important;
+    font-size: 12px!important;
+    background: #fadddd30!important;
+    border: 1px solid #e56a67!important;
+    border-radius: 5px;
+    min-height: 37px!important;
+    min-width: 200px!important;
+    transition: 0.4s;
+}
+body .select-dept-input select:focus{
+    border-color: #bce0fd!important;
+    background: transparent!important;
+}
+
+body .select-dept-input select:focus ~ .dropdown-icon{
+    color: #1492e6;
+}
+
+body .select-dept-input .select-wrapper{
+    border: 0;
+}
+
+body .select-dept-input .select-wrapper .dropdown-icon {
+    right: 10px;
+    top: 13px;
+    color: #e23a36;
+}
+
+
 .text-center{
     text-align: center !important;
 }

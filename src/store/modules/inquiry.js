@@ -11,7 +11,8 @@ const getDefaultInquiryState = () => {
     continueBuildingThread: false,
     continueBusinessThread: false,
     currentEvaluationFile: new FormData(),
-    inquirySearch: ""
+    inquirySearch: "",
+    departmentFilter: ""
   };
 };
 const state = getDefaultInquiryState();
@@ -23,7 +24,8 @@ const getters = {
   continueBuildingThread: (state) => state.continueBuildingThread,
   continueBusinessThread: (state) => state.continueBusinessThread,
   currentEvaluationFile: (state) => state.currentEvaluationFile,
-  inquirySearch: (state) => state.inquirySearch
+  inquirySearch: (state) => state.inquirySearch,
+  departmentFilter: (state) => state.departmentFilter
 };
 const mutations = {
   setInquiries: (state, inquiries) => (state.inquiries = inquiries),
@@ -35,7 +37,8 @@ const mutations = {
   setContinueBuildingThread: (state, continueBuildingThread) => (state.continueBuildingThread = continueBuildingThread),
   setContinueBusinessThread: (state, continueBusinessThread) => (state.continueBusinessThread = continueBusinessThread),
   setCurrentEvaluationFile: (state, currentEvaluationFile) => (state.currentEvaluationFile = currentEvaluationFile),
-  setInquirySearch: (state, inquirySearch) => (state.inquirySearch = inquirySearch)
+  setInquirySearch: (state, inquirySearch) => (state.inquirySearch = inquirySearch),
+  setDepartmentFilter: (state, departmentFilter) => (state.departmentFilter = departmentFilter)
 };
 const actions = {
   async getAllUserInquiries({ commit, dispatch, getters }, page = 1) {
@@ -68,7 +71,7 @@ const actions = {
   ) {
     try {
       const response = await axios.get(
-        `${baseUrl}/staff/threads/?page=${page}&filter_by=${filter_by}&search=${getters.inquirySearch}`,
+        `${baseUrl}/staff/threads/?page=${page}&filter_by=${filter_by}&search=${getters.inquirySearch}&department=${getters.departmentFilter}`,
         {headers: {Authorization: `jwt ${getters.authToken}`} }
       );
       commit("setPageCount", response.data.total_pages);
@@ -83,7 +86,7 @@ const actions = {
   ) {
     try {
       const response = await axios.get(
-        `${baseUrl}/staff/remarks-threads/?page=${page}&filter_by=${filter_by}&search=${getters.inquirySearch}`,
+        `${baseUrl}/staff/remarks-threads/?page=${page}&filter_by=${filter_by}&search=${getters.inquirySearch}&department=all`,
         {headers: {Authorization: `jwt ${getters.authToken}`} }
       );
       commit("setPageCount", response.data.total_pages);

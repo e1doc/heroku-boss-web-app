@@ -1,54 +1,81 @@
 <template>
-  <div class="menu-holder">
-    <div class="left-div flex-center">
-      <div class="menu-type">
-        <div
-          :class="{ active: currentType === 'all_inquiries'} "
-          @click="changeType('all_inquiries')"
-        >
-          <font-awesome-icon icon="inbox" class="mr5 icon" />
-          ALL
+  <div class="menu-container">
+    <div class="menu-holder">
+      <div class="left-div flex-center">
+        <div class="menu-type">
+          <div
+            :class="{ active: currentType === 'all_inquiries' }"
+            @click="changeType('all_inquiries')"
+          >
+            <font-awesome-icon icon="inbox" class="mr5 icon" />
+            ALL
+          </div>
+        </div>
+        <div class="menu-type">
+          <div
+            :class="{ active: currentType === 'unread_inquiries' }"
+            @click="changeType('unread_inquiries')"
+          >
+            <font-awesome-icon icon="envelope" class="mr5 icon" />
+            UNRESPONDED
+          </div>
         </div>
       </div>
-      <div class="menu-type">
-        <div
-          :class="{ active: currentType === 'unread_inquiries' }"
-          @click="changeType('unread_inquiries')"
-        >
-          <font-awesome-icon icon="envelope" class="mr5 icon" />
-          UNRESPONDED
+      <div class="right-div flex-wrap">
+        <div class="menu-type">
+          <div
+            :class="{ active: currentTable === 'inquiries' }"
+            @click="changeTab('inquiries')"
+          >
+            <font-awesome-icon icon="inbox" class="mr5 icon" />
+            INQUIRIES
+          </div>
+        </div>
+        <div class="menu-type">
+          <div
+            :class="{ active: currentTable === 'remarks' }"
+            @click="changeTab('remarks')"
+          >
+            <font-awesome-icon icon="inbox" class="mr5 icon" />
+            REMARKS
+          </div>
         </div>
       </div>
     </div>
-    <div class="right-div flex-wrap">
-      <div class="menu-type">
-        <div :class="{ active: currentTable === 'inquiries' }" @click="changeTab('inquiries')">
-          <font-awesome-icon icon="inbox" class="mr5 icon" />
-          INQUIRIES
-        </div>
-      </div>
-       <div class="menu-type">
-        <div :class="{ active: currentTable === 'remarks' }" @click="changeTab('remarks')">
-          <font-awesome-icon icon="inbox" class="mr5 icon" />
-          REMARKS
-        </div>
-      </div>
-      
-      <base-input-search v-model="search" @keyup.native="searchData()" placeholder="Search by sender" />
+    <div class="bottom-div flex-wrap">
+      <base-select
+        placeholder="Filter By Department"
+        :options="departments"
+        name="selectDepartment"
+        class="select-dept-input"
+        v-model="department"
+        @change="onDepartmentChange"
+      />
+      <!-- <base-date-picker customclass="inquiry-date-picker" v-model="date" /> -->
+      <base-input-search
+        v-model="search"
+        @keyup.native="searchData()"
+        placeholder="Search by sender and department"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import BaseInputSearch from "@/components/forms/BaseInputSearch";
+import BaseDatePicker from "@/components/forms/BaseDatePicker";
+import BaseSelect from "@/components/forms/BaseSelect";
 import { mapGetters } from "vuex";
+import axios from "axios";
 export default {
   name: "InquiryTableMenu",
   components: {
     BaseInputSearch,
+    BaseDatePicker,
+    BaseSelect,
   },
   computed: {
-    ...mapGetters(["currentType", "currentTable"]),
+    ...mapGetters(["currentType", "currentTable", "authToken"]),
   },
   props: {
     type: {
@@ -57,17 +84,30 @@ export default {
       default: "profile",
     },
   },
-  mounted(){
-    this.$store.commit("setCurrentType", 'all_inquiries');
+  mounted() {
+    this.$store.commit("setCurrentType", "all_inquiries");
   },
   data() {
     return {
       activeTab: "profile",
       activeType: "all_inquiries",
-      search: ""
+      search: "",
+      departments: [],
+      date: "",
+      department: "",
     };
   },
+  created() {
+    this.getDepartments();
+  },
   methods: {
+    async onDepartmentChange() {
+      this.$store.commit("setDepartmentFilter", this.department);
+      await this.$store.dispatch("getAllAdminInquiries", {
+        page: 1,
+        filter_by: this.currentType,
+      });
+    },
     changeTab(tab) {
       this.activeTab = tab;
       this.$store.commit("setCurrentTable", tab);
@@ -76,49 +116,98 @@ export default {
       this.activeType = type;
       this.$store.commit("setCurrentType", type);
     },
-    async searchData(){
-      this.$store.commit('setInquirySearch', this.search)
-      if(this.currentTable === 'inquiries'){
-              await this.$store.dispatch("getAllAdminInquiries", { page: 1, filter_by: this.currentType });
-      }else{
-        await this.$store.dispatch("getAllAdminRemarks", { page: 1, filter_by: this.currentType });
+    async searchData() {
+      this.$store.commit("setInquirySearch", this.search);
+      if (this.currentTable === "inquiries") {
+        await this.$store.dispatch("getAllAdminInquiries", {
+          page: 1,
+          filter_by: this.currentType,
+        });
+      } else {
+        await this.$store.dispatch("getAllAdminRemarks", {
+          page: 1,
+          filter_by: this.currentType,
+        });
       }
-    }
+    },
+    async getDepartments() {
+      const result = await axios.get(
+        `${process.env.VUE_APP_API_URL}/api/department-list/`,
+        { headers: { Authorization: `jwt ${this.authToken}` } }
+      );
+      if (result.data.length > 0) {
+        let defaultOption = {
+          label: 'All',
+          value: 'all',
+        };
+        this.departments.push(defaultOption);
+        result.data.forEach((item) => {
+          let option = {
+            label: item.name,
+            value: item.name.toLowerCase(),
+          };
+          this.departments.push(option);
+        });
+      }
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.menu-holder {
-  background: #ffffff;
+.menu-container {
   width: 100%;
   display: flex;
-  flex-direction: row;
-  padding: 10px 20px;
-  border-radius: 8px;
-  box-shadow: 0px 10px 20px #0000000d;
-  .left-div, .right-div {
-    width: 50%;
-    .menu-type {
-      color: #f09795;
-      font-weight: bold;
-      font-size: 13px;
-      margin-right: 15px;
-      cursor: pointer;
-      div {
-        padding: 10px;
-        border: 3px solid #fff;
-      }
-      div.active {
-        border-color: #fadddd;
-        border-radius: 5px;
-        color: #e23a36;
+  flex-wrap: wrap;
+  .menu-holder {
+    background: #ffffff;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0px 10px 20px #0000000d;
+    margin-bottom: 30px;
+    .left-div,
+    .right-div {
+      width: 50%;
+      .menu-type {
+        color: #f09795;
+        font-weight: bold;
+        font-size: 13px;
+        margin-right: 15px;
+        cursor: pointer;
+        div {
+          padding: 10px;
+          border: 3px solid #fff;
+        }
+        div.active {
+          border-color: #fadddd;
+          border-radius: 5px;
+          color: #e23a36;
+        }
       }
     }
+    .right-div {
+      width: 50%;
+      justify-content: flex-end;
+    }
   }
-  .right-div {
-    width: 50%;
+  .bottom-div {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: flex-end;
+    align-items: center;
+    .inquiry-date-picker {
+      margin-right: 15px;
+    }
+    .select-dept-input {
+      margin-right: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
   }
 }
 </style>
