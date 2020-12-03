@@ -726,6 +726,7 @@ export default {
   },
   mounted() {
     this.getRequirements();
+    // this.$store.commit("setPrintProperty", true);
   },
   created() {
     this.checkIfCanAssess();

@@ -475,6 +475,7 @@ export default {
       var width = doc.internal.pageSize.getWidth();
       var height = doc.internal.pageSize.getHeight();
       var canvasElement = document.createElement("canvas");
+      let business_basic_info = this.businessBasicInformation
       html2canvas(this.$refs.business_content, {
         canvas: canvasElement,
         width: 794,
@@ -482,7 +483,7 @@ export default {
       }).then(function(canvas) {
         const img = canvas.toDataURL("image/jpeg", 1);
         doc.addImage(img, "JPEG", 0, 0, width, height);
-        doc.save(`business-application-${businessBasicInformation}.pdf`);
+        doc.save(`business-application-${business_basic_info.reference_number}.pdf`);
       });
     },
   },
