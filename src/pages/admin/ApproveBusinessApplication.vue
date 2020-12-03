@@ -575,6 +575,7 @@ import BaseInput from "@/components/forms/BaseInput";
 import ButtonFull from "@/components/ButtonFull";
 import { mapGetters } from "vuex";
 import AppLink from "@/components/AppLink";
+import DownloadableBusinessForm from "@/components/application/DownloadableBusinessForm";
 export default {
   name: "ApproveBusinessApplication",
   components: {
@@ -583,6 +584,7 @@ export default {
     BaseInput,
     AppLink,
     ButtonFull,
+    DownloadableBusinessForm
   },
   data() {
     return {
@@ -618,6 +620,7 @@ export default {
   },
   mounted() {
     this.getRequirements();
+    // this.$store.commit("setPrintBusiness", true);
   },
   created() {
     this.checkIfCanAssess();
@@ -830,6 +833,14 @@ div.meta-parent-box {
   width: 100%;
   margin-top: 50px;
   padding-bottom: 50px;
+.meta-form-holder {
+    position: absolute;
+    opacity: 0;
+    top: -500px;
+    z-index: -1;
+    width: 100%;
+    overflow: hidden;
+  }
   div.meta-container {
     max-width: 1060px;
     margin: 0 auto;
@@ -1043,6 +1054,13 @@ span.form-td-label {
 @media only screen and (max-width: 1400px) {
   div.meta-parent-box div.meta-form-body .meta-form-title {
     font-size: 28px;
+  }
+}
+
+@media only screen and ( max-width: 1180px ){
+    div.meta-parent-box .meta-form-holder{
+      width: 100%;
+      overflow: hidden;
   }
 }
 
