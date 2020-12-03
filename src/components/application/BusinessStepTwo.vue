@@ -250,7 +250,7 @@
         :validationMessages="stepTwoErrors.business_details.area"
         name="area"
         refs="business_area"
-        type="text"
+        type="number"
         class="mt40 input-required"
       />
 
