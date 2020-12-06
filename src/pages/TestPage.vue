@@ -7,16 +7,17 @@
       </div> -->
       <!-- <otp-div/> -->
       <!-- <view-business-details/> -->
-      <!-- <downloadable-business-form/> -->
+      <downloadable-business-form/>
+      <downloadable-building-form/>
       <!-- <approve-business-application/> -->
       <!-- <appointment-invoice/> -->
       <!-- <downloadable-appointment-invoice/> -->
       <!-- <agreement-modal /> -->
       <!-- <invoice-dialog/> -->
       <!-- <downloadable-invoice/> -->
-      <new-inquiry />
+      <!-- <new-inquiry />
       <user-reply-inquiry/>
-      <reply-inquiry/>
+      <reply-inquiry/> -->
       <!-- <faq /> -->
   </section>
 </template>
@@ -28,6 +29,7 @@ import ApproveBusinessApplication from "@/pages/admin/ApproveBusinessApplication
 import BusinessUploadStep from "@/components/application/BusinessUploadStep";
 import BuildingUploadStep from "@/components/application/BuildingUploadStep";
 import DownloadableBusinessForm from "@/components/application/DownloadableBusinessForm";
+import DownloadableBuildingForm from "@/components/application/DownloadableBuildingForm";
 import DownloadableAppointmentInvoice from "@/components/payment/DownloadableAppointmentInvoice";
 import DownloadableInvoice from "@/components/payment/DownloadableInvoice";
 import AppointmentInvoice from "@/pages/AppointmentInvoice";
@@ -46,6 +48,7 @@ export default {
         BuildingUploadStep,
         OtpDiv,
         DownloadableBusinessForm,
+        DownloadableBuildingForm,
         ApproveBusinessApplication,
         ViewBusinessDetails,
         DownloadableAppointmentInvoice,
