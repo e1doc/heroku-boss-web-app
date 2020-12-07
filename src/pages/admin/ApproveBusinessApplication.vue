@@ -22,6 +22,10 @@
     </modal>
     <div class="meta-container flex-wrap" ref="content">
       <div class="meta-form-body flex-wrap">
+        <div class="meta-txt-download" @click="downloadApplication"><font-awesome-icon
+        icon="save"
+        class="mr10 icon"
+      />Download</div>
         <h1 class="meta-form-title">Business Application Details</h1>
         <!-- Application Date and Nos. -->
         <div class="meta-text-group flex-wrap">
@@ -620,13 +624,15 @@ export default {
   },
   mounted() {
     this.getRequirements();
-    // this.$store.commit("setPrintBusiness", true);
   },
   created() {
     this.checkIfCanAssess();
     this.setupAssessmentResult();
   },
   methods: {
+    downloadApplication(){
+        this.$store.commit("setPrintBusiness", true);
+    },
     async openBusinessRemarks(id) {
       await this.$store.dispatch("getBusinessRemarks", id);
       await this.$router.push({ name: "ReplyInquiry" });
@@ -813,6 +819,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.meta-txt-download{
+  padding: 10x 10px 10px 0px;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-bottom: 20px;
+  color: #2699fb;
+  font-weight: bold;
+}
 .meta-view-remarks {
   text-decoration: underline;
   cursor: pointer;

@@ -1,209 +1,167 @@
 <template>
   <div class="meta-container flex-wrap" ref="content">
-    <base-pdf-header
-      :applicationnumber="buildingBasicInformation.reference_number"
-      formtitle="APPLICATION FORM FOR BUILDING PERMIT"
-    />
-    <div class="meta-form-body">
-      <div class="meta-text-group flex-wrap">
-        <div class="meta-text no-bb">
-          <div class="meta-label">Application Number :</div>
-          <div class="meta-value">
-            #{{ buildingBasicInformation.reference_number }}
-          </div>
-        </div>
-        <div class="meta-text">
-          <div class="meta-label">Ownership Type:</div>
-          <div class="meta-value">
-            {{ buildingBasicInformation.ownership_type }}
-          </div>
-        </div>
-      </div>
-      <!-- Owner / Applicant : -->
-      <div class="meta-text-group flex-wrap">
-        <div class="meta-group-title">Owner / Applicant :</div>
-        <div class="meta-text w3 no-br">
-          <div class="meta-label">Last Name :</div>
-          <div class="meta-value">
-            {{ buildingBasicInformation.owner_last_name }}
-          </div>
-        </div>
-        <div class="meta-text w3 no-br">
-          <div class="meta-label">First Name :</div>
-          <div class="meta-value">
-            {{ buildingBasicInformation.owner_first_name }}
-          </div>
-        </div>
-        <div class="meta-text w3 no-br">
-          <div class="meta-label">Middle Initial :</div>
-          <div class="meta-value">
-            {{ buildingBasicInformation.owner_middle_name }}
-          </div>
-        </div>
-        <div class="meta-text w3">
-          <div class="meta-label">TIN :</div>
-          <div class="meta-value">{{ buildingBasicInformation.tin }}</div>
-        </div>
-      </div>
 
-      <!-- Name of President/Treasurer of Corporation : -->
-      <!-- <div class="meta-text-group flex-wrap">
-          <div class="meta-group-title">
-            For Construction Owned by an Enterprise :
-          </div>
-          <div class="meta-text no-bb">
-            <div class="meta-label">Area No.</div>
-            <div class="meta-value">
-              {{ buildingDetails.area_no }}
-            </div>
-          </div>
-          <div class="meta-text">
-            <div class="meta-label">Form of Ownership</div>
-            <div class="meta-value">
-              {{ buildingDetails.form_of_ownership }}
-            </div>
-          </div>
-        </div> -->
-      <div class="meta-text-group flex-wrap mt20">
-        <div class="meta-text no-bb">
-          <div class="meta-label">TCT No. :</div>
-          <div class="meta-value">{{ buildingDetails.tct_no }}</div>
-        </div>
-        <div class="meta-text">
-          <div class="meta-label">Tax Dec. No. :</div>
-          <div class="meta-value">{{ buildingDetails.tax_dec_no }}</div>
-        </div>
-      </div>
-      <!-- Business Address -->
-      <div class="meta-text-group flex-wrap">
-        <div class="meta-group-title">Location of Construction :</div>
-        <div class="meta-text w4 no-br no-bb">
-          <div class="meta-label">Address No. :</div>
-          <div class="meta-value">{{ buildingDetails.address_no }}</div>
-        </div>
-        <div class="meta-text w4 no-br no-bb">
-          <div class="meta-label">Lot No. :</div>
-          <div class="meta-value">{{ buildingDetails.lot_no }}</div>
-        </div>
-        <div class="meta-text w4 no-bb">
-          <div class="meta-label">Lot No. count (default 1) :</div>
-          <div class="meta-value">{{ buildingDetails.lot_no_count }}</div>
-        </div>
-
-        <div class="clearfix"></div>
-
-        <div class="meta-text w4 no-br no-bb">
-          <div class="meta-label">Blk No. :</div>
-          <div class="meta-value">{{ buildingDetails.blk_no }}</div>
-        </div>
-        <div class="meta-text w4 no-br no-bb">
-          <div class="meta-label">Phase No. :</div>
-          <div class="meta-value">{{ buildingDetails.phase_no }}</div>
-        </div>
-        <div class="meta-text w4 no-bb">
-          <div class="meta-label">Subdivision :</div>
-          <div class="meta-value">{{ buildingDetails.subdivision_name }}</div>
-        </div>
-
-        <div class="clearfix"></div>
-
-        <div class="meta-text w6 no-br no-bb">
-          <div class="meta-label">Street :</div>
-          <div class="meta-value">{{ buildingDetails.street }}</div>
-        </div>
-        <div class="meta-text w6 no-bb">
-          <div class="meta-label">District :</div>
-          <div class="meta-value">{{ buildingDetails.district }}</div>
-        </div>
-
-        <div class="clearfix"></div>
-
-        <div class="meta-text no-bb">
-          <div class="meta-label">Barangay :</div>
-          <div class="meta-value">{{ buildingDetails.barangay }}</div>
-        </div>
-        <div class="meta-text">
-          <div class="meta-label">City / Province:</div>
-          <div class="meta-value">{{ buildingDetails.city }}</div>
-        </div>
-        <!-- <div class="meta-text no-bb">
-            <div class="meta-label">Property Type</div>
-            <div class="meta-value">{{ buildingDetails.property_type }}</div>
-          </div> -->
-
-        <div class="meta-text no-bb mt20">
-          <div class="meta-label">Scope of Work :</div>
-          <div class="meta-value">
-            {{
-              buildingDetails.scope_of_work_others === ""
-                ? buildingDetails.scope_of_work
-                : buildingDetails.scope_of_work_others
-            }}
-          </div>
-        </div>
-        <div class="meta-text mb20">
-          <div class="meta-label">Use or Character of Occupancy :</div>
-          <div class="meta-value">
-            {{
-              buildingDetails.character_of_occupancy_others === ""
-                ? buildingDetails.character_of_occupancy
-                : buildingDetails.character_of_occupancy_others
-            }}
-          </div>
-        </div>
-      </div>
-
-      <!-- Other Details -->
-      <div class="meta-text-group flex-wrap">
-        <!-- <div class="meta-text w6 no-br no-bb">
-            <div class="meta-label">Occupancy Classified:</div>
-            <div class="meta-value">
-              {{ buildingOtherDetails.occupancy_classified }}
-            </div>
-          </div> -->
-        <div class="meta-text no-bb">
-          <div class="meta-label">Total Estimated Cost :</div>
-          <div class="meta-value">
-            ₱
-            {{
-              formatCurrency(buildingOtherDetails.total_estimated_cost)
-            }}
-          </div>
-        </div>
-        <div class="meta-text w6 no-br no-bb">
-          <div class="meta-label">Number of Units :</div>
-          <div class="meta-value">{{ buildingOtherDetails.units }}</div>
-        </div>
-        <div class="meta-text w6 no-bb">
-          <div class="meta-label">Proposed Date of Construction :</div>
-          <div class="meta-value">
-            {{
-              buildingOtherDetails.date_of_construction
-                | moment("MMMM DD, YYYY")
-            }}
-          </div>
-        </div>
-        <div class="meta-text no-bb">
-          <div class="meta-label">Expected Date of Completion :</div>
-          <div class="meta-value">
-            {{
-              buildingOtherDetails.date_of_completion | moment("MMMM DD, YYYY")
-            }}
-          </div>
-        </div>
-        <div class="meta-text no-bb">
-          <div class="meta-label">Total Floor Area :</div>
-          <div class="meta-value">
-            {{ buildingOtherDetails.floor_area }} square meters
-          </div>
-        </div>
-        <div class="meta-text">
-          <div class="meta-label">Lot Area :</div>
-          <div class="meta-value">
-            {{ buildingOtherDetails.lot_area }} square meters
-          </div>
-        </div>
-      </div>
+    <button @click="generateBuildingForm()">TEST</button>
+    <div class="downloadables-container">
+        <img src="@/assets/bacoor-cavite-logo.png" alt="" id="logoImage" />
+        <table id="basic-details-table">
+            <thead>
+              <tr>
+                <th>BASIC DETAILS</th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Application No. :</td>
+                <td>#{{ buildingBasicInformation.reference_number }}</td>
+                <td>Ownership Type:</td>
+                <td>{{ buildingBasicInformation.ownership_type }}</td>
+              </tr>
+              <tr>
+                <td>Last Name :</td>
+                <td>{{ buildingBasicInformation.ownership_type }}</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>First Name :</td>
+                <td>{{ buildingBasicInformation.owner_first_name }}</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Middle Name</td>
+                <td>{{ buildingBasicInformation.owner_middle_name }}</td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+        </table>  
+        <table id="building-details-table">
+            <thead>
+              <tr>
+                <th>BUILDING DETAILS:</th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TCT No. :</td>
+                <td>{{ buildingDetails.tct_no }}</td>
+                <td>Tax Dec. No. :</td>
+                <td>{{ buildingDetails.tax_dec_no }}</td>
+              </tr>
+              <tr>
+                <td>Scope of Work :</td>
+                <td>{{
+                      buildingDetails.scope_of_work_others === ""
+                        ? buildingDetails.scope_of_work
+                        : buildingDetails.scope_of_work_others
+                    }}
+                </td>
+                <td>Use or Character of Occupancy :</td>
+                <td>{{
+                      buildingDetails.character_of_occupancy_others === ""
+                        ? buildingDetails.character_of_occupancy
+                        : buildingDetails.character_of_occupancy_others
+                    }}
+                </td>
+              </tr>
+            </tbody>
+        </table> 
+        <table id="building-address-table">
+            <thead>
+              <tr>
+                <th>BUILDING ADDRESS</th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Address No. :</td>
+                <td>{{ buildingDetails.address_no }}</td>
+                <td>Building Name :</td>
+                <td>{{ buildingDetails.building_name }}</td>
+              </tr>
+              <tr>
+                <td>Block No. :</td>
+                <td>{{ buildingDetails.blk_no }}</td>
+                <td>Unit No :</td>
+                <td>{{ buildingDetails.unit_no }}</td>
+              </tr>
+              <tr>
+                <td>Lot No. :</td>
+                <td>{{ buildingDetails.lot_no }}</td>
+                <td>District :</td>
+                <td>{{ buildingDetails.district }}</td>
+              </tr> 
+              <tr>
+                <td>Lot No. count (default 1) :</td>
+                <td>{{ buildingDetails.lot_no_count }}</td>
+                <td>Street :</td>
+                <td>{{ buildingDetails.street }}</td>
+              </tr>
+              <tr>
+                <td>Phase No. :</td>
+                <td>{{ buildingDetails.phase_no }}</td>
+                <td>Barangay :</td>
+                <td>{{ buildingDetails.barangay }}</td>
+              </tr>
+              <tr>
+                <td>Subdivision :</td>
+                <td>{{ buildingDetails.subdivision_name }}</td>
+                <td>City / Province :</td>
+                <td>{{ buildingDetails.city }}</td>
+              </tr>
+            </tbody>
+        </table>  
+        <table id="other-building-details-table">
+            <thead>
+              <tr>
+                <th>OTHER BUILDING DETAILS</th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Total Estimated Cost :</td>
+                <td>₱ {{
+                      formatCurrency(buildingOtherDetails.total_estimated_cost)
+                    }}
+                </td>
+                <td>Number of Units :</td>
+                <td>{{ buildingOtherDetails.units }}</td>
+              </tr>
+              <tr>
+                <td>Proposed Date of Construction :</td>
+                <td>{{
+                      buildingOtherDetails.date_of_construction
+                        | moment("MMMM DD, YYYY")
+                    }}
+                </td>
+                <td>Total Floor Area :</td>
+                <td>{{ buildingOtherDetails.floor_area }} square meters</td>
+              </tr>
+              <tr>
+                <td>Expected Date of Completion :</td>
+                <td>{{
+                      buildingOtherDetails.date_of_completion | moment("MMMM DD, YYYY")
+                    }}
+                </td>
+                <td>Lot Area :</td>
+                <td>{{ buildingOtherDetails.lot_area }} square meters</td>
+              </tr>
+            </tbody>
+        </table>  
     </div>
   </div>
 </template>
@@ -212,6 +170,7 @@
 import BasePdfHeader from "@/components/forms/BasePdfHeader";
 import { mapGetters } from "vuex";
 import jsPDF from "jspdf";
+import "jspdf-autotable";
 import html2canvas from "html2canvas";
 export default {
   name: "DownloadableBuildingForm",
@@ -232,13 +191,24 @@ export default {
       deep: true,
       handler(status) {
         if (status) {
-          this.generateReport();
+          this.generateBuildingForm();
           this.$store.commit("setPrintProperty", false);
         }
       },
     },
   },
   methods: {
+    getDataUrl(img) {
+        // Create canvas
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        // Set width and height
+        canvas.width = img.width;
+        canvas.height = img.height;
+        // Draw the image
+        ctx.drawImage(img, 0, 0);
+        return canvas.toDataURL("image/jpeg");
+    },
     formatCurrency(str) {
       var parts = str.toString().split(".");
       parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -263,6 +233,75 @@ export default {
         doc.addImage(img, "JPEG", 0, 0, width, height);
         doc.save(`building-application-${buildingId}`);
       });
+    },
+    generateBuildingForm() {
+       var doc = new jsPDF("p", "pt");
+       const buildingId = this.buildingBasicInformation.reference_number;
+      // Select the image
+      const img = document.querySelector("#logoImage");
+      img.addEventListener("load", function(event) {
+          const dataUrl = this.getDataUrl(event.currentTarget);
+      });
+      // let tax_year = moment(this.businessApplication.created_at).format('YYYY')
+      var header = function(data) {
+        doc.setFontSize(12);
+        doc.setTextColor(40);
+        doc.setFontStyle("normal");
+        doc.addImage(img, "png", 280, 25, 50, 50);
+
+        doc.setFontSize(11);
+        doc.text("Republic of the Philippines", 242, 95);
+        doc.text("Province of Cavite CITY OF BACOOR", 210, 110);
+        doc.setFontStyle("bold");
+        doc.text("APPLICATION FORM FOR BUILDING PERMIT", 185, 127);
+        // doc.setFontStyle("normal");
+        // doc.text(`TAX YEAR ${tax_year}`, 260, 140);
+      };
+
+      //MAIN DETAILS
+      var basicTable = doc.autoTableHtmlToJson(
+        document.getElementById("basic-details-table")
+      );
+      doc.autoTable(basicTable.columns, basicTable.data, {
+        theme: 'grid',
+        headStyles:{ fillColor:'#2699fb' },
+        bodyStyles: { lineColor: '#bce0fd' },
+        margin: { top: 150 },
+
+        beforePageContent: header,
+      });
+
+      //TAXPAYER DETAILS 
+      var buildingDetailsTable = doc.autoTableHtmlToJson(
+        document.getElementById("building-details-table")
+      );
+      doc.autoTable(buildingDetailsTable.columns, buildingDetailsTable.data, {
+        theme: 'grid',
+        headStyles:{fillColor:'#2699fb'},
+        bodyStyles: { lineColor: '#bce0fd' },
+      });
+
+      //BUILDING ADDRESS
+      var buildingAddressTable = doc.autoTableHtmlToJson(
+        document.getElementById("building-address-table")
+      );
+      doc.autoTable(buildingAddressTable.columns, buildingAddressTable.data, {
+        theme: 'grid',
+        headStyles:{fillColor:'#2699fb'},
+        bodyStyles: { lineColor: '#bce0fd' },
+      });
+
+      //BUILDING DETAILS
+      var otherDetailsTable = doc.autoTableHtmlToJson(
+        document.getElementById("other-building-details-table")
+      );
+      doc.autoTable(otherDetailsTable.columns, otherDetailsTable.data, {
+        theme: 'grid',
+        headStyles:{fillColor:'#2699fb'},
+        bodyStyles: { lineColor: '#bce0fd' },
+      });
+
+      doc.save(`building-application-${buildingId}`);
     },
   },
 };

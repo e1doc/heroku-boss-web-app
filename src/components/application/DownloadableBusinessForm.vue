@@ -1,427 +1,282 @@
 <template>
   <div class="meta-container flex-wrap" ref="business_content">
-    <base-pdf-header
-      :applicationnumber="businessBasicInformation.reference_number"
-      formtitle="BUSINESS PERMIT AND LICENSING OFFICE"
-      :additionaltext="businessApplication.created_at"
-      type="business"
-    />
-    <div class="meta-form-body flex-wrap">
-      <h1 class="meta-form-title">Business Application Details</h1>
-      <!-- Application Date and Nos. -->
-      <div class="meta-text-group flex-wrap">
-        <div class="meta-text no-bb">
-          <div class="meta-label">Application Number :</div>
-          <div class="meta-value">
-            #{{ businessBasicInformation.reference_number }}
-          </div>
-        </div>
-        <div class="meta-text no-bb">
-          <div class="meta-label">Date of Application :</div>
-          <div class="meta-value">
-            {{ businessApplication.created_at | moment("MMMM DD, YYYY") }}
-          </div>
-        </div>
-        <div class="meta-text no-bb">
-          <div class="meta-label">Type of Organization :</div>
-          <div class="meta-value">
-            {{ businessBasicInformation.type_of_organization }}
-          </div>
-        </div>
-        <div class="meta-text no-bb">
-          <div class="meta-label">Mode of Payment :</div>
-          <div class="meta-value">
-            {{ businessBasicInformation.mode_of_payment }}
-          </div>
-        </div>
-        <div class="meta-text w6 no-br no-bb">
-          <div class="meta-label">DTI/SEC/CDA Registration No. :</div>
-          <div class="meta-value">
-            {{ businessBasicInformation.dti_sec_cda_reg_number }}
-          </div>
-        </div>
-        <!-- <div class="meta-text w6 no-br no-bb">
-            <div class="meta-label">Account No :</div>
-            <div class="meta-value">
-              {{ businessApplication.account_number }}
-            </div>
-          </div> -->
-        <div class="meta-text w6 no-bb">
-          <div class="meta-label">DTI/SEC/CDA Date of Registration No. :</div>
-          <div class="meta-value">
-            {{
-              businessBasicInformation.dti_sec_cda_reg_date
-                | moment("MMMM DD, YYYY")
-            }}
-          </div>
-        </div>
-        <div class="meta-text w6 no-br no-bb">
-          <div class="meta-label">CTC No. :</div>
-          <div class="meta-value">{{ businessBasicInformation.ctc_no }}</div>
-        </div>
-        <div class="meta-text w6 no-bb">
-          <div class="meta-label">TIN :</div>
-          <div class="meta-value">{{ businessBasicInformation.tin }}</div>
-        </div>
-        <div class="meta-text w6 no-br">
-          <div class="meta-label">
-            Are You enjoying tax incentive from any Government Entity?
-          </div>
-          <div class="meta-value">
-            {{ businessBasicInformation.has_tax_incentive ? "Yes" : "No" }}
-          </div>
-        </div>
-        <div class="meta-text w6">
-          <div class="meta-label">Please specify the entity :</div>
-          <div class="meta-value">
-            {{ businessBasicInformation.government_entity }}
-          </div>
-        </div>
-      </div>
-
-      <!-- Name of Taxpayer/Corporate Name : -->
-      <div class="meta-text-group flex-wrap">
-        <div class="meta-group-title">Name of Taxpayer/Corporate Name :</div>
-        <div class="meta-text w4 no-br no-bb">
-          <div class="meta-label">Last Name :</div>
-          <div class="meta-value">
-            {{ businessBasicInformation.owner_last_name }}
-          </div>
-        </div>
-        <div class="meta-text w4 no-br no-bb">
-          <div class="meta-label">First Name :</div>
-          <div class="meta-value">
-            {{ businessBasicInformation.owner_first_name }}
-          </div>
-        </div>
-        <div class="meta-text w4 no-bb">
-          <div class="meta-label">Middle Name :</div>
-          <div class="meta-value">
-            {{ businessBasicInformation.owner_middle_name }}
-          </div>
-        </div>
-        <div class="meta-text w6 no-br">
-          <div class="meta-label">Corporate Name :</div>
-          <div class="meta-value">{{ businessDetails.name }}</div>
-        </div>
-        <div class="meta-text w6">
-          <div class="meta-label">Trade Name/Franchise :</div>
-          <div class="meta-value">{{ businessDetails.trade_name }}</div>
-        </div>
-      </div>
-
-      <!-- Name of President/Treasurer of Corporation : -->
-      <div class="meta-text-group flex-wrap">
-        <div class="meta-group-title">
-          Name of President/Treasurer of Corporation :
-        </div>
-        <div class="meta-text w4 no-br">
-          <div class="meta-label">Last Name :</div>
-          <div class="meta-value">
-            {{ businessDetails.president_last_name }}
-          </div>
-        </div>
-        <div class="meta-text w4 no-br">
-          <div class="meta-label">First Name :</div>
-          <div class="meta-value">
-            {{ businessDetails.president_first_name }}
-          </div>
-        </div>
-        <div class="meta-text w4">
-          <div class="meta-label">Middle Name :</div>
-          <div class="meta-value">
-            {{ businessDetails.president_middle_name }}
-          </div>
-        </div>
-      </div>
-
-      <!-- Business Address -->
-      <div class="meta-text-group flex-wrap">
-        <div class="meta-group-title">Business Address :</div>
-        <div class="meta-text w4 no-br no-bb">
-          <div class="meta-label">Address No. :</div>
-          <div class="meta-value">
-            {{ businessDetails.address_no }}
-          </div>
-        </div>
-        <div class="meta-text w4 no-br no-bb">
-          <div class="meta-label">Block No. :</div>
-          <div class="meta-value">
-            {{ businessDetails.block_no }}
-          </div>
-        </div>
-        <div class="meta-text w4 no-bb">
-          <div class="meta-label">Lot No. :</div>
-          <div class="meta-value">
-            {{ businessDetails.lot_no }}
-          </div>
-        </div>
-        <div class="meta-text w6 no-br no-bb">
-          <div class="meta-label">Street :</div>
-          <div class="meta-value">
-            {{ businessDetails.street }}
-          </div>
-        </div>
-        <div class="meta-text w6 no-bb">
-          <div class="meta-label">Subdivision :</div>
-          <div class="meta-value">
-            {{ businessDetails.subdivision }}
-          </div>
-        </div>
-        <div class="meta-text w6 no-br no-bb">
-          <div class="meta-label">Building No :</div>
-          <div class="meta-value">
-            {{ businessDetails.building_no }}
-          </div>
-        </div>
-        <div class="meta-text w6 no-bb">
-          <div class="meta-label">Building Name :</div>
-          <div class="meta-value">
-            {{ businessDetails.building_name }}
-          </div>
-        </div>
-        <div class="meta-text w6 no-br no-bb">
-          <div class="meta-label">Unit No :</div>
-          <div class="meta-value">
-            {{ businessDetails.unit_no }}
-          </div>
-        </div>
-        <div class="meta-text w6 no-bb">
-          <div class="meta-label">Floor No :</div>
-          <div class="meta-value">
-            {{ businessDetails.floor_no }}
-          </div>
-        </div>
-        <div class="meta-text w6 no-br">
-          <div class="meta-label">Barangay :</div>
-          <div class="meta-value">
-            {{ businessDetails.barangay }}
-          </div>
-        </div>
-        <div class="meta-text w6">
-          <div class="meta-label">City :</div>
-          <div class="meta-value">
-            {{ businessDetails.city }}
-          </div>
-        </div>
-      </div>
-      <div class="meta-text-group flex-wrap">
-        <div class="meta-group-title">Other Business Details :</div>
-        <div class="meta-text no-bb">
-          <div class="meta-label">Telephone / Mobile No. :</div>
-          <div class="meta-value">
-            {{
-              businessDetails.telephone_number
-                ? businessDetails.telephone_number
-                : "N/A"
-            }}
-            <!-- /
-              {{
-                businessDetails.mobile_number
-                  ? businessDetails.mobile_number
-                  : "N/A"
-              }} -->
-          </div>
-        </div>
-        <div class="meta-text">
-          <div class="meta-label">Email Address :</div>
-          <div class="meta-value">
-            {{
-              businessDetails.email_address
-                ? businessDetails.email_address
-                : "N/A"
-            }}
-          </div>
-        </div>
-      </div>
-      <!-- Owner Details -->
-      <div class="meta-text-group flex-wrap">
-        <div class="meta-group-title">Owner's Address :</div>
-        <div class="meta-text no-bb">
-          <div class="meta-label">Complete Address :</div>
-          <div class="meta-value">
-            {{ businessBasicInformation.owner_complete_address }}
-          </div>
-        </div>
-        <div class="meta-text no-bb">
-          <div class="meta-label">Telephone / Mobile No. :</div>
-          <div class="meta-value">
-            {{
-              businessBasicInformation.owner_telephone_number
-                ? businessBasicInformation.owner_telephone_number
-                : "N/A"
-            }}
-            <!-- /
-              {{
-                businessBasicInformation.owner_mobile_number
-                  ? businessBasicInformation.owner_mobile_number
-                  : "N/A"
-              }} -->
-          </div>
-        </div>
-        <div class="meta-text no-bb">
-          <div class="meta-label">Email Address :</div>
-          <div class="meta-value">
-            {{ businessBasicInformation.owner_email_address }}
-          </div>
-        </div>
-      </div>
-
-      <!-- Business Details -->
-      <div class="meta-text-group flex-wrap">
-        <div class="meta-text no-bb">
-          <div class="meta-label">Property Index Number (PIN) :</div>
-          <div class="meta-value">
-            {{ businessDetails.property_index_number }}
-          </div>
-        </div>
-        <div class="meta-text w4 no-br">
-          <div class="meta-label">Business Area (in sq m) :</div>
-          <div class="meta-value">{{ businessDetails.area }} sqm</div>
-        </div>
-        <div class="meta-text w4 no-br">
-          <div class="meta-label">
-            Total No. of Employees (including owner):
-          </div>
-          <div class="meta-value">{{ businessDetails.total_employees }}</div>
-        </div>
-        <div class="meta-text w4">
-          <div class="meta-label">
-            No. of Employees residing in City/Municipality :
-          </div>
-          <div class="meta-value">
-            {{ businessDetails.residing_employees }}
-          </div>
-        </div>
-      </div>
-
-      <!-- Lessor Details -->
-      <div class="meta-text-group flex-wrap">
-        <div class="meta-group-title">
-          If Place of Business is Rented, please identify the following :
-        </div>
-        <div class="meta-text w6 no-br no-bb">
-          <div class="meta-label">Lessor's Name :</div>
-          <div class="meta-value">
-            {{ lessorDetails.last_name }}
-            {{ lessorDetails.first_name }}
-            {{ lessorDetails.middle_name }}
-          </div>
-        </div>
-        <div class="meta-text w6 no-bb">
-          <div class="meta-label">Gross Monthly Rental :</div>
-          <div class="meta-value">
-            {{
-              lessorDetails.gross_monthly_rental
-                ? `₱ ${parseFloat(lessorDetails.gross_monthly_rental).toFixed(
-                    2
-                  )}`
-                : "N/A"
-            }}
-          </div>
-        </div>
-        <div class="meta-text w4 no-br no-bb">
-          <div class="meta-label">Last Name :</div>
-          <div class="meta-value">
-            {{ lessorDetails.last_name ? lessorDetails.last_name : "N/A" }}
-          </div>
-        </div>
-        <div class="meta-text w4 no-br no-bb">
-          <div class="meta-label">First Name :</div>
-          <div class="meta-value">
-            {{ lessorDetails.first_name ? lessorDetails.first_name : "N/A" }}
-          </div>
-        </div>
-        <div class="meta-text w4 no-bb">
-          <div class="meta-label">Middle Name :</div>
-          <div class="meta-value">
-            {{ lessorDetails.middle_name ? lessorDetails.middle_name : "N/A" }}
-          </div>
-        </div>
-        <div class="meta-text no-bb">
-          <div class="meta-label">Lessor's Address :</div>
-          <div class="meta-value">
-            {{
-              lessorDetails.complete_address
-                ? lessorDetails.complete_address
-                : "N/A"
-            }}
-          </div>
-        </div>
-        <div class="meta-text w6 no-br">
-          <div class="meta-label">Telephone / Mobile No. :</div>
-          <div class="meta-value">
-            {{
-              lessorDetails.telephone_number
-                ? lessorDetails.telephone_number
-                : "N/A"
-            }}
-            <!-- /
-              {{
-                lessorDetails.mobile_number
-                  ? lessorDetails.mobile_number
-                  : "N/A"
-              }} -->
-          </div>
-        </div>
-        <div class="meta-text w6">
-          <div class="meta-label">Email Address :</div>
-          <div class="meta-value">
-            {{
-              lessorDetails.email_address ? lessorDetails.email_address : "N/A"
-            }}
-          </div>
-        </div>
-      </div>
-
-      <!-- Business Activity -->
-      <div class="meta-text-group flex-wrap">
-        <div class="meta-group-title">Business Activity</div>
-        <div class="meta-table-header flex-center hide-in-mobile">
-          <!-- <div class="form-th code no-br">Code :</div> -->
-          <div class="form-th line no-br">Line of Business</div>
-          <div class="form-th units no-br">No. of Units</div>
-          <!-- <div class="form-th sales">
-              Gross Sales/Receipts (for Renewal)
-              <div class="form-sub-th">
-                <div class="form-th no-br no-bl no-bb">Essential / Non-essential :</div>
-              </div>
-            </div> -->
-          <div class="form-th sales">
-            Capitalization
-          </div>
-        </div>
-        <div class="meta-table-row" v-if="businessActivities.length > 0">
-          <div
-            class="flex-center"
-            v-for="(activity, index) in businessActivities"
-            :key="index"
-          >
-            <!-- <div class="form-td code no-bt no-br">
-                <span class="form-td-label show-in-mobile">Code :</span>
-                {{ activity.code }}
-              </div> -->
-            <div class="form-td line no-bt no-br">
-              <span class="form-td-label show-in-mobile"
-                >Line of Business :</span
-              >
-              {{ activity.line_of_business }}
-            </div>
-            <div class="form-td units no-bt no-br">
-              <span class="form-td-label show-in-mobile">No. of Units :</span>
-              {{ activity.units }}
-            </div>
-            <div class="form-td sales no-bt no-br">
-              <span class="form-td-label show-in-mobile">Essential :</span>
-              {{ activity.essential }}
-            </div>
-            <div class="form-td sales no-bt">
-              <span class="form-td-label show-in-mobile">Capitalization :</span>
-              ₱ {{ formatCurrency(parseFloat(activity.capitalization ).toFixed(2))}}
-            </div>
-          </div>
-        </div>
-      </div>
+    <button @click="generateBusinessForm()">TEST</button>
+    <div class="downloadables-container">
+        <img src="@/assets/bacoor-cavite-logo.png" alt="" id="logoImage" />
+        <table id="basic-details-table">
+            <thead>
+              <tr>
+                <th>BASIC DETAILS</th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Application No. :</td>
+                <td>{{ businessBasicInformation.reference_number }}</td>
+                <td>DTI/SEC/CDA Registration No. :</td>
+                <td>{{ businessBasicInformation.dti_sec_cda_reg_number }}</td>
+              </tr>
+              <tr>
+                <td>Date of Application :</td>
+                <td>{{ businessApplication.created_at | moment("MMMM DD, YYYY") }}</td>
+                <td>DTI/SEC/CDA Date of Registration No. :</td>
+                <td>{{
+                      businessBasicInformation.dti_sec_cda_reg_date
+                        | moment("MMMM DD, YYYY")
+                    }}
+                </td>
+              </tr>
+              <tr>
+                <td>Mode of Payment :</td>
+                <td>{{ businessBasicInformation.mode_of_payment }}</td>
+                <td>Type of Organization :</td>
+                <td>{{ businessBasicInformation.type_of_organization }}</td>
+              </tr>
+              <tr>
+                <td>CTC No. :</td>
+                <td>{{ businessBasicInformation.ctc_no }}</td>
+                <td>Enjoying tax incentive from any Government Entity?</td>
+                <td>{{ businessBasicInformation.has_tax_incentive ? "Yes" : "No" }}</td>
+              </tr>
+              <tr>
+                <td>TIN :</td>
+                <td>{{ businessBasicInformation.tin }}</td>
+                <td>Please specify the entity :</td>
+                <td>{{ businessBasicInformation.government_entity }}</td>
+              </tr>
+            </tbody>
+        </table>  
+        <table id="taxpayer-details-table">
+            <thead>
+              <tr>
+                <th>TAXPAYER DETAILS:</th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Last Name :</td>
+                <td>{{ businessBasicInformation.owner_last_name }}</td>
+                <td>Corporate Name :</td>
+                <td>{{ businessDetails.name }}</td>
+              </tr>
+              <tr>
+                <td>First Name :</td>
+                <td>{{ businessBasicInformation.owner_first_name }}</td>
+                <td>Trade Name/Franchise :</td>
+                <td>{{ businessDetails.trade_name }}</td>
+              </tr>
+              <tr>
+                <td>Middle Name :</td>
+                <td>{{ businessBasicInformation.owner_middle_name }}</td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+        </table> 
+        <table id="president-details-table">
+            <thead>
+              <tr>
+                <th>PRESIDENT/TREASURER OF CORP.</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Last Name :</td>
+                <td>{{ businessDetails.president_last_name }}</td>
+              </tr>
+              <tr>
+                <td>First Name :</td>
+                <td>{{ businessDetails.president_first_name }}</td>
+              </tr>
+              <tr>
+                <td>Middle Name :</td>
+                <td>{{ businessDetails.president_middle_name }}</td>
+              </tr>
+            </tbody>
+        </table>  
+        <table id="business-address-table">
+            <thead>
+              <tr>
+                <th>BUSINESS ADDRESS</th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Address No. :</td>
+                <td>{{ businessDetails.address_no }}</td>
+                <td>Building Name :</td>
+                <td>{{ businessDetails.building_name }}</td>
+              </tr>
+              <tr>
+                <td>Block No. :</td>
+                <td>{{ businessDetails.block_no }}</td>
+                <td>Unit No :</td>
+                <td>{{ businessDetails.unit_no }}</td>
+              </tr>
+              <tr>
+                <td>Lot No. :</td>
+                <td>{{ businessDetails.lot_no }}</td>
+                <td>Floor No :</td>
+                <td>{{ businessDetails.floor_no }}</td>
+              </tr>
+              <tr>
+                <td>Street :</td>
+                <td>{{ businessDetails.street }}</td>
+                <td>Barangay :</td>
+                <td>{{ businessDetails.barangay }}</td>
+              </tr>
+              <tr>
+                <td>Subdivision :</td>
+                <td>{{ businessDetails.subdivision }}</td>
+                <td>City :</td>
+                <td>{{ businessDetails.city }}</td>
+              </tr>
+              <tr>
+                <td>Building No :</td>
+                <td>{{ businessDetails.building_no }}</td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+        </table>  
+        <table id="business-details-table">
+            <thead>
+              <tr>
+                <th>OTHER BUSINESS DETAILS</th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Telephone / Mobile No. :</td>
+                <td>{{
+                      businessDetails.telephone_number
+                        ? businessDetails.telephone_number
+                        : "N/A"
+                    }}
+                </td>
+                <td>Email Address :</td>
+                <td>{{
+                      businessDetails.email_address
+                        ? businessDetails.email_address
+                        : "N/A"
+                    }}
+                </td>
+              </tr>
+              <tr>
+                <td>Property Index Number (PIN) :</td>
+                <td>{{ businessDetails.property_index_number }}</td>
+                <td>Business Area (in sq m) :</td>
+                <td>{{ businessDetails.area }} sqm</td>
+              </tr>
+              <tr>
+                <td>Total No. of Employees (including owner):</td>
+                <td>{{ businessDetails.total_employees }}</td>
+                <td>No. of Employees residing in City/Municipality :</td>
+                <td>{{ businessDetails.residing_employees }}</td>
+              </tr>
+            </tbody>
+        </table>  
+        <table id="owner-details-table">
+            <thead>
+              <tr>
+                <th>OWNER'S DETAILS</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Complete Address :</td>
+                <td>{{ businessBasicInformation.owner_complete_address }}</td>
+              </tr>
+              <tr>
+                <td>Telephone / Mobile No. :</td>
+                <td>{{
+                      businessBasicInformation.owner_telephone_number
+                        ? businessBasicInformation.owner_telephone_number
+                        : "N/A"
+                    }}
+                </td>
+              </tr>
+              <tr>
+                <td>Email Address :</td>
+                <td>{{ businessBasicInformation.owner_email_address }}</td>
+              </tr>
+            </tbody>
+        </table>  
+        <table id="lessor-details-table">
+            <thead>
+              <tr>
+                <th>LESSOR'S DETAILS</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Last Name :</td>
+                <td>{{ lessorDetails.last_name ? lessorDetails.last_name : "N/A" }}</td>
+              </tr>
+              <tr>
+                <td>First Name :</td>
+                <td>{{ lessorDetails.first_name ? lessorDetails.first_name : "N/A" }}</td>
+              </tr>
+              <tr>
+                <td>Middle Name :</td>
+                <td>{{ lessorDetails.middle_name ? lessorDetails.middle_name : "N/A" }}</td>
+              </tr>
+              <tr>
+                <td>Telephone / Mobile No. :</td>
+                <td>{{
+                      lessorDetails.telephone_number
+                        ? lessorDetails.telephone_number
+                        : "N/A"
+                    }}
+                </td>
+              </tr>
+              <tr>
+                <td>Lessor's Address :</td>
+                <td>{{
+                      lessorDetails.complete_address
+                        ? lessorDetails.complete_address
+                        : "N/A"
+                    }}
+                </td>
+              </tr>
+              <tr>
+                <td>Email Address :</td>
+                <td>{{ lessorDetails.email_address ? lessorDetails.email_address : "N/A" }}</td>
+              </tr>
+            </tbody>
+        </table>  
+        <table id="business-activity-table" v-if="businessActivities.length > 0">
+            <thead>
+              <tr>
+                <th>(Business Activity) Line of Business</th>
+                <th>No. of Units</th>
+                <th>Capitalization</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(activity, index) in businessActivities"
+                :key="index">
+                  <td>{{ activity.line_of_business }}</td>
+                  <td>{{ activity.units }}</td>
+                  <td>PHP {{ formatCurrency(parseFloat(activity.capitalization ).toFixed(2))}}</td>
+              </tr>
+            </tbody>
+        </table>  
     </div>
   </div>
 </template>
@@ -429,8 +284,10 @@
 <script>
 import BasePdfHeader from "@/components/forms/BasePdfHeader";
 import jsPDF from "jspdf";
+import "jspdf-autotable";
 import html2canvas from "html2canvas";
 import { mapGetters } from "vuex";
+import moment from "moment-timezone";
 export default {
   name: "DownloadableBusinessForm",
   components: {
@@ -451,7 +308,7 @@ export default {
       deep: true,
       handler(status) {
         if (status) {
-          this.generateReport();
+          this.generateBusinessForm();
           this.$store.commit("setPrintBusiness", false);
         }
       },
@@ -461,6 +318,17 @@ export default {
     this.$store.commit("setPrintBusiness", false);
   },
   methods: {
+    getDataUrl(img) {
+      // Create canvas
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      // Set width and height
+      canvas.width = img.width;
+      canvas.height = img.height;
+      // Draw the image
+      ctx.drawImage(img, 0, 0);
+      return canvas.toDataURL("image/jpeg");
+    },
     formatCurrency(str) {
       var parts = str.toString().split(".");
       parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -486,6 +354,116 @@ export default {
         doc.save(`business-application-${business_basic_info.reference_number}.pdf`);
       });
     },
+    generateBusinessForm() {
+      var doc = new jsPDF("p", "pt");
+
+      // Select the image
+      const img = document.querySelector("#logoImage");
+      img.addEventListener("load", function(event) {
+        const dataUrl = this.getDataUrl(event.currentTarget);
+      });
+      let tax_year = moment(this.businessApplication.created_at).format('YYYY')
+      var header = function(data) {
+        doc.setFontSize(12);
+        doc.setTextColor(40);
+        doc.setFontStyle("normal");
+        doc.addImage(img, "png", 280, 25, 50, 50);
+
+        doc.setFontSize(11);
+        doc.text("Republic of the Philippines", 242, 95);
+        doc.text("Province of Cavite CITY OF BACOOR", 210, 110);
+        doc.setFontStyle("bold");
+        doc.text("BUSINESS PERMIT AND LICENSING OFFICE", 185, 125);
+        doc.setFontStyle("normal");
+        doc.text(`TAX YEAR ${tax_year}`, 260, 140);
+      };
+
+      //MAIN DETAILS
+      var basicTable = doc.autoTableHtmlToJson(
+        document.getElementById("basic-details-table")
+      );
+      doc.autoTable(basicTable.columns, basicTable.data, {
+        theme: 'grid',
+        headStyles:{ fillColor:'#2699fb' },
+        bodyStyles: { lineColor: '#bce0fd' },
+        margin: { top: 160 },
+
+        beforePageContent: header,
+      });
+
+      //TAXPAYER DETAILS 
+      var taxpayerDetailsTable = doc.autoTableHtmlToJson(
+        document.getElementById("taxpayer-details-table")
+      );
+      doc.autoTable(taxpayerDetailsTable.columns, taxpayerDetailsTable.data, {
+        theme: 'grid',
+        headStyles:{fillColor:'#2699fb'},
+        bodyStyles: { lineColor: '#bce0fd' },
+      });
+
+      //PRESIDENT/TREASURER DETAILS 
+      var presTable = doc.autoTableHtmlToJson(
+        document.getElementById("president-details-table")
+      );
+      doc.autoTable(presTable.columns, presTable.data, {
+        theme: 'grid',
+        headStyles:{fillColor:'#2699fb'},
+        bodyStyles: { lineColor: '#bce0fd' },
+      });
+
+      //BUSINESS ADDRESS
+      var busiAddressTable = doc.autoTableHtmlToJson(
+        document.getElementById("business-address-table")
+      );
+      doc.autoTable(busiAddressTable.columns, busiAddressTable.data, {
+        theme: 'grid',
+        headStyles:{fillColor:'#2699fb'},
+        bodyStyles: { lineColor: '#bce0fd' },
+      });
+
+      //BUSINESS DETAILS
+      var busiDetailsTable = doc.autoTableHtmlToJson(
+        document.getElementById("business-details-table")
+      );
+      doc.autoTable(busiDetailsTable.columns, busiDetailsTable.data, {
+        theme: 'grid',
+        headStyles:{fillColor:'#2699fb'},
+        bodyStyles: { lineColor: '#bce0fd' },
+      });
+
+      //OWNER DETAILS
+      var ownerDetailsTable = doc.autoTableHtmlToJson(
+        document.getElementById("owner-details-table")
+      );
+      doc.autoTable(ownerDetailsTable.columns, ownerDetailsTable.data, {
+        theme: 'grid',
+        headStyles:{fillColor:'#2699fb'},
+        bodyStyles: { lineColor: '#bce0fd' },
+      });
+
+      //LESSOR DETAILS
+      var lessorDetailsTable = doc.autoTableHtmlToJson(
+        document.getElementById("lessor-details-table")
+      );
+      doc.autoTable(lessorDetailsTable.columns, lessorDetailsTable.data, {
+        theme: 'grid',
+        headStyles:{fillColor:'#2699fb'},
+        bodyStyles: { lineColor: '#bce0fd' },
+      });
+
+      //LESSOR DETAILS
+      var busiActivityTable = doc.autoTableHtmlToJson(
+        document.getElementById("business-activity-table")
+      );
+      doc.autoTable(busiActivityTable.columns, busiActivityTable.data, {
+        theme: 'grid',
+        headStyles:{fillColor:'#2699fb'},
+        bodyStyles: { lineColor: '#bce0fd' },
+      });
+
+
+      doc.save(`business-application-${this.businessBasicInformation.reference_number}.pdf`);
+    },
   },
 };
 </script>
@@ -495,6 +473,11 @@ div.meta-container {
   width: 210mm;
   height: 297mm;
   background-color: #fff;
+  .meta-form-title{
+    font-size: 18px;
+    line-height: 1;
+    margin-bottom: -10px;
+  }
   div.meta-form-body {
     height: 100%;
     width: 100%;
@@ -506,7 +489,8 @@ div.meta-container {
         color: #2699fb;
         font-size: 10px;
         font-weight: bold;
-        padding: 10px 0;
+        padding: 10px 0 0;
+        line-height: 1;
       }
       div.meta-text {
         width: 100%;
