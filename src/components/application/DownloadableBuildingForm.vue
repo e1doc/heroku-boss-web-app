@@ -87,32 +87,26 @@
               <tr>
                 <td>Address No. :</td>
                 <td>{{ buildingDetails.address_no }}</td>
-                <td>Building Name :</td>
-                <td>{{ buildingDetails.building_name }}</td>
+                <td>District :</td>
+                <td>{{ buildingDetails.district }}</td>
               </tr>
               <tr>
                 <td>Block No. :</td>
                 <td>{{ buildingDetails.blk_no }}</td>
-                <td>Unit No :</td>
-                <td>{{ buildingDetails.unit_no }}</td>
+                <td>Phase No. :</td>
+                <td>{{ buildingDetails.phase_no }}</td>
               </tr>
               <tr>
                 <td>Lot No. :</td>
                 <td>{{ buildingDetails.lot_no }}</td>
-                <td>District :</td>
-                <td>{{ buildingDetails.district }}</td>
+                <td>Barangay :</td>
+                <td>{{ buildingDetails.barangay }}</td>
               </tr> 
               <tr>
                 <td>Lot No. count (default 1) :</td>
                 <td>{{ buildingDetails.lot_no_count }}</td>
                 <td>Street :</td>
                 <td>{{ buildingDetails.street }}</td>
-              </tr>
-              <tr>
-                <td>Phase No. :</td>
-                <td>{{ buildingDetails.phase_no }}</td>
-                <td>Barangay :</td>
-                <td>{{ buildingDetails.barangay }}</td>
               </tr>
               <tr>
                 <td>Subdivision :</td>

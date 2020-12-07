@@ -429,6 +429,7 @@ export default {
         theme: 'grid',
         headStyles:{fillColor:'#2699fb'},
         bodyStyles: { lineColor: '#bce0fd' },
+        pageBreak: 'avoid',
       });
 
       //OWNER DETAILS
