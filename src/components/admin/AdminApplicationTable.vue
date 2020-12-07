@@ -106,7 +106,7 @@
                 : application.application_status == 1
                 ? "INCOMPLETE"
                 : application.application_status == 2
-                ? "FOR ASSESMENT"
+                ? "FOR ASSESSMENT"
                 : application.application_status == 3
                 ? "FOR COMPLIANCE"
                 : application.application_status == 4
