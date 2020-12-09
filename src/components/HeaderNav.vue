@@ -99,6 +99,12 @@
                         Statement of Accounts
                     </router-link>
                 </li>
+                <li class="meta-menu" @click="slidemenu = false; menuActive = 'appointment'" :class="{active:menuActive == 'appointment'}">
+                    <router-link to="appointment">
+                        <font-awesome-icon icon="calendar" class="mr10 icon" />
+                        Appointments
+                    </router-link>
+                </li>
                 <!-- <li class="meta-menu" @click="slidemenu = false; menuActive = 'about'" :class="{active:menuActive == 'about'}">
                     <router-link to="#">
                         <font-awesome-icon icon="info-circle" class="mr10 icon" />
