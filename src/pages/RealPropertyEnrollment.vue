@@ -131,7 +131,6 @@ export default {
             "Content-Type": "application/json",
           },
         };
-
         const validateResponse = await axios.get(
           `${process.env.VUE_APP_API_URL}/api/verify-enrollment?id=${this.td_no}&type=property`,
           { headers: { Authorization: `jwt ${this.authToken}` } }

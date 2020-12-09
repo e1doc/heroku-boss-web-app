@@ -171,9 +171,9 @@ const actions = {
   },
   async getUserDetails({ commit, getters }) {
     try {
-      commit('setLoading', false)
+      await commit('setLoading', false)
       const response = await axios.get(`${baseUrl}/auth/users/me`,{headers: {Authorization: `jwt ${getters.authToken}`} })
-      commit('setUserDetails',response.data)
+      await commit('setUserDetails',response.data)
     } catch (err) {
       console.log(err)
     }
