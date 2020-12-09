@@ -105,7 +105,7 @@ export default {
         };
 
         const validateResponse = await axios.get(
-          `${process.env.VUE_APP_API_URL}/api/verify-enrollment?id=${this.account_no}&type=business`,
+          `${process.env.VUE_APP_API_URL}/api/verify-enrollment/?id=${this.account_no}&type=business`,
           { headers: { Authorization: `jwt ${this.authToken}` } }
         );
 
