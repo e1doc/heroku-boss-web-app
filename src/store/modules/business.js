@@ -257,11 +257,11 @@ const actions = {
         `${baseUrl}/api/user-business-application-list/?page=${page}`,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-      commit("setApplications", response.data.results);
-      commit("setPageCount", response.data.count);
+      await commit("setApplications", response.data.results);
+      await commit("setPageCount", response.data.total_pages);
     } catch (err) {
       console.log(err.response);
-      commit("setLoading", false);
+      await commit("setLoading", false);
     }
   },
   async getBusinessProfiles({ commit, dispatch, getters }) {
