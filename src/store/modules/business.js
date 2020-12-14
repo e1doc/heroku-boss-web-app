@@ -475,7 +475,7 @@ const actions = {
       let payload = { application_number: getters.businessApplication.id };
       const response = await axios.get(`${baseUrl}/api/business-activity/`, {
         headers: { Authorization: `jwt ${getters.authToken}` },
-        params: { payload },
+        params: payload,
       });
       commit("setBusinessActivities", response.data);
     } catch (err) {
