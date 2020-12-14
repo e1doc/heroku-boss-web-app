@@ -7,8 +7,8 @@
       </div> -->
       <!-- <otp-div/> -->
       <!-- <view-business-details/> -->
-      <downloadable-business-form/>
-      <downloadable-building-form/>
+      <!-- <downloadable-business-form/> -->
+      <!-- <downloadable-building-form/> -->
       <!-- <approve-business-application/> -->
       <!-- <appointment-invoice/> -->
       <!-- <downloadable-appointment-invoice/> -->
@@ -19,6 +19,7 @@
       <user-reply-inquiry/>
       <reply-inquiry/> -->
       <!-- <faq /> -->
+      <renewal-business-permit-application />
   </section>
 </template>
 
@@ -33,6 +34,7 @@ import DownloadableBuildingForm from "@/components/application/DownloadableBuild
 import DownloadableAppointmentInvoice from "@/components/payment/DownloadableAppointmentInvoice";
 import DownloadableInvoice from "@/components/payment/DownloadableInvoice";
 import AppointmentInvoice from "@/pages/AppointmentInvoice";
+import RenewalBusinessPermitApplication from "@/pages/RenewalBusinessPermitApplication";
 import OtpDiv from "@/components/auth/OtpDiv";
 import AgreementModal from "@/components/application/AgreementModal";
 import InvoiceDialog from "@/components/payment/InvoiceDialog";
@@ -60,6 +62,7 @@ export default {
         NewInquiry,
         ReplyInquiry,
         UserReplyInquiry,
+        RenewalBusinessPermitApplication
   },
   data() {
       return {
@@ -83,8 +86,8 @@ export default {
 
 <style lang="scss" scoped>
 section{
-    max-width: 800px;
-    margin: 50px auto;
+    // max-width: 800px;
+    // margin: 50px auto;
 }
 
 .countdown-timer {

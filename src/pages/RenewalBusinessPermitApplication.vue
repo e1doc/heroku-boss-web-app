@@ -1,58 +1,50 @@
 <template>
   <div class="meta-parent-box">
     <div class="meta-form-holder">
-      <downloadable-business-form />
+      <!-- <downloadable-business-form /> -->
     </div>
-    <div class="container mb30 meta-save-draft" v-if="currentApplicationStep !== '4'">
+    <div class="container mb30 meta-save-draft" v-if="currentApplicationStep !== '3'">
       <div @click="saveAsDraft" class="hide-in-mobile">
         <font-awesome-icon icon="save" class="icon" /> SAVE AS DRAFT
       </div>
     </div>
     <div class="container flex-wrap">
-      <div class="meta-page-title show-in-sm-screens">Application for Business Permit</div>
+      <div class="meta-page-title show-in-sm-screens">Renewal of Business Permit</div>
       <div @click="saveAsDraft" class="show-in-mobile meta-save-draft">
         <font-awesome-icon icon="save" class="icon" />
       </div>
       <div class="meta-left-box">
-        <progress-indicator
-          pageTitle="Application for Business Permit"
-          stepOne="Basic Information"
-          stepTwo="Business Details"
-          stepThree="Upload your Requirements"
+        <progress-indicator-renewal
+          pageTitle="Renewal of Business Permit"
+          stepOne="Business Activities"
+          stepTwo="Upload your Requirements"
           lastStep="Submit your Application"
         />
       </div>
       <div class="meta-right-box flex-wrap">
-        <business-step-one v-if="currentApplicationStep === '1'" />
-        <business-step-two v-if="currentApplicationStep === '2'" />
-        <business-upload-step v-if="currentApplicationStep === '3'" />
-        <!-- <business-renewal-upload-step /> -->
-        <application-success v-if="currentApplicationStep === '4'" />
+        <renewal-business-step-one v-if="currentApplicationStep === '1'" />
+        <renewal-business-upload-step v-if="currentApplicationStep === '2'" />
+        <application-success v-if="currentApplicationStep === '3'" />
         <!-- <downloadable-business-form /> -->
       </div>
+
     </div>
   </div>
 </template>
 
 <script>
-import BusinessStepOne from "@/components/application/BusinessStepOne";
-import BusinessStepTwo from "@/components/application/BusinessStepTwo";
-import BusinessUploadStep from "@/components/application/BusinessUploadStep";
-// import BusinessRenewalUploadStep from "@/components/application/BusinessRenewalUploadStep";
+import RenewalBusinessStepOne from "@/components/application/RenewalBusinessStepOne";
+import RenewalBusinessUploadStep from "@/components/application/RenewalBusinessUploadStep";
 import ApplicationSuccess from "@/components/application/ApplicationSuccess";
-import ProgressIndicator from "@/components/application/ProgressIndicator";
-import DownloadableBusinessForm from "@/components/application/DownloadableBusinessForm";
+import ProgressIndicatorRenewal from "@/components/application/ProgressIndicatorRenewal";
 import { mapGetters } from "vuex";
 export default {
-  name: "BusinessPermitApplication",
+  name: "RenewalBusinessPermitApplication",
   components: {
-    BusinessStepOne,
-    BusinessStepTwo,
-    BusinessUploadStep,
-    // BusinessRenewalUploadStep,
+    RenewalBusinessStepOne,
+    RenewalBusinessUploadStep,
     ApplicationSuccess,
-    ProgressIndicator,
-    DownloadableBusinessForm,
+    ProgressIndicatorRenewal,
   },
   computed: {
     ...mapGetters(["currentApplicationStep"]),
