@@ -292,7 +292,7 @@ const actions = {
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setBuildingApplications", response.data.results);
-      commit("setPageCount", response.data.count);
+      commit("setPageCount", response.data.total_pages);
     } catch (err) {
       console.log(err.response);
     }
