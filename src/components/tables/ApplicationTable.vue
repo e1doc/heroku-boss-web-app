@@ -264,7 +264,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "ApplicationTable",
   computed: {
-    ...mapGetters(["currentType", "applications", "buildingApplications"]),
+    ...mapGetters(["currentType", "applications", "buildingApplications", "pageCount"]),
   },
   mounted() {
     this.$store.dispatch("getBusinessApplications");
