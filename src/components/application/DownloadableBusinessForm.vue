@@ -274,10 +274,14 @@
                   <td>{{ activity.line_of_business }}</td>
                   <td>{{ activity.units }}</td>
 <<<<<<< HEAD
+<<<<<<< HEAD
                   <td>₱ {{ formatCurrency(parseFloat(activity.capitalization ).toFixed(2))}}</td>
 =======
                   <td>PHP {{ activity.capitalization }}</td>
 >>>>>>> a940b9d (fix)
+=======
+                  <td>PHP {{ formatCurrency(parseFloat(activity.capitalization ).toFixed(2))}}</td>
+>>>>>>> 029086f (fix)
               </tr>
             </tbody>
         </table>  
