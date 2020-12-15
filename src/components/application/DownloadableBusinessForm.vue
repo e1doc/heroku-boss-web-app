@@ -273,7 +273,7 @@
                 :key="index">
                   <td>{{ activity.line_of_business }}</td>
                   <td>{{ activity.units }}</td>
-                  <td>PHP {{ activity.capitalization }}</td>
+                  <td>PHP {{ formatCurrency(parseFloat(activity.capitalization ).toFixed(2))}}</td>
               </tr>
             </tbody>
         </table>  
