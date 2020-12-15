@@ -43,6 +43,7 @@ const getDefaultBusinessState = () => {
     assessedBusinessList: [],
     currentSelectedBusiness: {},
     isBusinessAssessment: false,
+    assessmentPayload: {}
   };
 };
 
@@ -82,6 +83,7 @@ const getters = {
   assessedBusinessList: (state) => state.assessedBusinessList,
   currentSelectedBusiness: (state) => state.currentSelectedBusiness,
   isBusinessAssessment: (state) => state.isBusinessAssessment,
+  assessmentPayload: (state) => state.assessmentPayload
 };
 
 const mutations = {
@@ -146,7 +148,8 @@ const mutations = {
     (state.assessedBusinessList = assessedBusinessList),
   setCurrentSelectedBusiness: (state, currentSelectedBusiness) =>
     (state.currentSelectedBusiness = currentSelectedBusiness),
-  setIsBusinessAssessment: (state, isBusinessAssessment) => (state.isBusinessAssessment = isBusinessAssessment)
+  setIsBusinessAssessment: (state, isBusinessAssessment) => (state.isBusinessAssessment = isBusinessAssessment),
+  setAssessmentPayload: (state, assessmentPayload) => (state.assessmentPayload = assessmentPayload)
 };
 
 const actions = {
@@ -254,11 +257,11 @@ const actions = {
         `${baseUrl}/api/user-business-application-list/?page=${page}`,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-      commit("setApplications", response.data.results);
-      commit("setPageCount", response.data.count);
+      await commit("setApplications", response.data.results);
+      await commit("setPageCount", response.data.total_pages);
     } catch (err) {
       console.log(err.response);
-      commit("setLoading", false);
+      await commit("setLoading", false);
     }
   },
   async getBusinessProfiles({ commit, dispatch, getters }) {
@@ -472,7 +475,7 @@ const actions = {
       let payload = { application_number: getters.businessApplication.id };
       const response = await axios.get(`${baseUrl}/api/business-activity/`, {
         headers: { Authorization: `jwt ${getters.authToken}` },
-        params: { payload },
+        params: payload,
       });
       commit("setBusinessActivities", response.data);
     } catch (err) {
@@ -541,6 +544,7 @@ const actions = {
       );
       commit("setBusinessAssessmentMessage", response.data.message);
       commit("setIsAssessmentHasError", false);
+      commit('setAssessmentPayload', {})
     } catch (err) {
       commit("setIsAssessmentHasError", true);
       console.log(err);

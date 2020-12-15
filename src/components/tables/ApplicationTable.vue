@@ -264,12 +264,14 @@ import { mapGetters } from "vuex";
 export default {
   name: "ApplicationTable",
   computed: {
-    ...mapGetters(["currentType", "applications", "buildingApplications"]),
+    ...mapGetters(["currentType", "applications", "buildingApplications", "pageCount"]),
   },
   mounted() {
     this.$store.dispatch("getBusinessApplications");
     this.$store.dispatch("getBuildingApplications")
     this.$store.commit('setCurrentTable','applications')
+    this.$store.commit('setBusinessActivities', [])
+    this.$store.commit('setApplicationRequirements', {})
     if(this.currentType === 'real_property'){
       this.$store.commit('setCurrentType','business')
     }

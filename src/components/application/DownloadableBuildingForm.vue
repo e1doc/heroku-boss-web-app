@@ -230,7 +230,7 @@ export default {
     },
     generateBuildingForm() {
        var doc = new jsPDF("p", "pt");
-
+       const buildingId = this.buildingBasicInformation.reference_number;
       // Select the image
       const img = document.querySelector("#logoImage");
       img.addEventListener("load", function(event) {
@@ -294,8 +294,8 @@ export default {
         headStyles:{fillColor:'#2699fb'},
         bodyStyles: { lineColor: '#bce0fd' },
       });
-  
-      doc.save("Building Application Form.pdf");
+
+      doc.save(`building-application-${buildingId}`);
     },
   },
 };

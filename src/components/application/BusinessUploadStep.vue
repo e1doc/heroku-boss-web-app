@@ -25,7 +25,7 @@
     />
     <base-file-uploader
       label="3. Occupancy Permit"
-      description="If required by national laws (e.g. Building Code) and local laws. Note For those without Occupancy Permit, sketch of business location including front full view picture of establishment."
+      description="If required by national laws (e.g. Building Code) and local laws."
       name="occupancypermit"
       :properties="getProperty('occupancy_permit')"
       :hasError="uploadErrors.business_registration_proof"

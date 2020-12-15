@@ -146,6 +146,8 @@ export default {
       "isEvaluation",
       "isLastBusinessDept",
       "isBusinessAssessment",
+      "assessmentPayload",
+      "buildingAssessmentPayload"
     ]),
   },
   mounted() {
@@ -233,6 +235,7 @@ export default {
       this.body = "";
 
       if (!this.isLastBuildingDept && this.isBuildingAssessment) {
+        await this.$store.dispatch("assessBuildingApplication", this.buildingAssessmentPayload);
         this.$store.dispatch("createPrompt", {
           type: "success",
           title: "Success!",
@@ -241,8 +244,9 @@ export default {
         this.$router.push({ name: "Assessments" });
       }
 
-      if (!this.isBusinessDept && this.isBusinessAssessment) {
-        this.$store.dispatch("createPrompt", {
+      if (!this.isLastBusinessDept && this.isBusinessAssessment) {
+        await this.$store.dispatch("assessBusinessApplication", this.assessmentPayload);
+        await this.$store.dispatch("createPrompt", {
           type: "success",
           title: "Success!",
           message: "Application was successfully assessed!",

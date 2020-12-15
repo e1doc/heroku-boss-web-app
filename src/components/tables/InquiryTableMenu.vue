@@ -55,7 +55,7 @@
       <base-input-search
         v-model="search"
         @keyup.native="searchData()"
-        placeholder="Search by sender and department"
+        placeholder="Search by sender."
       />
     </div>
   </div>
@@ -144,7 +144,7 @@ export default {
         result.data.forEach((item) => {
           let option = {
             label: item.name,
-            value: item.name.toLowerCase(),
+            value: item.name,
           };
           this.departments.push(option);
         });

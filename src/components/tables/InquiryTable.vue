@@ -1,6 +1,5 @@
 <template>
   <section>
-
     <!-- INQUIRY TABLE -->
     <div v-if="currentTable === 'inquiries'">
       <div class="thead">
@@ -20,29 +19,33 @@
             {{ inquiry.subject }}
           </div>
           <div class="td sender">
-            {{inquiry.sender.first_name}} {{inquiry.sender.last_name}}
+            {{ inquiry.sender.first_name }} {{ inquiry.sender.last_name }}
           </div>
           <div class="td dept">
-           {{inquiry.department ? inquiry.department : 'N/A'}}
+            {{ inquiry.department ? inquiry.department : "N/A" }}
           </div>
           <div class="td status">
             {{ inquiry.status }}
           </div>
           <div class="td actions">
-            <router-link :to="{name:'ReplyInquiry', params:{thread: inquiry.id}}">
+            <router-link
+              :to="{ name: 'ReplyInquiry', params: { thread: inquiry.id } }"
+            >
               <font-awesome-icon icon="envelope-open-text" class="mr5 icon" />
               READ
             </router-link>
           </div>
         </div>
       </div>
-      <div class="tbody" v-if="inquiries.length < 1 && currentTable === 'inquiries'">
+      <div
+        class="tbody"
+        v-if="inquiries.length < 1 && currentTable === 'inquiries'"
+      >
         <div class="tr">
           <div class="td meta-no-data">No data available</div>
         </div>
       </div>
     </div>
-
 
     <!-- REMARKS TABLE -->
     <div v-if="currentTable === 'remarks'">
@@ -53,7 +56,7 @@
         <div class="th status">STATUS</div>
         <div class="th actions">ACTIONS</div>
       </div>
-      <div class="tbody"  v-if="remarks.length > 0">
+      <div class="tbody" v-if="remarks.length > 0">
         <div class="tr" v-for="(remark, index) in remarks" :key="index">
           <div class="td date">
             {{ remark.created_at | moment("MMMM DD YYYY") }}
@@ -62,20 +65,25 @@
             {{ remark.subject }}
           </div>
           <div class="td sender">
-            {{ remark.sender.first_name}} {{remark.sender.last_name}}
+            {{ remark.sender.first_name }} {{ remark.sender.last_name }}
           </div>
           <div class="td status">
             {{ remark.status }}
           </div>
           <div class="td actions">
-            <router-link :to="{name:'ReplyInquiry', params:{thread: remark.id}}">
+            <router-link
+              :to="{ name: 'ReplyInquiry', params: { thread: remark.id } }"
+            >
               <font-awesome-icon icon="envelope-open-text" class="mr5 icon" />
               READ
             </router-link>
           </div>
         </div>
       </div>
-       <div class="tbody" v-if="remarks.length < 1 && currentTable === 'remarks'">
+      <div
+        class="tbody"
+        v-if="remarks.length < 1 && currentTable === 'remarks'"
+      >
         <div class="tr">
           <div class="td meta-no-data">No data available</div>
         </div>
@@ -91,7 +99,7 @@
       :click-handler="getAllInquiries"
     >
     </paginate>
-        <paginate
+    <paginate
       v-if="currentTable === 'remarks' && remarks.length > 0"
       :page-count="pageCount"
       :prev-text="'Prev'"
@@ -109,25 +117,49 @@ import { mapGetters } from "vuex";
 export default {
   name: "InquiryTable",
   computed: {
-    ...mapGetters(["currentType", "currentTable" ,"inquiries", "remarks","pageCount"]),
+    ...mapGetters([
+      "currentType",
+      "currentTable",
+      "inquiries",
+      "remarks",
+      "pageCount",
+    ]),
   },
   mounted() {
     this.getAllInquiries();
   },
   watch: {
-    currentType:{
+    currentType: {
       handler(status) {
-        this.getAllInquiries();
-        this.getAllRemarks()
-      }
-    }
+        if (this.currentTable === "inquiries") {
+          this.getAllInquiries();
+        } else {
+          this.getAllRemarks();
+        }
+      },
+    },
+    currentTable: {
+      handler(status) {
+        if (this.currentTable === "inquiries") {
+          this.getAllInquiries();
+        } else {
+          this.getAllRemarks();
+        }
+      },
+    },
   },
   methods: {
     async getAllInquiries(pageNum = 1) {
-      await this.$store.dispatch("getAllAdminInquiries", { page: pageNum, filter_by: this.currentType });
+      await this.$store.dispatch("getAllAdminInquiries", {
+        page: pageNum,
+        filter_by: this.currentType,
+      });
     },
-   async getAllRemarks(pageNum = 1) {
-      await this.$store.dispatch("getAllAdminRemarks", { page: pageNum, filter_by: this.currentType });
+    async getAllRemarks(pageNum = 1) {
+      await this.$store.dispatch("getAllAdminRemarks", {
+        page: pageNum,
+        filter_by: this.currentType,
+      });
     },
   },
 };
@@ -138,18 +170,18 @@ section {
   width: 100%;
 }
 
-.date{
-    width: 14%;
-    text-transform: uppercase;
+.date {
+  width: 14%;
+  text-transform: uppercase;
 }
 
-.subject{
-    width: 30%;
-    text-transform: uppercase;
+.subject {
+  width: 30%;
+  text-transform: uppercase;
 }
-.sender{
-    width: 25%;
-    text-transform: uppercase;
+.sender {
+  width: 25%;
+  text-transform: uppercase;
 }
 
 // .content {
@@ -165,7 +197,7 @@ section {
   text-transform: uppercase;
 }
 
-.dept{
+.dept {
   width: 18%;
   text-transform: uppercase;
 }
@@ -223,7 +255,7 @@ section {
     }
   }
 }
-.meta-no-data{
-    width: 100% !important;
+.meta-no-data {
+  width: 100% !important;
 }
 </style>

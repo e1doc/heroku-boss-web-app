@@ -105,6 +105,8 @@ export default {
       "isBusinessAssessment",
       "isLastBusinessDept",
       "authToken",
+      "assessmentPayload",
+      "buildingAssessmentPayload"
     ]),
   },
   props: {
@@ -230,6 +232,7 @@ export default {
           if (this.isBuildingAssessment) {
             application_status = this.buildingApplication.application_status;
             if (!this.isLastBuildingDept) {
+              await this.$store.dispatch("assessBuildingApplication", this.buildingAssessmentPayload);
               this.$store.dispatch("createPrompt", {
                 type: "success",
                 title: "Success!",
@@ -264,8 +267,9 @@ export default {
           let application_status = 0;
           if (this.isBusinessAssessment) {
             application_status = this.businessApplication.application_status;
+            await this.$store.dispatch("assessBusinessApplication", this.assessmentPayload);
             if (!this.isLastBusinessDept) {
-              this.$store.dispatch("createPrompt", {
+              await this.$store.dispatch("createPrompt", {
                 type: "success",
                 title: "Success!",
                 message: "Application was successfully assessed!",

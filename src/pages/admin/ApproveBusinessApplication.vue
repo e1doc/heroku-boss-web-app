@@ -22,6 +22,10 @@
     </modal>
     <div class="meta-container flex-wrap" ref="content">
       <div class="meta-form-body flex-wrap">
+        <div class="meta-txt-download" @click="downloadApplication"><font-awesome-icon
+        icon="save"
+        class="mr10 icon"
+      />Download</div>
         <h1 class="meta-form-title">Business Application Details</h1>
         <!-- Application Date and Nos. -->
         <div class="meta-text-group flex-wrap">
@@ -575,6 +579,7 @@ import BaseInput from "@/components/forms/BaseInput";
 import ButtonFull from "@/components/ButtonFull";
 import { mapGetters } from "vuex";
 import AppLink from "@/components/AppLink";
+import DownloadableBusinessForm from "@/components/application/DownloadableBusinessForm";
 export default {
   name: "ApproveBusinessApplication",
   components: {
@@ -583,6 +588,7 @@ export default {
     BaseInput,
     AppLink,
     ButtonFull,
+    DownloadableBusinessForm
   },
   data() {
     return {
@@ -624,6 +630,9 @@ export default {
     this.setupAssessmentResult();
   },
   methods: {
+    downloadApplication(){
+        this.$store.commit("setPrintBusiness", true);
+    },
     async openBusinessRemarks(id) {
       await this.$store.dispatch("getBusinessRemarks", id);
       await this.$router.push({ name: "ReplyInquiry" });
@@ -696,8 +705,7 @@ export default {
           is_approve: status ? true : false,
           account_number: "",
         };
-
-        await this.$store.dispatch("assessBusinessApplication", payload);
+        this.$store.commit("setAssessmentPayload", payload);
         if (!status) {
           if (this.isLastBusinessDept) {
             this.$store.commit("setIsBusinessAssessment", false);
@@ -711,15 +719,17 @@ export default {
             this.$router.push({ name: "Assessments" });
           }
         } else {
-          if (!this.isLastBuildingDept && !this.isAssessmentHasError) {
+          await this.$store.dispatch("assessBusinessApplication", payload);
+          if (this.isLastBusinessDept && !this.isAssessmentHasError) {
             this.$modal.show("accountNumberModal");
+          } else {
             await this.$store.dispatch("createPrompt", {
               type: "success",
               title: "Success!",
               message: "Application was successfully assessed!",
             });
+            this.$router.push({ name: "Assessments" });
           }
-          this.$router.push({ name: "Assessments" });
         }
       }
     },
@@ -809,6 +819,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.meta-txt-download{
+  padding: 10x 10px 10px 0px;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-bottom: 20px;
+  color: #2699fb;
+  font-weight: bold;
+}
+.meta-view-remarks {
+  text-decoration: underline;
+  cursor: pointer;
+}
 .accountNumberModal {
   padding: 20px;
 }
@@ -825,6 +847,14 @@ div.meta-parent-box {
   width: 100%;
   margin-top: 50px;
   padding-bottom: 50px;
+.meta-form-holder {
+    position: absolute;
+    opacity: 0;
+    top: -500px;
+    z-index: -1;
+    width: 100%;
+    overflow: hidden;
+  }
   div.meta-container {
     max-width: 1060px;
     margin: 0 auto;
@@ -1038,6 +1068,13 @@ span.form-td-label {
 @media only screen and (max-width: 1400px) {
   div.meta-parent-box div.meta-form-body .meta-form-title {
     font-size: 28px;
+  }
+}
+
+@media only screen and ( max-width: 1180px ){
+    div.meta-parent-box .meta-form-holder{
+      width: 100%;
+      overflow: hidden;
   }
 }
 

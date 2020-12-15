@@ -102,16 +102,16 @@
           <div class="td">
             {{
               application.application_status == 0
-              ? 'FOR EVALUATION'
-              : application.application_status == 1
-              ? 'INCOMPLETE'
-              : application.application_status == 2
-              ? 'FOR ASSESMENT'
-              : application.application_status == 3
-              ? 'FOR COMPLIANCE'
-              : application.application_status == 4
-              ? 'FOR PAYMENT'
-              : ''
+                ? "FOR EVALUATION"
+                : application.application_status == 1
+                ? "INCOMPLETE"
+                : application.application_status == 2
+                ? "FOR ASSESSMENT"
+                : application.application_status == 3
+                ? "FOR COMPLIANCE"
+                : application.application_status == 4
+                ? "FOR PAYMENT"
+                : ""
             }}
           </div>
           <div class="td actions">
@@ -163,18 +163,18 @@
             }}
           </div>
           <div class="td">
-           {{
+            {{
               application.application_status == 0
-              ? 'FOR APPROVAL'
-              : application.application_status == 1
-              ? 'INCOMPLETE'
-              : application.application_status == 2
-              ? 'FOR EVALUATION'
-              : application.application_status == 3
-              ? 'FOR INSPECTION'
-              : application.application_status == 4
-              ? 'FOR COMPLIANCE'
-              : 'FOR PAYMENT'
+                ? "FOR APPROVAL"
+                : application.application_status == 1
+                ? "INCOMPLETE"
+                : application.application_status == 2
+                ? "FOR EVALUATION"
+                : application.application_status == 3
+                ? "FOR INSPECTION"
+                : application.application_status == 4
+                ? "FOR COMPLIANCE"
+                : "FOR PAYMENT"
             }}
           </div>
           <div class="td actions">
@@ -213,26 +213,34 @@ export default {
       "applications",
       "buildingApplications",
       "pageCount",
-      "groups"
+      "groups",
     ]),
   },
   mounted() {
+    console.log(this.applications)
     this.$store.dispatch("getAllBusinessApplications");
     this.$store.dispatch("getAllBuildingApplications");
-    if(this.groups.includes('superadmin') || this.groups.includes('business_application_approver') || this.groups.includes('business_application_read')){
-      this.$store.commit('setCurrentType','business')
-    }else{
-      this.$store.commit('setCurrentType','real_property')
+    this.$store.commit("setBusinessActivities", []);
+    this.$store.commit("setApplicationRequirements", {});
+    if (
+      this.groups.includes("superadmin") ||
+      this.groups.includes("business_application_approver") ||
+      this.groups.includes("business_application_read")
+    ) {
+      this.$store.commit("setCurrentType", "business");
+    } else {
+      this.$store.commit("setCurrentType", "real_property");
     }
   },
   methods: {
     businessClickCallback(pageNum) {
       this.$store.dispatch("getAllBusinessApplications", pageNum);
     },
-    buildingClickCallBack(pageNum){
+    buildingClickCallBack(pageNum) {
       this.$store.dispatch("getAllBuildingApplications", pageNum);
     },
     openBusinessApplication(data) {
+      console.log(data);
       if (data.id) {
         let application = {
           id: data.id,
@@ -243,7 +251,7 @@ export default {
           account_number: data.account_number,
           application_status: data.application_status,
           user: data.user,
-          last_submitted: data.last_submitted
+          last_submitted: data.last_submitted,
         };
         this.$store.commit("setBusinessApplication", application);
       }
@@ -280,7 +288,7 @@ export default {
           created_at: data.created_at,
           application_status: data.application_status,
           user: data.user,
-          last_submitted: data.last_submitted
+          last_submitted: data.last_submitted,
         };
         this.$store.commit("setBuildingApplication", application);
       }
