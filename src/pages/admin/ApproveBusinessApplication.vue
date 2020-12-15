@@ -632,6 +632,14 @@ export default {
     this.setupAssessmentResult();
   },
   methods: {
+    formatCurrency(str) {
+      var parts = str.toString().split(".");
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      if (parts.length < 2) {
+        parts.push("00");
+      }
+      return parts.join(".");
+    },
     downloadApplication(){
         this.$store.commit("setPrintBusiness", true);
     },
