@@ -629,6 +629,20 @@ export default {
     this.setupAssessmentResult();
   },
   methods: {
+<<<<<<< HEAD
+=======
+    formatCurrency(str) {
+      var parts = str.toString().split(".");
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      if (parts.length < 2) {
+        parts.push("00");
+      }
+      return parts.join(".");
+    },
+    downloadApplication(){
+        this.$store.commit("setPrintBusiness", true);
+    },
+>>>>>>> d681931 (Fix)
     async openBusinessRemarks(id) {
       await this.$store.dispatch("getBusinessRemarks", id);
       await this.$router.push({ name: "ReplyInquiry" });
