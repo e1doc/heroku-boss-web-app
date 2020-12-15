@@ -422,7 +422,7 @@
                 >
                 ₱
                 {{
-                  formatCurrency(parseFloat(activity.capitalization).toFixed(2))
+                  activity.capitalization
                 }}
               </div>
               <!-- <div class="form-td sales no-bt">
