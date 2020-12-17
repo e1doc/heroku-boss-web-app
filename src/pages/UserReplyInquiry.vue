@@ -4,7 +4,7 @@
       <div class="inquiry-subj">{{ inquiry.subject }}</div>
       <div
         class="application-button"
-        v-if="inquiry.is_remarks"
+        v-if="inquiry.is_remarks && showUpdateButton()"
       >
         <button-block
           type="default"
