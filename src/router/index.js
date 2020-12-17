@@ -39,6 +39,7 @@ import LandBankPayment from "../pages/LandbankPayment";
 import PaymentSuccess from "../pages/PaymentSuccess";
 import PaymentError from "../pages/PaymentError";
 import ComingSoon from "../pages/ComingSoon";
+import RenewalBusinessPermitApplication from "../pages/RenewalBusinessPermitApplication"
 import store from "../store";
 import swal from "sweetalert2"
 Vue.use(VueRouter);
@@ -184,6 +185,11 @@ const routes = [
         name: "PaymentError",
         component: PaymentError,
       },
+      {
+        path: "business-renewal",
+        name: "BusinessRenewal",
+        component: RenewalBusinessPermitApplication
+      }
     ],
     async beforeEnter(to, from, next) {
       let hasPermission = await store.state.service.isAuthenticated;

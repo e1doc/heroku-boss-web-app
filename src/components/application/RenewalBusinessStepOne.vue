@@ -8,12 +8,9 @@
          ><agreement-modal/></modal>
     <h1 class="meta-form-title">Business Activity</h1>
     <div class="meta-form-group p-relative mb60">
-      <div class="add-icon" @click="addActivity">
-        Add Business Activity <font-awesome-icon icon="plus-circle" />
-      </div>
       <div
         class="meta-multi-group"
-        v-for="(activity, index) in activities"
+        v-for="(activity, index) in businessActivities"
         :key="index"
       >
         <div class="meta-input-group flex-row w3">
@@ -163,7 +160,8 @@ export default {
       "applicationHasError",
       "stepOneErrors",
       "draftBusiness",
-      "isPrivacyAgree"
+      "isPrivacyAgree",
+      "businessActivities"
     ]),
   },
   watch: {
