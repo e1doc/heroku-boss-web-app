@@ -26,7 +26,7 @@
             {{business.businessbasicinformation.owner_first_name}} {{business.businessbasicinformation.owner_last_name}}
           </div>
           <div class="td actions">
-            <div @click="renew(business.businessactivity)">
+            <div @click="renew(business.businessactivity)" v-if="isFeatureImplemented">
               <font-awesome-icon icon="sync-alt" class="mr5 icon" /> RENEW
             </div>
             <div class="bill" @click="showModal('business',business)">
