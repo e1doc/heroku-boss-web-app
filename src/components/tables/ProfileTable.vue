@@ -26,7 +26,7 @@
             {{business.businessbasicinformation.owner_first_name}} {{business.businessbasicinformation.owner_last_name}}
           </div>
           <div class="td actions">
-            <div v-if="isFeatureImplemented">
+            <div @click="renew(business.businessactivity)">
               <font-awesome-icon icon="sync-alt" class="mr5 icon" /> RENEW
             </div>
             <div class="bill" @click="showModal('business',business)">
@@ -122,6 +122,10 @@ export default {
     this.$store.dispatch('getRealPropertyProfiles')
   },
   methods: {
+    renew(activities){
+      this.$store.commit('setBusinessActivities', activities)
+      this.$router.push({name:'BusinessRenewal'})
+    },
     showModal(type, item) {
       this.$store.commit('setCurrentSoaType', type)
       if(type === 'business'){
@@ -184,6 +188,8 @@ export default {
         font-weight: bold;
         padding: 10px;
         margin: 0 10px;
+        text-decoration: none;
+        cursor: pointer;
       }
       .bill {
         font-size: 13px;

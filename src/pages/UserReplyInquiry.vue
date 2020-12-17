@@ -4,7 +4,7 @@
       <div class="inquiry-subj">{{ inquiry.subject }}</div>
       <div
         class="application-button"
-        v-if="inquiry.is_remarks && showUpdateButton()"
+        v-if="inquiry.is_remarks"
       >
         <button-block
           type="default"
@@ -124,6 +124,7 @@ export default {
   },
   mounted() {
     this.getInquiry();
+    console.log(this.inquiry)
   },
   methods: {
     showUpdateButton() {
@@ -147,13 +148,13 @@ export default {
       if (this.inquiry.building_id !== null) {
         this.$store.dispatch(
           "getBuildingApplication",
-          this.inquiry.building_id
+          this.inquiry.building_id.id
         );
       }
       if (this.inquiry.business_id !== null) {
         this.$store.dispatch(
           "getBusinessApplication",
-          this.inquiry.business_id
+          this.inquiry.business_id.id
         );
       }
     },
