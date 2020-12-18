@@ -13,13 +13,13 @@
     <input
       type="hidden"
       name="ReturnURLOK"
-      value="https://boss-web-api.herokuapp.com/main/payment-success"
+      value="https://boss.bacoor.gov.ph/main/payment-success"
     />
 
     <input
       type="hidden"
       name="ReturnURLError"
-      value="http://merchant.com/merchant/error.php"
+      value="https://boss.bacoor.gov.ph/main/payment-error"
     />
     <input type="hidden" name="Hash" value="42f04e6c4fe001ad3454b0625c072d71" />
     <input type="submit" value="POST TO EPP" />
