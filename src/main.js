@@ -12,6 +12,12 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import Skeleton from 'vue-loading-skeleton';
 import Lightbox from 'vue-easy-lightbox'
 import Paginate from 'vuejs-paginate'
+import VueCurrencyInput from 'vue-currency-input'
+
+Vue.use(VueCurrencyInput, { globalOptions: { 
+  currency: 'PHP'
+  }
+},)
 Vue.use(Skeleton)
 Vue.use(VueSweetalert2)
 Vue.use(Lightbox)
