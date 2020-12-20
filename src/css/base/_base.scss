@@ -211,6 +211,43 @@ body .select-dept-input .select-wrapper .dropdown-icon {
     margin-left: 0;
 }
 
+
+input[inputmode="decimal"] {
+    font-size: 15px;
+    font-family: "Proxima Nova Rg";
+    background: #ffffff;
+    border: 1px solid #bdc3c7;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    padding: 15px;
+    position: relative;
+    transition: 0.1s;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+input[inputmode="decimal"]::placeholder {
+    color: #bababa;
+    font-family: 'Raleway', sans-serif;
+}
+
+input[inputmode="decimal"]:focus {
+    background-color: #f1f9ff;
+    border-color: #bce0fd !important;
+    border-radius: 10px!important;
+    font-size: 15px!important;
+    outline: 0!important;
+}
+
+.meta-input-label {
+    color: #2699fb;
+    font-size: 15px;
+    line-height: 19px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
 @media only screen and( max-width: 1400px ){
     .sc-rounded-div{
         max-width: 830px;

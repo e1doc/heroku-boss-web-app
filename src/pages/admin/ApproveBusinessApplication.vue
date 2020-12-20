@@ -626,6 +626,7 @@ export default {
   },
   mounted() {
     this.getRequirements();
+    // this.$store.commit("setPrintBusiness", true);
   },
   created() {
     this.checkIfCanAssess();

@@ -317,7 +317,8 @@
         class="mt40"
       />
 
-      <base-input
+      <div class="meta-input-label">Gross Monthly Rental :</div>
+      <currency-input
         label="Gross Monthly Rental"
         v-model="lessor_details.gross_monthly_rental"
         :validationMessages="
@@ -328,6 +329,7 @@
         type="text"
         :isAmount="true"
         class="mt40"
+        placeholder="Enter Gross Monthly Rental"
       />
 
       <div class="meta-input-group">
@@ -397,7 +399,8 @@
             inputClass="fw-mobile"
           />
         </div>
-        <base-input
+        <div class="meta-input-label">Capitalization (for New Business) : </div>
+        <currency-input
           label="Capitalization (for New Business)"
           v-model="activity.capitalization"
           :name="`capitalization${index}`"

@@ -1,7 +1,10 @@
 <template>
   <section>
       <!-- <building-upload-step/> -->
+      <!-- <business-step-one/> -->
       <!-- <business-step-two/> -->
+      <!-- <building-step-one/> -->
+      <!-- <building-step-two/> -->
       <!-- <div class="countdown-timer">
         {{ timerCount }}
       </div> -->
@@ -19,12 +22,17 @@
       <user-reply-inquiry/>
       <reply-inquiry/> -->
       <!-- <faq /> -->
-      <renewal-business-permit-application />
+      <!-- <renewal-business-permit-application /> -->
+      <!-- <currency-input v-model="value" id="test"/> -->
+      
   </section>
 </template>
 
 <script>
+import BusinessStepOne from "@/components/application/BusinessStepOne";
 import BusinessStepTwo from "@/components/application/BusinessStepTwo";
+import BuildingStepOne from "@/components/application/BuildingStepOne";
+import BuildingStepTwo from "@/components/application/BuildingStepTwo";
 import ViewBusinessDetails from "@/pages/ViewBusinessDetails";
 import ApproveBusinessApplication from "@/pages/admin/ApproveBusinessApplication";
 import BusinessUploadStep from "@/components/application/BusinessUploadStep";
@@ -45,7 +53,10 @@ import Faq from "@/pages/Faq";
 export default {
     name: "TestPage",
     components: {
+        BusinessStepOne,
         BusinessStepTwo,
+        BuildingStepOne,
+        BuildingStepTwo,
         BusinessUploadStep,
         BuildingUploadStep,
         OtpDiv,
@@ -64,23 +75,6 @@ export default {
         UserReplyInquiry,
         RenewalBusinessPermitApplication
   },
-  data() {
-      return {
-        timerCount: 30
-      }
-  },
-  watch: {
-    timerCount: {
-      handler(value) {
-        if (value > 0) {
-          setTimeout(() => {
-              this.timerCount--;
-          }, 1000);
-        }
-      },
-      immediate: true // This ensures the watcher is triggered upon creation
-    }
-  }
 }
 </script>
 

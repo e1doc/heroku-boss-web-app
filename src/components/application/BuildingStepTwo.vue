@@ -253,18 +253,6 @@
           type="text"
           class=" input-w2"
         /> -->
-      <base-input
-        label="Total Estimated Cost"
-        v-model="building_other_details.total_estimated_cost"
-        :validationMessages="
-          buildingStepTwoErrors.building_other_details.total_estimated_cost
-        "
-        name="estimatedcost"
-        refs="estimated_cost"
-        class="input-required"
-        type="text"
-        :isAmount="true"
-      />
       <!-- </div> -->
       <div class="meta-input-group flex-row w3">
         <base-input
@@ -304,10 +292,26 @@
           inputClass="fw-mobile"
         />
       </div>
+
+      <div class="meta-input-label">Total Estimated Cost: </div>
+      <currency-input
+        label="Total Estimated Cost"
+        v-model="building_other_details.total_estimated_cost"
+        :validationMessages="
+          buildingStepTwoErrors.building_other_details.total_estimated_cost
+        "
+        name="estimatedcost"
+        refs="estimated_cost"
+        class="input-required"
+        type="text"
+        :isAmount="true"
+        placeholder = "Enter the total estimated cost"
+      />
       <div class="meta-form-group mb60">
-        <div class="meta-group-title mt10 mb10">
+        <div class="meta-input-label">Proposed Date of Construction <span class="asterisk">*</span></div>
+        <!-- <div class="meta-group-title mt10 mb10">
           Proposed Date of Construction <span class="asterisk">*</span>
-        </div>
+        </div> -->
         <base-date-picker
           v-model="building_other_details.date_of_construction"
           :validationMessages="
@@ -315,9 +319,10 @@
           "
           class="mb15"
         />
-        <div class="meta-group-title mt10 mb10">
+        <!-- <div class="meta-group-title mt10 mb10">
           Expected Date of Completion <span class="asterisk">*</span>
-        </div>
+        </div> -->
+        <div class="meta-input-label">Expected Date of Completion <span class="asterisk">*</span></div>
         <base-date-picker
           v-model="building_other_details.date_of_completion"
           :validationMessages="
