@@ -273,19 +273,7 @@
                 :key="index">
                   <td>{{ activity.line_of_business }}</td>
                   <td>{{ activity.units }}</td>
-<<<<<<< HEAD
                   <td>PHP {{ formatCurrency(parseFloat(activity.capitalization ).toFixed(2))}}</td>
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-                  <td>₱ {{ formatCurrency(parseFloat(activity.capitalization ).toFixed(2))}}</td>
-=======
-                  <td>PHP {{ activity.capitalization }}</td>
->>>>>>> a940b9d (fix)
-=======
-                  <td>PHP {{ formatCurrency(parseFloat(activity.capitalization ).toFixed(2))}}</td>
->>>>>>> 029086f (fix)
->>>>>>> bacoor/phase1
               </tr>
             </tbody>
         </table>  
@@ -363,16 +351,7 @@ export default {
       }).then(function(canvas) {
         const img = canvas.toDataURL("image/jpeg", 1);
         doc.addImage(img, "JPEG", 0, 0, width, height);
-<<<<<<< HEAD
         doc.save(`business-application-${business_basic_info.reference_number}.pdf`);
-=======
-<<<<<<< HEAD
-        doc.save(`business-application.pdf`);
-        // doc.save(`business-application-${businessBasicInformation}.pdf`);
-=======
-        doc.save(`business-application-${business_basic_info.reference_number}.pdf`);
->>>>>>> 461e768 (bug fixes)
->>>>>>> bacoor/phase1
       });
     },
     generateBusinessForm() {
