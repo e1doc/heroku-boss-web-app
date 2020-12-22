@@ -70,7 +70,7 @@
         type="text"
         class="mt40"
       /> -->
-      
+
       <div class="meta-input-group flex-row w3">
         <base-input
           label="Address No."
@@ -163,7 +163,7 @@
           class="input-w2"
         />
       </div>
-      
+
       <!-- OTHER BUSINESS DETAILS - Barangay -->
       <div class="meta-form-group mb20">
         <div class="meta-group-title no-mt">
@@ -273,7 +273,6 @@
         type="number"
         class="mt40"
       />
-
     </div>
     <div class="meta-form-group mb60">
       <div class="meta-group-title">
@@ -321,9 +320,7 @@
       <currency-input
         label="Gross Monthly Rental"
         v-model="lessor_details.gross_monthly_rental"
-        :validationMessages="
-          stepTwoErrors.lessor_details.gross_monthly_rental
-        "
+        :validationMessages="stepTwoErrors.lessor_details.gross_monthly_rental"
         name="monthlyrental"
         refs="monthly_rental"
         type="text"
@@ -388,6 +385,11 @@
             type="text"
             class="mt40 input-w2"
             inputClass="fw-mobile"
+            :validationMessages="
+              activityErrors[index]
+                ? activityErrors[index].value.line_of_business
+                : []
+            "
           />
           <base-input
             label="No. of Units"
@@ -399,7 +401,7 @@
             inputClass="fw-mobile"
           />
         </div>
-        <div class="meta-input-label">Capitalization (for New Business) : </div>
+        <div class="meta-input-label">Capitalization (for New Business) :</div>
         <currency-input
           label="Capitalization (for New Business)"
           v-model="activity.capitalization"
@@ -407,9 +409,13 @@
           :refs="`business_capitalization${index}`"
           type="text"
           :isAmount="true"
-          class="mt40 mb30"
+          class="mt40 mb10"
         />
-
+        <div v-if="activityErrors[index]">
+          <div v-if="activityErrors[index].value.capitalization">
+            <div class="meta-error-text">* This field may not be blank</div>
+          </div>
+        </div>
         <!-- <div class="meta-group-title">
           Gross Sales / Receipts (For Renewal)
         </div> -->
@@ -485,8 +491,8 @@ export default {
         telephone_number: "",
         email_address: "",
         property_index_number: "",
-        area: 0,
-        total_employees: 0,
+        area: "",
+        total_employees: "",
         residing_employees: 0,
         street: "",
         address_no: "",
@@ -534,8 +540,9 @@ export default {
           "building_no",
           "building_name",
           "unit_no",
-          "floor_no"
+          "floor_no",
         ],
+        business_activities: ["units", "code", "essential", "non_essential", "application_year"],
       },
       barangayname: [
         {
@@ -845,6 +852,7 @@ export default {
       "applicationRequirements",
       "draftBusiness",
       "typeOfOrganization",
+      "activityErrors",
     ]),
   },
   mounted() {
@@ -894,11 +902,16 @@ export default {
       } else {
         await this.$store.dispatch("addBusinessDetails", this.business_details);
       }
-      if(this.lessor_details.gross_monthly_rental !== 0 && this.lessor_details.gross_monthly_rental !== ""){
-        this.lessor_details.gross_monthly_rental = this.lessor_details.gross_monthly_rental.toString()
-        this.lessor_details.gross_monthly_rental = parseFloat(this.lessor_details.gross_monthly_rental.replace(/,/g, ''))
-      }else{
-        this.lessor_details.gross_monthly_rental = 0
+      if (
+        this.lessor_details.gross_monthly_rental !== 0 &&
+        this.lessor_details.gross_monthly_rental !== ""
+      ) {
+        this.lessor_details.gross_monthly_rental = this.lessor_details.gross_monthly_rental.toString();
+        this.lessor_details.gross_monthly_rental = parseFloat(
+          this.lessor_details.gross_monthly_rental.replace(/,/g, "")
+        );
+      } else {
+        this.lessor_details.gross_monthly_rental = 0;
       }
       if (this.lessorDetails.id) {
         await this.$store.dispatch("updateLessorDetails", this.lessor_details);
@@ -992,8 +1005,9 @@ export default {
     },
     validateRequiredFields() {
       let business_details_errors = { key: "business_details", value: {} };
+      let activity_errors_holder = {};
       let isBusinessDetailsClean = true;
-
+      let isBusinessActivitiesClean = true;
       for (let key in this.business_details) {
         if (!this.unrequired.business_details.includes(key)) {
           if (this.business_details[key] === "") {
@@ -1002,6 +1016,32 @@ export default {
               "This field may not be blank."
             );
           }
+        }
+      }
+
+      if (this.activities.length > 0) {
+        let index = 0;
+        for (let activity of this.activities) {
+          let business_activity_errors = {
+            key: "business_activities",
+            value: {},
+          };
+          for (let key in activity) {
+            if (!this.unrequired.business_activities.includes(key)) {
+              if (
+                activity[key] === "" ||
+                activity[key] === null ||
+                activity[key] === 0
+              ) {
+                business_activity_errors.value[`${key}`] = [];
+                business_activity_errors.value[`${key}`].push(
+                  "This field may not be blank."
+                );
+              }
+            }
+          }
+          activity_errors_holder[index] = business_activity_errors;
+          index = index + 1;
         }
       }
 
@@ -1015,8 +1055,20 @@ export default {
         });
       }
 
+      if (Object.entries(activity_errors_holder).length > 0) {
+        Object.keys(activity_errors_holder).forEach((item) => {
+          if (Object.entries(activity_errors_holder[item].value).length > 0) {
+            isBusinessActivitiesClean = false;
+          }
+        });
+        if (!isBusinessActivitiesClean) {
+          this.$store.commit("setActivityErrors", activity_errors_holder);
+        } else {
+          this.$store.commit("setActivityErrors", {});
+        }
+      }
 
-      if (isBusinessDetailsClean) {
+      if (isBusinessDetailsClean && isBusinessActivitiesClean) {
         this.$store.commit("setCurrentApplicationStep", "3");
       } else {
         this.$swal({
@@ -1026,12 +1078,19 @@ export default {
           icon: "error",
         });
       }
+      console.log(activity_errors_holder);
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.meta-error-text {
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: #e8726f;
+  font-weight: bold;
+}
 .add-icon {
   text-align: right;
   font-size: 25px;

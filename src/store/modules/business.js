@@ -43,7 +43,8 @@ const getDefaultBusinessState = () => {
     assessedBusinessList: [],
     currentSelectedBusiness: {},
     isBusinessAssessment: false,
-    assessmentPayload: {}
+    assessmentPayload: {},
+    activityErrors: {}
   };
 };
 
@@ -83,7 +84,8 @@ const getters = {
   assessedBusinessList: (state) => state.assessedBusinessList,
   currentSelectedBusiness: (state) => state.currentSelectedBusiness,
   isBusinessAssessment: (state) => state.isBusinessAssessment,
-  assessmentPayload: (state) => state.assessmentPayload
+  assessmentPayload: (state) => state.assessmentPayload,
+  activityErrors: (state) => state.activityErrors
 };
 
 const mutations = {
@@ -149,7 +151,8 @@ const mutations = {
   setCurrentSelectedBusiness: (state, currentSelectedBusiness) =>
     (state.currentSelectedBusiness = currentSelectedBusiness),
   setIsBusinessAssessment: (state, isBusinessAssessment) => (state.isBusinessAssessment = isBusinessAssessment),
-  setAssessmentPayload: (state, assessmentPayload) => (state.assessmentPayload = assessmentPayload)
+  setAssessmentPayload: (state, assessmentPayload) => (state.assessmentPayload = assessmentPayload),
+  setActivityErrors: (state, activityErrors) => (state.activityErrors = activityErrors)
 };
 
 const actions = {
