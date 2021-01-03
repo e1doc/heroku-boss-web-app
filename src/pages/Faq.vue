@@ -25,15 +25,15 @@ export default {
       fees: [
         {
           question: "How do I access my Real Property SOA?",
-          answer: "You first need to Enroll your existing Real Property Tax information. Once enrolled and validated, the LGU would upload your SOA here, and you can proceed with the payment process.",
+          answer: "You first need to Enroll your existing Real Property Tax information. Once enrolled and validated, you can now generate your SOA. Just go to your Profile > Real Property Tax then click “Bill” button, and you can proceed with the payment process.",
         },
         {
-          question: "I heard that the Real Property Tax IDs have changed. How do I request for my new tax ID?",
-          answer: "We will respond with your new number that you will use to enroll so you can view your SOA.",
+          question: "I heard that the Real Property Tax Number has changed. How do I request for my new tax number?",
+          answer: 'You can send a message with subject "REQUEST COPY OF NEW TAX DECLARATION". Indicate your previous TaxDec. We will respond with your new number that you will use to enroll so you can view your SOA.',
         },
         {
-          question: "I've enrolled my Real Property Info. What is next?",
-          answer: "We would be validating your submitted information. If everything tallies, we would upload your SOA here. Once you've seen your SOA, you can book for payment.",
+          question: "I've enrolled my Real Property Info but I don’t see anything. What is next?",
+          answer: 'Please submit an inquiry with your existing tax declaration details. We would be validating your submitted information and reply back with your updated taxdec number. You can then proceed with enrolling the updated taxdec number and you now have access to generate your SOA. Just go to your Profile > Real Property Tax then click “Bill” button, and you can proceed with the payment process.',
         },
         {
           question: "Can I apply for new Real Property Tax here?",
@@ -45,15 +45,15 @@ export default {
         },
         {
           question: "I would like to pay for my relative's Real Property tax. Can I enroll them under my account?",
-          answer: "You can enroll them under your account. Once everything checks out, you can then proceed with the payment process. The transaction needs presentation of the previous year's transaction. ",
+          answer: "You can enroll them under your account. Once everything checks out, you can then proceed with the payment process. The transaction needs presentation of the previous year's transaction",
         },
         {
-          question: "How do I set a schedule to pay my Amelyar ?",
+          question: "How do I set a schedule to pay my Amelyar?",
           answer: "You first need to Enroll your existing Real Property Tax information. Once enrolled and validated, the LGU would upload your SOA here, and you can proceed with the payment process.",
         },
         {
           question: "I have multiple properties. Do I have to create individual schedules for all of them?",
-          answer: "You can generate your SOA and just book a single schedule for all the transactions. You also have the option of creating multiple schedules based on your payment plan.",
+          answer: "Yes, you need to individually generate SOA and book schedules for each property. This helps ensure that the transactions are timed properly, and that schedules are on-track",
         },
       ],
     };
