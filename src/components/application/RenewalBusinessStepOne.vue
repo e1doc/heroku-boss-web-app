@@ -1,16 +1,18 @@
 <template>
   <div class="meta-container">
-        <modal name="agreementModal"
-         height="auto"
-         :adaptive="true"
-         :classes="['vue-modal']"
-         :clickToClose="false"
-         ><agreement-modal/></modal>
+    <modal
+      name="agreementModal"
+      height="auto"
+      :adaptive="true"
+      :classes="['vue-modal']"
+      :clickToClose="false"
+      ><agreement-modal
+    /></modal>
     <h1 class="meta-form-title">Business Activity</h1>
     <div class="meta-form-group p-relative mb60">
       <div
         class="meta-multi-group"
-        v-for="(activity, index) in businessActivities"
+        v-for="(activity, index) in activities"
         :key="index"
       >
         <div class="meta-input-group flex-row w3">
@@ -23,7 +25,7 @@
             class="mt40 input-w2"
             inputClass="fw-mobile"
           />
-          
+
           <base-input
             label="No. of Units"
             :name="`businessunits${index}`"
@@ -33,7 +35,6 @@
             class="mt40 input-w2"
             inputClass="fw-mobile"
           />
-          
         </div>
         <base-input
           label="Capitalization (for New Business)"
@@ -63,7 +64,7 @@ import BaseTelNumber from "@/components/forms/BaseTelNumber";
 import BaseSelect from "@/components/forms/BaseSelect";
 import BaseDatePicker from "@/components/forms/BaseDatePicker";
 import { mapGetters } from "vuex";
-import AgreementModal from "@/components/application/AgreementModal"
+import AgreementModal from "@/components/application/AgreementModal";
 export default {
   name: "RenewalBusinessStepOne",
   components: {
@@ -73,83 +74,17 @@ export default {
     BaseTelNumber,
     BaseSelect,
     BaseDatePicker,
-    AgreementModal
+    AgreementModal,
   },
   data() {
     return {
       business_application: {
         account_number: "",
       },
-      basic_information: {
-        dti_sec_cda_reg_number: "",
-        dti_sec_cda_reg_date: "",
-        type_of_organization: "",
-        ctc_no: "",
-        tin: "",
-        mode_of_payment: "",
-        has_tax_incentive: false,
-        government_entity: "",
-        owner_first_name: "",
-        owner_middle_name: "",
-        owner_last_name: "",
-        owner_complete_address: "",
-        owner_telephone_number: "",
-        owner_email_address: "",
-      },
-      types_of_organization: [
-        {
-          label: "Single",
-          value: "single",
-        },
-        {
-          label: "Partnership",
-          value: "partnership",
-        },
-        {
-          label: "Corporation",
-          value: "corporation",
-        },
-        {
-          label: "Cooperative",
-          value: "cooperative",
-        },
-      ],
-      modeofpayment: [
-        {
-          label: "Annually",
-          value: "Annually",
-        },
-        {
-          label: "Semi-annually",
-          value: "Semi-annually",
-        },
-        {
-          label: "Quarterly",
-          value: "Quarterly",
-        },
-      ],
-      taxincentive: [
-        {
-          label: "Yes (Specify below)",
-          value: true,
-        },
-        {
-          label: "No",
-          value: false,
-        },
-      ],
       unrequired: {
         business_application: ["account_number"],
-        basic_information: [
-          "government_entity",
-          "owner_middle_name",
-          "ctc_no",
-          "tin",
-          "has_tax_incentive",
-          "owner_email_address",
-          "owner_mobile_number"
-        ],
       },
+      activities: []
     };
   },
   computed: {
@@ -161,7 +96,7 @@ export default {
       "stepOneErrors",
       "draftBusiness",
       "isPrivacyAgree",
-      "businessActivities"
+      "businessActivities",
     ]),
   },
   watch: {
@@ -170,169 +105,48 @@ export default {
       handler(status) {
         if (status) {
           this.nextStep();
+          this.$store.commit('setDraftBusiness', false)
         }
       },
     },
   },
   mounted() {
-    this.preFillForm();
     this.$store.commit("setLoading", false);
-    if(!this.isPrivacyAgree){
-        this.$modal.show("agreementModal");
+    this.preFillForm()
+    if (!this.isPrivacyAgree) {
+      this.$modal.show("agreementModal");
     }
   },
   methods: {
-    changeOrganization() {
-      if (this.basic_information.type_of_organization !== "") {
-        this.$store.commit(
-          "setTypeOfOrganization",
-          this.basic_information.type_of_organization
-        );
-        let required_fields = [
-          "owner_first_name",
-          "owner_last_name",
-          "owner_complete_address",
-          "owner_telephone_number",
-        ];
-        if (this.basic_information.type_of_organization !== "single") {
-          required_fields.forEach((item) => {
-            if(!this.unrequired.basic_information.includes(item)){
-              this.unrequired.basic_information.push(item);
-            }
-          });
-        } else {
-        this.unrequired.basic_information = this.unrequired.basic_information.filter(item => !required_fields.includes(item));
-        }
-      }
-    },
-    async nextStep() {
-      this.$store.commit("setLoading", true);
-      if (this.businessApplication.id) {
-        this.business_application.is_disapprove = this.businessApplication.is_disapprove
-        await this.$store.dispatch(
-          "updateBusinessApplication",
-          this.business_application
-        );
-      } else {
-        await this.$store.dispatch(
-          "addBusinessApplication",
-          this.business_application
-        );
-        // await this.$store.dispatch("addBusinessBasicInformation", this.basic_information);
-      }
-
-      if (this.businessBasicInformation.id) {
-        await this.$store.dispatch(
-          "updateBusinessBasicInformation",
-          this.basic_information
-        );
-      } else {
-        await this.$store.dispatch(
-          "addBusinessBasicInformation",
-          this.basic_information
-        );
-      }
-      if (!this.applicationHasError && !this.basicInfoHasError) {
-        if (!this.draftBusiness) {
-          this.validateRequiredFields();
-          this.$store.commit("setLoading", false);
-        } else {
-          this.$swal({
-            title: "Success!",
-            text: "data successfully saved as draft.",
-            icon: "success",
-          }).then((value) => {
-            this.toProfile();
-          });
-        }
-      } else {
-        this.validateRequiredFields();
-        if (this.draftBusiness) {
-          this.$swal({
-            title: "Failed!",
-            text: "Please fix the validation errors before saving as draft.",
-            icon: "error",
-          });
-          this.$store.commit("setDraftBusiness", false);
-        } else {
-          this.$swal({
-            title: "Failed!",
-            text:
-              "Please fix the validation errors before proceeding to the next step.",
-            icon: "error",
-          });
-        }
-      }
-      this.$store.commit("setLoading", false);
-      // this.$store.commit("setCurrentApplicationStep", "2");
-    },
     preFillForm() {
-      if (this.businessApplication.id) {
-        this.basic_information = this.businessBasicInformation;
-        this.business_application = this.businessApplication;
-        this.changeOrganization();
+      if (this.businessActivities.length > 0) {
+        this.activities.splice(0, this.activities.length);
+        this.businessActivities.forEach((element) => {
+          element.application_number = this.businessApplication.id
+          this.activities.push(element);
+        });
       }
     },
-    toProfile() {
-      this.$router.push({ name: "Profile" });
-      this.$store.commit("setDraftBusiness", false);
-    },
-    validateRequiredFields() {
-      let basic_info_errors = { key: "basic_information", value: {} };
-      let application_errors = { key: "application", value: {} };
-      let isBasicInfoClean = true;
-      let isApplicationClean = true;
-      for (let key in this.basic_information) {
-        if (!this.unrequired.basic_information.includes(key)) {
-          if (this.basic_information[key] === "") {
-            basic_info_errors.value[`${key}`] = [];
-            basic_info_errors.value[`${key}`].push(
-              "This field may not be blank."
-            );
+    async nextStep(){
+      if(this.activities.length > 0){
+        let isAdd = true
+        for (let item of this.activities){
+          if (item.is_draft){
+            isAdd = false
           }
         }
-      }
-      for (let key in this.business_application) {
-        if (!this.unrequired.business_application.includes(key)) {
-          if (this.business_application[key] === "") {
-            application_errors.value[`${key}`] = [];
-            application_errors.value[`${key}`].push(
-              "This field may not be blank."
-            );
+        if(isAdd){
+          for (let item of this.activities){
+            item.is_draft = true
+            item.is_active = false
+            delete item.id
           }
+          this.$store.dispatch('addBusinessActivity', this.activities)
+        }else{
+          this.$store.dispatch('updateBusinessActivity', this.activities)
         }
       }
-
-      if (Object.entries(basic_info_errors.value).length > 0) {
-        this.$store.commit("setStepOneErrors", basic_info_errors);
-        isBasicInfoClean = false;
-      } else {
-        this.$store.commit("setStepOneErrors", {
-          key: "basic_information",
-          value: {},
-        });
-      }
-
-      if (Object.entries(application_errors.value).length > 0) {
-        this.$store.commit("setStepOneErrors", application_errors);
-        isApplicationClean = false;
-      } else {
-        this.$store.commit("setStepOneErrors", {
-          key: "application",
-          value: {},
-        });
-      }
-      if (isApplicationClean && isBasicInfoClean) {
-        this.$store.commit("setCurrentApplicationStep", "2");
-      } else {
-        this.$swal({
-          title: "Failed!",
-          text:
-            "Please fix the validation errors before proceeding to the next step.",
-          icon: "error",
-        });
-      }
-    },
+    }
   },
 };
 </script>
@@ -399,11 +213,11 @@ div.meta-container
 }
 
 .add-icon {
-    float: right;
-    margin-bottom: 10px;
-    font-size: 14px;
-    color: #2699fb;
-    cursor: pointer;
+  float: right;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #2699fb;
+  cursor: pointer;
 }
 
 /*

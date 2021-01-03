@@ -223,12 +223,12 @@ const actions = {
         payload.status == 1
           ? "incomplete"
           : payload.status == 2
-          ? "for assessment"
-          : payload.status == 3
-          ? "for compliance"
-          : payload.status == 4
-          ? "for payment"
-          : "";
+            ? "for assessment"
+            : payload.status == 3
+              ? "for compliance"
+              : payload.status == 4
+                ? "for payment"
+                : "";
 
       dispatch("createPrompt", {
         type: "success",
@@ -360,7 +360,9 @@ const actions = {
   async addBusinessActivity({ commit, getters, dispatch }, payload) {
     try {
       for (let item of payload) {
-        item.application_number = getters.businessApplication.id;
+        if(item.application_number == '' || item.application_number == null || item.application_number == undefined){
+          item.application_number = getters.businessApplication.id; 
+        }
       }
       const response = await axios.post(
         `${baseUrl}/api/business-activity/`,
@@ -371,6 +373,13 @@ const actions = {
     } catch (err) {
       console.log(err.response);
       commit("setLoading", false);
+    }
+  },
+  async addRenewBusinessActivity({ commit, getters, dispatch }, payload) {
+    try {
+      const response = await axios.post(`${baseUrl}/api/business-activity/`, payload, { headers: { Authorization: `jwt ${getters.authToken}` } })
+    } catch (err) {
+      err.response ? console.log(err.response) : console.log(err)
     }
   },
   async updateBusinessApplication({ commit, getters }, payload) {
@@ -656,7 +665,6 @@ const actions = {
           params: payload,
         }
       );
-      console.log('assessment result', response.data)
       commit("setBusinessAssessmentResult", response.data);
     } catch (err) {
       console.log(err);
@@ -665,6 +673,19 @@ const actions = {
       }
     }
   },
+  async getBusinessActivityRenewal({ commit, getters }, payload) {
+    try {
+      const response = await axios.get(`${baseUrl}/api/business-activity-renewal?application_number=${payload}`, {
+        headers: { Authorization: `jwt ${getters.authToken}` }
+      })
+      await commit('setBusinessActivities', response.data)
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response.data);
+      }
+    }
+  }
 };
 
 export default {
