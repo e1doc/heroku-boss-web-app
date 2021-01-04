@@ -155,7 +155,7 @@ export default {
             is_disapprove: false,
           };
           await this.$store.dispatch("updateBusinessApplication", payload);
-          this.$store.commit("setCurrentApplicationStep", "3");
+          this.$store.commit("setCurrentApplicationStep", "4");
         } else {
           this.$swal({
             title: "Failed!",
