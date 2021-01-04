@@ -160,6 +160,13 @@ export default {
           };
           await this.$store.dispatch("updateBusinessApplication", payload);
           await this.$store.dispatch("renewBusinessApplication");
+          let resetAssessmentPayload = {
+            business_application: this.businessApplication.id,
+          };
+          await this.$store.dispatch(
+            "resetBusinessAssessment",
+            resetAssessmentPayload
+          );
           this.$store.commit("setCurrentApplicationStep", "3");
         } else {
           this.$swal({
