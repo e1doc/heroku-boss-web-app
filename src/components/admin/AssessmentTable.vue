@@ -93,9 +93,7 @@
               application.account_number ? application.account_number : "N/A"
             }}
           </div> -->
-          <div class="td">
-            FOR ASSESSMENT
-          </div>
+          <div class="td">FOR ASSESSMENT</div>
           <div class="td actions">
             <div @click="openBusinessApplication(item)">
               <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
@@ -143,9 +141,7 @@
                 : "N/A"
             }}
           </div>
-          <div class="td">
-            FOR ASSESSMENT
-          </div>
+          <div class="td">FOR ASSESSMENT</div>
           <div class="td actions">
             <div @click="openBuildingApplication('view', item)">
               <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
@@ -264,7 +260,7 @@ export default {
     buildingAssessedClick(pageNum) {
       this.$store.dispatch("getAssessedBuildingList", pageNum);
     },
-    openBusinessApplication(data) {
+    async openBusinessApplication(data) {
       if (data.id) {
         let application = {
           id: data.id,
@@ -291,15 +287,17 @@ export default {
       if (data.lessordetails !== null) {
         this.$store.commit("setLessorDetails", data.lessordetails);
       }
-      if (data.businessactivity.length > 0) {
-        this.$store.commit("setBusinessActivities", data.businessactivity);
-      }
-      if (data.businessapplicationrequirements.length > 0) {
-        this.$store.commit(
-          "setApplicationRequirements",
-          data.businessapplicationrequirements[0]
-        );
-      }
+      // if (data.businessactivity.length > 0) {
+      //   this.$store.commit("setBusinessActivities", data.businessactivity);
+      // }
+      await this.$store.dispatch("getBusinessActivity");
+      // if (data.businessapplicationrequirements.length > 0) {
+      //   this.$store.commit(
+      //     "setApplicationRequirements",
+      //     data.businessapplicationrequirements[0]
+      //   );
+      // }
+      await this.$store.dispatch("getBusinessActiveRequirement");
       this.$router.push({ name: "ApproveBusinessApplication" });
     },
     openBuildingApplication(type, data) {

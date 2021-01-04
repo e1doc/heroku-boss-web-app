@@ -24,6 +24,11 @@
             type="text"
             class="mt40 input-w2"
             inputClass="fw-mobile"
+            :validationMessages="
+              activityErrors[index]
+                ? activityErrors[index].value.line_of_business
+                : []
+            "
           />
 
           <base-input
@@ -45,6 +50,11 @@
           :isAmount="true"
           class="mt40 mb30"
         />
+        <div v-if="activityErrors[index]">
+          <div v-if="activityErrors[index].value.capitalization">
+            <div class="meta-error-text">* This field may not be blank</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -78,13 +88,16 @@ export default {
   },
   data() {
     return {
-      business_application: {
-        account_number: "",
-      },
+      activities: [],
       unrequired: {
-        business_application: ["account_number"],
+        business_activities: [
+          "units",
+          "code",
+          "essential",
+          "non_essential",
+          "application_year",
+        ],
       },
-      activities: []
     };
   },
   computed: {
@@ -97,6 +110,7 @@ export default {
       "draftBusiness",
       "isPrivacyAgree",
       "businessActivities",
+      "activityErrors",
     ]),
   },
   watch: {
@@ -105,53 +119,123 @@ export default {
       handler(status) {
         if (status) {
           this.nextStep();
-          this.$store.commit('setDraftBusiness', false)
+          this.$swal({
+            title: "Success!",
+            text: "data successfully saved as draft.",
+            icon: "success",
+          }).then((value) => {
+            this.toProfile();
+          });
+          this.$store.commit("setDraftBusiness", false);
         }
       },
     },
   },
   mounted() {
     this.$store.commit("setLoading", false);
-    this.preFillForm()
+    this.preFillForm();
     if (!this.isPrivacyAgree) {
       this.$modal.show("agreementModal");
     }
   },
   methods: {
+    toProfile() {
+      this.$router.push({ name: "Profile" });
+      this.$store.commit("setDraftBusiness", false);
+    },
     preFillForm() {
       if (this.businessActivities.length > 0) {
         this.activities.splice(0, this.activities.length);
         this.businessActivities.forEach((element) => {
-          element.application_number = this.businessApplication.id
+          element.application_number = this.businessApplication.id;
           this.activities.push(element);
         });
       }
     },
-    async nextStep(){
-      if(this.activities.length > 0){
-        let isAdd = true
-        for (let item of this.activities){
-          if (item.is_draft){
-            isAdd = false
+    async nextStep() {
+      this.validateRequiredFields();
+      if (this.activities.length > 0) {
+        let isAdd = true;
+        for (let item of this.activities) {
+          if (item.is_draft) {
+            isAdd = false;
           }
         }
-        if(isAdd){
-          for (let item of this.activities){
-            item.is_draft = true
-            item.is_active = false
-            delete item.id
+        if (isAdd) {
+          for (let item of this.activities) {
+            item.is_draft = true;
+            item.is_active = false;
+            delete item.id;
           }
-          this.$store.dispatch('addBusinessActivity', this.activities)
-        }else{
-          this.$store.dispatch('updateBusinessActivity', this.activities)
+          this.$store.dispatch("addBusinessActivity", this.activities);
+        } else {
+          this.$store.dispatch("updateBusinessActivity", this.activities);
         }
       }
-    }
+    },
+    validateRequiredFields() {
+      let activity_errors_holder = {};
+      let isBusinessActivitiesClean = true;
+
+      if (this.activities.length > 0) {
+        let index = 0;
+        for (let activity of this.activities) {
+          let business_activity_errors = {
+            key: "business_activities",
+            value: {},
+          };
+          for (let key in activity) {
+            if (!this.unrequired.business_activities.includes(key)) {
+              if (
+                activity[key] === "" ||
+                activity[key] === null ||
+                activity[key] === 0
+              ) {
+                business_activity_errors.value[`${key}`] = [];
+                business_activity_errors.value[`${key}`].push(
+                  "This field may not be blank."
+                );
+              }
+            }
+          }
+          activity_errors_holder[index] = business_activity_errors;
+          index = index + 1;
+        }
+      }
+      if (Object.entries(activity_errors_holder).length > 0) {
+        Object.keys(activity_errors_holder).forEach((item) => {
+          if (Object.entries(activity_errors_holder[item].value).length > 0) {
+            isBusinessActivitiesClean = false;
+          }
+        });
+        if (!isBusinessActivitiesClean) {
+          this.$store.commit("setActivityErrors", activity_errors_holder);
+        } else {
+          this.$store.commit("setActivityErrors", {});
+        }
+      }
+      if (isBusinessActivitiesClean) {
+        this.$store.commit("setCurrentApplicationStep", "2");
+      } else {
+        this.$swal({
+          title: "Failed!",
+          text:
+            "Please fix the validation errors before proceeding to the next step.",
+          icon: "error",
+        });
+      }
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.meta-error-text {
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: #e8726f;
+  font-weight: bold;
+}
 div.meta-container {
   width: 100%;
   padding: 50px;

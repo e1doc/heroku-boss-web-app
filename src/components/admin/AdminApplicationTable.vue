@@ -217,7 +217,7 @@ export default {
     ]),
   },
   mounted() {
-    console.log(this.applications)
+    console.log(this.applications);
     this.$store.dispatch("getAllBusinessApplications");
     this.$store.dispatch("getAllBuildingApplications");
     this.$store.commit("setBusinessActivities", []);
@@ -239,12 +239,14 @@ export default {
     buildingClickCallBack(pageNum) {
       this.$store.dispatch("getAllBuildingApplications", pageNum);
     },
-    openBusinessApplication(data) {
+    async openBusinessApplication(data) {
       console.log(data);
       if (data.id) {
+        console.log(data);
         let application = {
           id: data.id,
           created_at: data.created_at,
+          updated_at: data.updated_at,
           is_draft: data.is_draft,
           is_approve: data.is_approve,
           is_disapprove: data.is_disapprove,
@@ -267,15 +269,17 @@ export default {
       if (data.lessordetails !== null) {
         this.$store.commit("setLessorDetails", data.lessordetails);
       }
-      if (data.businessactivity.length > 0) {
-        this.$store.commit("setBusinessActivities", data.businessactivity);
-      }
-      if (data.businessapplicationrequirements.length > 0) {
-        this.$store.commit(
-          "setApplicationRequirements",
-          data.businessapplicationrequirements[0]
-        );
-      }
+      // if (data.businessactivity.length > 0) {
+      //   this.$store.commit("setBusinessActivities", data.businessactivity);
+      // }
+      await this.$store.dispatch("getBusinessActivity");
+      // if (data.businessapplicationrequirements.length > 0) {
+      //   this.$store.commit(
+      //     "setApplicationRequirements",
+      //     data.businessapplicationrequirements[0]
+      //   );
+      // }
+      await this.$store.dispatch("getBusinessActiveRequirement");
       this.$router.push({ name: "ApproveBusinessApplication" });
     },
     openBuildingApplication(type, data) {

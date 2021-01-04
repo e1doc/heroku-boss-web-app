@@ -18,7 +18,11 @@
         >
           <div class="td">
             <span class="td-label show-in-mobile">APPLICATION NO. : </span>
-            {{ application.businessbasicinformation !== null ?  application.businessbasicinformation.reference_number : "N/A" }}
+            {{
+              application.businessbasicinformation !== null
+                ? application.businessbasicinformation.reference_number
+                : "N/A"
+            }}
           </div>
           <div class="td">
             <span class="td-label show-in-mobile">DATE : </span>
@@ -32,37 +36,55 @@
           </div> -->
           <div class="td">
             <span class="td-label show-in-mobile">STATUS : </span>
-             {{
-              application.application_status == 0 && !application.is_draft
-              ? 'FOR EVALUATION'
-              : application.application_status == 1
-              ? 'INCOMPLETE'
-              : application.application_status == 2
-              ? 'FOR ASSESSMENT'
-              : application.application_status == 3
-              ? 'FOR COMPLIANCE'
-              : application.application_status == 4
-              ? 'FOR PAYMENT'
-              : ''
-            }}
             {{
-              application.is_draft ? 'DRAFT' : ''
+              application.application_status == 0 && !application.is_draft
+                ? "FOR EVALUATION"
+                : application.application_status == 1
+                ? "INCOMPLETE"
+                : application.application_status == 2
+                ? "FOR ASSESSMENT"
+                : application.application_status == 3
+                ? "FOR COMPLIANCE"
+                : application.application_status == 4
+                ? "FOR PAYMENT"
+                : ""
             }}
+            {{ application.is_draft ? "DRAFT" : "" }}
           </div>
           <div class="td">
-              <span class="td-label show-in-mobile">LATEST APPROVER : </span>
-              {{application.latest_approver ? application.latest_approver.name : "N/A"}}
+            <span class="td-label show-in-mobile">LATEST APPROVER : </span>
+            {{
+              application.latest_approver
+                ? application.latest_approver.name
+                : "N/A"
+            }}
           </div>
           <div class="td actions">
-            <div @click="openBusinessApplication('edit', application)" v-if="application.is_draft">
+            <div
+              @click="openBusinessApplication('edit', application)"
+              v-if="application.is_draft"
+            >
               <font-awesome-icon icon="edit" class="mr5 view-icon" />EDIT
             </div>
-          <div @click="openBusinessApplication('view',application)" v-if=" !application.is_draft && application.application_status !== 3 && application.application_status !== 1">
-            <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
-          </div>
-          <div @click="openBusinessRemarks(application.id)" v-if="application.application_status == 1 || application.application_status == 3">
-            <font-awesome-icon icon="eye" class="mr5 view-icon" />REMARKS
-          </div>
+            <div
+              @click="openBusinessApplication('view', application)"
+              v-if="
+                !application.is_draft &&
+                application.application_status !== 3 &&
+                application.application_status !== 1
+              "
+            >
+              <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
+            </div>
+            <div
+              @click="openBusinessRemarks(application.id)"
+              v-if="
+                application.application_status == 1 ||
+                application.application_status == 3
+              "
+            >
+              <font-awesome-icon icon="eye" class="mr5 view-icon" />REMARKS
+            </div>
           </div>
         </div>
       </div>
@@ -81,7 +103,11 @@
         >
           <div class="td">
             <span class="td-label show-in-mobile">APPLICATION NO. : </span>
-            {{ application.buildingbasicinformation !== null ? application.buildingbasicinformation.reference_number : 'N/A' }}
+            {{
+              application.buildingbasicinformation !== null
+                ? application.buildingbasicinformation.reference_number
+                : "N/A"
+            }}
           </div>
           <div class="td">
             <span class="td-label show-in-mobile">DATE : </span>
@@ -89,43 +115,65 @@
           </div>
           <div class="td">
             <span class="td-label show-in-mobile">TD # : </span>
-            {{ application.buildingdetails !== null ?  application.buildingdetails.tax_dec_no : "N/A"}}
+            {{
+              application.buildingdetails !== null
+                ? application.buildingdetails.tax_dec_no
+                : "N/A"
+            }}
           </div>
           <div class="td">
             <span class="td-label show-in-mobile">STATUS : </span>
             {{
               application.application_status == 0 && !application.is_draft
-              ? 'FOR APPROVAL'
-              : application.application_status == 1
-              ? 'INCOMPLETE'
-              : application.application_status == 2
-              ? 'FOR EVALUATION'
-              : application.application_status == 3
-              ? 'FOR INSPECTION'
-              : application.application_status == 4
-              ? 'FOR COMPLIANCE'
-              : application.application_status == 5
-              ? 'FOR PAYMENT'
-              : ''
+                ? "FOR APPROVAL"
+                : application.application_status == 1
+                ? "INCOMPLETE"
+                : application.application_status == 2
+                ? "FOR EVALUATION"
+                : application.application_status == 3
+                ? "FOR INSPECTION"
+                : application.application_status == 4
+                ? "FOR COMPLIANCE"
+                : application.application_status == 5
+                ? "FOR PAYMENT"
+                : ""
             }}
-            {{  
-              application.is_draft ? 'DRAFT' : ''
-            }}
+            {{ application.is_draft ? "DRAFT" : "" }}
           </div>
           <div class="td">
-              <span class="td-label show-in-mobile">LATEST APPROVER : </span>
-              {{application.latest_approver ? application.latest_approver.name : "N/A"}}
+            <span class="td-label show-in-mobile">LATEST APPROVER : </span>
+            {{
+              application.latest_approver
+                ? application.latest_approver.name
+                : "N/A"
+            }}
           </div>
           <div class="td actions">
-            <div @click="openBuildingApplication('edit', application)" v-if="application.is_draft">
+            <div
+              @click="openBuildingApplication('edit', application)"
+              v-if="application.is_draft"
+            >
               <font-awesome-icon icon="edit" class="mr5 view-icon" />EDIT
             </div>
-            <div @click="openBuildingApplication('view', application)" v-if="!application.is_draft && application.application_status !== 4 && application.application_status !== 1">
-            <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
-          </div>
-           <div @click="openBuildingRemarks(application.id)" v-if="application.application_status == 1 || application.application_status == 4">
-            <font-awesome-icon icon="eye" class="mr5 view-icon" />REMARKS
-          </div>
+            <div
+              @click="openBuildingApplication('view', application)"
+              v-if="
+                !application.is_draft &&
+                application.application_status !== 4 &&
+                application.application_status !== 1
+              "
+            >
+              <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
+            </div>
+            <div
+              @click="openBuildingRemarks(application.id)"
+              v-if="
+                application.application_status == 1 ||
+                application.application_status == 4
+              "
+            >
+              <font-awesome-icon icon="eye" class="mr5 view-icon" />REMARKS
+            </div>
           </div>
         </div>
       </div>
@@ -137,26 +185,26 @@
     </div>
 
     <paginate
-        v-if="applications.length > 0 && currentType === 'business'"
-        :page-count="pageCount"
-        :prev-text="'Prev'"
-        :next-text="'Next'"
-        :container-class="'pagination'"
-        :page-class="'page-item'"
-        :click-handler="businessClickCallBack"
-      >
-      </paginate>
+      v-if="applications.length > 0 && currentType === 'business'"
+      :page-count="pageCount"
+      :prev-text="'Prev'"
+      :next-text="'Next'"
+      :container-class="'pagination'"
+      :page-class="'page-item'"
+      :click-handler="businessClickCallBack"
+    >
+    </paginate>
 
-      <paginate
-        v-if="buildingApplications.length > 0 && currentType === 'building'"
-        :page-count="pageCount"
-        :prev-text="'Prev'"
-        :next-text="'Next'"
-        :container-class="'pagination'"
-        :page-class="'page-item'"
-        :click-handler="buildingClickCallBack"
-      >
-      </paginate>
+    <paginate
+      v-if="buildingApplications.length > 0 && currentType === 'building'"
+      :page-count="pageCount"
+      :prev-text="'Prev'"
+      :next-text="'Next'"
+      :container-class="'pagination'"
+      :page-class="'page-item'"
+      :click-handler="buildingClickCallBack"
+    >
+    </paginate>
 
     <!-- <div class="tbody">
       <div class="tr">
@@ -264,85 +312,125 @@ import { mapGetters } from "vuex";
 export default {
   name: "ApplicationTable",
   computed: {
-    ...mapGetters(["currentType", "applications", "buildingApplications", "pageCount"]),
+    ...mapGetters([
+      "currentType",
+      "applications",
+      "buildingApplications",
+      "pageCount",
+    ]),
   },
   mounted() {
     this.$store.dispatch("getBusinessApplications");
-    this.$store.dispatch("getBuildingApplications")
-    this.$store.commit('setCurrentTable','applications')
-    this.$store.commit('setBusinessActivities', [])
-    this.$store.commit('setApplicationRequirements', {})
-    if(this.currentType === 'real_property'){
-      this.$store.commit('setCurrentType','business')
+    this.$store.dispatch("getBuildingApplications");
+    this.$store.commit("setCurrentTable", "applications");
+    this.$store.commit("setBusinessActivities", []);
+    this.$store.commit("setApplicationRequirements", {});
+    if (this.currentType === "real_property") {
+      this.$store.commit("setCurrentType", "business");
     }
   },
-  methods:{
-  async businessClickCallBack(pageNum){
-      this.$store.dispatch('getBusinessApplications', pageNum)
-  },
-  async buildingClickCallBack(pageNum){
-      this.$store.dispatch('getBuildingApplications', pageNum)
-  },
-   async openBusinessRemarks(id){
-     await this.$store.dispatch('getBusinessRemarks', id)
-     await this.$router.push({name: 'UserReplyInquiry'})
-   },
-   async openBuildingRemarks(id){
-      await this.$store.dispatch('getBuildingRemarks', id)
-      await this.$router.push({name: 'UserReplyInquiry'})
-   },
-    openBusinessApplication(type,data){
-      this.$store.commit('setIsPrivacyAgree', true)
-      if(data.id){
-        let application = {id:data.id,created_at: data.created_at, is_draft: data.is_draft, is_approve: data.is_approve, is_disapprove: data.is_disapprove,account_number: data.account_number, application_status: data.application_status, last_submitted: data.last_submitted}
-        this.$store.commit('setBusinessApplication', application)
+  methods: {
+    async businessClickCallBack(pageNum) {
+      this.$store.dispatch("getBusinessApplications", pageNum);
+    },
+    async buildingClickCallBack(pageNum) {
+      this.$store.dispatch("getBuildingApplications", pageNum);
+    },
+    async openBusinessRemarks(id) {
+      await this.$store.dispatch("getBusinessRemarks", id);
+      await this.$router.push({ name: "UserReplyInquiry" });
+    },
+    async openBuildingRemarks(id) {
+      await this.$store.dispatch("getBuildingRemarks", id);
+      await this.$router.push({ name: "UserReplyInquiry" });
+    },
+    async openBusinessApplication(type, data) {
+      this.$store.commit("setIsPrivacyAgree", true);
+      if (data.id) {
+        let application = {
+          id: data.id,
+          created_at: data.created_at,
+          updated_at: data.updated_at,
+          is_draft: data.is_draft,
+          is_approve: data.is_approve,
+          is_disapprove: data.is_disapprove,
+          account_number: data.account_number,
+          application_status: data.application_status,
+          last_submitted: data.last_submitted,
+        };
+        this.$store.commit("setBusinessApplication", application);
       }
-      if(data.businessbasicinformation !== null){
-        this.$store.commit('setBusinessBasicInformation', data.businessbasicinformation)
+      if (data.businessbasicinformation !== null) {
+        this.$store.commit(
+          "setBusinessBasicInformation",
+          data.businessbasicinformation
+        );
       }
-      if(data.businessdetails !== null){
-        this.$store.commit('setBusinessDetails', data.businessdetails)
+      if (data.businessdetails !== null) {
+        this.$store.commit("setBusinessDetails", data.businessdetails);
       }
-      if(data.lessordetails !== null){
-        this.$store.commit('setLessorDetails', data.lessordetails)
+      if (data.lessordetails !== null) {
+        this.$store.commit("setLessorDetails", data.lessordetails);
       }
-      if(data.businessactivity.length > 0){
-        this.$store.commit('setBusinessActivities',data.businessactivity)
-      }
-      if(data.businessapplicationrequirements.length > 0){
-        this.$store.commit('setApplicationRequirements',data.businessapplicationrequirements[0])
-      }
-      if(type==='edit'){
-        this.$router.push({ name: "BusinessPermitApplication" })
-      }else{
-        this.$router.push({ name: "ViewBusinessDetails" })
+      // if(data.businessactivity.length > 0){
+      //   this.$store.commit('setBusinessActivities',data.businessactivity)
+      // }
+      await this.$store.dispatch("getBusinessActivity");
+      // if (data.businessapplicationrequirements.length > 0) {
+      //   this.$store.commit(
+      //     "setApplicationRequirements",
+      //     data.businessapplicationrequirements[0]
+      //   );
+      // }
+      await this.$store.dispatch("getBusinessActiveRequirement");
+      if (type === "edit") {
+        this.$router.push({ name: "BusinessPermitApplication" });
+      } else {
+        this.$router.push({ name: "ViewBusinessDetails" });
       }
     },
-    openBuildingApplication(type, data){
-      this.$store.commit('setIsPrivacyAgree', true)
-      if(data.id){
-        let application = {id: data.id, is_draft: data.is_draft, is_approve: data.is_approve, is_disapprove: data.is_disapprove, created_at: data.created_at, application_status: data.application_status, last_submitted: data.last_submitted}
-        this.$store.commit("setBuildingApplication", application)
+    openBuildingApplication(type, data) {
+      this.$store.commit("setIsPrivacyAgree", true);
+      if (data.id) {
+        let application = {
+          id: data.id,
+          is_draft: data.is_draft,
+          is_approve: data.is_approve,
+          is_disapprove: data.is_disapprove,
+          created_at: data.created_at,
+          application_status: data.application_status,
+          last_submitted: data.last_submitted,
+        };
+        this.$store.commit("setBuildingApplication", application);
       }
-      if(data.buildingbasicinformation !== null){
-        this.$store.commit("setBuildingBasicInformation", data.buildingbasicinformation)
+      if (data.buildingbasicinformation !== null) {
+        this.$store.commit(
+          "setBuildingBasicInformation",
+          data.buildingbasicinformation
+        );
       }
-      if(data.buildingdetails !== null){
-        this.$store.commit("setBuildingDetails", data.buildingdetails)
+      if (data.buildingdetails !== null) {
+        this.$store.commit("setBuildingDetails", data.buildingdetails);
       }
-      if(data.buildingotherdetails !== null){
-        this.$store.commit("setBuildingOtherDetails", data.buildingotherdetails)
+      if (data.buildingotherdetails !== null) {
+        this.$store.commit(
+          "setBuildingOtherDetails",
+          data.buildingotherdetails
+        );
       }
-      if(data.buildingapplicationrequirements.length > 0){
-        this.$store.commit("setBuildingApplicationRequirements",data.buildingapplicationrequirements[0])
+      if (data.buildingapplicationrequirements.length > 0) {
+        this.$store.commit(
+          "setBuildingApplicationRequirements",
+          data.buildingapplicationrequirements[0]
+        );
       }
-      if(type === 'edit'){
-        this.$router.push({ name: "BuildingPermitApplication" })
-      }else{
-        this.$router.push({ name: "ViewBuildingDetails" })
+      if (type === "edit") {
+        this.$router.push({ name: "BuildingPermitApplication" });
+      } else {
+        this.$router.push({ name: "ViewBuildingDetails" });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -381,7 +469,8 @@ export default {
       text-align: center;
       padding: 17px 0px;
     }
-    .td.actions div, a {
+    .td.actions div,
+    a {
       color: #1492e6;
       font-size: 13px;
       font-weight: bold;

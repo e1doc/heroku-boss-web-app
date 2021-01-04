@@ -2,14 +2,28 @@
   <section>
     <div class="thead hide-in-mobile">
       <!-- <div class="th" v-if="currentType === 'business'">ACCOUNT #</div> -->
-      <div class="th" v-if="currentType === 'building' || currentType === 'real_property'">TD #</div>
+      <div
+        class="th"
+        v-if="currentType === 'building' || currentType === 'real_property'"
+      >
+        TD #
+      </div>
       <div class="th" v-if="currentType === 'business'">BUSINESS NAME</div>
-      <div class="th" v-if="currentType === 'building' || currentType === 'real_property'">OWNER NAME</div>
+      <div
+        class="th"
+        v-if="currentType === 'building' || currentType === 'real_property'"
+      >
+        OWNER NAME
+      </div>
       <div class="th">ACTIONS</div>
     </div>
     <div v-if="currentType === 'business'">
       <div class="tbody" v-if="businessProfiles.length > 0">
-        <div class="tr" v-for="(business, index) in businessProfiles" :key="index">
+        <div
+          class="tr"
+          v-for="(business, index) in businessProfiles"
+          :key="index"
+        >
           <!-- <div class="td">
             <span
               class="td-label show-in-mobile"
@@ -19,14 +33,19 @@
           </div> -->
           <div class="td" v-if="currentType === 'business'">
             <span class="td-label show-in-mobile">BUSINESS NAME : </span>
-            {{business.businessdetails.name != "" ? business.businessdetails.name : business.businessdetails.trade_name}}
+            {{
+              business.businessdetails.name != ""
+                ? business.businessdetails.name
+                : business.businessdetails.trade_name
+            }}
           </div>
           <div class="td" v-if="currentType === 'building'">
             <span class="td-label show-in-mobile">OWNER NAME : </span>
-            {{business.businessbasicinformation.owner_first_name}} {{business.businessbasicinformation.owner_last_name}}
+            {{ business.businessbasicinformation.owner_first_name }}
+            {{ business.businessbasicinformation.owner_last_name }}
           </div>
           <div class="td actions">
-            <div @click="renew(business)" v-if="isFeatureImplemented">
+            <div @click="renew(business)">
               <font-awesome-icon icon="sync-alt" class="mr5 icon" /> RENEW
             </div>
             <div class="bill" @click="showModal('business', business)">
@@ -43,17 +62,21 @@
     </div>
     <div v-if="currentType === 'building'">
       <div class="tbody" v-if="buildingProfiles.length > 0">
-        <div class="tr" v-for="(building, index) in buildingProfiles" :key="index">
+        <div
+          class="tr"
+          v-for="(building, index) in buildingProfiles"
+          :key="index"
+        >
           <div class="td">
-            <span
-              class="td-label show-in-mobile"
-              >TD # :
-            </span>
-            {{building.buildingdetails.tax_dec_no}}
+            <span class="td-label show-in-mobile">TD # : </span>
+            {{ building.buildingdetails.tax_dec_no }}
           </div>
           <div class="td" v-if="currentType === 'building'">
             <span class="td-label show-in-mobile">OWNER NAME : </span>
-            <span >{{building.buildingbasicinformation.owner_first_name}} {{building.buildingbasicinformation.owner_last_name}}</span>
+            <span
+              >{{ building.buildingbasicinformation.owner_first_name }}
+              {{ building.buildingbasicinformation.owner_last_name }}</span
+            >
           </div>
           <div class="td actions">
             <div v-if="isFeatureImplemented">
@@ -71,19 +94,22 @@
         </div>
       </div>
     </div>
-       <div v-if="currentType === 'real_property'">
+    <div v-if="currentType === 'real_property'">
       <div class="tbody" v-if="realPropertyProfiles.length > 0">
-        <div class="tr" v-for="(building, index) in realPropertyProfiles" :key="index">
+        <div
+          class="tr"
+          v-for="(building, index) in realPropertyProfiles"
+          :key="index"
+        >
           <div class="td">
-            <span
-              class="td-label show-in-mobile"
-              >TD # :
-            </span>
-            {{building.buildingdetails.tax_dec_no}}
+            <span class="td-label show-in-mobile">TD # : </span>
+            {{ building.buildingdetails.tax_dec_no }}
           </div>
           <div class="td" v-if="currentType === 'real_property'">
             <span class="td-label show-in-mobile">OWNER NAME : </span>
-            <span>{{building.buildingbasicinformation.owner_first_name}}</span>
+            <span>{{
+              building.buildingbasicinformation.owner_first_name
+            }}</span>
           </div>
           <div class="td actions">
             <div v-if="isFeatureImplemented">
@@ -109,35 +135,69 @@ import { mapGetters } from "vuex";
 export default {
   name: "ProfileTable",
   computed: {
-    ...mapGetters(["currentType", "businessProfiles", "buildingProfiles","realPropertyProfiles"])
+    ...mapGetters([
+      "currentType",
+      "businessProfiles",
+      "buildingProfiles",
+      "realPropertyProfiles",
+    ]),
   },
-  data(){
-    return{
-      isFeatureImplemented: false
-    }
+  data() {
+    return {
+      isFeatureImplemented: false,
+    };
   },
-  mounted(){
-    this.$store.dispatch('getBusinessProfiles')
-    this.$store.dispatch('getBuildingProfiles')
-    this.$store.dispatch('getRealPropertyProfiles')
+  mounted() {
+    this.$store.dispatch("getBusinessProfiles");
+    this.$store.dispatch("getBuildingProfiles");
+    this.$store.dispatch("getRealPropertyProfiles");
   },
   methods: {
-    async renew(application){
-      await this.$store.dispatch('getBusinessActivityRenewal', application.id)
-      await this.$store.commit('setBusinessApplication', application)
-      await this.$router.push({name:'BusinessRenewal'})
+    async renew(application) {
+      if (application.id) {
+        let data = {
+          id: application.id,
+          created_at: application.created_at,
+          updated_at: application.updated_at,
+          is_draft: application.is_draft,
+          is_approve: application.is_approve,
+          is_disapprove: application.is_disapprove,
+          account_number: application.account_number,
+          application_status: application.application_status,
+          last_submitted: application.last_submitted,
+        };
+        this.$store.commit("setBusinessApplication", data);
+      }
+      if (application.businessbasicinformation !== null) {
+        this.$store.commit(
+          "setBusinessBasicInformation",
+          application.businessbasicinformation
+        );
+      }
+      if (application.businessdetails !== null) {
+        this.$store.commit("setBusinessDetails", application.businessdetails);
+      }
+      if (application.lessordetails !== null) {
+        this.$store.commit("setLessorDetails", application.lessordetails);
+      }
+      await this.$store.dispatch("getBusinessActivityRenewal", application.id);
+      await this.$store.dispatch(
+        "getBusinessRequirementRenewal",
+        application.id
+      );
+      await this.$store.commit("setBusinessApplication", application);
+      await this.$router.push({ name: "BusinessRenewal" });
     },
     showModal(type, item) {
-      this.$store.commit('setCurrentSoaType', type)
-      if(type === 'business'){
-      this.$store.commit('setCurrentSelectedBusiness', item)
+      this.$store.commit("setCurrentSoaType", type);
+      if (type === "business") {
+        this.$store.commit("setCurrentSelectedBusiness", item);
       }
-      if(type === 'real_property'){
-        this.$store.commit('setCurrentSelectedProperty', item)
+      if (type === "real_property") {
+        this.$store.commit("setCurrentSelectedProperty", item);
       }
       this.$modal.show("soaModal");
     },
-
   },
 };
 </script>

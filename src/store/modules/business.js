@@ -44,7 +44,7 @@ const getDefaultBusinessState = () => {
     currentSelectedBusiness: {},
     isBusinessAssessment: false,
     assessmentPayload: {},
-    activityErrors: {}
+    activityErrors: {},
   };
 };
 
@@ -85,7 +85,7 @@ const getters = {
   currentSelectedBusiness: (state) => state.currentSelectedBusiness,
   isBusinessAssessment: (state) => state.isBusinessAssessment,
   assessmentPayload: (state) => state.assessmentPayload,
-  activityErrors: (state) => state.activityErrors
+  activityErrors: (state) => state.activityErrors,
 };
 
 const mutations = {
@@ -150,9 +150,12 @@ const mutations = {
     (state.assessedBusinessList = assessedBusinessList),
   setCurrentSelectedBusiness: (state, currentSelectedBusiness) =>
     (state.currentSelectedBusiness = currentSelectedBusiness),
-  setIsBusinessAssessment: (state, isBusinessAssessment) => (state.isBusinessAssessment = isBusinessAssessment),
-  setAssessmentPayload: (state, assessmentPayload) => (state.assessmentPayload = assessmentPayload),
-  setActivityErrors: (state, activityErrors) => (state.activityErrors = activityErrors)
+  setIsBusinessAssessment: (state, isBusinessAssessment) =>
+    (state.isBusinessAssessment = isBusinessAssessment),
+  setAssessmentPayload: (state, assessmentPayload) =>
+    (state.assessmentPayload = assessmentPayload),
+  setActivityErrors: (state, activityErrors) =>
+    (state.activityErrors = activityErrors),
 };
 
 const actions = {
@@ -223,12 +226,12 @@ const actions = {
         payload.status == 1
           ? "incomplete"
           : payload.status == 2
-            ? "for assessment"
-            : payload.status == 3
-              ? "for compliance"
-              : payload.status == 4
-                ? "for payment"
-                : "";
+          ? "for assessment"
+          : payload.status == 3
+          ? "for compliance"
+          : payload.status == 4
+          ? "for payment"
+          : "";
 
       dispatch("createPrompt", {
         type: "success",
@@ -360,8 +363,12 @@ const actions = {
   async addBusinessActivity({ commit, getters, dispatch }, payload) {
     try {
       for (let item of payload) {
-        if(item.application_number == '' || item.application_number == null || item.application_number == undefined){
-          item.application_number = getters.businessApplication.id; 
+        if (
+          item.application_number == "" ||
+          item.application_number == null ||
+          item.application_number == undefined
+        ) {
+          item.application_number = getters.businessApplication.id;
         }
       }
       const response = await axios.post(
@@ -377,9 +384,13 @@ const actions = {
   },
   async addRenewBusinessActivity({ commit, getters, dispatch }, payload) {
     try {
-      const response = await axios.post(`${baseUrl}/api/business-activity/`, payload, { headers: { Authorization: `jwt ${getters.authToken}` } })
+      const response = await axios.post(
+        `${baseUrl}/api/business-activity/`,
+        payload,
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
+      );
     } catch (err) {
-      err.response ? console.log(err.response) : console.log(err)
+      err.response ? console.log(err.response) : console.log(err);
     }
   },
   async updateBusinessApplication({ commit, getters }, payload) {
@@ -556,7 +567,7 @@ const actions = {
       );
       commit("setBusinessAssessmentMessage", response.data.message);
       commit("setIsAssessmentHasError", false);
-      commit('setAssessmentPayload', {})
+      commit("setAssessmentPayload", {});
     } catch (err) {
       commit("setIsAssessmentHasError", true);
       console.log(err);
@@ -675,17 +686,79 @@ const actions = {
   },
   async getBusinessActivityRenewal({ commit, getters }, payload) {
     try {
-      const response = await axios.get(`${baseUrl}/api/business-activity-renewal?application_number=${payload}`, {
-        headers: { Authorization: `jwt ${getters.authToken}` }
-      })
-      await commit('setBusinessActivities', response.data)
+      const response = await axios.get(
+        `${baseUrl}/api/business-activity-renewal?application_number=${payload}`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+        }
+      );
+      await commit("setBusinessActivities", response.data);
     } catch (err) {
       console.log(err);
       if (err.response) {
         console.log(err.response.data);
       }
     }
-  }
+  },
+  async getBusinessRequirementRenewal({ commit, getters, dispatch }, payload) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/api/business-requirement-renewal?application_number=${payload}`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+        }
+      );
+      if (response.data.length < 1) {
+        let requirements_payload = {
+          application_id: payload,
+          is_active: false,
+          is_draft: true,
+        };
+        await dispatch("addApplicationRequirements", requirements_payload);
+      } else {
+        await commit("setApplicationRequirements", response.data[0]);
+      }
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response.data);
+      }
+    }
+  },
+  async getBusinessActiveRequirement({ commit, getters }) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/api/business-active-requirements?application_number=${getters.businessApplication.id}`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+        }
+      );
+      console.log(response.data);
+      await commit("setApplicationRequirements", response.data[0]);
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response.data);
+      }
+    }
+  },
+  async renewBusinessApplication({ commit, getters }) {
+    try {
+      const response = await axios.post(
+        `${baseUrl}/api/renew-business-application/`,
+        { application_number: getters.businessApplication.id },
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+        }
+      );
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response.data);
+      }
+    }
+  },
 };
 
 export default {

@@ -1078,7 +1078,6 @@ export default {
           icon: "error",
         });
       }
-      console.log(activity_errors_holder);
     },
   },
 };

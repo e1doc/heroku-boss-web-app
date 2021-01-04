@@ -28,7 +28,7 @@
       description="If required by national laws (e.g. Building Code) and local laws. Note For those without Occupancy Permit, sketch of business location including front full view picture of establishment."
       name="occupancypermit"
       :properties="getProperty('occupancy_permit')"
-      :hasError="uploadErrors.business_registration_proof"
+      :hasError="uploadErrors.occupancy_permit"
       fileLabel="occupancy_permit"
       type="business"
       uploadType="application/pdf"
@@ -68,6 +68,7 @@
 import ButtonBlock from "@/components/ButtonBlock";
 import BaseFileUploader from "@/components/forms/BaseFileUploader";
 import BaseSelect from "@/components/forms/BaseSelect";
+import { mapGetters } from "vuex";
 export default {
   name: "RenewalBusinessUploadStep",
   components: {
@@ -85,13 +86,18 @@ export default {
       required: ["business_registration_proof", "occupancy_permit"],
       uploadErrors: {
         business_registration_proof: false,
-        occupancy_permit: false
+        occupancy_permit: false,
       },
     };
   },
-  // computed: {
-  //   ...mapGetters(["applicationRequirements", "requirements", "draftBusiness", "businessApplication"]),
-  // },
+  computed: {
+    ...mapGetters([
+      "applicationRequirements",
+      "requirements",
+      "draftBusiness",
+      "businessApplication",
+    ]),
+  },
   mounted() {
     this.getRequirements();
   },
@@ -102,16 +108,16 @@ export default {
         if (this.requirements.requirements) {
           if (this.requirements.requirements.length > 0) {
             this.requirements.requirements.map((item) => {
-              if(!validated.includes(item.requirements_label)){
+              if (!validated.includes(item.requirements_label)) {
                 if (this.required.includes(item.requirements_label)) {
-                validated.push(item.requirements_label);
-              }
+                  validated.push(item.requirements_label);
+                }
               }
             });
-          }else{
+          } else {
             this.required.forEach((element) => {
               this.uploadErrors[`${element}`] = true;
-          });
+            });
           }
           this.required.forEach((element) => {
             if (!validated.includes(element)) {
@@ -124,34 +130,37 @@ export default {
             return false;
           }
         } else {
-         this.required.forEach((element) => {
-              this.uploadErrors[`${element}`] = true;
+          this.required.forEach((element) => {
+            this.uploadErrors[`${element}`] = true;
           });
           return false;
         }
       }
     },
     previousStep() {
-      this.$store.commit("setCurrentApplicationStep", "2");
+      this.$store.commit("setCurrentApplicationStep", "1");
     },
     async nextStep() {
       if (!this.draftBusiness) {
         let isValidated = this.validateRequiredFields();
         if (isValidated) {
-          let application_status
+          let application_status;
           this.businessApplication.application_status == 1
-          ? application_status = 0
-          : this.businessApplication.application_status == 3
-          ? application_status = 2
-          : application_status = 0
+            ? (application_status = 0)
+            : this.businessApplication.application_status == 3
+            ? (application_status = 2)
+            : (application_status = 0);
           let payload = {
             is_draft: false,
             application_status: application_status,
             last_submitted: new Date(Date.now()),
-            is_disapprove: false
+            is_disapprove: false,
+            is_approve: false,
+            latest_approver: "",
           };
           await this.$store.dispatch("updateBusinessApplication", payload);
-          this.$store.commit("setCurrentApplicationStep", "4");
+          await this.$store.dispatch("renewBusinessApplication");
+          this.$store.commit("setCurrentApplicationStep", "3");
         } else {
           this.$swal({
             title: "Failed!",
@@ -278,12 +287,9 @@ div.meta-container .meta-custom-upload:hover div.meta-text {
   border-color: #2699fb !important;
 }
 
-
-
-
-@media only screen and ( max-width : 1380px ){
-    div.meta-container h1.meta-form-title{
-        font-size: 22px;
-    }
+@media only screen and (max-width: 1380px) {
+  div.meta-container h1.meta-form-title {
+    font-size: 22px;
+  }
 }
 </style>
