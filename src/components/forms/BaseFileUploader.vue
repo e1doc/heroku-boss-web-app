@@ -5,6 +5,7 @@
     <div class="meta-custom-upload" :class="{ 'has-error': hasError }">
       <form enctype="multipart/form-data" novalidate>
         <input
+          :ref="fileLabel"
           type="file"
           name="file"
           :accept="uploadType"
@@ -79,7 +80,7 @@ export default {
     };
   },
   mounted() {
-    this.$store.commit('setLoading', false)
+    this.$store.commit("setLoading", false);
   },
   computed: {
     ...mapGetters([
@@ -127,21 +128,18 @@ export default {
     async closeConnection() {
       this.connection.close();
     },
-    async sendData(data){
-      this.connection.send(data)
+    async sendData(data) {
+      this.connection.send(data);
     },
     async save2(formData) {
       try {
         this.initiateWebSocket();
         this.connection.onmessage = (event) => {
-          console.log(event);
-          console.log(formData)
-          this.sendData(formData)
+          this.sendData(formData);
           this.closeConnection();
         };
 
-        this.connection.onopen = function(event) {
-          console.log(event);
+        this.connection.onopen = function (event) {
           console.log("Successfully connected to the api websocket server...");
         };
 
@@ -149,48 +147,66 @@ export default {
           console.log(event);
           console.log("successfull closed.");
         };
-
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
     },
     filesChange(fieldName, fileList) {
       // handle file changes
       var formData = new FormData();
       if (!fileList.length) return;
-      let payload = {}
+      let payload = {};
       // append the files to FormData
+
       if (!this.isEvaluation) {
+        let file = this.$refs[`${this.fileLabel}`];
         Array.from(Array(fileList.length).keys()).map((x) => {
-          this.filename = fileList[x].name;
-          formData.append(fieldName, fileList[x]);
-          let requirement_id =
-            this.type === "business"
-              ? this.applicationRequirements.id
-              : this.buildingApplicationRequirements.id;
-          formData.append("requirement_id", requirement_id);
-          formData.append("requirements_label", this.fileLabel);
-          formData.append("filename", fileList[x].name);
-          payload.requirement_id = requirement_id
-          payload.requirements_label = this.fileLabel
-          payload.filename = fileList[x].name
-          payload.file = fileList[x].file
-          console.log(fileList[x])
+          if (fileList[x].size <= 26214400) {
+            this.filename = fileList[x].name;
+            formData.append(fieldName, fileList[x]);
+            let requirement_id =
+              this.type === "business"
+                ? this.applicationRequirements.id
+                : this.buildingApplicationRequirements.id;
+            formData.append("requirement_id", requirement_id);
+            formData.append("requirements_label", this.fileLabel);
+            formData.append("filename", fileList[x].name);
+            payload.requirement_id = requirement_id;
+            payload.requirements_label = this.fileLabel;
+            payload.filename = fileList[x].name;
+            payload.file = fileList[x].file;
+            this.save(formData);
+          } else {
+            file.value = null;
+            this.$swal({
+              title: "File is too large!",
+              text: "File size must not exceed 25mb.",
+              icon: "error",
+            });
+          }
         });
       } else {
         Array.from(Array(fileList.length).keys()).map((x) => {
-          this.filename = fileList[x].name;
-          formData.append(fieldName, fileList[x]);
-          let requirement_id =
-            this.type === "business"
-              ? this.applicationRequirements.id
-              : this.buildingApplicationRequirements.id;
-          formData.append("filename", fileList[x].name);
+          if (fileList[x].size <= 26214400) {
+            this.filename = fileList[x].name;
+            formData.append(fieldName, fileList[x]);
+            let requirement_id =
+              this.type === "business"
+                ? this.applicationRequirements.id
+                : this.buildingApplicationRequirements.id;
+            formData.append("filename", fileList[x].name);
+            this.save(formData);
+          } else {
+            file.value = null;
+            this.$swal({
+              title: "File is too large!",
+              text: "File size must not exceed 25mb.",
+              icon: "error",
+            });
+          }
         });
       }
       // save it
-      console.log(this.filename)
-      this.save(formData);
     },
   },
 };
