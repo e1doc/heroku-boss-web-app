@@ -531,6 +531,7 @@ const actions = {
       await dispatch("getApplicationRequirements");
     } catch (err) {
       commit("setLoading", false);
+      commit("setIsFileUploadFailed", true);
       console.log(err.response);
       dispatch("createPrompt", {
         type: "error",
@@ -549,6 +550,7 @@ const actions = {
           params: payload,
         }
       );
+      console.trace(response.data.requirements);
       response.data.requirements = response.data.requirements.filter(
         (item) => item.is_active == true
       );
