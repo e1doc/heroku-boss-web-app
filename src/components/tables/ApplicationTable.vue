@@ -24,9 +24,13 @@
                 : "N/A"
             }}
           </div>
-          <div class="td">
+          <div class="td" v-if="application.application_type === 'new'">
             <span class="td-label show-in-mobile">DATE : </span>
             {{ application.created_at | moment("MMMM DD YYYY") }}
+          </div>
+          <div class="td" v-if="application.application_type === 'renewal'">
+            <span class="td-label show-in-mobile">DATE : </span>
+            {{ application.updated_at | moment("MMMM DD YYYY") }}
           </div>
           <!-- <div class="td">
             <span class="td-label show-in-mobile">ACCOUNT #: </span>
