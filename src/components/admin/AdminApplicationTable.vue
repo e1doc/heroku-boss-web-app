@@ -93,8 +93,11 @@
                 : "N/A"
             }}
           </div>
-          <div class="td">
+          <div class="td" v-if="application.application_type === 'new'">
             {{ application.created_at | moment("MMMM DD YYYY") }}
+          </div>
+          <div class="td" v-if="application.application_type === 'renewal'">
+            {{ application.updated_at | moment("MMMM DD YYYY") }}
           </div>
           <!-- <div class="td">
             {{
