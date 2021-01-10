@@ -155,35 +155,31 @@ export default {
   },
   methods: {
     async renew(application) {
-      if (application.is_enrolled && !application.is_renewed) {
-        await this.getLocalBusinessDetails(application.account_number);
-      } else {
-        if (application.id) {
-          let data = {
-            id: application.id,
-            created_at: application.created_at,
-            updated_at: application.updated_at,
-            is_draft: application.is_draft,
-            is_approve: application.is_approve,
-            is_disapprove: application.is_disapprove,
-            account_number: application.account_number,
-            application_status: application.application_status,
-            last_submitted: application.last_submitted,
-          };
-          this.$store.commit("setBusinessApplication", data);
-        }
-        if (application.businessbasicinformation !== null) {
-          this.$store.commit(
-            "setBusinessBasicInformation",
-            application.businessbasicinformation
-          );
-        }
-        if (application.businessdetails !== null) {
-          this.$store.commit("setBusinessDetails", application.businessdetails);
-        }
-        if (application.lessordetails !== null) {
-          this.$store.commit("setLessorDetails", application.lessordetails);
-        }
+      if (application.id) {
+        let data = {
+          id: application.id,
+          created_at: application.created_at,
+          updated_at: application.updated_at,
+          is_draft: application.is_draft,
+          is_approve: application.is_approve,
+          is_disapprove: application.is_disapprove,
+          account_number: application.account_number,
+          application_status: application.application_status,
+          last_submitted: application.last_submitted,
+        };
+        this.$store.commit("setBusinessApplication", data);
+      }
+      if (application.businessbasicinformation !== null) {
+        this.$store.commit(
+          "setBusinessBasicInformation",
+          application.businessbasicinformation
+        );
+      }
+      if (application.businessdetails !== null) {
+        this.$store.commit("setBusinessDetails", application.businessdetails);
+      }
+      if (application.lessordetails !== null) {
+        this.$store.commit("setLessorDetails", application.lessordetails);
       }
       await this.$store.dispatch("getBusinessActivityRenewal", application.id);
       await this.$store.dispatch(
