@@ -132,6 +132,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+const oneDocToken = process.env.VUE_APP_ONE_DOC_TOKEN;
 export default {
   name: "ProfileTable",
   computed: {
@@ -154,31 +155,35 @@ export default {
   },
   methods: {
     async renew(application) {
-      if (application.id) {
-        let data = {
-          id: application.id,
-          created_at: application.created_at,
-          updated_at: application.updated_at,
-          is_draft: application.is_draft,
-          is_approve: application.is_approve,
-          is_disapprove: application.is_disapprove,
-          account_number: application.account_number,
-          application_status: application.application_status,
-          last_submitted: application.last_submitted,
-        };
-        this.$store.commit("setBusinessApplication", data);
-      }
-      if (application.businessbasicinformation !== null) {
-        this.$store.commit(
-          "setBusinessBasicInformation",
-          application.businessbasicinformation
-        );
-      }
-      if (application.businessdetails !== null) {
-        this.$store.commit("setBusinessDetails", application.businessdetails);
-      }
-      if (application.lessordetails !== null) {
-        this.$store.commit("setLessorDetails", application.lessordetails);
+      if (application.is_enrolled && !application.is_renewed) {
+        await this.getLocalBusinessDetails(application.account_number);
+      } else {
+        if (application.id) {
+          let data = {
+            id: application.id,
+            created_at: application.created_at,
+            updated_at: application.updated_at,
+            is_draft: application.is_draft,
+            is_approve: application.is_approve,
+            is_disapprove: application.is_disapprove,
+            account_number: application.account_number,
+            application_status: application.application_status,
+            last_submitted: application.last_submitted,
+          };
+          this.$store.commit("setBusinessApplication", data);
+        }
+        if (application.businessbasicinformation !== null) {
+          this.$store.commit(
+            "setBusinessBasicInformation",
+            application.businessbasicinformation
+          );
+        }
+        if (application.businessdetails !== null) {
+          this.$store.commit("setBusinessDetails", application.businessdetails);
+        }
+        if (application.lessordetails !== null) {
+          this.$store.commit("setLessorDetails", application.lessordetails);
+        }
       }
       await this.$store.dispatch("getBusinessActivityRenewal", application.id);
       await this.$store.dispatch(
@@ -197,6 +202,32 @@ export default {
         this.$store.commit("setCurrentSelectedProperty", item);
       }
       this.$modal.show("soaModal");
+    },
+    async getLocalBusinessDetails(payload) {
+      try {
+        let config = {
+          headers: {
+            "OneDoc-Token": oneDocToken,
+            "Content-Type": "application/json",
+          },
+        };
+        const response = await axios.post(
+          `https://api.bacoor.gov.ph/lguapi/`,
+          payload,
+          config
+        );
+
+        if (response.data.Response.Result.accountno) {
+        } else {
+          this.$swal({
+            title: "Failed!",
+            text: response.data.Response.Result.message,
+            icon: "error",
+          });
+        }
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };

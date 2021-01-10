@@ -5,6 +5,8 @@
       <div class="th">DATE</div>
       <!-- <div class="th" v-if="currentType === 'business'">Account #</div> -->
       <div class="th" v-if="currentType === 'real_property'">TD #</div>
+      <div class="th" v-if="currentType === 'business'">Tradename</div>
+      <div class="th" v-if="currentType === 'business'">Application Type</div>
       <div class="th">STATUS</div>
       <div class="th">ACTIONS</div>
     </div>
@@ -99,6 +101,12 @@
               application.account_number ? application.account_number : "N/A"
             }}
           </div> -->
+          <div class="td">
+            {{ application.businessdetails.trade_name }}
+          </div>
+          <div class="td">
+            {{ application.application_type === "new" ? "New" : "Renewal" }}
+          </div>
           <div class="td">
             {{
               application.application_status == 0

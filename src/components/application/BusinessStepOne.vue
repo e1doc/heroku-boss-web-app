@@ -1,11 +1,13 @@
 <template>
   <div class="meta-container">
-        <modal name="agreementModal"
-         height="auto"
-         :adaptive="true"
-         :classes="['vue-modal']"
-         :clickToClose="false"
-         ><agreement-modal/></modal>
+    <modal
+      name="agreementModal"
+      height="auto"
+      :adaptive="true"
+      :classes="['vue-modal']"
+      :clickToClose="false"
+      ><agreement-modal
+    /></modal>
     <h1 class="meta-form-title">Basic Information</h1>
     <div class="meta-form-group mb60">
       <div class="meta-input-label mt10 mb10">Type of Organization</div>
@@ -20,9 +22,7 @@
         class="mb15"
         @change="changeOrganization"
       />
-      <div class="meta-input-label mt10 mb10">
-        Mode of Payment
-      </div>
+      <div class="meta-input-label mt10 mb10">Mode of Payment</div>
       <base-select
         placeholder="--- Select from the options ---"
         :options="modeofpayment"
@@ -187,7 +187,7 @@ import BaseTelNumber from "@/components/forms/BaseTelNumber";
 import BaseSelect from "@/components/forms/BaseSelect";
 import BaseDatePicker from "@/components/forms/BaseDatePicker";
 import { mapGetters } from "vuex";
-import AgreementModal from "@/components/application/AgreementModal"
+import AgreementModal from "@/components/application/AgreementModal";
 export default {
   name: "BusinessStepOne",
   components: {
@@ -197,7 +197,7 @@ export default {
     BaseTelNumber,
     BaseSelect,
     BaseDatePicker,
-    AgreementModal
+    AgreementModal,
   },
   data() {
     return {
@@ -271,7 +271,7 @@ export default {
           "tin",
           "has_tax_incentive",
           "owner_email_address",
-          "owner_mobile_number"
+          "owner_mobile_number",
         ],
       },
     };
@@ -284,7 +284,7 @@ export default {
       "applicationHasError",
       "stepOneErrors",
       "draftBusiness",
-      "isPrivacyAgree"
+      "isPrivacyAgree",
     ]),
   },
   watch: {
@@ -300,8 +300,8 @@ export default {
   mounted() {
     this.preFillForm();
     this.$store.commit("setLoading", false);
-    if(!this.isPrivacyAgree){
-        this.$modal.show("agreementModal");
+    if (!this.isPrivacyAgree) {
+      this.$modal.show("agreementModal");
     }
   },
   methods: {
@@ -319,19 +319,21 @@ export default {
         ];
         if (this.basic_information.type_of_organization !== "single") {
           required_fields.forEach((item) => {
-            if(!this.unrequired.basic_information.includes(item)){
+            if (!this.unrequired.basic_information.includes(item)) {
               this.unrequired.basic_information.push(item);
             }
           });
         } else {
-        this.unrequired.basic_information = this.unrequired.basic_information.filter(item => !required_fields.includes(item));
+          this.unrequired.basic_information = this.unrequired.basic_information.filter(
+            (item) => !required_fields.includes(item)
+          );
         }
       }
     },
     async nextStep() {
       this.$store.commit("setLoading", true);
       if (this.businessApplication.id) {
-        this.business_application.is_disapprove = this.businessApplication.is_disapprove
+        this.business_application.is_disapprove = this.businessApplication.is_disapprove;
         await this.$store.dispatch(
           "updateBusinessApplication",
           this.business_application

@@ -157,6 +157,7 @@ export default {
             is_disapprove: false,
             is_approve: false,
             latest_approver: "",
+            application_type: "renewal",
           };
           await this.$store.dispatch("updateBusinessApplication", payload);
           await this.$store.dispatch("renewBusinessApplication");
