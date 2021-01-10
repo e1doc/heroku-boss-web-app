@@ -74,6 +74,8 @@ import {
   faPaperclip,
   faCaretDown,
   faMinus,
+  faTimesCircle,
+  faCheckCircle,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add([
@@ -128,7 +130,9 @@ library.add([
   faListAlt,
   faPaperclip,
   faCaretDown,
-  faMinus
+  faMinus,
+  faTimesCircle,
+  faCheckCircle
 ]);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.component('paginate', Paginate)
