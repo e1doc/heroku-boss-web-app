@@ -22,10 +22,9 @@
     </modal>
     <div class="meta-container flex-wrap" ref="content">
       <div class="meta-form-body flex-wrap">
-        <div class="meta-txt-download" @click="downloadApplication"><font-awesome-icon
-        icon="save"
-        class="mr10 icon"
-      />Download</div>
+        <div class="meta-txt-download" @click="downloadApplication">
+          <font-awesome-icon icon="save" class="mr10 icon" />Download
+        </div>
         <h1 class="meta-form-title">Business Application Details</h1>
         <!-- Application Date and Nos. -->
         <div class="meta-text-group flex-wrap">
@@ -48,7 +47,7 @@
                 businessBasicInformation.type_of_organization
                   .charAt(0)
                   .toUpperCase() +
-                  businessBasicInformation.type_of_organization.slice(1)
+                businessBasicInformation.type_of_organization.slice(1)
               }}
             </div>
           </div>
@@ -416,9 +415,7 @@
                 <div class="form-th no-br no-bl no-bb">Essential / Non-essential :</div>
               </div>
             </div> -->
-            <div class="form-th sales">
-              Capitalization
-            </div>
+            <div class="form-th sales">Capitalization</div>
           </div>
           <div class="meta-table-row" v-if="businessActivities.length > 0">
             <div
@@ -489,7 +486,7 @@
             class="assessment-result-list mt30"
             v-if="
               businessApplication.application_status == 2 ||
-                businessApplication.application_status == 4
+              businessApplication.application_status == 4
             "
           >
             <div class="meta-group-title">Assessment Result</div>
@@ -521,12 +518,12 @@
           class="meta-button-group flex-center"
           v-if="
             !businessApplication.is_approve &&
-              !businessApplication.is_disapprove &&
-              (groups.includes('superadmin') ||
-                groups.includes('business_application_approver')) &&
-              businessApplication.application_status != 2 &&
-              businessApplication.application_status != 4 &&
-              businessApplication.application_status != 3
+            !businessApplication.is_disapprove &&
+            (groups.includes('superadmin') ||
+              groups.includes('business_application_approver')) &&
+            businessApplication.application_status != 2 &&
+            businessApplication.application_status != 4 &&
+            businessApplication.application_status != 3
           "
         >
           <button-block type="approve" @click.native="approveApplication(true)">
@@ -553,8 +550,8 @@
         <div
           v-if="
             businessDeptCanAssess &&
-              businessApplication.application_status == 2 &&
-              isAssessmentActive
+            businessApplication.application_status == 2 &&
+            isAssessmentActive
           "
           class="meta-button-group flex-center"
         >
@@ -590,7 +587,7 @@ export default {
     BaseInput,
     AppLink,
     ButtonFull,
-    DownloadableBusinessForm
+    DownloadableBusinessForm,
   },
   data() {
     return {
@@ -641,8 +638,8 @@ export default {
       }
       return parts.join(".");
     },
-    downloadApplication(){
-        this.$store.commit("setPrintBusiness", true);
+    downloadApplication() {
+      this.$store.commit("setPrintBusiness", true);
     },
     async openBusinessRemarks(id) {
       await this.$store.dispatch("getBusinessRemarks", id);
@@ -653,6 +650,7 @@ export default {
         id: this.businessApplication.id,
         status: this.applicationStatus,
         account_number: this.account_number,
+        on_renewal: false,
       };
       await this.$store.dispatch(
         "approveBusinessApplication",
@@ -830,7 +828,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.meta-txt-download{
+.meta-txt-download {
   padding: 10x 10px 10px 0px;
   text-decoration: underline;
   cursor: pointer;
@@ -858,7 +856,7 @@ div.meta-parent-box {
   width: 100%;
   margin-top: 50px;
   padding-bottom: 50px;
-.meta-form-holder {
+  .meta-form-holder {
     position: absolute;
     opacity: 0;
     top: -500px;
@@ -1082,10 +1080,10 @@ span.form-td-label {
   }
 }
 
-@media only screen and ( max-width: 1180px ){
-    div.meta-parent-box .meta-form-holder{
-      width: 100%;
-      overflow: hidden;
+@media only screen and (max-width: 1180px) {
+  div.meta-parent-box .meta-form-holder {
+    width: 100%;
+    overflow: hidden;
   }
 }
 
