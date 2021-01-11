@@ -66,7 +66,18 @@
           <div class="td actions">
             <div
               @click="openBusinessApplication('edit', application)"
-              v-if="application.is_draft"
+              v-if="
+                application.is_draft && application.application_type === 'new'
+              "
+            >
+              <font-awesome-icon icon="edit" class="mr5 view-icon" />EDIT
+            </div>
+            <div
+              @click="renew(application)"
+              v-if="
+                application.is_draft &&
+                application.application_type === 'renewal'
+              "
             >
               <font-awesome-icon icon="edit" class="mr5 view-icon" />EDIT
             </div>
@@ -433,6 +444,45 @@ export default {
       } else {
         this.$router.push({ name: "ViewBuildingDetails" });
       }
+    },
+    async renew(application) {
+      if (application.id) {
+        let data = {
+          id: application.id,
+          created_at: application.created_at,
+          updated_at: application.updated_at,
+          is_draft: application.is_draft,
+          is_approve: application.is_approve,
+          is_disapprove: application.is_disapprove,
+          account_number: application.account_number,
+          application_status: application.application_status,
+          last_submitted: application.last_submitted,
+          is_renewed: application.is_renewed,
+          is_enrolled: application.is_enrolled,
+        };
+        await this.$store.commit("setBusinessApplication", data);
+      }
+      if (application.businessbasicinformation !== null) {
+        await this.$store.commit(
+          "setBusinessBasicInformation",
+          application.businessbasicinformation
+        );
+      }
+      if (application.businessdetails !== null) {
+        await this.$store.commit(
+          "setBusinessDetails",
+          application.businessdetails
+        );
+      }
+      if (application.lessordetails !== null) {
+        await this.$store.commit("setLessorDetails", application.lessordetails);
+      }
+      await this.$store.dispatch("getBusinessActivityRenewal", application.id);
+      await this.$store.dispatch(
+        "getBusinessRequirementRenewal",
+        application.id
+      );
+      await this.$router.push({ name: "BusinessRenewal" });
     },
   },
 };

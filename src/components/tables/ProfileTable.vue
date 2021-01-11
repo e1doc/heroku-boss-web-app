@@ -234,7 +234,7 @@ export default {
           const business_application = {
             is_renewed: true,
             is_disapprove: false,
-            on_renewal: true,
+            application_type: "renewal",
           };
           const business_basic_information = {
             application_number: this.businessApplication.id,
