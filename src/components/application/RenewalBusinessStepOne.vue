@@ -119,6 +119,10 @@ export default {
       handler(status) {
         if (status) {
           this.nextStep();
+          this.$store.dispatch("updateBusinessApplication", {
+            is_disapprove: false,
+            is_draft: true,
+          });
           this.$swal({
             title: "Success!",
             text: "data successfully saved as draft.",
