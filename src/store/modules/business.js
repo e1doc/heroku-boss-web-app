@@ -429,7 +429,7 @@ const actions = {
     } catch (err) {
       let errors = { key: "basic_information", value: err.response.data };
       commit("setStepOneErrors", errors);
-      console.log(err);
+      err.response ? console.log(err.response.data) : console.log(err);
       commit("setBasicInfoHasError", true);
       commit("setLoading", false);
     }

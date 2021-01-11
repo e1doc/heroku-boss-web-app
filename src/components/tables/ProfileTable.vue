@@ -132,6 +132,8 @@
 
 <script>
 import { mapGetters } from "vuex";
+import axios from "axios";
+import moment from "moment-timezone";
 const oneDocToken = process.env.VUE_APP_ONE_DOC_TOKEN;
 export default {
   name: "ProfileTable",
@@ -141,6 +143,7 @@ export default {
       "businessProfiles",
       "buildingProfiles",
       "realPropertyProfiles",
+      "businessApplication",
     ]),
   },
   data() {
@@ -166,27 +169,34 @@ export default {
           account_number: application.account_number,
           application_status: application.application_status,
           last_submitted: application.last_submitted,
+          is_renewed: application.is_renewed,
+          is_enrolled: application.is_enrolled,
         };
-        this.$store.commit("setBusinessApplication", data);
+        await this.$store.commit("setBusinessApplication", data);
       }
       if (application.businessbasicinformation !== null) {
-        this.$store.commit(
+        await this.$store.commit(
           "setBusinessBasicInformation",
           application.businessbasicinformation
         );
       }
       if (application.businessdetails !== null) {
-        this.$store.commit("setBusinessDetails", application.businessdetails);
+        await this.$store.commit(
+          "setBusinessDetails",
+          application.businessdetails
+        );
       }
       if (application.lessordetails !== null) {
-        this.$store.commit("setLessorDetails", application.lessordetails);
+        await this.$store.commit("setLessorDetails", application.lessordetails);
+      }
+      if (!application.is_renewed && application.is_enrolled) {
+        await this.getLocalBusinessDetails(application.account_number);
       }
       await this.$store.dispatch("getBusinessActivityRenewal", application.id);
       await this.$store.dispatch(
         "getBusinessRequirementRenewal",
         application.id
       );
-      await this.$store.commit("setBusinessApplication", application);
       await this.$router.push({ name: "BusinessRenewal" });
     },
     showModal(type, item) {
@@ -199,12 +209,19 @@ export default {
       }
       this.$modal.show("soaModal");
     },
-    async getLocalBusinessDetails(payload) {
+    async getLocalBusinessDetails(account_number) {
       try {
+        this.$store.commit("setLoading", true);
         let config = {
           headers: {
             "OneDoc-Token": oneDocToken,
             "Content-Type": "application/json",
+          },
+        };
+        const payload = {
+          name: "RenewBusinessApplication",
+          param: {
+            accountno: account_number,
           },
         };
         const response = await axios.post(
@@ -212,9 +229,98 @@ export default {
           payload,
           config
         );
-
-        if (response.data.Response.Result.accountno) {
+        const data = response.data.Response.Result;
+        if (data.accountno) {
+          const business_application = {
+            is_renewed: true,
+            is_disapprove: false,
+            on_renewal: true,
+          };
+          const business_basic_information = {
+            application_number: this.businessApplication.id,
+            dti_sec_cda_reg_number:
+              data.orgtype == "SINGLE" ? data.dtino : data.secno,
+            dti_sec_cda_reg_date:
+              data.orgtype == "SINGLE"
+                ? moment(data.dtidate).format()
+                : moment(data.secdate).format(),
+            type_of_organization: data.orgtype,
+            ctc_no: "",
+            tin: "",
+            has_tax_incentive: false,
+            government_entity: "",
+            owner_first_name: data.ownerfirstname,
+            owner_middle_name: data.ownermiddlename,
+            owner_last_name: data.ownerlastname,
+            owner_complete_address: data.owneraddress,
+            owner_email_address: data.owneremail,
+            owner_telephone_number: data.ownertelno,
+            owner_mobile_number: "",
+            mode_of_payment: this.getPaymode(data.paymode),
+          };
+          const business_details = {
+            application_number: this.businessApplication.id,
+            name: data.businessname,
+            trade_name: data.tradename,
+            complete_business_address: "",
+            president_first_name: data.presidentname,
+            president_middle_name: "",
+            president_last_name: "",
+            telephone_number: data.businesstelno,
+            email_address: data.businessemail,
+            property_index_number: "",
+            area: data.businessarea,
+            total_employees: data.empcount,
+            residing_employees: data.empcount,
+            address_no: data.addressno,
+            subdivision: data.subdivision,
+            unit_no: data.unitno,
+            floor_no: data.floorno,
+            house_no: "",
+            block_no: data.block,
+            lot_no: data.lot,
+            building_no: data.buildingno,
+            building_name: data.buildingname,
+            street: data.street,
+            barangay: data.barangay,
+            city: "Bacoor City, Cavite",
+          };
+          const lessor_details = {
+            first_name: data.lessorname,
+            middle_name: "",
+            last_name: "",
+            complete_address: data.lessoraddress,
+            telephone_number: data.lessortelno,
+            mobile_number: "",
+            email_address: data.lessoremail,
+            gross_monthly_rental: data.rentamount,
+          };
+          const business_activities = [];
+          for (let item of response.data.Response.Result.businesslines) {
+            const activity = {
+              line_of_business: item.line,
+              capitalization: item.gross,
+              units: 1,
+            };
+            business_activities.push(activity);
+          }
+          await this.$store.dispatch(
+            "updateBusinessApplication",
+            business_application
+          );
+          await this.$store.dispatch(
+            "updateBusinessBasicInformation",
+            business_basic_information
+          );
+          await this.$store.dispatch("updateBusinessDetails", business_details);
+          await this.$store.dispatch("addLessorDetails", lessor_details);
+          await this.$store.dispatch(
+            "addBusinessActivity",
+            business_activities
+          );
+          this.$store.commit("setLoading", false);
         } else {
+          this.$store.commit("setLoading", false);
           this.$swal({
             title: "Failed!",
             text: response.data.Response.Result.message,
@@ -222,7 +328,29 @@ export default {
           });
         }
       } catch (err) {
+        this.$store.commit("setLoading", false);
         console.log(err);
+      }
+    },
+    getPaymode(mode) {
+      const paymentOptions = [
+        {
+          label: "Annually",
+          value: "A",
+        },
+        {
+          label: "Semi-annually",
+          value: "S",
+        },
+        {
+          label: "Quarterly",
+          value: "Q",
+        },
+      ];
+      for (let item of paymentOptions) {
+        if (item.value === mode) {
+          return item.label;
+        }
       }
     },
   },
