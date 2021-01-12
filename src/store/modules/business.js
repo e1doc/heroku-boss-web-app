@@ -516,7 +516,7 @@ const actions = {
           activeBusinessActivities.push(item);
         }
       });
-      commit("setBusinessActivities", item);
+      commit("setBusinessActivities", activeBusinessActivities);
     } catch (err) {
       console.log(err);
       commit("setLoading", false);
