@@ -189,17 +189,14 @@ const actions = {
         }
       });
       await commit("setBusinessActivities", activeBusinessActivities);
-      await this.$store.dispatch(
-        "getBusinessRequirementRenewal",
-        response.data.id
-      );
-      // await commit(
-      //   "setApplicationRequirements",
-      //   response.data.businessapplicationrequirements[0]
-      // );
       if (response.data.on_renewal) {
+        await dispatch("getBusinessRequirementRenewal", response.data.id);
         await router.push({ name: "BusinessRenewal" });
       } else {
+        await commit(
+          "setApplicationRequirements",
+          response.data.businessapplicationrequirements[0]
+        );
         await router.push({ name: "BusinessPermitApplication" });
       }
     } catch (err) {
