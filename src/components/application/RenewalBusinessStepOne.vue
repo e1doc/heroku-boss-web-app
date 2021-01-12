@@ -9,6 +9,20 @@
       ><agreement-modal
     /></modal>
     <h1 class="meta-form-title">Business Details</h1>
+    <div class="meta-main-details">
+        <div class="meta-details-text flex-center">
+            <div class="meta-label">Owner's Name: </div>
+            <div class="meta-value">John Michael Doe</div>
+        </div>
+        <div class="meta-details-text flex-center">
+            <div class="meta-label">Corporate Name: </div>
+            <div class="meta-value">Lorem Ipsum Dolor Imet</div>
+        </div>
+        <div class="meta-details-text flex-center">
+            <div class="meta-label">Trade Name: </div>
+            <div class="meta-value">Lorem Ipsum Dolor Imet</div>
+        </div>
+    </div>
     <div class="meta-form-group p-relative mb60">
       <base-select
         placeholder="--- Select from the options ---"
@@ -18,7 +32,7 @@
         class="mb15"
       />
     </div>
-    <h1 class="meta-form-title">Business Activity</h1>
+    <h2 class="meta-form-title">Business Activity</h2>
     <div class="meta-form-group p-relative mb60">
       <div
         class="meta-multi-group mb40"
@@ -270,7 +284,7 @@ div.meta-container {
   padding: 50px;
   background-color: #eaf6ff;
   border-radius: 20px;
-  h1.meta-form-title {
+  .meta-form-title {
     margin-bottom: 40px;
   }
   div.meta-form-group {
@@ -333,12 +347,37 @@ div.meta-container
   cursor: pointer;
 }
 
+
+.meta-main-details {
+    padding: 25px 30px 15px;
+    background: #e0f2ff;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    .meta-details-text {
+        width: 100%;
+        max-width: 500px;
+        margin-bottom: 10px;
+        .meta-label {
+            width: 180px;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            line-height: 2;
+            color: #1492e6;
+        }
+        .meta-value {
+            color: #0a0a0a;
+            line-height: 1.4;
+        }
+    }
+}
+
 /*
 MOBILE RESPONSIVENESS 
 --------------------------------------------------------------*/
 
 @media only screen and (max-width: 1380px) {
-  div.meta-container h1.meta-form-title {
+  div.meta-container .meta-form-title {
     font-size: 22px;
   }
 }
@@ -348,7 +387,7 @@ MOBILE RESPONSIVENESS
     margin-bottom: 8px;
   }
 
-  div.meta-container h1.meta-form-title {
+  div.meta-container .meta-form-title {
     font-size: 20px;
   }
 
@@ -363,7 +402,7 @@ MOBILE RESPONSIVENESS
     padding: 40px 30px;
   }
 
-  div.meta-container h1.meta-form-title {
+  div.meta-container .meta-form-title {
     font-size: 18px;
     margin-bottom: 30px;
   }
@@ -378,7 +417,7 @@ MOBILE RESPONSIVENESS
     padding: 30px 15px;
   }
 
-  div.meta-container h1.meta-form-title {
+  div.meta-container .meta-form-title {
     font-size: 16px;
   }
 

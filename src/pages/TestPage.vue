@@ -24,7 +24,7 @@
       <!-- <faq /> -->
       <!-- <renewal-business-permit-application /> -->
       <!-- <currency-input v-model="value" id="test"/> -->
-      
+      <renewal-business-step-one />
   </section>
 </template>
 
@@ -32,6 +32,7 @@
 import BusinessStepOne from "@/components/application/BusinessStepOne";
 import BusinessStepTwo from "@/components/application/BusinessStepTwo";
 import BuildingStepOne from "@/components/application/BuildingStepOne";
+import RenewalBusinessStepOne from "@/components/application/RenewalBusinessStepOne";
 import BuildingStepTwo from "@/components/application/BuildingStepTwo";
 import ViewBusinessDetails from "@/pages/ViewBusinessDetails";
 import ApproveBusinessApplication from "@/pages/admin/ApproveBusinessApplication";
@@ -73,14 +74,15 @@ export default {
         NewInquiry,
         ReplyInquiry,
         UserReplyInquiry,
-        RenewalBusinessPermitApplication
+        RenewalBusinessStepOne
   },
 }
 </script>
 
 <style lang="scss" scoped>
 section{
-    // max-width: 800px;
+ 
+     // max-width: 800px;
     // margin: 50px auto;
 }
 
