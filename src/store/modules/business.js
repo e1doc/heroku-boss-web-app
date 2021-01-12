@@ -187,7 +187,11 @@ const actions = {
         "setApplicationRequirements",
         response.data.businessapplicationrequirements[0]
       );
-      await router.push({ name: "BusinessPermitApplication" });
+      if (response.data.on_renewal) {
+        await router.push({ name: "BusinessRenewal" });
+      } else {
+        await router.push({ name: "BusinessPermitApplication" });
+      }
     } catch (err) {
       console.log(err);
       console.log(err.response);
