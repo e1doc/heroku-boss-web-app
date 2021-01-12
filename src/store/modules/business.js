@@ -189,10 +189,11 @@ const actions = {
         }
       });
       await commit("setBusinessActivities", activeBusinessActivities);
-      await commit(
-        "setApplicationRequirements",
-        response.data.businessapplicationrequirements[0]
-      );
+      await this.$store.dispatch("getBusinessActiveRequirement");
+      // await commit(
+      //   "setApplicationRequirements",
+      //   response.data.businessapplicationrequirements[0]
+      // );
       if (response.data.on_renewal) {
         await router.push({ name: "BusinessRenewal" });
       } else {
