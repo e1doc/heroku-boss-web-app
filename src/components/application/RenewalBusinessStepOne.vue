@@ -8,10 +8,20 @@
       :clickToClose="false"
       ><agreement-modal
     /></modal>
+    <h1 class="meta-form-title">Business Details</h1>
+    <div class="meta-form-group p-relative mb60">
+      <base-select
+        placeholder="--- Select from the options ---"
+        :options="modeofpayment"
+        v-model="businessBasicInformation.mode_of_payment"
+        name="selectOptions"
+        class="mb15"
+      />
+    </div>
     <h1 class="meta-form-title">Business Activity</h1>
     <div class="meta-form-group p-relative mb60">
       <div
-        class="meta-multi-group"
+        class="meta-multi-group mb40"
         v-for="(activity, index) in activities"
         :key="index"
       >
@@ -88,6 +98,20 @@ export default {
   },
   data() {
     return {
+      modeofpayment: [
+        {
+          label: "Annually",
+          value: "Annually",
+        },
+        {
+          label: "Semi-annually",
+          value: "Semi-annually",
+        },
+        {
+          label: "Quarterly",
+          value: "Quarterly",
+        },
+      ],
       activities: [],
       unrequired: {
         business_activities: [
@@ -122,6 +146,7 @@ export default {
           this.$store.dispatch("updateBusinessApplication", {
             is_disapprove: false,
             is_draft: true,
+            on_renewal: true,
           });
           this.$swal({
             title: "Success!",

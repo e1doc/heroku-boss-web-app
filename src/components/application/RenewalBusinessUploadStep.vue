@@ -96,6 +96,7 @@ export default {
       "requirements",
       "draftBusiness",
       "businessApplication",
+      "businessBasicInformation",
     ]),
   },
   mounted() {
@@ -161,6 +162,10 @@ export default {
             application_type: "renewal",
           };
           await this.$store.dispatch("updateBusinessApplication", payload);
+          await this.$store.dispatch(
+            "updateBusinessBasicInformation",
+            this.businessBasicInformation
+          );
           await this.$store.dispatch("renewBusinessApplication");
           let resetAssessmentPayload = {
             business_application: this.businessApplication.id,
