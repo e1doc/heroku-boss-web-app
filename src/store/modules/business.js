@@ -182,7 +182,13 @@ const actions = {
       );
       await commit("setBusinessDetails", response.data.businessdetails);
       await commit("setLessorDetails", response.data.lessordetails);
-      await commit("setBusinessActivities", response.data.businessactivity);
+      let activeBusinessActivities = [];
+      response.data.businessactivity.forEach((item) => {
+        if (item.is_active) {
+          activeBusinessActivities.push(item);
+        }
+      });
+      await commit("setBusinessActivities", activeBusinessActivities);
       await commit(
         "setApplicationRequirements",
         response.data.businessapplicationrequirements[0]
