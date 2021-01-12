@@ -510,7 +510,13 @@ const actions = {
         headers: { Authorization: `jwt ${getters.authToken}` },
         params: payload,
       });
-      commit("setBusinessActivities", response.data);
+      let activeBusinessActivities = [];
+      response.data.forEach((item) => {
+        if (item.is_active) {
+          activeBusinessActivities.push(item);
+        }
+      });
+      commit("setBusinessActivities", item);
     } catch (err) {
       console.log(err);
       commit("setLoading", false);
