@@ -182,12 +182,14 @@ const actions = {
       );
       await commit("setBusinessDetails", response.data.businessdetails);
       await commit("setLessorDetails", response.data.lessordetails);
-      let activeBusinessActivities = [];
-      response.data.businessactivity.forEach((item) => {
-        if (item.is_active) {
-          activeBusinessActivities.push(item);
-        }
-      });
+      // let activeBusinessActivities = [];
+
+      // response.data.businessactivity.forEach((item) => {
+      //   if (item.is_active) {
+      //     activeBusinessActivities.push(item);
+      //   }
+      // });
+      await dispatch("getBusinessActivityRenewal", response.data.id);
       await commit("setBusinessActivities", activeBusinessActivities);
       if (response.data.on_renewal) {
         await dispatch("getBusinessRequirementRenewal", response.data.id);
