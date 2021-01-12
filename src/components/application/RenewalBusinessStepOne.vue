@@ -27,7 +27,7 @@
       <base-select
         placeholder="--- Select from the options ---"
         :options="modeofpayment"
-        v-model="businessBasicInformation.mode_of_payment"
+        v-model="paymode"
         name="selectOptions"
         class="mb15"
       />
@@ -126,6 +126,7 @@ export default {
           value: "Quarterly",
         },
       ],
+      paymode: "",
       activities: [],
       unrequired: {
         business_activities: [
@@ -176,6 +177,7 @@ export default {
   },
   mounted() {
     this.$store.commit("setLoading", false);
+    this.paymode = this.businessBasicInformation.mode_of_payment;
     this.preFillForm();
     if (!this.isPrivacyAgree) {
       this.$modal.show("agreementModal");
@@ -197,6 +199,7 @@ export default {
     },
     async nextStep() {
       this.validateRequiredFields();
+      this.businessBasicInformation.mode_of_payment = this.paymode;
       if (this.activities.length > 0) {
         let isAdd = true;
         for (let item of this.activities) {
