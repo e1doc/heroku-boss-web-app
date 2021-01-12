@@ -10,18 +10,40 @@
     /></modal>
     <h1 class="meta-form-title">Business Details</h1>
     <div class="meta-main-details">
-        <div class="meta-details-text flex-center">
-            <div class="meta-label">Owner's Name: </div>
-            <div class="meta-value">John Michael Doe</div>
+      <div class="meta-details-text flex-center">
+        <div class="meta-label">Owner's Name:</div>
+        <div class="meta-value">
+          {{ businessBasicInformation.owner_first_name }}
+          {{ businessBasicInformation.owner_middle_name }}
+          {{ businessBasicInformation.owner_last_name }}
         </div>
-        <div class="meta-details-text flex-center">
-            <div class="meta-label">Corporate Name: </div>
-            <div class="meta-value">Lorem Ipsum Dolor Imet</div>
+        <div
+          class="meta-value"
+          v-if="
+            businessBasicInformation.owner_first_name === '' &&
+            businessBasicInformation.owner_middle_name === '' &&
+            businessBasicInformation.owner_last_name === ''
+          "
+        >
+          N/A
         </div>
-        <div class="meta-details-text flex-center">
-            <div class="meta-label">Trade Name: </div>
-            <div class="meta-value">Lorem Ipsum Dolor Imet</div>
+      </div>
+      <div class="meta-details-text flex-center">
+        <div class="meta-label">Corporate Name:</div>
+        <div class="meta-value">
+          {{ businessDetails.name !== "" ? businessDetails.name : "N/A" }}
         </div>
+      </div>
+      <div class="meta-details-text flex-center">
+        <div class="meta-label">Trade Name:</div>
+        <div class="meta-value">
+          {{
+            businessDetails.trade_name !== ""
+              ? businessDetails.trade_name
+              : "N/A"
+          }}
+        </div>
+      </div>
     </div>
     <div class="meta-form-group p-relative mb60">
       <base-select
@@ -150,6 +172,7 @@ export default {
       "isPrivacyAgree",
       "businessActivities",
       "activityErrors",
+      "businessDetails",
     ]),
   },
   watch: {
@@ -350,29 +373,28 @@ div.meta-container
   cursor: pointer;
 }
 
-
 .meta-main-details {
-    padding: 25px 30px 15px;
-    background: #e0f2ff;
-    margin-bottom: 30px;
-    border-radius: 12px;
-    .meta-details-text {
-        width: 100%;
-        max-width: 500px;
-        margin-bottom: 10px;
-        .meta-label {
-            width: 180px;
-            font-size: 16px;
-            font-weight: bold;
-            text-transform: uppercase;
-            line-height: 2;
-            color: #1492e6;
-        }
-        .meta-value {
-            color: #0a0a0a;
-            line-height: 1.4;
-        }
+  padding: 25px 30px 15px;
+  background: #e0f2ff;
+  margin-bottom: 30px;
+  border-radius: 12px;
+  .meta-details-text {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 10px;
+    .meta-label {
+      width: 180px;
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+      line-height: 2;
+      color: #1492e6;
     }
+    .meta-value {
+      color: #0a0a0a;
+      line-height: 1.4;
+    }
+  }
 }
 
 /*

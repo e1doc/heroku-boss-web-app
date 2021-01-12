@@ -260,7 +260,7 @@ export default {
           };
           const business_details = {
             application_number: this.businessApplication.id,
-            name: data.businessname,
+            name: data.corpname,
             trade_name: data.tradename,
             complete_business_address: "",
             president_first_name: data.presidentname,
