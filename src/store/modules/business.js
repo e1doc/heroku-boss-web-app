@@ -189,7 +189,10 @@ const actions = {
         }
       });
       await commit("setBusinessActivities", activeBusinessActivities);
-      await this.$store.dispatch("getBusinessRequirementRenewal");
+      await this.$store.dispatch(
+        "getBusinessRequirementRenewal",
+        response.data.id
+      );
       // await commit(
       //   "setApplicationRequirements",
       //   response.data.businessapplicationrequirements[0]

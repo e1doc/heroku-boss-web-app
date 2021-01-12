@@ -18,7 +18,8 @@
         {{ inquiry.created_at | moment("MMMM DD YYYY") }}
       </div>
       <div class="item-department">
-        <span>Dept. Concern:</span> {{inquiry.department ? inquiry.department : 'N/A'}}
+        <span>Dept. Concern:</span>
+        {{ inquiry.department ? inquiry.department : "N/A" }}
       </div>
     </div>
     <div class="inquiry-body">
@@ -124,7 +125,7 @@ export default {
   },
   mounted() {
     this.getInquiry();
-    console.log(this.inquiry)
+    console.log(this.inquiry);
   },
   methods: {
     showUpdateButton() {
@@ -132,12 +133,12 @@ export default {
         if (this.inquiry.business_id.is_disapprove) {
           return true;
         }
-      }else if (this.inquiry.building_id) {
+      } else if (this.inquiry.building_id) {
         if (this.inquiry.building_id.is_disapprove) {
           return true;
         }
-      }else{
-        return false
+      } else {
+        return false;
       }
     },
     linkProps(item) {
@@ -169,7 +170,7 @@ export default {
         body: this.body,
       });
       this.messages.push({ body: this.body, sender: { is_staff: false } });
-      this.body = ""
+      this.body = "";
     },
     async resolveInquiry() {
       await this.$store.dispatch("resolveInquiry", {
@@ -451,12 +452,12 @@ div.inquiry-body {
   cursor: pointer;
 }
 
-.item-department{
+.item-department {
   color: #fff;
-  font-family: 'Proxima Nova Rg';
+  font-family: "Proxima Nova Rg";
   font-size: 16px;
   margin-top: 5px;
-  span{
+  span {
     font-weight: bold;
   }
 }
