@@ -190,7 +190,7 @@ const actions = {
       //   }
       // });
       await dispatch("getBusinessActivityRenewal", response.data.id);
-      await commit("setBusinessActivities", activeBusinessActivities);
+      // await commit("setBusinessActivities", activeBusinessActivities);
       if (response.data.on_renewal) {
         await dispatch("getBusinessRequirementRenewal", response.data.id);
         await router.push({ name: "BusinessRenewal" });
