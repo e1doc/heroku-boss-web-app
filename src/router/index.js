@@ -105,6 +105,16 @@ const routes = [
         component: Payment,
       },
       {
+        path: "payment-success",
+        name: "PaymentSuccess",
+        component: PaymentSuccess,
+      },
+      {
+        path: "payment-error",
+        name: "PaymentError",
+        component: PaymentError,
+      },
+      {
         path: "business-permit-application",
         name: "BusinessPermitApplication",
         component: BusinessPermitApplication,
