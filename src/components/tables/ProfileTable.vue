@@ -300,7 +300,7 @@ export default {
           for (let item of response.data.Response.Result.businesslines) {
             const activity = {
               line_of_business: item.line,
-              capitalization: item.gross,
+              capitalization: item.gross.split(".")[0],
               units: 1,
             };
             business_activities.push(activity);
