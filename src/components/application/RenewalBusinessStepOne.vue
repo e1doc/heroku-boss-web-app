@@ -46,6 +46,7 @@
       </div>
     </div>
     <div class="meta-form-group p-relative mb60">
+      <div class="meta-input-label mt10 mb10">Mode of Payment</div>
       <base-select
         placeholder="--- Select from the options ---"
         :options="modeofpayment"
