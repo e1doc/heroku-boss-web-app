@@ -376,6 +376,8 @@ const actions = {
   async addBusinessActivity({ commit, getters, dispatch }, payload) {
     try {
       for (let item of payload) {
+        item.capitalization = item.capitalization.replace(/,/g, "");
+        item.capitalization = item.capitalization.split(".")[0];
         if (
           item.application_number == "" ||
           item.application_number == null ||
@@ -492,6 +494,8 @@ const actions = {
       if (payload.length > 0) {
         let x = 0;
         payload.forEach((element) => {
+          element.capitalization = element.capitalization.replace(/,/g, "");
+          element.capitalization = element.capitalization.split(".")[0];
           element.id = getters.businessActivities[x].id;
           x++;
         });
