@@ -240,9 +240,11 @@ export default {
             dti_sec_cda_reg_number:
               data.orgtype == "SINGLE" ? data.dtino : data.secno,
             dti_sec_cda_reg_date:
-              data.orgtype == "SINGLE"
+              data.orgtype == "SINGLE" && data.dtidate !== null
                 ? moment(data.dtidate).format()
-                : moment(data.secdate).format(),
+                : data.orgtype !== "SINGLE" && data.secdate !== null
+                ? moment(data.secdate).format()
+                : null,
             type_of_organization: data.orgtype,
             ctc_no: "",
             tin: "",

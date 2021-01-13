@@ -88,7 +88,7 @@
           />
         </div>
         <base-input
-          label="Capitalization (for New Business)"
+          label="Gross"
           v-model="activity.capitalization"
           :name="`capitalization${index}`"
           :refs="`business_capitalization${index}`"
