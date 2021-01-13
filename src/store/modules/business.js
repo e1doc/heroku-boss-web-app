@@ -514,8 +514,9 @@ const actions = {
         params: payload,
       });
       let activeBusinessActivities = [];
+      console.log(response.data);
       response.data.forEach((item) => {
-        if (item.is_active) {
+        if (item.is_active || item.remarks_draft) {
           activeBusinessActivities.push(item);
         }
       });

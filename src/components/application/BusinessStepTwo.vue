@@ -542,7 +542,13 @@ export default {
           "unit_no",
           "floor_no",
         ],
-        business_activities: ["units", "code", "essential", "non_essential", "application_year"],
+        business_activities: [
+          "units",
+          "code",
+          "essential",
+          "non_essential",
+          "application_year",
+        ],
       },
       barangayname: [
         {

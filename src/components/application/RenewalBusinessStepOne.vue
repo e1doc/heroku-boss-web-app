@@ -211,7 +211,11 @@ export default {
       this.$router.push({ name: "Profile" });
       this.$store.commit("setDraftBusiness", false);
     },
-    preFillForm() {
+    async preFillForm() {
+      await this.$store.dispatch(
+        "getBusinessActivityRenewal",
+        this.businessApplication.id
+      );
       if (this.businessActivities.length > 0) {
         this.activities.splice(0, this.activities.length);
         this.businessActivities.forEach((element) => {
@@ -230,15 +234,20 @@ export default {
             isAdd = false;
           }
         }
-        if (isAdd) {
+        if (isAdd && !this.businessApplication.on_renewal) {
           for (let item of this.activities) {
             item.is_draft = true;
             item.is_active = false;
             delete item.id;
           }
-          this.$store.dispatch("addBusinessActivity", this.activities);
+          await this.$store.dispatch("addBusinessActivity", this.activities);
+          await this.$store.dispatch("updateBusinessApplication", {
+            is_disapprove: false,
+            is_draft: false,
+            on_renewal: true,
+          });
         } else {
-          this.$store.dispatch("updateBusinessActivity", this.activities);
+          await this.$store.dispatch("updateBusinessActivity", this.activities);
         }
       }
     },

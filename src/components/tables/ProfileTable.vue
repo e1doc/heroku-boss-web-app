@@ -192,7 +192,6 @@ export default {
       if (!application.is_renewed && application.is_enrolled) {
         await this.getLocalBusinessDetails(application.account_number);
       }
-      await this.$store.dispatch("getBusinessActivityRenewal", application.id);
       await this.$store.dispatch(
         "getBusinessRequirementRenewal",
         application.id
