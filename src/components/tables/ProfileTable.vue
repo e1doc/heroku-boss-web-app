@@ -152,12 +152,18 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("getBusinessProfiles");
-    this.$store.dispatch("getBuildingProfiles");
-    this.$store.dispatch("getRealPropertyProfiles");
+    this.setUpData();
   },
   methods: {
+    async setUpData() {
+      this.$store.commit("setLoading", true);
+      this.$store.dispatch("getBusinessProfiles");
+      this.$store.dispatch("getBuildingProfiles");
+      this.$store.dispatch("getRealPropertyProfiles");
+      this.$store.commit("setLoading", false);
+    },
     async renew(application) {
+      this.$store.commit("setLoading", true);
       if (application.id) {
         let data = {
           id: application.id,
@@ -196,6 +202,7 @@ export default {
         "getBusinessRequirementRenewal",
         application.id
       );
+      this.$store.commit("setLoading", false);
       await this.$router.push({ name: "BusinessRenewal" });
     },
     showModal(type, item) {
@@ -210,7 +217,6 @@ export default {
     },
     async getLocalBusinessDetails(account_number) {
       try {
-        this.$store.commit("setLoading", true);
         let config = {
           headers: {
             "OneDoc-Token": oneDocToken,
@@ -319,9 +325,7 @@ export default {
             "addBusinessActivity",
             business_activities
           );
-          this.$store.commit("setLoading", false);
         } else {
-          this.$store.commit("setLoading", false);
           this.$swal({
             title: "Failed!",
             text: response.data.Response.Result.message,
@@ -329,7 +333,6 @@ export default {
           });
         }
       } catch (err) {
-        this.$store.commit("setLoading", false);
         console.log(err);
       }
     },

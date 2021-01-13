@@ -232,22 +232,26 @@ export default {
     ]),
   },
   mounted() {
-    console.log(this.applications);
-    this.$store.dispatch("getAllBusinessApplications");
-    this.$store.dispatch("getAllBuildingApplications");
-    this.$store.commit("setBusinessActivities", []);
-    this.$store.commit("setApplicationRequirements", {});
-    if (
-      this.groups.includes("superadmin") ||
-      this.groups.includes("business_application_approver") ||
-      this.groups.includes("business_application_read")
-    ) {
-      this.$store.commit("setCurrentType", "business");
-    } else {
-      this.$store.commit("setCurrentType", "real_property");
-    }
+    this.setUpData();
   },
   methods: {
+    async setUpData() {
+      await this.$store.commit("setLoading", true);
+      await this.$store.dispatch("getAllBusinessApplications");
+      await this.$store.dispatch("getAllBuildingApplications");
+      await this.$store.commit("setBusinessActivities", []);
+      await this.$store.commit("setApplicationRequirements", {});
+      if (
+        this.groups.includes("superadmin") ||
+        this.groups.includes("business_application_approver") ||
+        this.groups.includes("business_application_read")
+      ) {
+        await this.$store.commit("setCurrentType", "business");
+      } else {
+        await this.$store.commit("setCurrentType", "real_property");
+      }
+      await this.$store.commit("setLoading", false);
+    },
     businessClickCallback(pageNum) {
       this.$store.dispatch("getAllBusinessApplications", pageNum);
     },

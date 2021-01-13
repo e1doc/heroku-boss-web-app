@@ -52,6 +52,7 @@
         :options="modeofpayment"
         v-model="paymode"
         name="selectOptions"
+        :validationMessages="mode_validation_message"
         class="mb15"
       />
     </div>
@@ -150,6 +151,7 @@ export default {
         },
       ],
       paymode: "",
+      mode_validation_message: [],
       activities: [],
       unrequired: {
         business_activities: [
@@ -226,36 +228,47 @@ export default {
       }
     },
     async nextStep() {
-      this.validateRequiredFields();
-      this.businessBasicInformation.mode_of_payment = this.paymode;
-      if (this.activities.length > 0) {
-        let isAdd = true;
-        for (let item of this.activities) {
-          if (item.is_draft) {
-            isAdd = false;
-          }
-        }
-        if (isAdd && !this.businessApplication.on_renewal) {
+      let isClean = this.validateRequiredFields();
+      if (isClean) {
+        this.businessBasicInformation.mode_of_payment = this.paymode;
+        if (this.activities.length > 0) {
+          let isAdd = true;
           for (let item of this.activities) {
-            item.is_draft = true;
-            item.is_active = false;
-            delete item.id;
+            if (item.is_draft) {
+              isAdd = false;
+            }
           }
-          await this.$store.dispatch("addBusinessActivity", this.activities);
-          await this.$store.dispatch("updateBusinessApplication", {
-            is_disapprove: false,
-            is_draft: true,
-            on_renewal: true,
-          });
-        } else {
-          await this.$store.dispatch("updateBusinessActivity", this.activities);
+          if (isAdd && !this.businessApplication.on_renewal) {
+            for (let item of this.activities) {
+              item.is_draft = true;
+              item.is_active = false;
+              delete item.id;
+            }
+            await this.$store.dispatch("addBusinessActivity", this.activities);
+            await this.$store.dispatch("updateBusinessApplication", {
+              is_disapprove: false,
+              is_draft: true,
+              on_renewal: true,
+            });
+          } else {
+            await this.$store.dispatch(
+              "updateBusinessActivity",
+              this.activities
+            );
+          }
         }
+        await this.$store.commit("setCurrentApplicationStep", "2");
       }
     },
     validateRequiredFields() {
       let activity_errors_holder = {};
       let isBusinessActivitiesClean = true;
+      let isBusinessDetailsClean = true;
 
+      if (this.paymode === "") {
+        isBusinessDetailsClean = false;
+        this.mode_validation_message.push("This field may not be blank.");
+      }
       if (this.activities.length > 0) {
         let index = 0;
         for (let activity of this.activities) {
@@ -293,8 +306,8 @@ export default {
           this.$store.commit("setActivityErrors", {});
         }
       }
-      if (isBusinessActivitiesClean) {
-        this.$store.commit("setCurrentApplicationStep", "2");
+      if (isBusinessActivitiesClean && isBusinessDetailsClean) {
+        return true;
       } else {
         this.$swal({
           title: "Failed!",
@@ -302,6 +315,7 @@ export default {
             "Please fix the validation errors before proceeding to the next step.",
           icon: "error",
         });
+        return false;
       }
     },
   },

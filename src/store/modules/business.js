@@ -375,8 +375,9 @@ const actions = {
   },
   async addBusinessActivity({ commit, getters, dispatch }, payload) {
     try {
+      console.log("called");
       for (let item of payload) {
-        item.capitalization = item.capitalization.replace(/,/g, "");
+        item.capitalization = item.capitalization.toString().replace(/,/g, "");
         item.capitalization = item.capitalization.split(".")[0];
         if (
           item.application_number == "" ||
@@ -391,9 +392,10 @@ const actions = {
         payload,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-      dispatch("getBusinessActivity");
+      console.log(response.data);
+      await dispatch("getBusinessActivity");
     } catch (err) {
-      console.log(err.response);
+      console.log(err);
       commit("setLoading", false);
     }
   },
@@ -574,7 +576,6 @@ const actions = {
           params: payload,
         }
       );
-      console.trace(response.data.requirements);
       response.data.requirements = response.data.requirements.filter(
         (item) => item.is_active == true
       );

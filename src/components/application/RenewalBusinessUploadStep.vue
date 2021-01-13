@@ -143,6 +143,7 @@ export default {
     },
     async nextStep() {
       if (!this.draftBusiness) {
+        this.$store.commit("setLoading", true);
         let isValidated = this.validateRequiredFields();
         if (isValidated) {
           let application_status;
@@ -184,6 +185,7 @@ export default {
           });
         }
       }
+      this.$store.commit("setLoading", false);
     },
     async getRequirements() {
       if (this.applicationRequirements.id) {

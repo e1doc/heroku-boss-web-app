@@ -40,12 +40,13 @@
               />
             </div>
             <div>
-              <base-date-picker v-model="date" placeholder="Latest Official Receipt Date"/>
+              <base-date-picker
+                v-model="date"
+                placeholder="Latest Official Receipt Date"
+              />
             </div>
             <div>
-              <button-block @click.native="verify()">
-                VERIFY
-              </button-block>
+              <button-block @click.native="verify()"> VERIFY </button-block>
             </div>
           </div>
         </div>
@@ -115,22 +116,30 @@ export default {
             payload,
             config
           );
-          if (response.data.Response.Result.businessid) {
-            await this.$store.dispatch("addBusinessApplication", {
-              account_number: this.account_no,
-              is_draft: false,
-              is_enrolled: true,
-            });
-            await this.$store.dispatch("addBusinessBasicInformation", {});
-            await this.$store.dispatch("addBusinessDetails", {
-              name: response.data.Response.Result.businessname,
-            });
-            this.isSuccess = true;
-            this.account_no = response.data.Response.Result.account_number;
+          if (response.data.Response) {
+            if (response.data.Response.Result.businessid) {
+              await this.$store.dispatch("addBusinessApplication", {
+                account_number: this.account_no,
+                is_draft: false,
+                is_enrolled: true,
+              });
+              await this.$store.dispatch("addBusinessBasicInformation", {});
+              await this.$store.dispatch("addBusinessDetails", {
+                name: response.data.Response.Result.businessname,
+              });
+              this.isSuccess = true;
+              this.account_no = response.data.Response.Result.account_number;
+            } else {
+              this.$swal({
+                title: "Failed!",
+                text: response.data.Response.Result.message,
+                icon: "error",
+              });
+            }
           } else {
             this.$swal({
               title: "Failed!",
-              text: response.data.Response.Result.message,
+              text: "No record found.",
               icon: "error",
             });
           }
