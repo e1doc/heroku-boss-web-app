@@ -259,7 +259,7 @@ export default {
       this.$store.dispatch("getAllBuildingApplications", pageNum);
     },
     async openBusinessApplication(data) {
-      console.log(data);
+      await this.$store.commit("setLoading", true);
       if (data.id) {
         console.log(data);
         let application = {
@@ -299,6 +299,7 @@ export default {
       //   );
       // }
       await this.$store.dispatch("getBusinessActiveRequirement");
+      await this.$store.commit("setLoading", false);
       this.$router.push({ name: "ApproveBusinessApplication" });
     },
     openBuildingApplication(type, data) {
