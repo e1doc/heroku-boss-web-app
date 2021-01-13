@@ -244,7 +244,7 @@ export default {
           await this.$store.dispatch("addBusinessActivity", this.activities);
           await this.$store.dispatch("updateBusinessApplication", {
             is_disapprove: false,
-            is_draft: false,
+            is_draft: true,
             on_renewal: true,
           });
         } else {
