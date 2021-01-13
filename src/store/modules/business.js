@@ -378,6 +378,7 @@ const actions = {
       for (let item of payload) {
         item.capitalization = item.capitalization.toString().replace(/,/g, "");
         item.capitalization = item.capitalization.split(".")[0];
+        item.units === "" ? (item.units = 1) : (item.units = item.units);
         if (
           item.application_number == "" ||
           item.application_number == null ||
@@ -534,7 +535,6 @@ const actions = {
   },
   async addApplicationRequirements({ commit, getters }, payload) {
     try {
-      console.log(payload);
       const response = await axios.post(
         `${baseUrl}/api/application-requirements/`,
         payload,

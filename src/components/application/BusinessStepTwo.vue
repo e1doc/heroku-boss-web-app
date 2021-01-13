@@ -899,7 +899,12 @@ export default {
     },
     async nextStep() {
       this.$store.commit("setLoading", true);
-
+      if (
+        this.business_details.residing_employees === 0 ||
+        this.business_details.residing_employees === ""
+      ) {
+        this.business_details.residing_employees = 0;
+      }
       if (this.businessDetails.id) {
         await this.$store.dispatch(
           "updateBusinessDetails",
@@ -909,14 +914,9 @@ export default {
         await this.$store.dispatch("addBusinessDetails", this.business_details);
       }
       if (
-        this.lessor_details.gross_monthly_rental !== 0 &&
-        this.lessor_details.gross_monthly_rental !== ""
+        this.lessor_details.gross_monthly_rental === 0 ||
+        this.lessor_details.gross_monthly_rental === ""
       ) {
-        this.lessor_details.gross_monthly_rental = this.lessor_details.gross_monthly_rental.toString();
-        this.lessor_details.gross_monthly_rental = parseFloat(
-          this.lessor_details.gross_monthly_rental.replace(/,/g, "")
-        );
-      } else {
         this.lessor_details.gross_monthly_rental = 0;
       }
       if (this.lessorDetails.id) {
