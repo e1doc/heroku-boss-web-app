@@ -518,7 +518,7 @@ export default {
       activity: {
         code: "",
         line_of_business: "",
-        units: "1",
+        units: 1,
         capitalization: "",
         essential: "",
         non_essential: "",
