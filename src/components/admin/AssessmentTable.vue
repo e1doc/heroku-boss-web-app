@@ -3,6 +3,7 @@
     <div class="thead">
       <div class="th">APPLICATION #</div>
       <div class="th" v-if="currentType === 'business'">Trade Name</div>
+      <div class="th" v-if="currentType === 'business'">Application Type</div>
       <div class="th">DATE</div>
       <div class="th" v-if="currentType === 'building'">TD #</div>
       <div class="th">STATUS</div>
@@ -24,14 +25,26 @@
             }}
           </div>
           <div class="td">
-            {{
-              item.business_application.businessdetails !== null
-                ? item.business_application.businessdetails.trade_name
-                : "N/A"
-            }}
+            {{ item.business_application.businessdetails.trade_name }}
           </div>
           <div class="td">
+            {{
+              item.business_application.application_type === "new"
+                ? "New"
+                : "Renewal"
+            }}
+          </div>
+          <div
+            class="td"
+            v-if="item.business_application.application_type === 'new'"
+          >
             {{ item.business_application.created_at | moment("MMMM DD YYYY") }}
+          </div>
+          <div
+            class="td"
+            v-if="item.business_application.application_type === 'renewal'"
+          >
+            {{ item.business_application.updated_at | moment("MMMM DD YYYY") }}
           </div>
           <!-- <div class="td">
             {{

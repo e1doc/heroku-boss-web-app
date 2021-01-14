@@ -105,11 +105,7 @@
             }}
           </div> -->
           <div class="td">
-            {{
-              application.businessdetails.trade_name !== ""
-                ? application.businessdetails.trade_name
-                : application.businessdetails.name
-            }}
+            {{ application.businessdetails.trade_name }}
           </div>
           <div class="td">
             {{ application.application_type === "new" ? "New" : "Renewal" }}
