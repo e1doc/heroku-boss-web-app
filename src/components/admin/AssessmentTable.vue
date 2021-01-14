@@ -46,11 +46,6 @@
           >
             {{ item.business_application.updated_at | moment("MMMM DD YYYY") }}
           </div>
-          <!-- <div class="td">
-            {{
-              application.account_number ? application.account_number : "N/A"
-            }}
-          </div> -->
           <div class="td">
             {{ item.is_approve ? "APPROVED" : "DISAPPROVED" }}
           </div>
@@ -92,20 +87,17 @@
             }}
           </div>
           <div class="td">
-            {{
-              item.businessdetails !== null
-                ? item.businessdetails.trade_name
-                : "N/A"
-            }}
+            {{ item.businessdetails.trade_name }}
           </div>
           <div class="td">
+            {{ item.application_type === "new" ? "New" : "Renewal" }}
+          </div>
+          <div class="td" v-if="item.application_type === 'new'">
             {{ item.created_at | moment("MMMM DD YYYY") }}
           </div>
-          <!-- <div class="td">
-            {{
-              application.account_number ? application.account_number : "N/A"
-            }}
-          </div> -->
+          <div class="td" v-if="item.application_type === 'renewal'">
+            {{ item.updated_at | moment("MMMM DD YYYY") }}
+          </div>
           <div class="td">FOR ASSESSMENT</div>
           <div class="td actions">
             <div @click="openBusinessApplication(item)">
