@@ -31,17 +31,17 @@ import ApproveBusinessApplication from "../pages/admin/ApproveBusinessApplicatio
 import ApproveBuildingApplication from "../pages/admin/ApproveBuildingApplication.vue";
 import AdminAppointment from "../pages/admin/AdminAppointment.vue";
 import AdminSoa from "../pages/admin/AdminSoa.vue";
-import Appointment from "../pages/Appointment"
-import AddAppointment from "../pages/AddAppointment"
-import AppointmentInvoice from "../pages/AppointmentInvoice"
+import Appointment from "../pages/Appointment";
+import AddAppointment from "../pages/AddAppointment";
+import AppointmentInvoice from "../pages/AppointmentInvoice";
 import TestPage from "../pages/TestPage";
 import LandBankPayment from "../pages/LandbankPayment";
 import PaymentSuccess from "../pages/PaymentSuccess";
 import PaymentError from "../pages/PaymentError";
 import ComingSoon from "../pages/ComingSoon";
-import RenewalBusinessPermitApplication from "../pages/RenewalBusinessPermitApplication"
+import RenewalBusinessPermitApplication from "../pages/RenewalBusinessPermitApplication";
 import store from "../store";
-import swal from "sweetalert2"
+import swal from "sweetalert2";
 Vue.use(VueRouter);
 
 const routes = [
@@ -79,7 +79,8 @@ const routes = [
     path: "/main",
     name: "Main",
     component: Main,
-    children: [{
+    children: [
+      {
         path: "profile",
         name: "Profile",
         component: Profile,
@@ -143,7 +144,7 @@ const routes = [
         path: "user-reply-inquiry",
         name: "UserReplyInquiry",
         component: UserReplyInquiry,
-        props: true 
+        props: true,
       },
       {
         path: "new-inquiry",
@@ -186,20 +187,10 @@ const routes = [
         component: LandBankPayment,
       },
       {
-        path: "payment-success",
-        name: "PaymentSuccess",
-        component: PaymentSuccess,
-      },
-      {
-        path: "payment-error",
-        name: "PaymentError",
-        component: PaymentError,
-      },
-      {
         path: "business-renewal",
         name: "BusinessRenewal",
-        component: RenewalBusinessPermitApplication
-      }
+        component: RenewalBusinessPermitApplication,
+      },
     ],
     async beforeEnter(to, from, next) {
       let hasPermission = await store.state.service.isAuthenticated;
@@ -221,7 +212,8 @@ const routes = [
     path: "/admin",
     name: "Admin",
     component: Admin,
-    children: [{
+    children: [
+      {
         path: "",
         name: "AdminLanding",
         component: Dashboard,
@@ -237,15 +229,20 @@ const routes = [
         component: Applications,
         async beforeEnter(to, from, next) {
           let groups = await store.state.admin.groups;
-          if(groups.includes('superadmin') || groups.includes('business_application_approver') || groups.includes('building_application_approver') || groups.includes('assessment_approver')){
-            next()
-          }else{
+          if (
+            groups.includes("superadmin") ||
+            groups.includes("business_application_approver") ||
+            groups.includes("building_application_approver") ||
+            groups.includes("assessment_approver")
+          ) {
+            next();
+          } else {
             swal.fire({
               title: "Failed!",
               text: "You have no access for this module.",
               icon: "error",
             });
-            next(from)
+            next(from);
           }
         },
       },
@@ -268,13 +265,13 @@ const routes = [
         path: "reply-inquiry",
         name: "ReplyInquiry",
         component: ReplyInquiry,
-        props: true 
+        props: true,
       },
       {
         path: "new-remarks",
         name: "NewRemarks",
         component: NewInquiry,
-        props: true 
+        props: true,
       },
       {
         path: "approve-building-application",
@@ -292,15 +289,20 @@ const routes = [
         component: AdminAppointment,
         async beforeEnter(to, from, next) {
           let groups = await store.state.admin.groups;
-          if(groups.includes('superadmin') || groups.includes('business_application_approver') || groups.includes('building_application_approver') || groups.includes('assessment_approver')){
-            next()
-          }else{
+          if (
+            groups.includes("superadmin") ||
+            groups.includes("business_application_approver") ||
+            groups.includes("building_application_approver") ||
+            groups.includes("assessment_approver")
+          ) {
+            next();
+          } else {
             swal.fire({
               title: "Failed!",
               text: "You have no access for this module.",
               icon: "error",
             });
-            next(from)
+            next(from);
           }
         },
       },
@@ -310,15 +312,15 @@ const routes = [
         component: Departments,
         async beforeEnter(to, from, next) {
           let groups = await store.state.admin.groups;
-          if(groups.includes('superadmin')){
-            next()
-          }else{
+          if (groups.includes("superadmin")) {
+            next();
+          } else {
             swal.fire({
               title: "Failed!",
               text: "You have no access for this module.",
               icon: "error",
             });
-            next(from)
+            next(from);
           }
         },
       },

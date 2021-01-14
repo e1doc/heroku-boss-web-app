@@ -730,7 +730,20 @@ export default {
         } else {
           await this.$store.dispatch("assessBusinessApplication", payload);
           if (this.isLastBusinessDept && !this.isAssessmentHasError) {
-            this.$modal.show("accountNumberModal");
+            if (this.businessApplication.account_number !== "") {
+              let changeApplicationStatusPayload = {
+                id: this.businessApplication.id,
+                status: this.applicationStatus,
+                account_number: this.businessApplication.account_number,
+                on_renewal: false,
+              };
+              await this.$store.dispatch(
+                "approveBusinessApplication",
+                changeApplicationStatusPayload
+              );
+            } else {
+              this.$modal.show("accountNumberModal");
+            }
           } else {
             await this.$store.dispatch("createPrompt", {
               type: "success",
