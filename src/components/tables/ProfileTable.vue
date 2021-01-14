@@ -240,6 +240,7 @@ export default {
             is_renewed: true,
             is_disapprove: false,
             application_type: "renewal",
+            account_number: data.accountno,
           };
           const business_basic_information = {
             application_number: this.businessApplication.id,

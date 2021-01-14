@@ -277,6 +277,7 @@ export default {
           application_status: data.application_status,
           user: data.user,
           last_submitted: data.last_submitted,
+          on_renewal: data.on_renewal,
         };
         this.$store.commit("setBusinessApplication", application);
       }

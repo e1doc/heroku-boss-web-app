@@ -622,6 +622,7 @@ export default {
     ]),
   },
   mounted() {
+    console.log(this.businessApplication);
     this.getRequirements();
     // this.$store.commit("setPrintBusiness", true);
   },
@@ -685,7 +686,10 @@ export default {
           let payload = {
             id: this.businessApplication.id,
             status: application_status,
-            account_number: "",
+            account_number:
+              this.businessApplication.account_number !== ""
+                ? this.businessApplication.account_number
+                : "",
           };
           await this.$store.dispatch("approveBusinessApplication", payload);
         }

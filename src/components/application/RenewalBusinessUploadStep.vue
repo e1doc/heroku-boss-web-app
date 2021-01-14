@@ -6,8 +6,7 @@
       or pdf file.
     </div>
     <base-file-uploader
-      label="1. Proof of business registration, incorporation, or legal personality"
-      description="{i.e. DTI / SEC (Including articles and by-laws)/Cooperative Development Authority (CDA)."
+      label="1. Copy of your latest Business Permit"
       name="businessregproof"
       type="business"
       fileLabel="business_registration_proof"
@@ -16,7 +15,9 @@
       uploadType="application/pdf"
     />
     <base-file-uploader
-      label="2. For Franchisee, please upload a copy of Franchise Agreement"
+      label="2. Basis for computing taxes, Last year BIR Income Tax Return (170IQ or 1701A) or Last year BIR 2550M/2550Q/2551Q or the Audited Financial Statement"
+      description="<b>Note:</b><br> <br>  a. Itemized gross sale of all branches for business establishments with multiple locations.
+	 <br> <br> b. Copy of last year BIR 1701A(ITR)"
       name="franchiseagreement"
       :properties="getProperty('franchise_agreement')"
       fileLabel="franchise_agreement"
@@ -24,30 +25,12 @@
       uploadType="application/pdf"
     />
     <base-file-uploader
-      label="3. Occupancy Permit"
-      description="If required by national laws (e.g. Building Code) and local laws. Note For those without Occupancy Permit, sketch of business location including front full view picture of establishment."
+      label="3. One government issued ID"
       name="occupancypermit"
       :properties="getProperty('occupancy_permit')"
       :hasError="uploadErrors.occupancy_permit"
       fileLabel="occupancy_permit"
       type="business"
-      uploadType="application/pdf"
-    />
-    <base-file-uploader
-      label="4. Contract of Lease (if Lessee)"
-      name="contractoflease"
-      :properties="getProperty('contract_of_lease')"
-      fileLabel="contract_of_lease"
-      type="business"
-      uploadType="application/pdf"
-    />
-    <base-file-uploader
-      label="5. One Goverment issued ID"
-      name="governmentid"
-      :properties="getProperty('government_id')"
-      fileLabel="government_id"
-      type="business"
-      :hasError="uploadErrors.government_id"
       uploadType="application/pdf"
     />
     <div class="meta-form-group button-left-right">
