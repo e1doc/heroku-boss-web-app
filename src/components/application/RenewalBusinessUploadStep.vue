@@ -7,29 +7,30 @@
     </div>
     <base-file-uploader
       label="1. Copy of your latest Business Permit"
-      name="businessregproof"
+      name="latestbusinesspermit"
       type="business"
-      fileLabel="business_registration_proof"
-      :hasError="uploadErrors.business_registration_proof"
-      :properties="getProperty('business_registration_proof')"
+      fileLabel="latest_business_permit"
+      :hasError="uploadErrors.latest_business_permit"
+      :properties="getProperty('latest_business_permit')"
       uploadType="application/pdf"
     />
     <base-file-uploader
       label="2. Basis for computing taxes, Last year BIR Income Tax Return (170IQ or 1701A) or Last year BIR 2550M/2550Q/2551Q or the Audited Financial Statement"
       description="<b>Note:</b><br> <br>  a. Itemized gross sale of all branches for business establishments with multiple locations.
 	 <br> <br> b. Copy of last year BIR 1701A(ITR)"
-      name="franchiseagreement"
-      :properties="getProperty('franchise_agreement')"
-      fileLabel="franchise_agreement"
+      name="computingtaxesbasis"
+      :properties="getProperty('computing_taxes_basis')"
+      fileLabel="computing_taxes_basis"
       type="business"
       uploadType="application/pdf"
+      :hasError="uploadErrors.computing_taxes_basis"
     />
     <base-file-uploader
       label="3. One government issued ID"
-      name="occupancypermit"
-      :properties="getProperty('occupancy_permit')"
-      :hasError="uploadErrors.occupancy_permit"
-      fileLabel="occupancy_permit"
+      name="governmentid"
+      :properties="getProperty('government_id')"
+      :hasError="uploadErrors.government_id"
+      fileLabel="government_id"
       type="business"
       uploadType="application/pdf"
     />
@@ -61,15 +62,15 @@ export default {
   },
   data() {
     return {
-      business_registration_proof: {},
-      franchise_agreement: {},
-      occupancy_permit: {},
-      contract_of_lease: {},
-      government_id: {},
-      required: ["business_registration_proof", "occupancy_permit"],
+      required: [
+        "latest_business_permit",
+        "computing_taxes_basis",
+        "government_id",
+      ],
       uploadErrors: {
-        business_registration_proof: false,
-        occupancy_permit: false,
+        latest_business_permit: false,
+        computing_taxes_basis: false,
+        government_id: false,
       },
     };
   },
