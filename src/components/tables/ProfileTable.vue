@@ -268,7 +268,7 @@ export default {
           const business_details = {
             application_number: this.businessApplication.id,
             name: data.corpname,
-            trade_name: data.businessname,
+            trade_name: data.trade_name,
             complete_business_address: "",
             president_first_name: data.presidentname,
             president_middle_name: "",
