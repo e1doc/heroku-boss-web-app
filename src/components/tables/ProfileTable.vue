@@ -8,6 +8,7 @@
       >
         TD #
       </div>
+      <div class="th" v-if="currentType === 'business'">ACCOUNT NUMBER</div>
       <div class="th" v-if="currentType === 'business'">BUSINESS NAME</div>
       <div
         class="th"
@@ -32,6 +33,10 @@
             {{business.account_number}}
           </div> -->
           <div class="td" v-if="currentType === 'business'">
+            <span class="td-label show-in-mobile">ACCOUNT NUMBER : </span>
+            {{ business.account_number }}
+          </div>
+          <div class="td" v-if="currentType === 'business'">
             <span class="td-label show-in-mobile">BUSINESS NAME : </span>
             {{
               business.businessdetails.name != ""
@@ -45,7 +50,7 @@
             {{ business.businessbasicinformation.owner_last_name }}
           </div>
           <div class="td actions">
-            <div @click="renew(business)">
+            <div @click="renew(business)" v-if="showRenewal(business)">
               <font-awesome-icon icon="sync-alt" class="mr5 icon" /> RENEW
             </div>
             <div class="bill" @click="showModal('business', business)">
@@ -356,6 +361,32 @@ export default {
         if (item.value === mode) {
           return item.label;
         }
+      }
+    },
+    showRenewal(data) {
+      console.log(data.last_renewal);
+      if (data.last_renewal) {
+        if (moment(data.last_renewal).isBefore(moment().format(), "year")) {
+          return true;
+        } else {
+          return false;
+        }
+      } else if (data.latest_approval_date) {
+        if (
+          moment(data.latest_approval_date).isBefore(moment().format(), "year")
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      } else if (
+        data.is_enrolled &&
+        !data.latest_approval_date &&
+        !data.last_renewal
+      ) {
+        return true;
+      } else {
+        return false;
       }
     },
   },
