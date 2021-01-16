@@ -93,11 +93,13 @@
                 : "N/A"
             }}
           </div>
-          <div class="td" v-if="application.application_type === 'new'">
-            {{ application.created_at | moment("MMMM DD YYYY") }}
-          </div>
-          <div class="td" v-if="application.application_type === 'renewal'">
-            {{ application.updated_at | moment("MMMM DD YYYY") }}
+          <div class="td">
+            {{
+              getApplicationDate(
+                application.last_submitted,
+                application.created_at
+              )
+            }}
           </div>
           <!-- <div class="td">
             {{
@@ -231,6 +233,13 @@ export default {
     this.setUpData();
   },
   methods: {
+    getApplicationDate(last_submitted, created_at) {
+      if (last_submitted) {
+        return moment(last_submitted).format("MMMM DD YYYY");
+      } else {
+        return moment(last_submitted).format("MMMM DD YYYY");
+      }
+    },
     async setUpData() {
       await this.$store.commit("setLoading", true);
       await this.$store.dispatch("getAllBusinessApplications");

@@ -24,13 +24,14 @@
                 : "N/A"
             }}
           </div>
-          <div class="td" v-if="application.application_type === 'new'">
+          <div class="td">
             <span class="td-label show-in-mobile">DATE : </span>
-            {{ application.created_at | moment("MMMM DD YYYY") }}
-          </div>
-          <div class="td" v-if="application.application_type === 'renewal'">
-            <span class="td-label show-in-mobile">DATE : </span>
-            {{ application.updated_at | moment("MMMM DD YYYY") }}
+            {{
+              getApplicationDate(
+                application.last_submitted,
+                application.created_at
+              )
+            }}
           </div>
           <!-- <div class="td">
             <span class="td-label show-in-mobile">ACCOUNT #: </span>
@@ -345,6 +346,13 @@ export default {
     }
   },
   methods: {
+    getApplicationDate(last_submitted, created_at) {
+      if (last_submitted) {
+        return moment(last_submitted).format("MMMM DD YYYY");
+      } else {
+        return moment(last_submitted).format("MMMM DD YYYY");
+      }
+    },
     async businessClickCallBack(pageNum) {
       this.$store.dispatch("getBusinessApplications", pageNum);
     },

@@ -14,7 +14,12 @@
           <div class="meta-text no-bb">
             <div class="meta-label">Date of Application :</div>
             <div class="meta-value">
-              {{ businessApplication.created_at | moment("MMMM DD, YYYY") }}
+              {{
+                getApplicationDate(
+                  businessApplication.last_submitted,
+                  businessApplication.created_at
+                )
+              }}
             </div>
           </div>
           <div class="meta-text no-bb">
@@ -24,7 +29,7 @@
                 businessBasicInformation.type_of_organization
                   .charAt(0)
                   .toUpperCase() +
-                  businessBasicInformation.type_of_organization.slice(1)
+                businessBasicInformation.type_of_organization.slice(1)
               }}
             </div>
           </div>
@@ -392,9 +397,7 @@
                 <div class="form-th no-br no-bl no-bb">Essential / Non-essential :</div>
               </div>
             </div> -->
-            <div class="form-th sales">
-              Capitalization
-            </div>
+            <div class="form-th sales">Capitalization</div>
           </div>
           <div class="meta-table-row" v-if="businessActivities.length > 0">
             <div
@@ -464,7 +467,7 @@
             class="assessment-result-list mt30"
             v-if="
               businessApplication.application_status == 2 ||
-                businessApplication.application_status == 4
+              businessApplication.application_status == 4
             "
           >
             <div class="meta-group-title">Assessment Result</div>
@@ -482,7 +485,6 @@
                     }}</span
                   >
                   <span
-
                     class="mt5 ml10 mb2 meta-view-remarks"
                     v-if="item.status === 'Disapproved'"
                     @click="openBusinessRemarks(businessApplication.id)"
@@ -527,7 +529,7 @@ export default {
     this.$store.dispatch("getUserBusinessAssessmentResult", {
       business_application: this.businessApplication.id,
     });
-    console.log(this.businessAssessmentResult)
+    console.log(this.businessAssessmentResult);
   },
   beforeRouteLeave(to, from, next) {
     this.$store.commit("setCurrentApplicationStep", "1");
@@ -542,6 +544,13 @@ export default {
     };
   },
   methods: {
+    getApplicationDate(last_submitted, created_at) {
+      if (last_submitted) {
+        return moment(last_submitted).format("MMMM DD YYYY");
+      } else {
+        return moment(last_submitted).format("MMMM DD YYYY");
+      }
+    },
     async openBusinessRemarks(id) {
       await this.$store.dispatch("getBusinessRemarks", id);
       await this.$router.push({ name: "UserReplyInquiry" });

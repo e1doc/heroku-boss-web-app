@@ -34,17 +34,13 @@
                 : "Renewal"
             }}
           </div>
-          <div
-            class="td"
-            v-if="item.business_application.application_type === 'new'"
-          >
-            {{ item.business_application.created_at | moment("MMMM DD YYYY") }}
-          </div>
-          <div
-            class="td"
-            v-if="item.business_application.application_type === 'renewal'"
-          >
-            {{ item.business_application.updated_at | moment("MMMM DD YYYY") }}
+          <div class="td">
+            {{
+              getApplicationDate(
+                item.business_application.last_submitted,
+                item.business_application.created_at
+              )
+            }}
           </div>
           <div class="td">
             {{ item.is_approve ? "APPROVED" : "DISAPPROVED" }}
@@ -253,6 +249,13 @@ export default {
     this.$store.dispatch("getAssessedBuildingList");
   },
   methods: {
+    getApplicationDate(last_submitted, created_at) {
+      if (last_submitted) {
+        return moment(last_submitted).format("MMMM DD YYYY");
+      } else {
+        return moment(last_submitted).format("MMMM DD YYYY");
+      }
+    },
     businessAssessmentClick(pageNum) {
       this.$store.dispatch("getForBusinessAssessmentList", pageNum);
     },
