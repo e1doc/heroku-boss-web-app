@@ -37,7 +37,13 @@
           <div class="meta-text no-bb">
             <div class="meta-label">Date of Application :</div>
             <div class="meta-value">
-              {{ businessApplication.created_at | moment("MMMM DD, YYYY") }}
+              {{
+                businessApplication.last_submitted
+                  ? moment(businessApplication.last_submitted).format(
+                      "MMMM DD YYY"
+                    )
+                  : moment(businessApplication.created_at).format("MMMM DD YYY")
+              }}
             </div>
           </div>
           <div class="meta-text no-bb">
