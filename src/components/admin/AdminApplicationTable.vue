@@ -218,6 +218,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import moment from "moment-timezone";
 export default {
   name: "AdminApplicationTable",
   computed: {

@@ -505,6 +505,7 @@
 import ButtonBlock from "@/components/ButtonBlock";
 import { mapGetters } from "vuex";
 import AppLink from "@/components/AppLink";
+import moment from "moment-timezone";
 export default {
   name: "BusinessApplicationDetails",
   components: {
