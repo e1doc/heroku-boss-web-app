@@ -22,13 +22,7 @@
           <tr>
             <td>Date of Application :</td>
             <td>
-              {{
-                businessApplication.last_submitted
-                  ? moment(businessApplication.last_submitted).format(
-                      "MMMM DD YYY"
-                    )
-                  : moment(businessApplication.created_at).format("MMMM DD YYY")
-              }}
+              {{ businessApplication.created_at | moment("MMMM DD, YYYY") }}
             </td>
             <td>DTI/SEC/CDA Date of Registration No. :</td>
             <td>

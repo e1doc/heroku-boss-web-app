@@ -38,11 +38,10 @@
             <div class="meta-label">Date of Application :</div>
             <div class="meta-value">
               {{
-                businessApplication.last_submitted
-                  ? moment(businessApplication.last_submitted).format(
-                      "MMMM DD YYY"
-                    )
-                  : moment(businessApplication.created_at).format("MMMM DD YYY")
+                getApplicationDate(
+                  businessApplication.last_submitted,
+                  businessApplication.created_at
+                )
               }}
             </div>
           </div>
@@ -638,6 +637,13 @@ export default {
     this.setupAssessmentResult();
   },
   methods: {
+    getApplicationDate(last_submitted, created_at) {
+      if (last_submitted) {
+        return moment(last_submitted).format("MMMM DD YYYY");
+      } else {
+        return moment(last_submitted).format("MMMM DD YYYY");
+      }
+    },
     formatCurrency(str) {
       var parts = str.toString().split(".");
       parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
