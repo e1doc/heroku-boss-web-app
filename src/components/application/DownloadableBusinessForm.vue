@@ -22,7 +22,12 @@
           <tr>
             <td>Date of Application :</td>
             <td>
-              {{ businessApplication.created_at | moment("MMMM DD, YYYY") }}
+              {{
+                getApplicationDate(
+                  businessApplication.last_submitted,
+                  businessApplication.created_at
+                )
+              }}
             </td>
             <td>DTI/SEC/CDA Date of Registration No. :</td>
             <td>
@@ -346,6 +351,13 @@ export default {
     this.$store.commit("setPrintBusiness", false);
   },
   methods: {
+    getApplicationDate(last_submitted, created_at) {
+      if (last_submitted) {
+        return moment(last_submitted).format("MMMM DD YYYY");
+      } else {
+        return moment(last_submitted).format("MMMM DD YYYY");
+      }
+    },
     getDataUrl(img) {
       // Create canvas
       const canvas = document.createElement("canvas");
