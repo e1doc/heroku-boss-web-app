@@ -8,7 +8,8 @@
         {{ inquiry.created_at | moment("MMMM DD YYYY") }}
       </div>
       <div class="item-department">
-        <span>Dept. Concern:</span> {{inquiry.department ? inquiry.department : 'N/A'}}
+        <span>Dept. Concern:</span>
+        {{ inquiry.department ? inquiry.department : "N/A" }}
       </div>
     </div>
     <div class="inquiry-body">
@@ -147,7 +148,7 @@ export default {
       "isLastBusinessDept",
       "isBusinessAssessment",
       "assessmentPayload",
-      "buildingAssessmentPayload"
+      "buildingAssessmentPayload",
     ]),
   },
   mounted() {
@@ -235,7 +236,10 @@ export default {
       this.body = "";
 
       if (!this.isLastBuildingDept && this.isBuildingAssessment) {
-        await this.$store.dispatch("assessBuildingApplication", this.buildingAssessmentPayload);
+        await this.$store.dispatch(
+          "assessBuildingApplication",
+          this.buildingAssessmentPayload
+        );
         this.$store.dispatch("createPrompt", {
           type: "success",
           title: "Success!",
@@ -245,7 +249,10 @@ export default {
       }
 
       if (!this.isLastBusinessDept && this.isBusinessAssessment) {
-        await this.$store.dispatch("assessBusinessApplication", this.assessmentPayload);
+        await this.$store.dispatch(
+          "assessBusinessApplication",
+          this.assessmentPayload
+        );
         await this.$store.dispatch("createPrompt", {
           type: "success",
           title: "Success!",
@@ -390,12 +397,12 @@ div.inquiry-box {
   cursor: pointer;
 }
 
-.item-department{
+.item-department {
   color: #fff;
-  font-family: 'Proxima Nova Rg';
+  font-family: "Proxima Nova Rg";
   font-size: 16px;
   margin-top: 5px;
-  span{
+  span {
     font-weight: bold;
   }
 }

@@ -40,6 +40,7 @@ import PaymentSuccess from "../pages/PaymentSuccess";
 import PaymentError from "../pages/PaymentError";
 import ComingSoon from "../pages/ComingSoon";
 import RenewalBusinessPermitApplication from "../pages/RenewalBusinessPermitApplication";
+import PaymentLayout from "../PaymentLayout.vue";
 import store from "../store";
 import swal from "sweetalert2";
 Vue.use(VueRouter);
@@ -76,6 +77,23 @@ const routes = [
     component: Home,
   },
   {
+    path: "/payment",
+    name: "Payment",
+    component: PaymentLayout,
+    children: [
+      {
+        path: "payment-success",
+        name: "PaymentSuccess",
+        component: PaymentSuccess,
+      },
+      {
+        path: "payment-error",
+        name: "PaymentError",
+        component: PaymentError,
+      },
+    ],
+  },
+  {
     path: "/main",
     name: "Main",
     component: Main,
@@ -104,16 +122,6 @@ const routes = [
         path: "payment",
         name: "Payment",
         component: Payment,
-      },
-      {
-        path: "payment-success",
-        name: "PaymentSuccess",
-        component: PaymentSuccess,
-      },
-      {
-        path: "payment-error",
-        name: "PaymentError",
-        component: PaymentError,
       },
       {
         path: "business-permit-application",

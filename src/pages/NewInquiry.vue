@@ -58,9 +58,7 @@
       <div class="inquiry-button flex-wrap">
         <button-block
           type="send"
-          :disabled="
-            !isButtonDisabled()
-          "
+          :disabled="!isButtonDisabled()"
           @click.native="sendMessage"
           :class="{
             'btn-disabled': !isButtonDisabled(),
@@ -106,7 +104,7 @@ export default {
       "isLastBusinessDept",
       "authToken",
       "assessmentPayload",
-      "buildingAssessmentPayload"
+      "buildingAssessmentPayload",
     ]),
   },
   props: {
@@ -187,18 +185,18 @@ export default {
         }
       }
     },
-    isButtonDisabled(){
-      if(this.type !== 'remarks'){
-        if(this.body === '' || this.subject === '' || this.department === ''){
-          return false
-        }else{
-          return true
+    isButtonDisabled() {
+      if (this.type !== "remarks") {
+        if (this.body === "" || this.subject === "" || this.department === "") {
+          return false;
+        } else {
+          return true;
         }
-      }else{
-        if(this.body === '' || this.subject === ''){
-          return false
-        }else{
-          return true
+      } else {
+        if (this.body === "" || this.subject === "") {
+          return false;
+        } else {
+          return true;
         }
       }
     },
@@ -232,7 +230,10 @@ export default {
           if (this.isBuildingAssessment) {
             application_status = this.buildingApplication.application_status;
             if (!this.isLastBuildingDept) {
-              await this.$store.dispatch("assessBuildingApplication", this.buildingAssessmentPayload);
+              await this.$store.dispatch(
+                "assessBuildingApplication",
+                this.buildingAssessmentPayload
+              );
               this.$store.dispatch("createPrompt", {
                 type: "success",
                 title: "Success!",
@@ -267,7 +268,10 @@ export default {
           let application_status = 0;
           if (this.isBusinessAssessment) {
             application_status = this.businessApplication.application_status;
-            await this.$store.dispatch("assessBusinessApplication", this.assessmentPayload);
+            await this.$store.dispatch(
+              "assessBusinessApplication",
+              this.assessmentPayload
+            );
             if (!this.isLastBusinessDept) {
               await this.$store.dispatch("createPrompt", {
                 type: "success",
