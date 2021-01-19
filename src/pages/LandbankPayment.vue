@@ -34,7 +34,11 @@ export default {
   },
   methods: {
     getHash() {
-      console.log(md5("2020101157" + "1234", "2500"));
+      console.log(
+        md5("2020101157" + "1234", "2500")
+          .toString()
+          .toLowerCase()
+      );
     },
   },
 };
