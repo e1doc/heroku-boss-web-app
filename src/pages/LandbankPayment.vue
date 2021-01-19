@@ -21,7 +21,7 @@
       name="ReturnURLError"
       value="https://boss-web-api.herokuapp.com/api/payment-error/"
     />
-    <input type="hidden" name="Hash" value="42f04e6c4fe001ad3454b0625c072d71" />
+    <input type="hidden" name="Hash" :value="getHash()" />
     <input type="submit" value="POST TO EPP" />
   </form>
 </template>
@@ -34,11 +34,9 @@ export default {
   },
   methods: {
     getHash() {
-      console.log(
-        md5("2020101157" + "1234", "2500")
-          .toString()
-          .toLowerCase()
-      );
+      return md5("2020101157" + "1234", "2500")
+        .toString()
+        .toLowerCase();
     },
   },
 };
