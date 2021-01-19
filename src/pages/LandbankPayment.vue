@@ -29,6 +29,9 @@
 <script>
 import md5 from "crypto-js/md5";
 export default {
+  mounted() {
+    this.getHash();
+  },
   methods: {
     getHash() {
       console.log(md5("2020101157" + "1234", "2500"));
