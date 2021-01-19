@@ -5,7 +5,7 @@
     <input
       type="hidden"
       name="Particulars"
-      value="transaction_type=Tuition fee;Desc=Tuition;SID=201505; Name=John Doe;"
+      value="Transaction_type=Real Property Tax;Tax Declaration=123;Declared Owner=Juan dela Cruz;Payment Mode=Online;Quarter=First Quarter"
     />
     <input type="hidden" name="Amount" value="2500.00" />
     <input type="hidden" name="PayorName" value="John Doe" />
@@ -27,7 +27,14 @@
 </template>
 
 <script>
-export default {};
+import md5 from "crypto-js/md5";
+export default {
+  methods: {
+    getHash() {
+      console.log(md5("2020101157" + "1234", "2500"));
+    },
+  },
+};
 </script>
 
 <style></style>

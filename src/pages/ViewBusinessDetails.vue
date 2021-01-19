@@ -530,7 +530,6 @@ export default {
     this.$store.dispatch("getUserBusinessAssessmentResult", {
       business_application: this.businessApplication.id,
     });
-    console.log(this.businessAssessmentResult);
   },
   beforeRouteLeave(to, from, next) {
     this.$store.commit("setCurrentApplicationStep", "1");
