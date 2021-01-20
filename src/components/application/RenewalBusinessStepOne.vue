@@ -202,6 +202,7 @@ export default {
     },
   },
   mounted() {
+    this.scrollToTop();
     this.$store.commit("setLoading", false);
     this.paymode = this.businessBasicInformation.mode_of_payment;
     this.preFillForm();
@@ -210,6 +211,9 @@ export default {
     }
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0);
+    },
     toProfile() {
       this.$router.push({ name: "Profile" });
       this.$store.commit("setDraftBusiness", false);

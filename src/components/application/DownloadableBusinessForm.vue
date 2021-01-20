@@ -294,7 +294,7 @@
           <tr>
             <th>(Business Activity) Line of Business</th>
             <th>No. of Units</th>
-            <th>Capitalization / Gross Sales :</th>
+            <th>Capitalization / Gross Sales</th>
           </tr>
         </thead>
         <tbody>

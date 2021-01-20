@@ -84,9 +84,13 @@ export default {
     ]),
   },
   mounted() {
+    this.scrollToTop();
     this.getRequirements();
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0);
+    },
     validateRequiredFields() {
       let validated = [];
       if (this.requirements) {
