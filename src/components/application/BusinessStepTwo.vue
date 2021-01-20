@@ -862,10 +862,10 @@ export default {
     ]),
   },
   mounted() {
+    this.scrollToTop();
     this.addActivity();
     this.preFillForm();
     this.changeTypeOfOrganization();
-    this.scrollToTop();
   },
   watch: {
     draftBusiness: {

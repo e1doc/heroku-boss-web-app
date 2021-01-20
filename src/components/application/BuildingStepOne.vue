@@ -1,11 +1,13 @@
 <template>
   <div class="meta-container">
-       <modal name="agreementModal"
-         height="auto"
-         :adaptive="true"
-         :classes="['vue-modal']"
-         :clickToClose="false"
-         ><agreement-modal type="building permit application"/></modal>
+    <modal
+      name="agreementModal"
+      height="auto"
+      :adaptive="true"
+      :classes="['vue-modal']"
+      :clickToClose="false"
+      ><agreement-modal type="building permit application"
+    /></modal>
     <h1 class="meta-form-title">Basic Information</h1>
     <div class="meta-form-group mb60">
       <div class="meta-input-label mt10 mb10">Ownership Type</div>
@@ -109,7 +111,7 @@ import BaseInput from "@/components/forms/BaseInput";
 import BaseCheckbox from "@/components/forms/BaseCheckbox";
 import ButtonBlock from "@/components/ButtonBlock";
 import BaseSelect from "@/components/forms/BaseSelect";
-import AgreementModal from "@/components/application/AgreementModal"
+import AgreementModal from "@/components/application/AgreementModal";
 import { mapGetters } from "vuex";
 export default {
   name: "BuildingStepOne",
@@ -118,7 +120,7 @@ export default {
     BaseCheckbox,
     ButtonBlock,
     BaseSelect,
-    AgreementModal
+    AgreementModal,
   },
   computed: {
     ...mapGetters([
@@ -127,12 +129,13 @@ export default {
       "buildingBasicInfoHasError",
       "buildingStepOneErrors",
       "draftProperty",
-      "isPrivacyAgree"
+      "isPrivacyAgree",
     ]),
   },
   mounted() {
+    this.scrollToTop();
     this.preFillForm();
-    if(!this.isPrivacyAgree){
+    if (!this.isPrivacyAgree) {
       this.$modal.show("agreementModal");
     }
   },
@@ -152,12 +155,8 @@ export default {
         tin: "",
       },
       unrequired: {
-        building_application: ['area_no'],
-        basic_information: [
-          "owner_middle_name", 
-          "owner_zip_code",
-          "tin" 
-        ],
+        building_application: ["area_no"],
+        basic_information: ["owner_middle_name", "owner_zip_code", "tin"],
       },
       ownership_type: [
         {
@@ -198,6 +197,9 @@ export default {
     },
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0);
+    },
     async nextStep() {
       this.$store.commit("setLoading", true);
       if (!this.buildingApplication.id) {

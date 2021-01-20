@@ -97,8 +97,8 @@ export default {
     ]),
   },
   mounted() {
-    this.getRequirements();
     this.scrollToTop();
+    this.getRequirements();
   },
   methods: {
     scrollToTop() {

@@ -36,22 +36,20 @@
       />
     </div> -->
     <base-input
-        label="TCT No."
-        v-model="building_details.tct_no"
-        :validationMessages="buildingStepTwoErrors.building_details.tct_no"
-        name="tctnumber"
-        refs="tct_number"
-        type="text"
-      />
-      <base-input
-        label="Tax Dec. No."
-        v-model="building_details.tax_dec_no"
-        :validationMessages="
-          buildingStepTwoErrors.building_details.tax_dec_no
-        "
-        name="taxdecnumber"
-        refs="tax_dec_number"
-        type="text"
+      label="TCT No."
+      v-model="building_details.tct_no"
+      :validationMessages="buildingStepTwoErrors.building_details.tct_no"
+      name="tctnumber"
+      refs="tct_number"
+      type="text"
+    />
+    <base-input
+      label="Tax Dec. No."
+      v-model="building_details.tax_dec_no"
+      :validationMessages="buildingStepTwoErrors.building_details.tax_dec_no"
+      name="taxdecnumber"
+      refs="tax_dec_number"
+      type="text"
     />
     <div class="meta-form-group mb60">
       <div class="meta-group-title">Location of Construction</div>
@@ -59,14 +57,16 @@
         <base-input
           label="Address No."
           v-model="building_details.address_no"
-          :validationMessages="buildingStepTwoErrors.building_details.address_no"
+          :validationMessages="
+            buildingStepTwoErrors.building_details.address_no
+          "
           name="addressnumber"
           refs="address_number"
           type="text"
           class="input-w3"
           inputClass="fw-mobile"
         />
-         <base-input
+        <base-input
           label="Lot No."
           v-model="building_details.lot_no"
           :validationMessages="buildingStepTwoErrors.building_details.lot_no"
@@ -79,7 +79,9 @@
         <base-input
           label="Lot No. count"
           v-model="building_details.lot_no_count"
-          :validationMessages="buildingStepTwoErrors.building_details.lot_no_count"
+          :validationMessages="
+            buildingStepTwoErrors.building_details.lot_no_count
+          "
           name="lotnumbercount"
           refs="lot_number_count"
           type="text"
@@ -111,7 +113,9 @@
         <base-input
           label="Subdivision"
           v-model="building_details.subdivision_name"
-          :validationMessages="buildingStepTwoErrors.building_details.subdivision_name"
+          :validationMessages="
+            buildingStepTwoErrors.building_details.subdivision_name
+          "
           name="nameofsubdivision"
           refs="subdivision_name"
           type="text"
@@ -143,7 +147,9 @@
         />
       </div>
       <div class="meta-form-group mb20">
-        <div class="meta-group-title">Barangay <span class="asterisk">*</span></div>
+        <div class="meta-group-title">
+          Barangay <span class="asterisk">*</span>
+        </div>
         <base-select
           placeholder="------ Choose from the list of barangay ------"
           v-model="building_details.barangay"
@@ -185,7 +191,9 @@
 
     <!-- SCOPE OF WORK -->
     <div class="meta-form-group mb60">
-      <div class="meta-group-title">Scope of Work <span class="asterisk">*</span></div>
+      <div class="meta-group-title">
+        Scope of Work <span class="asterisk">*</span>
+      </div>
 
       <base-select
         placeholder="------ Choose scope of work ------"
@@ -213,7 +221,9 @@
 
     <!-- USER OF CHARACTER OF OCCUPANCY -->
     <div class="meta-form-group mb60">
-      <div class="meta-group-title">User or Character of Occupancy <span class="asterisk">*</span></div>
+      <div class="meta-group-title">
+        User or Character of Occupancy <span class="asterisk">*</span>
+      </div>
 
       <base-select
         placeholder="------ Select from the options ------"
@@ -242,7 +252,7 @@
     <div class="meta-form-group mb60">
       <div class="meta-group-title">Other Details</div>
       <!-- <div class="meta-input-group flex-row w2"> -->
-        <!-- <base-input
+      <!-- <base-input
           label="Occupancy Classified"
           v-model="building_other_details.occupancy_classified"
           :validationMessages="
@@ -293,7 +303,7 @@
         />
       </div>
 
-      <div class="meta-input-label">Total Estimated Cost: </div>
+      <div class="meta-input-label">Total Estimated Cost:</div>
       <currency-input
         label="Total Estimated Cost"
         v-model="building_other_details.total_estimated_cost"
@@ -305,10 +315,12 @@
         class="input-required"
         type="text"
         :isAmount="true"
-        placeholder = "Enter the total estimated cost"
+        placeholder="Enter the total estimated cost"
       />
       <div class="meta-form-group mb60">
-        <div class="meta-input-label">Proposed Date of Construction <span class="asterisk">*</span></div>
+        <div class="meta-input-label">
+          Proposed Date of Construction <span class="asterisk">*</span>
+        </div>
         <!-- <div class="meta-group-title mt10 mb10">
           Proposed Date of Construction <span class="asterisk">*</span>
         </div> -->
@@ -322,7 +334,9 @@
         <!-- <div class="meta-group-title mt10 mb10">
           Expected Date of Completion <span class="asterisk">*</span>
         </div> -->
-        <div class="meta-input-label">Expected Date of Completion <span class="asterisk">*</span></div>
+        <div class="meta-input-label">
+          Expected Date of Completion <span class="asterisk">*</span>
+        </div>
         <base-date-picker
           v-model="building_other_details.date_of_completion"
           :validationMessages="
@@ -393,7 +407,7 @@ export default {
         floor_area: "",
         lot_area: "",
         date_of_construction: "",
-        date_of_completion: ""
+        date_of_completion: "",
       },
       unrequired: {
         building_details: [
@@ -410,13 +424,13 @@ export default {
           "street",
           "property_type",
           "area_no",
-          "form_of_ownership"
+          "form_of_ownership",
         ],
         building_other_details: [
           "units",
           "floor_area",
           "lot_area",
-          "occupancy_classified"
+          "occupancy_classified",
         ],
       },
       propertytype: [
@@ -437,367 +451,367 @@ export default {
         {
           label: "Alima",
           value: "Alima",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Aniban I",
           value: "Aniban I",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Aniban II",
           value: "Aniban II",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Aniban III",
           value: "Aniban III",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Aniban IV",
           value: "Aniban IV",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Aniban V",
           value: "Aniban V",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Banalo",
           value: "Banalo",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Bayanan",
           value: "Bayanan",
-          district: "District 2"
+          district: "District 2",
         },
         {
           label: "Camposanto",
           value: "Camposanto",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Daang-Bukid",
           value: "Daang-Bukid",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Digman",
           value: "Digman",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Dulong-Bayan",
           value: "Dulong-Bayan",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Habay I",
           value: "Habay I",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Habay II",
           value: "Habay II",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Kaingin",
           value: "Kaingin",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Ligas I",
           value: "Ligas I",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Ligas II",
           value: "Ligas II",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Ligas III",
           value: "Ligas III",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Mabolo I",
           value: "Mabolo I",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Mabolo II",
           value: "Mabolo II",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Mabolo III",
           value: "Mabolo III",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Maliksi I",
           value: "Maliksi I",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Maliksi II",
           value: "Maliksi II",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Maliksi III",
           value: "Maliksi III",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Mambog I",
           value: "Mambog I",
-          district: "District 2"
+          district: "District 2",
         },
         {
           label: "Mambog II",
           value: "Mambog II",
-          district: "District 2"
+          district: "District 2",
         },
         {
           label: "Mambog III",
           value: "Mambog III",
-          district: "District 3"
+          district: "District 3",
         },
         {
           label: "Mambog IV",
           value: "Mambog IV",
-          district: "District 2"
+          district: "District 2",
         },
         {
           label: "Mambog V",
           value: "Mambog V",
-          district: "District 2"
+          district: "District 2",
         },
         {
           label: "Molino I/Burol",
           value: "Molino I/Burol",
-          district: "District 2"
+          district: "District 2",
         },
         {
           label: "Molino II",
           value: "Molino II",
-          district: "District 2"
+          district: "District 2",
         },
         {
           label: "Molino III",
           value: "Molino III",
-          district: "District 2"
+          district: "District 2",
         },
         {
           label: "Molino IV",
           value: "Molino IV",
-          district: "District 2"
+          district: "District 2",
         },
         {
           label: "Molino V/Bahayang Pag-Asa",
           value: "Molino V/Bahayang Pag-Asa",
-          district: "District 2"
+          district: "District 2",
         },
         {
           label: "Molino VI",
           value: "Molino VI",
-          district: "District 2"
+          district: "District 2",
         },
         {
           label: "Molino VII/Gawaran",
           value: "Molino VII/Gawaran",
-          district: "District 2"
+          district: "District 2",
         },
         {
           label: "Niog I",
           value: "Niog I",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Niog II",
           value: "Niog II",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Niog III",
           value: "Niog III",
-          district: "District 2"
+          district: "District 2",
         },
         {
           label: "P.F. Espiritu II (Panapaan II)",
           value: "P.F. Espiritu II (Panapaan II)",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "P.F. Espiritu III (Panapaan III)",
           value: "P.F. Espiritu III (Panapaan III)",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "P.F. Espiritu IV (Panapaan IV)",
           value: "P.F. Espiritu IV (Panapaan IV)",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "P.F. Espiritu V (Panapaan V)",
           value: "P.F. Espiritu V (Panapaan V)",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "P.F. Espiritu VI (Panapaan VI)",
           value: "P.F. Espiritu VI (Panapaan VI)",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "P.F. Espiritu VII (Panapaan VII)",
           value: "P.F. Espiritu VII (Panapaan VII)",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "P.F. Espiritu VIII (Panapaan VIII)",
           value: "P.F. Espiritu VIII (Panapaan VIII)",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "P.F. Espirtu I (Panapaan I)",
           value: "P.F. Espirtu I (Panapaan I)",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Queens Row Central",
           value: "Queens Row Central",
-          district: "District 2"
+          district: "District 2",
         },
         {
           label: "Queens Row East",
           value: "Queens Row East",
-          district: "District 2"
+          district: "District 2",
         },
         {
           label: "Queens Row West",
           value: "Queens Row West",
-          district: "District 2"
+          district: "District 2",
         },
         {
           label: "Real I",
           value: "Real I",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Real II",
           value: "Real II",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Salinas I",
           value: "Salinas I",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Salinas II",
           value: "Salinas II",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Salinas III",
           value: "Salinas III",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Salinas IV",
           value: "Salinas IV",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "San Nicolas I",
           value: "San Nicolas I",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "San Nicolas II",
           value: "San Nicolas II",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "San Nicolas III",
           value: "San Nicolas III",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Sineguelasan",
           value: "Sineguelasan",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Tabing-Dagat (Town Proper)",
           value: "Tabing-Dagat (Town Proper)",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Talaba I",
           value: "Talaba I",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Talaba II",
           value: "Talaba II",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Talaba III",
           value: "Talaba III",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Talaba IV",
           value: "Talaba IV",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Talaba V",
           value: "Talaba V",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Talaba VI",
           value: "Talaba VI",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Talaba VII",
           value: "Talaba VII",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Zapote I",
           value: "Zapote I",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Zapote II",
           value: "Zapote II",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Zapote III",
           value: "Zapote III",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Zapote IV",
           value: "Zapote IV",
-          district: "District 1"
+          district: "District 1",
         },
         {
           label: "Zapote V (Longos-Zapote V)",
           value: "Zapote V (Longos-Zapote V)",
-          district: "District 1"
+          district: "District 1",
         },
       ],
       scopeofwork: [
@@ -907,8 +921,9 @@ export default {
     ]),
   },
   mounted() {
+    this.scrollToTop();
     this.preFillForm();
-    this.$store.commit("setLoading",false)
+    this.$store.commit("setLoading", false);
   },
   watch: {
     draftProperty: {
@@ -921,17 +936,21 @@ export default {
     },
   },
   methods: {
-   async identifyDistrict(){
-     let barangay = await this.barangayname.find(item => item.value === this.building_details.barangay)
-     this.building_details.district = barangay.district
-    //  console.log(this.district)
-    //  element.dispatchEvent(new Event('input'))
+    scrollToTop() {
+      window.scrollTo(0, 0);
+    },
+    async identifyDistrict() {
+      let barangay = await this.barangayname.find(
+        (item) => item.value === this.building_details.barangay
+      );
+      this.building_details.district = barangay.district;
+      //  console.log(this.district)
+      //  element.dispatchEvent(new Event('input'))
     },
     previousStep() {
       this.$store.commit("setCurrentApplicationStep", "1");
     },
     async nextStep() {
-
       this.$store.commit("setLoading", true);
       if (this.buildingDetails.id) {
         await this.$store.dispatch(
@@ -941,9 +960,14 @@ export default {
       } else {
         await this.$store.dispatch("addBuildingDetails", this.building_details);
       }
-      if(this.building_other_details.total_estimated_cost != '' && this.building_other_details.total_estimated_cost !== 0){
-        this.building_other_details.total_estimated_cost = this.building_other_details.total_estimated_cost.toString()
-        this.building_other_details.total_estimated_cost  = parseFloat(this.building_other_details.total_estimated_cost.replace(/,/g, ''))
+      if (
+        this.building_other_details.total_estimated_cost != "" &&
+        this.building_other_details.total_estimated_cost !== 0
+      ) {
+        this.building_other_details.total_estimated_cost = this.building_other_details.total_estimated_cost.toString();
+        this.building_other_details.total_estimated_cost = parseFloat(
+          this.building_other_details.total_estimated_cost.replace(/,/g, "")
+        );
       }
       if (this.buildingOtherDetails.id) {
         await this.$store.dispatch(
@@ -977,7 +1001,7 @@ export default {
           });
         }
       } else {
-         this.validateRequiredFields();
+        this.validateRequiredFields();
         if (this.draftProperty) {
           this.$swal({
             title: "Failed!",
@@ -1147,7 +1171,7 @@ div.meta-container {
   border-color: #2699fb !important;
 }
 
-.disabled{
+.disabled {
   pointer-events: none;
 }
 
@@ -1174,7 +1198,7 @@ MOBILE RESPONSIVENESS
     font-size: 15px;
     margin-bottom: 10px;
   }
-  
+
   div.meta-container div.meta-form-group div.meta-input-group .input-w3 {
     width: 100%;
     float: left;
