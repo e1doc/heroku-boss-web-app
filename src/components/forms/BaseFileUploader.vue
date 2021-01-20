@@ -38,7 +38,7 @@ export default {
   props: {
     uploadType: {
       type: String,
-      default: "image/*,application/pdf",
+      default: "application/pdf",
     },
     hasError: {
       type: Boolean,
