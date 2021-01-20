@@ -194,7 +194,7 @@ export default {
           } else {
             this.$swal({
               title: "Invalid file type!",
-              text: "Please enter valid file format.",
+              text: "Please enter a valid file format.",
               icon: "error",
             });
           }
@@ -228,7 +228,7 @@ export default {
           } else {
             this.$swal({
               title: "Invalid file type!",
-              text: "Please enter valid file format.",
+              text: "Please enter a valid file format.",
               icon: "error",
             });
           }
