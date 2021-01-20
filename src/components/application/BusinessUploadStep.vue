@@ -13,7 +13,7 @@
       fileLabel="business_registration_proof"
       :hasError="uploadErrors.business_registration_proof"
       :properties="getProperty('business_registration_proof')"
-      uploadType="image/*, application/pdf"
+      uploadType="application/pdf"
     />
     <base-file-uploader
       label="2. For Franchisee, please upload a copy of Franchise Agreement"
@@ -21,7 +21,6 @@
       :properties="getProperty('franchise_agreement')"
       fileLabel="franchise_agreement"
       type="business"
-      uploadType="application/pdf"
     />
     <base-file-uploader
       label="3. Occupancy Permit"
@@ -31,7 +30,6 @@
       :hasError="uploadErrors.occupancy_permit"
       fileLabel="occupancy_permit"
       type="business"
-      uploadType="application/pdf"
     />
     <base-file-uploader
       label="4. Contract of Lease (if Lessee)"

@@ -12,7 +12,6 @@
       fileLabel="latest_business_permit"
       :hasError="uploadErrors.latest_business_permit"
       :properties="getProperty('latest_business_permit')"
-      uploadType="application/pdf"
     />
     <base-file-uploader
       label="2. Basis for computing taxes, Last year BIR Income Tax Return (170IQ or 1701A) or Last year BIR 2550M/2550Q/2551Q or the Audited Financial Statement"
@@ -32,7 +31,6 @@
       :hasError="uploadErrors.government_id"
       fileLabel="government_id"
       type="business"
-      uploadType="application/pdf"
     />
     <div class="meta-form-group button-left-right">
       <button-block

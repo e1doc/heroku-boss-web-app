@@ -153,7 +153,6 @@
         fileLabel="tct"
         :properties="getProperty('tct')"
         type="property"
-        uploadType="application/pdf"
         :hasError="uploadErrors.tct"
       />
     </div>
@@ -208,7 +207,6 @@
         fileLabel="architectural_permit"
         :properties="getProperty('architectural_permit')"
         type="property"
-        uploadType="application/pdf"
         :hasError="uploadErrors.architectural_permit"
       />
     </div>
@@ -271,7 +269,6 @@
         fileLabel="design_plans"
         :properties="getProperty('design_plans')"
         type="property"
-        uploadType="application/pdf"
         :hasError="uploadErrors.design_plans"
       />
     </div>
@@ -370,7 +367,6 @@
         fileLabel="design_specs"
         :properties="getProperty('design_specs')"
         type="property"
-        uploadType="application/pdf"
         :hasError="uploadErrors.design_specs"
       />
     </div>
@@ -435,7 +431,6 @@
         fileLabel="sketch_pin"
         :properties="getProperty('sketch_pin')"
         type="property"
-        uploadType="application/pdf"
         :hasError="uploadErrors.sketch_pin"
       />
     </div>
