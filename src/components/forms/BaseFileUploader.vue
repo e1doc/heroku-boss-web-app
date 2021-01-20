@@ -161,46 +161,74 @@ export default {
       if (!this.isEvaluation) {
         let file = this.$refs[`${this.fileLabel}`];
         Array.from(Array(fileList.length).keys()).map((x) => {
-          if (fileList[x].size <= 26214400) {
-            this.filename = fileList[x].name;
-            formData.append(fieldName, fileList[x]);
-            let requirement_id =
-              this.type === "business"
-                ? this.applicationRequirements.id
-                : this.buildingApplicationRequirements.id;
-            formData.append("requirement_id", requirement_id);
-            formData.append("requirements_label", this.fileLabel);
-            formData.append("filename", fileList[x].name);
-            payload.requirement_id = requirement_id;
-            payload.requirements_label = this.fileLabel;
-            payload.filename = fileList[x].name;
-            payload.file = fileList[x].file;
-            this.save(formData);
+          if (
+            (this.uploadType === "application/pdf" &&
+              fileList[x]["type"] === "application/pdf") ||
+            (this.uploadType === "image/*, application/pdf" &&
+              (this.uploadType === "image/*" ||
+                this.uploadType === "application/pdf"))
+          ) {
+            if (fileList[x].size <= 26214400) {
+              this.filename = fileList[x].name;
+              formData.append(fieldName, fileList[x]);
+              let requirement_id =
+                this.type === "business"
+                  ? this.applicationRequirements.id
+                  : this.buildingApplicationRequirements.id;
+              formData.append("requirement_id", requirement_id);
+              formData.append("requirements_label", this.fileLabel);
+              formData.append("filename", fileList[x].name);
+              payload.requirement_id = requirement_id;
+              payload.requirements_label = this.fileLabel;
+              payload.filename = fileList[x].name;
+              payload.file = fileList[x].file;
+              this.save(formData);
+            } else {
+              file.value = null;
+              this.$swal({
+                title: "File is too large!",
+                text: "File size must not exceed 25mb.",
+                icon: "error",
+              });
+            }
           } else {
-            file.value = null;
             this.$swal({
-              title: "File is too large!",
-              text: "File size must not exceed 25mb.",
+              title: "Invalid file type!",
+              text: "Please enter valid file format.",
               icon: "error",
             });
           }
         });
       } else {
         Array.from(Array(fileList.length).keys()).map((x) => {
-          if (fileList[x].size <= 26214400) {
-            this.filename = fileList[x].name;
-            formData.append(fieldName, fileList[x]);
-            let requirement_id =
-              this.type === "business"
-                ? this.applicationRequirements.id
-                : this.buildingApplicationRequirements.id;
-            formData.append("filename", fileList[x].name);
-            this.save(formData);
+          if (
+            (this.uploadType === "application/pdf" &&
+              fileList[x]["type"] === "application/pdf") ||
+            (this.uploadType === "image/*, application/pdf" &&
+              (this.uploadType === "image/*" ||
+                this.uploadType === "application/pdf"))
+          ) {
+            if (fileList[x].size <= 26214400) {
+              this.filename = fileList[x].name;
+              formData.append(fieldName, fileList[x]);
+              let requirement_id =
+                this.type === "business"
+                  ? this.applicationRequirements.id
+                  : this.buildingApplicationRequirements.id;
+              formData.append("filename", fileList[x].name);
+              this.save(formData);
+            } else {
+              file.value = null;
+              this.$swal({
+                title: "File is too large!",
+                text: "File size must not exceed 25mb.",
+                icon: "error",
+              });
+            }
           } else {
-            file.value = null;
             this.$swal({
-              title: "File is too large!",
-              text: "File size must not exceed 25mb.",
+              title: "Invalid file type!",
+              text: "Please enter valid file format.",
               icon: "error",
             });
           }
