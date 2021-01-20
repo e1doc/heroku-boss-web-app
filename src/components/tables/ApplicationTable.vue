@@ -351,7 +351,7 @@ export default {
       if (last_submitted) {
         return moment(last_submitted).format("MMMM DD YYYY");
       } else {
-        return moment(last_submitted).format("MMMM DD YYYY");
+        return moment(created_at).format("MMMM DD YYYY");
       }
     },
     async businessClickCallBack(pageNum) {
