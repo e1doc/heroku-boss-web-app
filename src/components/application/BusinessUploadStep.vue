@@ -98,8 +98,12 @@ export default {
   },
   mounted() {
     this.getRequirements();
+    this.scrollToTop();
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0);
+    },
     validateRequiredFields() {
       let validated = [];
       if (this.requirements) {

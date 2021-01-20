@@ -865,6 +865,7 @@ export default {
     this.addActivity();
     this.preFillForm();
     this.changeTypeOfOrganization();
+    this.scrollToTop();
   },
   watch: {
     draftBusiness: {
@@ -877,6 +878,9 @@ export default {
     },
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0);
+    },
     changeTypeOfOrganization() {
       if (this.typeOfOrganization === "corporation") {
         if (!this.unrequired.business_details.includes("trade_name")) {

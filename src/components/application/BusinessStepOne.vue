@@ -298,6 +298,7 @@ export default {
     },
   },
   mounted() {
+    this.scrollToTop();
     this.preFillForm();
     this.$store.commit("setLoading", false);
     if (!this.isPrivacyAgree) {
@@ -305,6 +306,9 @@ export default {
     }
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0);
+    },
     changeOrganization() {
       if (this.basic_information.type_of_organization !== "") {
         this.$store.commit(
