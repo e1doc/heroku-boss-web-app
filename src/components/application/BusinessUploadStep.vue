@@ -13,7 +13,7 @@
       fileLabel="business_registration_proof"
       :hasError="uploadErrors.business_registration_proof"
       :properties="getProperty('business_registration_proof')"
-      uploadType="application/pdf"
+      uploadType="image/*, application/pdf"
     />
     <base-file-uploader
       label="2. For Franchisee, please upload a copy of Franchise Agreement"
