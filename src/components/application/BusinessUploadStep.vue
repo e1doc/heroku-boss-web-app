@@ -46,7 +46,6 @@
       fileLabel="government_id"
       type="business"
       :hasError="uploadErrors.government_id"
-      uploadType="application/pdf"
     />
     <div class="meta-form-group button-left-right">
       <button-block
