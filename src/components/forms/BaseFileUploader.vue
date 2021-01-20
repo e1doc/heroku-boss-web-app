@@ -165,8 +165,8 @@ export default {
             (this.uploadType === "application/pdf" &&
               fileList[x]["type"] === "application/pdf") ||
             (this.uploadType === "image/*, application/pdf" &&
-              (this.uploadType === "image/*" ||
-                this.uploadType === "application/pdf"))
+              (fileList[x]["type"] === "image/*" ||
+                fileList[x]["type"] === "application/pdf"))
           ) {
             if (fileList[x].size <= 26214400) {
               this.filename = fileList[x].name;
@@ -205,8 +205,8 @@ export default {
             (this.uploadType === "application/pdf" &&
               fileList[x]["type"] === "application/pdf") ||
             (this.uploadType === "image/*, application/pdf" &&
-              (this.uploadType === "image/*" ||
-                this.uploadType === "application/pdf"))
+              (fileList[x]["type"] === "image/*" ||
+                fileList[x]["type"] === "application/pdf"))
           ) {
             if (fileList[x].size <= 26214400) {
               this.filename = fileList[x].name;
