@@ -213,7 +213,7 @@
 
     <paginate
       v-if="buildingApplications.length > 0 && currentType === 'building'"
-      :page-count="pageCount"
+      :page-count="propertyPageCount"
       :prev-text="'Prev'"
       :next-text="'Next'"
       :container-class="'pagination'"
@@ -334,6 +334,7 @@ export default {
       "applications",
       "buildingApplications",
       "pageCount",
+      "propertyPageCount",
     ]),
   },
   mounted() {

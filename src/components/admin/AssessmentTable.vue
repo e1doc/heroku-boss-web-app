@@ -157,7 +157,7 @@
       </div>
       <paginate
         v-if="forBuildingAssessmentList.length > 0"
-        :page-count="pageCount"
+        :page-count="propertyPageCount"
         :prev-text="'Prev'"
         :next-text="'Next'"
         :container-class="'pagination'"
@@ -212,7 +212,7 @@
       </div>
       <paginate
         v-if="assessedBuildingList.length > 0"
-        :page-count="pageCount"
+        :page-count="propertyPageCount"
         :prev-text="'Prev'"
         :next-text="'Next'"
         :container-class="'pagination'"
@@ -241,6 +241,7 @@ export default {
       "assessedBusinessList",
       "forBuildingAssessmentList",
       "assessedBuildingList",
+      "propertyPageCount",
     ]),
   },
   mounted() {

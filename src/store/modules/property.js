@@ -45,7 +45,8 @@ const getDefaultPropertyState = () => {
     isEvaluation: false,
     isFileUploadFailed: false,
     currentSelectedProperty: {},
-    buildingAssessmentPayload: {}
+    buildingAssessmentPayload: {},
+    propertyPageCount: 0,
   };
 };
 
@@ -89,7 +90,8 @@ const getters = {
   isEvaluation: (state) => state.isEvaluation,
   isFileUploadFailed: (state) => state.isFileUploadFailed,
   currentSelectedProperty: (state) => state.currentSelectedProperty,
-  buildingAssessmentPayload: (state) => state.buildingAssessmentPayload
+  buildingAssessmentPayload: (state) => state.buildingAssessmentPayload,
+  propertyPageCount: (state) => state.propertyPageCount,
 };
 
 const mutations = {
@@ -134,7 +136,8 @@ const mutations = {
     (state.buildingRequirements = buildingRequirements),
   setRealPropertyProfiles: (state, realPropertyProfiles) =>
     (state.realPropertyProfiles = realPropertyProfiles),
-  setApplicationRemarks: (state, applicationRemarks) => (state.applicationRemarks = applicationRemarks),
+  setApplicationRemarks: (state, applicationRemarks) =>
+    (state.applicationRemarks = applicationRemarks),
   setLegalDocuments: (state, legalDocuments) =>
     (state.legalDocuments = legalDocuments),
   setTechnicalDocuments: (state, technicalDocuments) =>
@@ -155,15 +158,25 @@ const mutations = {
     (state.buildingAssessmentResult = buildingAssessmentResult),
   setBuildingDeptCanAssess: (state, buildingDeptCanAssess) =>
     (state.buildingDeptCanAssess = buildingDeptCanAssess),
-  setIsLastBuildingDept: (state, isLastBuildingDept) => (state.isLastBuildingDept = isLastBuildingDept),
-  setForBuildingAssessmentList: (state, forBuildingAssessmentList) => (state.forBuildingAssessmentList = forBuildingAssessmentList),
-  setAssessedBuildingList: (state, assessedBuildingList) => (state.assessedBuildingList = assessedBuildingList),
-  setIsBuildingAssessment: (state, isBuildingAssessment) => (state.isBuildingAssessment = isBuildingAssessment),
-  setIsAssessmentHasError: (state, isAssessmentHasError) => (state.isAssessmentHasError = isAssessmentHasError),
+  setIsLastBuildingDept: (state, isLastBuildingDept) =>
+    (state.isLastBuildingDept = isLastBuildingDept),
+  setForBuildingAssessmentList: (state, forBuildingAssessmentList) =>
+    (state.forBuildingAssessmentList = forBuildingAssessmentList),
+  setAssessedBuildingList: (state, assessedBuildingList) =>
+    (state.assessedBuildingList = assessedBuildingList),
+  setIsBuildingAssessment: (state, isBuildingAssessment) =>
+    (state.isBuildingAssessment = isBuildingAssessment),
+  setIsAssessmentHasError: (state, isAssessmentHasError) =>
+    (state.isAssessmentHasError = isAssessmentHasError),
   setIsEvaluation: (state, isEvaluation) => (state.isEvaluation = isEvaluation),
-  setIsFileUploadFailed: (state, isFileUploadFailed) => (state.isFileUploadFailed = isFileUploadFailed),
-  setCurrentSelectedProperty: (state, currentSelectedProperty) => (state.currentSelectedProperty = currentSelectedProperty),
-  setBuildingAssessmentPayload: (state, buildingAssessmentPayload) => (state.buildingAssessmentPayload = buildingAssessmentPayload)
+  setIsFileUploadFailed: (state, isFileUploadFailed) =>
+    (state.isFileUploadFailed = isFileUploadFailed),
+  setCurrentSelectedProperty: (state, currentSelectedProperty) =>
+    (state.currentSelectedProperty = currentSelectedProperty),
+  setBuildingAssessmentPayload: (state, buildingAssessmentPayload) =>
+    (state.buildingAssessmentPayload = buildingAssessmentPayload),
+  setPropertyPageCount: (state, propertyPageCount) =>
+    (state.propertyPageCount = propertyPageCount),
 };
 
 const actions = {
@@ -279,7 +292,7 @@ const actions = {
         `${baseUrl}/staff/building-permit-application-list/?page=${page}&filter_by=${getters.propertyFilterBy}&id=${getters.buildingSearch}`,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-      commit("setPageCount", response.data.total_pages);
+      commit("setPropertyPageCount", response.data.total_pages);
       commit("setBuildingApplications", response.data.results);
     } catch (err) {
       console.log(err.response);
@@ -292,7 +305,7 @@ const actions = {
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setBuildingApplications", response.data.results);
-      commit("setPageCount", response.data.total_pages);
+      commit("setPropertyPageCount", response.data.total_pages);
     } catch (err) {
       console.log(err.response);
     }
@@ -465,16 +478,16 @@ const actions = {
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       await dispatch("getBuildingApplicationRequirements");
-      commit("setIsFileUploadFailed", false)
+      commit("setIsFileUploadFailed", false);
       commit("setLoading", false);
     } catch (err) {
-      err.response ? console.log(err.response) : console.log(err)
+      err.response ? console.log(err.response) : console.log(err);
       commit("setLoading", false);
-      commit("setIsFileUploadFailed", true)
+      commit("setIsFileUploadFailed", true);
       dispatch("createPrompt", {
         type: "error",
         title: "Failed!",
-        message: 'Something went wrong! Please try again later.',
+        message: "Something went wrong! Please try again later.",
       });
     }
   },
@@ -519,12 +532,12 @@ const actions = {
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setBuildingAssessmentMessage", response.data.message);
-      commit('setIsAssessmentHasError', false)
+      commit("setIsAssessmentHasError", false);
     } catch (err) {
       console.log(err);
       if (err.response) {
         console.log(err.response);
-        commit('setIsAssessmentHasError', true)
+        commit("setIsAssessmentHasError", true);
         dispatch("createPrompt", {
           type: "error",
           title: "Failed!",
@@ -560,7 +573,7 @@ const actions = {
         }
       );
       commit("setBuildingDeptCanAssess", response.data.can_assess);
-      commit("setIsLastBuildingDept", response.data.last_department)
+      commit("setIsLastBuildingDept", response.data.last_department);
     } catch (err) {
       console.log(err);
       if (err.response) {
@@ -568,7 +581,7 @@ const actions = {
       }
     }
   },
-  async getForBuildingAssessmentList({commit, getters}, page = 1){
+  async getForBuildingAssessmentList({ commit, getters }, page = 1) {
     try {
       const response = await axios.get(
         `${baseUrl}/staff/for-building-assessment-list?page=${page}`,
@@ -576,12 +589,12 @@ const actions = {
           headers: { Authorization: `jwt ${getters.authToken}` },
         }
       );
-      commit('setForBuildingAssessmentList', response.data.results)
-      commit("setPageCount", response.data.total_pages);
+      commit("setForBuildingAssessmentList", response.data.results);
+      commit("setPropertyPageCount", response.data.total_pages);
     } catch (err) {
-      console.log(err)
-      if(err.response){
-        console.log(err.response.data)
+      console.log(err);
+      if (err.response) {
+        console.log(err.response.data);
       }
     }
   },
@@ -594,7 +607,7 @@ const actions = {
         }
       );
       commit("setAssessedBuildingList", response.data.results);
-      commit("setPageCount", response.data.total_pages);
+      commit("setPropertyPageCount", response.data.total_pages);
     } catch (err) {
       console.log(err);
       if (err.response) {
@@ -602,11 +615,15 @@ const actions = {
       }
     }
   },
-  async resetBuildingAssessment({commit, getters}, payload){
+  async resetBuildingAssessment({ commit, getters }, payload) {
     try {
-      const response = await axios.put(`${baseUrl}/staff/reset-building-assessment`,payload,{
-        headers: { Authorization: `jwt ${getters.authToken}` },
-      })
+      const response = await axios.put(
+        `${baseUrl}/staff/reset-building-assessment`,
+        payload,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+        }
+      );
     } catch (err) {
       console.log(err);
       if (err.response) {
