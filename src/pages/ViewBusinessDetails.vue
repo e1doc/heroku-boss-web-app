@@ -421,7 +421,7 @@
               </div>
               <div class="form-td sales no-bt">
                 <span class="form-td-label show-in-mobile"
-                  >Capitalization :</span
+                  >Capitalization / Gross Sales :</span
                 >
                 ₱
                 {{

@@ -420,7 +420,7 @@
                 <div class="form-th no-br no-bl no-bb">Essential / Non-essential :</div>
               </div>
             </div> -->
-            <div class="form-th sales">Capitalization</div>
+            <div class="form-th sales">Capitalization / Gross Sales</div>
           </div>
           <div class="meta-table-row" v-if="businessActivities.length > 0">
             <div
@@ -444,7 +444,7 @@
               </div>
               <div class="form-td sales no-bt">
                 <span class="form-td-label show-in-mobile"
-                  >Capitalization :</span
+                  >Capitalization / Gross Sales :</span
                 >
                 ₱
                 {{
