@@ -30,11 +30,12 @@
 import md5 from "crypto-js/md5";
 export default {
   mounted() {
-    this.getHash();
+    let hash = this.getHash();
+    console.log(hash);
   },
   methods: {
     getHash() {
-      return md5("2020101157" + "1234" + "2500")
+      return md5("2020101157" + "1234" + "250000")
         .toString()
         .toLowerCase();
     },
