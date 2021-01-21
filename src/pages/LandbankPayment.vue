@@ -1,7 +1,7 @@
 <template>
   <form action="https://222.127.109.48/epp20200915/" method="POST">
     <input type="hidden" name="MerchantCode" value="2020101157" />
-    <input type="hidden" name="MerchantRefNo" value="4322" />
+    <input type="hidden" name="MerchantRefNo" value="4323" />
     <input
       type="hidden"
       name="Particulars"
@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     getHash() {
-      return md5("2020101157" + "4322" + "250000")
+      return md5("2020101157" + "4323" + "250000")
         .toString()
         .toLowerCase();
     },
