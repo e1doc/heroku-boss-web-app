@@ -244,7 +244,9 @@ export default {
       "propertyPageCount",
     ]),
   },
-  mounted() {},
+  mounted() {
+    this.setUpData();
+  },
   methods: {
     async setUpData() {
       await this.$store.dispatch("getForBusinessAssessmentList");
