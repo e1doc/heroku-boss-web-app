@@ -652,8 +652,8 @@ const actions = {
           headers: { Authorization: `jwt ${getters.authToken}` },
         }
       );
-      commit("setForBusinessAssessmentList", response.data.results);
-      commit("setPageCount", response.data.total_pages);
+      await commit("setForBusinessAssessmentList", response.data.results);
+      await commit("setPageCount", response.data.total_pages);
     } catch (err) {
       console.log(err);
       if (err.response) {
@@ -669,8 +669,8 @@ const actions = {
           headers: { Authorization: `jwt ${getters.authToken}` },
         }
       );
-      commit("setAssessedBusinessList", response.data.results);
-      commit("setPageCount", response.data.total_pages);
+      await commit("setAssessedBusinessList", response.data.results);
+      await commit("setPageCount", response.data.total_pages);
     } catch (err) {
       console.log(err);
       if (err.response) {

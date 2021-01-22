@@ -188,7 +188,7 @@ export default {
         this.$store.dispatch("getForBuildingAssessmentList");
       } else if (
         this.currentTable === "assessed" &&
-        this.currentType === "business"
+        this.currentType === "building"
       ) {
         this.$store.dispatch("getAssessedBuildingList");
       }

@@ -244,13 +244,14 @@ export default {
       "propertyPageCount",
     ]),
   },
-  mounted() {
-    this.$store.dispatch("getForBusinessAssessmentList");
-    this.$store.dispatch("getAssessedBusinessList");
-    this.$store.dispatch("getForBuildingAssessmentList");
-    this.$store.dispatch("getAssessedBuildingList");
-  },
+  mounted() {},
   methods: {
+    async setUpData() {
+      await this.$store.dispatch("getForBusinessAssessmentList");
+      await this.$store.dispatch("getAssessedBusinessList");
+      await this.$store.dispatch("getForBuildingAssessmentList");
+      await this.$store.dispatch("getAssessedBuildingList");
+    },
     getApplicationDate(last_submitted, created_at) {
       if (last_submitted) {
         return moment(last_submitted).format("MMMM DD YYYY");
