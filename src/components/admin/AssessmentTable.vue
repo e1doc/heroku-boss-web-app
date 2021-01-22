@@ -281,7 +281,7 @@ export default {
       if (type === "assessed") {
         this.$store.commit("setShowActionButtons", false);
       } else {
-        this.$store.commit("setShowActionButtons", false);
+        this.$store.commit("setShowActionButtons", true);
       }
       if (data.id) {
         let application = {
