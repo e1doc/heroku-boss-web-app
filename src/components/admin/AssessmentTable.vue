@@ -46,7 +46,11 @@
             {{ item.is_approve ? "APPROVED" : "DISAPPROVED" }}
           </div>
           <div class="td actions">
-            <div @click="openBusinessApplication(item.business_application)">
+            <div
+              @click="
+                openBusinessApplication(item.business_application, 'assessed')
+              "
+            >
               <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
             </div>
           </div>
@@ -96,7 +100,7 @@
           </div>
           <div class="td">FOR ASSESSMENT</div>
           <div class="td actions">
-            <div @click="openBusinessApplication(item)">
+            <div @click="openBusinessApplication(item, 'for_assessment')">
               <font-awesome-icon icon="eye" class="mr5 view-icon" />VIEW
             </div>
           </div>
@@ -273,7 +277,12 @@ export default {
     buildingAssessedClick(pageNum) {
       this.$store.dispatch("getAssessedBuildingList", pageNum);
     },
-    async openBusinessApplication(data) {
+    async openBusinessApplication(data, type) {
+      if (type === "assessed") {
+        this.$store.commit("setShowActionButtons", false);
+      } else {
+        this.$store.commit("setShowActionButtons", false);
+      }
       if (data.id) {
         let application = {
           id: data.id,

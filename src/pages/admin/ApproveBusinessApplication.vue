@@ -556,7 +556,8 @@
           v-if="
             businessDeptCanAssess &&
             businessApplication.application_status == 2 &&
-            isAssessmentActive
+            isAssessmentActive &&
+            showActionButtons
           "
           class="meta-button-group flex-center"
         >
@@ -625,6 +626,7 @@ export default {
       "isLastBusinessDept",
       "isAssessmentActive",
       "isAssessmentHasError",
+      "showActionButtons",
     ]),
   },
   mounted() {

@@ -45,6 +45,7 @@ const getDefaultBusinessState = () => {
     isBusinessAssessment: false,
     assessmentPayload: {},
     activityErrors: {},
+    showActionButtons: true,
   };
 };
 
@@ -86,6 +87,7 @@ const getters = {
   isBusinessAssessment: (state) => state.isBusinessAssessment,
   assessmentPayload: (state) => state.assessmentPayload,
   activityErrors: (state) => state.activityErrors,
+  showActionButtons: (state) => state.showActionButtons,
 };
 
 const mutations = {
@@ -156,6 +158,8 @@ const mutations = {
     (state.assessmentPayload = assessmentPayload),
   setActivityErrors: (state, activityErrors) =>
     (state.activityErrors = activityErrors),
+  setShowActionButtons: (state, showActionButtons) =>
+    (state.showActionButtons = showActionButtons),
 };
 
 const actions = {
