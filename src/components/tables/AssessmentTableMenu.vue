@@ -178,7 +178,7 @@ export default {
         this.$store.dispatch("getForBusinessAssessmentList");
       } else if (
         this.currentTable === "assessed" &&
-        this.changeType === "business"
+        this.currentType === "business"
       ) {
         this.$store.dispatch("getAssessedBusinessList");
       } else if (
