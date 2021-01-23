@@ -5,7 +5,7 @@
     target="_blank"
   >
     <input type="hidden" name="MerchantCode" value="2020101157" />
-    <input type="hidden" name="MerchantRefNo" value="4325" />
+    <input type="hidden" name="MerchantRefNo" value="4326" />
     <input
       type="hidden"
       name="Particulars"
@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     getHash() {
-      return md5("2020101157" + "4325" + "250000")
+      return md5("2020101157" + "4326" + "250000")
         .toString()
         .toLowerCase();
     },
