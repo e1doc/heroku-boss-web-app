@@ -25,7 +25,7 @@
       <input type="hidden" name="Hash" :value="getHash()" />
 
     </form> -->
-    <button-full @click="submit">Submit</button-full>
+    <button-full @click.native="submit">Submit</button-full>
   </div>
 </template>
 
