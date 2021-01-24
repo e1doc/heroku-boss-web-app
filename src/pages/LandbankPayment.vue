@@ -3,6 +3,7 @@
     action="https://222.127.109.48/epp20200915/"
     method="POST"
     target="_blank"
+    @submit.prevent="backToProfile"
   >
     <input type="hidden" name="MerchantCode" value="2020101157" />
     <input type="hidden" name="MerchantRefNo" value="4329" />
@@ -26,7 +27,7 @@
       value="https://boss-web-api.herokuapp.com/api/payment-error/"
     />
     <input type="hidden" name="Hash" :value="getHash()" />
-    <input type="submit" value="POST TO EPP" @click="backToProfile" />
+    <input type="submit" value="POST TO EPP" />
   </form>
 </template>
 
