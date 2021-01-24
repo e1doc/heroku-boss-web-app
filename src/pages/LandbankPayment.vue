@@ -47,37 +47,37 @@ export default {
         .toString()
         .toLowerCase();
     },
-  },
-  backToProfile() {
-    console.log("clicked");
-    this.$router.push({ name: "Profile" });
-  },
-  async submit() {
-    var formData = new FormData();
-    formData.append("MerchantCode", "2020101157");
-    formData.append("MerchantRefNo", "4327");
-    formData.append(
-      "Particulars",
-      "Transaction_type=Real Property Tax;Tax Declaration=123;Declared Owner=Juan dela Cruz;Payment Mode=Online;Quarter=First Quarter"
-    );
-    formData.append("Amount", "2500.00");
-    formData.append("PayorName", "John Doe");
-    formData.append("PayorEmail", "john.doe@gmail.com");
-    formData.append(
-      "ReturnURLOK",
-      "https://boss-web-api.herokuapp.com/api/payment-success/"
-    );
-    formData.append(
-      "ReturnURLError",
-      "https://boss-web-api.herokuapp.com/api/payment-error/"
-    );
-    formData.append("hash", this.getHash());
+    backToProfile() {
+      console.log("clicked");
+      this.$router.push({ name: "Profile" });
+    },
+    async submit() {
+      var formData = new FormData();
+      formData.append("MerchantCode", "2020101157");
+      formData.append("MerchantRefNo", "4327");
+      formData.append(
+        "Particulars",
+        "Transaction_type=Real Property Tax;Tax Declaration=123;Declared Owner=Juan dela Cruz;Payment Mode=Online;Quarter=First Quarter"
+      );
+      formData.append("Amount", "2500.00");
+      formData.append("PayorName", "John Doe");
+      formData.append("PayorEmail", "john.doe@gmail.com");
+      formData.append(
+        "ReturnURLOK",
+        "https://boss-web-api.herokuapp.com/api/payment-success/"
+      );
+      formData.append(
+        "ReturnURLError",
+        "https://boss-web-api.herokuapp.com/api/payment-error/"
+      );
+      formData.append("hash", this.getHash());
 
-    const response = await axios.post(
-      "https://222.127.109.48/epp20200915/",
-      formData
-    );
-    window.open(response.request.responseUrl, "_blank");
+      const response = await axios.post(
+        "https://222.127.109.48/epp20200915/",
+        formData
+      );
+      window.open(response.request.responseUrl, "_blank");
+    },
   },
 };
 </script>
