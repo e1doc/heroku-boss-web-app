@@ -5,7 +5,7 @@
     target="_blank"
   >
     <input type="hidden" name="MerchantCode" value="2020101157" />
-    <input type="hidden" name="MerchantRefNo" value="4328" />
+    <input type="hidden" name="MerchantRefNo" value="4329" />
     <input
       type="hidden"
       name="Particulars"
@@ -42,12 +42,13 @@ export default {
   },
   methods: {
     getHash() {
-      return md5("2020101157" + "4328" + "250000")
+      return md5("2020101157" + "4329" + "250000")
         .toString()
         .toLowerCase();
     },
   },
   backToProfile() {
+    console.log("clicked");
     this.$router.push({ name: "Profile" });
   },
   async submit() {
