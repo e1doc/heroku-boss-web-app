@@ -4,6 +4,7 @@
     method="POST"
     target="_blank"
     @submit="backToProfile"
+    ref="form"
   >
     <input type="hidden" name="MerchantCode" value="2020101157" />
     <input type="hidden" name="MerchantRefNo" value="4329" />
@@ -49,6 +50,7 @@ export default {
     },
     backToProfile() {
       console.log("clicked");
+      this.$refs.form.submit();
       this.$router.push({ name: "Profile" });
     },
     async submit() {
