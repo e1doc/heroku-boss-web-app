@@ -1,5 +1,9 @@
 <template>
-  <form action="https://222.127.109.48/epp20200915/" method="POST">
+  <form
+    action="https://222.127.109.48/epp20200915/"
+    method="POST"
+    target="_blank"
+  >
     <input type="hidden" name="MerchantCode" value="2020101157" />
     <input type="hidden" name="MerchantRefNo" value="4328" />
     <input
