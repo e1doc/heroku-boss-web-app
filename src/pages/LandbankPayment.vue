@@ -32,7 +32,7 @@
 <script>
 import axios from "axios";
 import md5 from "crypto-js/md5";
-import ButtonFull from '../components/ButtonFull.vue';
+import ButtonFull from "../components/ButtonFull.vue";
 export default {
   components: { ButtonFull },
   mounted() {
@@ -46,7 +46,7 @@ export default {
         .toLowerCase();
     },
   },
-  submit() {
+  async submit() {
     var formData = new FormData();
     formData.append("MerchantCode", "2020101157");
     formData.append("MerchantRefNo", "4327");
@@ -67,8 +67,11 @@ export default {
     );
     formData.append("hash", this.getHash());
 
-    const response = await axios.post('https://222.127.109.48/epp20200915/', formData)
-    window.open(response.request.responseUrl, '_blank')
+    const response = await axios.post(
+      "https://222.127.109.48/epp20200915/",
+      formData
+    );
+    window.open(response.request.responseUrl, "_blank");
   },
 };
 </script>
