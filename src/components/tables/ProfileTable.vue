@@ -217,7 +217,7 @@ export default {
           await this.setBusinessApplication(item);
           await this.getLocalBusinessDetails(item.account_number);
         }
-        this.$store.commit("setCurrentSelectedBusiness", item);
+        await this.$store.commit("setCurrentSelectedBusiness", item);
       }
       if (type === "real_property") {
         this.$store.commit("setCurrentSelectedProperty", item);
