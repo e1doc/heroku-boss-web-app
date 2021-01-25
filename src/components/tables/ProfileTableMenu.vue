@@ -79,7 +79,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getDepartments");
-    this.$store.commit('setCurrentTable', 'profile')
+    this.$store.commit("setCurrentTable", "profile");
   },
   data() {
     return {

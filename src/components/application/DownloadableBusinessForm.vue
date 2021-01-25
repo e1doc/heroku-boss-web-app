@@ -495,14 +495,16 @@ export default {
       });
 
       //LESSOR DETAILS
-      var busiActivityTable = doc.autoTableHtmlToJson(
-        document.getElementById("business-activity-table")
-      );
-      doc.autoTable(busiActivityTable.columns, busiActivityTable.data, {
-        theme: "grid",
-        headStyles: { fillColor: "#2699fb" },
-        bodyStyles: { lineColor: "#bce0fd" },
-      });
+      if (this.businessActivities.length > 0) {
+        var busiActivityTable = doc.autoTableHtmlToJson(
+          document.getElementById("business-activity-table")
+        );
+        doc.autoTable(busiActivityTable.columns, busiActivityTable.data, {
+          theme: "grid",
+          headStyles: { fillColor: "#2699fb" },
+          bodyStyles: { lineColor: "#bce0fd" },
+        });
+      }
 
       doc.save(
         `business-application-${this.businessBasicInformation.reference_number}.pdf`

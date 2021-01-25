@@ -1,77 +1,86 @@
 <template>
-    <div class="menu-holder">
-      <div class="left-div flex-grow">
-        <div class="soa-menus flex-row">
-          <div class="menu-type active">STATEMENT OF ACCOUNTS</div>
-        </div>
-      </div>
-      <div class="right-div flex-row flex-grow" v-if="type !== 'bills'">
-        <div class="menu-type">
-          <div :class="{ active: currentType === 'business' }" @click="changeType('business')" >
-            <font-awesome-icon icon="store" class="mr5 icon" />
-            BUSINESS
-          </div>
-        </div>
-        <div class="menu-type">
-          <div :class="{ active: currentType === 'building' }" @click="changeType('building')">
-            <font-awesome-icon icon="city" class="mr5 icon" />
-            BUILDING
-          </div>
-        </div>
-        <div class="menu-type" v-if="currentTable !== 'applications'">
-          <div :class="{ active: currentType === 'real_property' }" @click="changeType('real_property')">
-            <font-awesome-icon icon="city" class="mr5 icon" />
-            REAL PROPERTY
-          </div>
-        </div>
-        <div class="search-menu flex-center">
-            <base-input-search v-model="search"  @keyup.native="searchData()"/>
-        </div>
+  <div class="menu-holder">
+    <div class="left-div flex-grow">
+      <div class="soa-menus flex-row">
+        <div class="menu-type active">STATEMENT OF ACCOUNTS</div>
       </div>
     </div>
+    <div class="right-div flex-row flex-grow" v-if="type !== 'bills'">
+      <div class="menu-type">
+        <div
+          :class="{ active: currentType === 'business' }"
+          @click="changeType('business')"
+        >
+          <font-awesome-icon icon="store" class="mr5 icon" />
+          BUSINESS
+        </div>
+      </div>
+      <div class="menu-type">
+        <div
+          :class="{ active: currentType === 'building' }"
+          @click="changeType('building')"
+        >
+          <font-awesome-icon icon="city" class="mr5 icon" />
+          BUILDING
+        </div>
+      </div>
+      <div class="menu-type" v-if="currentTable !== 'applications'">
+        <div
+          :class="{ active: currentType === 'real_property' }"
+          @click="changeType('real_property')"
+        >
+          <font-awesome-icon icon="city" class="mr5 icon" />
+          REAL PROPERTY
+        </div>
+      </div>
+      <div class="search-menu flex-center">
+        <base-input-search v-model="search" @keyup.native="searchData()" />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import {mapGetters} from "vuex"
+import { mapGetters } from "vuex";
 import BaseInputSearch from "@/components/forms/BaseInputSearch";
 export default {
   name: "SoaTableMenu",
   components: {
-      BaseInputSearch
+    BaseInputSearch,
   },
-  computed:{
+  computed: {
     ...mapGetters(["currentType", "currentTable"]),
   },
-  props:{
-    type:{
+  props: {
+    type: {
       type: String,
       required: true,
-      default: "soa"
-    }
+      default: "soa",
+    },
   },
-  mounted(){
-    this.$store.dispatch("getDepartments")
+  mounted() {
+    this.$store.dispatch("getDepartments");
   },
-  data(){
-    return{
+  data() {
+    return {
       activeTab: "soa",
-      activeType: "business"
-    }
+      activeType: "business",
+    };
   },
-  methods:{
-    changeTab(tab){
-      this.activeTab = tab
+  methods: {
+    changeTab(tab) {
+      this.activeTab = tab;
       this.$store.commit("setCurrentTable", tab);
     },
 
-    async changeType(type){
-      this.activeType = type
+    async changeType(type) {
+      this.activeType = type;
       await this.$store.commit("setCurrentType", type);
-      let soaFilter = type === 'real_property' ? 'rpt' : type 
+      let soaFilter = type === "real_property" ? "rpt" : type;
       await this.$store.commit("setSoaFilter", soaFilter);
-      await this.$store.dispatch("getDepartments")
-    }
-  }
+      await this.$store.dispatch("getDepartments");
+    },
+  },
 };
 </script>
 
@@ -87,10 +96,10 @@ export default {
 }
 
 .left-div {
-  div{
+  div {
     .menu-type {
       color: #f09795;
-      font-weight: bold;    
+      font-weight: bold;
       font-size: 14px;
       padding: 20px;
       margin-left: 15px;
@@ -121,77 +130,77 @@ export default {
       transition: 0.3s;
     }
     .active {
-      border-color: #FADDDD;
+      border-color: #fadddd;
       border-radius: 5px;
       color: #e23a36;
       font-weight: bold;
     }
   }
-  .search-menu{
-      padding-right: 15px;
+  .search-menu {
+    padding-right: 15px;
   }
 }
 
 /*
 MOBILE RESPONSIVENESS ------------------------------------------- */
-@media only screen and ( max-width: 768px ){
-  .menu-holder{
-      box-shadow: none;
-      background: transparent;
-      flex-direction: unset;
-      flex-wrap: wrap;
+@media only screen and (max-width: 768px) {
+  .menu-holder {
+    box-shadow: none;
+    background: transparent;
+    flex-direction: unset;
+    flex-wrap: wrap;
   }
 
-  .right-div .menu-type{
-      margin-left: 15px;
-      margin-right: 0;
+  .right-div .menu-type {
+    margin-left: 15px;
+    margin-right: 0;
   }
   .left-div {
-      width: 100%;
-      flex-grow: unset;
-      flex-wrap: wrap;
-      display: flex;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      z-index: 4;
-      background-color: #fff;
-      box-shadow: 0px 0px 20px rgba(127, 127, 127, 0.1);
+    width: 100%;
+    flex-grow: unset;
+    flex-wrap: wrap;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 4;
+    background-color: #fff;
+    box-shadow: 0px 0px 20px rgba(127, 127, 127, 0.1);
   }
 
-  .left-div .profile-menus .menu-type{
-      border-bottom: 0;
-      border-top: 3px solid #fff;
-      margin-left: 0;
-      width: calc( 100% / 3 );
-      text-align: center;
-      padding: 15px;
+  .left-div .profile-menus .menu-type {
+    border-bottom: 0;
+    border-top: 3px solid #fff;
+    margin-left: 0;
+    width: calc(100% / 3);
+    text-align: center;
+    padding: 15px;
   }
 
-  .left-div .soa-menus .menu-type{
-      border-bottom: 0;
-      border-top: 3px solid #fff;
-      margin-left: 0;
-      width: 100%;
-      text-align: center;
-      padding: 15px;
+  .left-div .soa-menus .menu-type {
+    border-bottom: 0;
+    border-top: 3px solid #fff;
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 15px;
   }
 
-  .left-div div .menu-type.active{
-      border-color: #e23a36;
-      background: #e23a36;
-      color: #fff
+  .left-div div .menu-type.active {
+    border-color: #e23a36;
+    background: #e23a36;
+    color: #fff;
   }
 
   .profile-menus {
-      width: 100%;
-  } 
+    width: 100%;
+  }
 }
 
-@media only screen and ( max-width : 450px ){
+@media only screen and (max-width: 450px) {
   .left-div div .menu-type,
-  .right-div .menu-type{
-      font-size: 12px;
+  .right-div .menu-type {
+    font-size: 12px;
   }
 }
 </style>

@@ -26,7 +26,11 @@
           </div>
           <div class="td w25">
             <span class="td-label show-in-mobile">BUSINESS NAME : </span>
-            {{ item.business_application.businessdetails.name !== "" ?  item.business_application.businessdetails.name : item.business_application.businessdetails.trade_name }}
+            {{
+              item.business_application.businessdetails.name !== ""
+                ? item.business_application.businessdetails.name
+                : item.business_application.businessdetails.trade_name
+            }}
           </div>
           <div class="td w15">
             <span class="td-label show-in-mobile">AMOUNT : </span>
@@ -40,7 +44,7 @@
             <div
               class="bill"
               @click="redirect(item.id, 'business', item)"
-              :class="{disabled: item.appointment !== null }"
+              :class="{ disabled: item.appointment !== null }"
             >
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
             </div>
@@ -92,7 +96,7 @@
             <div
               class="bill"
               @click="redirect(item.id, 'building', item)"
-              :class="{disabled: item.appointment !== null }"
+              :class="{ disabled: item.appointment !== null }"
             >
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
             </div>
@@ -140,7 +144,7 @@
             <div
               class="bill"
               @click="redirect(item.id, 'rpt', item)"
-              :class="{disabled: item.appointment !== null }"
+              :class="{ disabled: item.appointment !== null }"
             >
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
             </div>
@@ -187,16 +191,19 @@ export default {
       },
     },
   },
-  mounted(){
-  },
+  mounted() {},
   methods: {
     redirect(id, type, soa) {
-      if(soa.appointment === null){
-      this.$store.commit("setCurrentSoa", { id, type });
-      this.$store.commit("setCurrentSoaObj", soa);
-      this.$store.commit("setAppointmentAction", "add");
-      this.$store.commit('setCurrentSelectedBusiness', soa.business_application)
-      this.$router.push({ path: "payment" });
+      if (soa.appointment === null) {
+        this.$store.commit("setCurrentSoaType", type);
+        this.$store.commit("setCurrentSoa", { id, type });
+        this.$store.commit("setCurrentSoaObj", soa);
+        this.$store.commit("setAppointmentAction", "add");
+        this.$store.commit(
+          "setCurrentSelectedBusiness",
+          soa.business_application
+        );
+        this.$router.push({ path: "payment" });
       }
     },
     reschedule(appointment, soa) {
@@ -241,11 +248,11 @@ export default {
 .w45 {
   width: 45%;
 }
-.disabled{
+.disabled {
   border-color: gray !important;
   color: gray !important;
 }
-.disabled:hover{
+.disabled:hover {
   border-color: gray !important;
   color: gray !important;
   background: none !important;
