@@ -1,7 +1,29 @@
 <template>
   <section>
     <div class="meta-invoice-holder">
-          <downloadable-invoice />
+      <downloadable-invoice />
+    </div>
+    <div>
+      <form
+        action="https://222.127.109.48/epp20200915/"
+        method="POST"
+        target="_blank"
+        @submit="submit"
+        ref="form"
+      >
+        <input type="hidden" name="MerchantCode" :value="merchantCode" />
+        <input type="hidden" name="MerchantRefNo" :value="merchantRefNo" />
+        <input type="hidden" name="Particulars" :value="particulars" />
+
+        <input type="hidden" name="Amount" :value="amount" />
+        <input type="hidden" name="PayorName" :value="payorName" />
+        <input type="hidden" name="PayorEmail" :value="payorEmail" />
+        <input type="hidden" name="ReturnURLOK" :value="returnUrlOk" />
+
+        <input type="hidden" name="ReturnURLError" :value="returnUrlError" />
+        <input type="hidden" name="Hash" :value="hash" />
+        <input type="submit" value="POST TO EPP" />
+      </form>
     </div>
     <div class="meta-parent-box">
       <div class="container flex-wrap">
@@ -14,26 +36,45 @@
             <!-- <div class="meta-label">Select Mode of Payment</div> -->
             <!-- <bank-option/> -->
             <div class="meta-list flex-wrap">
-              <div class="meta-list-item" 
-                  v-if="isFeatureImplemented"
-                  :class="{active:selectedPayment == 'landbank'}" 
-                  @click="changePaymentType('landbank')">
-                      <img class="meta-img" src="../assets/landbank-logo.png" />
+              <div
+                class="meta-list-item"
+                v-if="isFeatureImplemented"
+                :class="{ active: selectedPayment == 'landbank' }"
+                @click="changePaymentType('landbank')"
+              >
+                <img class="meta-img" src="../assets/landbank-logo.png" />
               </div>
-              <div class="meta-list-item active" 
-                  :class="{active:selectedPayment == 'treasury_office'}" 
-                  @click="changePaymentType('treasury_office')">
-                      <img class="meta-img" src="../assets/lgu-treasury.png" />
+              <div
+                class="meta-list-item"
+                :class="{ active: selectedPayment == 'treasury_office' }"
+                @click="changePaymentType('treasury_office')"
+              >
+                <img class="meta-img" src="../assets/lgu-treasury.png" />
               </div>
             </div>
-            <radio-button/>
-            <div class="meta-button" @click="printInvoice()" v-if="paymentOption === 'counter' && currentPaymentType === 'landbank'">
+            <radio-button />
+            <div
+              class="meta-button"
+              @click="printInvoice()"
+              v-if="
+                paymentOption === 'counter' && currentPaymentType === 'landbank'
+              "
+            >
               <button-block>DOWNLOAD</button-block>
             </div>
-            <div class="meta-button" v-if="paymentOption === 'online' && currentPaymentType === 'landbank'">
-              <button-block>REDIRECT</button-block>
+            <div
+              class="meta-button"
+              v-if="
+                paymentOption === 'online' && currentPaymentType === 'landbank'
+              "
+            >
+              <button-block @click.native="submit">REDIRECT</button-block>
             </div>
-            <div class="meta-button" @click="redirectAppointment()" v-if="currentPaymentType === 'treasury_office'">
+            <div
+              class="meta-button"
+              @click="redirectAppointment()"
+              v-if="currentPaymentType === 'treasury_office'"
+            >
               <button-block>REDIRECT</button-block>
             </div>
           </div>
@@ -50,49 +91,94 @@ import RadioButton from "@/components/payment/RadioButton";
 import ButtonBlock from "@/components/ButtonBlock";
 import DownloadableInvoice from "@/components/payment/DownloadableInvoice";
 import { mapGetters } from "vuex";
+import md5 from "crypto-js/md5";
 export default {
   components: {
     PaymentInvoiceSummary,
     BankOption,
     RadioButton,
     ButtonBlock,
-    DownloadableInvoice
+    DownloadableInvoice,
   },
-    computed: {
-    ...mapGetters(["paymentOption", "currentPaymentType","currentSoaObj"]),
+  computed: {
+    ...mapGetters([
+      "paymentOption",
+      "currentPaymentType",
+      "currentSoaObj",
+      "userDetails",
+    ]),
   },
-  data(){
-      return{
-          printVisible: false,
-          isPayment:true,
-          selectedPayment: "landbank",
-          isFeatureImplemented: false
-      }
+  data() {
+    return {
+      printVisible: false,
+      isPayment: true,
+      selectedPayment: "landbank",
+      isFeatureImplemented: true,
+      merchantCode: "2020101157",
+      merchantRefNo: "",
+      particulars: "",
+      amount: "",
+      payorName: "",
+      payorEmail: "",
+      returnUrlOk: "https://boss-web-api.herokuapp.com/api/payment-success/",
+      returnUrlError: "https://boss-web-api.herokuapp.com/api/payment-error/",
+      hash: "",
+    };
   },
-  mounted(){
-    this.$store.commit('setPrintInvoice',false)
-    console.log(this.currentSoaObj)
+  mounted() {
+    this.$store.commit("setPrintInvoice", false);
+    this.setupFormData();
   },
   methods: {
-    printInvoice() {
-    this.$store.commit('setPrintInvoice',true)
+    setupFormData() {
+      let business_application = this.currentSoaObj.business_application;
+      this.amount = this.currentSoaObj.amount;
+      this.merchantRefNo = this.currentSoaObj.reference_number;
+      this.payorName = `${this.userDetails.first_name} ${this.userDetails.last_name}`;
+      this.payorEmail = this.userDetails.email;
+      let paymode =
+        this.currentSoaObj.paymode === "A"
+          ? "Annually"
+          : this.currentSoaObj.paymode === "S"
+          ? "Semi-Annually"
+          : "Quarterly";
+      if (this.currentSoaObj.application_type === "business") {
+        this.particulars = `Transaction_type=Business Permit Payment;Account No=${business_application.account_number};Business Name=${business_application.businessdetails.name};Payment Mode=${paymode};Quarter=1-4;Total Amount=${this.currentSoaObj.amount}`;
+      }
+      this.hash = this.getHash();
     },
-    redirectAppointment(){
-      this.$router.push({ name: 'AddAppointment' })
+    submit() {
+      this.$refs.form.submit();
+      // this.$router.push({ name: "Profile" });
+    },
+    getHash() {
+      return md5(
+        this.merchantCode +
+          this.merchantRefNo +
+          this.currentSoaObj.toString().replace(/./g, "")
+      )
+        .toString()
+        .toLowerCase();
+    },
+    printInvoice() {
+      this.$store.commit("setPrintInvoice", true);
+    },
+    redirectAppointment() {
+      this.$router.push({ name: "AddAppointment" });
     },
     changePaymentType(type) {
       this.selectedPayment = type;
-      this.$store.commit('setCurrentPaymentType', type)
-    }
+      this.$store.commit("setCurrentPaymentType", type);
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.meta-invoice-holder{
+.meta-invoice-holder {
   position: absolute;
-  opacity: 0.0;
-  top:-500px;
+  opacity: 0;
+  top: -500px;
   z-index: -1;
 }
 section {
@@ -162,83 +248,107 @@ section {
   border-color: #039be5;
 }
 
-@media only screen and (max-width: 1180px){
-  section div.meta-parent-box{
-      padding-bottom: 50px;
+@media only screen and (max-width: 1180px) {
+  section div.meta-parent-box {
+    padding-bottom: 50px;
   }
 
-  section div.meta-parent-box div.container div.meta-left-box{
-      width: 45%;
+  section div.meta-parent-box div.container div.meta-left-box {
+    width: 45%;
   }
 
-  section div.meta-parent-box div.container div.meta-right-box{
-      width: calc(55% - 30px);
-      margin-left: 30px;
+  section div.meta-parent-box div.container div.meta-right-box {
+    width: calc(55% - 30px);
+    margin-left: 30px;
   }
 
-  section div.meta-parent-box div.container div.meta-right-box div.meta-form-box{
-      padding: 30px 30px 50px 50px;
-  }
-
-}
-
-@media only screen and (max-width: 860px){
-  section div.meta-parent-box{
-      padding-top: 20px;
-  }
-
-  section div.meta-parent-box div.container div.meta-left-box{
-      width: 100%;
-  }
-
-  section div.meta-parent-box div.container div.meta-right-box{
-      width: 100%;
-      margin-left: 0;
-  }
-
-  .meta-invoice-holder{ 
-      overflow: hidden;
-      width: 100%;
-  }
-
-  section div.meta-parent-box div.container div.meta-right-box div.meta-form-box .meta-title{
-      font-size: 20px;
-      margin-left: 0;
-  }
-
-  .container{
-    margin-bottom: 0!important;
-  }
-
-  section div.meta-parent-box div.container div.meta-right-box div.meta-form-box{
-      padding: 40px 50px;
+  section
+    div.meta-parent-box
+    div.container
+    div.meta-right-box
+    div.meta-form-box {
+    padding: 30px 30px 50px 50px;
   }
 }
 
-@media only screen and ( max-width: 480px ){
+@media only screen and (max-width: 860px) {
+  section div.meta-parent-box {
+    padding-top: 20px;
+  }
 
-  section div.meta-parent-box{
+  section div.meta-parent-box div.container div.meta-left-box {
+    width: 100%;
+  }
+
+  section div.meta-parent-box div.container div.meta-right-box {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .meta-invoice-holder {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  section
+    div.meta-parent-box
+    div.container
+    div.meta-right-box
+    div.meta-form-box
+    .meta-title {
+    font-size: 20px;
+    margin-left: 0;
+  }
+
+  .container {
+    margin-bottom: 0 !important;
+  }
+
+  section
+    div.meta-parent-box
+    div.container
+    div.meta-right-box
+    div.meta-form-box {
+    padding: 40px 50px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  section div.meta-parent-box {
     padding-top: 30px;
   }
-  section div.meta-parent-box div.container div.meta-right-box div.meta-form-box{
-      padding: 30px 30px 40px;
-      min-height: auto;
-      margin-top: 20px;
+  section
+    div.meta-parent-box
+    div.container
+    div.meta-right-box
+    div.meta-form-box {
+    padding: 30px 30px 40px;
+    min-height: auto;
+    margin-top: 20px;
   }
 
-  section div.meta-parent-box div.container div.meta-right-box div.meta-form-box .meta-title{
+  section
+    div.meta-parent-box
+    div.container
+    div.meta-right-box
+    div.meta-form-box
+    .meta-title {
     font-size: 18px;
     line-height: 1.6;
   }
-  
-  .meta-list .meta-list-item img.meta-img{
-      max-height: 40px;
+
+  .meta-list .meta-list-item img.meta-img {
+    max-height: 40px;
   }
 }
 
-@media only screen and ( max-width: 350px ){
-  section div.meta-parent-box div.container div.meta-right-box div.meta-form-box{
-      padding: 30px 15px;
+@media only screen and (max-width: 350px) {
+  section
+    div.meta-parent-box
+    div.container
+    div.meta-right-box
+    div.meta-form-box {
+    padding: 30px 15px;
   }
 }
 </style>

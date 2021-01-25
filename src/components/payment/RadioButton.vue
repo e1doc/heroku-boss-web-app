@@ -1,133 +1,172 @@
 <template>
   <div class="meta-list">
     <!-- OPTION 1 -->
-      <div class="meta-list-option" v-if="currentPaymentType === 'landbank' && isFeatureImplemented">
-          <div class="meta-radio flex-center">
-              <input type="radio" class="radio-button" name="payment-options" id="option_1" checked @click="selectOptions('counter')">
-              <span class="custom-radio flex-center" :class="{selected: selectedOption === 'counter'}"><span class="circle"></span></span>
-              <label for="option_1">Over the Counter</label>
-          </div>
-          <div class="meta-desc">Pay your bills over the counter on  any Landbank branches.  Click the 'Download' button below to download your SOA which you will present in paying on any Landbank branches.</div>
+    <div
+      class="meta-list-option"
+      v-if="currentPaymentType === 'landbank' && isFeatureImplemented"
+    >
+      <div class="meta-radio flex-center">
+        <input
+          type="radio"
+          class="radio-button"
+          name="payment-options"
+          id="option_1"
+          checked
+          @click="selectOptions('counter')"
+        />
+        <span
+          class="custom-radio flex-center"
+          :class="{ selected: selectedOption === 'counter' }"
+          ><span class="circle"></span
+        ></span>
+        <label for="option_1">Over the Counter</label>
       </div>
-    <!-- OPTION 2 -->
-      <div class="meta-list-option" v-if="currentPaymentType === 'landbank' && isFeatureImplemented">
-          <div class="meta-radio flex-center">
-              <input type="radio" class="radio-button" name="payment-options" id="option_2" @click="selectOptions('online')">
-              <span class="custom-radio flex-center" :class="{selected: selectedOption === 'online'}"><span class="circle"></span></span>
-              <label for="option_2">Pay Online</label>
-          </div>
-          <div class="meta-desc">You can now pay your bills through online without any hassle.</div>
+      <div class="meta-desc">
+        Pay your bills over the counter on any Landbank branches. Click the
+        'Download' button below to download your SOA which you will present in
+        paying on any Landbank branches.
       </div>
-      
+    </div>
     <!-- OPTION 2 -->
-      <div class="meta-list-option" v-if="currentPaymentType === 'treasury_office'">
-          <div class="meta-radio flex-center">
-              <!-- <input type="radio" class="radio-button" name="payment-options" id="option_3" @click="selectOptions('treasury')">
+    <div
+      class="meta-list-option"
+      v-if="currentPaymentType === 'landbank' && isFeatureImplemented"
+    >
+      <div class="meta-radio flex-center">
+        <input
+          type="radio"
+          class="radio-button"
+          name="payment-options"
+          id="option_2"
+          @click="selectOptions('online')"
+        />
+        <span
+          class="custom-radio flex-center"
+          :class="{ selected: selectedOption === 'online' }"
+          ><span class="circle"></span
+        ></span>
+        <label for="option_2">Pay Online</label>
+      </div>
+      <div class="meta-desc">
+        You can now pay your bills through online without any hassle.
+      </div>
+    </div>
+
+    <!-- OPTION 2 -->
+    <div
+      class="meta-list-option"
+      v-if="currentPaymentType === 'treasury_office'"
+    >
+      <div class="meta-radio flex-center">
+        <!-- <input type="radio" class="radio-button" name="payment-options" id="option_3" @click="selectOptions('treasury')">
               <span class="custom-radio flex-center" :class="{selected: selectedOption === 'treasury'}"><span class="circle"></span></span> -->
-              <label for="option_3">Pay at the Treasury Office</label>
-          </div>
-          <div class="meta-desc">You must set an appointment before paying your bills at the Treasury Office. To set an appointment, please click the button below.</div>
+        <label for="option_3">Pay at the Treasury Office</label>
       </div>
+      <div class="meta-desc">
+        You must set an appointment before paying your bills at the Treasury
+        Office. To set an appointment, please click the button below.
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import {mapGetters} from "vuex"
+import { mapGetters } from "vuex";
 export default {
-    name: "RadioButton",
-    data(){
-      return{
-        selectedOption: 'counter',
-        isFeatureImplemented: false
-      }
-    }, 
-    computed: {
-      ...mapGetters(['currentPaymentType'])
+  name: "RadioButton",
+  data() {
+    return {
+      selectedOption: "counter",
+      isFeatureImplemented: true,
+    };
+  },
+  computed: {
+    ...mapGetters(["currentPaymentType"]),
+  },
+  props: {
+    paymentType: {
+      type: String,
+      default: "landbank",
     },
-    props: {
-      paymentType: {
-        type: String,
-        default: "landbank",
-      },
+  },
+  mounted() {
+    this.$store.commit("setCurrentPaymentType", "landbank");
+  },
+  methods: {
+    selectOptions(option) {
+      this.selectedOption = option;
+      this.$store.commit("setPaymentOption", option);
     },
-    mounted(){
-      this.$store.commit('setCurrentPaymentType', 'treasury_office')
-    },
-    methods:{
-      selectOptions(option){
-        this.selectedOption = option
-        this.$store.commit('setPaymentOption',option)
-      }
-    }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-div.meta-list{
+div.meta-list {
   .meta-list-option {
-      margin-bottom: 30px;
-      .meta-radio {
-          color: #2b2b2b;
-          font-size: 14px;
-          font-weight: bold;
-          text-transform: uppercase;
-          line-height: 20px;
-          position: relative;
-          margin-bottom: 13px;
-          input.radio-button {
-            margin-right: 15px;
-            position: relative;
-            z-index: 2;
-            opacity: 0;
-            cursor: pointer;
-          }
-          label{
-            cursor: pointer;
-          }
-          span.custom-radio {
-            height: 13px;
-            width: 13px;
-            border: 1px solid #2699fb;
-            border-radius: 100%;
-            justify-content: center;
-            position: absolute;
-            left: 0;
-            z-index: 1;
-            span.circle {
-                height: 9px;
-                width: 9px;
-                background-color: transparent;
-                border-radius: 100%;
-            }
-          }
-          span.custom-radio.selected{
-              span.circle{
-                  background-color: #2699fb;
-              }
-          }
+    margin-bottom: 30px;
+    .meta-radio {
+      color: #2b2b2b;
+      font-size: 14px;
+      font-weight: bold;
+      text-transform: uppercase;
+      line-height: 20px;
+      position: relative;
+      margin-bottom: 13px;
+      input.radio-button {
+        margin-right: 15px;
+        position: relative;
+        z-index: 2;
+        opacity: 0;
+        cursor: pointer;
       }
-      .meta-desc {
-          font-size: 14px;
-          line-height: 25px;
-          color: #646566;
-          background: #F6FBFF;
-          border-radius: 10px;
-          border-top-left-radius: 0;
-          padding: 15px 18px;
+      label {
+        cursor: pointer;
+      }
+      span.custom-radio {
+        height: 13px;
+        width: 13px;
+        border: 1px solid #2699fb;
+        border-radius: 100%;
+        justify-content: center;
+        position: absolute;
+        left: 0;
+        z-index: 1;
+        span.circle {
+          height: 9px;
+          width: 9px;
+          background-color: transparent;
+          border-radius: 100%;
+        }
+      }
+      span.custom-radio.selected {
+        span.circle {
+          background-color: #2699fb;
+        }
+      }
+    }
+    .meta-desc {
+      font-size: 14px;
+      line-height: 25px;
+      color: #646566;
+      background: #f6fbff;
+      border-radius: 10px;
+      border-top-left-radius: 0;
+      padding: 15px 18px;
     }
   }
 }
 
-.meta-list-option:last-child{
-  margin-bottom: 50px!important;
+.meta-list-option:last-child {
+  margin-bottom: 50px !important;
 }
 
-span.custom-radio.selected span.circle{
-    background-color: #2699fb;
+span.custom-radio.selected span.circle {
+  background-color: #2699fb;
 }
 
-@media only screen and ( max-width: 480px ){
-  div.meta-list .meta-list-option .meta-desc{
+@media only screen and (max-width: 480px) {
+  div.meta-list .meta-list-option .meta-desc {
     font-size: 12px;
     line-height: 1.6;
   }

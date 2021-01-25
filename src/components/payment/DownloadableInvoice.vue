@@ -171,11 +171,7 @@
             <th align="center">TOTAL AMOUNT</th>
             <th align="center">
               PHP
-              {{
-                formatCurrency(
-                  parseFloat(generatedBill.total_amount).toFixed(2)
-                )
-              }}
+              {{ formatCurrency(parseFloat(currentSoaObj.amount).toFixed(2)) }}
             </th>
           </tr>
         </thead>
@@ -395,7 +391,7 @@ export default {
         canvas: canvasElement,
         width: 794,
         height: 1124,
-      }).then(function(canvas) {
+      }).then(function (canvas) {
         console.log(canvas);
         const img = canvas.toDataURL("image/jpeg", 1);
         doc.addImage(img, "JPEG", 0, 0, width, height);
@@ -411,7 +407,7 @@ export default {
         canvas: canvasElement,
         width: 794,
         height: 1724,
-      }).then(function(canvas) {
+      }).then(function (canvas) {
         var imgWidth = 210;
         var pageHeight = 295;
         var imgHeight = (canvas.height * imgWidth) / canvas.width;
@@ -433,11 +429,11 @@ export default {
 
       // Select the image
       const img = document.querySelector("#logoImage");
-      img.addEventListener("load", function(event) {
+      img.addEventListener("load", function (event) {
         const dataUrl = this.getDataUrl(event.currentTarget);
       });
 
-      var header = function(data) {
+      var header = function (data) {
         doc.setFontSize(12);
         doc.setTextColor(40);
         doc.setFontStyle("normal");
