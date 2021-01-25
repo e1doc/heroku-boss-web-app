@@ -73,17 +73,43 @@
               }}
             </div>
             <div class="item-value" v-if="currentSoaType === 'business'">
-              {{
-                currentSelectedBusiness.businessbasicinformation
-                  .owner_first_name
-              }}
-              {{
-                currentSelectedBusiness.businessbasicinformation
-                  .owner_middle_name
-              }}
-              {{
-                currentSelectedBusiness.businessbasicinformation.owner_last_name
-              }}
+              <div
+                v-if="
+                  currentSelectedBusiness.businessbasicinformation
+                    .type_of_organization !== 'CORPORATION'
+                "
+              >
+                {{
+                  currentSelectedBusiness.businessbasicinformation
+                    .owner_first_name
+                }}
+                {{
+                  currentSelectedBusiness.businessbasicinformation
+                    .owner_middle_name
+                }}
+                {{
+                  currentSelectedBusiness.businessbasicinformation
+                    .owner_last_name
+                }}
+              </div>
+              <div
+                v-if="
+                  currentSelectedBusiness.businessbasicinformation
+                    .type_of_organization === 'CORPORATION'
+                "
+              >
+                {{
+                  currentSelectedBusiness.businessdetails.president_first_name
+                }}
+                {{
+                  currentSelectedBusiness.businessbasicinformation
+                    .president_middle_name
+                }}
+                {{
+                  currentSelectedBusiness.businessbasicinformation
+                    .president_last_name
+                }}
+              </div>
             </div>
             <div class="item-value" v-if="currentSoaType === 'real_property'">
               {{

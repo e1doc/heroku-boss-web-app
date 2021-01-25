@@ -210,9 +210,13 @@ export default {
       this.$store.commit("setLoading", false);
       await this.$router.push({ name: "BusinessRenewal" });
     },
-    showModal(type, item) {
+    async showModal(type, item) {
       this.$store.commit("setCurrentSoaType", type);
       if (type === "business") {
+        if (!item.is_renewed && item.is_enrolled) {
+          await this.setBusinessApplication(item);
+          await this.getLocalBusinessDetails(item.account_number);
+        }
         this.$store.commit("setCurrentSelectedBusiness", item);
       }
       if (type === "real_property") {
@@ -388,6 +392,45 @@ export default {
       } else {
         return false;
       }
+    },
+    async setBusinessApplication(application) {
+      this.$store.commit("setLoading", true);
+      if (application.id) {
+        let data = {
+          id: application.id,
+          created_at: application.created_at,
+          updated_at: application.updated_at,
+          is_draft: application.is_draft,
+          is_approve: application.is_approve,
+          is_disapprove: application.is_disapprove,
+          account_number: application.account_number,
+          application_status: application.application_status,
+          last_submitted: application.last_submitted,
+          is_renewed: application.is_renewed,
+          is_enrolled: application.is_enrolled,
+        };
+        await this.$store.commit("setBusinessApplication", data);
+      }
+      if (application.businessbasicinformation !== null) {
+        await this.$store.commit(
+          "setBusinessBasicInformation",
+          application.businessbasicinformation
+        );
+      }
+      if (application.businessdetails !== null) {
+        await this.$store.commit(
+          "setBusinessDetails",
+          application.businessdetails
+        );
+      }
+      if (application.lessordetails !== null) {
+        await this.$store.commit("setLessorDetails", application.lessordetails);
+      }
+      await this.$store.dispatch(
+        "getBusinessRequirementRenewal",
+        application.id
+      );
+      this.$store.commit("setLoading", false);
     },
   },
 };

@@ -67,6 +67,25 @@
         Office. To set an appointment, please click the button below.
       </div>
     </div>
+    <div class="meta-list-option" v-if="currentPaymentType === 'other_banks'">
+      <div class="meta-radio flex-center">
+        <input
+          type="radio"
+          class="radio-button"
+          name="payment-options"
+          id="option_1"
+          checked
+          @click="selectOptions('other_banks')"
+        />
+        <span
+          class="custom-radio flex-center"
+          :class="{ selected: selectedOption === 'counter' }"
+          ><span class="circle"></span
+        ></span>
+        <label for="option_1">Pay at other Payment Channels</label>
+      </div>
+      <div class="meta-desc">Lorem Dolor Sit Amet</div>
+    </div>
   </div>
 </template>
 

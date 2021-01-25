@@ -22,7 +22,7 @@
 
         <input type="hidden" name="ReturnURLError" :value="returnUrlError" />
         <input type="hidden" name="Hash" :value="hash" />
-        <input type="submit" value="POST TO EPP" />
+        <!-- <input type="submit" value="POST TO EPP" /> -->
       </form>
     </div>
     <div class="meta-parent-box">
@@ -41,6 +41,14 @@
                 v-if="isFeatureImplemented"
                 :class="{ active: selectedPayment == 'landbank' }"
                 @click="changePaymentType('landbank')"
+              >
+                <img class="meta-img" src="../assets/landbank-logo.png" />
+              </div>
+              <div
+                class="meta-list-item"
+                v-if="isFeatureImplemented"
+                :class="{ active: selectedPayment == 'other_banks' }"
+                @click="changePaymentType('other_banks')"
               >
                 <img class="meta-img" src="../assets/landbank-logo.png" />
               </div>
@@ -76,6 +84,12 @@
               v-if="currentPaymentType === 'treasury_office'"
             >
               <button-block>REDIRECT</button-block>
+            </div>
+            <div
+              class="meta-button"
+              v-if="currentPaymentType === 'other_banks'"
+            >
+              <button-block>Upload Transaction Slip</button-block>
             </div>
           </div>
         </div>
