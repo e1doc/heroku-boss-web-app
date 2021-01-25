@@ -297,7 +297,7 @@
             <th>Capitalization / Gross Sales</th>
           </tr>
         </thead>
-        <tbody>
+       
           <tr v-for="(activity, index) in businessActivities" :key="index">
             <td>{{ activity.line_of_business }}</td>
             <td>{{ activity.units }}</td>
@@ -309,6 +309,25 @@
             </td>
           </tr>
         </tbody>
+      </table>
+      <table
+        id="business-activity-table-none"
+        v-if="businessActivities.length < 1"
+      >
+        <thead>
+          <tr>
+            <th>(Business Activity) Line of Business</th>
+            <th>No. of Units</th>
+            <th>Capitalization / Gross Sales</th>
+          </tr>
+        </thead>
+         <tbody>
+           <tr>
+             <td>N/A</td>
+             <td>N/A</td>
+             <td>N/A</td>
+           </tr>
+         </tbody>
       </table>
     </div>
   </div>
@@ -498,6 +517,15 @@ export default {
       if (this.businessActivities.length > 0) {
         var busiActivityTable = doc.autoTableHtmlToJson(
           document.getElementById("business-activity-table")
+        );
+        doc.autoTable(busiActivityTable.columns, busiActivityTable.data, {
+          theme: "grid",
+          headStyles: { fillColor: "#2699fb" },
+          bodyStyles: { lineColor: "#bce0fd" },
+        });
+      } else {
+        var busiActivityTable = doc.autoTableHtmlToJson(
+          document.getElementById("business-activity-table-none")
         );
         doc.autoTable(busiActivityTable.columns, busiActivityTable.data, {
           theme: "grid",
