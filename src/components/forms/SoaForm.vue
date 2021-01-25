@@ -4,9 +4,7 @@
       <h3 class="meta-input-label mt10 mb10 text-bold mb20">
         Account Number: {{ currentSelectedBusiness.account_number }}
       </h3>
-      <div class="meta-input-label mt10 mb10">
-        Payment Mode
-      </div>
+      <div class="meta-input-label mt10 mb10">Payment Mode</div>
       <base-select
         placeholder="--- Select from the options ---"
         :options="paymentOptions"
@@ -15,9 +13,7 @@
         class="mb15"
         @change.native="onModeSelect"
       />
-      <div class="meta-input-label mt10 mb10">
-        Payment Quarter
-      </div>
+      <div class="meta-input-label mt10 mb10">Payment Quarter</div>
       <base-select
         placeholder="--- Select from the options ---"
         :options="quarters"
@@ -31,7 +27,7 @@
       >
     </div>
     <div class="flex-column" v-if="currentSoaType === 'real_property'">
-      <h4>For Tax Year - {{new Date(Date.now()) | moment('YYYY')}}</h4>
+      <h4>For Tax Year - {{ new Date(Date.now()) | moment("YYYY") }}</h4>
       <h3 class="meta-input-label mt10 mb10 text-bold mb20">
         Tax Dec No. {{ currentSelectedProperty.buildingdetails.tax_dec_no }}
       </h3>
@@ -65,7 +61,7 @@ import BaseInput from "@/components/forms/BaseInput";
 import BaseSelect from "@/components/forms/BaseSelect";
 import { mapGetters } from "vuex";
 import axios from "axios";
-import moment from "moment-timezone"
+import moment from "moment-timezone";
 const oneDocToken = process.env.VUE_APP_ONE_DOC_TOKEN;
 export default {
   name: "SoaForm",
@@ -82,8 +78,7 @@ export default {
       "currentSelectedProperty",
     ]),
   },
-  mounted() {
-  },
+  mounted() {},
   data() {
     return {
       isQuarterDisabled: false,
@@ -161,6 +156,7 @@ export default {
             config
           );
           this.$store.commit("setLoading", false);
+          console.log(result.data);
           if (result.data.Response.Result.message !== "No record found.") {
             await this.$modal.hide("soaModal");
             await this.$store.dispatch(
@@ -183,7 +179,7 @@ export default {
               property_type: this.currentSelectedProperty.buildingdetails
                 .property_type,
               includeadv: this.isAdvancePayment ? 1 : 0,
-              date: moment().format('YYYY-MM-DD').toString()
+              date: moment().format("YYYY-MM-DD").toString(),
             },
           };
           const result = await axios.post(
@@ -192,7 +188,7 @@ export default {
             config
           );
           this.$store.commit("setLoading", false);
-        if (result.data.Response.Result.message !== "No record found.") {
+          if (result.data.Response.Result.message !== "No record found.") {
             await this.$modal.hide("soaModal");
             await this.$store.dispatch(
               "storeGeneratedBill",

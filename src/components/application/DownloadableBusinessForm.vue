@@ -297,7 +297,7 @@
             <th>Capitalization / Gross Sales</th>
           </tr>
         </thead>
-       
+        <tbody>
           <tr v-for="(activity, index) in businessActivities" :key="index">
             <td>{{ activity.line_of_business }}</td>
             <td>{{ activity.units }}</td>
@@ -321,13 +321,13 @@
             <th>Capitalization / Gross Sales</th>
           </tr>
         </thead>
-         <tbody>
-           <tr>
-             <td>N/A</td>
-             <td>N/A</td>
-             <td>N/A</td>
-           </tr>
-         </tbody>
+        <tbody>
+          <tr>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
