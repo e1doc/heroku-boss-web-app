@@ -213,8 +213,12 @@ body .select-dept-input .select-wrapper .dropdown-icon {
 
 .meta-upload-box.custom-upload .meta-custom-upload{
     margin-left: 0;
+    margin-bottom: 0;
 }
 
+input.amount-paid[inputmode="decimal"]{
+    padding: 12px 15px;
+}
 
 input[inputmode="decimal"] {
     font-size: 15px;
