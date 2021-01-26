@@ -105,21 +105,29 @@ export default {
                     width: 40%;
                     float: left;
                     
-                font-size: 16px;
-                font-family: Proxima Nova Rg;
-                line-height: 1.4;
-                margin-bottom: 0;
+                    font-size: 16px;
+                    font-family: Proxima Nova Rg;
+                    line-height: 1.4;
+                    margin-bottom: 0;
                 }
                 .meta-input-value{
-                width: 60%;
-                float: left;
-                font-size: 16px;
-                font-family: Proxima Nova Rg;
-                line-height: 1.4;
+                    width: 60%;
+                    float: left;
+                    font-size: 16px;
+                    font-family: Proxima Nova Rg;
+                    line-height: 1.4;
 
-                span.separator {
-                    margin-right: 20px;
+                    span.separator {
+                        margin-right: 20px;
+                    }
                 }
+                .meta-link{
+                    text-decoration: underline;
+                    cursor: pointer;
+                    transition: 0.4s;
+                }
+                .meta-link:hover{
+                   color: #4791db;
                 }
             }
             .meta-upload-div {
