@@ -138,11 +138,7 @@
         </div>
         <div class="invoice-amount">
           <div class="invoice-summary">
-            <div
-              class="summary-tr"
-              v-for="(item, index) of currentSoaObj.bills"
-              :key="index"
-            >
+            <div class="summary-tr" v-for="(item, index) of bills" :key="index">
               <div class="summary-td">Quarter {{ item.quarter }}</div>
               <div class="summary-td amount">
                 ₱ {{ formatCurrency(parseFloat(item.amount).toFixed(2)) }}
@@ -178,6 +174,11 @@ export default {
       "currentSoaType",
       "currentSelectedProperty",
     ]),
+    bills() {
+      return this.currentSoaObj.bills.sort((a, b) =>
+        a.quarter > b.quarter ? 1 : -1
+      );
+    },
   },
   data() {
     return {

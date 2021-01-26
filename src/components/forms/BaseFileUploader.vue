@@ -71,6 +71,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    isPaymentDetails: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -90,6 +94,7 @@ export default {
       "currentEvaluationFile",
       "isUploadSuccess",
       "isFileUploadFailed",
+      "paymentDetails",
     ]),
     isInitial() {
       return this.currentStatus === STATUS_INITIAL;
@@ -170,19 +175,27 @@ export default {
           ) {
             if (fileList[x].size <= 26214400) {
               this.filename = fileList[x].name;
-              formData.append(fieldName, fileList[x]);
-              let requirement_id =
-                this.type === "business"
-                  ? this.applicationRequirements.id
-                  : this.buildingApplicationRequirements.id;
-              formData.append("requirement_id", requirement_id);
-              formData.append("requirements_label", this.fileLabel);
-              formData.append("filename", fileList[x].name);
-              payload.requirement_id = requirement_id;
-              payload.requirements_label = this.fileLabel;
-              payload.filename = fileList[x].name;
-              payload.file = fileList[x].file;
-              this.save(formData);
+              if (!this.isPaymentDetails) {
+                formData.append(fieldName, fileList[x]);
+                let requirement_id =
+                  this.type === "business"
+                    ? this.applicationRequirements.id
+                    : this.buildingApplicationRequirements.id;
+                formData.append("requirement_id", requirement_id);
+                formData.append("requirements_label", this.fileLabel);
+                formData.append("filename", fileList[x].name);
+                payload.requirement_id = requirement_id;
+                payload.requirements_label = this.fileLabel;
+                payload.filename = fileList[x].name;
+                payload.file = fileList[x].file;
+                this.save(formData);
+              } else {
+                let paymentFormData = this.paymentDetails;
+                paymentFormData.append("filename", fileList[x].name);
+                paymentFormData.append(fieldName, fileList[x]);
+                this.$store.commit("setPaymentDetails", paymentFormData);
+                this.$store.commit("setIsFileUploaded", true);
+              }
             } else {
               file.value = null;
               this.$swal({

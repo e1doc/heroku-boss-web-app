@@ -1,41 +1,57 @@
 <template>
   <section class="mt30">
     <div class="thead hide-in-mobile">
-        <div class="th">Appointment Date</div>
-        <div class="th">Appointment Type</div>
-        <div class="th">Batch</div>
-        <div class="th">Is Cancelled</div>
-        <div class="th">Action</div>
+      <div class="th">Appointment Date</div>
+      <div class="th">Appointment Type</div>
+      <div class="th">Batch</div>
+      <div class="th">Is Cancelled</div>
+      <div class="th">Action</div>
     </div>
     <div class="appointment-table">
-        <!-- v-if="adminAppointments.length > 0" -->
+      <!-- v-if="adminAppointments.length > 0" -->
       <div class="tbody">
         <div class="tr" v-for="(item, index) in appointments" :key="index">
-            <div class="td">
-                {{item.appointment_date | moment('MMMM DD, YYYY')}}
-            </div>
-            <div class="td">
-                {{item.title}}
-            </div>
-            <div class="td">
-                {{item.batch === 'batch_1' ? 'Batch 1 (8:00 AM - 1:00 PM)' : 'Batch 2 (1:00 PM - 5:00 PM)'}}
-            </div>
-            <div class="td">
-                {{item.is_cancelled ? 'Yes' : 'No'}}
-            </div>
-            <div class="td">
-                <button-full-outline :disabled="item.is_cancelled" class="btn-reg mb10" :class="{disabled: item.is_cancelled}" @click.native="printInvoice(item, item.soa)">Print Appointment Slip</button-full-outline>
-                <button-full-outline :disabled="item.is_cancelled" class="btn-reg" :class="{disabled: item.is_cancelled}" @click.native="reschedule(item, item.soa)">Reschedule</button-full-outline>
-            </div>
+          <div class="td">
+            {{ item.appointment_date | moment("MMMM DD, YYYY") }}
+          </div>
+          <div class="td">
+            {{ item.title }}
+          </div>
+          <div class="td">
+            {{
+              item.batch === "batch_1"
+                ? "Batch 1 (8:00 AM - 1:00 PM)"
+                : "Batch 2 (1:00 PM - 5:00 PM)"
+            }}
+          </div>
+          <div class="td">
+            {{ item.is_cancelled ? "Yes" : "No" }}
+          </div>
+          <div class="td">
+            <button-full-outline
+              :disabled="item.is_cancelled"
+              class="btn-reg mb10"
+              :class="{ disabled: item.is_cancelled }"
+              @click.native="printInvoice(item, item.soa)"
+              >Print Appointment Slip</button-full-outline
+            >
+            <button-full-outline
+              :disabled="item.is_cancelled"
+              class="btn-reg"
+              :class="{ disabled: item.is_cancelled }"
+              @click.native="reschedule(item, item.soa)"
+              >Reschedule</button-full-outline
+            >
+          </div>
         </div>
       </div>
 
-  <div class="tbody" v-if="appointments.length < 1">
+      <div class="tbody" v-if="appointments.length < 1">
         <div class="tr">
-            <div class="td">No data available</div>
+          <div class="td">No data available</div>
         </div>
-      </div> 
-  <paginate
+      </div>
+      <paginate
         v-if="appointments.length > 0"
         :page-count="pageCount"
         :prev-text="'Prev'"
@@ -56,28 +72,24 @@ import { mapGetters } from "vuex";
 export default {
   name: "UserAppointmentTable",
   components: {
-    ButtonFullOutline
+    ButtonFullOutline,
   },
-  computed:{
-     ...mapGetters(["appointments", "pageCount"]),
+  computed: {
+    ...mapGetters(["appointments", "pageCount"]),
   },
   created() {
     this.$store.dispatch("getUserAppointments");
   },
-  mounted(){
-    this.$store.commit('setPrintInvoice', false)
-    console.log(this.appointments)
+  mounted() {
+    this.$store.commit("setPrintInvoice", false);
+    console.log(this.appointments);
   },
-  methods:{
-    appointmentClickCallBack(pageNum){
-      this.$store.dispatch('getUserAppointments', pageNum)
+  methods: {
+    appointmentClickCallBack(pageNum) {
+      this.$store.dispatch("getUserAppointments", pageNum);
     },
-    async printInvoice(appointment, soa){
-      this.$store.commit('setCurrentSoaType', soa.application_type)
-      await this.$store.commit('setCurrentSoaObj', soa)
-      await this.$store.commit('setCurrentSelectedBusiness', soa.business_application)
-      await this.$store.commit('setCurrentAppointment', appointment)
-      await this.$store.commit('setPrintInvoice', true)
+    async printInvoice(appointment, soa) {
+      await this.$store.dispatch("printAppointment", { appointment, soa });
     },
     async reschedule(appointment, soa) {
       await this.$store.commit("setCurrentAppointment", appointment);
@@ -85,13 +97,11 @@ export default {
       await this.$store.commit("setCurrentSoaObj", soa);
       await this.$router.push({ name: "AddAppointment" });
     },
-  }
-
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-
 .thead {
   border-radius: 8px 8px 0px 0px;
   display: flex;
@@ -151,34 +161,33 @@ export default {
   }
 }
 
-
-.btn-reg{
-    width: 100%;
-    max-width: 230px;
-    min-width: unset !important;
-    font-size: 14px;
-    text-transform: uppercase;
+.btn-reg {
+  width: 100%;
+  max-width: 230px;
+  min-width: unset !important;
+  font-size: 14px;
+  text-transform: uppercase;
 }
 
-.disabled{
+.disabled {
   border-color: gray !important;
   color: gray !important;
 }
-.disabled:hover{
+.disabled:hover {
   border-color: gray !important;
   color: gray !important;
   background: none !important;
 }
 
 .result-count {
-    width: 100%;
-    text-align: right;
-    padding-bottom: 15px;
-    margin-bottom: 20px;
-    font-size: 18px;
-    font-family: Proxima Nova Rg;
-    font-weight: bold;
-    color: #1492e6;
+  width: 100%;
+  text-align: right;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-family: Proxima Nova Rg;
+  font-weight: bold;
+  color: #1492e6;
 }
 
 .bill:hover {

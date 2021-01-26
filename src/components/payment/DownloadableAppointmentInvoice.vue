@@ -128,15 +128,29 @@
     <table id="business-details-table">
       <thead>
         <tr>
-          <th>{{currentSoaType === 'business' ? 'Account Number' : 'Tax Dec No.'}}</th>
+          <th>
+            {{
+              currentSoaType === "business" ? "Account Number" : "Tax Dec No."
+            }}
+          </th>
           <th v-if="currentSoaType === 'business'">Business Name</th>
-          <th>{{currentSoaType === 'business' ? 'Business Owner' : 'Real Property Owner Name'}}</th>
+          <th>
+            {{
+              currentSoaType === "business"
+                ? "Business Owner"
+                : "Real Property Owner Name"
+            }}
+          </th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td v-if="currentSoaType === 'business'">{{ currentSelectedBusiness.account_number }}</td>
-          <td v-if="currentSoaType === 'real_property'">{{ currentSelectedProperty.buildingdetails.tax_dec_no }}</td>
+          <td v-if="currentSoaType === 'business'">
+            {{ currentSelectedBusiness.account_number }}
+          </td>
+          <td v-if="currentSoaType === 'real_property'">
+            {{ currentSelectedProperty.buildingdetails.tax_dec_no }}
+          </td>
           <td v-if="currentSoaType === 'business'">
             {{
               currentSelectedBusiness.businessdetails.name != ""
@@ -156,7 +170,9 @@
             }}
           </td>
           <td v-if="currentSoaType === 'real_property'">
-            {{currentSelectedProperty.buildingbasicinformation.owner_first_name}}
+            {{
+              currentSelectedProperty.buildingbasicinformation.owner_first_name
+            }}
           </td>
         </tr>
       </tbody>
@@ -180,7 +196,8 @@
         <tr>
           <th align="center">TOTAL AMOUNT</th>
           <th align="center">
-         PHP {{ formatCurrency(parseFloat(currentSoaObj.amount).toFixed(2)) }}
+            PHP
+            {{ formatCurrency(parseFloat(currentSoaObj.amount).toFixed(2)) }}
           </th>
         </tr>
       </thead>
@@ -203,7 +220,7 @@ export default {
       "currentSelectedBusiness",
       "generatedBill",
       "currentSelectedProperty",
-      "currentSoaType"
+      "currentSoaType",
     ]),
   },
   data() {
@@ -269,17 +286,16 @@ export default {
   watch: {
     printInvoice: {
       deep: true,
-      handler(status) {
+      async handler(status) {
         if (status) {
-          this.generateAppointmentInvoice();
-          this.$store.commit("setPrintInvoice", false);
+          await this.setupFees();
+          await this.generateAppointmentInvoice();
+          await this.$store.commit("setPrintInvoice", false);
         }
       },
     },
   },
-  mounted() {
-    this.setupFees();
-  },
+  mounted() {},
   methods: {
     formatCurrency(str) {
       var parts = str.toString().split(".");
@@ -302,22 +318,25 @@ export default {
       });
       return map;
     },
-    setupFees() {
+    async setupFees() {
       let feesHolder = [];
       let groupHolder = [];
-      this.currentSoaObj.bills.forEach((item) => {
+      await this.currentSoaObj.bills.forEach((item) => {
         this.allFees2.push(item.billfees);
       });
-      this.allFees2.forEach((item) => {
+      await this.allFees2.forEach((item) => {
         item.forEach((element) => {
           feesHolder.push(element);
         });
       });
-      const grouped = this.groupBy(feesHolder, (item) => item.fee_description);
-      grouped.forEach((item) => {
+      const grouped = await this.groupBy(
+        feesHolder,
+        (item) => item.fee_description
+      );
+      await grouped.forEach((item) => {
         groupHolder.push(item);
       });
-      groupHolder.forEach((item) => {
+      await groupHolder.forEach((item) => {
         item.forEach((element) => {
           this.compiledFees.push(element);
         });
@@ -344,7 +363,7 @@ export default {
         canvas: canvasElement,
         width: 794,
         height: 1124,
-      }).then(function(canvas) {
+      }).then(function (canvas) {
         const img = canvas.toDataURL("image/jpeg", 1);
         doc.addImage(img, "JPEG", 0, 0, width, height);
         doc.save("appointment-invoice.pdf");
@@ -356,11 +375,11 @@ export default {
 
       // Select the image
       const img = document.querySelector("#logoImage");
-      img.addEventListener("load", function(event) {
+      img.addEventListener("load", function (event) {
         const dataUrl = this.getDataUrl(event.currentTarget);
       });
 
-      var header = function(data) {
+      var header = function (data) {
         doc.setFontSize(12);
         doc.setTextColor(40);
         doc.setFontStyle("normal");
@@ -402,7 +421,6 @@ export default {
         document.getElementById("fees-table")
       );
       doc.autoTable(feesTable.columns, feesTable.data, options);
-
 
       // const img2 = document.querySelector("#test");
       // doc.addImage(img2, "png", 280, 25, 50, 50);

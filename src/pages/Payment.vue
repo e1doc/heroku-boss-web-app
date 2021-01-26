@@ -3,6 +3,13 @@
     <div class="meta-invoice-holder">
       <downloadable-invoice />
     </div>
+    <modal
+      name="paymentDetailsModal"
+      height="auto"
+      :adaptive="true"
+      :classes="['vue-modal-2']"
+      ><payment-details-modal
+    /></modal>
     <div>
       <form
         action="https://222.127.109.48/epp20200915/"
@@ -89,7 +96,9 @@
               class="meta-button"
               v-if="currentPaymentType === 'other_banks'"
             >
-              <button-block>Upload Transaction Slip</button-block>
+              <button-block @click.native="showModal"
+                >Upload Payment Details</button-block
+              >
             </div>
           </div>
         </div>
@@ -104,6 +113,7 @@ import BankOption from "@/components/payment/BankOption";
 import RadioButton from "@/components/payment/RadioButton";
 import ButtonBlock from "@/components/ButtonBlock";
 import DownloadableInvoice from "@/components/payment/DownloadableInvoice";
+import PaymentDetailsModal from "@/components/payment/PaymentDetailsModal";
 import { mapGetters } from "vuex";
 import md5 from "crypto-js/md5";
 export default {
@@ -113,6 +123,7 @@ export default {
     RadioButton,
     ButtonBlock,
     DownloadableInvoice,
+    PaymentDetailsModal,
   },
   computed: {
     ...mapGetters([
@@ -144,6 +155,11 @@ export default {
     this.setupFormData();
   },
   methods: {
+    showModal() {
+      this.$store.commit("setPaymentDetails", new FormData());
+      this.$store.commit("setIsFileUploaded", false);
+      this.$modal.show("paymentDetailsModal");
+    },
     setupFormData() {
       let business_application = this.currentSoaObj.business_application;
       this.amount = this.currentSoaObj.amount;

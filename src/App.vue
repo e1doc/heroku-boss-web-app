@@ -1,10 +1,7 @@
 <template>
   <div id="app">
     <div class="vld-parent">
-      <loading
-        :active.sync="isLoading"
-        :can-cancel="true"
-      ></loading>
+      <loading :active.sync="isLoading" :can-cancel="true"></loading>
       <router-view />
     </div>
   </div>
@@ -21,26 +18,34 @@ export default {
     Loading,
   },
   computed: {
-    ...mapGetters(["isLoading","showPrompt","promptTitle","promptMessage","promptType"]),
+    ...mapGetters([
+      "isLoading",
+      "showPrompt",
+      "promptTitle",
+      "promptMessage",
+      "promptType",
+      "promptHtml",
+    ]),
   },
-  methods:{
+  methods: {
     ...mapActions(["closePrompt"]),
   },
-  watch:{
-    showPrompt:{
+  watch: {
+    showPrompt: {
       deep: true,
-      handler(isShow){
-        if(isShow){
+      handler(isShow) {
+        if (isShow) {
           this.$swal({
             title: this.promptTitle,
             text: this.promptMessage,
+            html: this.promptHtml,
             icon: this.promptType,
-            onClose: this.closePrompt()
-          })
+            onClose: this.closePrompt(),
+          });
         }
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>
 <style lang="scss">

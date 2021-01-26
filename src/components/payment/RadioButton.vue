@@ -82,9 +82,37 @@
           :class="{ selected: selectedOption === 'counter' }"
           ><span class="circle"></span
         ></span>
-        <label for="option_1">Pay at other Payment Channels</label>
+        <label for="option_1">Pay via Other Banks</label>
       </div>
-      <div class="meta-desc">Lorem Dolor Sit Amet</div>
+      <div class="meta-desc">
+        <div class="mb25">Please pay your SOA at the bank of your choice:</div>
+        <div class="flex-row">
+          <div class="flex-column mr20 meta-label">
+            <div class="mr15 mb10">Depository Bank:</div>
+            <div class="mr15 mb10">Depository Name:</div>
+            <div class="mr15 mb10">Depository Account #:</div>
+            <div class="mr15 mb10">Total Amount Due:</div>
+          </div>
+          <div class="flex-column">
+            <div class="mr15 mb10">Land Bank of the Philippines</div>
+            <div class="mr15 mb10">City Government of Bacoor</div>
+            <div class="mr15 mb10">
+              {{
+                currentSoaObj.business_application !== null
+                  ? currentSoaObj.business_application.account_number
+                  : ""
+              }}
+            </div>
+            <div>
+              {{ currentSoaObj.amount }}
+            </div>
+          </div>
+        </div>
+        <div>
+          Once you have settled the account via your bank of choice, please
+          click on <span class="text-bold">Upload Payment Details</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -100,7 +128,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["currentPaymentType"]),
+    ...mapGetters(["currentPaymentType", "currentSoaObj"]),
   },
   props: {
     paymentType: {
@@ -172,6 +200,10 @@ div.meta-list {
       border-radius: 10px;
       border-top-left-radius: 0;
       padding: 15px 18px;
+      .meta-label {
+        font-size: 16px;
+        font-weight: bold;
+      }
     }
   }
 }

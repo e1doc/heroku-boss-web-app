@@ -3,14 +3,32 @@
     <div class="dialog-holder">
       <div class="dialog-header">
         <div class="store-avatar">
-          <font-awesome-icon icon="store" class="icon" v-if="currentSoaType === 'business'"/>
-          <font-awesome-icon icon="city" class="icon" v-if="currentSoaType === 'real_property'"/>
+          <font-awesome-icon
+            icon="store"
+            class="icon"
+            v-if="currentSoaType === 'business'"
+          />
+          <font-awesome-icon
+            icon="city"
+            class="icon"
+            v-if="currentSoaType === 'real_property'"
+          />
         </div>
-        <div class="text-bold size14 main-title" v-if="currentSoaType === 'business'">
-          {{ currentSelectedBusiness.businessdetails.name !='' ? currentSelectedBusiness.businessdetails.name : currentSelectedBusiness.businessdetails.trade_name}}
+        <div
+          class="text-bold size14 main-title"
+          v-if="currentSoaType === 'business'"
+        >
+          {{
+            currentSelectedBusiness.businessdetails.name != ""
+              ? currentSelectedBusiness.businessdetails.name
+              : currentSelectedBusiness.businessdetails.trade_name
+          }}
         </div>
-        <div class="text-bold size14 main-title" v-if="currentSoaType === 'real_property'">
-          {{currentSelectedProperty.buildingdetails.tax_dec_no}}
+        <div
+          class="text-bold size14 main-title"
+          v-if="currentSoaType === 'real_property'"
+        >
+          {{ currentSelectedProperty.buildingdetails.tax_dec_no }}
         </div>
         <div class="triangle">
           <font-awesome-icon icon="caret-down" class="icon" />
@@ -34,26 +52,48 @@
           <div class="details-body">
             <div class="details-item" v-if="currentSoaType === 'business'">
               <div class="item-label">Reference No:</div>
-              <div class="item-value">{{currentSelectedBill.referenceno}}</div>
+              <div class="item-value">
+                {{ currentSelectedBill.referenceno }}
+              </div>
             </div>
             <div class="details-item">
               <div class="item-label">Year:</div>
-              <div class="item-value">{{currentSoaType === 'business' ?  generatedBill.year : currentSelectedBill.year}}</div>
+              <div class="item-value">
+                {{
+                  currentSoaType === "business"
+                    ? generatedBill.year
+                    : currentSelectedBill.year
+                }}
+              </div>
             </div>
             <div class="details-item">
               <div class="item-label">Due Date:</div>
-              <div class="item-value">{{currentSelectedBill.duedate | moment('MMMM DD, YYYY')}}</div>
+              <div class="item-value">
+                {{ currentSelectedBill.duedate | moment("MMMM DD, YYYY") }}
+              </div>
             </div>
             <div class="details-item">
               <div class="item-label">Quarter:</div>
-              <div class="item-value">{{currentSelectedBill.quarter}}</div>
+              <div class="item-value">{{ currentSelectedBill.quarter }}</div>
             </div>
           </div>
         </div>
         <div class="invoice-owner">
-          <div class="invoice-title">{{currentSoaType === 'business' ? 'BUSINESS DETAILS' : 'Real Property Details'}}</div>
+          <div class="invoice-title">
+            {{
+              currentSoaType === "business"
+                ? "BUSINESS DETAILS"
+                : "Real Property Details"
+            }}
+          </div>
           <div class="owner-details">
-            <div class="item-label">{{currentSoaType === 'business' ? 'Business Owner' : 'Real Property Owner Name'}}</div>
+            <div class="item-label">
+              {{
+                currentSoaType === "business"
+                  ? "Business Owner"
+                  : "Real Property Owner Name"
+              }}
+            </div>
             <div class="item-value" v-if="currentSoaType === 'business'">
               {{
                 currentSelectedBusiness.businessbasicinformation
@@ -68,7 +108,10 @@
               }}
             </div>
             <div class="item-value" v-if="currentSoaType === 'real_property'">
-              {{currentSelectedProperty.buildingbasicinformation.owner_first_name}}
+              {{
+                currentSelectedProperty.buildingbasicinformation
+                  .owner_first_name
+              }}
             </div>
           </div>
         </div>
@@ -84,7 +127,9 @@
             </div>
             <div class="meta-value-holder">
               <div class="meta-value">
-                <div>₱ {{ formatCurrency(parseFloat(item.amount).toFixed(2))}}</div>
+                <div>
+                  ₱ {{ formatCurrency(parseFloat(item.amount).toFixed(2)) }}
+                </div>
               </div>
             </div>
           </div>
@@ -93,7 +138,12 @@
           <div class="amount-details">
             <div class="item-label">Total Amount</div>
             <div class="item-value">
-              ₱ {{ formatCurrency(parseFloat(currentSelectedBill.amount).toFixed(2)) }}
+              ₱
+              {{
+                formatCurrency(
+                  parseFloat(currentSelectedBill.amount).toFixed(2)
+                )
+              }}
             </div>
           </div>
         </div>
@@ -116,7 +166,7 @@ export default {
       "currentSelectedBill",
       "generatedBill",
       "currentSoaType",
-      "currentSelectedProperty"
+      "currentSelectedProperty",
     ]),
   },
   data() {

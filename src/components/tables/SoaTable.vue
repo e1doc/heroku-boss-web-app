@@ -44,7 +44,10 @@
             <div
               class="bill"
               @click="redirect(item.id, 'business', item)"
-              :class="{ disabled: item.appointment !== null }"
+              :class="{
+                disabled:
+                  item.appointment !== null || item.banktransaction !== null,
+              }"
             >
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
             </div>
@@ -96,7 +99,10 @@
             <div
               class="bill"
               @click="redirect(item.id, 'building', item)"
-              :class="{ disabled: item.appointment !== null }"
+              :class="{
+                disabled:
+                  item.appointment !== null || item.banktransaction !== null,
+              }"
             >
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
             </div>
@@ -144,7 +150,10 @@
             <div
               class="bill"
               @click="redirect(item.id, 'rpt', item)"
-              :class="{ disabled: item.appointment !== null }"
+              :class="{
+                disabled:
+                  item.appointment !== null || item.banktransaction !== null,
+              }"
             >
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
             </div>

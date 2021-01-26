@@ -16,6 +16,7 @@ const getDefaultBusinessState = () => {
     lessorDetailsHasError: false,
     activitiesHasError: false,
     stepOneErrors: {
+      payment_details: [],
       application: [],
       basic_information: [],
     },
