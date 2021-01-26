@@ -57,7 +57,7 @@
                 :class="{ active: selectedPayment == 'other_banks' }"
                 @click="changePaymentType('other_banks')"
               >
-                <img class="meta-img" src="../assets/landbank-logo.png" />
+                <img class="meta-img" src="../assets/bank-logo.png" />
               </div>
               <div
                 class="meta-list-item"

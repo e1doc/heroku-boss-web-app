@@ -19,7 +19,7 @@
           class="mb15"
           :validationMessages="stepOneErrors.payment_details.date"
         />
-        <div>
+        <div class="flex-wrap">
           <div class="meta-input-label mt10 mb10">Total Amount Paid</div>
           <currency-input
             label="Total Amount Paid"
@@ -49,7 +49,7 @@
             name="payment_details"
             fileLabel="paymentdetails"
             type="business"
-            class="mt30"
+            class="mt30 custom-upload"
             :isPaymentDetails="true"
             :hasError="uploadHasError"
           />
@@ -163,5 +163,9 @@ section {
   background-color: #ffffff;
   max-height: 100vh;
   overflow-y: auto;
+
+  .custom-upload{
+    margin-left: 0;
+  }
 }
 </style>
