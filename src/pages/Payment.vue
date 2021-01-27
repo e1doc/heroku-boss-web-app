@@ -60,7 +60,7 @@
                 <img class="meta-img" src="../assets/bank-logo.png" />
               </div>
               <div
-                class="meta-list-item"
+                class="meta-list-item active"
                 :class="{ active: selectedPayment == 'treasury_office' }"
                 @click="changePaymentType('treasury_office')"
               >
@@ -138,7 +138,7 @@ export default {
       printVisible: false,
       isPayment: true,
       selectedPayment: "landbank",
-      isFeatureImplemented: true,
+      isFeatureImplemented: false,
       merchantCode: "2020101157",
       merchantRefNo: "",
       particulars: "",

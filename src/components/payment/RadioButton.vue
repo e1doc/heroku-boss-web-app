@@ -67,7 +67,10 @@
         Office. To set an appointment, please click the button below.
       </div>
     </div>
-    <div class="meta-list-option" v-if="currentPaymentType === 'other_banks'">
+    <div
+      class="meta-list-option"
+      v-if="currentPaymentType === 'other_banks' && isFeatureImplemented"
+    >
       <div class="meta-radio flex-center">
         <input
           type="radio"
@@ -96,15 +99,10 @@
           <div class="flex-column">
             <div class="mr15 mb10">Land Bank of the Philippines</div>
             <div class="mr15 mb10">City Government of Bacoor</div>
-            <div class="mr15 mb10">
-              {{
-                currentSoaObj.business_application !== null
-                  ? currentSoaObj.business_application.account_number
-                  : ""
-              }}
-            </div>
+            <div class="mr15 mb10">123123123</div>
             <div>
-              {{ currentSoaObj.amount }}
+              PHP
+              {{ formatCurrency(parseFloat(currentSoaObj.amount).toFixed(2)) }}
             </div>
           </div>
         </div>
@@ -124,7 +122,7 @@ export default {
   data() {
     return {
       selectedOption: "counter",
-      isFeatureImplemented: true,
+      isFeatureImplemented: false,
     };
   },
   computed: {
@@ -137,9 +135,17 @@ export default {
     },
   },
   mounted() {
-    this.$store.commit("setCurrentPaymentType", "landbank");
+    this.$store.commit("setCurrentPaymentType", "treasury_office");
   },
   methods: {
+    formatCurrency(str) {
+      var parts = str.toString().split(".");
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      if (parts.length < 2) {
+        parts.push("00");
+      }
+      return parts.join(".");
+    },
     selectOptions(option) {
       this.selectedOption = option;
       this.$store.commit("setPaymentOption", option);

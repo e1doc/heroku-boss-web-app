@@ -214,7 +214,7 @@ export default {
       }
     },
     redirect(id, type, soa) {
-      if (soa.appointment === null) {
+      if (soa.appointment === null && soa.banktransaction === null) {
         this.$store.commit("setCurrentSoaType", type);
         this.$store.commit("setCurrentSoa", { id, type });
         this.$store.commit("setCurrentSoaObj", soa);
