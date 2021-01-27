@@ -50,9 +50,7 @@
               <base-date-picker v-model="date" />
             </div>
             <div>
-              <button-block @click.native="verify()">
-                VERIFY
-              </button-block>
+              <button-block @click.native="verify()"> VERIFY </button-block>
             </div>
           </div>
         </div>
@@ -141,6 +139,7 @@ export default {
             payload,
             config
           );
+          console.log(response.data);
           if (response.data.Response.Result.referenceid) {
             let building_payload = {
               is_draft: false,
@@ -176,7 +175,11 @@ export default {
         }
         this.$store.commit("setLoading", false);
       } catch (err) {
-        console.log(err.data);
+        this.$swal({
+          title: "Failed!",
+          text: "No record found.",
+          icon: "error",
+        });
         this.$store.commit("setLoading", false);
       }
     },

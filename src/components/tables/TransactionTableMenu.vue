@@ -67,10 +67,27 @@
         :value="propertyFilterBy"
         v-if="currentType === 'building' && type !== 'transaction'"
       />
+      <base-select
+        placeholder="Filter"
+        :options="bankTransactionFilter"
+        name="propertyFilterLists"
+        class="mb15"
+        customclass="filter-select"
+        ref="filter2"
+        @change="filterBankTransaction"
+        :value="bankTransactionFilterBy"
+        v-if="type === 'transaction'"
+      />
       <base-input-search
         v-if="type !== 'transaction'"
         v-model="search"
         @keyup.native="searchData()"
+      />
+      <base-input-search
+        v-if="type == 'transaction'"
+        v-model="search2"
+        placeholder="Search for reference no."
+        @keyup.native="searchTransaction()"
       />
     </div>
   </div>
@@ -109,6 +126,8 @@ export default {
       activeType: "business",
       businessFilter: "",
       propertyFilter: "",
+      bankTransactionFilterBy: "",
+      search2: "",
       filterList1: [
         {
           label: "All",
@@ -153,9 +172,18 @@ export default {
           value: "forEvaluation",
         },
       ],
+      bankTransactionFilter: [
+        { label: "ALL", value: "all" },
+        { label: "VERIFIRED", value: true },
+        { label: "FOR VERIFICATION", value: false },
+      ],
     };
   },
   methods: {
+    searchTransaction() {
+      this.$store.commit("setTransactionSearch", this.search2);
+      this.$store.dispatch("getAllBankTransactions", { page: 1 });
+    },
     searchData() {
       if (this.currentType === "real_property") {
         this.$store.commit("setBuildingSearch", this.search);
@@ -174,6 +202,9 @@ export default {
         this.$store.dispatch("getAllBuildingApplications");
       }
     },
+    filterBankTransaction(val) {
+      this.$store.dispatch("getAllBankTransactions", { filter: val });
+    },
     changeTab(tab) {
       this.activeTab = tab;
       this.$store.commit("setCurrentTable", tab);
@@ -188,7 +219,7 @@ export default {
           this.$store.dispatch("getAllBuildingApplications");
         }
       } else {
-        this.$store.dispatch("getAllBankTransactions");
+        this.$store.dispatch("getAllBankTransactions", { page: 1 });
       }
     },
   },

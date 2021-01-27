@@ -14,6 +14,8 @@ const getDefaultSoaState = () => {
     paymentDetails: new FormData(),
     isFileUploaded: false,
     bankTransactions: [],
+    currentBankTransaction: {},
+    transactionSearch: "",
   };
 };
 
@@ -31,6 +33,8 @@ const getters = {
   paymentDetails: (state) => state.paymentDetails,
   isFileUploaded: (state) => state.isFileUploaded,
   bankTransactions: (state) => state.bankTransactions,
+  currentBankTransaction: (state) => state.currentBankTransaction,
+  transactionSearch: (state) => state.transactionSearch,
 };
 
 const mutations = {
@@ -53,6 +57,10 @@ const mutations = {
     (state.isFileUploaded = isFileUploaded),
   setBankTransactions: (state, bankTransactions) =>
     (state.bankTransactions = bankTransactions),
+  setCurrentBankTransaction: (state, currentBankTransaction) =>
+    (state.currentBankTransaction = currentBankTransaction),
+  setTransactionSearch: (state, transactionSearch) =>
+    (state.transactionSearch = transactionSearch),
 };
 
 const actions = {
@@ -132,23 +140,29 @@ const actions = {
       });
     }
   },
-  async getAllUserBankTransactions({ commit, getters }, page = 1) {
-    try {
-      const response = await axios.get(
-        `${baseUrl}/api/bank-transaction-list?page=${page}`,
-        { headers: { Authorization: `jwt ${getters.authToken}` } }
-      );
-      await commit("setBankTransactions", response.data);
-      commit("setPageCount", response.data.total_pages);
-    } catch (err) {
-      err.response ? console.log(err.response) : console.log(err);
-    }
-  },
-  async getAllBankTransactions({ commit, getters }, page = 1) {
+  async getAllUserBankTransactions({ commit, getters }, { page = 1 }) {
     try {
       await commit("setLoading", true);
       const response = await axios.get(
-        `${baseUrl}/staff/bank-transaction-list?page=${page}&type=${getters.currentType}`,
+        `${baseUrl}/api/bank-transaction-list?page=${page}&type=${getters.currentType}`,
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
+      );
+      await commit("setBankTransactions", response.data.results);
+      commit("setPageCount", response.data.total_pages);
+      await commit("setLoading", false);
+    } catch (err) {
+      await commit("setLoading", false);
+      err.response ? console.log(err.response) : console.log(err);
+    }
+  },
+  async getAllBankTransactions(
+    { commit, getters },
+    { page = 1, filter = "all" }
+  ) {
+    try {
+      await commit("setLoading", true);
+      const response = await axios.get(
+        `${baseUrl}/staff/bank-transaction-list?page=${page}&type=${getters.currentType}&filter=${filter}&search=${getters.transactionSearch}`,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       await commit("setBankTransactions", response.data.results);
@@ -159,15 +173,29 @@ const actions = {
       err.response ? console.log(err.response) : console.log(err);
     }
   },
-  async verifyBankTransaction({ commit, getters }, payload) {
+  async verifyBankTransaction({ commit, getters, dispatch }, payload) {
     try {
+      await commit("setLoading", true);
       const response = await axios.put(
         `${baseUrl}/staff/bank-transaction/`,
         payload,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-    } catch (error) {
+      await commit("setCurrentBankTransaction", {});
+      await dispatch("getAllBankTransactions", { page: 1 });
       await commit("setLoading", false);
+      dispatch("createPrompt", {
+        type: "success",
+        title: "Success!",
+        message: "Transaction was verified successfully.",
+      });
+    } catch (err) {
+      await commit("setLoading", false);
+      dispatch("createPrompt", {
+        type: "error",
+        title: "Failed",
+        message: "Something went wrong. Please try again later.",
+      });
       err.response ? console.log(err.response) : console.log(err);
     }
   },

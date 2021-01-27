@@ -41,6 +41,7 @@ import PaymentError from "../pages/PaymentError";
 import ComingSoon from "../pages/ComingSoon";
 import RenewalBusinessPermitApplication from "../pages/RenewalBusinessPermitApplication";
 import PaymentLayout from "../PaymentLayout.vue";
+import UserTransactions from "../pages/UserTransactions";
 import store from "../store";
 import swal from "sweetalert2";
 Vue.use(VueRouter);
@@ -198,6 +199,11 @@ const routes = [
         path: "business-renewal",
         name: "BusinessRenewal",
         component: RenewalBusinessPermitApplication,
+      },
+      {
+        path: "transactions",
+        name: "UserTransactions",
+        component: UserTransactions,
       },
     ],
     async beforeEnter(to, from, next) {

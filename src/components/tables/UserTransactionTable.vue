@@ -17,7 +17,6 @@
         <div class="th">AMOUNT</div>
         <div class="th">PAYMENT DATE</div>
         <div class="th">STATUS</div>
-        <div class="th">ACTION</div>
       </div>
       <div class="tbody" v-if="bankTransactions.length > 0">
         <div class="tr" v-for="(item, index) in bankTransactions" :key="index">
@@ -36,9 +35,6 @@
           </div>
           <div class="td">
             {{ item.is_verified ? "VERIFIED" : "FOR VERIFICATION" }}
-          </div>
-          <div class="td" @click="showModal(item)">
-            <div class="meta-verify">VERIFY</div>
           </div>
         </div>
       </div>
@@ -72,13 +68,9 @@ export default {
     ...mapGetters(["currentType", "bankTransactions", "pageCount"]),
   },
   mounted() {
-    this.$store.dispatch("getAllBankTransactions", { page: 1 });
+    this.$store.dispatch("getAllUserBankTransactions", { page: 1 });
   },
   methods: {
-    showModal(data) {
-      this.$store.commit("setCurrentBankTransaction", data);
-      this.$modal.show("paymentViewDetailsModal");
-    },
     formatCurrency(str) {
       var parts = str.toString().split(".");
       parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -88,7 +80,7 @@ export default {
       return parts.join(".");
     },
     async transactionClickCallBack(pageNum) {
-      this.$store.dispatch("getAllBankTransactions", { page: pageNum });
+      this.$store.dispatch("getAllUserBankTransactions", { page: pageNum });
     },
   },
 };

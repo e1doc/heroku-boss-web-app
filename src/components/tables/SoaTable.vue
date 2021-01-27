@@ -38,7 +38,7 @@
           </div>
           <div class="td w10">
             <span class="td-label show-in-mobile">STATUS : </span>
-            PENDING
+            {{ getStatus(item.banktransaction) }}
           </div>
           <div class="td w15 actions">
             <div
@@ -202,6 +202,17 @@ export default {
   },
   mounted() {},
   methods: {
+    getStatus(data) {
+      if (data) {
+        if (data.is_verified) {
+          return "VERIFIED";
+        } else {
+          return "FOR VERIFICATION";
+        }
+      } else {
+        return "PENDING";
+      }
+    },
     redirect(id, type, soa) {
       if (soa.appointment === null) {
         this.$store.commit("setCurrentSoaType", type);
