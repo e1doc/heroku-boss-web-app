@@ -212,7 +212,6 @@
               Payment Transactions
             </router-link>
           </li> -->
-          <!-- lorem -->
           <li
             class="meta-menu"
             @click="
