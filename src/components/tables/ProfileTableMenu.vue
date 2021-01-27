@@ -179,13 +179,38 @@ MOBILE RESPONSIVENESS ------------------------------------------- */
     box-shadow: none;
     background: transparent;
     flex-direction: unset;
-    flex-wrap: wrap;
+    padding: 0;
   }
 
-  .right-div .menu-type {
-    margin-left: 15px;
-    margin-right: 0;
+  .menu-holder .right-div{
+      flex-wrap: unset;
+      justify-content: center;
+      text-align: center;
   }
+
+  .menu-type .icon {
+      margin-bottom: 10px;
+      width: 100%;
+  }
+
+  .profile-menus {
+    width: 100%;
+  }
+  .menu-holder .right-div .menu-type{
+      display: flex;
+      flex-wrap: wrap;
+      align-self: stretch;
+      font-size: 11px;
+      margin: 0px 5px;
+  }
+
+  .menu-holder .right-div .menu-type > div{
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+  }
+  
   .left-div {
     width: 100%;
     flex-grow: unset;
@@ -221,10 +246,6 @@ MOBILE RESPONSIVENESS ------------------------------------------- */
     border-color: #e23a36;
     background: #e23a36;
     color: #fff;
-  }
-
-  .profile-menus {
-    width: 100%;
   }
 }
 

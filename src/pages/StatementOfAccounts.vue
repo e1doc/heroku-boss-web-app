@@ -36,5 +36,9 @@ section{
     .soa-table{
         margin-top: 30px;
     }
+  .container{
+      padding-left: 0;
+      padding-right: 0;
+  }
 }
 </style>

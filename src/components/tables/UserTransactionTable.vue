@@ -20,20 +20,33 @@
       </div>
       <div class="tbody" v-if="bankTransactions.length > 0">
         <div class="tr" v-for="(item, index) in bankTransactions" :key="index">
-          <div class="td">{{ item.reference_no }}</div>
-          <div class="td">{{ item.soa.reference_number }}</div>
-          <div class="td">{{ item.bank }}</div>
           <div class="td">
+              <span class="td-label show-in-mobile">REFERENCE NO. :</span>
+              {{ item.reference_no }}
+          </div>
+          <div class="td">
+              <span class="td-label show-in-mobile">SOA :</span>
+              {{ item.soa.reference_number }}
+          </div>
+          <div class="td">
+              <span class="td-label show-in-mobile">BANK NAME :</span>
+              {{ item.bank }}
+          </div>
+          <div class="td">
+            <span class="td-label show-in-mobile">PAYOR'S NAME :</span>
             {{ item.user.first_name }} {{ item.user.middle_name }}
             {{ item.user.last_name }}
           </div>
           <div class="td">
+            <span class="td-label show-in-mobile">AMOUNT :</span>
             PHP {{ formatCurrency(parseFloat(item.amount).toFixed(2)) }}
           </div>
           <div class="td">
+            <span class="td-label show-in-mobile">PAYMENT DATE :</span>
             {{ item.payment_date | moment("MMMM DD YYYY") }}
           </div>
           <div class="td">
+            <span class="td-label show-in-mobile">STATUS :</span>
             {{ item.is_verified ? "VERIFIED" : "FOR VERIFICATION" }}
           </div>
         </div>
@@ -51,6 +64,7 @@
       :container-class="'pagination'"
       :page-class="'page-item'"
       :click-handler="transactionClickCallBack"
+      v-if="bankTransactions.length > 10"
     >
     </paginate>
   </section>
@@ -167,7 +181,7 @@ span.td-label.show-in-mobile {
   display: none;
 }
 
-@media only screen and (max-width: 860px) {
+@media only screen and (max-width: 991px) {
   .show-in-mobile {
     display: block;
   }
@@ -188,7 +202,7 @@ span.td-label.show-in-mobile {
     // background: #eef8ff;
     flex-wrap: wrap;
     flex-direction: unset;
-    padding: 15px 20px;
+    padding: 15px 20px 30px;
     width: calc(50% - 60px);
     float: left;
     margin: 0 10px 20px;
@@ -199,6 +213,7 @@ span.td-label.show-in-mobile {
     width: 100%;
     float: left;
     text-align: left;
+    padding: 17px 0px 0px;
   }
 }
 

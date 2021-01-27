@@ -166,5 +166,10 @@ MOBILE RESPONSIVENESS ------------------------------------------- */
   .sc-home {
     padding-top: 30px;
   }
+
+  .container{
+      padding-left: 0;
+      padding-right: 0;
+  }
 }
 </style>

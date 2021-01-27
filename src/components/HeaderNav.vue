@@ -493,7 +493,16 @@ div.meta-mobile-nav ul.mobile-menu li {
   align-items: center;
 }
 
-div.meta-mobile-nav ul.mobile-menu li a,
+div.meta-mobile-nav ul.mobile-menu li a{
+  color: #47525d;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  width: 100%;
+  display: block;
+}
 div.meta-mobile-nav ul.mobile-menu li {
   color: #47525d;
   font-size: 14px;
@@ -503,7 +512,7 @@ div.meta-mobile-nav ul.mobile-menu li {
 
   width: 100%;
   display: block;
-  padding: 18px 0px;
+  padding: 15px 0px;
 }
 
 div.meta-mobile-nav ul.mobile-menu li.meta-menu .icon {

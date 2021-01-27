@@ -2,7 +2,7 @@
   <section>
     <div class="container">
       <div class="page-title">My Payment Transactions</div>
-      <div class="mt30 mb30"><user-transaction-table-menu /></div>
+      <div class="mt30 mb30 flex-wrap"><user-transaction-table-menu /></div>
       <user-transaction-table />
     </div>
   </section>
@@ -33,6 +33,16 @@ export default {
     font-weight: bold;
     font-family: Raleway;
     text-align: center;
+  }
+}
+
+@media (max-width: 768px){
+  .container{
+     padding: 50px 0;
+
+     .page-title{
+       font-size: 20px;
+     }
   }
 }
 </style>
