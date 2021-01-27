@@ -39,11 +39,11 @@
                 >Statement of Accounts</router-link
               >
             </li>
-            <!-- <li class="meta-menu">
+            <li class="meta-menu">
               <router-link :to="{ name: 'UserTransactions' }"
                 >Payment Transactions</router-link
               >
-            </li> -->
+            </li>
             <li class="meta-menu">
               <router-link to="appointment">Appointments</router-link>
             </li>
@@ -199,7 +199,7 @@
               Statement of Accounts
             </router-link>
           </li>
-          <!-- <li
+          <li
             class="meta-menu"
             @click="
               slidemenu = false;
@@ -211,7 +211,7 @@
               <font-awesome-icon icon="file-invoice-dollar" class="mr10 icon" />
               Payment Transactions
             </router-link>
-          </li> -->
+          </li>
           <li
             class="meta-menu"
             @click="
@@ -493,7 +493,7 @@ div.meta-mobile-nav ul.mobile-menu li {
   align-items: center;
 }
 
-div.meta-mobile-nav ul.mobile-menu li a{
+div.meta-mobile-nav ul.mobile-menu li a {
   color: #47525d;
   font-size: 14px;
   font-weight: bold;
