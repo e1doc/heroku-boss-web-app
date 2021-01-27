@@ -38,7 +38,14 @@
             {{ item.is_verified ? "VERIFIED" : "FOR VERIFICATION" }}
           </div>
           <div class="td" @click="showModal(item)">
-            <div class="meta-verify">VERIFY</div>
+            <div
+              class="meta-verify"
+              :class="{
+                disabled: item.is_verified,
+              }"
+            >
+              VERIFY
+            </div>
           </div>
         </div>
       </div>
@@ -76,8 +83,10 @@ export default {
   },
   methods: {
     showModal(data) {
-      this.$store.commit("setCurrentBankTransaction", data);
-      this.$modal.show("paymentViewDetailsModal");
+      if (!data.is_verified) {
+        this.$store.commit("setCurrentBankTransaction", data);
+        this.$modal.show("paymentViewDetailsModal");
+      }
     },
     formatCurrency(str) {
       var parts = str.toString().split(".");
@@ -95,6 +104,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.disabled {
+  border-color: gray !important;
+  color: gray !important;
+}
+.disabled:hover {
+  border-color: gray !important;
+  color: gray !important;
+  background: none !important;
+}
 .meta-verify {
   color: #1492e6;
   font-weight: bold;
