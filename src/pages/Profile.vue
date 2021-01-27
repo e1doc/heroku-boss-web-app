@@ -36,7 +36,7 @@
           <approver-steps v-if="currentTable === 'applications'" />
           <div class="meta-table-box mt50">
             <profile-table v-if="currentTable === 'profile'" />
-            <transaction-table v-if="currentTable === 'transactions'" />
+            <user-transaction-table v-if="currentTable === 'transactions'" />
             <application-table v-if="currentTable === 'applications'" />
           </div>
         </div>
@@ -51,7 +51,7 @@ import ButtonFullOutline from "@/components/ButtonFullOutline";
 import BaseInputIcon from "@/components/forms/BaseInputIcon";
 import ProfileTableMenu from "@/components/tables/ProfileTableMenu";
 import ProfileTable from "@/components/tables/ProfileTable";
-import TransactionTable from "@/components/tables/TransactionTable";
+import UserTransactionTable from "@/components/tables/UserTransactionTable";
 import ApplicationTable from "@/components/tables/ApplicationTable";
 import InvoiceDialog from "@/components/payment/InvoiceDialog";
 import HeaderNav from "@/components/HeaderNav";
@@ -67,7 +67,7 @@ export default {
     BaseInputIcon,
     ProfileTableMenu,
     ProfileTable,
-    TransactionTable,
+    UserTransactionTable,
     ApplicationTable,
     InvoiceDialog,
     HeaderNav,
@@ -84,8 +84,7 @@ export default {
       text2: "",
     };
   },
-  mounted() {
-  },
+  mounted() {},
 };
 </script>
 
@@ -165,6 +164,11 @@ MOBILE RESPONSIVENESS ------------------------------------------- */
 
   .sc-home {
     padding-top: 30px;
+  }
+
+  .container {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 </style>

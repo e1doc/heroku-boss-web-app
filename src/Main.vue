@@ -47,6 +47,7 @@ export default {
 .main-content{
     min-height: calc( 100vh - 162px);
     padding: 0 30px;
+    overflow: hidden;
 }
 
 #nav {
@@ -60,6 +61,12 @@ export default {
       color: #42b983;
     }
   }
+}
+
+@media (max-width: 1320px){
+    .main-content{
+        min-height: calc( 100vh - 139px);
+    }
 }
 
 @media only screen and (max-width: 480px){

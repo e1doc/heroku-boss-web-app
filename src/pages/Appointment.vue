@@ -59,4 +59,15 @@ export default {
       text-align: center;
   }
 }
+
+@media (max-width: 768px){
+  .container{
+      padding-left: 0;
+      padding-right: 0;
+      .page-title{
+          font-size: 20px;
+      }
+  }
+
+}
 </style>

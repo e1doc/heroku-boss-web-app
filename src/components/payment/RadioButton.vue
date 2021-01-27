@@ -101,8 +101,12 @@
             <div class="mr15 mb10">City Government of Bacoor</div>
             <div class="mr15 mb10">123123123</div>
             <div>
+<<<<<<< HEAD
               PHP
               {{ formatCurrency(parseFloat(currentSoaObj.amount).toFixed(2)) }}
+=======
+              {{ formatCurrency(currentSoaObj.amount) }}
+>>>>>>> feature/paymentoption
             </div>
           </div>
         </div>

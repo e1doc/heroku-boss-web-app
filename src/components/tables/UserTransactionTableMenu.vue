@@ -1,6 +1,6 @@
 <template>
   <div class="menu-holder">
-    <div class="left-div flex-center">
+    <div class="right-div flex-center">
       <div class="menu-type">
         <div
           :class="{ active: currentType === 'business' }"
@@ -93,12 +93,13 @@ export default {
   background: #ffffff;
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   padding: 10px 20px;
   border-radius: 8px;
   box-shadow: 0px 10px 20px #0000000d;
-  .left-div {
-    width: 50%;
+  .right-div {
+    width: 100%;
+    justify-content: flex-end;
     .menu-type {
       color: #f09795;
       font-weight: bold;
@@ -116,9 +117,60 @@ export default {
       }
     }
   }
-  .right-div {
-    width: 50%;
-    justify-content: flex-end;
+}
+
+/*
+MOBILE RESPONSIVENESS ------------------------------------------- */
+@media (max-width: 991px){
+  .menu-holder .right-div{
+    justify-content: center;
   }
 }
+
+@media only screen and (max-width: 768px) {
+  .menu-holder {
+    box-shadow: none;
+    background: transparent;
+    flex-direction: unset;
+    padding: 0;
+  }
+
+  .menu-holder .right-div{
+      flex-wrap: unset;
+      justify-content: center;
+      text-align: center;
+  }
+
+  .menu-type .icon {
+      margin-bottom: 10px;
+      width: 100%;
+  }
+
+  .profile-menus {
+    width: 100%;
+  }
+  .menu-holder .right-div .menu-type{
+      display: flex;
+      flex-wrap: wrap;
+      align-self: stretch;
+      font-size: 11px;
+      margin: 0px 5px;
+  }
+
+  .menu-holder .right-div .menu-type > div{
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .left-div div .menu-type,
+  .right-div .menu-type {
+    font-size: 12px;
+  }
+}
+
+
 </style>
