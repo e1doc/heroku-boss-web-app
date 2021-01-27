@@ -67,10 +67,7 @@
         Office. To set an appointment, please click the button below.
       </div>
     </div>
-    <div
-      class="meta-list-option"
-      v-if="currentPaymentType === 'other_banks' && isFeatureImplemented"
-    >
+    <div class="meta-list-option" v-if="currentPaymentType === 'other_banks'">
       <div class="meta-radio flex-center">
         <input
           type="radio"
@@ -101,8 +98,7 @@
             <div class="mr15 mb10">City Government of Bacoor</div>
             <div class="mr15 mb10">123123123</div>
             <div>
-              PHP
-              {{ formatCurrency(parseFloat(currentSoaObj.amount).toFixed(2)) }}
+              {{ formatCurrency(currentSoaObj.amount) }}
             </div>
           </div>
         </div>
@@ -122,7 +118,7 @@ export default {
   data() {
     return {
       selectedOption: "counter",
-      isFeatureImplemented: false,
+      isFeatureImplemented: true,
     };
   },
   computed: {
@@ -135,7 +131,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.commit("setCurrentPaymentType", "treasury_office");
+    this.$store.commit("setCurrentPaymentType", "landbank");
   },
   methods: {
     formatCurrency(str) {
