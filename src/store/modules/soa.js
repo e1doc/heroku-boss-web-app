@@ -13,6 +13,7 @@ const getDefaultSoaState = () => {
     currentSoaType: "",
     paymentDetails: new FormData(),
     isFileUploaded: false,
+    bankTransactions: [],
   };
 };
 
@@ -29,6 +30,7 @@ const getters = {
   currentSoaType: (state) => state.currentSoaType,
   paymentDetails: (state) => state.paymentDetails,
   isFileUploaded: (state) => state.isFileUploaded,
+  bankTransactions: (state) => state.bankTransactions,
 };
 
 const mutations = {
@@ -49,6 +51,8 @@ const mutations = {
     (state.paymentDetails = paymentDetails),
   setIsFileUploaded: (state, isFileUploaded) =>
     (state.isFileUploaded = isFileUploaded),
+  setBankTransactions: (state, bankTransactions) =>
+    (state.bankTransactions = bankTransactions),
 };
 
 const actions = {
@@ -126,6 +130,45 @@ const actions = {
         title: "Failed",
         message: "Something went wrong. Please try again later.",
       });
+    }
+  },
+  async getAllUserBankTransactions({ commit, getters }, page = 1) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/api/bank-transaction-list?page=${page}`,
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
+      );
+      await commit("setBankTransactions", response.data);
+      commit("setPageCount", response.data.total_pages);
+    } catch (err) {
+      err.response ? console.log(err.response) : console.log(err);
+    }
+  },
+  async getAllBankTransactions({ commit, getters }, page = 1) {
+    try {
+      await commit("setLoading", true);
+      const response = await axios.get(
+        `${baseUrl}/staff/bank-transaction-list?page=${page}&type=${getters.currentType}`,
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
+      );
+      await commit("setBankTransactions", response.data.results);
+      await commit("setPageCount", response.data.total_pages);
+      await commit("setLoading", false);
+    } catch (err) {
+      await commit("setLoading", false);
+      err.response ? console.log(err.response) : console.log(err);
+    }
+  },
+  async verifyBankTransaction({ commit, getters }, payload) {
+    try {
+      const response = await axios.put(
+        `${baseUrl}/staff/bank-transaction/`,
+        payload,
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
+      );
+    } catch (error) {
+      await commit("setLoading", false);
+      err.response ? console.log(err.response) : console.log(err);
     }
   },
 };

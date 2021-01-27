@@ -4,7 +4,7 @@
       <div class="th">APPLICATION #</div>
       <div class="th">DATE</div>
       <!-- <div class="th" v-if="currentType === 'business'">Account #</div> -->
-      <div class="th" v-if="currentType === 'real_property'">TD #</div>
+      <div class="th" v-if="currentType === 'building'">TD #</div>
       <div class="th" v-if="currentType === 'business'">Tradename</div>
       <div class="th" v-if="currentType === 'business'">Application Type</div>
       <div class="th">STATUS</div>
@@ -151,7 +151,7 @@
       </paginate>
     </div>
 
-    <div v-if="currentType === 'real_property'">
+    <div v-if="currentType === 'building'">
       <div class="tbody" v-if="buildingApplications.length > 0">
         <div
           class="tr"
@@ -255,7 +255,7 @@ export default {
       ) {
         await this.$store.commit("setCurrentType", "business");
       } else {
-        await this.$store.commit("setCurrentType", "real_property");
+        await this.$store.commit("setCurrentType", "building");
       }
       await this.$store.commit("setLoading", false);
     },

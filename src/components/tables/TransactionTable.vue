@@ -1,130 +1,47 @@
 <template>
   <section>
-    <div v-if="currentType === 'business'">
+    <div>
       <div class="thead hide-in-mobile">
         <!-- <div class="th w10">ACC #</div> -->
-        <div class="th w10">OR #</div>
-        <div class="th w10">OR DATE</div>
-        <div class="th w35">BUSINESS NAME</div>
-        <div class="th w25">PAID BY</div>
-        <div class="th w10">AMOUNT</div>
+        <div class="th">REFERENCE NO.</div>
+        <div class="th">BANK</div>
+        <div class="th">PAYOR</div>
+        <div class="th">AMOUNT</div>
+        <div class="th">PAYMENT DATE</div>
+        <div class="th">ACTION</div>
       </div>
-      <!-- <div class="tbody">
-        <div class="tr" v-for="index in 5" :key="index">
-          <div class="td w10">
-              <span class="td-label show-in-mobile">ACCOUNT # : </span>
-              F-02248
+      <div class="tbody" v-if="bankTransactions.length > 0">
+        <div class="tr" v-for="(item, index) in bankTransactions" :key="index">
+          <div class="td">{{ item.soa.reference_number }}</div>
+          <div class="td">{{ item.bank }}</div>
+          <div class="td">
+            {{ item.user.first_name }} {{ item.user.middle_name }}
+            {{ item.user.last_name }}
           </div>
-          <div class="td w10">
-              <span class="td-label show-in-mobile">OR # : </span>
-              102582
+          <div class="td">
+            PHP {{ formatCurrency(parseFloat(item.amount).toFixed(2)) }}
           </div>
-          <div class="td w10">
-              <span class="td-label show-in-mobile">OR DATE : </span>
-              JUN 1, 2020 
+          <div class="td">
+            {{ item.payment_date | moment("MMMM DD YYYY") }}
           </div>
-          <div class="td w35">
-              <span class="td-label show-in-mobile">BUSINES NAME : </span>
-              MAMICHELLE FOOD STATION
-          </div>
-          <div class="td w25">
-              <span class="td-label show-in-mobile">PAID BY : </span>
-              JOHN MICHAEL DOE
-          </div>
-          <div class="td w10">
-              <span class="td-label show-in-mobile">AMOUNT : </span>
-              ₱ 28,063.00
-          </div>
+          <div class="td"><div class="meta-verify">VERIFY</div></div>
         </div>
-      </div> -->
-      <div
-        class="tbody"
-      >
+      </div>
+      <div class="tbody" v-if="bankTransactions.length < 1">
         <div class="tr">
           <div class="td meta-no-data">No data available</div>
         </div>
       </div>
     </div>
-    <div v-if="currentType === 'building'">
-      <div class="thead hide-in-mobile">
-        <div class="th w15">TD #</div>
-        <div class="th w15">OR #</div>
-        <div class="th w15">OR DATE</div>
-        <div class="th w25">PAID BY</div>
-        <div class="th w30">AMOUNT</div>
-      </div>
-      <!-- <div class="tbody">
-        <div class="tr" v-for="index in 5" :key="index">
-          <div class="td w15">
-              <span class="td-label show-in-mobile">TD # : </span>
-              F-02248
-          </div>
-          <div class="td w15">
-              <span class="td-label show-in-mobile">OR # : </span>
-              102582
-          </div>
-          <div class="td w15">
-              <span class="td-label show-in-mobile">OR DATE : </span>
-              JUN 1, 2020
-          </div>
-          <div class="td w25">
-              <span class="td-label show-in-mobile">PAID BY : </span>
-              JOHN MICHAEL DOE
-          </div>
-          <div class="td w30">
-              <span class="td-label show-in-mobile">AMOUNT : </span>
-              ₱ 28,063.00
-          </div>
-        </div>
-      </div> -->
-      <div
-        class="tbody"
-      >
-        <div class="tr">
-          <div class="td meta-no-data">No data available</div>
-        </div>
-      </div>
-    </div>
-      <div v-if="currentType === 'real_property'">
-      <div class="thead hide-in-mobile">
-        <div class="th w15">TD #</div>
-        <div class="th w15">OR #</div>
-        <div class="th w15">OR DATE</div>
-        <div class="th w25">PAID BY</div>
-        <div class="th w30">AMOUNT</div>
-      </div>
-      <!-- <div class="tbody">
-        <div class="tr" v-for="index in 5" :key="index">
-          <div class="td w15">
-              <span class="td-label show-in-mobile">TD # : </span>
-              F-02248
-          </div>
-          <div class="td w15">
-              <span class="td-label show-in-mobile">OR # : </span>
-              102582
-          </div>
-          <div class="td w15">
-              <span class="td-label show-in-mobile">OR DATE : </span>
-              JUN 1, 2020
-          </div>
-          <div class="td w25">
-              <span class="td-label show-in-mobile">PAID BY : </span>
-              JOHN MICHAEL DOE
-          </div>
-          <div class="td w30">
-              <span class="td-label show-in-mobile">AMOUNT : </span>
-              ₱ 28,063.00
-          </div>
-        </div>
-      </div> -->
-      <div
-        class="tbody"
-      >
-        <div class="tr">
-          <div class="td meta-no-data">No data available</div>
-        </div>
-      </div>
-    </div>
+    <paginate
+      :page-count="pageCount"
+      :prev-text="'Prev'"
+      :next-text="'Next'"
+      :container-class="'pagination'"
+      :page-class="'page-item'"
+      :click-handler="transactionClickCallBack"
+    >
+    </paginate>
   </section>
 </template>
 
@@ -133,16 +50,35 @@ import { mapGetters } from "vuex";
 export default {
   name: "TransactionTable",
   computed: {
-    ...mapGetters(["currentType"]),
+    ...mapGetters(["currentType", "bankTransactions", "pageCount"]),
   },
   mounted() {
+    this.$store.dispatch("getAllBankTransactions");
+  },
+  methods: {
+    formatCurrency(str) {
+      var parts = str.toString().split(".");
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      if (parts.length < 2) {
+        parts.push("00");
+      }
+      return parts.join(".");
+    },
+    async transactionClickCallBack(pageNum) {
+      this.$store.dispatch("getAllBankTransaction", pageNum);
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.meta-no-data{
-    width: 100% !important;
+.meta-verify {
+  color: #1492e6;
+  font-weight: bold;
+  cursor: pointer;
+}
+.meta-no-data {
+  width: 100% !important;
 }
 section {
   width: 100%;
@@ -177,6 +113,7 @@ section {
     font-weight: bold;
     text-align: center;
     padding: 20px 0px;
+    flex: 1;
   }
 }
 .tbody {
@@ -196,6 +133,7 @@ section {
       font-family: "Proxima Nova Rg";
       text-align: center;
       padding: 17px 0px;
+      flex: 1;
     }
   }
 }

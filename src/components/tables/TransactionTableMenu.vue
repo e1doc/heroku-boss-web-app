@@ -5,7 +5,11 @@
         <div
           :class="{ active: currentType === 'business' }"
           @click="changeType('business')"
-          v-if="groups.includes('superadmin') || groups.includes('business_application_approver') || groups.includes('business_application_read')"
+          v-if="
+            groups.includes('superadmin') ||
+            groups.includes('business_application_approver') ||
+            groups.includes('business_application_read')
+          "
         >
           <font-awesome-icon icon="store" class="mr5 icon" />
           BUSINESS
@@ -13,12 +17,30 @@
       </div>
       <div class="menu-type">
         <div
-          :class="{ active: currentType === 'real_property' }"
-          @click="changeType('real_property')"
-          v-if="groups.includes('superadmin') || groups.includes('building_application_approver') || groups.includes('building_application_read')"
+          :class="{ active: currentType === 'building' }"
+          @click="changeType('building')"
+          v-if="
+            groups.includes('superadmin') ||
+            groups.includes('building_application_approver') ||
+            groups.includes('building_application_read')
+          "
         >
           <font-awesome-icon icon="city" class="mr5 icon" />
           BUILDING
+        </div>
+      </div>
+      <div class="menu-type" v-if="type === 'transaction'">
+        <div
+          :class="{ active: currentType === 'real_property' }"
+          @click="changeType('real_property')"
+          v-if="
+            groups.includes('superadmin') ||
+            groups.includes('building_application_approver') ||
+            groups.includes('building_application_read')
+          "
+        >
+          <font-awesome-icon icon="city" class="mr5 icon" />
+          REAL PROPERTY
         </div>
       </div>
     </div>
@@ -31,10 +53,10 @@
         customclass="filter-select"
         ref="filter1"
         @change="filter"
-        v-if="currentType === 'business'"
+        v-if="currentType === 'business' && type !== 'transaction'"
         :value="filterBy"
       />
-        <base-select
+      <base-select
         placeholder="Filter"
         :options="filterList1"
         name="propertyFilterLists"
@@ -43,9 +65,13 @@
         ref="filter2"
         @change="filter"
         :value="propertyFilterBy"
-        v-if="currentType === 'real_property'"
+        v-if="currentType === 'building' && type !== 'transaction'"
       />
-      <base-input-search v-model="search"  @keyup.native="searchData()"/>
+      <base-input-search
+        v-if="type !== 'transaction'"
+        v-model="search"
+        @keyup.native="searchData()"
+      />
     </div>
   </div>
 </template>
@@ -61,7 +87,13 @@ export default {
     BaseSelect,
   },
   computed: {
-    ...mapGetters(["currentType", "currentTable", "filterBy","propertyFilterBy", "groups"]),
+    ...mapGetters([
+      "currentType",
+      "currentTable",
+      "filterBy",
+      "propertyFilterBy",
+      "groups",
+    ]),
   },
   props: {
     type: {
@@ -124,21 +156,21 @@ export default {
     };
   },
   methods: {
-    searchData(){
-      if(this.currentType === 'real_property'){
-        this.$store.commit('setBuildingSearch', this.search)
+    searchData() {
+      if (this.currentType === "real_property") {
+        this.$store.commit("setBuildingSearch", this.search);
         this.$store.dispatch("getAllBuildingApplications");
-      }else if(this.currentType === 'business'){
-        this.$store.commit('setBusinessSearch', this.search)
+      } else if (this.currentType === "business") {
+        this.$store.commit("setBusinessSearch", this.search);
         this.$store.dispatch("getAllBusinessApplications");
       }
     },
-    filter(val){
-      if(this.currentType === 'business'){
-         this.$store.commit('setFilterBy', val)
-         this.$store.dispatch("getAllBusinessApplications");
-      }else if(this.currentType === 'real_property'){
-        this.$store.commit('setPropertyFilterBy', val)
+    filter(val) {
+      if (this.currentType === "business") {
+        this.$store.commit("setFilterBy", val);
+        this.$store.dispatch("getAllBusinessApplications");
+      } else if (this.currentType === "real_property") {
+        this.$store.commit("setPropertyFilterBy", val);
         this.$store.dispatch("getAllBuildingApplications");
       }
     },
@@ -155,6 +187,8 @@ export default {
         } else if (type === "real_property") {
           this.$store.dispatch("getAllBuildingApplications");
         }
+      } else {
+        this.$store.dispatch("getAllBankTransactions");
       }
     },
   },
