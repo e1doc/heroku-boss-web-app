@@ -16,6 +16,7 @@ const getDefaultSoaState = () => {
     bankTransactions: [],
     currentBankTransaction: {},
     transactionSearch: "",
+    transactionPageCount: 0,
   };
 };
 
@@ -35,6 +36,7 @@ const getters = {
   bankTransactions: (state) => state.bankTransactions,
   currentBankTransaction: (state) => state.currentBankTransaction,
   transactionSearch: (state) => state.transactionSearch,
+  transactionPageCount: (state) => state.transactionPageCount,
 };
 
 const mutations = {
@@ -61,6 +63,8 @@ const mutations = {
     (state.currentBankTransaction = currentBankTransaction),
   setTransactionSearch: (state, transactionSearch) =>
     (state.transactionSearch = transactionSearch),
+  setTransactionPageCount: (state, transactionPageCount) =>
+    (state.transactionPageCount = transactionPageCount),
 };
 
 const actions = {
@@ -148,7 +152,7 @@ const actions = {
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       await commit("setBankTransactions", response.data.results);
-      commit("setPageCount", response.data.total_pages);
+      commit("setTransactionPageCount", response.data.total_pages);
       await commit("setLoading", false);
     } catch (err) {
       await commit("setLoading", false);
@@ -166,7 +170,7 @@ const actions = {
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       await commit("setBankTransactions", response.data.results);
-      await commit("setPageCount", response.data.total_pages);
+      await commit("setTransactionPageCount", response.data.total_pages);
       await commit("setLoading", false);
     } catch (err) {
       await commit("setLoading", false);

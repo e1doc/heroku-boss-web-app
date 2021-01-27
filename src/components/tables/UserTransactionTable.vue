@@ -45,7 +45,7 @@
       </div>
     </div>
     <paginate
-      :page-count="pageCount"
+      :page-count="transactionPageCount"
       :prev-text="'Prev'"
       :next-text="'Next'"
       :container-class="'pagination'"
@@ -65,7 +65,7 @@ export default {
     PaymentViewDetailsModal,
   },
   computed: {
-    ...mapGetters(["currentType", "bankTransactions", "pageCount"]),
+    ...mapGetters(["currentType", "bankTransactions", "transactionPageCount"]),
   },
   mounted() {
     this.$store.dispatch("getAllUserBankTransactions", { page: 1 });
