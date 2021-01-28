@@ -63,11 +63,10 @@
           </div>
         </div>
         <div class="meta-buttons flex-wrap">
-          <button class="modal-button agree" @click="submit">SUBMIT</button>
-          <button
-            class="modal-button cancel"
-            @click="this.$modal.hide('paymentDetailsModal')"
-          >
+          <button class="modal-button agree" @click="onClickCallback(true)">
+            SUBMIT
+          </button>
+          <button class="modal-button cancel" @click="onClickCallback(false)">
             CANCEL
           </button>
         </div>
@@ -116,20 +115,24 @@ export default {
     console.log(this.paymentDetails);
   },
   methods: {
-    async submit() {
-      this.$store.commit("setLoading", true);
-      let formData = this.paymentDetails;
-      formData.append("soa", this.currentSoaObj.id);
-      formData.append("bank", this.payment_details.bank);
-      formData.append("payment_date", this.payment_details.date);
-      formData.append("amount", this.payment_details.amount);
-      formData.append("reference_no", this.payment_details.reference_no);
-      let validate = this.validateRequiredFields();
-      if (validate) {
-        await this.$store.commit("setPaymentDetails", formData);
-        await this.$store.dispatch("addPaymentDetails");
+    async onClickCallback(status) {
+      if (status) {
+        this.$store.commit("setLoading", true);
+        let formData = this.paymentDetails;
+        formData.append("soa", this.currentSoaObj.id);
+        formData.append("bank", this.payment_details.bank);
+        formData.append("payment_date", this.payment_details.date);
+        formData.append("amount", this.payment_details.amount);
+        formData.append("reference_no", this.payment_details.reference_no);
+        let validate = this.validateRequiredFields();
+        if (validate) {
+          await this.$store.commit("setPaymentDetails", formData);
+          await this.$store.dispatch("addPaymentDetails");
+        }
+        this.$store.commit("setLoading", false);
+      } else {
+        this.$modal.hide("paymentDetailsModal");
       }
-      this.$store.commit("setLoading", false);
     },
     validateRequiredFields() {
       let payment_details_errors = { key: "payment_details", value: {} };

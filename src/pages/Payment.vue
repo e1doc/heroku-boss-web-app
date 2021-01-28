@@ -53,14 +53,13 @@
               </div>
               <div
                 class="meta-list-item"
-                v-if="isFeatureImplemented"
                 :class="{ active: selectedPayment == 'other_banks' }"
                 @click="changePaymentType('other_banks')"
               >
                 <img class="meta-img" src="../assets/bank-logo.png" />
               </div>
               <div
-                class="meta-list-item active"
+                class="meta-list-item"
                 :class="{ active: selectedPayment == 'treasury_office' }"
                 @click="changePaymentType('treasury_office')"
               >
@@ -137,7 +136,7 @@ export default {
     return {
       printVisible: false,
       isPayment: true,
-      selectedPayment: "landbank",
+      selectedPayment: "other_banks",
       isFeatureImplemented: false,
       merchantCode: "2020101157",
       merchantRefNo: "",
