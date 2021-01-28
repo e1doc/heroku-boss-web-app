@@ -37,15 +37,11 @@
           <div class="td">
             {{ item.is_verified ? "VERIFIED" : "FOR VERIFICATION" }}
           </div>
-          <div class="td" @click="showModal(item)">
-            <div
-              class="meta-verify"
-              :class="{
-                disabled: item.is_verified,
-              }"
-            >
-              VERIFY
-            </div>
+          <div class="td" @click="showModal(item)" v-if="!item.is_verified">
+            <div class="meta-verify">VERIFY</div>
+          </div>
+          <div class="td" @click="showModal(item)" v-if="item.is_verified">
+            <div class="meta-verify">VIEW</div>
           </div>
         </div>
       </div>
@@ -83,10 +79,8 @@ export default {
   },
   methods: {
     showModal(data) {
-      if (!data.is_verified) {
-        this.$store.commit("setCurrentBankTransaction", data);
-        this.$modal.show("paymentViewDetailsModal");
-      }
+      this.$store.commit("setCurrentBankTransaction", data);
+      this.$modal.show("paymentViewDetailsModal");
     },
     formatCurrency(str) {
       var parts = str.toString().split(".");

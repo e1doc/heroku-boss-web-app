@@ -15,6 +15,20 @@
               </div>
             </div>
             <div class="meta-input-group">
+              <div class="meta-input-label">Payor's Email</div>
+              <div class="meta-input-value">
+                <span class="separator">:</span>
+                {{ currentBankTransaction.user.email }}
+              </div>
+            </div>
+            <div class="meta-input-group">
+              <div class="meta-input-label">Payor's Contact #</div>
+              <div class="meta-input-value">
+                <span class="separator">:</span>
+                {{ currentBankTransaction.user.phone_number }}
+              </div>
+            </div>
+            <div class="meta-input-group">
               <div class="meta-input-label">Bank Used to Pay</div>
               <div class="meta-input-value">
                 <span class="separator">:</span>
@@ -67,7 +81,10 @@
             </div>
           </div>
         </div>
-        <div class="meta-buttons flex-wrap">
+        <div
+          class="meta-buttons flex-wrap"
+          v-if="!currentBankTransaction.is_verified"
+        >
           <button class="modal-button agree" @click="onClickCallback(true)">
             VERIFY
           </button>
