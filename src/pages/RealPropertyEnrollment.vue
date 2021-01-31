@@ -139,30 +139,37 @@ export default {
             payload,
             config
           );
-          console.log(response.data);
-          if (response.data.Response.Result.referenceid) {
-            let building_payload = {
-              is_draft: false,
-              is_enrolled: true,
-              reference_id: response.data.Response.Result.referenceid,
-            };
-            await this.$store.dispatch(
-              "addBuildingApplication",
-              building_payload
-            );
-            await this.$store.dispatch("addBuildingBasicInformation", {
-              owner_first_name: response.data.Response.Result.owner_name,
-            });
-            await this.$store.dispatch("addBuildingDetails", {
-              tax_dec_no: response.data.Response.Result.td_number,
-              property_type: this.property_type,
-            });
-            this.isSuccess = true;
-            this.td_no = response.data.Response.Result.td_number;
+          if (response.data.Response) {
+            if (response.data.Response.Result.referenceid) {
+              let building_payload = {
+                is_draft: false,
+                is_enrolled: true,
+                reference_id: response.data.Response.Result.referenceid,
+              };
+              await this.$store.dispatch(
+                "addBuildingApplication",
+                building_payload
+              );
+              await this.$store.dispatch("addBuildingBasicInformation", {
+                owner_first_name: response.data.Response.Result.owner_name,
+              });
+              await this.$store.dispatch("addBuildingDetails", {
+                tax_dec_no: response.data.Response.Result.td_number,
+                property_type: this.property_type,
+              });
+              this.isSuccess = true;
+              this.td_no = response.data.Response.Result.td_number;
+            } else {
+              this.$swal({
+                title: "Failed!",
+                text: response.data.Response.Result.message,
+                icon: "error",
+              });
+            }
           } else {
             this.$swal({
               title: "Failed!",
-              text: response.data.Response.Result.message,
+              text: response.data.Error.Message,
               icon: "error",
             });
           }
