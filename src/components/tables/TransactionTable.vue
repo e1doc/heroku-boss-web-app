@@ -12,6 +12,7 @@
         <!-- <div class="th w10">ACC #</div> -->
         <div class="th">REF NO.</div>
         <div class="th">SOA</div>
+        <div class="th" v-if="currentType !== 'business'">TD #</div>
         <div class="th">BANK</div>
         <div class="th">PAYOR</div>
         <div class="th">AMOUNT</div>
@@ -23,6 +24,9 @@
         <div class="tr" v-for="(item, index) in bankTransactions" :key="index">
           <div class="td">{{ item.reference_no }}</div>
           <div class="td">{{ item.soa.reference_number }}</div>
+          <div class="td" v-if="currentType !== 'business'">
+            {{ item.soa.building_application.buildingdetails.tax_dec_no }}
+          </div>
           <div class="td">{{ item.bank }}</div>
           <div class="td">
             {{ item.user.first_name }} {{ item.user.middle_name }}
@@ -81,6 +85,7 @@ export default {
     showModal(data) {
       this.$store.commit("setCurrentBankTransaction", data);
       this.$modal.show("paymentViewDetailsModal");
+      this.$store.commit("setIsFileUploaded", false);
     },
     formatCurrency(str) {
       var parts = str.toString().split(".");

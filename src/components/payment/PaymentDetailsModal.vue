@@ -53,7 +53,7 @@
           <div class="meta-upload-div flex-wrap">
             <base-file-uploader
               label="Upload proof of transaction:"
-              name="payment_details"
+              name="payment_slip"
               fileLabel="paymentdetails"
               type="business"
               class="mt15 custom-upload"
@@ -180,7 +180,7 @@ export default {
 .modal {
   min-height: calc(100vh - 60px);
   padding: 30px 0;
-
+  overflow-y: auto;
   .meta-modal {
     width: 100%;
     max-width: 500px;

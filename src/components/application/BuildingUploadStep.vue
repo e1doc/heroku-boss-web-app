@@ -149,7 +149,6 @@
       </ul>
 
       <base-file-uploader
-        name="tct"
         fileLabel="tct"
         :properties="getProperty('tct')"
         type="property"
@@ -203,7 +202,6 @@
         </li>
       </ul>
       <base-file-uploader
-        name="ancillaryarchitectural"
         fileLabel="architectural_permit"
         :properties="getProperty('architectural_permit')"
         type="property"
@@ -265,7 +263,6 @@
         </li>
       </ul>
       <base-file-uploader
-        name="designplans"
         fileLabel="design_plans"
         :properties="getProperty('design_plans')"
         type="property"
@@ -363,7 +360,6 @@
         </li>
       </ul>
       <base-file-uploader
-        name="designspecifications"
         fileLabel="design_specs"
         :properties="getProperty('design_specs')"
         type="property"
@@ -427,7 +423,6 @@
       </ul>
 
       <base-file-uploader
-        name="sketchpin"
         fileLabel="sketch_pin"
         :properties="getProperty('sketch_pin')"
         type="property"

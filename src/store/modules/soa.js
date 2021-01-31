@@ -134,6 +134,7 @@ const actions = {
         html:
           "Thank you for providing us your information. Your Payment via other Banks is now submitted and is subjected for verification. You can check your SOA after an estimated Four (4) days to see if the payment has been reflected. <br> <br> You can contact the Treasury Department if payment has not been reflected after the allocated Four (4) days.",
       });
+      await commit("setPaymentDetails", new FormData());
       await router.push({ name: "Profile" });
     } catch (err) {
       err.response ? console.log(err.response) : console.log(err);

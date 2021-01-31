@@ -10,7 +10,6 @@
         <div class="th w10">STATUS</div>
         <div class="th w15">ACTIONS</div>
       </div>
-
     </div>
     <div v-if="currentType === 'building'">
       <div class="thead hide-in-mobile">
@@ -51,7 +50,7 @@
             <div
               class="bill"
               @click="redirect(item.id, 'building', item)"
-              :class="{disabled: item.appointment !== null }"
+              :class="{ disabled: item.appointment !== null }"
             >
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
             </div>
@@ -98,8 +97,8 @@
           <div class="td w15 actions">
             <div
               class="bill"
-              @click="redirect(item.id, 'rpt', item)"
-              :class="{disabled: item.appointment !== null }"
+              @click="redirect(item.id, 'real_property', item)"
+              :class="{ disabled: item.appointment !== null }"
             >
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
             </div>
@@ -146,16 +145,16 @@ export default {
       },
     },
   },
-  mounted(){
-    console.log('soa list', this.soaList)
+  mounted() {
+    console.log("soa list", this.soaList);
   },
   methods: {
     redirect(id, type, soa) {
-      if(soa.appointment === null){
-      this.$store.commit("setCurrentSoa", { id, type });
-      this.$store.commit("setCurrentSoaObj", soa);
-      this.$store.commit("setAppointmentAction", "add");
-      this.$router.push({ path: "payment" });
+      if (soa.appointment === null) {
+        this.$store.commit("setCurrentSoa", { id, type });
+        this.$store.commit("setCurrentSoaObj", soa);
+        this.$store.commit("setAppointmentAction", "add");
+        this.$router.push({ path: "payment" });
       }
     },
     reschedule(appointment, soa) {
@@ -201,11 +200,11 @@ export default {
 .w45 {
   width: 45%;
 }
-.disabled{
+.disabled {
   border-color: gray !important;
   color: gray !important;
 }
-.disabled:hover{
+.disabled:hover {
   border-color: gray !important;
   color: gray !important;
   background: none !important;

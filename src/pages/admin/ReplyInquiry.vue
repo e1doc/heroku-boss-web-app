@@ -76,7 +76,6 @@
         ></textarea>
         <!-- ATTACH FILE -->
         <base-file-uploader
-          name="inquiryattachment"
           fileLabel="inquiry_attachment"
           uploadType="application/pdf"
           class="upload-attachment"

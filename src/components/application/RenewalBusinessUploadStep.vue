@@ -7,7 +7,6 @@
     </div>
     <base-file-uploader
       label="1. Copy of your latest Business Permit"
-      name="latestbusinesspermit"
       type="business"
       fileLabel="latest_business_permit"
       :hasError="uploadErrors.latest_business_permit"
@@ -17,7 +16,6 @@
       label="2. Basis for computing taxes, Last year BIR Income Tax Return (170IQ or 1701A) or Last year BIR 2550M/2550Q/2551Q or the Audited Financial Statement"
       description="<b>Note:</b><br> <br>  a. Itemized gross sale of all branches for business establishments with multiple locations.
 	 <br> <br> b. Copy of last year BIR 1701A(ITR)"
-      name="computingtaxesbasis"
       :properties="getProperty('computing_taxes_basis')"
       fileLabel="computing_taxes_basis"
       type="business"
@@ -26,7 +24,6 @@
     />
     <base-file-uploader
       label="3. One government issued ID"
-      name="governmentid"
       :properties="getProperty('government_id')"
       :hasError="uploadErrors.government_id"
       fileLabel="government_id"

@@ -8,7 +8,6 @@
     <base-file-uploader
       label="1. Proof of business registration, incorporation, or legal personality"
       description="{i.e. DTI / SEC (Including articles and by-laws)/Cooperative Development Authority (CDA)."
-      name="businessregproof"
       type="business"
       fileLabel="business_registration_proof"
       :hasError="uploadErrors.business_registration_proof"
@@ -17,7 +16,6 @@
     />
     <base-file-uploader
       label="2. For Franchisee, please upload a copy of Franchise Agreement"
-      name="franchiseagreement"
       :properties="getProperty('franchise_agreement')"
       fileLabel="franchise_agreement"
       type="business"
@@ -25,7 +23,6 @@
     <base-file-uploader
       label="3. Occupancy Permit"
       description="If required by national laws (e.g. Building Code) and local laws."
-      name="occupancypermit"
       :properties="getProperty('occupancy_permit')"
       :hasError="uploadErrors.occupancy_permit"
       fileLabel="occupancy_permit"
@@ -33,7 +30,6 @@
     />
     <base-file-uploader
       label="4. Contract of Lease (if Lessee)"
-      name="contractoflease"
       :properties="getProperty('contract_of_lease')"
       fileLabel="contract_of_lease"
       type="business"
@@ -41,7 +37,6 @@
     />
     <base-file-uploader
       label="5. One Goverment issued ID"
-      name="governmentid"
       :properties="getProperty('government_id')"
       fileLabel="government_id"
       type="business"

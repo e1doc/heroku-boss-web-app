@@ -5,32 +5,38 @@
       height="auto"
       :adaptive="true"
       :classes="['vue-modal-2']"
-      ><payment-view-details-modal
+      ><payment-view-details-modal :isAdmin="false"
     /></modal>
     <div>
       <div class="thead hide-in-mobile">
         <!-- <div class="th w10">ACC #</div> -->
         <div class="th">REF NO.</div>
         <div class="th">SOA</div>
+        <div class="th" v-if="currentType !== 'business'">TD #</div>
         <div class="th">BANK</div>
         <div class="th">PAYOR</div>
         <div class="th">AMOUNT</div>
         <div class="th">PAYMENT DATE</div>
         <div class="th">STATUS</div>
+        <div class="th">ACTION</div>
       </div>
       <div class="tbody" v-if="bankTransactions.length > 0">
         <div class="tr" v-for="(item, index) in bankTransactions" :key="index">
           <div class="td">
-              <span class="td-label show-in-mobile">REFERENCE NO. :</span>
-              {{ item.reference_no }}
+            <span class="td-label show-in-mobile">REFERENCE NO. :</span>
+            {{ item.reference_no }}
           </div>
           <div class="td">
-              <span class="td-label show-in-mobile">SOA :</span>
-              {{ item.soa.reference_number }}
+            <span class="td-label show-in-mobile">SOA :</span>
+            {{ item.soa.reference_number }}
+          </div>
+          <div class="td" v-if="currentType !== 'business'">
+            <span class="td-label show-in-mobile">TD #:</span>
+            {{ item.soa.building_application.buildingdetails.tax_dec_no }}
           </div>
           <div class="td">
-              <span class="td-label show-in-mobile">BANK NAME :</span>
-              {{ item.bank }}
+            <span class="td-label show-in-mobile">BANK NAME :</span>
+            {{ item.bank }}
           </div>
           <div class="td">
             <span class="td-label show-in-mobile">PAYOR'S NAME :</span>
@@ -48,6 +54,9 @@
           <div class="td">
             <span class="td-label show-in-mobile">STATUS :</span>
             {{ item.is_verified ? "VERIFIED" : "FOR VERIFICATION" }}
+          </div>
+          <div class="td" @click="showModal(item)">
+            <div class="meta-view">VIEW</div>
           </div>
         </div>
       </div>
@@ -85,6 +94,10 @@ export default {
     this.$store.dispatch("getAllUserBankTransactions", { page: 1 });
   },
   methods: {
+    showModal(data) {
+      this.$store.commit("setCurrentBankTransaction", data);
+      this.$modal.show("paymentViewDetailsModal");
+    },
     formatCurrency(str) {
       var parts = str.toString().split(".");
       parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -101,7 +114,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.meta-verify {
+.meta-view {
   color: #1492e6;
   font-weight: bold;
   cursor: pointer;

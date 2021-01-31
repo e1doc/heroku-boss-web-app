@@ -76,8 +76,7 @@ export default {
     async changeType(type) {
       this.activeType = type;
       await this.$store.commit("setCurrentType", type);
-      let soaFilter = type === "real_property" ? "rpt" : type;
-      await this.$store.commit("setSoaFilter", soaFilter);
+      await this.$store.commit("setSoaFilter", type);
       await this.$store.dispatch("getDepartments");
     },
   },

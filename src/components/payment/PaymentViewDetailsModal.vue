@@ -70,20 +70,57 @@
                 {{ currentBankTransaction.soa.reference_number }}
               </div>
             </div>
+            <div class="meta-input-group" v-if="currentType !== 'business'">
+              <div class="meta-input-label">TD#</div>
+              <div class="meta-input-value">
+                <span class="separator">:</span>
+                {{
+                  currentBankTransaction.soa.building_application
+                    .buildingdetails.tax_dec_no
+                }}
+              </div>
+            </div>
             <div class="meta-input-group flex-wrap">
               <div class="meta-input-label">Proof of Transaction:</div>
               <div class="meta-input-value meta-link">
                 <span class="separator">:</span>
-                <app-link :to="replaceUrl(currentBankTransaction.file)"
+                <app-link :to="replaceUrl(currentBankTransaction.payment_slip)"
                   >View Screenshot</app-link
                 >
               </div>
+            </div>
+            <div
+              class="meta-input-group flex-wrap"
+              v-if="currentBankTransaction.payment_receipt"
+            >
+              <div class="meta-input-label">Payment Receipt:</div>
+              <div class="meta-input-value meta-link">
+                <span class="separator">:</span>
+                <app-link
+                  :to="replaceUrl(currentBankTransaction.payment_receipt)"
+                  >View Receipt</app-link
+                >
+              </div>
+            </div>
+            <div
+              class="meta-upload-div flex-wrap"
+              v-if="!currentBankTransaction.is_verified && isAdmin"
+            >
+              <base-file-uploader
+                label="Upload payment receipt:"
+                name="payment_receipt"
+                fileLabel="paymentdetails"
+                type="business"
+                class="mt15 custom-upload"
+                :isPaymentDetails="true"
+                :hasError="uploadHasError"
+              />
             </div>
           </div>
         </div>
         <div
           class="meta-buttons flex-wrap"
-          v-if="!currentBankTransaction.is_verified"
+          v-if="!currentBankTransaction.is_verified && isAdmin"
         >
           <button class="modal-button agree" @click="onClickCallback(true)">
             VERIFY
@@ -100,13 +137,32 @@
 <script>
 import { mapGetters } from "vuex";
 import AppLink from "@/components/AppLink";
+import BaseFileUploader from "@/components/forms/BaseFileUploader";
 export default {
   name: "PaymentViewDetailsModal",
   components: {
     AppLink,
+    BaseFileUploader,
   },
   computed: {
-    ...mapGetters(["currentBankTransaction"]),
+    ...mapGetters([
+      "currentBankTransaction",
+      "currentType",
+      "paymentDetails",
+      "isFileUploaded",
+      "isAdminAuthenticated",
+    ]),
+  },
+  props: {
+    isAdmin: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  data() {
+    return {
+      uploadHasError: false,
+    };
   },
   methods: {
     replaceUrl(url) {
@@ -114,10 +170,19 @@ export default {
     },
     async onClickCallback(status) {
       if (status) {
-        this.$modal.hide("paymentViewDetailsModal");
-        await this.$store.dispatch("verifyBankTransaction", {
-          id: this.currentBankTransaction.id,
-        });
+        if (this.isFileUploaded) {
+          this.$modal.hide("paymentViewDetailsModal");
+          let payload = this.paymentDetails;
+          payload.append("id", this.currentBankTransaction.id);
+          await this.$store.dispatch("verifyBankTransaction", payload);
+        } else {
+          this.$swal({
+            title: "Failed!",
+            text: "Please fix the validation errors.",
+            icon: "error",
+          });
+          this.uploadHasError = true;
+        }
       } else {
         this.$modal.hide("paymentViewDetailsModal");
       }
@@ -137,6 +202,7 @@ export default {
 <style scoped lang="scss">
 .modal {
   min-height: calc(100vh - 60px);
+  overflow-y: auto;
   padding: 30px 0;
 
   .meta-modal {

@@ -13,7 +13,7 @@ import UserTransactionTable from "@/components/tables/UserTransactionTable";
 import UserTransactionTableMenu from "@/components/tables/UserTransactionTableMenu";
 import { mapGetters } from "vuex";
 export default {
-  name: "Appointment",
+  name: "UserTransactions",
   components: {
     UserTransactionTable,
     UserTransactionTableMenu,
@@ -36,13 +36,13 @@ export default {
   }
 }
 
-@media (max-width: 768px){
-  .container{
-     padding: 50px 0;
+@media (max-width: 768px) {
+  .container {
+    padding: 50px 0;
 
-     .page-title{
-       font-size: 20px;
-     }
+    .page-title {
+      font-size: 20px;
+    }
   }
 }
 </style>

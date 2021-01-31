@@ -7,7 +7,7 @@
         <input
           :ref="fileLabel"
           type="file"
-          name="file"
+          :name="name"
           :accept="uploadType"
           @input="filesChange($event.target.name, $event.target.files)"
           :disabled="isUploading"
@@ -74,6 +74,10 @@ export default {
     isPaymentDetails: {
       type: Boolean,
       default: false,
+    },
+    name: {
+      type: String,
+      default: "file",
     },
   },
   data() {

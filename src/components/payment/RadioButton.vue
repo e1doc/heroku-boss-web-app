@@ -86,24 +86,29 @@
       </div>
       <div class="meta-desc">
         <div class="mb25">Please pay your SOA at the bank of your choice:</div>
-        <div class="flex-row">
-          <div class="flex-column mr20 meta-label">
-            <div class="mr15 mb10">Depository Bank:</div>
-            <div class="mr15 mb10">Depository Name:</div>
-            <div class="mr15 mb10">Depository Account #:</div>
-            <div class="mr15 mb10">Total Amount Due:</div>
-          </div>
-          <div class="flex-column">
-            <div class="mr15 mb10">Land Bank of the Philippines</div>
-            <div class="mr15 mb10">City Government of Bacoor</div>
-            <div class="mr15 mb10">123123123</div>
-            <div>
-              PHP
-              {{ formatCurrency(parseFloat(currentSoaObj.amount).toFixed(2)) }}
+        <div v-for="(item, index) in paymentDetails" :key="index" class="mb30">
+          <h3 class="text-primary">{{ item.bank }}</h3>
+          <div class="flex-row mt10">
+            <div class="flex-column mr20 meta-label">
+              <div class="mr15 mb10">Depository Bank:</div>
+              <div class="mr15 mb10">Depository Name:</div>
+              <div class="mr15 mb10">Depository Account #:</div>
+              <div class="mr15 mb10">Total Amount Due:</div>
+            </div>
+            <div class="flex-column">
+              <div class="mr15 mb10">{{ item.bank }}</div>
+              <div class="mr15 mb10">{{ item.name }}r</div>
+              <div class="mr15 mb10">{{ item.account_number }}</div>
+              <div>
+                PHP
+                {{
+                  formatCurrency(parseFloat(currentSoaObj.amount).toFixed(2))
+                }}
+              </div>
             </div>
           </div>
         </div>
-        <div>
+        <div class="mt20">
           Once you have settled the account via your bank of choice, please
           click on <span class="text-bold">Upload Payment Details</span>
         </div>
@@ -120,6 +125,18 @@ export default {
     return {
       selectedOption: "counter",
       isFeatureImplemented: false,
+      paymentDetails: [
+        {
+          bank: "Land Bank of the Philippines",
+          name: "City of Bacoor",
+          account_number: "1422-1056-85",
+        },
+        {
+          bank: "Development Bank of the Philippines",
+          name: "City of Bacoor",
+          account_number: "0-50003-651-1",
+        },
+      ],
     };
   },
   computed: {
