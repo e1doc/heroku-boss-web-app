@@ -91,6 +91,7 @@ export default {
     ...mapGetters(["currentType", "bankTransactions", "transactionPageCount"]),
   },
   mounted() {
+    this.$store.commit("setCurrentType", "business");
     this.$store.dispatch("getAllUserBankTransactions", { page: 1 });
   },
   methods: {

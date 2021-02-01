@@ -200,7 +200,9 @@ export default {
       },
     },
   },
-  mounted() {},
+  mounted() {
+    this.$store.commit("setCurrentType", "business");
+  },
   methods: {
     getStatus(data) {
       if (data) {
