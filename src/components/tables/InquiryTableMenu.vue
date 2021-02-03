@@ -40,10 +40,20 @@
             REMARKS
           </div>
         </div>
+        <div class="menu-type">
+          <div
+            :class="{ active: currentTable === 'delinquent' }"
+            @click="changeTab('delinquent')"
+          >
+            <font-awesome-icon icon="inbox" class="mr5 icon" />
+            DELINQUENT PAYMENTS
+          </div>
+        </div>
       </div>
     </div>
     <div class="bottom-div flex-wrap">
       <base-select
+        v-if="currentTable !== 'delinquent'"
         placeholder="Filter By Department"
         :options="departments"
         name="selectDepartment"
@@ -55,7 +65,13 @@
       <base-input-search
         v-model="search"
         @keyup.native="searchData()"
-        placeholder="Search by sender."
+        :placeholder="
+          currentTable === 'remarks'
+            ? 'Search by sender or application no.'
+            : currentTable === 'delinquent'
+            ? 'Search by sender or TD no.'
+            : 'Search by sender'
+        "
       />
     </div>
   </div>
@@ -123,8 +139,13 @@ export default {
           page: 1,
           filter_by: this.currentType,
         });
-      } else {
+      } else if (this.currentTable === "remarks") {
         await this.$store.dispatch("getAllAdminRemarks", {
+          page: 1,
+          filter_by: this.currentType,
+        });
+      } else {
+        await this.$store.dispatch("getAllDelinquentPayments", {
           page: 1,
           filter_by: this.currentType,
         });
@@ -137,8 +158,8 @@ export default {
       );
       if (result.data.length > 0) {
         let defaultOption = {
-          label: 'All',
-          value: 'all',
+          label: "All",
+          value: "all",
         };
         this.departments.push(defaultOption);
         result.data.forEach((item) => {

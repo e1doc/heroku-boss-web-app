@@ -31,8 +31,12 @@
       <h3 class="meta-input-label mt10 mb10 text-bold mb20">
         Tax Dec No. {{ currentSelectedProperty.buildingdetails.tax_dec_no }}
       </h3>
-      <div class="mb30 mt10">
-        <div class="meta-checkbox flex-center">
+      <div
+        class="mb10 meta-radio-group"
+        v-for="(item, index) in propertyPaymentOptions"
+        :key="index"
+      >
+        <!-- <div class="meta-checkbox flex-center">
           <input
             type="checkbox"
             id="is_advance_payment"
@@ -44,9 +48,19 @@
             /></span>
           </div>
           <label for="legal_docs_1">Include Advance Payment</label>
+        </div> -->
+
+        <div>
+          <input
+            type="radio"
+            :id="item.value"
+            :value="item.value"
+            v-model="paymentOption"
+          />
+          <label for="deliquent">{{ item.label }}</label>
         </div>
       </div>
-      <div class="mb10">
+      <div class="mb10" v-if="paymentOption !== 'delinquent'">
         <button-block @click.native="generateSoa('real_property')" class="w100"
           >Compute</button-block
         >
@@ -78,6 +92,26 @@ export default {
       "currentSelectedProperty",
     ]),
   },
+  watch: {
+    paymentOption: {
+      async handler(selected) {
+        if (selected === "delinquent") {
+          let action = await this.$swal({
+            text:
+              "Delinquents are handled via the applicant inquiry system. Kindly send your old TD number and property owner in the succeeding screen. You can combine multiple transactions into a single message. You would need to upload the latest scan of the applicable Tax Declarantion as well.",
+            showCancelButton: true,
+            icon: "info",
+          });
+          if (action.value) {
+            this.$store.commit("setIsDelinquentPayment", true);
+            this.$router.push({ name: "NewInquiry" });
+          } else {
+            await this.$modal.hide("soaModal");
+          }
+        }
+      },
+    },
+  },
   mounted() {},
   data() {
     return {
@@ -96,6 +130,20 @@ export default {
         {
           label: "Quarterly",
           value: "Q",
+        },
+      ],
+      propertyPaymentOptions: [
+        {
+          label: "Settle delinquent payments",
+          value: "delinquent",
+        },
+        {
+          label: "Pay current year",
+          value: "current",
+        },
+        {
+          label: "Include advance payment",
+          value: "advance",
         },
       ],
       quarters: [
@@ -117,6 +165,7 @@ export default {
         },
       ],
       isAdvancePayment: false,
+      paymentOption: "",
     };
   },
 
@@ -213,6 +262,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.meta-radio-group {
+  div {
+    margin-bottom: 10px;
+    input {
+      margin-right: 10px;
+    }
+  }
+}
 .form-section {
   padding: 15px;
 }

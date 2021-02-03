@@ -1,8 +1,11 @@
 <template>
   <div class="inquiry-box">
     <div class="inquiry-header">
-      <div class="inquiry-subj">
+      <div class="inquiry-subj" v-if="!isDelinquentPayment">
         New {{ type === "inquiry" ? "Inquiry" : "Remarks" }}
+      </div>
+      <div class="inquiry-subj" v-if="isDelinquentPayment">
+        Delinquent Payment Processing
       </div>
       <!-- <div class="application-button">
                  <button-block type="default" class="inquiry-application-btn" />
@@ -14,17 +17,19 @@
     <div class="inquiry-body">
       <!-- REPLY SECTION -->
       <div class="inquiry-new">
-        <div class="inquiry-new-text">SUBJECT</div>
-        <input
-          type="text"
-          name="subject"
-          id="subject"
-          class="input-subject"
-          placeholder="Type your subject here"
-          v-model="subject"
-          :disabled="type === 'inquiry' ? false : true"
-        />
-        <div v-if="type === 'inquiry'">
+        <div v-if="!isDelinquentPayment">
+          <div class="inquiry-new-text">SUBJECT</div>
+          <input
+            type="text"
+            name="subject"
+            id="subject"
+            class="input-subject"
+            placeholder="Type your subject here"
+            v-model="subject"
+            :disabled="type === 'inquiry' ? false : true"
+          />
+        </div>
+        <div v-if="type === 'inquiry' && !isDelinquentPayment">
           <div class="inquiry-new-text mb15">Department Concern</div>
           <base-select
             placeholder="------ Choose Department ------"
@@ -34,14 +39,17 @@
             v-model="department"
           />
         </div>
-        <div class="inquiry-new-text">
+        <div class="inquiry-new-text" v-if="!isDelinquentPayment">
           {{ type === "inquiry" ? "Inquiry" : "Remarks" }}
+        </div>
+        <div class="inquiry-new-text" v-if="isDelinquentPayment">
+          Property Info
         </div>
         <textarea
           name="inquiry"
           id="inquiry"
           rows="6"
-          placeholder="Type your text here"
+          :placeholder="placeholder"
           v-model="body"
         ></textarea>
 
@@ -50,7 +58,7 @@
           fileLabel="inquiry_attachment"
           uploadType="application/pdf"
           class="upload-attachment"
-          v-if="isLastBuildingDept"
+          v-if="isLastBuildingDept || isDelinquentPayment"
           :isEvaluation="true"
         />
       </div>
@@ -104,6 +112,8 @@ export default {
       "authToken",
       "assessmentPayload",
       "buildingAssessmentPayload",
+      "isDelinquentPayment",
+      "currentSelectedProperty",
     ]),
   },
   props: {
@@ -131,6 +141,7 @@ export default {
       department: "",
       required_fields: ["department", "subject", "body"],
       field_errors: { department: [], subject: [], body: [] },
+      placeholder: "",
     };
   },
   created() {
@@ -139,13 +150,25 @@ export default {
   mounted() {
     console.log(this.type);
     this.getRemarks();
+    this.checkIfDelinquentPayment();
   },
   beforeRouteLeave(to, from, next) {
     this.$store.dispatch("setApplicationStateRemarks", {});
     this.$store.commit("setCurrentInquiry", "");
+    this.$store.commit("setIsDelinquentPayment", false);
     next();
   },
   methods: {
+    checkIfDelinquentPayment() {
+      if (this.isDelinquentPayment) {
+        this.subject = `${this.currentSelectedProperty.buildingdetails.tax_dec_no} Delinquent Payment Processing`;
+        this.placeholder =
+          "Please enter your property owner info and TD number here";
+        this.department = "Treasury Office";
+      } else {
+        ("Type your text here");
+      }
+    },
     async validateFields() {
       this.required_fields.forEach((item) => {
         if (this[item] === "") {
@@ -186,7 +209,11 @@ export default {
     },
     isButtonDisabled() {
       if (this.type !== "remarks") {
-        if (this.body === "" || this.subject === "" || this.department === "") {
+        if (
+          this.body === "" ||
+          this.subject === "" ||
+          (this.department === "" && !this.isDelinquentPayment)
+        ) {
           return false;
         } else {
           return true;
@@ -214,9 +241,14 @@ export default {
         business_id:
           this.applicationType === "business" ? this.applicationNumber : null,
         building_id:
-          this.applicationType === "building" ? this.applicationNumber : null,
+          this.applicationType === "building"
+            ? this.applicationNumber
+            : this.isDelinquentPayment
+            ? this.currentSelectedProperty.id
+            : null,
         receiver: this.type === "remarks" ? this.receiver : null,
         department: this.department,
+        is_delinquent: this.isDelinquentPayment,
       });
       await this.$store.dispatch("addMessage", {
         thread: this.currentInquiry,

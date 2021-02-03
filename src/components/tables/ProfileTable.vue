@@ -210,7 +210,7 @@ export default {
       this.$store.commit("setLoading", false);
       await this.$router.push({ name: "BusinessRenewal" });
     },
-    async profile(type, item) {
+    async showModal(type, item) {
       this.$store.commit("setCurrentSoaType", type);
       if (type === "business") {
         if (!item.is_renewed && item.is_enrolled) {

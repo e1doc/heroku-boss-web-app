@@ -30,6 +30,16 @@
           </div>
           <div class="item-content">
             {{ message.body }}
+            <div v-if="message.messageattachments">
+              <div
+                class="item-attachment"
+                v-if="message.messageattachments.length > 0"
+                @click="linkProps(message.messageattachments[0].file)"
+              >
+                <font-awesome-icon icon="paperclip" class="admin-icon" /> See
+                Attachment
+              </div>
+            </div>
           </div>
           <div class="item-date">
             {{ message.created_at | moment("MMMM DD, YYYY HH:mm A") }}

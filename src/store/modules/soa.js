@@ -17,6 +17,7 @@ const getDefaultSoaState = () => {
     currentBankTransaction: {},
     transactionSearch: "",
     transactionPageCount: 0,
+    isDelinquentPayment: false,
   };
 };
 
@@ -37,6 +38,7 @@ const getters = {
   currentBankTransaction: (state) => state.currentBankTransaction,
   transactionSearch: (state) => state.transactionSearch,
   transactionPageCount: (state) => state.transactionPageCount,
+  isDelinquentPayment: (state) => state.isDelinquentPayment,
 };
 
 const mutations = {
@@ -65,6 +67,8 @@ const mutations = {
     (state.transactionSearch = transactionSearch),
   setTransactionPageCount: (state, transactionPageCount) =>
     (state.transactionPageCount = transactionPageCount),
+  setIsDelinquentPayment: (state, isDelinquentPayment) =>
+    (state.isDelinquentPayment = isDelinquentPayment),
 };
 
 const actions = {

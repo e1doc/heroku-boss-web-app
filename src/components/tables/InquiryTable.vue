@@ -89,6 +89,53 @@
         </div>
       </div>
     </div>
+
+    <!-- DELINQUENT PAYMENTS -->
+    <div v-if="currentTable === 'delinquent'">
+      <div class="thead">
+        <div class="th date">DATE</div>
+        <div class="th subject">SUBJECT</div>
+        <div class="th sender">SENDER</div>
+        <div class="th status">STATUS</div>
+        <div class="th actions">ACTIONS</div>
+      </div>
+      <div class="tbody" v-if="delinquentPayments.length > 0">
+        <div
+          class="tr"
+          v-for="(item, index) in delinquentPayments"
+          :key="index"
+        >
+          <div class="td date">
+            {{ item.created_at | moment("MMMM DD YYYY") }}
+          </div>
+          <div class="td subject">
+            {{ item.subject }}
+          </div>
+          <div class="td sender">
+            {{ item.sender.first_name }} {{ item.sender.last_name }}
+          </div>
+          <div class="td status">
+            {{ item.status }}
+          </div>
+          <div class="td actions">
+            <router-link
+              :to="{ name: 'ReplyInquiry', params: { thread: item.id } }"
+            >
+              <font-awesome-icon icon="envelope-open-text" class="mr5 icon" />
+              READ
+            </router-link>
+          </div>
+        </div>
+      </div>
+      <div
+        class="tbody"
+        v-if="delinquentPayments.length < 1 && currentTable === 'delinquent'"
+      >
+        <div class="tr">
+          <div class="td meta-no-data">No data available</div>
+        </div>
+      </div>
+    </div>
     <paginate
       v-if="currentTable === 'inquiries' && inquiries.length > 0"
       :page-count="pageCount"
@@ -109,6 +156,17 @@
       :click-handler="getAllRemarks"
     >
     </paginate>
+
+    <paginate
+      v-if="currentTable === 'delinquent' && delinquentPayments.length > 0"
+      :page-count="pageCount"
+      :prev-text="'Prev'"
+      :next-text="'Next'"
+      :container-class="'pagination'"
+      :page-class="'page-item'"
+      :click-handler="getAllDelinquentPayments"
+    >
+    </paginate>
   </section>
 </template>
 
@@ -123,6 +181,7 @@ export default {
       "inquiries",
       "remarks",
       "pageCount",
+      "delinquentPayments",
     ]),
   },
   mounted() {
@@ -133,8 +192,10 @@ export default {
       handler(status) {
         if (this.currentTable === "inquiries") {
           this.getAllInquiries();
-        } else {
+        } else if (this.currentTable === "remarks") {
           this.getAllRemarks();
+        } else {
+          this.getAllDelinquentPayments();
         }
       },
     },
@@ -142,8 +203,10 @@ export default {
       handler(status) {
         if (this.currentTable === "inquiries") {
           this.getAllInquiries();
-        } else {
+        } else if (this.currentTable === "remarks") {
           this.getAllRemarks();
+        } else {
+          this.getAllDelinquentPayments();
         }
       },
     },
@@ -157,6 +220,12 @@ export default {
     },
     async getAllRemarks(pageNum = 1) {
       await this.$store.dispatch("getAllAdminRemarks", {
+        page: pageNum,
+        filter_by: this.currentType,
+      });
+    },
+    async getAllDelinquentPayments(pageNum = 1) {
+      await this.$store.dispatch("getAllDelinquentPayments", {
         page: pageNum,
         filter_by: this.currentType,
       });
