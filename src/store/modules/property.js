@@ -1,6 +1,7 @@
 import axios from "axios";
 const baseUrl = process.env.VUE_APP_API_URL;
 const oneDocToken = process.env.VUE_APP_ONE_DOC_TOKEN;
+const lguLocalEndpoint = process.env.VUE_APP_LGU_LOCAL_ENDPOINT;
 import router from "../../router/index.js";
 const getDefaultPropertyState = () => {
   return {
@@ -248,12 +249,7 @@ const actions = {
         "OneDoc-Token": oneDocToken,
       },
     };
-    const response = await axios.post(
-      `http://122.55.20.85:8012/lguapi/`,
-      payload,
-      config
-    );
-    console.log(response.data);
+    const response = await axios.post(`${lguLocalEndpoint}`, payload, config);
   },
   async approveBuildingApplication({ commit, dispatch, getters }, payload) {
     try {

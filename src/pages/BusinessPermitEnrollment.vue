@@ -63,6 +63,7 @@ import BaseDatePicker from "@/components/forms/BaseDatePicker";
 import { mapGetters } from "vuex";
 import axios from "axios";
 const oneDocToken = process.env.VUE_APP_ONE_DOC_TOKEN;
+const lguLocalEndpoint = process.env.VUE_APP_LGU_LOCAL_ENDPOINT;
 export default {
   name: "BusinessPermitEnrollment",
   components: {
@@ -112,12 +113,12 @@ export default {
 
         if (!validateResponse.data.is_existing) {
           const response = await axios.post(
-            `https://api.bacoor.gov.ph/lguapi/`,
+            `${lguLocalEndpoint}`,
             payload,
             config
           );
-          if (response.data.Response) {
-            if (response.data.Response.Result.businessid) {
+          if (response.data.Status === "Success") {
+            if (response.data.Result.businessid) {
               await this.$store.dispatch("addBusinessApplication", {
                 account_number: this.account_no,
                 is_draft: false,
@@ -132,14 +133,14 @@ export default {
             } else {
               this.$swal({
                 title: "Failed!",
-                text: response.data.Response.Result.message,
+                text: response.data.Message,
                 icon: "error",
               });
             }
           } else {
             this.$swal({
               title: "Failed!",
-              text: "No record found.",
+              text: `${response.data.Message}`,
               icon: "error",
             });
           }

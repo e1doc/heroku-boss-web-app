@@ -77,6 +77,7 @@ import { mapGetters } from "vuex";
 import axios from "axios";
 import moment from "moment-timezone";
 const oneDocToken = process.env.VUE_APP_ONE_DOC_TOKEN;
+const lguLocalEndpoint = process.env.VUE_APP_LGU_LOCAL_ENDPOINT;
 export default {
   name: "SoaForm",
   components: {
@@ -204,23 +205,23 @@ export default {
           };
 
           const result = await axios.post(
-            `https://api.bacoor.gov.ph/lguapi/`,
+            `${lguLocalEndpoint}`,
             payload,
             config
           );
           this.$store.commit("setLoading", false);
           console.log(result.data);
-          if (result.data.Response.Result.message !== "No record found.") {
+          if (result.data.Status === "Success") {
             await this.$modal.hide("soaModal");
             await this.$store.dispatch(
               "storeGeneratedBill",
-              result.data.Response.Result
+              result.data.Result
             );
             await this.$router.push({ name: "Bills" });
           } else {
             this.$swal({
               title: "Failed!",
-              text: result.data.Response.Result.message,
+              text: result.data.Message,
               icon: "error",
             });
           }
@@ -236,22 +237,22 @@ export default {
             },
           };
           const result = await axios.post(
-            `https://api.bacoor.gov.ph/lguapi/`,
+            `${lguLocalEndpoint}`,
             payload,
             config
           );
           this.$store.commit("setLoading", false);
-          if (result.data.Response.Result.message !== "No record found.") {
+          if (result.data.Status === "Success") {
             await this.$modal.hide("soaModal");
             await this.$store.dispatch(
               "storeGeneratedBill",
-              result.data.Response.Result
+              result.data.Result
             );
             await this.$router.push({ name: "Bills" });
           } else {
             this.$swal({
               title: "Failed!",
-              text: result.data.Response.Result.message,
+              text: result.data.Message,
               icon: "error",
             });
           }

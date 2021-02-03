@@ -133,12 +133,15 @@ const actions = {
         headers: { Authorization: `jwt ${getters.authToken}` },
       });
       if (getters.isEvaluation || getters.isDelinquentPayment) {
+        await commit("setLoading", true);
         let newFormData = getters.currentEvaluationFile;
         newFormData.append("message", response.data.id);
         await dispatch("uploadMessageAttachment", newFormData);
         commit("setIsEvaluation", false);
+        await commit("setLoading", false);
       }
     } catch (err) {
+      await commit("setLoading", false);
       err.response ? console.log(err.response) : console.log(err);
     }
   },
@@ -201,6 +204,7 @@ const actions = {
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
     } catch (err) {
+      await commit("setLoading", false)
       err.response ? console.log(err.response) : console.log(err);
     }
   },

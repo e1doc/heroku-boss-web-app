@@ -68,6 +68,7 @@ import BaseSelect from "@/components/forms/BaseSelect";
 import axios from "axios";
 import { mapGetters } from "vuex";
 const oneDocToken = process.env.VUE_APP_ONE_DOC_TOKEN;
+const lguLocalEndpoint = process.env.VUE_APP_LGU_LOCAL_ENDPOINT;
 export default {
   name: "RealPropertyEnrollment",
   components: {
@@ -135,12 +136,12 @@ export default {
         );
         if (!validateResponse.data.is_existing) {
           const response = await axios.post(
-            `https://api.bacoor.gov.ph/lguapi/`,
+            `${lguLocalEndpoint}`,
             payload,
             config
           );
-          if (response.data.Response) {
-            if (response.data.Response.Result.referenceid) {
+          if (response.data.Status === "Success") {
+            if (response.data.Result.referenceid) {
               let building_payload = {
                 is_draft: false,
                 is_enrolled: true,
@@ -162,14 +163,14 @@ export default {
             } else {
               this.$swal({
                 title: "Failed!",
-                text: response.data.Response.Result.message,
+                text: response.data.Message,
                 icon: "error",
               });
             }
           } else {
             this.$swal({
               title: "Failed!",
-              text: response.data.Error.Message,
+              text: response.data.Message,
               icon: "error",
             });
           }

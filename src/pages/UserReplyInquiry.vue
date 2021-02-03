@@ -88,6 +88,13 @@
           placeholder="Type your text here"
           v-model="body"
         ></textarea>
+        <base-file-uploader
+          fileLabel="inquiry_attachment"
+          uploadType="application/pdf"
+          class="upload-attachment"
+          v-if="inquiry.is_delinquent"
+          :isEvaluation="true"
+        />
         <div class="inquiry-button">
           <button-block
             type="send"
@@ -106,12 +113,14 @@ import InquiryTableMenu from "@/components/tables/InquiryTableMenu";
 import InquiryTable from "@/components/tables/InquiryTable";
 import ButtonBlock from "@/components/ButtonBlock";
 import { mapGetters } from "vuex";
+import BaseFileUploader from "@/components/forms/BaseFileUploader";
 export default {
   name: "ReplyInquiry",
   components: {
     InquiryTableMenu,
     InquiryTable,
     ButtonBlock,
+    BaseFileUploader,
   },
   props: {
     thread: {
@@ -131,7 +140,6 @@ export default {
   },
   mounted() {
     this.getInquiry();
-    console.log(this.inquiry);
   },
   methods: {
     showUpdateButton() {
@@ -169,12 +177,20 @@ export default {
       let id = this.thread != "" ? this.thread : this.currentInquiry;
       await this.$store.dispatch("getInquiry", id);
       this.messages = await this.inquiry.messages;
+      if (this.inquiry.is_delinquent) {
+        this.$store.commit("setIsDelinquentPayment", true);
+      } else {
+        this.$store.commit("setIsDelinquentPayment", false);
+      }
     },
     async sendReply() {
       await this.$store.dispatch("addMessage", {
         thread: this.currentInquiry,
         body: this.body,
       });
+      if (this.inquiry.is_delinquent) {
+        this.getInquiry();
+      }
       this.messages.push({ body: this.body, sender: { is_staff: false } });
       this.body = "";
     },

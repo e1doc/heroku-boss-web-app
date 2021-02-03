@@ -54,7 +54,7 @@
             }}
             Administrator
           </div>
-          <div class="item-content flex-wrap">
+          <div class="item-content">
             {{ message.body }}
             <div v-if="message.messageattachments">
               <div
@@ -89,7 +89,10 @@
           fileLabel="inquiry_attachment"
           uploadType="application/pdf"
           class="upload-attachment"
-          v-if="isLastBuildingDept && isEvaluation"
+          v-if="
+            (isLastBuildingDept && isEvaluation) ||
+            currentTable === 'delinquent'
+          "
           :isEvaluation="true"
         />
         <div class="inquiry-button">
@@ -137,6 +140,7 @@ export default {
     this.$store.commit("setCurrentBuildingId", 0);
     this.$store.commit("setContinueBusinessThread", false);
     this.$store.commit("setCurrentBusinessId", 0);
+    this.$store.commit("setIsDelinquentPayment", false);
     next();
   },
   computed: {
@@ -162,6 +166,9 @@ export default {
   },
   mounted() {
     this.getInquiry();
+    if (this.currentTable === "delinquent") {
+      this.$store.commit("setIsDelinquentPayment", true);
+    }
   },
   methods: {
     linkProps(url) {
@@ -170,10 +177,8 @@ export default {
     },
     async getInquiry() {
       let id = this.thread != "" ? this.thread : this.currentInquiry;
-      console.log("thread id", id);
       await this.$store.dispatch("getInquiry", id);
       this.messages = await this.inquiry.messages;
-      console.log("messages", this.messages);
     },
     async sendReply() {
       if (this.continueBuildingThread) {
@@ -243,7 +248,9 @@ export default {
       });
       this.messages.push({ body: this.body, sender: { is_staff: true } });
       this.body = "";
-
+      if (this.currentTable === "delinquent") {
+        this.getInquiry();
+      }
       if (!this.isLastBuildingDept && this.isBuildingAssessment) {
         await this.$store.dispatch(
           "assessBuildingApplication",

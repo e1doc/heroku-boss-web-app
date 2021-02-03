@@ -1,6 +1,7 @@
 import axios from "axios";
 const baseUrl = process.env.VUE_APP_API_URL;
 const oneDocToken = process.env.VUE_APP_ONE_DOC_TOKEN;
+const lguLocalEndpoint = process.env.VUE_APP_LGU_LOCAL_ENDPOINT;
 import router from "../../router/index.js";
 const getDefaultBusinessState = () => {
   return {
@@ -218,17 +219,13 @@ const actions = {
         "Content-Type": "application/json",
       },
     };
-    const response = await axios.post(
-      `http://122.55.20.85:8012/lguapi/`,
-      payload,
-      config
-    );
-    if (response.data.Response.Result.businessid) {
+    const response = await axios.post(`${lguLocalEndpoint}`, payload, config);
+    if (response.data.Status === "Success") {
       commit("setIsBusinessEnrollmentSuccess", true);
     } else {
       this.$swal({
         title: "Failed!",
-        text: "No record found.",
+        text: response.data.Message,
         icon: "error",
       });
     }

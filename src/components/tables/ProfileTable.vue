@@ -140,6 +140,7 @@ import { mapGetters } from "vuex";
 import axios from "axios";
 import moment from "moment-timezone";
 const oneDocToken = process.env.VUE_APP_ONE_DOC_TOKEN;
+const lguLocalEndpoint = process.env.VUE_APP_LGU_LOCAL_ENDPOINT;
 export default {
   name: "ProfileTable",
   computed: {
@@ -239,7 +240,7 @@ export default {
           },
         };
         const response = await axios.post(
-          `https://api.bacoor.gov.ph/lguapi/`,
+          `${lguLocalEndpoint}`,
           payload,
           config
         );
