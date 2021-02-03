@@ -36,20 +36,6 @@
         v-for="(item, index) in propertyPaymentOptions"
         :key="index"
       >
-        <!-- <div class="meta-checkbox flex-center">
-          <input
-            type="checkbox"
-            id="is_advance_payment"
-            v-model="isAdvancePayment"
-          />
-          <div class="custom-checkbox flex-center">
-            <span class="check"
-              ><font-awesome-icon icon="check" class="mr5 check-icon"
-            /></span>
-          </div>
-          <label for="legal_docs_1">Include Advance Payment</label>
-        </div> -->
-
         <div>
           <input
             type="radio"
@@ -57,8 +43,21 @@
             :value="item.value"
             v-model="paymentOption"
           />
-          <label for="deliquent">{{ item.label }}</label>
+          <label for="deliquent" class="text-bold">{{ item.label }}</label>
         </div>
+      </div>
+      <div class="meta-checkbox flex-center mb30 ml30">
+        <input
+          type="checkbox"
+          id="is_advance_payment"
+          v-model="isAdvancePayment"
+        />
+        <div class="custom-checkbox flex-center">
+          <span class="check"
+            ><font-awesome-icon icon="check" class="mr5 check-icon"
+          /></span>
+        </div>
+        <label for="legal_docs_1">Include Advance Payment</label>
       </div>
       <div class="mb10" v-if="paymentOption !== 'delinquent'">
         <button-block @click.native="generateSoa('real_property')" class="w100"
@@ -109,10 +108,6 @@ export default {
           } else {
             await this.$modal.hide("soaModal");
           }
-        } else if (selected === "advance") {
-          this.isAdvancePayment = true;
-        } else if (selected === "current") {
-          this.isAdvancePayment = false;
         }
       },
     },
@@ -146,10 +141,10 @@ export default {
           label: "Pay current year",
           value: "current",
         },
-        {
-          label: "Include advance payment",
-          value: "advance",
-        },
+        // {
+        //   label: "Include advance payment",
+        //   value: "advance",
+        // },
       ],
       quarters: [
         {
@@ -170,7 +165,7 @@ export default {
         },
       ],
       isAdvancePayment: false,
-      paymentOption: "",
+      paymentOption: "current",
     };
   },
 
