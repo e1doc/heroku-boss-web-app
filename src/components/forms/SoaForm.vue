@@ -108,6 +108,10 @@ export default {
           } else {
             await this.$modal.hide("soaModal");
           }
+        } else if (selected === "advance") {
+          this.isAdvancePayment = true;
+        } else if (selected === "current") {
+          this.isAdvancePayment = false;
         }
       },
     },
