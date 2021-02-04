@@ -145,21 +145,21 @@ export default {
               let building_payload = {
                 is_draft: false,
                 is_enrolled: true,
-                reference_id: response.data.Response.Result.referenceid,
+                reference_id: response.data.Result.referenceid,
               };
               await this.$store.dispatch(
                 "addBuildingApplication",
                 building_payload
               );
               await this.$store.dispatch("addBuildingBasicInformation", {
-                owner_first_name: response.data.Response.Result.owner_name,
+                owner_first_name: response.data.Result.owner_name,
               });
               await this.$store.dispatch("addBuildingDetails", {
-                tax_dec_no: response.data.Response.Result.td_number,
+                tax_dec_no: response.data.Result.td_number,
                 property_type: this.property_type,
               });
               this.isSuccess = true;
-              this.td_no = response.data.Response.Result.td_number;
+              this.td_no = response.data.Result.td_number;
             } else {
               this.$swal({
                 title: "Failed!",
@@ -183,6 +183,7 @@ export default {
         }
         this.$store.commit("setLoading", false);
       } catch (err) {
+        console.log(err);
         this.$swal({
           title: "Failed!",
           text: "No record found.",

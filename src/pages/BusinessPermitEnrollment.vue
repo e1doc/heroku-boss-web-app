@@ -126,10 +126,10 @@ export default {
               });
               await this.$store.dispatch("addBusinessBasicInformation", {});
               await this.$store.dispatch("addBusinessDetails", {
-                name: response.data.Response.Result.businessname,
+                name: response.data.Result.businessname,
               });
               this.isSuccess = true;
-              this.account_no = response.data.Response.Result.account_number;
+              this.account_no = response.data.Result.account_number;
             } else {
               this.$swal({
                 title: "Failed!",

@@ -244,7 +244,7 @@ export default {
           payload,
           config
         );
-        const data = response.data.Response.Result;
+        const data = response.data.Result;
         if (data.accountno) {
           const business_application = {
             is_renewed: true,
@@ -314,7 +314,7 @@ export default {
             gross_monthly_rental: data.rentamount,
           };
           const business_activities = [];
-          for (let item of response.data.Response.Result.businesslines) {
+          for (let item of response.data.Result.businesslines) {
             const activity = {
               line_of_business: item.line,
               capitalization: item.gross.split(".")[0],
@@ -339,7 +339,7 @@ export default {
         } else {
           this.$swal({
             title: "Failed!",
-            text: response.data.Response.Result.message,
+            text: response.data.Result.message,
             icon: "error",
           });
         }
