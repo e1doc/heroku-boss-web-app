@@ -67,7 +67,10 @@
         Office. To set an appointment, please click the button below.
       </div>
     </div>
-    <div class="meta-list-option" v-if="currentPaymentType === 'other_banks'">
+    <div
+      class="meta-list-option"
+      v-if="currentPaymentType === 'other_banks' && isFeatureImplemented"
+    >
       <div class="meta-radio flex-center">
         <input
           type="radio"

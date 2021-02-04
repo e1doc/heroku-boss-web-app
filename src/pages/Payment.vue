@@ -52,6 +52,7 @@
                 <img class="meta-img" src="../assets/landbank-logo.png" />
               </div>
               <div
+                v-if="isFeatureImplemented"
                 class="meta-list-item"
                 :class="{ active: selectedPayment == 'other_banks' }"
                 @click="changePaymentType('other_banks')"
@@ -93,7 +94,9 @@
             </div>
             <div
               class="meta-button"
-              v-if="currentPaymentType === 'other_banks'"
+              v-if="
+                currentPaymentType === 'other_banks' && isFeatureImplemented
+              "
             >
               <button-block @click.native="showModal"
                 >Upload Payment Details</button-block
