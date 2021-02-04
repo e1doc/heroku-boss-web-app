@@ -60,7 +60,7 @@
             <div class="item-icon flex-center">
               <font-awesome-icon icon="coins" class="icon" />
             </div>
-            <div class="item-value">0</div>
+            <div class="item-value">{{ dashboard.bank_transaction_count }}</div>
             <div class="item-label">Overall Transactions</div>
           </div>
         </div>
