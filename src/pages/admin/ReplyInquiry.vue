@@ -72,6 +72,19 @@
           </div>
         </div>
       </div>
+      <div class="resolve-column flex-wrap" v-if="!inquiry.is_resolved">
+        <div class="resolve-button">
+          <button type="send" class="btn-resolve" @click="resolveInquiry">
+            <font-awesome-icon icon="check" class="admin-icon" />
+            MARK AS RESOLVED
+          </button>
+        </div>
+        <div class="resolve-note">
+          <span>Note:</span>
+          Once this is marked as resolved, you can no longer reply to this
+          thread.
+        </div>
+      </div>
       <!-- REPLY SECTION -->
       <div class="inquiry-footer" v-if="!inquiry.is_resolved">
         <div class="inquiry-footer-text">
@@ -171,6 +184,19 @@ export default {
     }
   },
   methods: {
+    async resolveInquiry() {
+      await this.$store.dispatch("resolveInquiry", {
+        id: this.currentInquiry,
+        is_resolved: true,
+      });
+      await this.$swal({
+        title: "Success!",
+        text: "Inquiry successfully resolved.",
+        icon: "success",
+      }).then((value) => {
+        this.$router.push({ name: "Inquiries" });
+      });
+    },
     linkProps(url) {
       url = url.replace("/bacoor/", "/");
       window.open(url, "_blank");
@@ -308,6 +334,45 @@ div.inquiry-box {
       font-size: 16px;
       line-height: 1.4;
       letter-spacing: 0.8px;
+    }
+  }
+  div.resolve-column {
+    width: 100%;
+    justify-content: center;
+    padding: 15px 0;
+
+    div.resolve-button {
+      width: 100%;
+      text-align: center;
+      button.btn-resolve {
+        background: #81c784;
+        color: #fff;
+        font-size: 15px;
+        font-weight: bold;
+        border-radius: 50px;
+        border: 1px solid #81c784;
+        padding: 12px 25px;
+        margin-bottom: 15px;
+        cursor: pointer;
+        transition: 0.4s;
+      }
+
+      button.btn-resolve:hover {
+        color: #81c784;
+        background-color: transparent;
+      }
+
+      button.btn-resolve:focus {
+        outline: none;
+      }
+    }
+
+    .resolve-note {
+      font-size: 14px;
+      color: #969696;
+      span {
+        font-weight: bold;
+      }
     }
   }
   div.inquiry-body {
