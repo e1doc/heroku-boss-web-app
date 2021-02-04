@@ -97,7 +97,7 @@
             </div>
             <div class="flex-column">
               <div class="mr15 mb10">{{ item.bank }}</div>
-              <div class="mr15 mb10">{{ item.name }}r</div>
+              <div class="mr15 mb10">{{ item.name }}</div>
               <div class="mr15 mb10">{{ item.account_number }}</div>
               <div>
                 PHP
