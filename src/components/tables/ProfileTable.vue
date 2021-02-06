@@ -339,7 +339,7 @@ export default {
         } else {
           this.$swal({
             title: "Failed!",
-            text: response.data.Result.message,
+            text: response.data.Result.Message,
             icon: "error",
           });
         }

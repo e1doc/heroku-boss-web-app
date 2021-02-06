@@ -16,13 +16,6 @@
         >
           APPLICATIONS
         </div>
-        <!-- <div
-          class="menu-type"
-          :class="{ active: currentTable === 'transactions' }"
-          @click="changeTab('transactions')"
-        >
-          TRANSACTIONS
-        </div> -->
       </div>
       <div class="soa-menus flex-row" v-if="type === 'soa'">
         <div class="menu-type active">STATEMENT OF ACCOUNTS</div>

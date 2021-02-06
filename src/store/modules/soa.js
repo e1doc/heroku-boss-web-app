@@ -95,7 +95,6 @@ const actions = {
       const response = await axios.post(`${baseUrl}/api/user-soa/`, payload, {
         headers: { Authorization: `jwt ${getters.authToken}` },
       });
-      await router.push({ name: "StatementOfAccounts" });
       await commit("setCurrentSoa", {
         id: response.data.data.id,
         type: response.data.data.application_type,
