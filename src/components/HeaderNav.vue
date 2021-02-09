@@ -33,6 +33,11 @@
                 >Real Property Enrollment</router-link
               >
             </li>
+            <li class="meta-menu">
+              <router-link to="request-new-td"
+                >Request New Tax Declaration Number</router-link
+              >
+            </li>
             <!-- <li class="meta-menu"><router-link to="#">Search Reference No.</router-link></li> -->
             <li class="meta-menu">
               <router-link to="statement-of-accounts"
@@ -184,6 +189,19 @@
             <router-link to="real-property-enrollment">
               <font-awesome-icon icon="laptop-house" class="mr10 icon" />
               Real Property Enrollment
+            </router-link>
+          </li>
+          <li
+            class="meta-menu"
+            @click="
+              slidemenu = false;
+              menuActive = 'request-new-td';
+            "
+            :class="{ active: menuActive == 'request-new-td' }"
+          >
+            <router-link to="request-new-td">
+              <font-awesome-icon icon="laptop-house" class="mr10 icon" />
+              Request New Tax Declaration Number
             </router-link>
           </li>
           <li

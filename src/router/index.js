@@ -42,6 +42,7 @@ import ComingSoon from "../pages/ComingSoon";
 import RenewalBusinessPermitApplication from "../pages/RenewalBusinessPermitApplication";
 import PaymentLayout from "../PaymentLayout.vue";
 import UserTransactions from "../pages/UserTransactions";
+import RequestNewTaxDec from "../pages/RequestNewTaxDec";
 import store from "../store";
 import swal from "sweetalert2";
 Vue.use(VueRouter);
@@ -204,6 +205,11 @@ const routes = [
         path: "transactions",
         name: "UserTransactions",
         component: UserTransactions,
+      },
+      {
+        path: "request-new-td",
+        name: "RequestNewTaxDec",
+        component: RequestNewTaxDec,
       },
     ],
     async beforeEnter(to, from, next) {
