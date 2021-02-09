@@ -319,6 +319,8 @@ export default {
       return map;
     },
     async setupFees() {
+      this.compiledFees = [];
+      this.allFees2 = [];
       let feesHolder = [];
       let groupHolder = [];
       await this.currentSoaObj.bills.forEach((item) => {

@@ -1,8 +1,11 @@
 <template>
   <section>
+    <div class="meta-invoice-holder">
+      <downloadable-invoice />
+    </div>
     <div v-if="currentType === 'business'">
       <div class="thead hide-in-mobile">
-        <!-- <div class="th w10">ACCOUNT #</div> -->
+        <div class="th">ACCOUNT #</div>
         <div class="th">REFERENCE #</div>
         <div class="th">DATE</div>
         <div class="th">BUSINESS NAME</div>
@@ -12,10 +15,10 @@
       </div>
       <div class="tbody" v-if="soaList.length > 0">
         <div class="tr" v-for="(item, index) in soaList" :key="index">
-          <!-- <div class="td w10">
-              <span class="td-label show-in-mobile">ACCOUNT # : </span>
-              F-02248
-          </div> -->
+          <div class="td">
+            <span class="td-label show-in-mobile">ACCOUNT NUMBER : </span>
+            {{ item.business_application.account_number }}
+          </div>
           <div class="td">
             <span class="td-label show-in-mobile">REFERENCE # : </span>
             {{ item.reference_number }}
@@ -50,6 +53,9 @@
               }"
             >
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
+            </div>
+            <div class="bill" @click="printSoa('business', item)">
+              <font-awesome-icon icon="save" class="mr5 icon" />DOWNLOAD
             </div>
           </div>
         </div>
@@ -106,6 +112,9 @@
             >
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
             </div>
+            <div class="bill" @click="printSoa('building', item)">
+              <font-awesome-icon icon="save" class="mr5 icon" />DOWNLOAD
+            </div>
           </div>
         </div>
       </div>
@@ -157,6 +166,9 @@
             >
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
             </div>
+            <div class="bill" @click="printSoa('real_property', item)">
+              <font-awesome-icon icon="save" class="mr5 icon" />DOWNLOAD
+            </div>
           </div>
         </div>
       </div>
@@ -181,8 +193,12 @@
 
 <script>
 import { mapGetters } from "vuex";
+import DownloadableInvoice from "@/components/payment/DownloadableInvoice";
 export default {
   name: "SoaTable",
+  components: {
+    DownloadableInvoice,
+  },
   computed: {
     ...mapGetters([
       "currentType",
@@ -204,6 +220,24 @@ export default {
     this.$store.commit("setCurrentType", "business");
   },
   methods: {
+    async printSoa(type, soa) {
+      this.$store.commit("setLoading", true);
+      await this.$store.commit("setCurrentSoaObj", soa);
+      if (type === "business") {
+        await this.$store.commit(
+          "setCurrentSelectedBusiness",
+          soa.business_application
+        );
+      } else {
+        await this.$store.commit(
+          "setCurrentSelectedProperty",
+          soa.building_application
+        );
+      }
+      await this.$store.commit("setCurrentSoaType", type);
+      await this.$store.commit("setPrintInvoice", true);
+      this.$store.commit("setLoading", false);
+    },
     getStatus(data) {
       if (data) {
         if (data.is_verified) {
@@ -259,6 +293,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.meta-invoice-holder {
+  position: absolute;
+  opacity: 0;
+  top: -500px;
+  z-index: -1;
+}
 .w10 {
   width: 10%;
 }

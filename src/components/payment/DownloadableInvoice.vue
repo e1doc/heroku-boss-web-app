@@ -1,99 +1,5 @@
 <template>
   <section class="sc-invoice">
-    <!-- <div class="dialog-holder" ref="content">
-      <div class="dialog-header">
-        <div class="store-avatar">
-          <img src="@/assets/bacoor-cavite-logo.png" alt="" id="logoImage"/>
-        </div>
-        <div class="text-bold size18">Bacoor One Stop Shop System</div>
-        <div class="triangle">
-          <font-awesome-icon icon="caret-up" class="icon" />
-        </div>
-      </div>
-      <div class="dialog-body-holder">
-        <div class="mb30"><h3>Stament of Account</h3></div>
-        <div class="dialog-body">
-          <div class="invoice-details">
-            <div class="invoice-title">INVOICE DETAILS</div>
-            <div class="details-body">
-              <div class="details-item">
-                <div class="item-label">Reference No:</div>
-                <div class="item-value">BPL-00096788</div>
-              </div>
-              <div class="details-item">
-                <div class="item-label">Year:</div>
-                <div class="item-value">2020</div>
-              </div>
-              <div class="details-item">
-                <div class="item-label">Issued Date:</div>
-                <div class="item-value">November 18, 2020</div>
-              </div>
-              <div class="details-item">
-                <div class="item-label">Quarter:</div>
-                <div class="item-value">4th Quarter</div>
-              </div>
-            </div>
-          </div>
-          <div class="invoice-details">
-            <div class="invoice-title">BUSINESS / OWNER DETAILS</div>
-            <div class="details-body">
-              <div class="details-item">
-                <div class="item-label">Account Number:</div>
-                <div class="item-value">G-03283</div>
-              </div>
-            </div>
-            <div class="details-body"></div>
-            <div class="details-body mt25">
-              <div class="details-item">
-                <div class="item-label">Business Owner:</div>
-                <div class="item-value"> -->
-    <!-- {{
-                    currentSelectedBusiness.businessbasicinformation
-                      .owner_first_name
-                  }}
-                  {{
-                    currentSelectedBusiness.businessbasicinformation
-                      .owner_middle_name
-                  }}
-                  {{
-                    currentSelectedBusiness.businessbasicinformation
-                      .owner_last_name
-                  }} -->
-    <!-- </div>
-              </div>
-            </div>
-            <div class="meta-fees">
-              <div class="meta-fees-title">FEES</div>
-              <div
-                class="meta-fees-details"
-                v-for="(item, index) of fees"
-                :key="index"
-              >
-                <div class="meta-label-holder">
-                  <div class="meta-label">{{ item.label }}</div>
-                </div>
-                <div class="meta-value-holder">
-                  <div class="meta-value">
-                    <div>{{ item.value }}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="invoice-amount">
-            <div class="amount-details">
-              <div class="item-label">Total Amount</div>
-              <div class="item-value amount">₱ 4,428.00</div>
-            </div>
-          </div>
-        </div>
-        <div class="text-note">
-          * You can pay this over the counter at any Landbank branch or even the
-          counter of LGU office in Bacoor, Cavite.
-        </div>
-      </div>
-    </div> -->
-
     <div class="new-invoice-container">
       <img src="@/assets/bacoor-cavite-logo.png" alt="" id="logoImage" />
       <table id="invoice-details-table">
@@ -114,25 +20,40 @@
           </tr>
         </tbody>
       </table>
-      <table id="business-details-table">
+      <table id="invoice-business-details-table">
         <thead>
           <tr>
-            <th>Account Number</th>
-            <th>Business Name</th>
-            <th>Business Owner</th>
+            <th>
+              {{
+                currentSoaType === "business" ? "Account Number" : "Tax Dec No."
+              }}
+            </th>
+            <th v-if="currentSoaType === 'business'">Business Name</th>
+            <th>
+              {{
+                currentSoaType === "business"
+                  ? "Business Owner"
+                  : "Real Property Owner Name"
+              }}
+            </th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>{{ generatedBill.accountno }}</td>
-            <td>
+            <td v-if="currentSoaType === 'business'">
+              {{ currentSelectedBusiness.account_number }}
+            </td>
+            <td v-if="currentSoaType === 'real_property'">
+              {{ currentSelectedProperty.buildingdetails.tax_dec_no }}
+            </td>
+            <td v-if="currentSoaType === 'business'">
               {{
                 currentSelectedBusiness.businessdetails.name != ""
                   ? currentSelectedBusiness.businessdetails.name
                   : currentSelectedBusiness.businessdetails.trade_name
               }}
             </td>
-            <td>
+            <td v-if="currentSoaType === 'business'">
               {{
                 currentSelectedBusiness.businessbasicinformation
                   .owner_first_name
@@ -143,6 +64,12 @@
               }}
               {{
                 currentSelectedBusiness.businessbasicinformation.owner_last_name
+              }}
+            </td>
+            <td v-if="currentSoaType === 'real_property'">
+              {{
+                currentSelectedProperty.buildingbasicinformation
+                  .owner_first_name
               }}
             </td>
           </tr>
@@ -191,17 +118,20 @@ export default {
     ...mapGetters([
       "printInvoice",
       "currentSelectedBusiness",
+      "currentSelectedProperty",
       "generatedBill",
       "currentSoaObj",
+      "currentSoaType",
     ]),
   },
   watch: {
     printInvoice: {
       deep: true,
-      handler(status) {
+      async handler(status) {
         if (status) {
-          this.generateInvoice();
-          this.$store.commit("setPrintInvoice", false);
+          await this.setupFees();
+          await this.generateInvoice();
+          await this.$store.commit("setPrintInvoice", false);
         }
       },
     },
@@ -322,26 +252,29 @@ export default {
       compiledFees: [],
     };
   },
-  mounted() {
-    this.setupFees();
-  },
+  mounted() {},
   methods: {
-    setupFees() {
+    async setupFees() {
+      this.compiledFees = [];
+      this.allFees2 = [];
       let feesHolder = [];
       let groupHolder = [];
-      this.currentSoaObj.bills.forEach((item) => {
+      await this.currentSoaObj.bills.forEach((item) => {
         this.allFees2.push(item.billfees);
       });
-      this.allFees2.forEach((item) => {
+      await this.allFees2.forEach((item) => {
         item.forEach((element) => {
           feesHolder.push(element);
         });
       });
-      const grouped = this.groupBy(feesHolder, (item) => item.label);
-      grouped.forEach((item) => {
+      const grouped = await this.groupBy(
+        feesHolder,
+        (item) => item.fee_description
+      );
+      await grouped.forEach((item) => {
         groupHolder.push(item);
       });
-      groupHolder.forEach((item) => {
+      await groupHolder.forEach((item) => {
         item.forEach((element) => {
           this.compiledFees.push(element);
         });
@@ -460,10 +393,9 @@ export default {
       });
 
       var businessTable = doc.autoTableHtmlToJson(
-        document.getElementById("business-details-table")
+        document.getElementById("invoice-business-details-table")
       );
       doc.autoTable(businessTable.columns, businessTable.data, options);
-
       var feesTable = doc.autoTableHtmlToJson(
         document.getElementById("fees-table")
       );
