@@ -121,8 +121,8 @@ export default {
 
 /*
 MOBILE RESPONSIVENESS ------------------------------------------- */
-@media (max-width: 991px){
-  .menu-holder .right-div{
+@media (max-width: 991px) {
+  .menu-holder .right-div {
     justify-content: center;
   }
 }
@@ -135,33 +135,33 @@ MOBILE RESPONSIVENESS ------------------------------------------- */
     padding: 0;
   }
 
-  .menu-holder .right-div{
-      flex-wrap: unset;
-      justify-content: center;
-      text-align: center;
+  .menu-holder .right-div {
+    flex-wrap: unset;
+    justify-content: center;
+    text-align: center;
   }
 
   .menu-type .icon {
-      margin-bottom: 10px;
-      width: 100%;
+    margin-bottom: 10px;
+    width: 100%;
   }
 
   .profile-menus {
     width: 100%;
   }
-  .menu-holder .right-div .menu-type{
-      display: flex;
-      flex-wrap: wrap;
-      align-self: stretch;
-      font-size: 11px;
-      margin: 0px 5px;
+  .menu-holder .right-div .menu-type {
+    display: flex;
+    flex-wrap: wrap;
+    align-self: stretch;
+    font-size: 11px;
+    margin: 0px 5px;
   }
 
-  .menu-holder .right-div .menu-type > div{
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
+  .menu-holder .right-div .menu-type > div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -171,6 +171,4 @@ MOBILE RESPONSIVENESS ------------------------------------------- */
     font-size: 12px;
   }
 }
-
-
 </style>

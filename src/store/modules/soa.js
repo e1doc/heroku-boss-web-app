@@ -18,6 +18,7 @@ const getDefaultSoaState = () => {
     transactionSearch: "",
     transactionPageCount: 0,
     isDelinquentPayment: false,
+    soaSearch: "",
   };
 };
 
@@ -39,6 +40,7 @@ const getters = {
   transactionSearch: (state) => state.transactionSearch,
   transactionPageCount: (state) => state.transactionPageCount,
   isDelinquentPayment: (state) => state.isDelinquentPayment,
+  soaSearch: (state) => state.soaSearch,
 };
 
 const mutations = {
@@ -69,6 +71,7 @@ const mutations = {
     (state.transactionPageCount = transactionPageCount),
   setIsDelinquentPayment: (state, isDelinquentPayment) =>
     (state.isDelinquentPayment = isDelinquentPayment),
+  setSoaSearch: (state, soaSearch) => (state.soaSearch = soaSearch),
 };
 
 const actions = {
@@ -205,6 +208,20 @@ const actions = {
         message: "Something went wrong. Please try again later.",
       });
       err.response ? console.log(err.response) : console.log(err);
+    }
+  },
+  async getAdminSoaList({ commit, getters }, page = 1) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/staff/soa-list/?filter=${getters.soaFilter}&page=${page}&search=${getters.soaSearch}`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+        }
+      );
+      commit("setPageCount", response.data.total_pages);
+      commit("setSoaList", response.data.results);
+    } catch (error) {
+      console.log(error);
     }
   },
 };

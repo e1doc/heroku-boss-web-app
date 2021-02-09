@@ -3,22 +3,60 @@
     <div v-if="currentType === 'business'">
       <div class="thead hide-in-mobile">
         <!-- <div class="th w10">ACCOUNT #</div> -->
-        <div class="th w15">REFERENCE #</div>
-        <div class="th w10">DATE</div>
-        <div class="th w25">BUSINESS NAME</div>
-        <div class="th w15">AMOUNT</div>
-        <div class="th w10">STATUS</div>
-        <div class="th w15">ACTIONS</div>
+        <div class="th">REFERENCE #</div>
+        <div class="th">DATE</div>
+        <div class="th">BUSINESS NAME</div>
+        <div class="th">AMOUNT</div>
+        <div class="th">STATUS</div>
+      </div>
+      <div
+        class="tbody"
+        v-if="soaList.length > 0 && currentType === 'business'"
+      >
+        <div class="tr" v-for="(item, index) in soaList" :key="index">
+          <!-- <div class="td w10">
+              <span class="td-label show-in-mobile">ACCOUNT # : </span>
+              F-02248
+          </div> -->
+          <div class="td">
+            <span class="td-label show-in-mobile">REFERENCE # : </span>
+            {{ item.reference_number }}
+          </div>
+          <div class="td">
+            <span class="td-label show-in-mobile">DATE : </span>
+            {{ item.created_at | moment("MMMM DD YYYY") }}
+          </div>
+          <div class="td">
+            <span class="td-label show-in-mobile">BUSINESS NAME : </span>
+            {{
+              item.business_application.businessdetails.name !== ""
+                ? item.business_application.businessdetails.name
+                : item.business_application.businessdetails.trade_name
+            }}
+          </div>
+          <div class="td">
+            <span class="td-label show-in-mobile">AMOUNT : </span>
+            ₱ {{ parseFloat(item.amount).toFixed(2) }}
+          </div>
+          <div class="td">
+            <span class="td-label show-in-mobile">STATUS : </span>
+            {{ getStatus(item.banktransaction) }}
+          </div>
+        </div>
+      </div>
+      <div class="tbody" v-if="soaList.length < 1">
+        <div class="tr">
+          <div class="td text-center w-100">No data available</div>
+        </div>
       </div>
     </div>
     <div v-if="currentType === 'building'">
       <div class="thead hide-in-mobile">
-        <div class="th w15">TD #</div>
-        <div class="th w15">REFERENCE #</div>
-        <div class="th w15">DATE</div>
-        <div class="th w15">AMOUNT</div>
-        <div class="th w10">STATUS</div>
-        <div class="th w15">ACTIONS</div>
+        <div class="th">TD #</div>
+        <div class="th">REFERENCE #</div>
+        <div class="th">DATE</div>
+        <div class="th">AMOUNT</div>
+        <div class="th">STATUS</div>
       </div>
       <div class="tbody" v-if="soaList.length > 0">
         <div class="tr" v-for="(item, index) in soaList" :key="index">
@@ -26,34 +64,25 @@
               <span class="td-label show-in-mobile">ACCOUNT # : </span>
               F-02248
           </div> -->
-          <div class="td w15">
+          <div class="td">
             <span class="td-label show-in-mobile">TD #: </span>
             {{ item.building_application.buildingdetails.tax_dec_no }}
           </div>
-          <div class="td w15">
+          <div class="td">
             <span class="td-label show-in-mobile">REFERENCE # : </span>
             {{ item.reference_number }}
           </div>
-          <div class="td w15">
+          <div class="td">
             <span class="td-label show-in-mobile">DATE : </span>
-            {{ item.date_issued | moment("MMMM DD YYYY") }}
+            {{ item.created_at | moment("MMMM DD YYYY") }}
           </div>
-          <div class="td w15">
+          <div class="td">
             <span class="td-label show-in-mobile">AMOUNT : </span>
             ₱ {{ parseFloat(item.amount).toFixed(2) }}
           </div>
-          <div class="td w10">
+          <div class="td">
             <span class="td-label show-in-mobile">STATUS : </span>
-            PENDING
-          </div>
-          <div class="td w15 actions">
-            <div
-              class="bill"
-              @click="redirect(item.id, 'building', item)"
-              :class="{ disabled: item.appointment !== null }"
-            >
-              <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
-            </div>
+            {{ getStatus(item.banktransaction) }}
           </div>
         </div>
       </div>
@@ -65,43 +94,33 @@
     </div>
     <div v-if="currentType === 'real_property'">
       <div class="thead hide-in-mobile">
-        <div class="th w15">TD #</div>
-        <div class="th w15">REFERENCE #</div>
-        <div class="th w15">DATE</div>
-        <div class="th w15">AMOUNT</div>
-        <div class="th w10">STATUS</div>
-        <div class="th w15">ACTIONS</div>
+        <div class="th">TD #</div>
+        <div class="th">REFERENCE #</div>
+        <div class="th">DATE</div>
+        <div class="th">AMOUNT</div>
+        <div class="th">STATUS</div>
       </div>
       <div class="tbody" v-if="soaList.length > 0">
         <div class="tr" v-for="(item, index) in soaList" :key="index">
-          <div class="td w25">
+          <div class="td">
             <span class="td-label show-in-mobile">TD #: </span>
             {{ item.building_application.buildingdetails.tax_dec_no }}
           </div>
-          <div class="td w15">
+          <div class="td">
             <span class="td-label show-in-mobile">REFERENCE # : </span>
             {{ item.reference_number }}
           </div>
-          <div class="td w10">
+          <div class="td">
             <span class="td-label show-in-mobile">DATE : </span>
-            {{ item.date_issued | moment("MMMM DD YYYY") }}
+            {{ item.created_at | moment("MMMM DD YYYY") }}
           </div>
-          <div class="td w15">
+          <div class="td">
             <span class="td-label show-in-mobile">AMOUNT : </span>
             ₱ {{ parseFloat(item.amount).toFixed(2) }}
           </div>
-          <div class="td w10">
+          <div class="td">
             <span class="td-label show-in-mobile">STATUS : </span>
-            PENDING
-          </div>
-          <div class="td w15 actions">
-            <div
-              class="bill"
-              @click="redirect(item.id, 'real_property', item)"
-              :class="{ disabled: item.appointment !== null }"
-            >
-              <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
-            </div>
+            {{ getStatus(item.banktransaction) }}
           </div>
         </div>
       </div>
@@ -112,7 +131,7 @@
       </div>
     </div>
     <paginate
-      v-if="soaList.length > 0 && currentType === 'business'"
+      v-if="soaList.length > 0"
       :page-count="pageCount"
       :prev-text="'Prev'"
       :next-text="'Next'"
@@ -127,7 +146,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  name: "AdminSoaTable",
+  name: "SoaTable",
   computed: {
     ...mapGetters([
       "currentType",
@@ -146,14 +165,37 @@ export default {
     },
   },
   mounted() {
-    console.log("soa list", this.soaList);
+    this.$store.commit("setCurrentType", "business");
   },
   methods: {
+    getStatus(data) {
+      if (data) {
+        if (data.is_verified) {
+          return "VERIFIED";
+        } else {
+          return "FOR VERIFICATION";
+        }
+      } else {
+        return "PENDING";
+      }
+    },
     redirect(id, type, soa) {
-      if (soa.appointment === null) {
+      if (soa.appointment === null && soa.banktransaction === null) {
+        this.$store.commit("setCurrentSoaType", type);
         this.$store.commit("setCurrentSoa", { id, type });
         this.$store.commit("setCurrentSoaObj", soa);
         this.$store.commit("setAppointmentAction", "add");
+        if (type === "business") {
+          this.$store.commit(
+            "setCurrentSelectedBusiness",
+            soa.business_application
+          );
+        } else {
+          this.$store.commit(
+            "setCurrentSelectedProperty",
+            soa.building_application
+          );
+        }
         this.$router.push({ path: "payment" });
       }
     },
@@ -165,13 +207,12 @@ export default {
     },
     async setUpList() {
       await this.$store.commit("setLoading", true);
-      await this.$store.dispatch("getSoaList");
-      console.log(this.soaList);
+      await this.$store.dispatch("getAdminSoaList");
       await this.$store.commit("setLoading", false);
     },
     async paginateClickCallBack(pageNum) {
       await this.$store.commit("setLoading", true);
-      await this.$store.dispatch("getSoaList", pageNum);
+      await this.$store.dispatch("getAdminSoaList", pageNum);
       await this.$store.commit("setLoading", false);
     },
   },
@@ -221,6 +262,7 @@ export default {
     font-weight: bold;
     text-align: center;
     padding: 20px 0px;
+    flex: 1;
   }
 }
 .tbody {
@@ -241,6 +283,7 @@ export default {
       font-family: "Proxima Nova Rg";
       text-align: center;
       padding: 17px 0px;
+      flex: 1;
     }
     .actions {
       padding: 7px 0px;

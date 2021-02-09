@@ -59,12 +59,13 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch("getDepartments");
+    this.$store.commit("setCurrentType", "business");
   },
   data() {
     return {
       activeTab: "soa",
       activeType: "business",
+      search: "",
     };
   },
   methods: {
@@ -78,6 +79,10 @@ export default {
       await this.$store.commit("setCurrentType", type);
       await this.$store.commit("setSoaFilter", type);
       await this.$store.dispatch("getDepartments");
+    },
+    async searchData() {
+      this.$store.commit("setSoaSearch", this.search);
+      await this.$store.dispatch("getAdminSoaList");
     },
   },
 };

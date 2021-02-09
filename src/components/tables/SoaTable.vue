@@ -93,7 +93,7 @@
           </div>
           <div class="td">
             <span class="td-label show-in-mobile">STATUS : </span>
-            PENDING
+            {{ getStatus(item.banktransaction) }}
           </div>
           <div class="td actions">
             <div
@@ -144,7 +144,7 @@
           </div>
           <div class="td">
             <span class="td-label show-in-mobile">STATUS : </span>
-            PENDING
+            {{ getStatus(item.banktransaction) }}
           </div>
           <div class="td actions">
             <div
@@ -167,7 +167,7 @@
       </div>
     </div>
     <paginate
-      v-if="soaList.length > 0 && currentType === 'business'"
+      v-if="soaList.length > 0"
       :page-count="pageCount"
       :prev-text="'Prev'"
       :next-text="'Next'"
