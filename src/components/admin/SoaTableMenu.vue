@@ -34,7 +34,11 @@
         </div>
       </div>
       <div class="search-menu flex-center">
-        <base-input-search v-model="search" @keyup.native="searchData()" />
+        <base-input-search
+          v-model="search"
+          @keyup.native="searchData()"
+          placeholder="Search by ref no."
+        />
       </div>
     </div>
   </div>
