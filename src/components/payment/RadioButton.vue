@@ -152,7 +152,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.commit("setCurrentPaymentType", "other_banks");
+    this.$store.commit("setCurrentPaymentType", "treasury_office");
   },
   methods: {
     formatCurrency(str) {

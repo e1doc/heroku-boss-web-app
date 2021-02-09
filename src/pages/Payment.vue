@@ -139,7 +139,7 @@ export default {
     return {
       printVisible: false,
       isPayment: true,
-      selectedPayment: "other_banks",
+      selectedPayment: "treasury_office",
       isFeatureImplemented: false,
       merchantCode: "2020101157",
       merchantRefNo: "",
