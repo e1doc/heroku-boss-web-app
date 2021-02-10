@@ -101,7 +101,12 @@ export default {
     },
   },
   mounted() {
-    this.$store.commit("setCurrentType", "all_inquiries");
+    if (
+      this.currentType !== "all_inquiries" &&
+      this.currentType !== "unread_inquiries"
+    ) {
+      this.$store.commit("setCurrentType", "all_inquiries");
+    }
   },
   data() {
     return {
