@@ -27,6 +27,7 @@ export default {
     if (to.name !== "ReplyInquiry") {
       this.$store.commit("setCurrentType", "business");
       this.$store.commit("setCurrentPageNum", 1);
+      this.$store.commit("setCurrentTable", "inquiries");
     }
     next();
   },
@@ -34,7 +35,13 @@ export default {
     ...mapGetters(["currentTable"]),
   },
   mounted() {
-    this.$store.commit("setCurrentTable", "inquiries");
+    if (
+      this.currentTable !== "inquiries" &&
+      this.currentTable !== "remarks" &&
+      this.currentTable !== "delinquent"
+    ) {
+      this.$store.commit("setCurrentTable", "inquiries");
+    }
   },
 };
 </script>
