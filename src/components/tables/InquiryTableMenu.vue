@@ -125,10 +125,12 @@ export default {
       });
     },
     changeTab(tab) {
+      this.$store.commit("setCurrentPageNum", 1);
       this.activeTab = tab;
       this.$store.commit("setCurrentTable", tab);
     },
     changeType(type) {
+      this.$store.commit("setCurrentPageNum", 1);
       this.activeType = type;
       this.$store.commit("setCurrentType", type);
     },

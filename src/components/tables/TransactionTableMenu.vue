@@ -210,6 +210,7 @@ export default {
       this.$store.commit("setCurrentTable", tab);
     },
     changeType(type) {
+      this.$store.commit("setCurrentPageNum", 1);
       this.activeType = type;
       this.$store.commit("setCurrentType", type);
       if (this.type === "adminApplications") {

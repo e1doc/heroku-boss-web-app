@@ -48,6 +48,7 @@ const getDefaultPropertyState = () => {
     currentSelectedProperty: {},
     buildingAssessmentPayload: {},
     propertyPageCount: 0,
+    propertyPageNum: 1,
   };
 };
 
@@ -93,6 +94,7 @@ const getters = {
   currentSelectedProperty: (state) => state.currentSelectedProperty,
   buildingAssessmentPayload: (state) => state.buildingAssessmentPayload,
   propertyPageCount: (state) => state.propertyPageCount,
+  propertyPageNum: (state) => state.propertyPageNum,
 };
 
 const mutations = {
@@ -178,6 +180,8 @@ const mutations = {
     (state.buildingAssessmentPayload = buildingAssessmentPayload),
   setPropertyPageCount: (state, propertyPageCount) =>
     (state.propertyPageCount = propertyPageCount),
+  setPropertyPageNum: (state, propertyPageNum) =>
+    (state.propertyPageNum = propertyPageNum),
 };
 
 const actions = {

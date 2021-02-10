@@ -144,6 +144,7 @@
       :container-class="'pagination'"
       :page-class="'page-item'"
       :click-handler="getAllInquiries"
+      v-model="currentPage"
     >
     </paginate>
     <paginate
@@ -154,6 +155,7 @@
       :container-class="'pagination'"
       :page-class="'page-item'"
       :click-handler="getAllRemarks"
+      v-model="currentPage"
     >
     </paginate>
 
@@ -165,6 +167,7 @@
       :container-class="'pagination'"
       :page-class="'page-item'"
       :click-handler="getAllDelinquentPayments"
+      v-model="currentPage"
     >
     </paginate>
   </section>
@@ -182,12 +185,29 @@ export default {
       "remarks",
       "pageCount",
       "delinquentPayments",
+      "currentPageNum",
     ]),
   },
+  data() {
+    return {
+      currentPage: 1,
+    };
+  },
   mounted() {
-    this.getAllInquiries();
+    this.setUpData();
+    this.currentPage = this.currentPageNum;
   },
   watch: {
+    currentPageNum: {
+      handler(newVal) {
+        this.currentPage = newVal;
+      },
+    },
+    currentPage: {
+      handler(newVal) {
+        this.$store.commit("setCurrentPageNum", newVal);
+      },
+    },
     currentType: {
       handler(status) {
         if (this.currentTable === "inquiries") {
@@ -212,6 +232,15 @@ export default {
     },
   },
   methods: {
+    async setUpData() {
+      if (this.currentTable === "inquiries") {
+        this.getAllInquiries(this.currentPageNum);
+      } else if (this.currentTable === "remarks") {
+        this.getAllRemarks(this.currentPageNum);
+      } else {
+        this.getAllDelinquentPayments(this.currentPageNum);
+      }
+    },
     async getAllInquiries(pageNum = 1) {
       await this.$store.dispatch("getAllAdminInquiries", {
         page: pageNum,

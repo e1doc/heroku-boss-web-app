@@ -14,6 +14,9 @@ const getDefaultInquiryState = () => {
     inquirySearch: "",
     departmentFilter: "",
     delinquentPayments: [],
+    inquiryPageNum: 1,
+    remarksPageNum: 1,
+    delinquentPageNum: 1,
   };
 };
 const state = getDefaultInquiryState();
@@ -28,6 +31,9 @@ const getters = {
   inquirySearch: (state) => state.inquirySearch,
   departmentFilter: (state) => state.departmentFilter,
   delinquentPayments: (state) => state.delinquentPayments,
+  inquiryPageNum: (state) => state.inquiryPageNum,
+  remarksPageNum: (state) => state.remarksPageNum,
+  delinquentPageNum: (state) => state.delinquentPageNum,
 };
 const mutations = {
   setInquiries: (state, inquiries) => (state.inquiries = inquiries),
@@ -204,7 +210,7 @@ const actions = {
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
     } catch (err) {
-      await commit("setLoading", false)
+      await commit("setLoading", false);
       err.response ? console.log(err.response) : console.log(err);
     }
   },

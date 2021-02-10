@@ -21,6 +21,7 @@ const getDefaultUIState = () => {
     isPrivacyAgree: false,
     isMaintenanceMode: false,
     promptHtml: "",
+    currentPageNum: 1,
   };
 };
 const state = getDefaultUIState();
@@ -45,6 +46,7 @@ const getters = {
   isPrivacyAgree: (state) => state.isPrivacyAgree,
   isMaintenanceMode: (state) => state.isMaintenanceMode,
   promptHtml: (state) => state.promptHtml,
+  currentPageNum: (state) => state.currentPageNum,
 };
 
 const actions = {
@@ -95,6 +97,8 @@ const mutations = {
   setIsPrivacyAgree: (state, isPrivacyAgree) =>
     (state.isPrivacyAgree = isPrivacyAgree),
   setPromptHtml: (state, promptHtml) => (state.promptHtml = promptHtml),
+  setCurrentPageNum: (state, currentPageNum) =>
+    (state.currentPageNum = currentPageNum),
 };
 
 export default {

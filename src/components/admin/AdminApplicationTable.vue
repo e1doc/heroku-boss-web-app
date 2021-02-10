@@ -147,6 +147,7 @@
         :container-class="'pagination'"
         :page-class="'page-item'"
         :click-handler="businessClickCallback"
+        v-model="currentPage"
       >
       </paginate>
     </div>
@@ -210,6 +211,7 @@
         :container-class="'pagination'"
         :page-class="'page-item'"
         :click-handler="buildingClickCallBack"
+        v-model="currentPage"
       >
       </paginate>
     </div>
@@ -229,11 +231,31 @@ export default {
       "pageCount",
       "groups",
       "propertyPageCount",
+      "currentPageNum",
     ]),
+  },
+  data() {
+    return {
+      currentPage: 1,
+    };
   },
   mounted() {
     this.setUpData();
+    this.currentPage = this.currentPageNum;
   },
+  watch: {
+    currentPage: {
+      handler(newVal) {
+        this.$store.commit("setCurrentPageNum", newVal);
+      },
+    },
+    currentType: {
+      handler(newVal) {
+        this.currentPage = 1;
+      },
+    },
+  },
+
   methods: {
     getApplicationDate(last_submitted, created_at) {
       if (last_submitted) {
@@ -244,8 +266,14 @@ export default {
     },
     async setUpData() {
       await this.$store.commit("setLoading", true);
-      await this.$store.dispatch("getAllBusinessApplications");
-      await this.$store.dispatch("getAllBuildingApplications");
+      await this.$store.dispatch(
+        "getAllBusinessApplications",
+        this.currentPageNum
+      );
+      await this.$store.dispatch(
+        "getAllBuildingApplications",
+        this.currentPageNum
+      );
       await this.$store.commit("setBusinessActivities", []);
       await this.$store.commit("setApplicationRequirements", {});
       if (
@@ -259,8 +287,10 @@ export default {
       }
       await this.$store.commit("setLoading", false);
     },
-    businessClickCallback(pageNum) {
-      this.$store.dispatch("getAllBusinessApplications", pageNum);
+    async businessClickCallback(pageNum) {
+      await this.$store.commit("setLoading", true);
+      await this.$store.dispatch("getAllBusinessApplications", pageNum);
+      await this.$store.commit("setLoading", false);
     },
     buildingClickCallBack(pageNum) {
       this.$store.dispatch("getAllBuildingApplications", pageNum);
