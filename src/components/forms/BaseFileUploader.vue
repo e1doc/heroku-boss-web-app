@@ -85,6 +85,7 @@ export default {
       currentStatus: null,
       filename: "",
       connection: null,
+      validImageTypes: ["image/gif", "image/jpeg", "image/png"],
     };
   },
   mounted() {
@@ -174,7 +175,7 @@ export default {
             (this.uploadType === "application/pdf" &&
               fileList[x]["type"] === "application/pdf") ||
             (this.uploadType === "image/*, application/pdf" &&
-              (fileList[x]["type"] === "image/*" ||
+              (this.validImageTypes.includes(fileList[x]["type"]) ||
                 fileList[x]["type"] === "application/pdf"))
           ) {
             if (fileList[x].size <= 26214400) {
@@ -209,6 +210,7 @@ export default {
               });
             }
           } else {
+            console.log(fileList[x]["type"]);
             this.$swal({
               title: "Invalid file type!",
               text: "Please enter a valid file format.",
@@ -222,7 +224,7 @@ export default {
             (this.uploadType === "application/pdf" &&
               fileList[x]["type"] === "application/pdf") ||
             (this.uploadType === "image/*, application/pdf" &&
-              (fileList[x]["type"] === "image/*" ||
+              (this.validImageTypes.includes(fileList[x]["type"]) ||
                 fileList[x]["type"] === "application/pdf"))
           ) {
             if (fileList[x].size <= 26214400) {

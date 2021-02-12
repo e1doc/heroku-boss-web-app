@@ -52,7 +52,6 @@
                 <img class="meta-img" src="../assets/landbank-logo.png" />
               </div>
               <div
-                v-if="isFeatureImplemented"
                 class="meta-list-item"
                 :class="{ active: selectedPayment == 'other_banks' }"
                 @click="changePaymentType('other_banks')"
@@ -94,9 +93,7 @@
             </div>
             <div
               class="meta-button"
-              v-if="
-                currentPaymentType === 'other_banks' && isFeatureImplemented
-              "
+              v-if="currentPaymentType === 'other_banks'"
             >
               <button-block @click.native="showModal"
                 >Upload Payment Details</button-block
@@ -139,7 +136,7 @@ export default {
     return {
       printVisible: false,
       isPayment: true,
-      selectedPayment: "treasury_office",
+      selectedPayment: "other_banks",
       isFeatureImplemented: false,
       merchantCode: "2020101157",
       merchantRefNo: "",
