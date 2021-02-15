@@ -176,7 +176,7 @@ export default {
         this.particulars = `Transaction_type=Business Permit Payment;Account No=${business_application.account_number};Business Name=${business_application.businessdetails.name};Payment Mode=${paymode};Quarter=1-4;Total Amount=${this.currentSoaObj.amount}`;
       } else {
         let buildingBasicInfo = building_application.buildingbasicinformation;
-        let declaredOwner = `${buildingBasicInfo.owner.first_name} ${buildingBasicInfo.owner.middle_name} ${buildingBasicInfo.owner.last_name}`;
+        let declaredOwner = `${buildingBasicInfo.owner_first_name} ${buildingBasicInfo.owner_middle_name} ${buildingBasicInfo.owner_last_name}`;
         this.particulars = `Transaction_type=RPT Payment;Tax Declaration=${building_application.buildingdetails.tax_dec_no};Declared Owner=${declaredOwner};Payment Mode=${paymode};Quarter=${this.currentSoaObj.quarter};Total Amount=${this.currentSoaObj.amount}`;
       }
       console.log(this.particulars);
