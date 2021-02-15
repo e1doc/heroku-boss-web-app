@@ -190,7 +190,7 @@ export default {
       return md5(
         this.merchantCode +
           this.merchantRefNo +
-          this.currentSoaObj.toString().replace(/./g, "")
+          this.currentSoaObj.amount.toString().replace(/./g, "")
       )
         .toString()
         .toLowerCase();
