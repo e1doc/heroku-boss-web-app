@@ -188,7 +188,7 @@ export default {
     },
     getHash() {
       let amount = parseFloat(this.currentSoaObj.amount).toFixed(2);
-      console.log(amount.toString().replace(/./g, ""));
+      console.log(amount.toString().replace(/\./g, ""));
       return md5(
         this.merchantCode +
           this.merchantRefNo +
