@@ -187,6 +187,7 @@ export default {
       // this.$router.push({ name: "Profile" });
     },
     getHash() {
+      console.log(this.currentSoaObj.amount.toString().replace(/./g, ""));
       return md5(
         this.merchantCode +
           this.merchantRefNo +
