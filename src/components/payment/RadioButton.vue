@@ -1,7 +1,7 @@
 <template>
   <div class="meta-list">
     <!-- OPTION 1 -->
-    <div
+    <!-- <div
       class="meta-list-option"
       v-if="currentPaymentType === 'landbank' && isFeatureImplemented"
     >
@@ -26,7 +26,7 @@
         'Download' button below to download your SOA which you will present in
         paying on any Landbank branches.
       </div>
-    </div>
+    </div> -->
     <!-- OPTION 2 -->
     <div
       class="meta-list-option"
@@ -42,7 +42,9 @@
         />
         <span
           class="custom-radio flex-center"
-          :class="{ selected: selectedOption === 'online' }"
+          :class="{
+            selected: currentPaymentType === 'landbank' ? true : false,
+          }"
           ><span class="circle"></span
         ></span>
         <label for="option_2">Pay Online</label>
@@ -124,7 +126,7 @@ export default {
   data() {
     return {
       selectedOption: "counter",
-      isFeatureImplemented: false,
+      isFeatureImplemented: true,
       paymentDetails: [
         {
           bank: "Land Bank of the Philippines",
@@ -149,7 +151,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.commit("setCurrentPaymentType", "other_banks");
+    this.$store.commit("setCurrentPaymentType", "landbank");
   },
   methods: {
     formatCurrency(str) {

@@ -136,8 +136,8 @@ export default {
     return {
       printVisible: false,
       isPayment: true,
-      selectedPayment: "other_banks",
-      isFeatureImplemented: false,
+      selectedPayment: "landbank",
+      isFeatureImplemented: true,
       merchantCode: "2020101157",
       merchantRefNo: "",
       particulars: "",
