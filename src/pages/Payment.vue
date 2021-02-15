@@ -161,6 +161,7 @@ export default {
     },
     setupFormData() {
       let business_application = this.currentSoaObj.business_application;
+      let building_application = this.currentSoaObj.building_application;
       this.amount = this.currentSoaObj.amount;
       this.merchantRefNo = this.currentSoaObj.reference_number;
       this.payorName = `${this.userDetails.first_name} ${this.userDetails.last_name}`;
@@ -173,6 +174,10 @@ export default {
           : "Quarterly";
       if (this.currentSoaObj.application_type === "business") {
         this.particulars = `Transaction_type=Business Permit Payment;Account No=${business_application.account_number};Business Name=${business_application.businessdetails.name};Payment Mode=${paymode};Quarter=1-4;Total Amount=${this.currentSoaObj.amount}`;
+      } else {
+        let buildingBasicInfo = building_application.buildingbasicinformation;
+        let declaredOwner = `${buildingBasicInfo.owner.first_name} ${buildingBasicInfo.owner.middle_name} ${buildingBasicInfo.owner.last_name}`;
+        this.particulars = `Transaction_type=RPT Payment;Tax Declaration=${building_application.buildingdetails.tax_dec_no};Declared Owner=${declaredOwner};Payment Mode=${paymode};Quarter=${this.currentSoaObj.quarter};Total Amount=${this.currentSoaObj.amount}`;
       }
       this.hash = this.getHash();
     },
