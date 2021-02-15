@@ -187,11 +187,11 @@ export default {
       // this.$router.push({ name: "Profile" });
     },
     getHash() {
-      console.log(this.currentSoaObj.amount.toString());
+      let amount = parseFloat(this.currentSoaObj.amount).toFixed(2);
       return md5(
         this.merchantCode +
           this.merchantRefNo +
-          this.currentSoaObj.amount.toString().replace(/./g, "")
+          amount.toString().replace(/./g, "")
       )
         .toString()
         .toLowerCase();
