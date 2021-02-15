@@ -177,7 +177,7 @@ export default {
       } else {
         let buildingBasicInfo = building_application.buildingbasicinformation;
         let declaredOwner = `${buildingBasicInfo.owner.first_name} ${buildingBasicInfo.owner.middle_name} ${buildingBasicInfo.owner.last_name}`;
-        this.particulars = `Transaction_type=RPT Payments;Tax Declaration=${building_application.buildingdetails.tax_dec_no};Declared Owner=${declaredOwner};Payment Mode=${paymode};Quarter=${this.currentSoaObj.quarter};Total Amount=${this.currentSoaObj.amount}`;
+        this.particulars = `Transaction_type=RPT Payment;Tax Declaration=${building_application.buildingdetails.tax_dec_no};Declared Owner=${declaredOwner};Payment Mode=${paymode};Quarter=${this.currentSoaObj.quarter};Total Amount=${this.currentSoaObj.amount}`;
       }
       this.hash = this.getHash();
     },
