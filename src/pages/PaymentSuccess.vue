@@ -17,7 +17,7 @@ export default {};
 <style lang="scss" scoped>
 .meta-container {
   justify-content: center;
-  min-height: calc(100vh - 270px);
+  min-height: calc(100vh - 180px);
   width: 100%;
   padding: 50px 0;
   .meta-wrap {
@@ -61,7 +61,7 @@ export default {};
 
 @media (max-width: 480px) {
   .meta-container {
-    min-height: calc(100vh - 260px);
+    min-height: calc(100vh - 180px);
     .meta-wrap {
       padding: 50px 15px;
       h1 {
