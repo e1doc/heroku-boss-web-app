@@ -67,7 +67,7 @@
               </div>
             </div>
             <radio-button />
-            <div
+            <!-- <div
               class="meta-button"
               @click="printInvoice()"
               v-if="
@@ -75,7 +75,7 @@
               "
             >
               <button-block>DOWNLOAD</button-block>
-            </div>
+            </div> -->
             <div
               class="meta-button"
               v-if="
