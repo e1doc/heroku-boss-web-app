@@ -173,7 +173,7 @@ export default {
           ? "Semi-Annually"
           : "Quarterly";
       if (this.currentSoaObj.application_type === "business") {
-        this.particulars = `Transaction_type=Business Permit Payment;Account No=${business_application.account_number};Business Name=${business_application.businessdetails.name};Payment Mode=${paymode};Quarter=1-4;Total Amount=${this.currentSoaObj.amount}`;
+        this.particulars = `Transaction_type=Business Permit;Account No=${business_application.account_number};Business Name=${business_application.businessdetails.name};Payment Mode=${paymode};Quarter=1-4;Total Amount=${this.currentSoaObj.amount}`;
       } else {
         let buildingBasicInfo = building_application.buildingbasicinformation;
         let declaredOwner = `${buildingBasicInfo.owner_first_name} ${buildingBasicInfo.owner_middle_name} ${buildingBasicInfo.owner_last_name}`;
