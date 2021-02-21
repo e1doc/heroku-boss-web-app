@@ -31,11 +31,20 @@
             <span class="td-label show-in-mobile">SOA :</span>
             {{ item.soa.reference_number }}
           </div>
-          <div class="td" v-if="currentType == 'business'">
+          <div
+            class="td"
+            v-if="
+              currentType == 'business' &&
+              item.merchant_ref_no.business_application
+            "
+          >
             <span class="td-label show-in-mobile">ACCOUNT #:</span>
             {{ item.soa.business_application.account_number }}
           </div>
-          <div class="td" v-if="currentType !== 'business'">
+          <div
+            class="td"
+            v-if="currentType !== 'business' && item.soa.building_application"
+          >
             <span class="td-label show-in-mobile">TD #:</span>
             {{ item.soa.building_application.buildingdetails.tax_dec_no }}
           </div>
@@ -94,6 +103,17 @@ export default {
   },
   computed: {
     ...mapGetters(["currentType", "bankTransactions", "transactionPageCount"]),
+  },
+  watch: {
+    currentType: {
+      async handler(newValue) {
+        await this.$store.commit("setLoading", true);
+        await this.$store.dispatch("getAllUserBankTransactions", {
+          page: 1,
+        });
+        await this.$store.commit("setLoading", false);
+      },
+    },
   },
   mounted() {
     this.$store.commit("setCurrentType", "business");

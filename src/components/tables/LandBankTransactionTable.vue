@@ -33,7 +33,13 @@
             <span class="td-label show-in-mobile">SOA :</span>
             {{ item.merchant_ref_no.reference_number }}
           </div>
-          <div class="td" v-if="currentType == 'business'">
+          <div
+            class="td"
+            v-if="
+              currentType == 'business' &&
+              item.merchant_ref_no.business_application
+            "
+          >
             <span class="td-label show-in-mobile">ACCOUNT #:</span>
             {{ item.merchant_ref_no.business_application.account_number }}
           </div>

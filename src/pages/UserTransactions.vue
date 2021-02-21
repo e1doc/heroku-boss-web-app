@@ -14,7 +14,7 @@
         and business plate at BPL Office.
       </div>
       <user-transaction-table v-if="currentTable === 'other_banks'" />
-      <land-bank-transaction-table v-if="currentTable === 'landbank'" />
+      <landbank-transaction-table v-if="currentTable === 'landbank'" />
     </div>
   </section>
 </template>

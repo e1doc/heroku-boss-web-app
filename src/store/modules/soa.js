@@ -167,7 +167,7 @@ const actions = {
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       await commit("setBankTransactions", response.data.results);
-      commit("setTransactionPageCount", response.data.total_pages);
+      await commit("setTransactionPageCount", response.data.total_pages);
       await commit("setLoading", false);
     } catch (err) {
       await commit("setLoading", false);
