@@ -9,39 +9,18 @@
               <div class="meta-input-label">Payor's Name</div>
               <div class="meta-input-value">
                 <span class="separator">:</span>
-                {{ currentBankTransaction.user.first_name }}
-                {{ currentBankTransaction.user.middle_name }}
-                {{ currentBankTransaction.user.last_name }}
+                {{ currentLandBankTransaction.merchant_ref_no.user.first_name }}
+                {{
+                  currentLandBankTransaction.merchant_ref_no.user.middle_name
+                }}
+                {{ currentLandBankTransaction.merchant_ref_no.user.last_name }}
               </div>
             </div>
             <div class="meta-input-group">
               <div class="meta-input-label">Payor's Email</div>
               <div class="meta-input-value">
                 <span class="separator">:</span>
-                {{ currentBankTransaction.user.email }}
-              </div>
-            </div>
-            <div class="meta-input-group">
-              <div class="meta-input-label">Payor's Contact #</div>
-              <div class="meta-input-value">
-                <span class="separator">:</span>
-                {{ currentBankTransaction.user.phone_number }}
-              </div>
-            </div>
-            <div class="meta-input-group">
-              <div class="meta-input-label">Bank Used to Pay</div>
-              <div class="meta-input-value">
-                <span class="separator">:</span>
-                {{ currentBankTransaction.bank }}
-              </div>
-            </div>
-            <div class="meta-input-group">
-              <div class="meta-input-label">Date of Payment</div>
-              <div class="meta-input-value">
-                <span class="separator">:</span>
-                {{
-                  currentBankTransaction.payment_date | moment("MMMM DD YYYY")
-                }}
+                {{ currentLandBankTransaction.payor_email }}
               </div>
             </div>
             <div class="meta-input-group">
@@ -51,32 +30,24 @@
                 PHP
                 {{
                   formatCurrency(
-                    parseFloat(currentBankTransaction.amount).toFixed(2)
+                    parseFloat(currentLandBankTransaction.amount).toFixed(2)
                   )
                 }}
               </div>
             </div>
             <div class="meta-input-group">
-              <div class="meta-input-label">Reference No.</div>
+              <div class="meta-input-label">EPP Reference No.</div>
               <div class="meta-input-value">
                 <span class="separator">:</span>
-                {{ currentBankTransaction.reference_no }}
+                {{ currentLandBankTransaction.epp_ref_no }}
               </div>
             </div>
             <div class="meta-input-group">
               <div class="meta-input-label">SOA</div>
               <div class="meta-input-value">
                 <span class="separator">:</span>
-                {{ currentBankTransaction.soa.reference_number }}
-              </div>
-            </div>
-            <div class="meta-input-group" v-if="currentType !== 'business'">
-              <div class="meta-input-label">TD#</div>
-              <div class="meta-input-value">
-                <span class="separator">:</span>
                 {{
-                  currentBankTransaction.soa.building_application
-                    .buildingdetails.tax_dec_no
+                  currentLandBankTransaction.merchant_ref_no.reference_number
                 }}
               </div>
             </div>
@@ -85,58 +56,43 @@
               <div class="meta-input-value">
                 <span class="separator">:</span>
                 {{
-                  currentBankTransaction.soa.business_application.account_number
+                  currentLandBankTransaction.merchant_ref_no
+                    .business_application.account_number
                 }}
               </div>
             </div>
-            <div class="meta-input-group flex-wrap">
-              <div class="meta-input-label">Proof of Transaction:</div>
-              <div class="meta-input-value meta-link">
+            <div class="meta-input-group" v-if="currentType !== 'business'">
+              <div class="meta-input-label">TD#</div>
+              <div class="meta-input-value">
                 <span class="separator">:</span>
-                <app-link :to="replaceUrl(currentBankTransaction.payment_slip)"
-                  >View Screenshot</app-link
-                >
+                {{
+                  currentLandBankTransaction.merchant_ref_no
+                    .building_application.buildingdetails.tax_dec_no
+                }}
               </div>
             </div>
-            <div
-              class="meta-input-group flex-wrap"
-              v-if="currentBankTransaction.payment_receipt"
-            >
-              <div class="meta-input-label">Payment Receipt:</div>
-              <div class="meta-input-value meta-link">
+            <div class="meta-input-group">
+              <div class="meta-input-label">STATUS</div>
+              <div class="meta-input-value">
                 <span class="separator">:</span>
-                <app-link
-                  :to="replaceUrl(currentBankTransaction.payment_receipt)"
-                  >View Receipt</app-link
-                >
+                {{ getStatus(currentLandBankTransaction.status) }}
               </div>
-            </div>
-            <div
-              class="meta-upload-div flex-wrap"
-              v-if="!currentBankTransaction.is_verified && isAdmin"
-            >
-              <base-file-uploader
-                label="Upload payment receipt:"
-                name="payment_receipt"
-                fileLabel="paymentdetails"
-                type="business"
-                class="mt15 custom-upload"
-                :isPaymentDetails="true"
-                :hasError="uploadHasError"
-              />
             </div>
           </div>
-        </div>
-        <div
-          class="meta-buttons flex-wrap"
-          v-if="!currentBankTransaction.is_verified && isAdmin"
-        >
-          <button class="modal-button agree" @click="onClickCallback(true)">
-            VERIFY
-          </button>
-          <button class="modal-button cancel" @click="onClickCallback(false)">
-            CANCEL
-          </button>
+          <h3 class="mb20 modal-title mt30">Particulars</h3>
+          <div class="meta-body-items">
+            <div
+              class="meta-input-group"
+              v-for="(value, property) in parseParticulars()"
+              :key="property"
+            >
+              <div class="meta-input-label">{{ property }}</div>
+              <div class="meta-input-value">
+                <span class="separator">:</span>
+                {{ value }}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -148,14 +104,14 @@ import { mapGetters } from "vuex";
 import AppLink from "@/components/AppLink";
 import BaseFileUploader from "@/components/forms/BaseFileUploader";
 export default {
-  name: "PaymentViewDetailsModal",
+  name: "LandBankDetailsModal",
   components: {
     AppLink,
     BaseFileUploader,
   },
   computed: {
     ...mapGetters([
-      "currentBankTransaction",
+      "currentLandBankTransaction",
       "currentType",
       "paymentDetails",
       "isFileUploaded",
@@ -171,9 +127,34 @@ export default {
   data() {
     return {
       uploadHasError: false,
+      landbank_status: [
+        { label: "00", value: "Successful" },
+        { label: "01", value: "Invalid merchant code" },
+        { label: "02", value: "Invalid merchant reference number" },
+        { label: "03", value: "0 or negative amount" },
+        { label: "04", value: "Null payors name" },
+        { label: "05", value: "Null returnURLok" },
+        { label: "06", value: "Null returnURLerror" },
+        { label: "07", value: "Invalid hash" },
+        { label: "08", value: "Service unavailable" },
+        { label: "09", value: "Transaction in process" },
+        { label: "10", value: "Cancelled transaction" },
+        { label: "11", value: "EPP offline" },
+        { label: "12", value: "Invalid transaction type" },
+        { label: "13", value: "Invalid particulars" },
+        { label: "14", value: "Duplicate transaction" },
+      ],
     };
   },
   methods: {
+    getStatus(status) {
+      let item = this.landbank_status.find((item) => item.label == status);
+      return item.value;
+    },
+    parseParticulars() {
+      console.log(this.currentLandBankTransaction.particulars);
+      return JSON.parse(this.currentLandBankTransaction.particulars);
+    },
     replaceUrl(url) {
       return url.replace("/bacoor/", "/");
     },
@@ -182,7 +163,7 @@ export default {
         if (this.isFileUploaded) {
           this.$modal.hide("paymentViewDetailsModal");
           let payload = this.paymentDetails;
-          payload.append("id", this.currentBankTransaction.id);
+          payload.append("id", this.currentLandBankTransaction.id);
           await this.$store.dispatch("verifyBankTransaction", payload);
         } else {
           this.$swal({

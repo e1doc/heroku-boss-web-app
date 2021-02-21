@@ -1,6 +1,24 @@
 <template>
   <div class="menu-holder">
-    <div class="right-div flex-center">
+    <div class="left-div flex-grow">
+      <div class="profile-menus flex-row">
+        <div
+          class="menu-type"
+          :class="{ active: currentTable === 'landbank' }"
+          @click="changeTab('landbank')"
+        >
+          LANDBANK EPP
+        </div>
+        <div
+          class="menu-type"
+          :class="{ active: currentTable === 'other_banks' }"
+          @click="changeTab('other_banks')"
+        >
+          OTHER BANKS
+        </div>
+      </div>
+    </div>
+    <div class="right-div flex-grow flex-row">
       <div class="menu-type">
         <div
           :class="{ active: currentType === 'business' }"
@@ -82,7 +100,6 @@ export default {
     changeType(type) {
       this.activeType = type;
       this.$store.commit("setCurrentType", type);
-      this.$store.dispatch("getAllUserBankTransactions", { page: 1 });
     },
   },
 };
@@ -97,8 +114,26 @@ export default {
   padding: 10px 20px;
   border-radius: 8px;
   box-shadow: 0px 10px 20px #0000000d;
+  .left-div {
+    div {
+      .menu-type {
+        color: #f09795;
+        font-weight: bold;
+        font-size: 14px;
+        padding: 20px;
+        margin-left: 15px;
+        cursor: pointer;
+        transition: 0.3s;
+        border-bottom: 3px solid #fff;
+      }
+      .active {
+        border-color: #e23a36;
+        color: #e23a36;
+        font-weight: bold;
+      }
+    }
+  }
   .right-div {
-    width: 100%;
     justify-content: flex-end;
     .menu-type {
       color: #f09795;

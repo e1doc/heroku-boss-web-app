@@ -13,7 +13,8 @@
         2. For business transactions please get a copy of your business permit
         and business plate at BPL Office.
       </div>
-      <user-transaction-table />
+      <user-transaction-table v-if="currentTable === 'other_banks'" />
+      <land-bank-transaction-table v-if="currentTable === 'landbank'" />
     </div>
   </section>
 </template>
@@ -21,18 +22,33 @@
 <script>
 import UserTransactionTable from "@/components/tables/UserTransactionTable";
 import UserTransactionTableMenu from "@/components/tables/UserTransactionTableMenu";
+import LandBankTransactionTable from "@/components/tables/LandBankTransactionTable";
 import { mapGetters } from "vuex";
 export default {
   name: "UserTransactions",
   components: {
     UserTransactionTable,
     UserTransactionTableMenu,
+    LandBankTransactionTable,
   },
   data() {
     return {};
   },
   computed: {
-    ...mapGetters(["currentType"]),
+    ...mapGetters(["currentType", "currentTable"]),
+  },
+  mounted() {
+    if (
+      this.currentTable !== "landbank" &&
+      this.currentTable !== "other_banks"
+    ) {
+      this.$store.commit("setCurrentTable", "landbank");
+    }
+  },
+  watch: {
+    currentTable: {
+      handler(newValue) {},
+    },
   },
   methods: {},
 };

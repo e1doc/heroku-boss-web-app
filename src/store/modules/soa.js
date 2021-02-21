@@ -19,6 +19,8 @@ const getDefaultSoaState = () => {
     transactionPageCount: 0,
     isDelinquentPayment: false,
     soaSearch: "",
+    landBankTransactions: [],
+    currentLandBankTransaction: {},
   };
 };
 
@@ -41,6 +43,8 @@ const getters = {
   transactionPageCount: (state) => state.transactionPageCount,
   isDelinquentPayment: (state) => state.isDelinquentPayment,
   soaSearch: (state) => state.soaSearch,
+  landBankTransactions: (state) => state.landBankTransactions,
+  currentLandBankTransaction: (state) => state.currentLandBankTransaction,
 };
 
 const mutations = {
@@ -72,6 +76,10 @@ const mutations = {
   setIsDelinquentPayment: (state, isDelinquentPayment) =>
     (state.isDelinquentPayment = isDelinquentPayment),
   setSoaSearch: (state, soaSearch) => (state.soaSearch = soaSearch),
+  setLandBankTransactions: (state, landBankTransactions) =>
+    (state.landBankTransactions = landBankTransactions),
+  setCurrentLandBankTransaction: (state, currentLandBankTransaction) =>
+    (state.currentLandBankTransaction = currentLandBankTransaction),
 };
 
 const actions = {
@@ -222,6 +230,34 @@ const actions = {
       commit("setSoaList", response.data.results);
     } catch (error) {
       console.log(error);
+    }
+  },
+  async getAllUserLandBankTransactions({ commit, getters }, { page = 1 }) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/api/landbank-transaction-list/?page=${page}&filter=${getters.currentType}`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+        }
+      );
+      await commit("setPageCount", response.data.total_pages);
+      await commit("setLandBankTransactions", response.data.results);
+    } catch (err) {
+      err.response ? console.log(err.response) : console.log(err);
+    }
+  },
+  async getAllLandBankTransactions({ commit, getters }, { page = 1 }) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/staff/landbank-transaction-list/?page=${page}&filter=${getters.currentType}`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+        }
+      );
+      await commit("setPageCount", response.data.total_pages);
+      await commit("setLandBankTransactions", response.data.results);
+    } catch (err) {
+      err.response ? console.log(err.response) : console.log(err);
     }
   },
 };

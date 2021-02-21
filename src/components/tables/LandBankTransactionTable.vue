@@ -1,71 +1,76 @@
 <template>
   <section>
     <modal
-      name="paymentViewDetailsModal"
+      name="landBankViewDetailsModal"
       height="auto"
       :adaptive="true"
       :classes="['vue-modal-2']"
-      ><payment-view-details-modal :isAdmin="false"
+      ><landbank-details-modal
     /></modal>
     <div>
       <div class="thead hide-in-mobile">
         <!-- <div class="th w10">ACC #</div> -->
-        <div class="th">REF NO.</div>
+        <div class="th">EPP REF NO.</div>
         <div class="th">SOA</div>
         <div class="th" v-if="currentType == 'business'">ACCOUNT #</div>
         <div class="th" v-if="currentType !== 'business'">TD #</div>
-        <div class="th">BANK</div>
         <div class="th">PAYOR</div>
         <div class="th">AMOUNT</div>
-        <div class="th">PAYMENT DATE</div>
         <div class="th">STATUS</div>
         <div class="th">ACTION</div>
       </div>
-      <div class="tbody" v-if="bankTransactions.length > 0">
-        <div class="tr" v-for="(item, index) in bankTransactions" :key="index">
+      <div class="tbody" v-if="landBankTransactions.length > 0">
+        <div
+          class="tr"
+          v-for="(item, index) in landBankTransactions"
+          :key="index"
+        >
           <div class="td">
             <span class="td-label show-in-mobile">REFERENCE NO. :</span>
-            {{ item.reference_no }}
+            {{ item.epp_ref_no }}
           </div>
           <div class="td">
             <span class="td-label show-in-mobile">SOA :</span>
-            {{ item.soa.reference_number }}
+            {{ item.merchant_ref_no.reference_number }}
           </div>
           <div class="td" v-if="currentType == 'business'">
             <span class="td-label show-in-mobile">ACCOUNT #:</span>
-            {{ item.soa.business_application.account_number }}
+            {{ item.merchant_ref_no.business_application.account_number }}
           </div>
-          <div class="td" v-if="currentType !== 'business'">
+          <div
+            class="td"
+            v-if="
+              currentType !== 'business' &&
+              item.merchant_ref_no.building_application
+            "
+          >
             <span class="td-label show-in-mobile">TD #:</span>
-            {{ item.soa.building_application.buildingdetails.tax_dec_no }}
+            {{
+              item.merchant_ref_no.building_application.buildingdetails
+                .tax_dec_no
+            }}
           </div>
-          <div class="td">
-            <span class="td-label show-in-mobile">BANK NAME :</span>
-            {{ item.bank }}
-          </div>
+
           <div class="td">
             <span class="td-label show-in-mobile">PAYOR'S NAME :</span>
-            {{ item.user.first_name }} {{ item.user.middle_name }}
-            {{ item.user.last_name }}
+            {{ item.merchant_ref_no.user.first_name }}
+            {{ item.merchant_ref_no.user.middle_name }}
+            {{ item.merchant_ref_no.user.last_name }}
           </div>
           <div class="td">
             <span class="td-label show-in-mobile">AMOUNT :</span>
             PHP {{ formatCurrency(parseFloat(item.amount).toFixed(2)) }}
           </div>
           <div class="td">
-            <span class="td-label show-in-mobile">PAYMENT DATE :</span>
-            {{ item.payment_date | moment("MMMM DD YYYY") }}
-          </div>
-          <div class="td">
             <span class="td-label show-in-mobile">STATUS :</span>
-            {{ item.is_verified ? "VERIFIED" : "FOR VERIFICATION" }}
+            {{ getStatus(item.status) }}
           </div>
           <div class="td" @click="showModal(item)">
             <div class="meta-view">VIEW</div>
           </div>
         </div>
       </div>
-      <div class="tbody" v-if="bankTransactions.length < 1">
+      <div class="tbody" v-if="landBankTransactions.length < 1">
         <div class="tr">
           <div class="td meta-no-data">No data available</div>
         </div>
@@ -78,7 +83,7 @@
       :container-class="'pagination'"
       :page-class="'page-item'"
       :click-handler="transactionClickCallBack"
-      v-if="bankTransactions.length > 10"
+      v-if="landBankTransactions.length > 10"
     >
     </paginate>
   </section>
@@ -87,22 +92,81 @@
 <script>
 import { mapGetters } from "vuex";
 import PaymentViewDetailsModal from "@/components/payment/PaymentViewDetailsModal";
+import LandbankDetailsModal from "@/components/payment/LandbankDetailsModal.vue";
 export default {
-  name: "TransactionTable",
+  name: "LandBankTransactionTable",
   components: {
     PaymentViewDetailsModal,
+    LandbankDetailsModal,
+  },
+  props: {
+    type: {
+      type: String,
+      default: "user",
+    },
+  },
+  watch: {
+    currentType: {
+      async handler(newValue) {
+        await this.$store.commit("setLoading", true);
+        if (this.type == "user") {
+          await this.$store.dispatch("getAllUserLandBankTransactions", {
+            page: 1,
+          });
+        } else {
+          await this.$store.dispatch("getAllLandBankTransactions", {
+            page: 1,
+          });
+        }
+        await this.$store.commit("setLoading", false);
+      },
+    },
   },
   computed: {
-    ...mapGetters(["currentType", "bankTransactions", "transactionPageCount"]),
+    ...mapGetters([
+      "currentType",
+      "bankTransactions",
+      "transactionPageCount",
+      "landBankTransactions",
+    ]),
+  },
+  data() {
+    return {
+      landbank_status: [
+        { label: "00", value: "Successful" },
+        { label: "01", value: "Invalid merchant code" },
+        { label: "02", value: "Invalid merchant reference number" },
+        { label: "03", value: "0 or negative amount" },
+        { label: "04", value: "Null payors name" },
+        { label: "05", value: "Null returnURLok" },
+        { label: "06", value: "Null returnURLerror" },
+        { label: "07", value: "Invalid hash" },
+        { label: "08", value: "Service unavailable" },
+        { label: "09", value: "Transaction in process" },
+        { label: "10", value: "Cancelled transaction" },
+        { label: "11", value: "EPP offline" },
+        { label: "12", value: "Invalid transaction type" },
+        { label: "13", value: "Invalid particulars" },
+        { label: "14", value: "Duplicate transaction" },
+      ],
+    };
   },
   mounted() {
     this.$store.commit("setCurrentType", "business");
-    this.$store.dispatch("getAllUserBankTransactions", { page: 1 });
+    if (this.type == "user") {
+      this.$store.dispatch("getAllUserLandBankTransactions", { page: 1 });
+    } else {
+      this.$store.dispatch("getAllLandBankTransactions", { page: 1 });
+    }
   },
   methods: {
+    getStatus(status) {
+      let item = this.landbank_status.find((item) => item.label == status);
+      return item.value;
+    },
     showModal(data) {
-      this.$store.commit("setCurrentBankTransaction", data);
-      this.$modal.show("paymentViewDetailsModal");
+      this.$store.commit("setCurrentLandBankTransaction", data);
+      this.$modal.show("landBankViewDetailsModal");
     },
     formatCurrency(str) {
       var parts = str.toString().split(".");
