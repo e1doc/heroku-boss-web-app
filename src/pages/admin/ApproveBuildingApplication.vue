@@ -606,7 +606,7 @@
               class="assessment-result-list mt30"
               v-if="
                 buildingApplication.application_status == 3 ||
-                  buildingApplication.application_status == 5
+                buildingApplication.application_status == 5
               "
             >
               <div class="meta-group-title">Assessment Result</div>
@@ -641,12 +641,12 @@
             class="meta-button-group flex-center"
             v-if="
               !buildingApplication.is_approve &&
-                !buildingApplication.is_disapprove &&
-                (groups.includes('superadmin') ||
-                  groups.includes('building_application_approver')) &&
-                buildingApplication.application_status !== 4 &&
-                buildingApplication.application_status !== 1 &&
-                buildingApplication.application_status !== 3
+              !buildingApplication.is_disapprove &&
+              (groups.includes('superadmin') ||
+                groups.includes('building_application_approver')) &&
+              buildingApplication.application_status !== 4 &&
+              buildingApplication.application_status !== 1 &&
+              buildingApplication.application_status !== 3
             "
           >
             <button-block
@@ -677,8 +677,8 @@
           <div
             v-if="
               buildingDeptCanAssess &&
-                buildingApplication.application_status == 3 &&
-                isAssessmentActive
+              buildingApplication.application_status == 3 &&
+              isAssessmentActive
             "
             class="meta-button-group flex-center"
           >
@@ -707,6 +707,9 @@ import VueEasyLightbox from "vue-easy-lightbox";
 import ButtonBlock from "@/components/ButtonBlock";
 import AppLink from "@/components/AppLink";
 import { mapGetters } from "vuex";
+import moment from "moment-timezone";
+const oneDocToken = process.env.VUE_APP_ONE_DOC_TOKEN;
+const lguLocalEndpoint = process.env.VUE_APP_LGU_LOCAL_ENDPOINT;
 export default {
   name: "ApproveBuildingApplication",
   components: {
@@ -810,6 +813,9 @@ export default {
             status: application_status,
           };
           this.$store.dispatch("approveBuildingApplication", payload);
+          if (application_status === 5) {
+            this.sendDataToLGU();
+          }
         }
       }
     },
@@ -836,14 +842,17 @@ export default {
           building_application: this.buildingApplication.id,
           is_approve: status ? true : false,
         };
-        this.$store.commit('setBuildingAssessmentPayload', payload)
+        this.$store.commit("setBuildingAssessmentPayload", payload);
         if (this.isLastBuildingDept && status) {
           await this.$store.dispatch("assessBuildingApplication", payload);
-          this.$store.commit("setIsEvaluation", false)
+          this.$store.commit("setIsEvaluation", false);
           let changeApplicationStatusPayload = {
             id: this.buildingApplication.id,
             status: application_status,
           };
+          if (application_status === 5) {
+            this.sendDataToLGU();
+          }
           await this.$store.dispatch(
             "approveBuildingApplication",
             changeApplicationStatusPayload
@@ -852,9 +861,9 @@ export default {
         if (!status) {
           if (this.isLastBuildingDept) {
             this.$store.commit("setIsBuildingAssessment", false);
-            this.$store.commit("setIsEvaluation", true)
-          }else{
-            this.$store.commit("setIsEvaluation", true)
+            this.$store.commit("setIsEvaluation", true);
+          } else {
+            this.$store.commit("setIsEvaluation", true);
           }
           if (!this.isAssessmentHasError) {
             this.createRemarks();
@@ -863,8 +872,8 @@ export default {
           }
         } else {
           if (!this.isLastBuildingDept && !this.isAssessmentHasError) {
-             await this.$store.dispatch("assessBuildingApplication", payload);
-             await this.$store.dispatch("createPrompt", {
+            await this.$store.dispatch("assessBuildingApplication", payload);
+            await this.$store.dispatch("createPrompt", {
               type: "success",
               title: "Success!",
               message: "Application was successfully assessed!",
@@ -948,6 +957,66 @@ export default {
     async checkIfCanAssess() {
       let payload = { building_application: this.buildingApplication.id };
       await this.$store.dispatch("checkBuildingDeptCanAssess", payload);
+    },
+    async sendDataToLGU() {
+      try {
+        let config = {
+          headers: {
+            "OneDoc-Token": oneDocToken,
+            "Content-Type": "application/json",
+          },
+        };
+        const data = {
+          onlinerefno: this.buildingApplication.reference_number,
+          ownertype: this.buildingBasicInformation.ownership_type,
+          firstname: this.buildingBasicInformation.owner_first_name,
+          middlename: this.buildingBasicInformation.owner_middle_name,
+          lastname: this.buildingBasicInformation.owner_last_name,
+          owneraddress: this.buildingBasicInformation.owner_complete_address,
+          ownertelno: this.buildingBasicInformation.owner_telephone_number,
+          ownertin: this.buildingBasicInformation.tin,
+          tctno: this.buildingDetails.tct_no,
+          tdno: this.buildingDetails.tax_dec_no,
+          addressno: this.buildingDetails.address_no,
+          lotno: this.buildingDetails.lot_no,
+          lotcountno: this.buildingDetails.lot_no_count,
+          blkno: this.buildingDetails.blk_no,
+          phaseno: this.buildingDetails.phaseno,
+          subdivision: this.buildingDetails.subdivision_name,
+          street: this.buildingDetails.street,
+          district: this.buildingDetails.district,
+          barangay: this.buildingDetails.barangay,
+          city: "Bacoor",
+          province: "Cavite",
+          scopeofwork: "New Construction",
+          scopeofworkothers: this.buildingDetails.scope_of_work,
+          occupancycharacter: this.buildingDetails.character_of_occupancy,
+          occupancycharacterothers: this.buildingDetails
+            .character_of_occupancy_others,
+          totalestcost: this.buildingOtherDetails.total_estimated_cost,
+          noofunits: this.buildingOtherDetails.units,
+          totalfloorareasqm: this.buildingOtherDetails.floor_area,
+          lotareasqm: this.buildingOtherDetails.lot_area,
+          constructiondate: moment(
+            this.buildingOtherDetails.date_of_construction
+          ).format("YYYY-MM-DD"),
+          completiondate: moment(
+            this.buildingOtherDetails.date_of_completion
+          ).format("YYYY-MM-DD"),
+        };
+
+        const payload = {
+          name: "addBuilding",
+          param: data,
+        };
+        const response = await axios.post(
+          `${lguLocalEndpoint}`,
+          payload,
+          config
+        );
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };
