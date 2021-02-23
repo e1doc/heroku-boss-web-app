@@ -994,10 +994,10 @@ export default {
           occupancycharacter: this.buildingDetails.character_of_occupancy,
           occupancycharacterothers: this.buildingDetails
             .character_of_occupancy_others,
-          totalestcost: this.buildingOtherDetails.total_estimated_cost,
-          noofunits: this.buildingOtherDetails.units,
-          totalfloorareasqm: this.buildingOtherDetails.floor_area,
-          lotareasqm: this.buildingOtherDetails.lot_area,
+          totalestcost: this.buildingOtherDetails.total_estimated_cost.toString(),
+          noofunits: this.buildingOtherDetails.units.toString(),
+          totalfloorareasqm: this.buildingOtherDetails.floor_area.toString(),
+          lotareasqm: this.buildingOtherDetails.lot_area.toString(),
           constructiondate: moment(
             this.buildingOtherDetails.date_of_construction
           ).format("YYYY-MM-DD"),
