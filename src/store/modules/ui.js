@@ -6,7 +6,7 @@ const getDefaultUIState = () => {
     printInvoice: false,
     printBusiness: false,
     printProperty: false,
-    paymentOption: "counter",
+    paymentOption: "online",
     isLoading: false,
     showPrompt: false,
     promptType: "",
