@@ -34,18 +34,24 @@
         <div class="meta-title">APPLICATION PROCESS</div>
         <ol class="meta-steps flex-center">
 <<<<<<< HEAD
+<<<<<<< HEAD
           <li class="meta-step">Submission of Application</li>
           <li class="meta-step">Approval</li>
           <li class="meta-step">Evaluation</li>
           <li class="meta-step">Inspection</li>
           <li class="meta-step">For Payment</li>
 =======
+=======
+>>>>>>> beeab76 (Client Revisions - Front-end)
             <li class="meta-step">Submission of Application</li>
             <li class="meta-step">Approval</li>
             <li class="meta-step">Inspection</li>
             <li class="meta-step">Evaluation</li>
             <li class="meta-step">For Payment</li>    
+<<<<<<< HEAD
 >>>>>>> dbd6847 (Client Revisions - Front-end)
+=======
+>>>>>>> beeab76 (Client Revisions - Front-end)
         </ol>
       </div>
       <div class="meta-parent">
