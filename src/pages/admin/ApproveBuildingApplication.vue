@@ -391,7 +391,7 @@
           </div>
 
           <!----------------------------- C. DESIGN PLANS -------------------------------------->
-          <div class="meta-form-group mb60">
+          <!-- <div class="meta-form-group mb60">
             <div class="meta-group-title">C. Design Plans</div>
             <ul class="parent-list">
               <li>
@@ -437,11 +437,12 @@
                 </ul>
               </li>
             </ul>
-          </div>
-          <!----------------------------- D. DESIGN SPECIFICATIONS AND DOCUMENTS -------------------------------------->
+          </div> -->
+
+          <!----------------------------- C. DESIGN SPECIFICATIONS AND DOCUMENTS -------------------------------------->
           <div class="meta-form-group mb60">
             <div class="meta-group-title">
-              D. Design Specifications and Documents
+              C. Design Specifications and Documents
             </div>
             <ul class="parent-list">
               <li>
@@ -530,9 +531,9 @@
             </ul>
           </div>
 
-          <!----------------------------- E. SUPPLEMENTARY DOCUMENTS ---------------------------------->
+          <!----------------------------- D. SUPPLEMENTARY DOCUMENTS ---------------------------------->
           <div class="meta-form-group mb60">
-            <div class="meta-group-title">E. Supplementary Documents</div>
+            <div class="meta-group-title">D. Supplementary Documents</div>
             <ul class="parent-list">
               <!-- C. SUPPLEMENTARY DOCS 1 -->
               <li>

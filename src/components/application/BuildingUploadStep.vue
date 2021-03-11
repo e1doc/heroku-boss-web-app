@@ -210,7 +210,7 @@
     </div>
 
     <!----------------------------- C. DESIGN PLANS -------------------------------------->
-    <div class="meta-form-group mb60">
+    <!-- <div class="meta-form-group mb60">
       <div class="meta-group-title">C. Design Plans</div>
       <div class="meta-check-group">
         <div @click="checkRequirements(design_plans, true)">
@@ -268,10 +268,11 @@
         type="property"
         :hasError="uploadErrors.design_plans"
       />
-    </div>
-    <!----------------------------- D. DESIGN SPECIFICATIONS AND DOCUMENTS -------------------------------------->
+    </div> -->
+    
+    <!----------------------------- C. DESIGN SPECIFICATIONS AND DOCUMENTS -------------------------------------->
     <div class="meta-form-group mb60">
-      <div class="meta-group-title">D. Design Specifications and Documents</div>
+      <div class="meta-group-title">C. Design Specifications and Documents</div>
       <div class="meta-check-group">
         <div @click="checkRequirements(design_specs, true)">
           <font-awesome-icon icon="check" class="mr5 check-icon" />Check All
@@ -367,9 +368,9 @@
       />
     </div>
 
-    <!----------------------------- E. SUPPLEMENTARY DOCUMENTS ---------------------------------->
+    <!----------------------------- D. SUPPLEMENTARY DOCUMENTS ---------------------------------->
     <div class="meta-form-group mb60">
-      <div class="meta-group-title">E. Supplementary Documents</div>
+      <div class="meta-group-title">D. Supplementary Documents</div>
       <div class="meta-check-group">
         <div @click="checkRequirements(supplementary_documents, true)">
           <font-awesome-icon icon="check" class="mr5 check-icon" />Check All
@@ -497,7 +498,7 @@ export default {
         // "undertaking_affidavit",
         // "unified_application_form",
         "architectural_permit",
-        "design_plans",
+        // "design_plans",
         "design_specs",
         // "civil_structural_permit",
         // "sanitary_plumbing_permit",
@@ -517,7 +518,7 @@ export default {
       uploadErrors: {
         tct: false,
         architectural_permit: false,
-        design_plans: false,
+        // design_plans: false,
         design_specs: false,
         sketch_pin: false,
       },

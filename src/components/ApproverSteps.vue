@@ -29,8 +29,8 @@
         <ol class="meta-steps flex-center">
             <li class="meta-step">Submission of Application</li>
             <li class="meta-step">Approval</li>
-            <li class="meta-step">Evaluation</li>
             <li class="meta-step">Inspection</li>
+            <li class="meta-step">Evaluation</li>
             <li class="meta-step">For Payment</li>    
         </ol>
     </div>
