@@ -960,15 +960,6 @@ export default {
       } else {
         await this.$store.dispatch("addBuildingDetails", this.building_details);
       }
-      if (
-        this.building_other_details.total_estimated_cost != "" &&
-        this.building_other_details.total_estimated_cost !== 0
-      ) {
-        this.building_other_details.total_estimated_cost = this.building_other_details.total_estimated_cost.toString();
-        this.building_other_details.total_estimated_cost = parseFloat(
-          this.building_other_details.total_estimated_cost.replace(/,/g, "")
-        );
-      }
       if (this.buildingOtherDetails.id) {
         await this.$store.dispatch(
           "updateBuildingOtherDetails",

@@ -2,7 +2,7 @@
   <div class="meta-wrap">
     <div class="meta-page-title">Frequently Asked Questions</div>
     <div class="meta-content">
-      <div class="meta-item" v-for="(item, index) of fees" :key="index">
+      <div class="meta-item" v-for="(item, index) of faq" :key="index">
         <label :for="index" class="meta-question">
           {{ item.question }}
         </label>
@@ -16,65 +16,14 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "Faq",
-  data() {
-    return {
-      fees: [
-        {
-          question: "How do I access my Real Property SOA?",
-          answer:
-            "You first need to Enroll your existing Real Property Tax information. Once enrolled and validated, you can now generate your SOA. Just go to your Profile > Real Property Tax then click “Bill” button, and you can proceed with the payment process.",
-        },
-        {
-          question:
-            "I heard that the Real Property Tax Number has changed. How do I request for my new tax number?",
-          answer:
-            'You can send a message with subject "REQUEST COPY OF NEW TAX DECLARATION". Indicate your previous TaxDec. We will respond with your new number that you will use to enroll so you can view your SOA.',
-        },
-        {
-          question:
-            "I've enrolled my Real Property Info but I don’t see anything. What is next?",
-          answer:
-            "Please submit an inquiry with your existing tax declaration details. We would be validating your submitted information and reply back with your updated taxdec number. You can then proceed with enrolling the updated taxdec number and you now have access to generate your SOA. Just go to your Profile > Real Property Tax then click “Bill” button, and you can proceed with the payment process.",
-        },
-        {
-          question: "Can I apply for new Real Property Tax here?",
-          answer:
-            "Currently, new applications for Real Property Tax is not available for online processing. You can inquire from the LGU regarding this matter.",
-        },
-        {
-          question: "Can I apply for Solidarity Sticker here?",
-          answer:
-            "Currently, applications for Solidarity Sticker is not available for online processing. You can inquire from the LGU regarding this matter.",
-        },
-        {
-          question:
-            "I would like to pay for my relative's Real Property tax. Can I enroll them under my account?",
-          answer:
-            "You can enroll them under your account. Once everything checks out, you can then proceed with the payment process. The transaction needs presentation of the previous year's transaction",
-        },
-        {
-          question: "How do I set a schedule to pay my Amelyar?",
-          answer:
-            "You first need to Enroll your existing Real Property Tax information. Once enrolled and validated, the LGU would upload your SOA here, and you can proceed with the payment process.",
-        },
-        {
-          question:
-            "I have multiple properties. Do I have to create individual schedules for all of them?",
-          answer:
-            "Yes, you need to individually generate SOA and book schedules for each property. This helps ensure that the transactions are timed properly, and that schedules are on-track",
-        },
-        {
-          question: "How can I apply for new business?",
-          answer: `1. Go to Transaction > Business Permit Application. <br> <br> 2. Fill out the online application form and upload all the necessary documents. <br> <br> 3. Once application has been submitted online, it will be evaluated by the Business Permit Licensing Office. You can check your application status by logging in every now and then.<br> <br> 4. City Officers will check your requirements and create your application assessment.<br> <br> 5. Once your assessment has been completed, you would have access to your SOA. Upon accessing the SOA, you have the option of selecting your payment method for your business fees and taxes.<br> <br> 6. After payment, your business permit will be available after 1-3 working days.`,
-        },
-        {
-          question: "How to renew my business?",
-          answer: ` 1. Register your existing business permit by going to Transaction > Business Permit Enrollment. From there, fill out the necessary fields. If you have already enrolled your business permit online, no need to repeat this step. <br> <br> 2. After enrolling your business, go to Profile tab > Business and click "Renew" button.<br> <br> 3. Input your gross sales and upload all the necessary documents.<br> <br> 4. City Officers will check your requirements and compute assessments for your application.<br> <br> 5. Once your assessment has been completed, you can generate your SOA and select the payment method you prefer for your business fees and taxes. 6.<br> <br> Your renewed business permit will be available to you after 1-3 working days.`,
-        },
-      ],
-    };
+  computed: {
+    ...mapGetters(["faq"]),
+  },
+  created() {
+    this.$store.dispatch("getFaq");
   },
 };
 </script>

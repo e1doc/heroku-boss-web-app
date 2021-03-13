@@ -491,29 +491,10 @@ export default {
       },
       required: [
         "tct",
-        // "tax_declaration",
-        // "tax_clearance",
-        // "barangay_clearance",
-        // "home_owner_clearance",
-        // "undertaking_affidavit",
-        // "unified_application_form",
         "architectural_permit",
         // "design_plans",
         "design_specs",
-        // "civil_structural_permit",
-        // "sanitary_plumbing_permit",
-        // "mechanical_permit",
-        // "sign_permit",
-        // "electronic_permit",
-        // "location_clearance",
-        // "contractor_business_permit", // B4
-        // "relocation_survey", // B5
-        // "prc_id", // B6
-        // "project_specification", // B7
-        // "bill_of_materials", // B8
-        // "building_plans", // B12
         "sketch_pin",
-        // "picture_of_site",
       ],
       uploadErrors: {
         tct: false,
