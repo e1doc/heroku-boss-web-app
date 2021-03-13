@@ -23,6 +23,8 @@
           }}
         </div>
       </form>
+      
+      <div class="upload-limit">Note: File size should not exceed 20mb.</div>
     </div>
   </div>
 </template>
@@ -312,6 +314,14 @@ export default {
       transition: 0.4s;
     }
   }
+}
+
+.upload-limit {
+    font-size: 14px;
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+    color: #4886ba;
 }
 
 div.meta-container .meta-custom-upload:hover {

@@ -231,50 +231,49 @@
                   </div>
                   <label for="legal_docs_1"
                     >1. Certified true copy of Transfer Certificate of Title
-                    (TCT)(original copy)</label
+              (TCT) <span class="copy-indicator">1 Original copy</span></label
                   >
                 </div>
                 <!-- DETAILS -->
                 <ul class="main-list">
                   <li>
                     If TCT is NOT YET in the name of the applicant, any of the
-                    following:
+                    following:  <span class="copy-indicator">1 Photocopy</span>
                     <ul class="sub-list">
-                      <li>Deed of Absolute Sale</li>
-                      <li>Contract to Sell</li>
-                      <li>Deed of Assignment / Donation or any equivalent</li>
+                      <li>Deed of Absolute Sale - Notarized</li>
+                      <li>Contract to Sell - Notarized</li>
+                      <li>Deed of Assignment / Donation or any equivalent - Notarized</li>
                     </ul>
                   </li>
                   <li>
                     If the applicant is a LESSEE or TCT is in the name of a
-                    Corporation, upload:
+                    Corporation, upload: <span class="copy-indicator">1 Photocopy</span>
                     <ul class="sub-list">
-                      <li>Lease Contract</li>
+                      <li>Lease Contract - Notarized</li>
                       <li>
-                        Corporate Secretary's Certificate (authorizing the
-                        signatory with general information sheet)
+                        Corporate Secretary's Certificate (authorizing the signatory
+                        with general information sheet) - Notarized
                       </li>
                     </ul>
                   </li>
                   <li>
-                    If the applicant is NOT the registered owner or with
-                    co-owner of the land, upload:
+                    If the applicant is NOT the registered owner or with co-owner of
+                    the land, upload: 
                     <ul class="sub-list">
-                      <li>Affidavit of Consent</li>
-                      <li>Extrajudicial Settlement</li>
+                      <li>Affidavit of Consent - Notarized <span class="copy-indicator">1 Photocopy</span></li>
+                      <li>Extrajudicial Settlement - Notarized <span class="copy-indicator">1 Photocopy</span></li>
                     </ul>
                   </li>
                   <li>
                     If the applicant has a Representative
                     <ul class="sub-list">
                       <li>
-                        Authorization Letter to APPLY in behalf of the applicant
-                        (with valid ID of applicant and representative)
+                        Authorization Letter to APPLY in behalf of the applicant (with
+                        valid ID of applicant and representative) - Notarized <span class="copy-indicator">1 Original Copy</span>
                       </li>
                       <li>
                         Special Power of Attorney (SPA) to SIGN in behalf of the
-                        applicant (with valid ID of applicant and
-                        representative)
+                        applicant (with valid ID of applicant and representative) - Notarized <span class="copy-indicator">1 Photocopy</span>
                       </li>
                     </ul>
                   </li>
@@ -295,7 +294,7 @@
                     /></span>
                   </div>
                   <label for="legal_docs_2"
-                    >2. Tax Declaration of Real Property</label
+                    >2. Tax Declaration of Real Property <span class="copy-indicator">1 Photocopy</span></label
                   >
                 </div>
               </li>
@@ -314,8 +313,7 @@
                     /></span>
                   </div>
                   <label for="legal_docs_3"
-                    >3. Tax Clearance of Real Property for Lot (current tax
-                    year)</label
+                    >3. Tax Clearance of Real Property - Current Year <span class="copy-indicator">1 Photocopy</span></label
                   >
                 </div>
               </li>
@@ -335,14 +333,14 @@
                     </span>
                   </div>
                   <label for="legal_docs_4"
-                    >4. Local and National Agencies Clearances</label
+                    >4. Local and National Agencies Clearances <span class="copy-indicator">1 ORIGINAL COPY</span></label
                   >
                 </div>
                 <ul class="sub-list">
                   <li>Barangay Clearance (for construction)</li>
                   <li>Homeowner's Clearance (for construction)</li>
                   <li>National Agencies Clearance</li>
-                  <li>Affidavit of Undertaking (notarized)</li>
+                  <li>Affidavit of Undertaking - Notarized</li>
                 </ul>
               </li>
             </ul>
@@ -368,9 +366,9 @@
                   <label for="tech_docs_1">1. Application Forms</label>
                 </div>
                 <ul class="main-list">
-                  <li>United Application Form for Building Permit and FSEC</li>
+                  <li>United Application Form for Building Permit and FSEC(signed and dry seal by an Engineer/Architect and applicant on all pages) - Notarized <span class="copy-indicator">5 Copies</span></li>
                   <li>
-                    Ancillary Application Forms
+                    Ancillary Application Forms <span class="copy-indicator">5 Copies Each</span>
                     <ul class="sub-list">
                       <li>Architectural Permit</li>
                       <li>Civil/Structural Permit</li>
@@ -381,9 +379,9 @@
                       <li>Electronic Permit</li>
                     </ul>
                   </li>
-                  <li>Locational Clearance Application Form</li>
+                  <li>Locational Clearance Application Form <span class="copy-indicator">1 Copy</span></li>
                   <li>
-                    Contractor's Temporary Business Permit Application Form
+                    Contractor's Temporary Business Permit Application Form <span class="copy-indicator">1 Copy</span>
                   </li>
                 </ul>
               </li>
@@ -463,11 +461,11 @@
                   >
                 </div>
                 <ul class="sub-list">
-                  <li>Project Specification</li>
-                  <li>Bill of Materials</li>
-                  <li>Structural Design Analysis and Computation</li>
-                  <li>Geotech Report/Soil Boring Test Report</li>
-                  <li>Seismic Analysis</li>
+                  <li>Project Specification <span class="copy-indicator">2 Copies</span></li>
+                  <li>Bill of Materials <span class="copy-indicator">3 Copies</span></li>
+                  <li>Structural Design Analysis and Computation (for structure two(2) storey and above NSCP 5th Edition) <span class="copy-indicator">1 Copy</span></li>
+                  <li>Geotech Report/Soil Boring Test Report (for building structures three(3) storey and above) <span class="copy-indicator">1 Copy</span></li>
+                  <li>Seismic Analysis (for building exceeding 7.5 meters in height) <span class="copy-indicator">1 Copy</span></li>
                 </ul>
               </li>
 
@@ -485,7 +483,7 @@
                     </span>
                   </div>
                   <label for="specs_2"
-                    >2. PRC ID's and PTR of Engineer's and Architect</label
+                    >2. PRC ID's and PTR of Engineer's and Architect <span class="copy-indicator">1 Photocopy</span></label
                   >
                 </div>
               </li>
@@ -505,7 +503,7 @@
                   </div>
                   <label for="specs_3"
                     >3. PCAB License of Electrical Contractor for Electrical
-                    Works</label
+              Works  <span class="copy-indicator">1 Colored Copy</span></label
                   >
                 </div>
               </li>
@@ -524,7 +522,7 @@
                     </span>
                   </div>
                   <label for="specs_4"
-                    >4. Construction Safety and Health Program (DOLE)</label
+                    >4. Construction Safety and Health Program (DOLE) <span class="copy-indicator">1 Original Copy</span></label
                   >
                 </div>
               </li>
@@ -549,7 +547,7 @@
                       <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
-                  <label for="supp_docs_1">1. Sketch or Key Pin</label>
+                  <label for="supp_docs_1">1. Sketch <span class="copy-indicator">1 Copy</span></label>
                 </div>
                 <ul class="sub-list">
                   <li>
@@ -574,7 +572,7 @@
                     </span>
                   </div>
                   <label for="supp_docs_2"
-                    >2. Picture of site/location (colored copy)</label
+                    >2. Picture of site/location  <span class="copy-indicator">1 Colored Copy</span></label
                   >
                 </div>
               </li>
