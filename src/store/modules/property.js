@@ -397,12 +397,13 @@ const actions = {
         payload,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-      commit("setBuildingDetailsHasError", false);
-      commit("setBuildingDetails", response.data);
+      await commit("setBuildingDetailsHasError", false);
+      await commit("setBuildingDetails", response.data);
     } catch (err) {
       let errors = { key: "building_details", value: err.response.data };
-      commit("buildingSetStepTwoErrors", errors);
-      commit("setBuildingDetailsHasError", true);
+      console.log("errors", errors);
+      await commit("buildingSetStepTwoErrors", errors);
+      await commit("setBuildingDetailsHasError", true);
       console.log(err.response);
     }
   },
@@ -414,13 +415,12 @@ const actions = {
         payload,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-      commit("setBuildingOtherDetailsHasError", false);
-      commit("setBuildingOtherDetails", response.data);
+      await commit("setBuildingOtherDetailsHasError", false);
+      await commit("setBuildingOtherDetails", response.data);
     } catch (err) {
       let errors = { key: "building_other_details", value: err.response.data };
-      commit("buildingSetStepTwoErrors", errors);
-      commit("setBuildingOtherDetailsHasError", true);
-      console.log(err.response);
+      await commit("buildingSetStepTwoErrors", errors);
+      await commit("setBuildingOtherDetailsHasError", true);
     }
   },
   async updateBuildingDetails({ commit, getters }, payload) {

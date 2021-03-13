@@ -404,8 +404,8 @@ export default {
         occupancy_classified: "",
         total_estimated_cost: "",
         units: "1",
-        floor_area: "",
-        lot_area: "",
+        floor_area: 0,
+        lot_area: 0,
         date_of_construction: "",
         date_of_completion: "",
       },
@@ -971,8 +971,8 @@ export default {
           this.building_other_details
         );
       }
-
       if (!this.buildingDetailsHasError && !this.buildingOtherDetailsHasError) {
+        console.log("no error");
         let payload = { application_id: this.buildingApplication.id };
         if (this.buildingApplicationRequirements) {
           if (!this.buildingApplicationRequirements.id) {
@@ -1077,7 +1077,12 @@ export default {
         });
       }
 
-      if (isBuildingDetailsClean && isBuildingOtherDetailsClean) {
+      if (
+        isBuildingDetailsClean &&
+        isBuildingOtherDetailsClean &&
+        !this.buildingDetailsHasError &&
+        !this.buildingOtherDetailsHasError
+      ) {
         this.$store.commit("setCurrentApplicationStep", "3");
       } else {
         this.$swal({

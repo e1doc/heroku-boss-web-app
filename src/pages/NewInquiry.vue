@@ -58,7 +58,7 @@
           fileLabel="inquiry_attachment"
           uploadType="application/pdf"
           class="upload-attachment"
-          v-if="isLastBuildingDept || isDelinquentPayment"
+          v-if="isLastBuildingDept || isDelinquentPayment || type === 'Remarks'"
           :isEvaluation="true"
         />
       </div>
