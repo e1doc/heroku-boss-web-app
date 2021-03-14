@@ -104,7 +104,8 @@
           class="upload-attachment"
           v-if="
             (isLastBuildingDept && isEvaluation) ||
-            currentTable === 'delinquent'
+            currentTable === 'delinquent' ||
+            inquiry.is_remarks
           "
           :isEvaluation="true"
         />
@@ -175,6 +176,7 @@ export default {
       "isBusinessAssessment",
       "assessmentPayload",
       "buildingAssessmentPayload",
+      "isRemarks",
     ]),
   },
   mounted() {
@@ -205,6 +207,11 @@ export default {
       let id = this.thread != "" ? this.thread : this.currentInquiry;
       await this.$store.dispatch("getInquiry", id);
       this.messages = await this.inquiry.messages;
+      if (this.inquiry.is_remarks) {
+        await this.$store.commit("setIsRemarks", true);
+      } else {
+        await this.$store.commit("setIsRemarks", false);
+      }
     },
     async sendReply() {
       if (this.continueBuildingThread) {
@@ -302,6 +309,7 @@ export default {
         });
         this.$router.push({ name: "Assessments" });
       }
+      this.getInquiry();
     },
   },
 };

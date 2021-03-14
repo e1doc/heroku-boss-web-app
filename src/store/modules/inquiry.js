@@ -17,6 +17,9 @@ const getDefaultInquiryState = () => {
     inquiryPageNum: 1,
     remarksPageNum: 1,
     delinquentPageNum: 1,
+    isRemarks: false,
+    clearFileInput: false,
+    isFileReady: false,
   };
 };
 const state = getDefaultInquiryState();
@@ -34,6 +37,9 @@ const getters = {
   inquiryPageNum: (state) => state.inquiryPageNum,
   remarksPageNum: (state) => state.remarksPageNum,
   delinquentPageNum: (state) => state.delinquentPageNum,
+  isRemarks: (state) => state.isRemarks,
+  clearFileInput: (state) => state.clearFileInput,
+  isFileReady: (state) => state.isFileReady,
 };
 const mutations = {
   setInquiries: (state, inquiries) => (state.inquiries = inquiries),
@@ -54,6 +60,10 @@ const mutations = {
     (state.departmentFilter = departmentFilter),
   setDelinquentPayments: (state, delinquentPayments) =>
     (state.delinquentPayments = delinquentPayments),
+  setIsRemarks: (state, isRemarks) => (state.isRemarks = isRemarks),
+  setClearFileInput: (state, clearFileInput) =>
+    (state.clearFileInput = clearFileInput),
+  setIsFileReady: (state, isFileReady) => (state.isFileReady = isFileReady),
 };
 const actions = {
   async getAllUserInquiries({ commit, dispatch, getters }, page = 1) {
@@ -138,13 +148,21 @@ const actions = {
       const response = await axios.post(`${baseUrl}/api/messages/`, payload, {
         headers: { Authorization: `jwt ${getters.authToken}` },
       });
-      if (getters.isEvaluation || getters.isDelinquentPayment) {
+      if (
+        (getters.isEvaluation ||
+          getters.isDelinquentPayment ||
+          getters.isRemarks) &&
+        getters.isFileReady
+      ) {
         await commit("setLoading", true);
         let newFormData = getters.currentEvaluationFile;
         newFormData.append("message", response.data.id);
         await dispatch("uploadMessageAttachment", newFormData);
-        commit("setIsEvaluation", false);
+        await commit("setIsEvaluation", false);
         await commit("setLoading", false);
+        if (getters.isRemarks) {
+          await commit("setClearFileInput", true);
+        }
       }
     } catch (err) {
       await commit("setLoading", false);
@@ -209,6 +227,7 @@ const actions = {
         payload,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
+      await commit("setIsFileReady", false);
     } catch (err) {
       await commit("setLoading", false);
       err.response ? console.log(err.response) : console.log(err);

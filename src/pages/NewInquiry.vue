@@ -206,6 +206,11 @@ export default {
           this.receiver = this.remarks.user;
         }
       }
+      if (this.type === "remarks") {
+        await this.$store.commit("setIsRemarks", true);
+      } else {
+        await this.$store.commit("setIsRemarks", false);
+      }
     },
     isButtonDisabled() {
       if (this.type !== "remarks") {

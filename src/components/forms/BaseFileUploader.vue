@@ -92,6 +92,9 @@ export default {
   },
   mounted() {
     this.$store.commit("setLoading", false);
+    this.$store.commit("setClearFileInput", false);
+    this.$store.commit("setIsFileReady", false);
+    this.$store.commit("setCurrentEvaluationFile", new FormData());
   },
   computed: {
     ...mapGetters([
@@ -102,6 +105,7 @@ export default {
       "isUploadSuccess",
       "isFileUploadFailed",
       "paymentDetails",
+      "clearFileInput",
     ]),
     isInitial() {
       return this.currentStatus === STATUS_INITIAL;
@@ -116,8 +120,19 @@ export default {
       return this.currentStatus === STATUS_FAILED;
     },
   },
+  watch: {
+    clearFileInput: {
+      handler(newVal) {
+        if (newVal) {
+          this.clearInput();
+          this.$store.commit("setClearFileInput", false);
+        }
+      },
+    },
+  },
   methods: {
     async save(formData) {
+      this.$store.commit("setIsFileReady", true);
       if (!this.isEvaluation) {
         if (this.type === "business") {
           await this.$store.dispatch("uploadRequirements", formData);
@@ -204,7 +219,7 @@ export default {
                 this.$store.commit("setIsFileUploaded", true);
               }
             } else {
-              file.value = null;
+              this.clearInput();
               this.$swal({
                 title: "File is too large!",
                 text: "File size must not exceed 25mb.",
@@ -239,7 +254,7 @@ export default {
               formData.append("filename", fileList[x].name);
               this.save(formData);
             } else {
-              file.value = null;
+              this.clearInput();
               this.$swal({
                 title: "File is too large!",
                 text: "File size must not exceed 25mb.",
@@ -256,6 +271,10 @@ export default {
         });
       }
       // save it
+    },
+    clearInput() {
+      this.$refs[`${this.fileLabel}`].value = null;
+      this.filename = "DRAG/CLICK TO UPLOAD YOUR FILE HERE";
     },
   },
 };

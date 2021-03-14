@@ -29,7 +29,12 @@
           <div class="item-name">Me</div>
           <div class="item-content">
             {{ message.body }}
-            <div v-if="message.messageattachments.length > 0">
+            <div
+              v-if="
+                message.messageattachments &&
+                message.messageattachments.length > 0
+              "
+            >
               <div class="item-attachment" @click="linkProps(message)">
                 <font-awesome-icon icon="paperclip" class="admin-icon" /> See
                 Attachment
@@ -46,7 +51,12 @@
           </div>
           <div class="item-content">
             {{ message.body }}
-            <div v-if="message.messageattachments.length > 0">
+            <div
+              v-if="
+                message.messageattachments &&
+                message.messageattachments.length > 0
+              "
+            >
               <div class="item-attachment" @click="linkProps(message)">
                 <font-awesome-icon icon="paperclip" class="admin-icon" /> See
                 Attachment
@@ -92,7 +102,7 @@
           fileLabel="inquiry_attachment"
           uploadType="application/pdf"
           class="upload-attachment"
-          v-if="inquiry.is_delinquent"
+          v-if="inquiry.is_delinquent || inquiry.is_remarks"
           :isEvaluation="true"
         />
         <div class="inquiry-button">
@@ -182,15 +192,18 @@ export default {
       } else {
         this.$store.commit("setIsDelinquentPayment", false);
       }
+      if (this.inquiry.is_remarks) {
+        await this.$store.commit("setIsRemarks", true);
+      } else {
+        await this.$store.commit("setIsRemarks", false);
+      }
     },
     async sendReply() {
       await this.$store.dispatch("addMessage", {
         thread: this.currentInquiry,
         body: this.body,
       });
-      if (this.inquiry.is_delinquent) {
-        this.getInquiry();
-      }
+      this.getInquiry();
       this.messages.push({ body: this.body, sender: { is_staff: false } });
       this.body = "";
     },
