@@ -24,7 +24,8 @@
       <!-- <faq /> -->
       <!-- <renewal-business-permit-application /> -->
       <!-- <currency-input v-model="value" id="test"/> -->
-      <renewal-business-step-one />
+      <!-- <renewal-business-step-one /> -->
+      <inspection-modal />
   </section>
 </template>
 
@@ -48,6 +49,7 @@ import OtpDiv from "@/components/auth/OtpDiv";
 import AgreementModal from "@/components/application/AgreementModal";
 import InvoiceDialog from "@/components/payment/InvoiceDialog";
 import ReplyInquiry from "@/pages/admin/ReplyInquiry";
+import InspectionModal from "@/components/admin/InspectionModal";
 import UserReplyInquiry from "@/pages/UserReplyInquiry";
 import NewInquiry from "@/pages/NewInquiry";
 import Faq from "@/pages/Faq";
@@ -74,7 +76,8 @@ export default {
         NewInquiry,
         ReplyInquiry,
         UserReplyInquiry,
-        RenewalBusinessStepOne
+        RenewalBusinessStepOne,
+        InspectionModal
   },
 }
 </script>
