@@ -632,6 +632,7 @@ export default {
   mounted() {
     console.log(this.businessApplication);
     this.getRequirements();
+    window.scrollTo(0, 0);
     // this.$store.commit("setPrintBusiness", true);
   },
   created() {

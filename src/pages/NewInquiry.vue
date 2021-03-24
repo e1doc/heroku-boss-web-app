@@ -151,6 +151,7 @@ export default {
     console.log(this.type);
     this.getRemarks();
     this.checkIfDelinquentPayment();
+    window.scrollTo(0, 0);
   },
   beforeRouteLeave(to, from, next) {
     this.$store.dispatch("setApplicationStateRemarks", {});
@@ -280,8 +281,16 @@ export default {
           } else {
             this.buildingApplication.application_status === 0
               ? (application_status = 1)
-              : this.buildingApplication.application_status === 3
+              : this.buildingApplication.application_status === 1
+              ? (application_status = 1)
+              : this.buildingApplication.application_status === 2
               ? (application_status = 4)
+              : this.buildingApplication.application_status === 3
+              ? (application_status = 5)
+              : this.buildingApplication.application_status === 4
+              ? (application_status = 4)
+              : this.buildingApplication.application_status === 5
+              ? (application_status = 5)
               : (application_status = 0);
             let payload = {
               id: this.applicationNumber,

@@ -140,19 +140,17 @@
           <div class="td">
             <span class="td-label show-in-mobile">STATUS : </span>
             {{
-              application.application_status == 0 && !application.is_draft
+              application.application_status == 0
                 ? "FOR APPROVAL"
                 : application.application_status == 1
                 ? "INCOMPLETE"
                 : application.application_status == 2
-                ? "FOR EVALUATION"
-                : application.application_status == 3
                 ? "FOR INSPECTION"
+                : application.application_status == 3
+                ? "FOR ASSESSMENT"
                 : application.application_status == 4
                 ? "FOR COMPLIANCE"
-                : application.application_status == 5
-                ? "FOR PAYMENT"
-                : ""
+                : "FOR PAYMENT"
             }}
             {{ application.is_draft ? "DRAFT" : "" }}
           </div>

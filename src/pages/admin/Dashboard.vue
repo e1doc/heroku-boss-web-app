@@ -109,6 +109,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getDashboardData");
+    window.scrollTo(0, 0);
   },
 };
 </script>

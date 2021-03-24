@@ -55,10 +55,10 @@ export default {
   },
   mounted() {
     this.$store.commit("setLoading", false);
+    window.scrollTo(0, 0);
   },
   methods: {
-    handleEventClick(info) {
-    },
+    handleEventClick(info) {},
   },
 };
 </script>

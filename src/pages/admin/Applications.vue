@@ -39,7 +39,9 @@ export default {
     next();
   },
   created() {
+    this.$store.commit("setIsBuildingAssessment", false);
     this.$store.commit("setIsAssessmentActive", false);
+    window.scrollTo(0, 0);
   },
 };
 </script>

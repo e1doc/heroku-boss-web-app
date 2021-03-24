@@ -8,7 +8,7 @@
       <appointment-table-menu type="profile" />
       <div class="admin-content">
         <div v-if="appointmentStatus === 'slot'">
-          <appointment-limit/>
+          <appointment-limit />
         </div>
         <div v-if="appointmentStatus === 'appointment'">
           <appointment-table />
@@ -23,28 +23,29 @@ import AppointmentTableMenu from "@/components/tables/AppointmentTableMenu";
 import FullCalendar from "@fullcalendar/vue";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { mapGetters } from "vuex"
-import AppointmentLimit from "@/components/tables/AppointmentLimit"
-import AppointmentTable from "@/components/tables/AppointmentTable"
+import { mapGetters } from "vuex";
+import AppointmentLimit from "@/components/tables/AppointmentLimit";
+import AppointmentTable from "@/components/tables/AppointmentTable";
 export default {
   name: "AdminAppointment",
   components: {
     AppointmentTableMenu,
     FullCalendar,
     AppointmentLimit,
-    AppointmentTable
+    AppointmentTable,
   },
   computed: {
     ...mapGetters(["appointmentStatus"]),
   },
   data() {
-    return {
-    };
+    return {};
   },
-  methods:{
-    handleEventClick(info){
-    }
-  }
+  methods: {
+    handleEventClick(info) {},
+  },
+  mounted() {
+    window.scrollTo(0, 0);
+  },
 };
 </script>
 

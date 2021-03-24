@@ -184,6 +184,7 @@ export default {
     if (this.currentTable === "delinquent") {
       this.$store.commit("setIsDelinquentPayment", true);
     }
+    window.scrollTo(0, 0);
   },
   methods: {
     async resolveInquiry() {
@@ -221,24 +222,40 @@ export default {
         } else {
           this.buildingApplication.application_status === 0
             ? (application_status = 1)
-            : this.buildingApplication.application_status === 3
+            : this.buildingApplication.application_status === 1
+            ? (application_status = 1)
+            : this.buildingApplication.application_status === 2
             ? (application_status = 4)
+            : this.buildingApplication.application_status === 3
+            ? (application_status = 5)
+            : this.buildingApplication.application_status === 4
+            ? (application_status = 4)
+            : this.buildingApplication.application_status === 5
+            ? (application_status = 5)
             : (application_status = 0);
           let payload = {
             id: this.currentBuildingId,
             status: application_status,
           };
-          this.$store.dispatch("approveBuildingApplication", payload);
+          let assessment_payload = {
+            building_application: this.currentBuildingId,
+            is_approve: false,
+          };
+          await this.$store.dispatch("approveBuildingApplication", payload);
+          await this.$store.dispatch(
+            "assessBuildingApplication",
+            assessment_payload
+          );
         }
         if (!this.isBuildingAssessment) {
           if (this.buildingApplication.application_status === 3) {
             let resetAssessmentPayload = {
               building_application: this.buildingApplication.id,
             };
-            this.$store.dispatch(
-              "resetBuildingAssessment",
-              resetAssessmentPayload
-            );
+            // this.$store.dispatch(
+            //   "resetBuildingAssessment",
+            //   resetAssessmentPayload
+            // );
           }
         }
       }

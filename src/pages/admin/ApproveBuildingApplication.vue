@@ -1,5 +1,14 @@
 <template>
   <div class="meta-parent-box">
+    <modal
+      name="inspectionModal"
+      :classes="['vue-modal']"
+      width="50%"
+      height="auto"
+      :adaptive="true"
+    >
+      <inspection-modal />
+    </modal>
     <div class="meta-container flex-wrap" ref="content">
       <div class="meta-form-body flex-wrap">
         <h1 class="meta-form-title">Building Application Details</h1>
@@ -231,49 +240,64 @@
                   </div>
                   <label for="legal_docs_1"
                     >1. Certified true copy of Transfer Certificate of Title
-              (TCT) <span class="copy-indicator">1 Original copy</span></label
+                    (TCT)
+                    <span class="copy-indicator">1 Original copy</span></label
                   >
                 </div>
                 <!-- DETAILS -->
                 <ul class="main-list">
                   <li>
                     If TCT is NOT YET in the name of the applicant, any of the
-                    following:  <span class="copy-indicator">1 Photocopy</span>
+                    following: <span class="copy-indicator">1 Photocopy</span>
                     <ul class="sub-list">
                       <li>Deed of Absolute Sale - Notarized</li>
                       <li>Contract to Sell - Notarized</li>
-                      <li>Deed of Assignment / Donation or any equivalent - Notarized</li>
-                    </ul>
-                  </li>
-                  <li>
-                    If the applicant is a LESSEE or TCT is in the name of a
-                    Corporation, upload: <span class="copy-indicator">1 Photocopy</span>
-                    <ul class="sub-list">
-                      <li>Lease Contract - Notarized</li>
                       <li>
-                        Corporate Secretary's Certificate (authorizing the signatory
-                        with general information sheet) - Notarized
+                        Deed of Assignment / Donation or any equivalent -
+                        Notarized
                       </li>
                     </ul>
                   </li>
                   <li>
-                    If the applicant is NOT the registered owner or with co-owner of
-                    the land, upload: 
+                    If the applicant is a LESSEE or TCT is in the name of a
+                    Corporation, upload:
+                    <span class="copy-indicator">1 Photocopy</span>
                     <ul class="sub-list">
-                      <li>Affidavit of Consent - Notarized <span class="copy-indicator">1 Photocopy</span></li>
-                      <li>Extrajudicial Settlement - Notarized <span class="copy-indicator">1 Photocopy</span></li>
+                      <li>Lease Contract - Notarized</li>
+                      <li>
+                        Corporate Secretary's Certificate (authorizing the
+                        signatory with general information sheet) - Notarized
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    If the applicant is NOT the registered owner or with
+                    co-owner of the land, upload:
+                    <ul class="sub-list">
+                      <li>
+                        Affidavit of Consent - Notarized
+                        <span class="copy-indicator">1 Photocopy</span>
+                      </li>
+                      <li>
+                        Extrajudicial Settlement - Notarized
+                        <span class="copy-indicator">1 Photocopy</span>
+                      </li>
                     </ul>
                   </li>
                   <li>
                     If the applicant has a Representative
                     <ul class="sub-list">
                       <li>
-                        Authorization Letter to APPLY in behalf of the applicant (with
-                        valid ID of applicant and representative) - Notarized <span class="copy-indicator">1 Original Copy</span>
+                        Authorization Letter to APPLY in behalf of the applicant
+                        (with valid ID of applicant and representative) -
+                        Notarized
+                        <span class="copy-indicator">1 Original Copy</span>
                       </li>
                       <li>
                         Special Power of Attorney (SPA) to SIGN in behalf of the
-                        applicant (with valid ID of applicant and representative) - Notarized <span class="copy-indicator">1 Photocopy</span>
+                        applicant (with valid ID of applicant and
+                        representative) - Notarized
+                        <span class="copy-indicator">1 Photocopy</span>
                       </li>
                     </ul>
                   </li>
@@ -294,7 +318,8 @@
                     /></span>
                   </div>
                   <label for="legal_docs_2"
-                    >2. Tax Declaration of Real Property <span class="copy-indicator">1 Photocopy</span></label
+                    >2. Tax Declaration of Real Property
+                    <span class="copy-indicator">1 Photocopy</span></label
                   >
                 </div>
               </li>
@@ -313,7 +338,8 @@
                     /></span>
                   </div>
                   <label for="legal_docs_3"
-                    >3. Tax Clearance of Real Property - Current Year <span class="copy-indicator">1 Photocopy</span></label
+                    >3. Tax Clearance of Real Property - Current Year
+                    <span class="copy-indicator">1 Photocopy</span></label
                   >
                 </div>
               </li>
@@ -333,7 +359,8 @@
                     </span>
                   </div>
                   <label for="legal_docs_4"
-                    >4. Local and National Agencies Clearances <span class="copy-indicator">1 ORIGINAL COPY</span></label
+                    >4. Local and National Agencies Clearances
+                    <span class="copy-indicator">1 ORIGINAL COPY</span></label
                   >
                 </div>
                 <ul class="sub-list">
@@ -366,9 +393,15 @@
                   <label for="tech_docs_1">1. Application Forms</label>
                 </div>
                 <ul class="main-list">
-                  <li>United Application Form for Building Permit and FSEC(signed and dry seal by an Engineer/Architect and applicant on all pages) - Notarized <span class="copy-indicator">5 Copies</span></li>
                   <li>
-                    Ancillary Application Forms <span class="copy-indicator">5 Copies Each</span>
+                    United Application Form for Building Permit and FSEC(signed
+                    and dry seal by an Engineer/Architect and applicant on all
+                    pages) - Notarized
+                    <span class="copy-indicator">5 Copies</span>
+                  </li>
+                  <li>
+                    Ancillary Application Forms
+                    <span class="copy-indicator">5 Copies Each</span>
                     <ul class="sub-list">
                       <li>Architectural Permit</li>
                       <li>Civil/Structural Permit</li>
@@ -379,9 +412,13 @@
                       <li>Electronic Permit</li>
                     </ul>
                   </li>
-                  <li>Locational Clearance Application Form <span class="copy-indicator">1 Copy</span></li>
                   <li>
-                    Contractor's Temporary Business Permit Application Form <span class="copy-indicator">1 Copy</span>
+                    Locational Clearance Application Form
+                    <span class="copy-indicator">1 Copy</span>
+                  </li>
+                  <li>
+                    Contractor's Temporary Business Permit Application Form
+                    <span class="copy-indicator">1 Copy</span>
                   </li>
                 </ul>
               </li>
@@ -461,11 +498,28 @@
                   >
                 </div>
                 <ul class="sub-list">
-                  <li>Project Specification <span class="copy-indicator">2 Copies</span></li>
-                  <li>Bill of Materials <span class="copy-indicator">3 Copies</span></li>
-                  <li>Structural Design Analysis and Computation (for structure two(2) storey and above NSCP 5th Edition) <span class="copy-indicator">1 Copy</span></li>
-                  <li>Geotech Report/Soil Boring Test Report (for building structures three(3) storey and above) <span class="copy-indicator">1 Copy</span></li>
-                  <li>Seismic Analysis (for building exceeding 7.5 meters in height) <span class="copy-indicator">1 Copy</span></li>
+                  <li>
+                    Project Specification
+                    <span class="copy-indicator">2 Copies</span>
+                  </li>
+                  <li>
+                    Bill of Materials
+                    <span class="copy-indicator">3 Copies</span>
+                  </li>
+                  <li>
+                    Structural Design Analysis and Computation (for structure
+                    two(2) storey and above NSCP 5th Edition)
+                    <span class="copy-indicator">1 Copy</span>
+                  </li>
+                  <li>
+                    Geotech Report/Soil Boring Test Report (for building
+                    structures three(3) storey and above)
+                    <span class="copy-indicator">1 Copy</span>
+                  </li>
+                  <li>
+                    Seismic Analysis (for building exceeding 7.5 meters in
+                    height) <span class="copy-indicator">1 Copy</span>
+                  </li>
                 </ul>
               </li>
 
@@ -483,7 +537,8 @@
                     </span>
                   </div>
                   <label for="specs_2"
-                    >2. PRC ID's and PTR of Engineer's and Architect <span class="copy-indicator">1 Photocopy</span></label
+                    >2. PRC ID's and PTR of Engineer's and Architect
+                    <span class="copy-indicator">1 Photocopy</span></label
                   >
                 </div>
               </li>
@@ -503,7 +558,8 @@
                   </div>
                   <label for="specs_3"
                     >3. PCAB License of Electrical Contractor for Electrical
-              Works  <span class="copy-indicator">1 Colored Copy</span></label
+                    Works
+                    <span class="copy-indicator">1 Colored Copy</span></label
                   >
                 </div>
               </li>
@@ -522,7 +578,8 @@
                     </span>
                   </div>
                   <label for="specs_4"
-                    >4. Construction Safety and Health Program (DOLE) <span class="copy-indicator">1 Original Copy</span></label
+                    >4. Construction Safety and Health Program (DOLE)
+                    <span class="copy-indicator">1 Original Copy</span></label
                   >
                 </div>
               </li>
@@ -547,7 +604,9 @@
                       <font-awesome-icon icon="times" class="mr5 x-icon" />
                     </span>
                   </div>
-                  <label for="supp_docs_1">1. Sketch <span class="copy-indicator">1 Copy</span></label>
+                  <label for="supp_docs_1"
+                    >1. Sketch <span class="copy-indicator">1 Copy</span></label
+                  >
                 </div>
                 <ul class="sub-list">
                   <li>
@@ -572,7 +631,8 @@
                     </span>
                   </div>
                   <label for="supp_docs_2"
-                    >2. Picture of site/location  <span class="copy-indicator">1 Colored Copy</span></label
+                    >2. Picture of site/location
+                    <span class="copy-indicator">1 Colored Copy</span></label
                   >
                 </div>
               </li>
@@ -640,11 +700,8 @@
             class="meta-button-group flex-center"
             v-if="
               !buildingApplication.is_approve &&
-              !buildingApplication.is_disapprove &&
               (groups.includes('superadmin') ||
                 groups.includes('building_application_approver')) &&
-              buildingApplication.application_status !== 4 &&
-              buildingApplication.application_status !== 1 &&
               buildingApplication.application_status !== 3
             "
           >
@@ -653,10 +710,12 @@
               @click.native="approveApplication(true)"
             >
               {{
-                buildingApplication.application_status === 0
+                buildingApplication.application_status === 0 ||
+                buildingApplication.application_status === 1
                   ? "COMPLETE"
-                  : buildingApplication.application_status === 2
-                  ? "FOR INSPECTION"
+                  : buildingApplication.application_status === 2 ||
+                    buildingApplication.application_status === 4
+                  ? "FOR ASSESSMENT"
                   : "FOR PAYMENT"
               }}
             </button-block>
@@ -664,10 +723,10 @@
               class="red-btn"
               type="disapprove"
               @click.native="approveApplication(false)"
-              v-if="buildingApplication.application_status !== 2"
             >
               {{
-                buildingApplication.application_status === 0
+                buildingApplication.application_status === 0 ||
+                buildingApplication.application_status === 1
                   ? "INCOMPLETE"
                   : "FOR COMPLIANCE"
               }}
@@ -687,6 +746,7 @@
             >
               {{ isLastBuildingDept ? "FOR PAYMENT" : "APPROVE" }}
             </button-block>
+
             <button-block
               type="disapprove"
               class="red-btn"
@@ -708,6 +768,7 @@ import AppLink from "@/components/AppLink";
 import { mapGetters } from "vuex";
 import moment from "moment-timezone";
 import axios from "axios";
+import InspectionModal from "@/components/admin/InspectionModal";
 const oneDocToken = process.env.VUE_APP_ONE_DOC_TOKEN;
 const lguLocalEndpoint = process.env.VUE_APP_LGU_LOCAL_ENDPOINT;
 export default {
@@ -716,6 +777,7 @@ export default {
     VueEasyLightbox,
     ButtonBlock,
     AppLink,
+    InspectionModal,
   },
   beforeRouteLeave(to, from, next) {
     // this.$store.commit("resetPropertyState");
@@ -729,6 +791,8 @@ export default {
   },
   mounted() {
     this.getRequirements();
+    window.scrollTo(0, 0);
+    this.$store.commit("setIsAssessmentHasError", false);
     // this.$store.commit("setPrintProperty", true);
   },
   created() {
@@ -796,24 +860,38 @@ export default {
           if (status) {
             this.buildingApplication.application_status === 0
               ? (application_status = 2)
+              : this.buildingApplication.application_status === 1
+              ? (application_status = 2)
               : this.buildingApplication.application_status === 2
               ? (application_status = 3)
               : this.buildingApplication.application_status === 3
-              ? (application_status = 5)
-              : (application_status = 0);
+              ? (application_status = 6)
+              : this.buildingApplication.application_status === 4
+              ? (application_status = 3)
+              : (application_status = 6);
           } else {
             this.buildingApplication.application_status === 0
               ? (application_status = 1)
+              : this.buildingApplication.application_status === 2
+              ? (application_status = 4)
               : this.buildingApplication.application_status === 3
-              ? (this.buildingApplication = 4)
-              : (this.buildingApplication = 0);
+              ? (application_status = 5)
+              : this.buildingApplication.application_status === 4
+              ? (application_status = 4)
+              : this.buildingApplication.application_status === 5
+              ? (application_status = 5)
+              : (application_status = 0);
           }
           let payload = {
             id: this.buildingApplication.id,
             status: application_status,
           };
-          this.$store.dispatch("approveBuildingApplication", payload);
-          if (application_status === 5) {
+          if (application_status === 2) {
+            this.$modal.show("inspectionModal");
+          } else {
+            this.$store.dispatch("approveBuildingApplication", payload);
+          }
+          if (application_status === 5 || application_status === 2) {
             this.sendDataToLGU();
           }
         }
@@ -835,8 +913,10 @@ export default {
           : this.buildingApplication.application_status === 2
           ? (application_status = 3)
           : this.buildingApplication.application_status === 3
-          ? (application_status = 5)
-          : (application_status = 0);
+          ? (application_status = 6)
+          : this.buildingApplication.application_status === 4
+          ? (application_status = 3)
+          : (application_status = 6);
 
         let payload = {
           building_application: this.buildingApplication.id,

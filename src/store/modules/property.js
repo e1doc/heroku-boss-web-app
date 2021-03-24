@@ -268,10 +268,12 @@ const actions = {
         payload.status == 1
           ? "incomplete"
           : payload.status == 2
-          ? "for evaluation"
-          : payload.status == 3
           ? "for inspection"
+          : payload.status == 3
+          ? "for assessment"
           : payload.status == 4
+          ? "for compliance"
+          : payload.status == 5
           ? "for compliance"
           : "for payment";
 
@@ -531,13 +533,13 @@ const actions = {
         payload,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-      commit("setBuildingAssessmentMessage", response.data.message);
-      commit("setIsAssessmentHasError", false);
+      await commit("setBuildingAssessmentMessage", response.data.message);
+      await commit("setIsAssessmentHasError", false);
     } catch (err) {
       console.log(err);
       if (err.response) {
         console.log(err.response);
-        commit("setIsAssessmentHasError", true);
+       await commit("setIsAssessmentHasError", true);
         dispatch("createPrompt", {
           type: "error",
           title: "Failed!",

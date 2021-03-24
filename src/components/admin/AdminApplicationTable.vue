@@ -5,8 +5,9 @@
       <div class="th">DATE</div>
       <!-- <div class="th" v-if="currentType === 'business'">Account #</div> -->
       <div class="th" v-if="currentType === 'building'">TD #</div>
-      <div class="th" v-if="currentType === 'business'">Tradename</div>
-      <div class="th" v-if="currentType === 'business'">Application Type</div>
+      <div class="th" v-if="currentType === 'building'">INSPECTION DATE</div>
+      <div class="th" v-if="currentType === 'business'">TRADENAME</div>
+      <div class="th" v-if="currentType === 'business'">APPLICATION TYPE</div>
       <div class="th">STATUS</div>
       <div class="th">ACTIONS</div>
     </div>
@@ -176,6 +177,10 @@
                 : "N/A"
             }}
           </div>
+          <div class="td" v-if="application.inspection_date !== null">
+            {{ application.inspection_date | moment("MMMM DD YYYY") }}
+          </div>
+          <div class="td" v-if="application.inspection_date === null">N/A</div>
           <div class="td">
             {{
               application.application_status == 0
@@ -183,10 +188,12 @@
                 : application.application_status == 1
                 ? "INCOMPLETE"
                 : application.application_status == 2
-                ? "FOR EVALUATION"
-                : application.application_status == 3
                 ? "FOR INSPECTION"
+                : application.application_status == 3
+                ? "FOR ASSESSMENT"
                 : application.application_status == 4
+                ? "FOR COMPLIANCE"
+                : application.application_status == 5
                 ? "FOR COMPLIANCE"
                 : "FOR PAYMENT"
             }}

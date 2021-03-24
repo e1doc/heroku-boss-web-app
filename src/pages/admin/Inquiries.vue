@@ -42,6 +42,7 @@ export default {
     ) {
       this.$store.commit("setCurrentTable", "inquiries");
     }
+    window.scrollTo(0, 0);
   },
 };
 </script>

@@ -7,34 +7,36 @@
     <div class="admin-body flex-wrap">
       <soa-table-menu />
       <div class="admin-content">
-          <admin-soa-table />
+        <admin-soa-table />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex"
+import { mapGetters } from "vuex";
 import SoaTableMenu from "@/components/admin/SoaTableMenu";
-import AdminSoaTable from "@/components/admin/AdminSoaTable"
+import AdminSoaTable from "@/components/admin/AdminSoaTable";
 export default {
   name: "AdminSoa",
   components: {
     SoaTableMenu,
-    AdminSoaTable
+    AdminSoaTable,
   },
   computed: {
     ...mapGetters(["appointmentStatus"]),
   },
   data() {
-    return {
-    };
+    return {};
   },
-  methods:{
-    handleEventClick(info){
-      console.log(info)
-    }
-  }
+  methods: {
+    handleEventClick(info) {
+      console.log(info);
+    },
+  },
+  mounted() {
+    window.scrollTo(0, 0);
+  },
 };
 </script>
 
