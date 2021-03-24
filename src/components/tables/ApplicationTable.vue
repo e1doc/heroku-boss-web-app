@@ -150,6 +150,8 @@
                 ? "FOR ASSESSMENT"
                 : application.application_status == 4
                 ? "FOR COMPLIANCE"
+                : application.application_status == 5
+                ? "FOR COMPLIANCE"
                 : "FOR PAYMENT"
             }}
             {{ application.is_draft ? "DRAFT" : "" }}
