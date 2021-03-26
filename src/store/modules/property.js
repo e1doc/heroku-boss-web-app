@@ -257,6 +257,7 @@ const actions = {
   },
   async approveBuildingApplication({ commit, dispatch, getters }, payload) {
     try {
+      await commit("setLoading", true);
       const response = await axios.put(
         `${baseUrl}/staff/building-permit-application/`,
         payload,
@@ -282,6 +283,7 @@ const actions = {
         title: "Success!",
         message: `Application was successfully set to ${action}!`,
       });
+      await commit("setLoading", false);
       router.push({ name: "Applications" });
     } catch (err) {
       console.log(err);
@@ -528,6 +530,7 @@ const actions = {
   },
   async assessBuildingApplication({ commit, getters, dispatch }, payload) {
     try {
+      await commit("setLoading", true);
       const response = await axios.post(
         `${baseUrl}/staff/building-dept-assessment`,
         payload,
@@ -535,11 +538,13 @@ const actions = {
       );
       await commit("setBuildingAssessmentMessage", response.data.message);
       await commit("setIsAssessmentHasError", false);
+      await commit("setLoading", false);
     } catch (err) {
       console.log(err);
+      await commit("setLoading", false);
       if (err.response) {
         console.log(err.response);
-       await commit("setIsAssessmentHasError", true);
+        await commit("setIsAssessmentHasError", true);
         dispatch("createPrompt", {
           type: "error",
           title: "Failed!",

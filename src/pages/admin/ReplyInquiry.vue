@@ -237,15 +237,8 @@ export default {
             id: this.currentBuildingId,
             status: application_status,
           };
-          let assessment_payload = {
-            building_application: this.currentBuildingId,
-            is_approve: false,
-          };
+
           await this.$store.dispatch("approveBuildingApplication", payload);
-          await this.$store.dispatch(
-            "assessBuildingApplication",
-            assessment_payload
-          );
         }
         if (!this.isBuildingAssessment) {
           if (this.buildingApplication.application_status === 3) {
@@ -257,6 +250,16 @@ export default {
             //   resetAssessmentPayload
             // );
           }
+        }
+        if (this.buildingApplication.application_status === 3) {
+          let assessment_payload = {
+            building_application: this.currentBuildingId,
+            is_approve: false,
+          };
+          await this.$store.dispatch(
+            "assessBuildingApplication",
+            assessment_payload
+          );
         }
       }
       if (this.continueBusinessThread) {
