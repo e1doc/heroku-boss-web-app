@@ -114,6 +114,7 @@ export default {
       "buildingAssessmentPayload",
       "isDelinquentPayment",
       "currentSelectedProperty",
+      "currentBuildingId",
     ]),
   },
   props: {
@@ -297,13 +298,13 @@ export default {
               status: application_status,
             };
             let assessment_payload = {
-              building_application: this.currentBuildingId,
+              building_application: this.currentSelectedProperty,
               is_approve: false,
             };
             await this.$store.dispatch("approveBuildingApplication", payload);
             await this.$store.dispatch(
               "assessBuildingApplication",
-              assessment_payload
+              this.buildingAssessmentPayload
             );
           }
           if (!this.isBuildingAssessment) {
@@ -311,10 +312,10 @@ export default {
               let resetAssessmentPayload = {
                 building_application: this.buildingApplication.id,
               };
-              this.$store.dispatch(
-                "resetBuildingAssessment",
-                resetAssessmentPayload
-              );
+              // this.$store.dispatch(
+              //   "resetBuildingAssessment",
+              //   resetAssessmentPayload
+              // );
             }
           }
         } else if (this.applicationType === "business") {
@@ -355,10 +356,10 @@ export default {
               let resetAssessmentPayload = {
                 business_application: this.businessApplication.id,
               };
-              this.$store.dispatch(
-                "resetBusinessAssessment",
-                resetAssessmentPayload
-              );
+              // this.$store.dispatch(
+              //   "resetBusinessAssessment",
+              //   resetAssessmentPayload
+              // );
             }
           }
         }
