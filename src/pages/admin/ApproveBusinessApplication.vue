@@ -522,20 +522,19 @@
         <div
           class="meta-button-group flex-center"
           v-if="
-            !businessApplication.is_approve &&
-            !businessApplication.is_disapprove &&
             (groups.includes('superadmin') ||
               groups.includes('business_application_approver')) &&
             businessApplication.application_status != 2 &&
-            businessApplication.application_status != 4 &&
-            businessApplication.application_status != 3
+            businessApplication.application_status != 4
           "
         >
           <button-block type="approve" @click.native="approveApplication(true)">
             {{
-              businessApplication.application_status === 0
+              businessApplication.application_status === 0 ||
+              businessApplication.application_status === 1
                 ? "COMPLETE"
-                : businessApplication.application_status === 2
+                : businessApplication.application_status === 2 ||
+                  businessApplication.application_status === 3
                 ? "FOR PAYMENT"
                 : ""
             }}
@@ -546,7 +545,8 @@
             @click.native="approveApplication(false)"
           >
             {{
-              businessApplication.application_status === 0
+              businessApplication.application_status === 0 ||
+              businessApplication.application_status === 1
                 ? "INCOMPLETE"
                 : "FOR COMPLIANCE"
             }}
@@ -696,6 +696,10 @@ export default {
           let application_status = 0;
           this.businessApplication.application_status === 0
             ? (application_status = 2)
+            : this.businessApplication.application_status === 1
+            ? (application_status = 2)
+            : this.businessApplication.application_status === 3
+            ? (application_status = 4)
             : this.businessApplication.application_status === 2
             ? (application_status = 4)
             : (application_status = 0);
@@ -724,11 +728,15 @@ export default {
         let application_status = 0;
         this.businessApplication.application_status === 0
           ? (application_status = 2)
+          : this.businessApplication.application_status === 1
+          ? (application_status = 2)
           : this.businessApplication.application_status === 2
+          ? (application_status = 4)
+          : this.businessApplication.application_status === 3
           ? (application_status = 4)
           : (application_status = 0);
         this.applicationStatus = application_status;
-
+        console.log("business application status", application_status);
         let payload = {
           business_application: this.businessApplication.id,
           is_approve: status ? true : false,

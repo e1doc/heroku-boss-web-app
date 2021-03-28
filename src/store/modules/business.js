@@ -236,6 +236,7 @@ const actions = {
   },
   async approveBusinessApplication({ commit, dispatch, getters }, payload) {
     try {
+      await commit('setLoading', true)
       const response = await axios.put(
         `${baseUrl}/staff/business-permit-application/`,
         payload,
@@ -252,11 +253,12 @@ const actions = {
           ? "for payment"
           : "";
 
-      dispatch("createPrompt", {
+     await dispatch("createPrompt", {
         type: "success",
         title: "Success!",
         message: `Application was successfully set to ${action}!`,
       });
+      await commit('setLoading', false)
       router.push({ name: "Applications" });
     } catch (err) {
       console.log(err);
@@ -593,16 +595,19 @@ const actions = {
   },
   async assessBusinessApplication({ commit, getters, dispatch }, payload) {
     try {
+      await commit ('setLoading', true)
       const response = await axios.post(
         `${baseUrl}/staff/business-dept-assessment`,
         payload,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-      commit("setBusinessAssessmentMessage", response.data.message);
-      commit("setIsAssessmentHasError", false);
-      commit("setAssessmentPayload", {});
+     await commit("setBusinessAssessmentMessage", response.data.message);
+     await commit("setIsAssessmentHasError", false);
+     await commit("setAssessmentPayload", {});
+     await commit ('setLoading', false)
     } catch (err) {
-      commit("setIsAssessmentHasError", true);
+      await commit ('setLoading', false)
+      await commit("setIsAssessmentHasError", true);
       console.log(err);
       if (err.response) {
         console.log(err.response);

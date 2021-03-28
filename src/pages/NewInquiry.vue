@@ -252,7 +252,7 @@ export default {
             : this.isDelinquentPayment
             ? this.currentSelectedProperty.id
             : null,
-        receiver: this.type === "remarks" ? this.receiver : null,
+        receiver: this.type === "remarks" ? this.receiver.id : null,
         department: this.department,
         is_delinquent: this.isDelinquentPayment,
       });
@@ -336,8 +336,12 @@ export default {
           } else {
             this.businessApplication.application_status === 0
               ? (application_status = 1)
+              : this.businessApplication.application_status === 1
+              ? (application_status = 2)
               : this.businessApplication.application_status === 2
               ? (application_status = 3)
+              : application_status === 3
+              ? (application_status = 4)
               : (application_status = 0);
             let payload = {
               id: this.applicationNumber,

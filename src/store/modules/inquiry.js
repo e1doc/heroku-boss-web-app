@@ -136,7 +136,7 @@ const actions = {
       const response = await axios.post(`${baseUrl}/api/threads/`, payload, {
         headers: { Authorization: `jwt ${getters.authToken}` },
       });
-      commit("setCurrentInquiry", response.data.id);
+      await commit("setCurrentInquiry", response.data.id);
     } catch (err) {
       console.log(err);
     }

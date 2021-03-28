@@ -269,8 +269,12 @@ export default {
         } else {
           this.businessApplication.application_status === 0
             ? (application_status = 1)
+            : this.businessApplication.application_status === 1
+            ? (application_status = 2)
             : this.businessApplication.application_status === 2
             ? (application_status = 3)
+            : application_status === 3
+            ? (application_status = 4)
             : (application_status = 0);
           let payload = {
             id: this.currentBusinessId,
@@ -281,14 +285,24 @@ export default {
         }
         if (!this.isBusinessAssessment) {
           if (this.businessApplication.application_status === 2) {
-            let resetAssessmentPayload = {
-              business_application: this.businessApplication.id,
-            };
-            this.$store.dispatch(
-              "resetBusinessAssessment",
-              resetAssessmentPayload
-            );
+            // let resetAssessmentPayload = {
+            //   business_application: this.businessApplication.id,
+            // };
+            // this.$store.dispatch(
+            //   "resetBusinessAssessment",
+            //   resetAssessmentPayload
+            // );
           }
+        }
+        if (this.businessApplication.application_status === 2) {
+          let assessment_payload = {
+            business_application: this.currentBusinessId,
+            is_approve: false,
+          };
+          await this.$store.dispatch(
+            "assessBusinessApplication",
+            assessment_payload
+          );
         }
       }
       await this.$store.dispatch("adminRespond", {

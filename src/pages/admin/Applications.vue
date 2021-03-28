@@ -40,6 +40,7 @@ export default {
   },
   created() {
     this.$store.commit("setIsBuildingAssessment", false);
+    this.$store.commit("setIsBusinessAssessment", false);
     this.$store.commit("setIsAssessmentActive", false);
     window.scrollTo(0, 0);
   },
