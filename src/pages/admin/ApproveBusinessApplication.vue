@@ -524,8 +524,8 @@
           v-if="
             (groups.includes('superadmin') ||
               groups.includes('business_application_approver')) &&
-            businessApplication.application_status != 2 &&
-            businessApplication.application_status != 4
+            businessApplication.application_status != 4 &&
+            businessApplication.application_status !== 2
           "
         >
           <button-block type="approve" @click.native="approveApplication(true)">
@@ -554,10 +554,7 @@
         </div>
         <div
           v-if="
-            businessDeptCanAssess &&
-            businessApplication.application_status == 2 &&
-            isAssessmentActive &&
-            showActionButtons
+            businessDeptCanAssess && isAssessmentActive && showActionButtons
           "
           class="meta-button-group flex-center"
         >

@@ -279,7 +279,7 @@ export default {
     },
     async openBusinessApplication(data, type) {
       if (type === "assessed") {
-        this.$store.commit("setShowActionButtons", false);
+        this.$store.commit("setShowActionButtons", true);
       } else {
         this.$store.commit("setShowActionButtons", true);
       }

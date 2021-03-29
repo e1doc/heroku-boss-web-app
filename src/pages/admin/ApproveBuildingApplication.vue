@@ -735,8 +735,8 @@
           <div
             v-if="
               buildingDeptCanAssess &&
-              buildingApplication.application_status == 3 &&
-              isAssessmentActive
+              isAssessmentActive &&
+              buildingApplication.application_status == 3
             "
             class="meta-button-group flex-center"
           >

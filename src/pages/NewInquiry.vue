@@ -114,7 +114,6 @@ export default {
       "buildingAssessmentPayload",
       "isDelinquentPayment",
       "currentSelectedProperty",
-      "currentBuildingId",
     ]),
   },
   props: {
