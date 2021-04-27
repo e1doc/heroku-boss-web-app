@@ -1,161 +1,165 @@
 <template>
   <div class="meta-container flex-wrap" ref="content">
-
     <button @click="generateBuildingForm()">TEST</button>
     <div class="downloadables-container">
-        <img src="@/assets/bacoor-cavite-logo.png" alt="" id="logoImage" />
-        <table id="basic-details-table">
-            <thead>
-              <tr>
-                <th>BASIC DETAILS</th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Application No. :</td>
-                <td>#{{ buildingBasicInformation.reference_number }}</td>
-                <td>Ownership Type:</td>
-                <td>{{ buildingBasicInformation.ownership_type }}</td>
-              </tr>
-              <tr>
-                <td>Last Name :</td>
-                <td>{{ buildingBasicInformation.ownership_type }}</td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>First Name :</td>
-                <td>{{ buildingBasicInformation.owner_first_name }}</td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Middle Name</td>
-                <td>{{ buildingBasicInformation.owner_middle_name }}</td>
-                <td></td>
-                <td></td>
-              </tr>
-            </tbody>
-        </table>  
-        <table id="building-details-table">
-            <thead>
-              <tr>
-                <th>BUILDING DETAILS:</th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>TCT No. :</td>
-                <td>{{ buildingDetails.tct_no }}</td>
-                <td>Tax Dec. No. :</td>
-                <td>{{ buildingDetails.tax_dec_no }}</td>
-              </tr>
-              <tr>
-                <td>Scope of Work :</td>
-                <td>{{
-                      buildingDetails.scope_of_work_others === ""
-                        ? buildingDetails.scope_of_work
-                        : buildingDetails.scope_of_work_others
-                    }}
-                </td>
-                <td>Use or Character of Occupancy :</td>
-                <td>{{
-                      buildingDetails.character_of_occupancy_others === ""
-                        ? buildingDetails.character_of_occupancy
-                        : buildingDetails.character_of_occupancy_others
-                    }}
-                </td>
-              </tr>
-            </tbody>
-        </table> 
-        <table id="building-address-table">
-            <thead>
-              <tr>
-                <th>BUILDING ADDRESS</th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Address No. :</td>
-                <td>{{ buildingDetails.address_no }}</td>
-                <td>District :</td>
-                <td>{{ buildingDetails.district }}</td>
-              </tr>
-              <tr>
-                <td>Block No. :</td>
-                <td>{{ buildingDetails.blk_no }}</td>
-                <td>Phase No. :</td>
-                <td>{{ buildingDetails.phase_no }}</td>
-              </tr>
-              <tr>
-                <td>Lot No. :</td>
-                <td>{{ buildingDetails.lot_no }}</td>
-                <td>Barangay :</td>
-                <td>{{ buildingDetails.barangay }}</td>
-              </tr> 
-              <tr>
-                <td>Lot No. count (default 1) :</td>
-                <td>{{ buildingDetails.lot_no_count }}</td>
-                <td>Street :</td>
-                <td>{{ buildingDetails.street }}</td>
-              </tr>
-              <tr>
-                <td>Subdivision :</td>
-                <td>{{ buildingDetails.subdivision_name }}</td>
-                <td>City / Province :</td>
-                <td>{{ buildingDetails.city }}</td>
-              </tr>
-            </tbody>
-        </table>  
-        <table id="other-building-details-table">
-            <thead>
-              <tr>
-                <th>OTHER BUILDING DETAILS</th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Total Estimated Cost :</td>
-                <td>₱ {{
-                      formatCurrency(buildingOtherDetails.total_estimated_cost)
-                    }}
-                </td>
-                <td>Number of Units :</td>
-                <td>{{ buildingOtherDetails.units }}</td>
-              </tr>
-              <tr>
-                <td>Proposed Date of Construction :</td>
-                <td>{{
-                      buildingOtherDetails.date_of_construction
-                        | moment("MMMM DD, YYYY")
-                    }}
-                </td>
-                <td>Total Floor Area :</td>
-                <td>{{ buildingOtherDetails.floor_area }} square meters</td>
-              </tr>
-              <tr>
-                <td>Expected Date of Completion :</td>
-                <td>{{
-                      buildingOtherDetails.date_of_completion | moment("MMMM DD, YYYY")
-                    }}
-                </td>
-                <td>Lot Area :</td>
-                <td>{{ buildingOtherDetails.lot_area }} square meters</td>
-              </tr>
-            </tbody>
-        </table>  
+      <img src="@/assets/bacoor-cavite-logo.png" alt="" id="logoImage" />
+      <table id="basic-details-table">
+        <thead>
+          <tr>
+            <th>BASIC DETAILS</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Application No. :</td>
+            <!-- <td>#{{ buildingBasicInformation.reference_number }}</td> -->
+            <td>#{{ buildingApplication.series_number }}</td>
+            <td>Ownership Type:</td>
+            <td>{{ buildingBasicInformation.ownership_type }}</td>
+          </tr>
+          <tr>
+            <td>Last Name :</td>
+            <td>{{ buildingBasicInformation.ownership_type }}</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>First Name :</td>
+            <td>{{ buildingBasicInformation.owner_first_name }}</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Middle Name</td>
+            <td>{{ buildingBasicInformation.owner_middle_name }}</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <table id="building-details-table">
+        <thead>
+          <tr>
+            <th>BUILDING DETAILS:</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>TCT No. :</td>
+            <td>{{ buildingDetails.tct_no }}</td>
+            <td>Tax Dec. No. :</td>
+            <td>{{ buildingDetails.tax_dec_no }}</td>
+          </tr>
+          <tr>
+            <td>Scope of Work :</td>
+            <td>
+              {{
+                buildingDetails.scope_of_work_others === ""
+                  ? buildingDetails.scope_of_work
+                  : buildingDetails.scope_of_work_others
+              }}
+            </td>
+            <td>Use or Character of Occupancy :</td>
+            <td>
+              {{
+                buildingDetails.character_of_occupancy_others === ""
+                  ? buildingDetails.character_of_occupancy
+                  : buildingDetails.character_of_occupancy_others
+              }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table id="building-address-table">
+        <thead>
+          <tr>
+            <th>BUILDING ADDRESS</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Address No. :</td>
+            <td>{{ buildingDetails.address_no }}</td>
+            <td>District :</td>
+            <td>{{ buildingDetails.district }}</td>
+          </tr>
+          <tr>
+            <td>Block No. :</td>
+            <td>{{ buildingDetails.blk_no }}</td>
+            <td>Phase No. :</td>
+            <td>{{ buildingDetails.phase_no }}</td>
+          </tr>
+          <tr>
+            <td>Lot No. :</td>
+            <td>{{ buildingDetails.lot_no }}</td>
+            <td>Barangay :</td>
+            <td>{{ buildingDetails.barangay }}</td>
+          </tr>
+          <tr>
+            <td>Lot No. count (default 1) :</td>
+            <td>{{ buildingDetails.lot_no_count }}</td>
+            <td>Street :</td>
+            <td>{{ buildingDetails.street }}</td>
+          </tr>
+          <tr>
+            <td>Subdivision :</td>
+            <td>{{ buildingDetails.subdivision_name }}</td>
+            <td>City / Province :</td>
+            <td>{{ buildingDetails.city }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <table id="other-building-details-table">
+        <thead>
+          <tr>
+            <th>OTHER BUILDING DETAILS</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Total Estimated Cost :</td>
+            <td>
+              ₱ {{ formatCurrency(buildingOtherDetails.total_estimated_cost) }}
+            </td>
+            <td>Number of Units :</td>
+            <td>{{ buildingOtherDetails.units }}</td>
+          </tr>
+          <tr>
+            <td>Proposed Date of Construction :</td>
+            <td>
+              {{
+                buildingOtherDetails.date_of_construction
+                  | moment("MMMM DD, YYYY")
+              }}
+            </td>
+            <td>Total Floor Area :</td>
+            <td>{{ buildingOtherDetails.floor_area }} square meters</td>
+          </tr>
+          <tr>
+            <td>Expected Date of Completion :</td>
+            <td>
+              {{
+                buildingOtherDetails.date_of_completion
+                  | moment("MMMM DD, YYYY")
+              }}
+            </td>
+            <td>Lot Area :</td>
+            <td>{{ buildingOtherDetails.lot_area }} square meters</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -193,15 +197,15 @@ export default {
   },
   methods: {
     getDataUrl(img) {
-        // Create canvas
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-        // Set width and height
-        canvas.width = img.width;
-        canvas.height = img.height;
-        // Draw the image
-        ctx.drawImage(img, 0, 0);
-        return canvas.toDataURL("image/jpeg");
+      // Create canvas
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      // Set width and height
+      canvas.width = img.width;
+      canvas.height = img.height;
+      // Draw the image
+      ctx.drawImage(img, 0, 0);
+      return canvas.toDataURL("image/jpeg");
     },
     formatCurrency(str) {
       var parts = str.toString().split(".");
@@ -212,7 +216,7 @@ export default {
       return parts.join(".");
     },
     generateReport() {
-      const buildingId = this.buildingBasicInformation.reference_number;
+      const buildingId = this.buildingApplication.series_number;
       const doc = new jsPDF("p", "mm", "a4");
       /** WITH CSS */
       var width = doc.internal.pageSize.getWidth();
@@ -222,22 +226,22 @@ export default {
         canvas: canvasElement,
         width: 794,
         height: 1124,
-      }).then(function(canvas) {
+      }).then(function (canvas) {
         const img = canvas.toDataURL("image/jpeg", 1);
         doc.addImage(img, "JPEG", 0, 0, width, height);
         doc.save(`building-application-${buildingId}`);
       });
     },
     generateBuildingForm() {
-       var doc = new jsPDF("p", "pt");
-       const buildingId = this.buildingBasicInformation.reference_number;
+      var doc = new jsPDF("p", "pt");
+      const buildingId = this.buildingApplication.series_number;
       // Select the image
       const img = document.querySelector("#logoImage");
-      img.addEventListener("load", function(event) {
-          const dataUrl = this.getDataUrl(event.currentTarget);
+      img.addEventListener("load", function (event) {
+        const dataUrl = this.getDataUrl(event.currentTarget);
       });
       // let tax_year = moment(this.businessApplication.created_at).format('YYYY')
-      var header = function(data) {
+      var header = function (data) {
         doc.setFontSize(12);
         doc.setTextColor(40);
         doc.setFontStyle("normal");
@@ -257,22 +261,22 @@ export default {
         document.getElementById("basic-details-table")
       );
       doc.autoTable(basicTable.columns, basicTable.data, {
-        theme: 'grid',
-        headStyles:{ fillColor:'#2699fb' },
-        bodyStyles: { lineColor: '#bce0fd' },
+        theme: "grid",
+        headStyles: { fillColor: "#2699fb" },
+        bodyStyles: { lineColor: "#bce0fd" },
         margin: { top: 150 },
 
         beforePageContent: header,
       });
 
-      //TAXPAYER DETAILS 
+      //TAXPAYER DETAILS
       var buildingDetailsTable = doc.autoTableHtmlToJson(
         document.getElementById("building-details-table")
       );
       doc.autoTable(buildingDetailsTable.columns, buildingDetailsTable.data, {
-        theme: 'grid',
-        headStyles:{fillColor:'#2699fb'},
-        bodyStyles: { lineColor: '#bce0fd' },
+        theme: "grid",
+        headStyles: { fillColor: "#2699fb" },
+        bodyStyles: { lineColor: "#bce0fd" },
       });
 
       //BUILDING ADDRESS
@@ -280,9 +284,9 @@ export default {
         document.getElementById("building-address-table")
       );
       doc.autoTable(buildingAddressTable.columns, buildingAddressTable.data, {
-        theme: 'grid',
-        headStyles:{fillColor:'#2699fb'},
-        bodyStyles: { lineColor: '#bce0fd' },
+        theme: "grid",
+        headStyles: { fillColor: "#2699fb" },
+        bodyStyles: { lineColor: "#bce0fd" },
       });
 
       //BUILDING DETAILS
@@ -290,9 +294,9 @@ export default {
         document.getElementById("other-building-details-table")
       );
       doc.autoTable(otherDetailsTable.columns, otherDetailsTable.data, {
-        theme: 'grid',
-        headStyles:{fillColor:'#2699fb'},
-        bodyStyles: { lineColor: '#bce0fd' },
+        theme: "grid",
+        headStyles: { fillColor: "#2699fb" },
+        bodyStyles: { lineColor: "#bce0fd" },
       });
 
       doc.save(`building-application-${buildingId}`);

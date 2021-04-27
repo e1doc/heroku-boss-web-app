@@ -130,11 +130,7 @@
           :key="index"
         >
           <div class="td">
-            {{
-              item.buildingbasicinformation !== null
-                ? item.buildingbasicinformation.reference_number
-                : "N/A"
-            }}
+            {{ item.series_number }}
           </div>
           <div class="td">
             {{ item.created_at | moment("MMMM DD YYYY") }}
@@ -178,12 +174,7 @@
           :key="index"
         >
           <div class="td">
-            {{
-              item.building_application.buildingbasicinformation !== null
-                ? item.building_application.buildingbasicinformation
-                    .reference_number
-                : "N/A"
-            }}
+            {{ item.building_application.series_number }}
           </div>
           <div class="td">
             {{ item.created_at | moment("MMMM DD YYYY") }}
@@ -334,6 +325,7 @@ export default {
           application_status: data.application_status,
           user: data.user,
           last_submitted: data.last_submitted,
+          series_number: data.series_number,
         };
         this.$store.commit("setBuildingApplication", application);
       }

@@ -119,11 +119,7 @@
         >
           <div class="td">
             <span class="td-label show-in-mobile">APPLICATION NO. : </span>
-            {{
-              application.buildingbasicinformation !== null
-                ? application.buildingbasicinformation.reference_number
-                : "N/A"
-            }}
+            {{ application.series_number }}
           </div>
           <div class="td">
             <span class="td-label show-in-mobile">DATE : </span>
@@ -137,7 +133,7 @@
                 : "N/A"
             }}
           </div>
-          <div class="td">
+          <div class="td" v-if="!application.is_draft">
             <span class="td-label show-in-mobile">STATUS : </span>
             {{
               application.application_status == 0
@@ -154,6 +150,9 @@
                 ? "FOR COMPLIANCE"
                 : "FOR PAYMENT"
             }}
+          </div>
+          <div class="td" v-if="application.is_draft">
+            <span class="td-label show-in-mobile">STATUS : </span>
             {{ application.is_draft ? "DRAFT" : "" }}
           </div>
           <div class="td">
@@ -425,6 +424,7 @@ export default {
           created_at: data.created_at,
           application_status: data.application_status,
           last_submitted: data.last_submitted,
+          series_number: data.series_number,
         };
         this.$store.commit("setBuildingApplication", application);
       }

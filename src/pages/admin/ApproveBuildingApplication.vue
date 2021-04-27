@@ -17,7 +17,7 @@
           <div class="meta-text no-bb">
             <div class="meta-label">Application Number :</div>
             <div class="meta-value">
-              #{{ buildingBasicInformation.reference_number }}
+              #{{ buildingApplication.series_number }}
             </div>
           </div>
           <div class="meta-text">

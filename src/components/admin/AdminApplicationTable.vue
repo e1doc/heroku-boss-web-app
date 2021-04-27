@@ -161,11 +161,7 @@
           :key="index"
         >
           <div class="td">
-            {{
-              application.buildingbasicinformation !== null
-                ? application.buildingbasicinformation.reference_number
-                : "N/A"
-            }}
+            {{ application.series_number }}
           </div>
           <div class="td">
             {{ application.created_at | moment("MMMM DD YYYY") }}
@@ -357,6 +353,7 @@ export default {
           application_status: data.application_status,
           user: data.user,
           last_submitted: data.last_submitted,
+          series_number: data.series_number,
         };
         this.$store.commit("setBuildingApplication", application);
       }
