@@ -8,7 +8,7 @@
           <div class="meta-text no-bb">
             <div class="meta-label">Application Number :</div>
             <div class="meta-value">
-              #{{ buildingBasicInformation.reference_number }}
+              #{{ buildingApplication.series_number }}
             </div>
           </div>
           <div class="meta-text">
@@ -18,7 +18,7 @@
                 buildingBasicInformation.ownership_type
                   .charAt(0)
                   .toUpperCase() +
-                  buildingBasicInformation.ownership_type.slice(1)
+                buildingBasicInformation.ownership_type.slice(1)
               }}
             </div>
           </div>
@@ -169,9 +169,7 @@
             <div class="meta-label">Total Estimated Cost :</div>
             <div class="meta-value">
               ₱
-              {{
-                formatCurrency(buildingOtherDetails.total_estimated_cost)
-              }}
+              {{ formatCurrency(buildingOtherDetails.total_estimated_cost) }}
             </div>
           </div>
           <div class="meta-text w6 no-br no-bb">
@@ -256,7 +254,7 @@
             class="assessment-result-list mt30"
             v-if="
               buildingApplication.application_status == 3 ||
-                buildingApplication.application_status == 5
+              buildingApplication.application_status == 5
             "
           >
             <div class="meta-group-title">Assessment Result</div>

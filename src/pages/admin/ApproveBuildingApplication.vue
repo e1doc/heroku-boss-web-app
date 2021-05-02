@@ -1047,7 +1047,7 @@ export default {
           },
         };
         const data = {
-          onlinerefno: this.buildingBasicInformation.reference_number,
+          onlinerefno: this.buildingApplication.series_number,
           ownertype: this.buildingBasicInformation.ownership_type,
           firstname: this.buildingBasicInformation.owner_first_name,
           middlename: this.buildingBasicInformation.owner_middle_name,
