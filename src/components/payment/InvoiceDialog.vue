@@ -50,7 +50,7 @@
         <div class="invoice-details">
           <div class="invoice-title">INVOICE DETAILS</div>
           <div class="details-body">
-            <div class="details-item" v-if="currentSoaType === 'business'">
+            <div class="details-item">
               <div class="item-label">Reference No:</div>
               <div class="item-value">
                 {{ currentSelectedBill.referenceno }}

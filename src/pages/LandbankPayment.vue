@@ -19,13 +19,13 @@
     <input
       type="hidden"
       name="ReturnURLOK"
-      value="https://boss-web-api.herokuapp.com/api/payment-success/"
+      value="https://bossapi.bacoor.gov.ph/api/payment-success/"
     />
 
     <input
       type="hidden"
       name="ReturnURLError"
-      value="https://boss-web-api.herokuapp.com/api/payment-error/"
+      value="https://bossapi.bacoor.gov.ph/api/payment-error/"
     />
     <input type="hidden" name="Hash" :value="getHash()" />
     <input type="submit" value="POST TO EPP" />
@@ -66,11 +66,11 @@ export default {
       formData.append("PayorEmail", "john.doe@gmail.com");
       formData.append(
         "ReturnURLOK",
-        "https://boss-web-api.herokuapp.com/api/payment-success/"
+        "https://bossapi.bacoor.gov.ph/api/payment-success/"
       );
       formData.append(
         "ReturnURLError",
-        "https://boss-web-api.herokuapp.com/api/payment-error/"
+        "https://bossapi.bacoor.gov.ph/api/payment-error/"
       );
       formData.append("hash", this.getHash());
 

@@ -126,7 +126,7 @@ export default {
   data() {
     return {
       selectedOption: "counter",
-      isFeatureImplemented: true,
+      isFeatureImplemented: false,
       paymentDetails: [
         {
           bank: "Land Bank of the Philippines",
@@ -151,7 +151,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.commit("setCurrentPaymentType", "landbank");
+    this.$store.commit("setCurrentPaymentType", "other_banks");
   },
   methods: {
     formatCurrency(str) {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import router from "../../router/index.js"
+import router from "../../router/index.js";
 const baseUrl = process.env.VUE_APP_API_URL;
 // let config = {
 //   headers: {
@@ -7,18 +7,18 @@ const baseUrl = process.env.VUE_APP_API_URL;
 //   }
 // }
 
-let config = () =>{
-  let serviceObj = localStorage.getItem('service')
-  let parseObj = JSON.parse(serviceObj)
+let config = () => {
+  let serviceObj = localStorage.getItem("service");
+  let parseObj = JSON.parse(serviceObj);
   return {
-  headers: {
-    Authorization: `jwt ${parseObj.authToken}`
-   }
-  }
-}
+    headers: {
+      Authorization: `jwt ${parseObj.authToken}`,
+    },
+  };
+};
 
-// const baseUrl = "https://boss-web-api.herokuapp.com";
-const getDefaultAuthState = () =>{
+// const baseUrl = "https://bossapi.bacoor.gov.ph";
+const getDefaultAuthState = () => {
   return {
     codeToken: "",
     authToken: "",
@@ -30,10 +30,10 @@ const getDefaultAuthState = () =>{
     userDetails: {},
     credentials: {},
     isAuthenticated: false,
-    isAdminAuthenticated: false
-  }
-}
-const state = getDefaultAuthState()
+    isAdminAuthenticated: false,
+  };
+};
+const state = getDefaultAuthState();
 
 const getters = {
   codeToken: (state) => state.codeToken,
@@ -46,22 +46,28 @@ const getters = {
   userDetails: (state) => state.userDetails,
   isAuthenticated: (state) => state.isAuthenticated,
   isAdminAuthenticated: (state) => state.isAdminAuthenticated,
-  credentials: (state) => state.credentials
+  credentials: (state) => state.credentials,
 };
 
 const mutations = {
   setCodeToken: (state, codeToken) => (state.codeToken = codeToken),
   setAuthToken: (state, authToken) => (state.authToken = authToken),
   setLoginSuccess: (state, loginSuccess) => (state.loginSuccess = loginSuccess),
-  setRegisterSuccess: (state, registerSuccess) => (state.registerSuccess = registerSuccess),
-  setForgotPasswordSuccess: (state, forgotPasswordSuccess) => (state.forgotPasswordSuccess = forgotPasswordSuccess),
-  setResetPasswordSuccess: (state, resetPasswordSuccess) => (state.resetPasswordSuccess = resetPasswordSuccess),
-  setValidationMessages: (state, validationMessages) => (state.validationMessages = validationMessages),
+  setRegisterSuccess: (state, registerSuccess) =>
+    (state.registerSuccess = registerSuccess),
+  setForgotPasswordSuccess: (state, forgotPasswordSuccess) =>
+    (state.forgotPasswordSuccess = forgotPasswordSuccess),
+  setResetPasswordSuccess: (state, resetPasswordSuccess) =>
+    (state.resetPasswordSuccess = resetPasswordSuccess),
+  setValidationMessages: (state, validationMessages) =>
+    (state.validationMessages = validationMessages),
   setUserDetails: (state, userDetails) => (state.userDetails = userDetails),
-  setIsAuthenticated: (state, isAuthenticated) => (state.isAuthenticated = isAuthenticated),
-  setAdminIsAuthenticated: (state, isAdminAuthenticated) => (state.isAdminAuthenticated = isAdminAuthenticated),
+  setIsAuthenticated: (state, isAuthenticated) =>
+    (state.isAuthenticated = isAuthenticated),
+  setAdminIsAuthenticated: (state, isAdminAuthenticated) =>
+    (state.isAdminAuthenticated = isAdminAuthenticated),
   resetAuthState: (state) => Object.assign(state, getDefaultAuthState()),
-  setCredentials : (state, credentials) => (state.credentials = credentials)
+  setCredentials: (state, credentials) => (state.credentials = credentials),
 };
 
 const actions = {
@@ -74,12 +80,12 @@ const actions = {
       );
       commit("setCodeToken", response.data.token);
       commit("setAuthType", "otp");
-      commit('setCredentials', payload)
+      commit("setCredentials", payload);
       commit("setLoading", false);
     } catch (err) {
-      console.log(err)
+      console.log(err);
       commit("setLoading", false);
-       dispatch("createPrompt", {
+      dispatch("createPrompt", {
         type: "error",
         title: err.response.statusText,
         message: err.response.data.detail,
@@ -97,11 +103,11 @@ const actions = {
         `${baseUrl}/auth/2fa-auth/get-auth-token/`,
         payload
       );
-      commit('setCredentials', {})
+      commit("setCredentials", {});
       commit("setLoading", false);
       commit("setAuthToken", response.data.token);
       commit("setLoginSuccess", true);
-      commit("setIsAuthenticated",true)
+      commit("setIsAuthenticated", true);
       commit("setAuthType", "login");
     } catch (err) {
       commit("setLoading", false);
@@ -130,7 +136,7 @@ const actions = {
         `${baseUrl}/auth/users/reset_password/`,
         payload
       );
-      commit('setCredentials', payload)
+      commit("setCredentials", payload);
       commit("setLoading", false);
       commit("setForgotPasswordSuccess", true);
     } catch (err) {
@@ -171,62 +177,69 @@ const actions = {
   },
   async getUserDetails({ commit, getters }) {
     try {
-      await commit('setLoading', false)
-      const response = await axios.get(`${baseUrl}/auth/users/me/`,{headers: {Authorization: `jwt ${getters.authToken}`} })
-      await commit('setUserDetails',response.data)
+      await commit("setLoading", false);
+      const response = await axios.get(`${baseUrl}/auth/users/me/`, {
+        headers: { Authorization: `jwt ${getters.authToken}` },
+      });
+      await commit("setUserDetails", response.data);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   },
-  async adminLogin({ commit, dispatch, getters }, payload){
+  async adminLogin({ commit, dispatch, getters }, payload) {
     try {
       commit("setLoading", true);
-      const response = await axios.post(`${baseUrl}/auth/admin/`,payload)
-      commit('setAuthToken',response.data.token)
-      dispatch("checkIfAdmin")
-      dispatch('checkGroups')
+      const response = await axios.post(`${baseUrl}/auth/admin/`, payload);
+      commit("setAuthToken", response.data.token);
+      dispatch("checkIfAdmin");
+      dispatch("checkGroups");
     } catch (err) {
-      err.response ? console.log(err.response) : console.log(err.code)
+      err.response ? console.log(err.response) : console.log(err.code);
       commit("setLoading", false);
-      if(err.code == 'ECONNABORTED'){
-          dispatch("createPrompt", {
-            type: "error",
-            title: "Failed",
-            message: "Something went wrong! Please try again later.",
-          });
-       }else{
+      if (err.code == "ECONNABORTED") {
+        dispatch("createPrompt", {
+          type: "error",
+          title: "Failed",
+          message: "Something went wrong! Please try again later.",
+        });
+      } else {
         dispatch("createPrompt", {
           type: "error",
           title: "Forbidden",
           message: "Incorrect authentication credentials.",
         });
-       }
+      }
     }
   },
- async checkIfAdmin({commit, dispatch, getters }){
+  async checkIfAdmin({ commit, dispatch, getters }) {
     try {
-      const response = await axios.post(`${baseUrl}/api/get-level/`, {},{headers: {Authorization: `jwt ${getters.authToken}`} })
+      const response = await axios.post(
+        `${baseUrl}/api/get-level/`,
+        {},
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
+      );
       commit("setLoading", false);
-      if(response.data.is_admin){
-        commit("setAdminIsAuthenticated",true)
-        router.push({name:'Dashboard'})
-      }else{
+      if (response.data.is_admin) {
+        commit("setAdminIsAuthenticated", true);
+        router.push({ name: "Dashboard" });
+      } else {
         dispatch("createPrompt", {
           type: "error",
           title: "Forbidden",
-          message: "Please enter the correct username and password for a staff account. ",
+          message:
+            "Please enter the correct username and password for a staff account. ",
         });
       }
     } catch (err) {
       commit("setLoading", false);
-      console.log(err)
+      console.log(err);
       dispatch("createPrompt", {
         type: "error",
         title: "Ooops!",
         message: "Something went wrong. Please try again.",
       });
     }
-  }
+  },
 };
 export default {
   state,
