@@ -96,8 +96,7 @@
                 v-if="
                   currentSelectedBusiness.businessbasicinformation
                     .type_of_organization === 'CORPORATION'
-                "
-              >
+                ">
                 {{
                   currentSelectedBusiness.businessdetails.president_first_name
                 }}
@@ -110,6 +109,17 @@
                     .president_last_name
                 }}
               </div>
+              {{
+                currentSelectedBusiness.businessbasicinformation
+                  .owner_first_name
+              }}
+              {{
+                currentSelectedBusiness.businessbasicinformation
+                  .owner_middle_name
+              }}
+              {{
+                currentSelectedBusiness.businessbasicinformation.owner_last_name
+              }}
             </div>
             <div class="item-value" v-if="currentSoaType === 'real_property'">
               {{
@@ -152,6 +162,13 @@
               {{ formatCurrency(parseFloat(currentSoaObj.amount).toFixed(2)) }}
             </div>
           </div>
+        </div>
+        <div class="meta-btn-reg-container">
+          <button-full-outline
+            class="btn-reg"
+            @click.native="actionPrintInvoice()"
+            >DOWNLOAD</button-full-outline
+          >
         </div>
       </div>
     </div>
@@ -260,6 +277,9 @@ export default {
     closeModal() {
       this.$modal.hide("invoiceModal");
     },
+    actionPrintInvoice() {
+      this.$store.commit("setPrintInvoice", true);
+    },
   },
   props: {
     isPayment: {
@@ -272,6 +292,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.meta-btn-reg-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 .meta-fees {
   display: flex;
   flex-direction: column;

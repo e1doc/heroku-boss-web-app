@@ -136,16 +136,16 @@ export default {
     return {
       printVisible: false,
       isPayment: true,
-      selectedPayment: "other_banks",
-      isFeatureImplemented: false,
+      selectedPayment: "landbank",
+      isFeatureImplemented: true,
       merchantCode: "2020101157",
       merchantRefNo: "",
       particulars: "",
       amount: "",
       payorName: "",
       payorEmail: "",
-      returnUrlOk: "https://bossapi.bacoor.gov.ph/api/payment-success/",
-      returnUrlError: "https://bossapi.bacoor.gov.ph/api/payment-error/",
+      returnUrlOk: "https://boss-web-api.herokuapp.com/api/payment-success/",
+      returnUrlError: "https://boss-web-api.herokuapp.com/api/payment-error/",
       hash: "",
     };
   },
@@ -183,8 +183,12 @@ export default {
       this.hash = this.getHash();
     },
     submit() {
-      this.$refs.form.submit();
+      // this.$refs.form.submit();
       // this.$router.push({ name: "Profile" });
+      window.open(
+        "https://epaymentportal.landbank.com/pay1.php?code=Sll1bkZRa0ptUmhva2tzRGZXRW9KL1BFcUhmN2JhWThrTW1RcjdMZzlnND0=",
+        "_blank"
+      );
     },
     getHash() {
       let amount = parseFloat(this.currentSoaObj.amount).toFixed(2);

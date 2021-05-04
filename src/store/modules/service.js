@@ -17,7 +17,7 @@ let config = () => {
   };
 };
 
-// const baseUrl = "https://bossapi.bacoor.gov.ph";
+// const baseUrl = "https://boss-web-api.herokuapp.com";
 const getDefaultAuthState = () => {
   return {
     codeToken: "",

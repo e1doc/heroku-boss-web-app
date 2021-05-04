@@ -53,7 +53,13 @@
                   : currentSelectedBusiness.businessdetails.trade_name
               }}
             </td>
-            <td v-if="currentSoaType === 'business'">
+            <td
+              v-if="
+                currentSoaType === 'business' &&
+                currentSelectedBusiness.businessbasicinformation
+                  .type_of_organization !== 'CORPORATION'
+              "
+            >
               {{
                 currentSelectedBusiness.businessbasicinformation
                   .owner_first_name
@@ -64,6 +70,23 @@
               }}
               {{
                 currentSelectedBusiness.businessbasicinformation.owner_last_name
+              }}
+            </td>
+            <td
+              v-if="
+                currentSoaType === 'business' &&
+                currentSelectedBusiness.businessbasicinformation
+                  .type_of_organization === 'CORPORATION'
+              "
+            >
+              {{ currentSelectedBusiness.businessdetails.president_first_name }}
+              {{
+                currentSelectedBusiness.businessbasicinformation
+                  .president_middle_name
+              }}
+              {{
+                currentSelectedBusiness.businessbasicinformation
+                  .president_last_name
               }}
             </td>
             <td v-if="currentSoaType === 'real_property'">
