@@ -554,7 +554,11 @@
         </div>
         <div
           v-if="
-            businessDeptCanAssess && isAssessmentActive && showActionButtons
+            businessDeptCanAssess &&
+            isAssessmentActive &&
+            showActionButtons &&
+            businessApplication.application_status != 3 &&
+            businessApplication.application_status != 1
           "
           class="meta-button-group flex-center"
         >
