@@ -487,7 +487,7 @@ export default {
       supplementary_documents: {
         supp_docs_1: false,
         supp_docs_2: false,
-      },
+      }, 
       required: [
         "tct",
         "architectural_permit",
