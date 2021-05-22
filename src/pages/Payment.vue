@@ -51,13 +51,13 @@
               >
                 <img class="meta-img" src="../assets/landbank-logo.png" />
               </div>
-              <div
+              <!-- <div
                 class="meta-list-item"
                 :class="{ active: selectedPayment == 'other_banks' }"
                 @click="changePaymentType('other_banks')"
               >
                 <img class="meta-img" src="../assets/bank-logo.png" />
-              </div>
+              </div> -->
               <div
                 class="meta-list-item"
                 :class="{ active: selectedPayment == 'treasury_office' }"
@@ -91,14 +91,14 @@
             >
               <button-block>REDIRECT</button-block>
             </div>
-            <div
+            <!-- <div
               class="meta-button"
               v-if="currentPaymentType === 'other_banks'"
             >
               <button-block @click.native="showModal"
                 >Upload Payment Details</button-block
               >
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
