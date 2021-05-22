@@ -16,7 +16,7 @@ const getDefaultUIState = () => {
     currentApplicationStep: "1",
     applicationType: "",
     currentAdminTab: "dashboard",
-    currentPaymentType: "other_banks",
+    currentPaymentType: "landbank",
     isAssessmentActive: false,
     isPrivacyAgree: false,
     isMaintenanceMode: false,
