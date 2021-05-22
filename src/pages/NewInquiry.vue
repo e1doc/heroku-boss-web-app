@@ -202,9 +202,9 @@ export default {
         if (this.applicationRemarks.application_number) {
           this.subject = `Application #${this.applicationRemarks.application_number} Remarks`;
           this.type = "remarks";
-          this.applicationType = this.remarks.application_type;
-          this.applicationNumber = this.remarks.application_number;
-          this.receiver = this.remarks.user;
+          this.applicationType = this.applicationRemarks.application_type;
+          this.applicationNumber = this.applicationRemarks.application_number;
+          this.receiver = this.applicationRemarks.user;
         }
       }
       if (this.type === "remarks") {
