@@ -125,8 +125,8 @@ export default {
   name: "RadioButton",
   data() {
     return {
-      selectedOption: "landbank",
-      isFeatureImplemented: true,
+      selectedOption: "counter",
+      isFeatureImplemented: false,
       paymentDetails: [
         {
           bank: "Land Bank of the Philippines",
@@ -151,7 +151,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.commit("setCurrentPaymentType", "landbank");
+    this.$store.commit("setCurrentPaymentType", "other_banks");
   },
   methods: {
     formatCurrency(str) {
