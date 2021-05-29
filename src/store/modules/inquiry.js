@@ -85,7 +85,7 @@ const actions = {
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
       commit("setPageCount", response.data.total_pages);
-      commit("setRemarks", response.data.results);
+      commit("F", response.data.results);
     } catch (err) {
       console.log(err);
     }

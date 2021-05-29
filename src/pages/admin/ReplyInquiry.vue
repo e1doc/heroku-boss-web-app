@@ -19,12 +19,16 @@
           <div class="item-name">
             {{
               inquiry.is_remarks
-                ? inquiry.receiver.first_name
+                ? inquiry.receiver
+                  ? inquiry.receiver.first_name
+                  : message.sender.first_name
                 : inquiry.sender.first_name
             }}
             {{
               inquiry.is_remarks
-                ? inquiry.receiver.last_name
+                ? inquiry.receiver
+                  ? inquiry.receiver.last_name
+                  : message.sender.last_name
                 : inquiry.sender.last_name
             }}
           </div>
