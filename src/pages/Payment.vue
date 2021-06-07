@@ -183,20 +183,16 @@ export default {
       this.hash = this.getHash();
     },
     submit() {
-      // this.$refs.form.submit();
+      this.$refs.form.submit();
       // this.$router.push({ name: "Profile" });
-      window.open(
-        "https://epaymentportal.landbank.com/pay1.php?code=Sll1bkZRa0ptUmhva2tzRGZXRW9KL1BFcUhmN2JhWThrTW1RcjdMZzlnND0=",
-        "_blank"
-      );
+      // window.open(
+      //   "https://epaymentportal.landbank.com/pay1.php?code=Sll1bkZRa0ptUmhva2tzRGZXRW9KL1BFcUhmN2JhWThrTW1RcjdMZzlnND0=",
+      //   "_blank"
+      // );
     },
     getHash() {
       let amount = parseFloat(this.currentSoaObj.amount).toFixed(2);
-      return md5(
-        this.merchantCode +
-          this.merchantRefNo +
-          amount.toString().replace(/\./g, "")
-      )
+      return md5(this.merchantCode + this.merchantRefNo + amount * 100)
         .toString()
         .toLowerCase();
     },

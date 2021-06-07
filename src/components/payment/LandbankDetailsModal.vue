@@ -152,8 +152,16 @@ export default {
       return item.value;
     },
     parseParticulars() {
-      console.log(this.currentLandBankTransaction.particulars);
-      return JSON.parse(this.currentLandBankTransaction.particulars);
+      const particulars = this.currentLandBankTransaction.particulars;
+      const particularsHolder = particulars.split(";");
+
+      const formattedParticulars = {};
+
+      particularsHolder.forEach((item) => {
+        const particularItem = item.split("=");
+        formattedParticulars[`${particularItem[0]}`] = particularItem[1];
+      });
+      return formattedParticulars;
     },
     replaceUrl(url) {
       return url.replace("/bacoor/", "/");
