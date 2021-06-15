@@ -1,6 +1,5 @@
 <template>
   <div class="input-holder" :class="customclass">
-    <font-awesome-icon icon="filter" class="filter-icon" v-if="customclass == 'filter-select'" />
     <div :id="name" class="select-wrapper">
       <select
         :data-value="mutableSelected"
@@ -21,6 +20,7 @@
         </option>
       </select>
       <font-awesome-icon icon="chevron-down" class="dropdown-icon" />
+      <font-awesome-icon icon="filter" class="filter-icon" v-if="customclass == 'filter-select'" />
       <label>{{ label }}</label>
     </div>
     <div v-if="validationMessages.length > 0">
@@ -189,9 +189,10 @@ export default {
     background-color: 0;
     appearance: none;
     select{
-      padding: 0 15px;
+      padding: 0 30px 0 10px;
       color: #e23a36;
       font-weight: bold;
+      direction: rtl;
       option{
         color: #2b2b2b;
       }
@@ -202,6 +203,8 @@ export default {
   }
   .filter-icon{
       color: #e23a36;
+      position: absolute;
+      right: 0;
   }
   .select-wrapper:hover,
   .select-wrapper-focus{
