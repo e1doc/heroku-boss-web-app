@@ -7,7 +7,7 @@
           :class="{ active: currentTable === 'landbank' }"
           @click="changeTab('landbank')"
         >
-          LANDBANK EPP
+          ONLINE PAYMENT
         </div>
         <div
           class="menu-type"

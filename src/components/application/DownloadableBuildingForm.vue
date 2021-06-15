@@ -208,12 +208,16 @@ export default {
       return canvas.toDataURL("image/jpeg");
     },
     formatCurrency(str) {
-      var parts = str.toString().split(".");
-      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      if (parts.length < 2) {
-        parts.push("00");
+      if (str) {
+        var parts = str.toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        if (parts.length < 2) {
+          parts.push("00");
+        }
+        return parts.join(".");
+      } else {
+        return "N/A";
       }
-      return parts.join(".");
     },
     generateReport() {
       const buildingId = this.buildingApplication.series_number;

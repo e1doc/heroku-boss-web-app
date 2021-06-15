@@ -58,7 +58,7 @@ export default {
   props: {
     type: {
       type: String,
-      required: true,
+      required: false,
       default: "soa",
     },
   },

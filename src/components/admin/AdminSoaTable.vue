@@ -50,6 +50,7 @@
             <div class="bill" @click="printSoa('business', item)">
               <font-awesome-icon icon="save" class="mr5 icon" />DOWNLOAD
             </div>
+            <div class="bill" @click="changeSoaStatus">PAID</div>
           </div>
         </div>
       </div>
@@ -98,6 +99,7 @@
             <div class="bill" @click="printSoa('building', item)">
               <font-awesome-icon icon="save" class="mr5 icon" />DOWNLOAD
             </div>
+            <div class="bill" @click="changeSoaStatus">>PAID</div>
           </div>
         </div>
       </div>
@@ -142,6 +144,7 @@
             <div class="bill" @click="printSoa('real_property', item)">
               <font-awesome-icon icon="save" class="mr5 icon" />DOWNLOAD
             </div>
+            <div class="bill" @click="changeSoaStatus">>PAID</div>
           </div>
         </div>
       </div>
@@ -257,6 +260,18 @@ export default {
       await this.$store.commit("setLoading", true);
       await this.$store.dispatch("getAdminSoaList", pageNum);
       await this.$store.commit("setLoading", false);
+    },
+    async changeSoaStatus() {
+      this.$swal({
+        title: "Confirm Action",
+        text: "Are you sure you want to verify this SOA as paid?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "VERIFY",
+        cancelButtonText: "CANCEL",
+      }).then((value) => {
+        console.log(value);
+      });
     },
   },
   created() {

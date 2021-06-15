@@ -51,7 +51,18 @@
       </div>
       <div class="meta-desc">
         You can now pay your bills through online without any hassle.
+        <br />
+        <div class="text-underline meta-view-more" @click="showImg(0)">
+          View more instruction
+        </div>
       </div>
+      <vue-easy-lightbox
+        moveDisabled
+        :visible="visible"
+        :imgs="imgs"
+        :index="index"
+        @hide="handleHide"
+      ></vue-easy-lightbox>
     </div>
 
     <!-- OPTION 2 -->
@@ -121,8 +132,12 @@
 
 <script>
 import { mapGetters } from "vuex";
+import VueEasyLightbox from "vue-easy-lightbox";
 export default {
   name: "RadioButton",
+  components: {
+    VueEasyLightbox,
+  },
   data() {
     return {
       selectedOption: "landbank",
@@ -139,6 +154,14 @@ export default {
           account_number: "0-50003-651-1",
         },
       ],
+      imgs: [
+        {
+          title: "this is a placeholder",
+          src: "https://s3.ap-southeast-1.amazonaws.com/public.bacoor/lbpinstruction.png",
+        },
+      ],
+      visible: false,
+      index: 0, // default: 0
     };
   },
   computed: {
@@ -165,6 +188,13 @@ export default {
     selectOptions(option) {
       this.selectedOption = option;
       this.$store.commit("setPaymentOption", option);
+    },
+    showImg(index) {
+      this.index = index;
+      this.visible = true;
+    },
+    handleHide() {
+      this.visible = false;
     },
   },
 };
@@ -236,6 +266,10 @@ div.meta-list {
 
 span.custom-radio.selected span.circle {
   background-color: #2699fb;
+}
+
+.meta-view-more {
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 480px) {
