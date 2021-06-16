@@ -7,7 +7,8 @@
     <div class="admin-body flex-wrap">
       <transaction-table-menu type="transaction" />
       <div class="admin-content">
-        <transaction-table />
+        <transaction-table v-if="currentTable === 'other_banks'" />
+        <land-bank-transaction-table v-if="currentTable === 'online_payment'" />
       </div>
     </div>
   </div>
@@ -16,15 +17,17 @@
 <script>
 import TransactionTableMenu from "@/components/tables/TransactionTableMenu";
 import TransactionTable from "@/components/tables/TransactionTable";
+import LandBankTransactionTable from "@/components/tables/LandBankTransactionTable";
 import { mapGetters } from "vuex";
 export default {
   name: "Transactions",
   components: {
     TransactionTableMenu,
     TransactionTable,
+    LandBankTransactionTable,
   },
   computed: {
-    ...mapGetters(["currentTable"]),
+    ...mapGetters(["currentTable", "currentType"]),
   },
 };
 </script>

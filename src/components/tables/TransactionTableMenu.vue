@@ -1,7 +1,7 @@
 <template>
-<div class="menu-container">
-  <div class="menu-holder">
-    <div class="left-div flex-center">
+  <div class="menu-container">
+    <div class="menu-holder">
+      <div class="left-div flex-center">
         <div class="menu-type">
           <div
             :class="{ active: currentType === 'business' }"
@@ -44,29 +44,29 @@
             REAL PROPERTY
           </div>
         </div>
-    </div>
-    <div class="right-div flex-wrap" v-if="type === 'transaction'">
-       <div class="menu-type">
-          <div 
-           :class="{ active: currentType === 'online_payment' }"
-            @click="changeType('online_payment')" 
+      </div>
+      <div class="right-div flex-wrap" v-if="type === 'transaction'">
+        <div class="menu-type">
+          <div
+            :class="{ active: currentTable === 'online_payment' }"
+            @click="changeTab('online_payment')"
           >
             <font-awesome-icon icon="money-check" class="mr5 icon" />
             Online Payment
           </div>
         </div>
         <div class="menu-type">
-          <div 
-           :class="{ active: currentType === 'other_banks' }"
-            @click="changeType('other_banks')"
+          <div
+            :class="{ active: currentTable === 'other_banks' }"
+            @click="changeTab('other_banks')"
           >
             <font-awesome-icon icon="university" class="mr5 icon" />
             Other Banks
           </div>
         </div>
-    </div>
-    <div class="bottom-div flex-wrap" v-if="type !== 'transaction'">
-      <base-select
+      </div>
+      <div class="bottom-div flex-wrap" v-if="type !== 'transaction'">
+        <base-select
           placeholder="Filter"
           :options="filterList2"
           name="filterLists"
@@ -110,55 +110,55 @@
           placeholder="Search for reference no."
           @keyup.native="searchTransaction()"
         />
+      </div>
+    </div>
+    <div class="bottom-div flex-wrap" v-if="type === 'transaction'">
+      <base-select
+        placeholder="Filter"
+        :options="filterList2"
+        name="filterLists"
+        class="mb15"
+        customclass="filter-select"
+        ref="filter1"
+        @change="filter"
+        v-if="currentType === 'business' && type !== 'transaction'"
+        :value="filterBy"
+      />
+      <base-select
+        placeholder="Filter"
+        :options="filterList1"
+        name="propertyFilterLists"
+        class="mb15"
+        customclass="filter-select"
+        ref="filter2"
+        @change="filter"
+        :value="propertyFilterBy"
+        v-if="currentType === 'building' && type !== 'transaction'"
+      />
+      <base-select
+        placeholder="Filter"
+        :options="bankTransactionFilter"
+        name="propertyFilterLists"
+        class="mb15"
+        customclass="filter-select"
+        ref="filter2"
+        @change="filterBankTransaction"
+        :value="bankTransactionFilterBy"
+        v-if="type === 'transaction'"
+      />
+      <base-input-search
+        v-if="type !== 'transaction'"
+        v-model="search"
+        @keyup.native="searchData()"
+      />
+      <base-input-search
+        v-if="type == 'transaction'"
+        v-model="search2"
+        placeholder="Search for reference no."
+        @keyup.native="searchTransaction()"
+      />
     </div>
   </div>
-  <div class="bottom-div flex-wrap" v-if="type === 'transaction'">
-      <base-select
-          placeholder="Filter"
-          :options="filterList2"
-          name="filterLists"
-          class="mb15"
-          customclass="filter-select"
-          ref="filter1"
-          @change="filter"
-          v-if="currentType === 'business' && type !== 'transaction'"
-          :value="filterBy"
-        />
-        <base-select
-          placeholder="Filter"
-          :options="filterList1"
-          name="propertyFilterLists"
-          class="mb15"
-          customclass="filter-select"
-          ref="filter2"
-          @change="filter"
-          :value="propertyFilterBy"
-          v-if="currentType === 'building' && type !== 'transaction'"
-        />
-        <base-select
-          placeholder="Filter"
-          :options="bankTransactionFilter"
-          name="propertyFilterLists"
-          class="mb15"
-          customclass="filter-select"
-          ref="filter2"
-          @change="filterBankTransaction"
-          :value="bankTransactionFilterBy"
-          v-if="type === 'transaction'"
-        />
-        <base-input-search
-          v-if="type !== 'transaction'"
-          v-model="search"
-          @keyup.native="searchData()"
-        />
-        <base-input-search
-          v-if="type == 'transaction'"
-          v-model="search2"
-          placeholder="Search for reference no."
-          @keyup.native="searchTransaction()"
-        />
-  </div>
-</div>
 </template>
 
 <script>
@@ -246,6 +246,9 @@ export default {
         { label: "FOR VERIFICATION", value: false },
       ],
     };
+  },
+  mounted() {
+    this.$store.commit("setCurrentTable", "online_payment");
   },
   methods: {
     searchTransaction() {
