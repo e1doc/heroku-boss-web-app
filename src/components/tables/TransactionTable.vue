@@ -61,6 +61,17 @@
       </div>
     </div>
     <paginate
+      v-if="currentTable === 'online_payment'"
+      :page-count="transactionPageCount"
+      :prev-text="'Prev'"
+      :next-text="'Next'"
+      :container-class="'pagination'"
+      :page-class="'page-item'"
+      :click-handler="transactionClickCallBack"
+    >
+    </paginate>
+    <paginate
+      v-if="currentTable === 'other_banks'"
       :page-count="transactionPageCount"
       :prev-text="'Prev'"
       :next-text="'Next'"
