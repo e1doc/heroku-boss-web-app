@@ -41,7 +41,7 @@
           </div>
           <div class="td">
             <span class="td-label show-in-mobile">STATUS : </span>
-            {{ getStatus(item.banktransaction) }}
+            {{ getStatus(item) }}
           </div>
           <div class="td actions">
             <div
@@ -49,7 +49,9 @@
               @click="redirect(item.id, 'business', item)"
               :class="{
                 disabled:
-                  item.appointment !== null || item.banktransaction !== null,
+                  item.appointment !== null ||
+                  item.banktransaction !== null ||
+                  item.landbank_transaction.length > 0,
               }"
             >
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
@@ -99,7 +101,7 @@
           </div>
           <div class="td">
             <span class="td-label show-in-mobile">STATUS : </span>
-            {{ getStatus(item.banktransaction) }}
+            {{ getStatus(item) }}
           </div>
           <div class="td actions">
             <div
@@ -107,7 +109,9 @@
               @click="redirect(item.id, 'building', item)"
               :class="{
                 disabled:
-                  item.appointment !== null || item.banktransaction !== null,
+                  item.appointment !== null ||
+                  item.banktransaction !== null ||
+                  item.landbank_transaction.length > 0,
               }"
             >
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
@@ -153,7 +157,7 @@
           </div>
           <div class="td">
             <span class="td-label show-in-mobile">STATUS : </span>
-            {{ getStatus(item.banktransaction) }}
+            {{ getStatus(item) }}
           </div>
           <div class="td actions">
             <div
@@ -161,7 +165,9 @@
               @click="redirect(item.id, 'real_property', item)"
               :class="{
                 disabled:
-                  item.appointment !== null || item.banktransaction !== null,
+                  item.appointment !== null ||
+                  item.banktransaction !== null ||
+                  item.landbank_transaction.length > 0,
               }"
             >
               <font-awesome-icon icon="receipt" class="mr5 icon" />PAY NOW
@@ -239,7 +245,7 @@ export default {
       this.$store.commit("setLoading", false);
     },
     getStatus(data) {
-      if (data) {
+      if (data.landbank_transaction.length > 0) {
         if (data.is_verified) {
           return "VERIFIED";
         } else {
