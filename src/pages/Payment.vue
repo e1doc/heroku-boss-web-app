@@ -82,14 +82,14 @@
                 paymentOption === 'online' && currentPaymentType === 'landbank'
               "
             >
-              <button-block @click.native="submit">REDIRECT</button-block>
+              <button-block @click.native="submit">PROCEED</button-block>
             </div>
             <div
               class="meta-button"
               @click="redirectAppointment()"
               v-if="currentPaymentType === 'treasury_office'"
             >
-              <button-block>REDIRECT</button-block>
+              <button-block>PROCEED</button-block>
             </div>
             <!-- <div
               class="meta-button"

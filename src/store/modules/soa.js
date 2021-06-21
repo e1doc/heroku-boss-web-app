@@ -260,6 +260,38 @@ const actions = {
       err.response ? console.log(err.response) : console.log(err);
     }
   },
+  async verifySoa({ commit, getters, dispatch }, payload) {
+    try {
+      await commit("setLoading", true);
+      const response = await axios.put(
+        `${baseUrl}/staff/verify-soa-payment/`,
+        payload,
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
+      );
+      let soaList = getters.soaList;
+      soaList = soaList.map((item) => {
+        if (item.id === payload.id) {
+          item.is_verified = true;
+        }
+        return item;
+      });
+      await commit("setSoaList", soaList);
+      dispatch("createPrompt", {
+        type: "success",
+        title: "Success!",
+        message: response.data.message,
+      });
+      await commit("setLoading", false);
+    } catch (err) {
+      await commit("setLoading", false);
+      dispatch("createPrompt", {
+        type: "error",
+        title: "Failed!",
+        message: "Something went wrong. Please try again later.",
+      });
+      err.response ? console.log(err.response) : console.log(err);
+    }
+  },
 };
 
 export default {

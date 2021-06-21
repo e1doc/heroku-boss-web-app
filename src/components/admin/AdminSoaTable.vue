@@ -44,13 +44,22 @@
           </div>
           <div class="td">
             <span class="td-label show-in-mobile">STATUS : </span>
-            {{ getStatus(item.banktransaction) }}
+            {{ getStatus(item) }}
           </div>
           <div class="td actions">
             <div class="bill" @click="printSoa('business', item)">
               <font-awesome-icon icon="save" class="mr5 icon" />DOWNLOAD
             </div>
-            <div class="bill" @click="changeSoaStatus">PAID</div>
+            <div
+              class="bill"
+              @click="changeSoaStatus(item)"
+              :class="{
+                disabled:
+                  item.landbank_transaction.length < 1 || item.is_verified,
+              }"
+            >
+              PAID
+            </div>
           </div>
         </div>
       </div>
@@ -93,13 +102,22 @@
           </div>
           <div class="td">
             <span class="td-label show-in-mobile">STATUS : </span>
-            {{ getStatus(item.banktransaction) }}
+            {{ getStatus(item) }}
           </div>
           <div class="td actions">
             <div class="bill" @click="printSoa('building', item)">
               <font-awesome-icon icon="save" class="mr5 icon" />DOWNLOAD
             </div>
-            <div class="bill" @click="changeSoaStatus">>PAID</div>
+            <div
+              class="bill"
+              @click="changeSoaStatus(item)"
+              :class="{
+                disabled:
+                  item.landbank_transaction.length < 1 || item.is_verified,
+              }"
+            >
+              PAID
+            </div>
           </div>
         </div>
       </div>
@@ -138,13 +156,22 @@
           </div>
           <div class="td">
             <span class="td-label show-in-mobile">STATUS : </span>
-            {{ getStatus(item.banktransaction) }}
+            {{ getStatus(item) }}
           </div>
           <div class="td actions">
             <div class="bill" @click="printSoa('real_property', item)">
               <font-awesome-icon icon="save" class="mr5 icon" />DOWNLOAD
             </div>
-            <div class="bill" @click="changeSoaStatus">>PAID</div>
+            <div
+              class="bill"
+              @click="changeSoaStatus(item)"
+              :class="{
+                disabled:
+                  item.landbank_transaction.length < 1 || item.is_verified,
+              }"
+            >
+              PAID
+            </div>
           </div>
         </div>
       </div>
@@ -215,7 +242,7 @@ export default {
       await this.$store.commit("setLoading", false);
     },
     getStatus(data) {
-      if (data) {
+      if (data.landbank_transaction.length > 0) {
         if (data.is_verified) {
           return "VERIFIED";
         } else {
@@ -261,17 +288,21 @@ export default {
       await this.$store.dispatch("getAdminSoaList", pageNum);
       await this.$store.commit("setLoading", false);
     },
-    async changeSoaStatus() {
-      this.$swal({
-        title: "Confirm Action",
-        text: "Are you sure you want to verify this SOA as paid?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "VERIFY",
-        cancelButtonText: "CANCEL",
-      }).then((value) => {
-        console.log(value);
-      });
+    async changeSoaStatus(item) {
+      if (item.landbank_transaction.length > 0 && !item.is_verified) {
+        this.$swal({
+          title: "Confirm Action",
+          text: "Are you sure you want to verify this SOA as paid?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "VERIFY",
+          cancelButtonText: "CANCEL",
+        }).then((result) => {
+          if (result.value) {
+            this.$store.dispatch("verifySoa", { id: item.id });
+          }
+        });
+      }
     },
   },
   created() {
