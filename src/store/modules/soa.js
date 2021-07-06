@@ -249,7 +249,7 @@ const actions = {
   async getAllLandBankTransactions({ commit, getters }, { page = 1 }) {
     try {
       const response = await axios.get(
-        `${baseUrl}/staff/landbank-transaction-list/?page=${page}&filter=${getters.currentType}`,
+        `${baseUrl}/staff/landbank-transaction-list/?page=${page}&filter=${getters.currentType}&search=${getters.transactionSearch}`,
         {
           headers: { Authorization: `jwt ${getters.authToken}` },
         }

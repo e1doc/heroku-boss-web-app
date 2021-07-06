@@ -8,7 +8,10 @@
       <transaction-table-menu type="transaction" />
       <div class="admin-content">
         <transaction-table v-if="currentTable === 'other_banks'" />
-        <land-bank-transaction-table v-if="currentTable === 'online_payment'" />
+        <land-bank-transaction-table
+          v-if="currentTable === 'online_payment'"
+          type="admin"
+        />
       </div>
     </div>
   </div>

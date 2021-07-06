@@ -253,7 +253,13 @@ export default {
   methods: {
     searchTransaction() {
       this.$store.commit("setTransactionSearch", this.search2);
-      this.$store.dispatch("getAllBankTransactions", { page: 1 });
+      if (this.currentTable === "other_banks") {
+        this.$store.dispatch("getAllBankTransactions", { page: 1 });
+      } else if (this.currentTable === "online_payment") {
+        this.$store.dispatch("getAllLandBankTransactions", {
+          page: 1,
+        });
+      }
     },
     searchData() {
       if (this.currentType === "real_property") {
@@ -291,7 +297,11 @@ export default {
           this.$store.dispatch("getAllBuildingApplications");
         }
       } else {
-        this.$store.dispatch("getAllBankTransactions", { page: 1 });
+        if (this.currentTable === "other_banks") {
+          this.$store.dispatch("getAllBankTransactions", { page: 1 });
+        } else {
+          this.$store.dispatch("getAllLandBankTransactions", { page: 1 });
+        }
       }
     },
   },
