@@ -236,7 +236,7 @@ const actions = {
   },
   async approveBusinessApplication({ commit, dispatch, getters }, payload) {
     try {
-      await commit('setLoading', true)
+      await commit("setLoading", true);
       const response = await axios.put(
         `${baseUrl}/staff/business-permit-application/`,
         payload,
@@ -253,12 +253,12 @@ const actions = {
           ? "for payment"
           : "";
 
-     await dispatch("createPrompt", {
+      await dispatch("createPrompt", {
         type: "success",
         title: "Success!",
         message: `Application was successfully set to ${action}!`,
       });
-      await commit('setLoading', false)
+      await commit("setLoading", false);
       router.push({ name: "Applications" });
     } catch (err) {
       console.log(err);
@@ -309,16 +309,16 @@ const actions = {
         payload,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-      commit("setApplicationHasError", false);
-      commit("setBusinessApplication", response.data);
+      await commit("setApplicationHasError", false);
+      await commit("setBusinessApplication", response.data);
       let errors = { key: "application", value: {} };
-      commit("setStepOneErrors", errors);
+      await commit("setStepOneErrors", errors);
     } catch (err) {
-      commit("setApplicationHasError", true);
+      await commit("setApplicationHasError", true);
       let errors = { key: "application", value: err.response.data };
-      commit("setStepOneErrors", errors);
+      await commit("setStepOneErrors", errors);
       console.log(err.response);
-      commit("setLoading", false);
+      await commit("setLoading", false);
     }
   },
   async addBusinessBasicInformation({ commit, getters }, payload) {
@@ -329,16 +329,17 @@ const actions = {
         payload,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-      commit("setBasicInfoHasError", false);
-      commit("setBusinessBasicInformation", response.data);
+      await commit("setBasicInfoHasError", false);
+      await commit("setBusinessBasicInformation", response.data);
       let errors = { key: "basic_information", value: {} };
-      commit("setStepOneErrors", errors);
+      await commit("setStepOneErrors", errors);
     } catch (err) {
       console.log(err.response);
       let errors = { key: "basic_information", value: err.response.data };
-      commit("setStepOneErrors", errors);
-      commit("setBasicInfoHasError", true);
-      commit("setLoading", false);
+      await commit("setStepOneErrors", errors);
+      console.log(errors)
+      await commit("setBasicInfoHasError", true);
+      await commit("setLoading", false);
     }
   },
   async addBusinessDetails({ commit, getters }, payload) {
@@ -425,17 +426,17 @@ const actions = {
         payload,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-      commit("setApplicationHasError", false);
-      commit("setBusinessApplication", response.data);
+      await commit("setApplicationHasError", false);
+      await commit("setBusinessApplication", response.data);
       let errors = { key: "application", value: {} };
-      commit("setStepOneErrors", errors);
+      await commit("setStepOneErrors", errors);
     } catch (err) {
       console.log(err);
       let errors = { key: "application", value: err.response.data };
-      commit("setStepOneErrors", errors);
-      commit("setApplicationHasError", true);
+      await commit("setStepOneErrors", errors);
+      await commit("setApplicationHasError", true);
       console.log(err.response);
-      commit("setLoading", false);
+      await commit("setLoading", false);
     }
   },
   async updateBusinessBasicInformation({ commit, getters }, payload) {
@@ -446,16 +447,16 @@ const actions = {
         payload,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-      commit("setBasicInfoHasError", false);
-      commit("setBusinessBasicInformation", response.data);
+      await commit("setBasicInfoHasError", false);
+      await commit("setBusinessBasicInformation", response.data);
       let errors = { key: "basic_information", value: {} };
-      commit("setStepOneErrors", errors);
+      await commit("setStepOneErrors", errors);
     } catch (err) {
       let errors = { key: "basic_information", value: err.response.data };
-      commit("setStepOneErrors", errors);
+      await commit("setStepOneErrors", errors);
       err.response ? console.log(err.response.data) : console.log(err);
-      commit("setBasicInfoHasError", true);
-      commit("setLoading", false);
+      await commit("setBasicInfoHasError", true);
+      await commit("setLoading", false);
     }
   },
   async updateBusinessDetails({ commit, getters }, payload) {
@@ -595,18 +596,18 @@ const actions = {
   },
   async assessBusinessApplication({ commit, getters, dispatch }, payload) {
     try {
-      await commit ('setLoading', true)
+      await commit("setLoading", true);
       const response = await axios.post(
         `${baseUrl}/staff/business-dept-assessment`,
         payload,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-     await commit("setBusinessAssessmentMessage", response.data.message);
-     await commit("setIsAssessmentHasError", false);
-     await commit("setAssessmentPayload", {});
-     await commit ('setLoading', false)
+      await commit("setBusinessAssessmentMessage", response.data.message);
+      await commit("setIsAssessmentHasError", false);
+      await commit("setAssessmentPayload", {});
+      await commit("setLoading", false);
     } catch (err) {
-      await commit ('setLoading', false)
+      await commit("setLoading", false);
       await commit("setIsAssessmentHasError", true);
       console.log(err);
       if (err.response) {

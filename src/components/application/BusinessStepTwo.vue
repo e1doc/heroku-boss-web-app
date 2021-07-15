@@ -886,16 +886,16 @@ export default {
         if (!this.unrequired.business_details.includes("trade_name")) {
           this.unrequired.business_details.push("trade_name");
         }
-        this.unrequired.business_details = this.unrequired.business_details.filter(
-          (item) => item !== "name"
-        );
+        this.unrequired.business_details =
+          this.unrequired.business_details.filter((item) => item !== "name");
       } else {
         if (!this.unrequired.business_details.includes("name")) {
           this.unrequired.business_details.push("name");
         }
-        this.unrequired.business_details = this.unrequired.business_details.filter(
-          (item) => item !== "trade_name"
-        );
+        this.unrequired.business_details =
+          this.unrequired.business_details.filter(
+            (item) => item !== "trade_name"
+          );
       }
     },
     previousStep() {
@@ -972,8 +972,7 @@ export default {
         } else {
           this.$swal({
             title: "Failed!",
-            text:
-              "Please fix the validation errors before proceeding to the next step.",
+            text: "Please fix the validation errors before proceeding to the next step.",
             icon: "error",
           });
         }
@@ -1058,7 +1057,7 @@ export default {
       if (Object.entries(business_details_errors.value).length > 0) {
         this.$store.commit("setStepTwoErrors", business_details_errors);
         isBusinessDetailsClean = false;
-      } else {
+      } else if (!this.detailsHasError) {
         this.$store.commit("setStepTwoErrors", {
           key: "business_details",
           value: {},
@@ -1073,18 +1072,23 @@ export default {
         });
         if (!isBusinessActivitiesClean) {
           this.$store.commit("setActivityErrors", activity_errors_holder);
-        } else {
+        }
+        {
           this.$store.commit("setActivityErrors", {});
         }
       }
 
-      if (isBusinessDetailsClean && isBusinessActivitiesClean) {
+      if (
+        isBusinessDetailsClean &&
+        isBusinessActivitiesClean &&
+        !this.detailsHasError &&
+        !this.lessorDetailsHasError
+      ) {
         this.$store.commit("setCurrentApplicationStep", "3");
       } else {
         this.$swal({
           title: "Failed!",
-          text:
-            "Please fix the validation errors before proceeding to the next step.",
+          text: "Please fix the validation errors before proceeding to the next step.",
           icon: "error",
         });
       }

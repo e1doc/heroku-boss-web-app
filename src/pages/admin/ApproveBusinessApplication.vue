@@ -737,7 +737,6 @@ export default {
           ? (application_status = 4)
           : (application_status = 0);
         this.applicationStatus = application_status;
-        console.log("business application status", application_status);
         let payload = {
           business_application: this.businessApplication.id,
           is_approve: status ? true : false,

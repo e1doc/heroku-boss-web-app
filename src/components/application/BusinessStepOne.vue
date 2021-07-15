@@ -328,16 +328,18 @@ export default {
             }
           });
         } else {
-          this.unrequired.basic_information = this.unrequired.basic_information.filter(
-            (item) => !required_fields.includes(item)
-          );
+          this.unrequired.basic_information =
+            this.unrequired.basic_information.filter(
+              (item) => !required_fields.includes(item)
+            );
         }
       }
     },
     async nextStep() {
       this.$store.commit("setLoading", true);
       if (this.businessApplication.id) {
-        this.business_application.is_disapprove = this.businessApplication.is_disapprove;
+        this.business_application.is_disapprove =
+          this.businessApplication.is_disapprove;
         await this.$store.dispatch(
           "updateBusinessApplication",
           this.business_application
@@ -386,8 +388,7 @@ export default {
         } else {
           this.$swal({
             title: "Failed!",
-            text:
-              "Please fix the validation errors before proceeding to the next step.",
+            text: "Please fix the validation errors before proceeding to the next step.",
             icon: "error",
           });
         }
@@ -435,7 +436,7 @@ export default {
       if (Object.entries(basic_info_errors.value).length > 0) {
         this.$store.commit("setStepOneErrors", basic_info_errors);
         isBasicInfoClean = false;
-      } else {
+      } else if (!this.basicInfoHasError) {
         this.$store.commit("setStepOneErrors", {
           key: "basic_information",
           value: {},
@@ -445,19 +446,24 @@ export default {
       if (Object.entries(application_errors.value).length > 0) {
         this.$store.commit("setStepOneErrors", application_errors);
         isApplicationClean = false;
-      } else {
+      } else if (!this.applicationHasError) {
         this.$store.commit("setStepOneErrors", {
           key: "application",
           value: {},
         });
       }
-      if (isApplicationClean && isBasicInfoClean) {
+      if (
+        isApplicationClean &&
+        isBasicInfoClean &&
+        !this.applicationHasError &&
+        !this.basicInfoHasError
+      ) {
+        console.log(isApplicationClean, isBasicInfoClean);
         this.$store.commit("setCurrentApplicationStep", "2");
       } else {
         this.$swal({
           title: "Failed!",
-          text:
-            "Please fix the validation errors before proceeding to the next step.",
+          text: "Please fix the validation errors before proceeding to the next step.",
           icon: "error",
         });
       }
