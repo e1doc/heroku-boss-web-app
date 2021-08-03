@@ -26,12 +26,18 @@
         <div class="meta-steps">
           <div>
             You can book your pickup via Grab, Lalamove and similar services.
-            Note that this option is available only from Monday to Friday 9am -
-            4pm.
+            Note that this option is available only from Monday to Friday. Your
+            rider should be in the BPL Office within the hours of 8:00AM to
+            5:00PM.
+          </div>
+          <div>
+            After booking your selected courier, kindly send notification SMS to
+            BPLO contact persons to make sure your documents are prepared in
+            advance. Include your tracking reference number in your SMS message.
           </div>
           <div>
             To schedule delivery of your Permit and O.R. via courier, kindly
-            indicate the following as your Delivery details:
+            indicate the following as your Delivery details::
           </div>
         </div>
         <div class="flex-column">
@@ -47,11 +53,11 @@
               </div>
               <div class="meta-items">
                 <div class="text-bold flex-grow">Contact Person:</div>
-                <div class="flex-grow">Dela Cruz, Juan</div>
+                <div class="flex-grow">Dina Dumali, Laarnie Jolipas</div>
               </div>
               <div class="meta-items">
                 <div class="text-bold flex-grow">Contact Number:</div>
-                <div class="flex-grow">09xxxxxxxx</div>
+                <div class="flex-grow">09277046336, 09473213781</div>
               </div>
             </div>
           </div>
@@ -77,7 +83,7 @@
                   </ul>
                 </div>
                 <div>
-                  Indicate your <b>SOA Number / Business Permit Number</b>
+                  Indicate your <b>SOA Number / Business Account Number</b>
                 </div>
               </div>
             </div>
