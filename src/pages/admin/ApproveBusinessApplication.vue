@@ -670,6 +670,14 @@ export default {
         account_number: this.account_number,
         on_renewal: false,
       };
+
+      let payload = {
+        business_application: this.businessApplication.id,
+        is_approve: true,
+      };
+
+      await this.$store.dispatch("assessBusinessApplication", payload);
+
       await this.$store.dispatch(
         "approveBusinessApplication",
         changeApplicationStatusPayload
@@ -756,7 +764,9 @@ export default {
             this.$router.push({ name: "Assessments" });
           }
         } else {
-          await this.$store.dispatch("assessBusinessApplication", payload);
+          if (!this.isLastBusinessDept) {
+            await this.$store.dispatch("assessBusinessApplication", payload);
+          }
           if (this.isLastBusinessDept && !this.isAssessmentHasError) {
             if (this.businessApplication.account_number !== "") {
               let changeApplicationStatusPayload = {
