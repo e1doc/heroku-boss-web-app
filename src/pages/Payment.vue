@@ -12,7 +12,7 @@
     /></modal>
     <div>
       <form
-        action="https://222.127.109.48/epp20200915/"
+        action="https://epaymentportal.landbank.com/"
         method="POST"
         target="_blank"
         @submit="submit"
@@ -144,8 +144,8 @@ export default {
       amount: "",
       payorName: "",
       payorEmail: "",
-      returnUrlOk: "https://boss-web-api.herokuapp.com/api/payment-success/",
-      returnUrlError: "https://boss-web-api.herokuapp.com/api/payment-error/",
+      returnUrlOk: "https://bossapi.bacoor.gov.ph/api/payment-success/",
+      returnUrlError: "https://bossapi.bacoor.gov.ph/api/payment-error/",
       hash: "",
     };
   },
