@@ -60,6 +60,10 @@
 import ButtonBlock from "@/components/ButtonBlock";
 import BaseFileUploader from "@/components/forms/BaseFileUploader";
 import { mapGetters } from "vuex";
+const oneDocToken = process.env.VUE_APP_ONE_DOC_TOKEN;
+const lguLocalEndpoint = process.env.VUE_APP_LGU_LOCAL_ENDPOINT;
+import axios from "axios";
+import moment from "moment-timezone";
 export default {
   name: "BusinessUploadStep",
   components: {
@@ -86,6 +90,10 @@ export default {
       "requirements",
       "draftBusiness",
       "businessApplication",
+      "businessBasicInformation",
+      "businessDetails",
+      "lessorDetails",
+      "businessActivities",
     ]),
   },
   mounted() {
@@ -144,19 +152,29 @@ export default {
             : this.businessApplication.application_status == 3
             ? (application_status = 2)
             : (application_status = 0);
+
           let payload = {
             is_draft: false,
             application_status: application_status,
             last_submitted: new Date(Date.now()),
             is_disapprove: false,
           };
-          await this.$store.dispatch("updateBusinessApplication", payload);
-          this.$store.commit("setCurrentApplicationStep", "4");
+
+          const result = await this.sendDataToLocal();
+          if (result) {
+            await this.$store.dispatch("updateBusinessApplication", payload);
+            this.$store.commit("setCurrentApplicationStep", "4");
+          } else {
+            this.$swal({
+              title: "Failed!",
+              text: "Something went wrong. Please try again later.",
+              icon: "error",
+            });
+          }
         } else {
           this.$swal({
             title: "Failed!",
-            text:
-              "Please upload the remaining requirements before you submit the application.",
+            text: "Please upload the remaining requirements before you submit the application.",
             icon: "error",
           });
         }
@@ -178,6 +196,91 @@ export default {
           });
           return property;
         }
+      }
+    },
+
+    async sendDataToLocal() {
+      const config = {
+        headers: {
+          "OneDoc-Token": oneDocToken,
+          "Content-Type": "application/json",
+        },
+      };
+      const application_params = {
+        onlinerefno: this.businessBasicInformation.reference_number || "",
+        orgtype: this.businessBasicInformation.type_of_organization || "",
+        paymode: this.businessBasicInformation.mode_of_payment || "",
+        lastname: this.businessBasicInformation.owner_last_name || "",
+        firstname: this.businessBasicInformation.owner_first_name || "",
+        middlename: this.businessBasicInformation.owner_middle_name || "",
+        owneraddress:
+          this.businessBasicInformation.owner_complete_address || "",
+        telno: this.businessBasicInformation.owner_telephone_number || "",
+        email: this.businessBasicInformation.email_address || "",
+        regno: this.businessBasicInformation.dti_sec_cda_reg_number || "",
+        regdate: moment(this.dti_sec_cda_reg_date).format("YYYY-MM-DD"),
+        ctcno: this.businessBasicInformation.ctc_no || "",
+        tin: this.businessBasicInformation.tin || "",
+        incentive: this.businessBasicInformation.has_tax_incentive
+          ? "Yes"
+          : "No",
+        incentiveentity: this.businessBasicInformation.government_entity || "",
+        tlastname: this.businessDetails.president_last_name || "",
+        tfirstname: this.businessDetails.president_first_name || "",
+        tmiddlename: this.businessDetails.president_middle_name || "",
+        corpname: this.businessDetails.name || "",
+        tradename: this.businessDetails.trade_name || "",
+        businessaddress: this.businessDetails.complete_business_address || "",
+        businessaddressno: this.businessDetails.address_no || "",
+        businessblockno: this.businessDetails.block_no || "",
+        businesslotno: this.businessDetails.lot_no || "",
+        businessstreet: this.businessDetails.street || "",
+        businesssubdivision: this.businessDetails.subdivision || "",
+        businessbldgno: this.businessDetails.building_no || "",
+        businessbldgname: this.businessDetails.building_name || "",
+        businessunitno: this.businessDetails.unit_no || "",
+        businessfloorno: this.businessDetails.floor_no || "",
+        businessbarangay: this.businessDetails.barangay || "",
+        city: this.businessDetails.city || "",
+        province: "Cavite",
+        businesstelno: this.businessDetails.telephone_number || "",
+        businessemail: this.businessDetails.email_address || "",
+        pin: this.businessDetails.property_index_number || "",
+        businessarea: this.businessDetails.area || "",
+        empcount: this.businessDetails.total_employees || "",
+        emplgucount: this.businessDetails.residing_employees || "",
+        lessorlastname: this.lessorDetails.last_name || "",
+        lessorfirstname: this.lessorDetails.first_name || "",
+        lessormiddlename: this.lessorDetails.middle_name || "",
+        lessoraddress: this.lessorDetails.complete_address || "",
+        monthlyrental: this.lessorDetails.gross_monthly_rental
+          ? this.lessorDetails.gross_monthly_rental.toString()
+          : "",
+        lessortelno: this.lessorDetails.telephone_number || "",
+        lessoremail: this.lessorDetails.email_address || "",
+        apptype: "New" || "",
+        appdate: moment(this.businessApplication.created_at).format(
+          "YYYY-MM-DD"
+        ),
+        year: moment(this.businessApplication.created_at).format("YYYY"),
+        remarks: "",
+      };
+
+      const application_payload = {
+        name: "POSTBusiness",
+        param: application_params,
+      };
+
+      const response = await axios.post(
+        `${lguLocalEndpoint}`,
+        application_payload,
+        config
+      );
+
+      if (response.data.Result) {
+        return true;
+      } else {
+        return false;
       }
     },
   },
