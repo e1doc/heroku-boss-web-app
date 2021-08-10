@@ -166,10 +166,6 @@ export default {
       this.merchantRefNo = this.currentSoaObj.reference_number;
       this.payorName = `${this.userDetails.first_name} ${this.userDetails.last_name}`;
       this.payorEmail = this.userDetails.email;
-      const businessName =
-        business_application.businessdetails.name != ""
-          ? business_application.businessdetails.name
-          : business_application.businessdetails.trade_name;
       let paymode =
         this.currentSoaObj.paymode === "A"
           ? "Annually"
@@ -177,6 +173,10 @@ export default {
           ? "Semi-Annually"
           : "Quarterly";
       if (this.currentSoaObj.application_type === "business") {
+        const businessName =
+          business_application.businessdetails.name != ""
+            ? business_application.businessdetails.name
+            : business_application.businessdetails.trade_name;
         this.particulars = `Transaction_type=Business Permit;Account No.=${business_application.account_number};Business Name=${businessName};Payment Mode=${paymode};Quarter=1-4`;
       } else {
         let buildingBasicInfo = building_application.buildingbasicinformation;
