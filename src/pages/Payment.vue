@@ -115,6 +115,7 @@ import DownloadableInvoice from "@/components/payment/DownloadableInvoice";
 import PaymentDetailsModal from "@/components/payment/PaymentDetailsModal";
 import { mapGetters } from "vuex";
 import md5 from "crypto-js/md5";
+const api_url = process.env.VUE_APP_API_URL;
 export default {
   components: {
     PaymentInvoiceSummary,
@@ -144,8 +145,8 @@ export default {
       amount: "",
       payorName: "",
       payorEmail: "",
-      returnUrlOk: "https://bossapi.bacoor.gov.ph/api/payment-success/",
-      returnUrlError: "https://bossapi.bacoor.gov.ph/api/payment-error/",
+      returnUrlOk: api_url + "/api/payment-success/",
+      returnUrlError: api_url + "/api/payment-error/",
       hash: "",
     };
   },
@@ -187,12 +188,12 @@ export default {
       this.hash = this.getHash();
     },
     submit() {
-      // this.$refs.form.submit();
+      this.$refs.form.submit();
       this.$router.push({ name: "Profile" });
-      window.open(
-        "https://epaymentportal.landbank.com/pay1.php?code=Sll1bkZRa0ptUmhva2tzRGZXRW9KL1BFcUhmN2JhWThrTW1RcjdMZzlnND0=",
-        "_blank"
-      );
+      // window.open(
+      //   "https://epaymentportal.landbank.com/pay1.php?code=Sll1bkZRa0ptUmhva2tzRGZXRW9KL1BFcUhmN2JhWThrTW1RcjdMZzlnND0=",
+      //   "_blank"
+      // );
     },
     getHash() {
       let amount = parseFloat(this.currentSoaObj.amount).toFixed(2);
