@@ -139,7 +139,7 @@ export default {
       isPayment: true,
       selectedPayment: "landbank",
       isFeatureImplemented: true,
-      merchantCode: "2020101157",
+      merchantCode: "2020100015",
       merchantRefNo: "",
       particulars: "",
       amount: "",
