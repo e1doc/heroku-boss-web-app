@@ -178,11 +178,11 @@ export default {
           business_application.businessdetails.name != ""
             ? business_application.businessdetails.name
             : business_application.businessdetails.trade_name;
-        this.particulars = `Transaction_type=Business Permit;Account No.=${business_application.account_number};Business Name=${businessName};Payment Mode=${paymode};Quarter=1-4`;
+        this.particulars = `Transaction Type=Business Permit;Account No.=${business_application.account_number};Business Name=${businessName};Payment Mode=${paymode};Quarter=1-4`;
       } else {
         let buildingBasicInfo = building_application.buildingbasicinformation;
         let declaredOwner = `${buildingBasicInfo.owner_first_name} ${buildingBasicInfo.owner_middle_name} ${buildingBasicInfo.owner_last_name}`;
-        this.particulars = `Transaction_type=Real Property Tax;Tax Declaration=${building_application.buildingdetails.tax_dec_no};Declared Owner=${declaredOwner};Payment Mode=${paymode};Quarter=${this.currentSoaObj.quarter};Total Amount=${this.currentSoaObj.amount}`;
+        this.particulars = `Transaction Type=Real Property Tax;Tax Declaration=${building_application.buildingdetails.tax_dec_no};Declared Owner=${declaredOwner};Payment Mode=${paymode};Quarter=${this.currentSoaObj.quarter};Total Amount=${this.currentSoaObj.amount}`;
       }
       console.log(this.particulars);
       this.hash = this.getHash();
