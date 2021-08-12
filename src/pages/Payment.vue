@@ -178,7 +178,7 @@ export default {
           business_application.businessdetails.name != ""
             ? business_application.businessdetails.name
             : business_application.businessdetails.trade_name;
-        this.particulars = `transaction_Type=Business Tax;Account No.=${business_application.account_number};Business Name=${businessName};Payment Mode=${paymode};Quarter=1-4`;
+        this.particulars = `transaction_type=Business Tax;Account No.=${business_application.account_number};Business Name=${businessName};Payment Mode=${paymode};Quarter=1-4`;
       } else {
         let buildingBasicInfo = building_application.buildingbasicinformation;
         let declaredOwner = `${buildingBasicInfo.owner_first_name} ${buildingBasicInfo.owner_middle_name} ${buildingBasicInfo.owner_last_name}`;
