@@ -13,7 +13,10 @@
         <div class="th">STATUS</div>
         <div class="th">ACTIONS</div>
       </div>
-      <div class="tbody" v-if="soaList.length > 0">
+      <div
+        class="tbody"
+        v-if="soaList.length > 0 && currentType === 'business'"
+      >
         <div class="tr" v-for="(item, index) in soaList" :key="index">
           <div class="td">
             <span class="td-label show-in-mobile">ACCOUNT NUMBER : </span>
@@ -77,7 +80,10 @@
         <div class="th">STATUS</div>
         <div class="th">ACTIONS</div>
       </div>
-      <div class="tbody" v-if="soaList.length > 0">
+      <div
+        class="tbody"
+        v-if="soaList.length > 0 && currentType === 'building'"
+      >
         <div class="tr" v-for="(item, index) in soaList" :key="index">
           <!-- <div class="td w10">
               <span class="td-label show-in-mobile">ACCOUNT # : </span>
@@ -137,7 +143,10 @@
         <div class="th">STATUS</div>
         <div class="th">ACTIONS</div>
       </div>
-      <div class="tbody" v-if="soaList.length > 0">
+      <div
+        class="tbody"
+        v-if="soaList.length > 0 && currentType === 'real_property'"
+      >
         <div class="tr" v-for="(item, index) in soaList" :key="index">
           <div class="td">
             <span class="td-label show-in-mobile">TD #: </span>
