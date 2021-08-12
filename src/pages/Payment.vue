@@ -197,8 +197,9 @@ export default {
     },
     getHash() {
       let amount = parseFloat(this.currentSoaObj.amount).toFixed(2);
-      console.log(this.merchantCode, this.merchantRefNo, amount * 100);
-      return md5(this.merchantCode + this.merchantRefNo + amount * 100)
+      amount = parseInt(amount * 100);
+      console.log(this.merchantCode, this.merchantRefNo);
+      return md5(this.merchantCode + this.merchantRefNo + amount)
         .toString()
         .toLowerCase();
     },
