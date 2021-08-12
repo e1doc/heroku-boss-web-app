@@ -63,7 +63,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.commit("setCurrentType", "business");
+    this.$store.commit("setCurrentType", this.currentType);
   },
   data() {
     return {
