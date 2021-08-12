@@ -206,13 +206,7 @@ export default {
     DownloadableInvoice,
   },
   computed: {
-    ...mapGetters([
-      "currentType",
-      "soaList",
-      "pageCount",
-      "currentType",
-      "currentSoa",
-    ]),
+    ...mapGetters(["currentType", "soaList", "pageCount", "currentSoa"]),
   },
   watch: {
     currentType: {
