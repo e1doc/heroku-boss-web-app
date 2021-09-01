@@ -11,6 +11,7 @@
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import HeaderNav from "@/components/HeaderNav";
+
 import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
@@ -29,6 +30,14 @@ export default {
   },
   methods: {
     ...mapActions(["closePrompt"]),
+    showPrivacyDialog() {
+      const isDismissed = localStorage.getItem("dismissPrivacyDialog");
+      if (isDismissed === "true") {
+        this.$store.commit("setShowPrivacyDialog", false);
+      } else {
+        this.$store.commit("setShowPrivacyDialog", true);
+      }
+    },
   },
   watch: {
     showPrompt: {
@@ -45,6 +54,9 @@ export default {
         }
       },
     },
+  },
+  mounted() {
+    this.showPrivacyDialog();
   },
 };
 </script>

@@ -22,6 +22,7 @@ const getDefaultUIState = () => {
     isMaintenanceMode: false,
     promptHtml: "",
     currentPageNum: 1,
+    showPrivacyDialog: true,
   };
 };
 const state = getDefaultUIState();
@@ -47,6 +48,7 @@ const getters = {
   isMaintenanceMode: (state) => state.isMaintenanceMode,
   promptHtml: (state) => state.promptHtml,
   currentPageNum: (state) => state.currentPageNum,
+  showPrivacyDialog: (state) => state.showPrivacyDialog,
 };
 
 const actions = {
@@ -99,6 +101,8 @@ const mutations = {
   setPromptHtml: (state, promptHtml) => (state.promptHtml = promptHtml),
   setCurrentPageNum: (state, currentPageNum) =>
     (state.currentPageNum = currentPageNum),
+  setShowPrivacyDialog: (state, showPrivacyDialog) =>
+    (state.showPrivacyDialog = showPrivacyDialog),
 };
 
 export default {

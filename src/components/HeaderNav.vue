@@ -4,7 +4,7 @@
       <img class="meta-img" src="../assets/bacoor-cavite-logo.png" />
       <div class="meta-site-name">Bacoor One Stop<br />Shop System</div>
     </div>
-    <div class="meta-center-box">
+    <div v-if="isAuthenticated" class="meta-center-box">
       <ul class="meta-nav">
         <li class="meta-menu redirect" @click="extRedirect">Bacoor.gov.ph</li>
         <li class="meta-menu has-children">
@@ -58,7 +58,7 @@
         <li class="meta-menu"><router-link to="faq">FAQ's</router-link></li>
       </ul>
     </div>
-    <div class="meta-right-box">
+    <div v-if="isAuthenticated" class="meta-right-box">
       <ul class="meta-nav flex-center hide-in-mobile">
         <li class="meta-menu meta-inquire">
           <router-link to="user-inquiries"
@@ -94,7 +94,11 @@
     </div>
 
     <!-- MOBILE SLIDE MENU -->
-    <div class="meta-mobile-nav" :class="{ active: slidemenu == true }">
+    <div
+      v-if="isAuthenticated"
+      class="meta-mobile-nav"
+      :class="{ active: slidemenu == true }"
+    >
       <div class="meta-wrap">
         <div class="close-menu">
           <font-awesome-icon
@@ -283,6 +287,9 @@
         </a>
       </div>
     </div>
+    <router-link to="/" v-if="!isAuthenticated" class="meta-signin"
+      >Go back to previous page</router-link
+    >
   </section>
 </template>
 
@@ -295,6 +302,12 @@ export default {
       slidemenu: false,
       menuActive: "profile",
     };
+  },
+  props: {
+    isAuthenticated: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
     ...mapGetters(["userDetails"]),
@@ -641,6 +654,14 @@ div.meta-mobile-nav .logout-menu a:focus {
 
 div.meta-mobile-nav .logout-menu .logout-icon {
   margin-right: 15px;
+}
+
+.meta-signin {
+  margin-left: auto;
+  font-weight: bold;
+  color: #e23a36;
+  cursor: pointer;
+  text-decoration: none !important;
 }
 
 @media only screen and (max-width: 1320px) {

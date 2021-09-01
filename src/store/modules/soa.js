@@ -273,7 +273,7 @@ const actions = {
         if (item.id === payload.id) {
           item.is_verified = true;
         }
-        return item;
+        return item;  
       });
       await commit("setSoaList", soaList);
       dispatch("createPrompt", {

@@ -49,6 +49,7 @@
         </div>
       </div>
     </div>
+    <privacy-dialog v-if="showPrivacyDialog"></privacy-dialog>
   </section>
 </template>
 
@@ -60,6 +61,7 @@ import RegisterDiv from "@/components/auth/RegisterDiv";
 import ForgotPassDiv from "@/components/auth/ForgotPassDiv";
 import OtpDiv from "@/components/auth/OtpDiv";
 import { mapGetters } from "vuex";
+import PrivacyDialog from "@/components/PrivacyDialog";
 export default {
   name: "Login",
   components: {
@@ -69,6 +71,7 @@ export default {
     RegisterDiv,
     ForgotPassDiv,
     OtpDiv,
+    PrivacyDialog,
   },
   data() {
     return {
@@ -77,14 +80,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["authType", "loginSuccess"])
+    ...mapGetters(["authType", "loginSuccess", "showPrivacyDialog"]),
   },
   watch: {
     loginSuccess: {
       deep: true,
       handler(isSuccess) {
         if (isSuccess) {
-          this.$store.commit('setLoginSuccess',false)
+          this.$store.commit("setLoginSuccess", false);
           this.$router.push({ name: "Profile" });
         }
       },
@@ -94,8 +97,8 @@ export default {
     changeDiv(type) {
       this.$store.commit("setAuthType", type);
       type === "register" ? (this.isExpand = true) : (this.isExpand = false);
-      this.$store.commit('setValidationMessages',{})
-      this.$store.commit('setForgotPasswordSuccess',false)
+      this.$store.commit("setValidationMessages", {});
+      this.$store.commit("setForgotPasswordSuccess", false);
     },
   },
 };
@@ -168,49 +171,48 @@ export default {
   }
 }
 
-@media only screen and ( max-width : 860px ){
-  #login-section{
+@media only screen and (max-width: 860px) {
+  #login-section {
     padding: 50px 0;
   }
   .container {
-      margin-bottom: 0;
+    margin-bottom: 0;
   }
   .sc-rounded-div {
-      max-width: 480px;
-      flex-wrap: wrap;
+    max-width: 480px;
+    flex-wrap: wrap;
   }
   #login-section .login-form-holder .left-div,
   #login-section .login-form-holder .right-div,
-  #login-section .login-form-holder .expand{
-      width: 100%!important;
+  #login-section .login-form-holder .expand {
+    width: 100% !important;
   }
 
-  #login-section .login-form-holder .left-div{
-      border-top-right-radius: 20px;
-      border-bottom-left-radius: 0;
-      padding: 30px 30px;
+  #login-section .login-form-holder .left-div {
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 0;
+    padding: 30px 30px;
   }
 
-  #login-section .login-form-holder .right-div{
-      padding: 40px 50px 30px;
+  #login-section .login-form-holder .right-div {
+    padding: 40px 50px 30px;
   }
 
-  .logo{
-      width: 65px;  
+  .logo {
+    width: 65px;
   }
 
-  #login-section .login-form-holder .left-div .left-div-title{
-      margin: 15px 0;
+  #login-section .login-form-holder .left-div .left-div-title {
+    margin: 15px 0;
   }
 }
-
 
 @media only screen and (max-width: 650px) {
-    #login-section {
-        padding: 30px 0;
-    }
+  #login-section {
+    padding: 30px 0;
+  }
 }
-@media only screen and (max-height: 650px) and ( min-width: 991px ) {
+@media only screen and (max-height: 650px) and (min-width: 991px) {
   #login-section {
     padding: 30px;
     min-height: 100vh;
@@ -218,23 +220,23 @@ export default {
   }
 }
 
-@media only screen and ( max-width: 480px ){
-    #login-section .login-form-holder .right-div{
-        padding: 30px 30px!important;
-    }
+@media only screen and (max-width: 480px) {
+  #login-section .login-form-holder .right-div {
+    padding: 30px 30px !important;
+  }
 
-    .form-group div{
-        margin-bottom: 15px;
-    }
+  .form-group div {
+    margin-bottom: 15px;
+  }
 }
 
-@media only screen and ( max-width: 350px ){
+@media only screen and (max-width: 350px) {
   #login-section .login-form-holder .right-div,
-  #login-section .login-form-holder .left-div{
-      padding: 30px 15px!important;
+  #login-section .login-form-holder .left-div {
+    padding: 30px 15px !important;
   }
-  .btn{
-      max-width: 100%;
+  .btn {
+    max-width: 100%;
   }
 }
 </style>

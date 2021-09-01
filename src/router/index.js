@@ -43,6 +43,7 @@ import RenewalBusinessPermitApplication from "../pages/RenewalBusinessPermitAppl
 import PaymentLayout from "../PaymentLayout.vue";
 import UserTransactions from "../pages/UserTransactions";
 import RequestNewTaxDec from "../pages/RequestNewTaxDec";
+import PrivacyPolicy from "../pages/PrivacyPolicy";
 import store from "../store";
 import swal from "sweetalert2";
 Vue.use(VueRouter);
@@ -94,6 +95,11 @@ const routes = [
         component: PaymentError,
       },
     ],
+  },
+  {
+    path: "/privacy-policy",
+    name: "PrivacyPolicy",
+    component: PrivacyPolicy,
   },
   {
     path: "/main",
