@@ -246,9 +246,9 @@ export default {
         businesstelno: this.businessDetails.telephone_number || "",
         businessemail: this.businessDetails.email_address || "",
         pin: this.businessDetails.property_index_number || "",
-        businessarea: this.businessDetails.area || "",
-        empcount: this.businessDetails.total_employees || "",
-        emplgucount: this.businessDetails.residing_employees || "",
+        businessarea: this.businessDetails.area.toString() || "",
+        empcount: this.businessDetails.total_employees.toString() || "",
+        emplgucount: this.businessDetails.residing_employees.toString() || "",
         lessorlastname: this.lessorDetails.last_name || "",
         lessorfirstname: this.lessorDetails.first_name || "",
         lessormiddlename: this.lessorDetails.middle_name || "",
@@ -265,7 +265,7 @@ export default {
         year: moment(this.businessApplication.created_at).format("YYYY"),
         remarks: "",
       };
-
+      console.log(application_params);
       const application_payload = {
         name: "POSTBusiness",
         param: application_params,
