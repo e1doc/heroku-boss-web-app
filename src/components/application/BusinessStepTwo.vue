@@ -1105,7 +1105,7 @@ export default {
           "Content-Type": "application/json",
         },
       };
-      console.log("Business activities", this.businessActivities);
+
       const businessLineObj = {};
       if (this.businessActivities && this.businessActivities.length > 0) {
         this.businessActivities.forEach((item, index) => {
