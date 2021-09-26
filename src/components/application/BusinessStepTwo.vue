@@ -468,6 +468,9 @@ import BaseCheckbox from "@/components/forms/BaseCheckbox";
 import ButtonBlock from "@/components/ButtonBlock";
 import BaseTelNumber from "@/components/forms/BaseTelNumber";
 import { mapGetters } from "vuex";
+const oneDocToken = process.env.VUE_APP_ONE_DOC_TOKEN;
+const lguLocalEndpoint = process.env.VUE_APP_LGU_LOCAL_ENDPOINT;
+import axios from "axios";
 export default {
   name: "BusinessStepTwo",
   components: {
@@ -859,6 +862,7 @@ export default {
       "draftBusiness",
       "typeOfOrganization",
       "activityErrors",
+      "businessBasicInformation",
     ]),
   },
   mounted() {
@@ -949,7 +953,7 @@ export default {
           }
         }
         if (!this.draftBusiness) {
-          this.validateRequiredFields();
+          await this.validateRequiredFields();
           this.$store.commit("setLoading", false);
         } else {
           this.$swal({
@@ -961,7 +965,7 @@ export default {
           });
         }
       } else {
-        this.validateRequiredFields();
+        await this.validateRequiredFields();
         if (this.draftBusiness) {
           this.$swal({
             title: "Failed!",
@@ -1012,7 +1016,7 @@ export default {
         }
       }
     },
-    validateRequiredFields() {
+    async validateRequiredFields() {
       let business_details_errors = { key: "business_details", value: {} };
       let activity_errors_holder = {};
       let isBusinessDetailsClean = true;
@@ -1084,6 +1088,7 @@ export default {
         !this.detailsHasError &&
         !this.lessorDetailsHasError
       ) {
+        await this.sendBusinessLineToLGU();
         this.$store.commit("setCurrentApplicationStep", "3");
       } else {
         this.$swal({
@@ -1091,6 +1096,42 @@ export default {
           text: "Please fix the validation errors before proceeding to the next step.",
           icon: "error",
         });
+      }
+    },
+    async sendBusinessLineToLGU() {
+      const config = {
+        headers: {
+          "OneDoc-Token": oneDocToken,
+          "Content-Type": "application/json",
+        },
+      };
+      console.log("Business activities", this.businessActivities);
+      const businessLineObj = {};
+      if (this.businessActivities && this.businessActivities.length > 0) {
+        this.businessActivities.forEach((item, index) => {
+          businessLineObj[index + 1] = {
+            name: item.line_of_business,
+            unitcount: parseInt(item.units),
+            grossamount: parseFloat(item.capitalization),
+            capital: parseFloat(item.capitalization),
+          };
+        });
+
+        const data = {
+          name: "POSTBusinessLines",
+          param: {
+            onlinerefno: this.businessBasicInformation.reference_number || "",
+            businesslines: businessLineObj,
+          },
+        };
+
+        const response = await axios.post(`${lguLocalEndpoint}`, data, config);
+
+        if (response.data.Result) {
+          return true;
+        } else {
+          return false;
+        }
       }
     },
   },
