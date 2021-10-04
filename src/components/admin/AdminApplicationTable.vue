@@ -338,6 +338,12 @@ export default {
       //     data.businessapplicationrequirements[0]
       //   );
       // }
+
+      if (data.businesspermitfiles.length > 0) {
+        this.$store.commit("setBusinessPermits", data.businesspermitfiles);
+      } else {
+        this.$store.commit("setBusinessPermits", []);
+      }
       await this.$store.dispatch("getBusinessActiveRequirement");
       await this.$store.commit("setLoading", false);
       this.$router.push({ name: "ApproveBusinessApplication" });

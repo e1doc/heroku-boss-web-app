@@ -22,7 +22,23 @@
     </modal>
     <div class="meta-container flex-wrap" ref="content">
       <div class="meta-form-body flex-wrap">
-        <div class="meta-txt-download" @click="downloadApplication">
+        <div class="meta-txt-download w-100" @click="isUploadFile = true">
+          <font-awesome-icon icon="save" class="mr10 icon" />Upload Permit
+        </div>
+        <div class="w-100" v-if="isUploadFile">
+          <base-file-uploader
+            type="business_permit"
+            uploadType="application/pdf"
+          />
+        </div>
+        <div
+          class="meta-txt-download w-100"
+          v-if="businessPermits.length > 0"
+          @click="viewBusinessPermit()"
+        >
+          <font-awesome-icon icon="eye" class="mr10 icon" />View Permit
+        </div>
+        <div class="meta-txt-download w-100" @click="downloadApplication">
           <font-awesome-icon icon="save" class="mr10 icon" />Download
         </div>
         <h1 class="meta-form-title">Business Application Details</h1>
@@ -587,6 +603,7 @@ import { mapGetters } from "vuex";
 import AppLink from "@/components/AppLink";
 import DownloadableBusinessForm from "@/components/application/DownloadableBusinessForm";
 import moment from "moment-timezone";
+import BaseFileUploader from "@/components/forms/BaseFileUploader";
 export default {
   name: "ApproveBusinessApplication",
   components: {
@@ -596,6 +613,7 @@ export default {
     AppLink,
     ButtonFull,
     DownloadableBusinessForm,
+    BaseFileUploader,
   },
   data() {
     return {
@@ -604,6 +622,7 @@ export default {
       index: 0,
       account_number: "",
       applicationStatus: 0, // default: 0
+      isUploadFile: false,
     };
   },
   beforeRouteLeave(to, from, next) {
@@ -628,6 +647,7 @@ export default {
       "isAssessmentActive",
       "isAssessmentHasError",
       "showActionButtons",
+      "businessPermits",
     ]),
   },
   mounted() {
@@ -874,13 +894,19 @@ export default {
       let payload = { business_application: this.businessApplication.id };
       await this.$store.dispatch("checkBusinessDeptCanAssess", payload);
     },
+
+    viewBusinessPermit() {
+      const file = this.businessPermits[this.businessPermits.length - 1].file;
+      const url = this.replaceUrl(file);
+      window.open(url, "_blank");
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .meta-txt-download {
-  padding: 10x 10px 10px 0px;
+  padding: 10px 10px 10px 0px;
   text-decoration: underline;
   cursor: pointer;
   margin-bottom: 20px;
@@ -1108,6 +1134,15 @@ div.meta-parent-box {
   font-size: 14px;
   font-weight: bold;
   padding: 5px 0;
+  margin-left: 30px;
+}
+
+.link {
+  width: 100%;
+  color: #2699fb;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px 0;
   margin-left: 30px;
 }
 

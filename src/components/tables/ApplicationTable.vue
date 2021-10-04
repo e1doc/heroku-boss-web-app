@@ -406,6 +406,13 @@ export default {
       //     data.businessapplicationrequirements[0]
       //   );
       // }
+
+      if (data.businesspermitfiles.length > 0) {
+        this.$store.commit("setBusinessPermits", data.businesspermitfiles);
+      } else {
+        this.$store.commit("setBusinessPermits", []);
+      }
+
       await this.$store.dispatch("getBusinessActiveRequirement");
       if (type === "edit") {
         this.$router.push({ name: "BusinessPermitApplication" });

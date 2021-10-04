@@ -2,6 +2,13 @@
   <div class="meta-parent-box">
     <div class="meta-container flex-wrap" ref="content">
       <div class="meta-form-body flex-wrap">
+        <div
+          class="meta-txt-download"
+          @click="viewBusinessPermit"
+          v-if="businessPermits.length > 0"
+        >
+          <font-awesome-icon icon="eye" class="mr10 icon" />View Permit
+        </div>
         <h1 class="meta-form-title">Business Application Details</h1>
         <!-- Application Date and Nos. -->
         <div class="meta-text-group flex-wrap">
@@ -523,6 +530,7 @@ export default {
       "applicationRequirements",
       "requirements",
       "businessAssessmentResult",
+      "businessPermits",
     ]),
   },
   created() {
@@ -594,11 +602,24 @@ export default {
     formatLabel(string) {
       return string.replace(/_/g, " ").toUpperCase();
     },
+    viewBusinessPermit() {
+      const file = this.businessPermits[this.businessPermits.length - 1].file;
+      const url = this.replaceUrl(file);
+      window.open(url, "_blank");
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.meta-txt-download {
+  padding: 10px 10px 10px 0px;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-bottom: 20px;
+  color: #2699fb;
+  font-weight: bold;
+}
 .meta-view-remarks {
   text-decoration: underline;
   cursor: pointer;

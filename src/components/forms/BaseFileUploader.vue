@@ -23,7 +23,7 @@
           }}
         </div>
       </form>
-      
+
       <div class="upload-limit">Note: File size should not exceed 20mb.</div>
     </div>
   </div>
@@ -95,6 +95,7 @@ export default {
     this.$store.commit("setClearFileInput", false);
     this.$store.commit("setIsFileReady", false);
     this.$store.commit("setCurrentEvaluationFile", new FormData());
+    this.$store.commit("setIsFileUploadFailed", false);
   },
   computed: {
     ...mapGetters([
@@ -106,6 +107,7 @@ export default {
       "isFileUploadFailed",
       "paymentDetails",
       "clearFileInput",
+      "businessApplication",
     ]),
     isInitial() {
       return this.currentStatus === STATUS_INITIAL;
@@ -138,6 +140,8 @@ export default {
           await this.$store.dispatch("uploadRequirements", formData);
         } else if (this.type === "property") {
           await this.$store.dispatch("uploadBuildingRequirements", formData);
+        } else if (this.type === "business_permit") {
+          await this.$store.dispatch("uploadBusinessPermit", formData);
         }
         if (this.isFileUploadFailed) {
           this.filename = "DRAG/CLICK TO UPLOAD YOUR FILE HERE";
@@ -197,19 +201,28 @@ export default {
           ) {
             if (fileList[x].size <= 26214400) {
               this.filename = fileList[x].name;
+
               if (!this.isPaymentDetails) {
                 formData.append(fieldName, fileList[x]);
-                let requirement_id =
-                  this.type === "business"
-                    ? this.applicationRequirements.id
-                    : this.buildingApplicationRequirements.id;
-                formData.append("requirement_id", requirement_id);
-                formData.append("requirements_label", this.fileLabel);
+
+                if (!this.type === "business_permit") {
+                  let requirement_id =
+                    this.type === "business"
+                      ? this.applicationRequirements.id
+                      : this.buildingApplicationRequirements.id;
+                  formData.append("requirement_id", requirement_id);
+                  formData.append("requirements_label", this.fileLabel);
+                } else {
+                  formData.append(
+                    "application_id",
+                    this.businessApplication.id
+                  );
+                }
                 formData.append("filename", fileList[x].name);
-                payload.requirement_id = requirement_id;
-                payload.requirements_label = this.fileLabel;
-                payload.filename = fileList[x].name;
-                payload.file = fileList[x].file;
+                // payload.requirement_id = requirement_id;
+                // payload.requirements_label = this.fileLabel;
+                // payload.filename = fileList[x].name;
+                // payload.file = fileList[x].file;
                 this.save(formData);
               } else {
                 let paymentFormData = this.paymentDetails;
@@ -227,7 +240,6 @@ export default {
               });
             }
           } else {
-            console.log(fileList[x]["type"]);
             this.$swal({
               title: "Invalid file type!",
               text: "Please enter a valid file format.",
@@ -336,11 +348,11 @@ export default {
 }
 
 .upload-limit {
-    font-size: 14px;
-    width: 100%;
-    text-align: center;
-    margin-top: 5px;
-    color: #4886ba;
+  font-size: 14px;
+  width: 100%;
+  text-align: center;
+  margin-top: 5px;
+  color: #4886ba;
 }
 
 div.meta-container .meta-custom-upload:hover {

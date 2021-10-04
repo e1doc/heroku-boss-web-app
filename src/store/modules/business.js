@@ -49,6 +49,7 @@ const getDefaultBusinessState = () => {
     activityErrors: {},
     showActionButtons: true,
     businessPageNum: 1,
+    businessPermits: [],
   };
 };
 
@@ -92,6 +93,7 @@ const getters = {
   activityErrors: (state) => state.activityErrors,
   showActionButtons: (state) => state.showActionButtons,
   businessPageNum: (state) => state.businessPageNum,
+  businessPermits: (state) => state.businessPermits,
 };
 
 const mutations = {
@@ -166,6 +168,8 @@ const mutations = {
     (state.showActionButtons = showActionButtons),
   setBusinessPageNum: (state, businessPageNum) =>
     (state.businessPageNum = businessPageNum),
+  setBusinessPermits: (state, businessPermits) =>
+    (state.businessPermits = businessPermits),
 };
 
 const actions = {
@@ -337,7 +341,7 @@ const actions = {
       console.log(err.response);
       let errors = { key: "basic_information", value: err.response.data };
       await commit("setStepOneErrors", errors);
-      console.log(errors)
+      console.log(errors);
       await commit("setBasicInfoHasError", true);
       await commit("setLoading", false);
     }
@@ -796,6 +800,41 @@ const actions = {
       if (err.response) {
         console.log(err.response.data);
       }
+    }
+  },
+  async uploadBusinessPermit({ commit, getters, dispatch }, payload) {
+    try {
+      await commit("setLoading", true);
+      const response = await axios.post(
+        `${baseUrl}/staff/business-permit/`,
+        payload,
+        { headers: { Authorization: `jwt ${getters.authToken}` } }
+      );
+      await commit("setLoading", false);
+      await dispatch("getBusinessPermit");
+    } catch (err) {
+      await commit("setLoading", false);
+      await commit("setIsFileUploadFailed", true);
+      console.log(err.response);
+      await dispatch("createPrompt", {
+        type: "error",
+        title: "Failed!",
+        message: "Something went wrong! Please try again later.",
+      });
+    }
+  },
+
+  async getBusinessPermit({ commit, getters, dispatch }) {
+    try {
+      let payload = { id: getters.businessApplication.id };
+      const response = await axios.get(`${baseUrl}/staff/business-permit`, {
+        headers: { Authorization: `jwt ${getters.authToken}` },
+        params: payload,
+      });
+      console.log(response.data);
+      await commit("setBusinessPermits", response.data);
+    } catch (error) {
+      console.log(error);
     }
   },
 };
