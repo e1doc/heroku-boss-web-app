@@ -205,7 +205,7 @@ export default {
               if (!this.isPaymentDetails) {
                 formData.append(fieldName, fileList[x]);
 
-                if (!this.type === "business_permit") {
+                if (this.type !== "business_permit") {
                   let requirement_id =
                     this.type === "business"
                       ? this.applicationRequirements.id
