@@ -198,7 +198,7 @@ export default {
     getHash() {
       let amount = parseFloat(this.currentSoaObj.amount).toFixed(2);
       amount = amount * 100;
-      return md5(
+      return md5( 
         this.merchantCode + this.merchantRefNo + parseInt(Math.round(amount))
       )
         .toString()
