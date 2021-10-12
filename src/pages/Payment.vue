@@ -12,7 +12,7 @@
     /></modal>
     <div>
       <form
-        action="https://epaymentportal.landbank.com/"
+        action="https://222.127.109.48/epp20200915/"
         method="POST"
         target="_blank"
         @submit="submit"
@@ -139,7 +139,7 @@ export default {
       isPayment: true,
       selectedPayment: "landbank",
       isFeatureImplemented: true,
-      merchantCode: "2020100015",
+      merchantCode: "2020101157",
       merchantRefNo: "",
       particulars: "",
       amount: "",
