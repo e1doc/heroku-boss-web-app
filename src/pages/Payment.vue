@@ -189,7 +189,7 @@ export default {
     },
     submit() {
       this.$refs.form.submit();
-      this.$router.push({ name: "Profile" });
+      // this.$router.push({ name: "Profile" });
       // window.open(
       //   "https://epaymentportal.landbank.com/pay1.php?code=Sll1bkZRa0ptUmhva2tzRGZXRW9KL1BFcUhmN2JhWThrTW1RcjdMZzlnND0=",
       //   "_blank"
