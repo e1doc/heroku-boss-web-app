@@ -83,8 +83,16 @@
           <div class="td" v-if="currentType === 'building'">
             <span class="td-label show-in-mobile">OWNER NAME : </span>
             <span
-              >{{ building.buildingbasicinformation.owner_first_name }}
-              {{ building.buildingbasicinformation.owner_last_name }}</span
+              >{{
+                building.buildingbasicinformation
+                  ? building.buildingbasicinformation.owner_first_name
+                  : "N/A"
+              }}
+              {{
+                building.buildingbasicinformation
+                  ? building.buildingbasicinformation.owner_last_name
+                  : "N/A"
+              }}</span
             >
           </div>
           <div class="td actions">
@@ -121,7 +129,9 @@
           <div class="td" v-if="currentType === 'real_property'">
             <span class="td-label show-in-mobile">OWNER NAME : </span>
             <span>{{
-              building.buildingbasicinformation.owner_first_name
+              building.buildingbasicinformation
+                ? building.buildingbasicinformation.owner_first_name
+                : "N/A"
             }}</span>
           </div>
           <div class="td actions">
