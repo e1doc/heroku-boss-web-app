@@ -112,7 +112,11 @@
         >
           <div class="td">
             <span class="td-label show-in-mobile">TD # : </span>
-            {{ building.buildingdetails.tax_dec_no }}
+            {{
+              building.buildingdetails
+                ? building.buildingdetails.tax_dec_no
+                : "N/A"
+            }}
           </div>
           <div class="td" v-if="currentType === 'real_property'">
             <span class="td-label show-in-mobile">OWNER NAME : </span>
