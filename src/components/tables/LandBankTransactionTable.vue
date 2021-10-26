@@ -180,7 +180,13 @@ export default {
       return parts.join(".");
     },
     async transactionClickCallBack(pageNum) {
-      this.$store.dispatch("getAllUserBankTransactions", { page: pageNum });
+      if (this.type === "user") {
+        this.$store.dispatch("getAllUserLandBankTransactions", {
+          page: pageNum,
+        });
+      } else {
+        this.$store.dispatch("getAllLandBankTransactions", { page: pageNum });
+      }
     },
   },
 };
