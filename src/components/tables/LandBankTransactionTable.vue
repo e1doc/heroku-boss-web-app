@@ -89,7 +89,7 @@
       :container-class="'pagination'"
       :page-class="'page-item'"
       :click-handler="transactionClickCallBack"
-      v-if="landBankTransactions.length > 10"
+      v-if="landBankTransactions.length > 0"
     >
     </paginate>
   </section>
