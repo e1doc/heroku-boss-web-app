@@ -83,7 +83,7 @@
       </div>
     </div>
     <paginate
-      :page-count="transactionPageCount"
+      :page-count="pageCount"
       :prev-text="'Prev'"
       :next-text="'Next'"
       :container-class="'pagination'"
@@ -128,9 +128,9 @@ export default {
     ...mapGetters([
       "currentType",
       "bankTransactions",
-      "transactionPageCount",
       "landBankTransactions",
       "currentTable",
+      "pageCount",
     ]),
   },
   data() {
