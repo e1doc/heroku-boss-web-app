@@ -119,6 +119,8 @@ export default {
           await this.$store.dispatch("getAllUserLandBankTransactions", {
             page: 1,
           });
+        } else {
+          this.$store.dispatch("getAllLandBankTransactions", { page: 1 });
         }
         await this.$store.commit("setLoading", false);
       },
