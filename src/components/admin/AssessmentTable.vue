@@ -245,9 +245,9 @@ export default {
   methods: {
     async setUpData() {
       await this.$store.dispatch("getForBusinessAssessmentList");
-      await this.$store.dispatch("getAssessedBusinessList");
+      // await this.$store.dispatch("getAssessedBusinessList");
       await this.$store.dispatch("getForBuildingAssessmentList");
-      await this.$store.dispatch("getAssessedBuildingList");
+      // await this.$store.dispatch("getAssessedBuildingList");
     },
     getApplicationDate(last_submitted, created_at) {
       if (last_submitted) {
