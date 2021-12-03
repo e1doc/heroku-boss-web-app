@@ -7,7 +7,9 @@
       <h1>Payment Failed</h1>
       <p>
         Sorry, your payment was unsuccessful. <br />
-        Please try again later.
+        To proceed and try again, kindly re-generate your statement of account
+        (SOA) by clicking the "Bill" button and then proceed to online payment.
+        Thank you!
       </p>
     </div>
   </div>
