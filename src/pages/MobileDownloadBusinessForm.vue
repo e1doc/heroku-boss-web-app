@@ -19,7 +19,7 @@ export default {
     async getData() {
       try {
         const id = this.$route.params.id;
-        const token = this.$routes.token;
+        const token = this.$route.params.token;
 
         const result = await axios.get(
           `${process.env.VUE_APP_API_URL}/api/download-business/?id=${id}`,
