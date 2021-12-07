@@ -1,5 +1,9 @@
 <template>
-  <downloadable-business-form />
+  <div class="meta-parent-box">
+    <div class="meta-form-holder">
+      <downloadable-business-form />
+    </div>
+  </div>
 </template>
 
 <script>
