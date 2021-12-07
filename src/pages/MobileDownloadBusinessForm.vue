@@ -4,7 +4,7 @@
       <downloadable-business-form />
     </div>
     <div class="meta-message-holder">
-      <h3 class="meta-message">Please wait, your file is now downloading...</h3>
+      <h3 class="meta-message">{{ message }}</h3>
     </div>
   </div>
 </template>
