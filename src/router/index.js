@@ -44,6 +44,7 @@ import PaymentLayout from "../PaymentLayout.vue";
 import UserTransactions from "../pages/UserTransactions";
 import RequestNewTaxDec from "../pages/RequestNewTaxDec";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
+import MobileDownloadBusinessForm from "../pages/MobileDownloadBusinessForm";
 import store from "../store";
 import swal from "sweetalert2";
 Vue.use(VueRouter);
@@ -73,6 +74,11 @@ const routes = [
     path: "/reset-password/:uid/:token",
     name: "ResetPassword",
     component: ResetPassword,
+  },
+  {
+    path: "/download-business/:id/:token",
+    name: "MobileDownloadBusinessForm",
+    component: MobileDownloadBusinessForm,
   },
   {
     path: "/home",
