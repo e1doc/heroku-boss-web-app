@@ -3,6 +3,9 @@
     <div class="meta-form-holder">
       <downloadable-business-form />
     </div>
+    <div class="meta-message-holder">
+      <h3>Please wait, your file is now downloading...</h3>
+    </div>
   </div>
 </template>
 
@@ -13,7 +16,7 @@ export default {
   name: "MobileDownloadBusinessForm",
   components: { DownloadableBusinessForm },
   mounted() {
-    this.getData();
+    // this.getData();
   },
   methods: {
     async getData() {
@@ -72,6 +75,13 @@ div.meta-parent-box {
     opacity: 0;
     top: -500px;
     z-index: -1;
+  }
+  .meta-message-holder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
   }
 }
 </style>
