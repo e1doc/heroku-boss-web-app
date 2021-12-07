@@ -4,7 +4,7 @@
       <downloadable-business-form />
     </div>
     <div class="meta-message-holder">
-      <h3>Please wait, your file is now downloading...</h3>
+      <h3 class="meta-message">Please wait, your file is now downloading...</h3>
     </div>
   </div>
 </template>
@@ -16,7 +16,12 @@ export default {
   name: "MobileDownloadBusinessForm",
   components: { DownloadableBusinessForm },
   mounted() {
-    // this.getData();
+    this.getData();
+  },
+  data() {
+    return {
+      message: "Please wait, your file is now downloading...",
+    };
   },
   methods: {
     async getData() {
@@ -56,6 +61,8 @@ export default {
           }
           await this.$store.dispatch("getBusinessActivity");
           this.$store.commit("setPrintBusiness", true);
+          this.message =
+            "Please close this window after successfully downloading your business permit application form. Thank you!";
         }
       } catch (error) {
         console.log(error);
@@ -82,6 +89,10 @@ div.meta-parent-box {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    padding: 13px;
+    .meta-message {
+      text-align: center;
+    }
   }
 }
 </style>
