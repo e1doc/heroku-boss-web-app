@@ -12,7 +12,9 @@ import axios from "axios";
 export default {
   name: "MobileDownloadBusinessForm",
   components: { DownloadableBusinessForm },
-  mounted() {},
+  mounted() {
+    this.getData();
+  },
   methods: {
     async getData() {
       try {
