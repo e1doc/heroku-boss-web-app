@@ -158,7 +158,7 @@ export default {
     getQuarters() {
       let minQuarter = 0;
       let maxQuarter = this.currentSoaObj.quarter;
-      console.log(this.currentSoaObj.bills);
+
       if (this.currentSoaObj.bills && this.currentSoaObj.bills.length > 0) {
         this.currentSoaObj.bills.forEach((item) => {
           if (item.quarter < maxQuarter && minQuarter !== 0) {
@@ -171,7 +171,7 @@ export default {
             minQuarter = item.quarter;
           }
         });
-        console.log("Min Quarter", minQuarter);
+
         return minQuarter === maxQuarter && minQuarter !== 0
           ? minQuarter
           : minQuarter !== maxQuarter && minQuarter !== 0
