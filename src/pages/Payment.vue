@@ -205,7 +205,7 @@ export default {
         this.particulars = `transaction_type=Business Tax;Account No.=${
           business_application.account_number
         };Business Name=${businessName};Payment Mode=${paymode};Quarter=${
-          paymode === "A" ? "1-4" : this.getQuarters()
+          paymode === "A" ? "1-4" : this.currentSoaObj.quarter
         }`;
       } else {
         let buildingBasicInfo = building_application.buildingbasicinformation;
