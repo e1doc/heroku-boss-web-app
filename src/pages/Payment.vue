@@ -172,9 +172,11 @@ export default {
           }
         });
         console.log("Min Quarter", minQuarter);
-        return minQuarter === maxQuarter
+        return minQuarter === maxQuarter && minQuarter !== 0
           ? minQuarter
-          : `${minQuarter}-${maxQuarter}`;
+          : minQuarter !== maxQuarter && minQuarter !== 0
+          ? `${minQuarter}-${maxQuarter}`
+          : maxQuarter;
       }
     },
     showModal() {
