@@ -155,6 +155,27 @@ export default {
     this.setupFormData();
   },
   methods: {
+    getQuarters() {
+      let minQuarter = 0;
+      let maxQuarter = this.currentSoaObj.quarter;
+      if (this.currentSoaObj.bills && this.currentSoaObj.bills.length > 0) {
+        this.currentSoaObj.bills.forEach((item) => {
+          if (item.quarter < maxQuarter && minQuarter !== 0) {
+            minQuarter = item.quarter;
+          } else if (
+            item.quarter < maxQuarter &&
+            minQuarter !== 0 &&
+            item.quarter < minQuarter
+          ) {
+            minQuarter = item.quarter;
+          }
+        });
+
+        return minQuarter === maxQuarter
+          ? minQuarter
+          : `${minQuarter}-${maxQuarter}`;
+      }
+    },
     showModal() {
       this.$store.commit("setPaymentDetails", new FormData());
       this.$store.commit("setIsFileUploaded", false);
@@ -178,7 +199,11 @@ export default {
           business_application.businessdetails.name != ""
             ? business_application.businessdetails.name
             : business_application.businessdetails.trade_name;
-        this.particulars = `transaction_type=Business Tax;Account No.=${business_application.account_number};Business Name=${businessName};Payment Mode=${paymode};Quarter=1-4`;
+        this.particulars = `transaction_type=Business Tax;Account No.=${
+          business_application.account_number
+        };Business Name=${businessName};Payment Mode=${paymode};Quarter=${
+          paymode === "A" ? "1-4" : this.getQuarters()
+        }`;
       } else {
         let buildingBasicInfo = building_application.buildingbasicinformation;
         let declaredOwner = `${buildingBasicInfo.owner_first_name} ${buildingBasicInfo.owner_middle_name} ${buildingBasicInfo.owner_last_name}`;
@@ -198,7 +223,7 @@ export default {
     getHash() {
       let amount = parseFloat(this.currentSoaObj.amount).toFixed(2);
       amount = amount * 100;
-      return md5( 
+      return md5(
         this.merchantCode + this.merchantRefNo + parseInt(Math.round(amount))
       )
         .toString()

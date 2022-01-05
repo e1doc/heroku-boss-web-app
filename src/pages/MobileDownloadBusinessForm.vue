@@ -85,11 +85,8 @@ div.meta-parent-box {
   }
   .meta-message-holder {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
     padding: 13px;
+    flex: 1;
     .meta-message {
       text-align: center;
     }
