@@ -45,6 +45,7 @@ import UserTransactions from "../pages/UserTransactions";
 import RequestNewTaxDec from "../pages/RequestNewTaxDec";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import MobileDownloadBusinessForm from "../pages/MobileDownloadBusinessForm";
+import MobileDownloadInvoice from "../pages/MobileDownloadBusinessForm";
 import store from "../store";
 import swal from "sweetalert2";
 Vue.use(VueRouter);
@@ -79,6 +80,11 @@ const routes = [
     path: "/download-business/:id/:token",
     name: "MobileDownloadBusinessForm",
     component: MobileDownloadBusinessForm,
+  },
+  {
+    path: "/download-business/:id/:token",
+    name: "MobileDownloadInvoice",
+    component: MobileDownloadInvoice,
   },
   {
     path: "/home",
