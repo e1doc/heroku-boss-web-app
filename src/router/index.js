@@ -82,7 +82,7 @@ const routes = [
     component: MobileDownloadBusinessForm,
   },
   {
-    path: "/download-business/:id/:token",
+    path: "/download-invoice/:id/:token",
     name: "MobileDownloadInvoice",
     component: MobileDownloadInvoice,
   },
