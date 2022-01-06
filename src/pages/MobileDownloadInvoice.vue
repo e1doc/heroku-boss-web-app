@@ -11,6 +11,7 @@
 
 <script>
 import DownloadableInvoice from "@/components/payment/DownloadableInvoice";
+import axios from "axios";
 export default {
   name: "MobileDownloadInvoice",
   components: { DownloadableInvoice },
