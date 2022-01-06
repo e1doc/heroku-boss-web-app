@@ -11,10 +11,9 @@
 
 <script>
 import DownloadableInvoice from "@/components/payment/DownloadableInvoice";
-import DownloadableInvoice from "../components/payment/DownloadableInvoice.vue";
 export default {
   name: "MobileDownloadInvoice",
-  components: { DownloadableInvoiceDownloadableInvoice },
+  components: { DownloadableInvoice },
   data() {
     return {
       message: "Please wait, your file is now downloading...",
