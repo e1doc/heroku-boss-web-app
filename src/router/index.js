@@ -45,7 +45,7 @@ import UserTransactions from "../pages/UserTransactions";
 import RequestNewTaxDec from "../pages/RequestNewTaxDec";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import MobileDownloadBusinessForm from "../pages/MobileDownloadBusinessForm";
-import MobileDownloadInvoice from "../pages/MobileDownloadBusinessForm";
+import MobileDownloadInvoice from "../pages/MobileDownloadInvoice";
 import store from "../store";
 import swal from "sweetalert2";
 Vue.use(VueRouter);
