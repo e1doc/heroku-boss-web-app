@@ -273,7 +273,7 @@ const actions = {
         if (item.id === payload.id) {
           item.is_verified = true;
         }
-        return item;  
+        return item;
       });
       await commit("setSoaList", soaList);
       dispatch("createPrompt", {
@@ -283,6 +283,38 @@ const actions = {
       });
       await commit("setLoading", false);
     } catch (err) {
+      await commit("setLoading", false);
+      dispatch("createPrompt", {
+        type: "error",
+        title: "Failed!",
+        message: "Something went wrong. Please try again later.",
+      });
+      err.response ? console.log(err.response) : console.log(err);
+    }
+  },
+
+  async getSoaDetails({ commit, dispatch }, payload) {
+    try {
+      await commit("setLoading", true);
+      const response = await axios.get(
+        `${baseUrl}/api/download-invoice/?id=${payload.id}`,
+        {
+          headers: { Authorization: `jwt ${getters.authToken}` },
+        }
+      );
+
+      const soa = response.data;
+
+      await commit("setCurrentSoaType", payload.type);
+      await commit("setCurrentSoa", payload);
+      await commit("setCurrentSoaObj", soa);
+      await commit("setAppointmentAction", "add");
+      if (payload.type === "business") {
+        await commit("setCurrentSelectedBusiness", soa.business_application);
+      } else {
+        await commit("setCurrentSelectedProperty", soa.building_application);
+      }
+    } catch (error) {
       await commit("setLoading", false);
       dispatch("createPrompt", {
         type: "error",

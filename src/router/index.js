@@ -106,6 +106,11 @@ const routes = [
         name: "PaymentError",
         component: PaymentError,
       },
+      {
+        path: "mobile-payment/:origin/:soa/:type/:token",
+        name: "Payment",
+        component: Payment,
+      },
     ],
   },
   {
