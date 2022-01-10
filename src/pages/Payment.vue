@@ -152,9 +152,18 @@ export default {
   },
   mounted() {
     this.$store.commit("setPrintInvoice", false);
-    this.setupFormData();
+    this.checkOrigin();
   },
   methods: {
+    async checkOrigin() {
+      const { origin, soa, token, type } = this.$route.params;
+      //origin = web || mobile
+      if (origin === "mobile") {
+        await this.$store.commit("setAuthToken", token);
+        await this.$store.dispatch("getSoaDetails", { id: soa, type: type });
+      }
+      await this.setupFormData();
+    },
     getQuarters() {
       let minQuarter = 0;
       let maxQuarter = this.currentSoaObj.quarter;
