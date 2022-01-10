@@ -314,6 +314,7 @@ const actions = {
       } else {
         await commit("setCurrentSelectedProperty", soa.building_application);
       }
+      await commit("setLoading", false);
     } catch (error) {
       await commit("setLoading", false);
       dispatch("createPrompt", {
