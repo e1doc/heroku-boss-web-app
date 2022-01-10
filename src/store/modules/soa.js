@@ -299,7 +299,7 @@ const actions = {
       const response = await axios.get(
         `${baseUrl}/api/download-invoice/?id=${payload.id}`,
         {
-          headers: { Authorization: `jwt ${getters.authToken}` },
+          headers: { Authorization: `jwt ${payload.token}` },
         }
       );
 

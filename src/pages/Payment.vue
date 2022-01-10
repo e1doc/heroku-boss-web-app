@@ -159,8 +159,11 @@ export default {
       const { origin, soa, token, type } = this.$route.params;
       //origin = web || mobile
       if (origin === "mobile") {
-        await this.$store.commit("setAuthToken", token);
-        await this.$store.dispatch("getSoaDetails", { id: soa, type: type });
+        await this.$store.dispatch("getSoaDetails", {
+          id: soa,
+          type: type,
+          token: token,
+        });
       }
       await this.setupFormData();
     },
