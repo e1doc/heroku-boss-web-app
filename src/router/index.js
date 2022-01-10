@@ -144,7 +144,7 @@ const routes = [
         component: StatementOfAccounts,
       },
       {
-        path: "payment/:origin/:soa/:type/:token",
+        path: "payment",
         name: "Payment",
         component: Payment,
       },

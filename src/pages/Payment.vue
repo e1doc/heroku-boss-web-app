@@ -152,7 +152,7 @@ export default {
   },
   mounted() {
     this.$store.commit("setPrintInvoice", false);
-    this.checkOrigin();
+    this.setupFormData();
   },
   methods: {
     async checkOrigin() {
