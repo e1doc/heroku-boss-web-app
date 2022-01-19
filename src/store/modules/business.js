@@ -606,7 +606,11 @@ const actions = {
         payload,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
-      await commit("setBusinessAssessmentMessage", response.data.message);
+
+      if (!getters.isLastBusinessDept) {
+        await commit("setBusinessAssessmentMessage", response.data.message);
+      }
+
       await commit("setIsAssessmentHasError", false);
       await commit("setAssessmentPayload", {});
       await commit("setLoading", false);

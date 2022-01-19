@@ -788,6 +788,7 @@ export default {
             await this.$store.dispatch("assessBusinessApplication", payload);
           }
           if (this.isLastBusinessDept && !this.isAssessmentHasError) {
+            await this.$store.dispatch("assessBusinessApplication", payload);
             if (this.businessApplication.account_number !== "") {
               let changeApplicationStatusPayload = {
                 id: this.businessApplication.id,
