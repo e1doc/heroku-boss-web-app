@@ -28,7 +28,7 @@ export default {
       try {
         const id = this.$route.params.id;
         const token = this.$route.params.token;
-
+        this.$store.commit("setAuthToken", token);
         const result = await axios.get(
           `${process.env.VUE_APP_API_URL}/api/download-business/?id=${id}`,
           { headers: { Authorization: `jwt ${token}` } }
