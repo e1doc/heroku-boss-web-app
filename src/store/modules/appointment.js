@@ -1,6 +1,7 @@
 import axios from "axios";
 import moment from "moment-timezone";
 const baseUrl = process.env.VUE_APP_API_URL;
+
 const getDefaultAppointmentState = () => {
   return {
     appointmentStatus: "slot",
