@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import axios from "axios";
+const api_url = process.env.VUE_APP_API_URL;
 export default {
   name: "MobileRedirectToEpp",
   data() {
@@ -51,7 +53,7 @@ export default {
         const type = this.$route.params.type;
 
         const result = await axios.get(
-          `${process.env.VUE_APP_API_URL}/api/download-invoice/?id=${id}`,
+          `${api_url}/api/download-invoice/?id=${id}`,
           { headers: { Authorization: `jwt ${token}` } }
         );
 
