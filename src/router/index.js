@@ -46,6 +46,7 @@ import RequestNewTaxDec from "../pages/RequestNewTaxDec";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import MobileDownloadBusinessForm from "../pages/MobileDownloadBusinessForm";
 import MobileDownloadInvoice from "../pages/MobileDownloadInvoice";
+import MobileRedirectToEpp from "../pages/MobileRedirectToEpp";
 import store from "../store";
 import swal from "sweetalert2";
 Vue.use(VueRouter);
@@ -85,6 +86,11 @@ const routes = [
     path: "/download-invoice/:id/:token/:type",
     name: "MobileDownloadInvoice",
     component: MobileDownloadInvoice,
+  },
+  {
+    path: "/mobile-redirect-to-epp/:id/:token/:type",
+    name: "MobileRedirectToEpp",
+    component: MobileRedirectToEpp,
   },
   {
     path: "/home",
