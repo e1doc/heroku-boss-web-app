@@ -40,13 +40,12 @@ export default {
       hash: "",
     };
   },
-  mounted(){
-      this.getData()
+  mounted() {
+    this.getData();
   },
   methods: {
     async getData() {
       try {
-        const 
         const id = this.$route.params.id;
         const token = this.$route.params.token;
         const type = this.$route.params.type;
@@ -56,7 +55,7 @@ export default {
           { headers: { Authorization: `jwt ${token}` } }
         );
 
-        const soa = result.getData
+        const soa = result.getData;
 
         const soa = result.data;
         if (soa) {
@@ -68,10 +67,10 @@ export default {
             );
           }
           await this.$store.commit("setCurrentSoaType", type);
-          await this.setupFormData()
+          await this.setupFormData();
         }
       } catch (err) {
-          console.log(err)
+        console.log(err);
       }
     },
     setupFormData() {
