@@ -23,6 +23,8 @@
 <script>
 import axios from "axios";
 const api_url = process.env.VUE_APP_API_URL;
+import { mapGetters } from "vuex";
+import md5 from "crypto-js/md5";
 export default {
   name: "MobileRedirectToEpp",
   data() {
