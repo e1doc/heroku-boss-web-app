@@ -42,6 +42,14 @@ export default {
       hash: "",
     };
   },
+  computed: {
+    ...mapGetters([
+      "paymentOption",
+      "currentPaymentType",
+      "currentSoaObj",
+      "userDetails",
+    ]),
+  },
   mounted() {
     this.getData();
   },
