@@ -55,8 +55,6 @@ export default {
           { headers: { Authorization: `jwt ${token}` } }
         );
 
-        const soa = result.getData;
-
         const soa = result.data;
         if (soa) {
           await this.$store.commit("setCurrentSoaObj", soa);
