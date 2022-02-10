@@ -100,6 +100,8 @@ export default {
         this.particulars = `transaction_type=Real Property Tax;Tax Declaration=${building_application.buildingdetails.tax_dec_no};Declared Owner=${declaredOwner};Payment Mode=${paymode};Quarter=${this.currentSoaObj.quarter};Total Amount=${this.currentSoaObj.amount}`;
       }
       this.hash = this.getHash();
+
+      this.submit();
     },
     submit() {
       this.$refs.form.submit();
