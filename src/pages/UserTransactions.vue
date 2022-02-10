@@ -66,7 +66,7 @@
           <div class="text-bold">Note to driver:</div>
           <div class="meta-notes-holder">
             <div class="meta-items-holder">
-              <div class="meta-items">
+              <!-- <div class="meta-items">
                 <div class="text-bold">
                   <ul>
                     <li>For Real Property</li>
@@ -75,7 +75,7 @@
                 <div>
                   Indicate your <b>SOA Number / Tax Declaration Number</b>
                 </div>
-              </div>
+              </div> -->
               <div class="meta-items">
                 <div class="text-bold">
                   <ul>
