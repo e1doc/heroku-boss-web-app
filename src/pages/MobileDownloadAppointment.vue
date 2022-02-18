@@ -39,6 +39,7 @@ export default {
 
         const appointment = result.data;
 
+        console.log(appointment);
         if (appointment) {
           await this.$store.commit(
             "setCurrentSoaType",
