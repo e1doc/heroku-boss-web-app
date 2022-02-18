@@ -11,9 +11,7 @@
         name="selectOptions"
         class="mb15"
       /> -->
-      <div class="meta-input-label mt10 mb10">
-        Batch:
-      </div>
+      <div class="meta-input-label mt10 mb10">Batch:</div>
       <base-select
         placeholder="--- Select from the options ---"
         :options="batchOptions"
@@ -92,6 +90,7 @@ export default {
           : this.currentSoaObj.application_type === "building"
           ? "Building Permit Payment"
           : "Real Property Payment";
+
       let payload = {
         title: title,
         batch: this.batch,

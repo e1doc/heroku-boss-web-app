@@ -46,6 +46,7 @@ import RequestNewTaxDec from "../pages/RequestNewTaxDec";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import MobileDownloadBusinessForm from "../pages/MobileDownloadBusinessForm";
 import MobileDownloadInvoice from "../pages/MobileDownloadInvoice";
+import MobileDownloadAppointment from "../pages/MobileDownloadAppointment";
 import MobileRedirectToEpp from "../pages/MobileRedirectToEpp";
 import store from "../store";
 import swal from "sweetalert2";
@@ -86,6 +87,11 @@ const routes = [
     path: "/download-invoice/:id/:token/:type",
     name: "MobileDownloadInvoice",
     component: MobileDownloadInvoice,
+  },
+  {
+    path: "/download-appointment/:id/:token",
+    name: "MobileDownloadAppointment",
+    component: MobileDownloadAppointment,
   },
   {
     path: "/mobile-redirect-to-epp/:id/:token/:type",
