@@ -11,6 +11,7 @@
 
 <script>
 import DownloadableAppointmentInvoice from "@/components/payment/DownloadableAppointmentInvoice";
+import axios from "axios";
 export default {
   name: "MobileDownloadAppointment",
   components: {
@@ -49,7 +50,7 @@ export default {
           await commit("setPrintInvoice", true);
         }
       } catch (err) {
-        err.response ? console.log(err.response) : connsole.log(err);
+        err.response ? console.log(err.response) : console.log(err);
       }
     },
   },

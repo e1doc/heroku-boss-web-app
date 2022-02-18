@@ -195,7 +195,7 @@ const actions = {
       await commit("setCurrentAppointment", appointment);
       await commit("setPrintInvoice", true);
     } catch (err) {
-      err.response ? console.log(err.response) : connsole.log(err);
+      err.response ? console.log(err.response) : console.log(err);
     }
   },
 };
