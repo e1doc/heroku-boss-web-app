@@ -40,14 +40,17 @@ export default {
         const appointment = result.data;
 
         if (appointment) {
-          await commit("setCurrentSoaType", appointment.soa.application_type);
-          await commit("setCurrentSoaObj", appointment.soa);
-          await commit(
+          await this.$store.commit(
+            "setCurrentSoaType",
+            appointment.soa.application_type
+          );
+          await this.$store.commit("setCurrentSoaObj", appointment.soa);
+          await this.$store.commit(
             "setCurrentSelectedBusiness",
             appointment.soa.business_application
           );
-          await commit("setCurrentAppointment", appointment);
-          await commit("setPrintInvoice", true);
+          await this.$store.commit("setCurrentAppointment", appointment);
+          await this.$store.commit("setPrintInvoice", true);
         }
       } catch (err) {
         err.response ? console.log(err.response) : console.log(err);
