@@ -43,6 +43,11 @@ export default {
               "setCurrentSelectedBusiness",
               soa.business_application
             );
+          } else {
+            await this.$store.commit(
+              "setCurrentSelectedProperty",
+              soa.building_application
+            );
           }
           await this.$store.commit("setCurrentSoaType", type);
           await this.$store.commit("setPrintInvoice", true);

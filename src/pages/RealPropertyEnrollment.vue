@@ -156,7 +156,7 @@ export default {
               });
               await this.$store.dispatch("addBuildingDetails", {
                 tax_dec_no: response.data.Result.td_number,
-                property_type: this.property_type,
+              property_type: this.property_type,
               });
               this.isSuccess = true;
               this.td_no = response.data.Result.td_number;
