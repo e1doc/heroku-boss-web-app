@@ -46,10 +46,19 @@ export default {
             appointment.soa.application_type
           );
           await this.$store.commit("setCurrentSoaObj", appointment.soa);
-          await this.$store.commit(
-            "setCurrentSelectedBusiness",
-            appointment.soa.business_application
-          );
+
+          if (appointment.soa.application_type === "business") {
+            await this.$store.commit(
+              "setCurrentSelectedBusiness",
+              appointment.soa.business_application
+            );
+          } else {
+            await this.$store.commit(
+              "setCurrentSelectedProperty",
+              appointment.soa.building_application
+            );
+          }
+
           await this.$store.commit("setCurrentAppointment", appointment);
           await this.$store.commit("setPrintInvoice", true);
         }
