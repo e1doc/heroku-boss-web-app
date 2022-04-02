@@ -199,6 +199,7 @@
         placeholder="------ Choose scope of work ------"
         :options="scopeofwork"
         v-model="building_details.scope_of_work"
+        :disabled="true"
         :validationMessages="
           buildingStepTwoErrors.building_details.scope_of_work
         "
@@ -1003,8 +1004,7 @@ export default {
         } else {
           this.$swal({
             title: "Failed!",
-            text:
-              "Please fix the validation errors before proceeding to the next step.",
+            text: "Please fix the validation errors before proceeding to the next step.",
             icon: "error",
           });
         }
@@ -1018,6 +1018,11 @@ export default {
     preFillForm() {
       if (Object.entries(this.buildingDetails).length > 0) {
         this.building_details = this.buildingDetails;
+        if (!this.building_details.scope_of_work) {
+          this.building_details.scope_of_work = "New Construction";
+        }
+      } else {
+        this.building_details.scope_of_work = "New Construction";
       }
       if (Object.entries(this.buildingOtherDetails).length > 0) {
         this.building_other_details = this.buildingOtherDetails;
@@ -1087,8 +1092,7 @@ export default {
       } else {
         this.$swal({
           title: "Failed!",
-          text:
-            "Please fix the validation errors before proceeding to the next step.",
+          text: "Please fix the validation errors before proceeding to the next step.",
           icon: "error",
         });
       }

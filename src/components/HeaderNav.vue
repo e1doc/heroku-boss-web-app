@@ -20,7 +20,7 @@
             </li>
             <li class="meta-menu">
               <router-link to="business-permit-application"
-                >Business Permit Application</router-link
+                >New Business Application</router-link
               >
             </li>
             <li class="meta-menu">

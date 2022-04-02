@@ -103,6 +103,7 @@
           v-if="type !== 'transaction'"
           v-model="search"
           @keyup.native="searchData()"
+          :placeholder="searchLabel"
         />
         <base-input-search
           v-if="type == 'transaction'"
@@ -150,6 +151,7 @@
         v-if="type !== 'transaction'"
         v-model="search"
         @keyup.native="searchData()"
+        :placeholder="searchLabel"
       />
       <base-input-search
         v-if="type == 'transaction'"
@@ -190,6 +192,7 @@ export default {
   data() {
     return {
       search: "",
+      searchLabel: "Search by Application no., Account no. and Business name",
       activeTab: "profile",
       activeType: "business",
       businessFilter: "",
@@ -287,14 +290,20 @@ export default {
       this.$store.commit("setCurrentTable", tab);
     },
     changeType(type) {
+      console.log("Change type", type);
       this.$store.commit("setCurrentPageNum", 1);
       this.activeType = type;
       this.$store.commit("setCurrentType", type);
       if (this.type === "adminApplications") {
         if (type === "business") {
           this.$store.dispatch("getAllBusinessApplications");
+          this.searchLabel =
+            "Search by Application no., Account no. and Business name";
+        } else if (type === "building") {
+          this.searchLabel = "Search by Application no.";
         } else if (type === "real_property") {
           this.$store.dispatch("getAllBuildingApplications");
+          this.searchLabel = "Search by Application no.";
         }
       } else {
         if (this.currentTable === "other_banks") {

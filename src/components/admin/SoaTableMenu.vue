@@ -37,7 +37,7 @@
         <base-input-search
           v-model="search"
           @keyup.native="searchData()"
-          placeholder="Search by ref no."
+          :placeholder="searchLabel"
         />
       </div>
     </div>
@@ -70,6 +70,7 @@ export default {
       activeTab: "soa",
       activeType: "business",
       search: "",
+      searchLabel: "Search by ref no.",
     };
   },
   methods: {
@@ -83,10 +84,21 @@ export default {
       await this.$store.commit("setCurrentType", type);
       await this.$store.commit("setSoaFilter", type);
       await this.$store.dispatch("getDepartments");
+      this.changeSearchInputLabel(type);
     },
     async searchData() {
       this.$store.commit("setSoaSearch", this.search);
       await this.$store.dispatch("getAdminSoaList");
+    },
+
+    changeSearchInputLabel(type) {
+      if (type === "business") {
+        this.searchLabel = "Search by ref no.";
+      } else if (type === "building") {
+        this.searchLabel = "Search by ref no. and building no.";
+      } else {
+        this.searchLabel = "Search by ref no and tax declaration no.";
+      }
     },
   },
 };
