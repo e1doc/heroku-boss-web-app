@@ -2,6 +2,8 @@ import axios from "axios";
 const baseUrl = process.env.VUE_APP_API_URL;
 const oneDocToken = process.env.VUE_APP_ONE_DOC_TOKEN;
 const lguLocalEndpoint = process.env.VUE_APP_LGU_LOCAL_ENDPOINT;
+const CancelToken = axios.CancelToken;
+let source = CancelToken.source();
 import router from "../../router/index.js";
 const getDefaultPropertyState = () => {
   return {
@@ -49,6 +51,7 @@ const getDefaultPropertyState = () => {
     buildingAssessmentPayload: {},
     propertyPageCount: 0,
     propertyPageNum: 1,
+    buildingAssessmentSearch: "",
   };
 };
 
@@ -95,6 +98,7 @@ const getters = {
   buildingAssessmentPayload: (state) => state.buildingAssessmentPayload,
   propertyPageCount: (state) => state.propertyPageCount,
   propertyPageNum: (state) => state.propertyPageNum,
+  buildingAssessmentSearch: (state) => state.buildingAssessmentSearch,
 };
 
 const mutations = {
@@ -182,6 +186,8 @@ const mutations = {
     (state.propertyPageCount = propertyPageCount),
   setPropertyPageNum: (state, propertyPageNum) =>
     (state.propertyPageNum = propertyPageNum),
+  setBuildingAssessmentSearch: (state, buildingAssessmentSearch) =>
+    (state.buildingAssessmentSearch = buildingAssessmentSearch),
 };
 
 const actions = {
@@ -591,10 +597,13 @@ const actions = {
   },
   async getForBuildingAssessmentList({ commit, getters }, page = 1) {
     try {
+      source && source.cancel("Operation canceled due to new request.");
+      source = axios.CancelToken.source();
       const response = await axios.get(
-        `${baseUrl}/staff/for-building-assessment-list?page=${page}`,
+        `${baseUrl}/staff/for-building-assessment-list?page=${page}&search=${getters.buildingAssessmentSearch}`,
         {
           headers: { Authorization: `jwt ${getters.authToken}` },
+          cancelToken: source.token,
         }
       );
       commit("setForBuildingAssessmentList", response.data.results);
@@ -608,10 +617,13 @@ const actions = {
   },
   async getAssessedBuildingList({ commit, getters }, page = 1) {
     try {
+      source && source.cancel("Operation canceled due to new request.");
+      source = axios.CancelToken.source();
       const response = await axios.get(
-        `${baseUrl}/staff/assessed-building-application-list?page=${page}`,
+        `${baseUrl}/staff/assessed-building-application-list?page=${page}&search=${getters.buildingAssessmentSearch}`,
         {
           headers: { Authorization: `jwt ${getters.authToken}` },
+          cancelToken: source.token,
         }
       );
       commit("setAssessedBuildingList", response.data.results);

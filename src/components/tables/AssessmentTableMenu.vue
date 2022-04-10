@@ -42,7 +42,11 @@
             ASSESSED
           </div>
         </div>
-        <!-- <base-input-search v-model="search" @keyup.native="searchData()" /> -->
+        <base-input-search
+          :placeholder="searchLabel"
+          v-model="search"
+          @keyup.native="searchData()"
+        />
       </div>
     </div>
 
@@ -99,6 +103,7 @@ export default {
   data() {
     return {
       search: "",
+      searchLabel: "Search by Application no., Account no. and Business name",
       activeTab: "for_assessment",
       activeType: "business",
       businessFilter: "",
@@ -150,13 +155,23 @@ export default {
     };
   },
   methods: {
-    searchData() {
-      if (this.currentType === "real_property") {
-        this.$store.commit("setBuildingSearch", this.search);
-        this.$store.dispatch("getAllBuildingApplications");
-      } else if (this.currentType === "business") {
-        this.$store.commit("setBusinessSearch", this.search);
-        this.$store.dispatch("getAllBusinessApplications");
+    async searchData() {
+      if (this.currentTable === "for_assessment") {
+        if (this.currentType === "business") {
+          await this.$store.commit("setBusinessAssessmentSearch", this.search);
+          await this.$store.dispatch("getForBusinessAssessmentList");
+        } else {
+          await this.$store.commit("setBuildingAssessmentSearch", this.search);
+          await this.$store.dispatch("getForBuildingAssessmentList");
+        }
+      } else if (this.currentTable === "assessed") {
+        if (this.currentType === "business") {
+          await this.$store.commit("setBusinessAssessmentSearch", this.search);
+          await this.$store.dispatch("getAssessedBusinessList");
+        } else {
+          await this.$store.commit("setBuildingAssessmentSearch", this.search);
+          await this.$store.dispatch("getAssessedBuildingList");
+        }
       }
     },
     filter(val) {
@@ -196,6 +211,7 @@ export default {
     changeType(type) {
       this.activeType = type;
       this.$store.commit("setCurrentType", type);
+      this.changeSearchLabel(type);
       if (
         this.currentTable === "for_assessment" &&
         this.currentType === "business"
@@ -216,6 +232,14 @@ export default {
         this.currentType === "business"
       ) {
         this.$store.dispatch("getAssessedBuildingList");
+      }
+    },
+    changeSearchLabel(type) {
+      if (type === "business") {
+        this.searchLabel =
+          "Search by Application no., Account no. and Business name";
+      } else {
+        this.searchLabel = "Search by Application no., Tax Declaration No.";
       }
     },
   },

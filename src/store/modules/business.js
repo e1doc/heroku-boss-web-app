@@ -2,6 +2,8 @@ import axios from "axios";
 const baseUrl = process.env.VUE_APP_API_URL;
 const oneDocToken = process.env.VUE_APP_ONE_DOC_TOKEN;
 const lguLocalEndpoint = process.env.VUE_APP_LGU_LOCAL_ENDPOINT;
+const CancelToken = axios.CancelToken;
+let source = CancelToken.source();
 import router from "../../router/index.js";
 const getDefaultBusinessState = () => {
   return {
@@ -50,6 +52,7 @@ const getDefaultBusinessState = () => {
     showActionButtons: true,
     businessPageNum: 1,
     businessPermits: [],
+    businessAssessmentSearch: "",
   };
 };
 
@@ -94,6 +97,7 @@ const getters = {
   showActionButtons: (state) => state.showActionButtons,
   businessPageNum: (state) => state.businessPageNum,
   businessPermits: (state) => state.businessPermits,
+  businessAssessmentSearch: (state) => state.businessAssessmentSearch,
 };
 
 const mutations = {
@@ -170,6 +174,8 @@ const mutations = {
     (state.businessPageNum = businessPageNum),
   setBusinessPermits: (state, businessPermits) =>
     (state.businessPermits = businessPermits),
+  setBusinessAssessmentSearch: (state, businessAssessmentSearch) =>
+    (state.businessAssessmentSearch = businessAssessmentSearch),
 };
 
 const actions = {
@@ -666,14 +672,17 @@ const actions = {
   },
   async getForBusinessAssessmentList({ commit, getters }, page = 1) {
     try {
+      source && source.cancel("Operation canceled due to new request.");
+      source = axios.CancelToken.source();
       const response = await axios.get(
-        `${baseUrl}/staff/for-business-assessment-list?page=${page}`,
+        `${baseUrl}/staff/for-business-assessment-list?page=${page}&search=${getters.businessAssessmentSearch}`,
         {
           headers: { Authorization: `jwt ${getters.authToken}` },
+          cancelToken: source.token,
         }
       );
-      await commit("setForBusinessAssessmentList", response.data.results);
       await commit("setPageCount", response.data.total_pages);
+      await commit("setForBusinessAssessmentList", response.data.results);
     } catch (err) {
       console.log(err);
       if (err.response) {
@@ -683,10 +692,13 @@ const actions = {
   },
   async getAssessedBusinessList({ commit, getters }, page = 1) {
     try {
+      source && source.cancel("Operation canceled due to new request.");
+      source = axios.CancelToken.source();
       const response = await axios.get(
-        `${baseUrl}/staff/assessed-business-application-list?page=${page}`,
+        `${baseUrl}/staff/assessed-business-application-list?page=${page}&search=${getters.businessAssessmentSearch}`,
         {
           headers: { Authorization: `jwt ${getters.authToken}` },
+          cancelToken: source.token,
         }
       );
       await commit("setAssessedBusinessList", response.data.results);
