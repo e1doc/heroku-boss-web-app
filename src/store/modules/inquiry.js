@@ -211,10 +211,11 @@ const actions = {
         `${baseUrl}/api/building-remarks-thread/?id=${payload}`,
         { headers: { Authorization: `jwt ${getters.authToken}` } }
       );
+      console.log(response.data);
       if (response.data.id) {
-        commit("setCurrentInquiry", response.data.id);
+        await commit("setCurrentInquiry", response.data.id);
       } else {
-        commit("setCurrentInquiry", "");
+        await commit("setCurrentInquiry", "");
       }
     } catch (err) {
       console.log(err.response);

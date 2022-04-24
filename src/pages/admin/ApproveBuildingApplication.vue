@@ -654,6 +654,17 @@
             </ol>
           </div>
           <div class="flex-column">
+            <div
+              v-if="
+                buildingApplication.application_status === 4 ||
+                buildingApplication.application_status === 5 ||
+                buildingApplication.application_status === 1
+              "
+              class="mt50 meta-view-remarks"
+              @click="openBuildingRemarks(buildingApplication.id)"
+            >
+              View Remarks
+            </div>
             <div class="submission-text">
               Submission Date:
               {{
@@ -1071,9 +1082,10 @@ export default {
           scopeofwork: "New Construction",
           scopeofworkothers: this.buildingDetails.scope_of_work,
           occupancycharacter: this.buildingDetails.character_of_occupancy,
-          occupancycharacterothers: this.buildingDetails
-            .character_of_occupancy_others,
-          totalestcost: this.buildingOtherDetails.total_estimated_cost.toString(),
+          occupancycharacterothers:
+            this.buildingDetails.character_of_occupancy_others,
+          totalestcost:
+            this.buildingOtherDetails.total_estimated_cost.toString(),
           noofunits: this.buildingOtherDetails.units.toString(),
           totalfloorareasqm: this.buildingOtherDetails.floor_area.toString(),
           lotareasqm: this.buildingOtherDetails.lot_area.toString(),
@@ -1104,7 +1116,9 @@ export default {
 
 <style lang="scss" scoped>
 .meta-view-remarks {
+  color: #2699fb;
   text-decoration: underline;
+  font-weight: bold;
   cursor: pointer;
 }
 .meta-result-holder {
