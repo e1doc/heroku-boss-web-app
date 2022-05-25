@@ -30,12 +30,16 @@
           />
         </div>
         <div>
-          <button-full class="mt10" type="submit">
-            LOGIN
-          </button-full>
+          <button-full class="mt10" type="submit"> LOGIN </button-full>
         </div>
         <div @click="changeDiv('forgotpass')" class="forgotpass">
           Forgot Password?
+        </div>
+        <div class="mt10 meta-download-statement">
+          BOSS Android Mobile Application (BETA) is now available.
+        </div>
+        <div class="meta-download-text" @click="getMobileAppLink()">
+          Download Now!
         </div>
       </div>
     </form>
@@ -47,6 +51,8 @@ import ButtonFull from "@/components/ButtonFull";
 import ButtonFullOutline from "@/components/ButtonFullOutline";
 import BaseInputIcon from "@/components/forms/BaseInputIcon";
 import { mapGetters, mapActions } from "vuex";
+import axios from "axios";
+const baseUrl = process.env.VUE_APP_API_URL;
 export default {
   name: "LoginDiv",
   components: {
@@ -74,11 +80,32 @@ export default {
         password: this.password,
       });
     },
+    async getMobileAppLink() {
+      console.log(`${baseUrl}/api/active-mobile-build`);
+      const link = document.createElement("a");
+      const response = await axios.get(`${baseUrl}/api/active-mobile-build`);
+
+      const filename = response.data.file.replace("/bacoor/", "/");
+      link.href = filename;
+      console.log(filename);
+      link.download = filename;
+      link.click();
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.meta-download-statement {
+  line-height: 1.5;
+}
+.meta-download-text {
+  color: #039be5;
+  font-weight: bold;
+  font-size: 18px;
+  text-decoration: underline;
+  cursor: pointer;
+}
 .forgotpass {
   color: #039be5;
   font-size: 15px;
