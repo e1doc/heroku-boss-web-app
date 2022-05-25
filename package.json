@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    heroku builds:cache:purge -a
+    "build": "vue-cli-service build",
     "start": "node server.js"
   },
   "engines": {
