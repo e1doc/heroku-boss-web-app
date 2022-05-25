@@ -39,7 +39,7 @@
           BOSS Android Mobile Application (BETA) is now available.
         </div>
         <div class="meta-download-text" @click="getMobileAppLink()">
-          Download Now!
+          Download Now!!!
         </div>
       </div>
     </form>
