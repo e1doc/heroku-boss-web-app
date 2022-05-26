@@ -48,6 +48,7 @@ import MobileDownloadBusinessForm from "../pages/MobileDownloadBusinessForm";
 import MobileDownloadInvoice from "../pages/MobileDownloadInvoice";
 import MobileDownloadAppointment from "../pages/MobileDownloadAppointment";
 import MobileRedirectToEpp from "../pages/MobileRedirectToEpp";
+import MobileDownloadApp from "../pages/MobileDownloadApp";
 import store from "../store";
 import swal from "sweetalert2";
 Vue.use(VueRouter);
@@ -87,6 +88,11 @@ const routes = [
     path: "/download-invoice/:id/:token/:type",
     name: "MobileDownloadInvoice",
     component: MobileDownloadInvoice,
+  },
+  {
+    path: "/download-app",
+    name: "MobileDownloadApp",
+    component: MobileDownloadApp,
   },
   {
     path: "/download-appointment/:id/:token",
