@@ -35,12 +35,12 @@
         <div @click="changeDiv('forgotpass')" class="forgotpass">
           Forgot Password?
         </div>
-        <div class="mt10 meta-download-statement">
+        <!-- <div class="mt10 meta-download-statement">
           BOSS Android Mobile Application (BETA) is now available.
         </div>
         <div class="meta-download-text" @click="getMobileAppLink()">
           Download Now!
-        </div>
+        </div> -->
       </div>
     </form>
   </section>
