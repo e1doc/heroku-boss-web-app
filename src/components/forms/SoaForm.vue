@@ -26,6 +26,34 @@
         >Submit</button-block
       >
     </div>
+
+    <div class="flex-column" v-if="currentSoaType === 'building'">
+      <h3 class="meta-input-label mt10 mb10 text-bold mb20">
+        Application Number: {{ currentSelectedBuilding.series_number }}
+      </h3>
+      <div class="meta-input-label mt10 mb10">Payment Mode</div>
+      <base-select
+        placeholder="--- Select from the options ---"
+        :options="paymentOptions"
+        v-model="paymode"
+        name="selectOptions"
+        class="mb15"
+        @change.native="onModeSelect"
+      />
+      <div class="meta-input-label mt10 mb10">Payment Quarter</div>
+      <base-select
+        placeholder="--- Select from the options ---"
+        :options="quarters"
+        v-model="quarter"
+        name="selectOptions"
+        :disabled="isQuarterDisabled"
+        class="mb15"
+      />
+      <button-block @click.native="generateSoa('building')"
+        >Submit</button-block
+      >
+    </div>
+
     <div class="flex-column" v-if="currentSoaType === 'real_property'">
       <h4>For Tax Year - {{ new Date(Date.now()) | moment("YYYY") }}</h4>
       <h3 class="meta-input-label mt10 mb10 text-bold mb20">
@@ -90,6 +118,7 @@ export default {
       "currentSelectedBusiness",
       "currentSoaType",
       "currentSelectedProperty",
+      "currentSelectedBuilding",
     ]),
   },
   watch: {
@@ -97,8 +126,7 @@ export default {
       async handler(selected) {
         if (selected === "delinquent") {
           let action = await this.$swal({
-            text:
-              "Delinquents are handled via the applicant inquiry system. Kindly send your old TD number and property owner in the succeeding screen. You can combine multiple transactions into a single message. You would need to upload the latest scan of the applicable Tax Declarantion as well.",
+            text: "Delinquents are handled via the applicant inquiry system. Kindly send your old TD number and property owner in the succeeding screen. You can combine multiple transactions into a single message. You would need to upload the latest scan of the applicable Tax Declarantion as well.",
             showCancelButton: true,
             icon: "info",
           });
@@ -204,6 +232,7 @@ export default {
             payload,
             config
           );
+
           this.$store.commit("setLoading", false);
           console.log(result.data);
           if (result.data.Status === "Success") {
@@ -220,13 +249,13 @@ export default {
               icon: "error",
             });
           }
-        } else {
+        } else if (type === "real_property") {
           const payload = {
             name: "RealPropertyTaxInvoce",
             param: {
               refno: this.currentSelectedProperty.reference_id,
-              property_type: this.currentSelectedProperty.buildingdetails
-                .property_type,
+              property_type:
+                this.currentSelectedProperty.buildingdetails.property_type,
               includeadv: this.isAdvancePayment ? 1 : 0,
               date: moment().format("YYYY-MM-DD").toString(),
             },
@@ -237,6 +266,37 @@ export default {
             config
           );
           this.$store.commit("setLoading", false);
+          if (result.data.Status === "Success") {
+            await this.$modal.hide("soaModal");
+            await this.$store.dispatch(
+              "storeGeneratedBill",
+              result.data.Result
+            );
+            await this.$router.push({ name: "Bills" });
+          } else {
+            this.$swal({
+              title: "Failed!",
+              text: result.data.Message,
+              icon: "error",
+            });
+          }
+        } else {
+          const payload = {
+            name: "BuildingInvoice",
+            param: {
+              appno: this.currentSelectedBuilding.series_number,
+              quarter: this.quarter,
+              paymode: this.paymode,
+            },
+          };
+
+          const result = await axios.post(
+            `${lguLocalEndpoint}`,
+            payload,
+            config
+          );
+          this.$store.commit("setLoading", false);
+
           if (result.data.Status === "Success") {
             await this.$modal.hide("soaModal");
             await this.$store.dispatch(

@@ -219,10 +219,15 @@ export default {
         };Business Name=${businessName};Payment Mode=${paymode};Quarter=${
           paymode === "Annualy" ? "1-4" : this.currentSoaObj.quarter
         }`;
-      } else {
+      } else if (this.currentSoaObj.application_type === "real_property") {
         let buildingBasicInfo = building_application.buildingbasicinformation;
         let declaredOwner = `${buildingBasicInfo.owner_first_name} ${buildingBasicInfo.owner_middle_name} ${buildingBasicInfo.owner_last_name}`;
         this.particulars = `transaction_type=Real Property Tax;Tax Declaration=${building_application.buildingdetails.tax_dec_no};Declared Owner=${declaredOwner};Payment Mode=${paymode};Quarter=${this.currentSoaObj.quarter};Total Amount=${this.currentSoaObj.amount}`;
+      } else {
+        let buildingBasicInfo = building_application.buildingbasicinformation;
+        let declaredOwner = `${buildingBasicInfo.owner_first_name} ${buildingBasicInfo.owner_middle_name} ${buildingBasicInfo.owner_last_name}`;
+        let seriesNumber = building_application.series_number;
+        this.particulars = `transaction_type=Miscellaneous;Name=${declaredOwner};Building Permit No=${seriesNumber}`;
       }
       console.log(this.particulars);
       this.hash = this.getHash();

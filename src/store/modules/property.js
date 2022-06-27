@@ -52,6 +52,7 @@ const getDefaultPropertyState = () => {
     propertyPageCount: 0,
     propertyPageNum: 1,
     buildingAssessmentSearch: "",
+    currentSelectedBuilding: {},
   };
 };
 
@@ -99,6 +100,7 @@ const getters = {
   propertyPageCount: (state) => state.propertyPageCount,
   propertyPageNum: (state) => state.propertyPageNum,
   buildingAssessmentSearch: (state) => state.buildingAssessmentSearch,
+  currentSelectedBuilding: (state) => state.currentSelectedBuilding,
 };
 
 const mutations = {
@@ -188,6 +190,9 @@ const mutations = {
     (state.propertyPageNum = propertyPageNum),
   setBuildingAssessmentSearch: (state, buildingAssessmentSearch) =>
     (state.buildingAssessmentSearch = buildingAssessmentSearch),
+
+  setCurrentSelectedBuilding: (state, currentSelectedBuilding) =>
+    (state.currentSelectedBuilding = currentSelectedBuilding),
 };
 
 const actions = {

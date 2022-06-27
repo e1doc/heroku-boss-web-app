@@ -11,7 +11,10 @@
           <font-awesome-icon
             icon="city"
             class="icon"
-            v-if="currentSoaType === 'real_property'"
+            v-if="
+              currentSoaType === 'real_property' ||
+              currentSoaType === 'building'
+            "
           />
         </div>
         <div
@@ -29,6 +32,12 @@
           v-if="currentSoaType === 'real_property'"
         >
           {{ currentSelectedProperty.buildingdetails.tax_dec_no }}
+        </div>
+        <div
+          class="text-bold size14 main-title"
+          v-if="currentSoaType === 'building'"
+        >
+          {{ currentSelectedBuilding.series_number }}
         </div>
         <div class="triangle">
           <font-awesome-icon icon="caret-down" class="icon" />
@@ -96,7 +105,8 @@
                 v-if="
                   currentSelectedBusiness.businessbasicinformation
                     .type_of_organization === 'CORPORATION'
-                ">
+                "
+              >
                 {{
                   currentSelectedBusiness.businessdetails.president_first_name
                 }}
@@ -190,6 +200,7 @@ export default {
       "currentSoaObj",
       "currentSoaType",
       "currentSelectedProperty",
+      "currentSelectedBuilding",
     ]),
     bills() {
       return this.currentSoaObj.bills.sort((a, b) =>

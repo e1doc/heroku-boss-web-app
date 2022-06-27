@@ -99,7 +99,7 @@
             <div v-if="isFeatureImplemented">
               <font-awesome-icon icon="sync-alt" class="mr5 icon" /> RENEW
             </div>
-            <div class="bill" @click="showModal()">
+            <div class="bill" @click="showModal('building', building)">
               <font-awesome-icon icon="receipt" class="mr5 icon" />BILL
             </div>
           </div>
@@ -240,6 +240,10 @@ export default {
       }
       if (type === "real_property") {
         this.$store.commit("setCurrentSelectedProperty", item);
+      }
+
+      if (type === "building") {
+        this.$store.commit("setCurrentSelectedBuilding", item);
       }
       this.$modal.show("soaModal");
     },

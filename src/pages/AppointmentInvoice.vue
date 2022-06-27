@@ -33,7 +33,11 @@
           <font-awesome-icon icon="city" class="icon" />
         </div>
         <div class="text-bold size14">
-          {{ currentSoaObj.building_application.buildingdetails.tax_dec_no }}
+          {{
+            currentSoaObj.application_type === "real_property"
+              ? currentSoaObj.building_application.buildingdetails.tax_dec_no
+              : currentSoaObj.building_application.series_number
+          }}
         </div>
         <div class="triangle">
           <font-awesome-icon icon="caret-up" class="icon" />
@@ -91,7 +95,7 @@
             <div class="details-item">
               <div class="item-label">Year:</div>
               <div class="item-value">
-                {{ currentSoaObj.year| moment("YYYY") }}
+                {{ currentSoaObj.year | moment("YYYY") }}
               </div>
             </div>
             <div class="details-item">
@@ -102,7 +106,7 @@
             </div>
             <div class="details-item">
               <div class="item-label">Quarter:</div>
-              <div class="item-value">{{ currentSoaObj.quarter}}</div>
+              <div class="item-value">{{ currentSoaObj.quarter }}</div>
             </div>
           </div>
         </div>
@@ -135,7 +139,13 @@
         >
           <div class="invoice-title">OTHER DETAILS</div>
           <div class="owner-details">
-            <div class="item-label">Property Owner</div>
+            <div class="item-label">
+              {{
+                currentSoaObj.application_type === "real_property"
+                  ? "Property Owner"
+                  : "Building Owner"
+              }}
+            </div>
             <div class="item-value">
               {{
                 currentSoaObj.building_application.buildingbasicinformation

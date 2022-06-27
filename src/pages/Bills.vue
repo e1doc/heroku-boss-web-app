@@ -30,7 +30,7 @@
 import ProfileTableMenu from "@/components/tables/ProfileTableMenu";
 import BillsTable from "@/components/tables/BillsTable";
 import InvoiceDialog from "@/components/payment/InvoiceDialog";
-import { mapGetters } from "vuex"
+import { mapGetters } from "vuex";
 import moment from "moment-timezone";
 export default {
   name: "Bills",
@@ -39,54 +39,70 @@ export default {
     BillsTable,
     InvoiceDialog,
   },
-  computed:{
-    ...mapGetters(['currentSelectedBusiness','generatedBill', 'currentSoaType', 'currentSelectedProperty'])
+  computed: {
+    ...mapGetters([
+      "currentSelectedBusiness",
+      "generatedBill",
+      "currentSoaType",
+      "currentSelectedProperty",
+      "currentSelectedBuilding",
+    ]),
   },
-  methods:{
-    onPayClick(status){
-      if(status){
-        this.createSoa()
-      }else{
-        this.$router.push({'name': 'Profile'})
+  methods: {
+    onPayClick(status) {
+      if (status) {
+        this.createSoa();
+      } else {
+        this.$router.push({ name: "Profile" });
       }
     },
-    async createSoa(){
-      let bills = []
-      this.generatedBill.invoices.forEach(item=>{
-        let fees = []
-        item.fees.forEach(element=>{
+    async createSoa() {
+      let bills = [];
+      this.generatedBill.invoices.forEach((item) => {
+        let fees = [];
+        item.fees.forEach((element) => {
           let fee = {
             fee_description: element.fee_description,
             amount: element.amount,
             code: element.feecode,
-            penalty: element.ispenalty == "0" ? false : true
-          }
-          fees.push(fee)
-        })
+            penalty: element.ispenalty == "0" ? false : true,
+          };
+          fees.push(fee);
+        });
         let bill = {
           reference_number: item.referenceno,
           quarter: item.quarter,
           amount: item.amount,
           due_date: moment(item.duedate),
-          fees: fees
-        }
-        bills.push(bill)
-      })
+          fees: fees,
+        };
+        bills.push(bill);
+      });
+
+      const buildingApplication =
+        this.currentSoaType === "real_property"
+          ? this.currentSelectedProperty.id
+          : this.currentSoaType === "building"
+          ? this.currentSelectedBuilding.id
+          : null;
       const payload = {
         soa: {
           year: this.generatedBill.year,
           quarter: this.generatedBill.quarter,
           paymode: this.generatedBill.paymode,
           amount: this.generatedBill.total_amount,
-          business_application: this.currentSoaType === 'business' ? this.currentSelectedBusiness.id : null,
-          building_application: this.currentSoaType === 'real_property' ? this.currentSelectedProperty.id : null,
+          business_application:
+            this.currentSoaType === "business"
+              ? this.currentSelectedBusiness.id
+              : null,
+          building_application: buildingApplication,
           bills: bills,
-          application_type: this.currentSoaType
-        }
-      }
-      await this.$store.dispatch('createSoa', payload)
-    }
-  }
+          application_type: this.currentSoaType,
+        },
+      };
+      await this.$store.dispatch("createSoa", payload);
+    },
+  },
 };
 </script>
 

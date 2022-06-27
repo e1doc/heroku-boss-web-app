@@ -11,7 +11,10 @@
           <font-awesome-icon
             icon="city"
             class="icon"
-            v-if="currentSoaType === 'real_property'"
+            v-if="
+              currentSoaType === 'real_property' ||
+              currentSoaType === 'building'
+            "
           />
         </div>
         <div
@@ -29,6 +32,12 @@
           v-if="currentSoaType === 'real_property'"
         >
           {{ currentSelectedProperty.buildingdetails.tax_dec_no }}
+        </div>
+        <div
+          class="text-bold size14 main-title"
+          v-if="currentSoaType === 'building'"
+        >
+          {{ currentSelectedBuilding.series_number }}
         </div>
         <div class="triangle">
           <font-awesome-icon icon="caret-down" class="icon" />
@@ -83,7 +92,9 @@
             {{
               currentSoaType === "business"
                 ? "BUSINESS DETAILS"
-                : "Real Property Details"
+                : currentSoaType === "real_property"
+                ? "Real Property Details"
+                : "Building Details"
             }}
           </div>
           <div class="owner-details">
@@ -91,7 +102,9 @@
               {{
                 currentSoaType === "business"
                   ? "Business Owner"
-                  : "Real Property Owner Name"
+                  : currentSoaType === "real_property"
+                  ? "Real Property Owner Name"
+                  : "Building Owner Name"
               }}
             </div>
             <div class="item-value" v-if="currentSoaType === 'business'">
@@ -111,6 +124,15 @@
               {{
                 currentSelectedProperty.buildingbasicinformation
                   .owner_first_name
+              }}
+            </div>
+            <div class="item-value" v-if="currentSoaType === 'building'">
+              {{
+                currentSelectedBuilding.buildingbasicinformation
+                  .owner_first_name
+              }}
+              {{
+                currentSelectedBuilding.buildingbasicinformation.owner_last_name
               }}
             </div>
           </div>
@@ -167,6 +189,7 @@ export default {
       "generatedBill",
       "currentSoaType",
       "currentSelectedProperty",
+      "currentSelectedBuilding",
     ]),
   },
   data() {

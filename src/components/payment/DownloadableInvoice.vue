@@ -25,7 +25,11 @@
           <tr>
             <th>
               {{
-                currentSoaType === "business" ? "Account Number" : "Tax Dec No."
+                currentSoaType === "business"
+                  ? "Account Number"
+                  : currentSoaType === "real_property"
+                  ? "Tax Dec No."
+                  : "Application No."
               }}
             </th>
             <th v-if="currentSoaType === 'business'">Business Name</th>
@@ -33,7 +37,9 @@
               {{
                 currentSoaType === "business"
                   ? "Business Owner"
-                  : "Real Property Owner Name"
+                  : currentSoaType === "real_property"
+                  ? "Real Property Owner Name"
+                  : "Building Owner Name"
               }}
             </th>
           </tr>
@@ -45,6 +51,9 @@
             </td>
             <td v-if="currentSoaType === 'real_property'">
               {{ currentSelectedProperty.buildingdetails.tax_dec_no }}
+            </td>
+            <td v-if="currentSoaType === 'building'">
+              {{ currentSelectedBuilding.series_number }}
             </td>
             <td v-if="currentSoaType === 'business'">
               {{
@@ -93,6 +102,15 @@
               {{
                 currentSelectedProperty.buildingbasicinformation
                   .owner_first_name
+              }}
+            </td>
+            <td v-if="currentSoaType === 'building'">
+              {{
+                currentSelectedBuilding.buildingbasicinformation
+                  .owner_first_name
+              }}
+              {{
+                currentSelectedBuilding.buildingbasicinformation.owner_last_name
               }}
             </td>
           </tr>
@@ -145,6 +163,7 @@ export default {
       "generatedBill",
       "currentSoaObj",
       "currentSoaType",
+      "currentSelectedBuilding",
     ]),
   },
   watch: {

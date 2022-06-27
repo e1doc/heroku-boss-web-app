@@ -237,10 +237,15 @@ export default {
           "setCurrentSelectedBusiness",
           soa.business_application
         );
-      } else {
+      } else if (type === "real_property") {
         await this.$store.commit(
           "setCurrentSelectedProperty",
           soa.building_application
+        );
+      } else {
+        await this.$store.commit(
+          "setCurrentSelectedBuilding",
+          soa.business_application
         );
       }
       await this.$store.commit("setCurrentSoaType", type);
@@ -269,9 +274,14 @@ export default {
             "setCurrentSelectedBusiness",
             soa.business_application
           );
-        } else {
+        } else if (type === "real_property") {
           this.$store.commit(
             "setCurrentSelectedProperty",
+            soa.building_application
+          );
+        } else {
+          this.$store.commit(
+            "setCurrentSelectedBuilding",
             soa.building_application
           );
         }

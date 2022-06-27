@@ -1,4 +1,4 @@
-<template>
+ <template>
   <div class="meta-container flex-center building-application">
     <h1 class="meta-form-title">Upload your Requirements</h1>
     <div class="meta-note">
