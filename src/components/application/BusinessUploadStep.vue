@@ -270,7 +270,7 @@ export default {
         name: "POSTBusiness",
         param: application_params,
       };
-
+      /*
       const response = await axios.post(
         `${lguLocalEndpoint}`,
         application_payload,
@@ -282,6 +282,8 @@ export default {
       } else {
         return false;
       }
+      */
+      return true;
     },
   },
   watch: {
